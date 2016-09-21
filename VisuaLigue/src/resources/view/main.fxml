@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.Pane?>
+<?import javafx.scene.layout.VBox?>
+
+<VBox minHeight="600.0" minWidth="1000.0" prefHeight="768.0" prefWidth="1024.0" xmlns="http://javafx.com/javafx/8.0.60" xmlns:fx="http://javafx.com/fxml/1">
+   <children>
+      <HBox prefHeight="60.0">
+         <children>
+            <HBox alignment="CENTER_LEFT" fillHeight="false" prefHeight="100.0" prefWidth="170.0" spacing="13.0">
+               <children>
+                  <Pane stylesheets="@../css/graphics/logo.fxml.css">
+                     <children>
+                        <fx:include source="graphics/logo.fxml" />
+                     </children>
+                  </Pane>
+                  <Pane stylesheets="@../css/graphics/app-title.fxml.css">
+                     <children>
+                        <fx:include source="graphics/app-title.fxml" />
+                     </children>
+                     <HBox.margin>
+                        <Insets top="5.0" />
+                     </HBox.margin>
+                  </Pane>
+               </children>
+               <padding>
+                  <Insets left="14.0" />
+               </padding>
+            </HBox>
+         </children>
+      </HBox>
+      <HBox VBox.vgrow="ALWAYS">
+         <children>
+            <VBox prefHeight="200.0" prefWidth="170.0" style="-fx-background-color: #3D3D3D;" />
+         </children>
+      </HBox>
+   </children>
+</VBox>

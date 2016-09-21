@@ -3,7 +3,7 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package visualigue;
+package main.java.controllers;
 
 import java.net.URL;
 import java.util.ResourceBundle;
@@ -16,16 +16,7 @@ import javafx.scene.control.Label;
  *
  * @author OlivierR
  */
-public class FXMLDocumentController implements Initializable {
-    
-    @FXML
-    private Label label;
-    
-    @FXML
-    private void handleButtonAction(ActionEvent event) {
-        System.out.println("You clicked me!");
-        label.setText("Hello World!");
-    }
+public class MainSceneController implements Initializable {
     
     @Override
     public void initialize(URL url, ResourceBundle rb) {

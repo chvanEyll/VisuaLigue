@@ -3,7 +3,7 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package visualigue;
+package main.java;
 
 import javafx.application.Application;
 import javafx.fxml.FXMLLoader;
@@ -19,7 +19,7 @@ public class VisuaLigue extends Application {
     
     @Override
     public void start(Stage stage) throws Exception {
-        Parent root = FXMLLoader.load(getClass().getResource("FXMLDocument.fxml"));
+        Parent root = FXMLLoader.load(getClass().getResource("/resources/view/main.fxml"));
         
         Scene scene = new Scene(root);
         
