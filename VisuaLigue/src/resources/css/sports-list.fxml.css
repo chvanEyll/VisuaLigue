@@ -1,0 +1,25 @@
+.sport-list-item {
+    -fx-background-color: #EBE8E5;
+    -fx-cursor: hand;
+}
+
+.sport-list-item .item-text {
+    -fx-text-fill: #1895fd;
+}
+
+.sport-list-item:hover {
+    -fx-background-color: #D9D5D3;
+}
+
+.sport-list-item:hover .st0 {
+    -fx-fill: #3D3D3D;
+}
+
+.sport-list-item:pressed {
+    -fx-background-color: #BFBFBF;
+}
+
+.sport-list-item-add {
+    -fx-border-color: #F7931E;
+    -fx-border-width: 3
+}

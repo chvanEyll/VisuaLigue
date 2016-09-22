@@ -1,129 +1,101 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
 <?import javafx.geometry.Insets?>
-<?import javafx.scene.Cursor?>
 <?import javafx.scene.control.Label?>
+<?import javafx.scene.control.ScrollPane?>
 <?import javafx.scene.layout.HBox?>
 <?import javafx.scene.layout.Pane?>
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.shape.Line?>
-<?import javafx.scene.text.Font?>
 
-<VBox minHeight="600.0" minWidth="1000.0" prefHeight="768.0" prefWidth="1024.0" style="-fx-background-color: #FFFFFF;" xmlns="http://javafx.com/javafx/8.0.60" xmlns:fx="http://javafx.com/fxml/1">
+<VBox minHeight="600.0" minWidth="1000.0" prefHeight="768.0" prefWidth="1024.0" style="-fx-background-color: #FFFFFF;" styleClass="root-pane" stylesheets="@../css/main.fxml.css" xmlns="http://javafx.com/javafx/8.0.60" xmlns:fx="http://javafx.com/fxml/1" fx:controller="main.java.ui.controllers.MainSceneController">
    <children>
       <HBox alignment="CENTER_LEFT" prefHeight="60.0" spacing="14.0" style="-fx-background-color: #F3F1EF;">
          <children>
-            <HBox alignment="CENTER_LEFT" fillHeight="false" prefHeight="100.0" prefWidth="170.0" spacing="13.0" style="-fx-background-color: #FFFFFF;">
-               <children>
-                  <Pane stylesheets="@../css/graphics/logo.fxml.css">
+            <ScrollPane fx:id="logoPane" hbarPolicy="NEVER" styleClass="edge-to-edge" vbarPolicy="NEVER">
+               <content>
+                  <HBox alignment="CENTER_LEFT" fillHeight="false" prefHeight="60.0" prefWidth="170.0" spacing="15.0" style="-fx-background-color: #FFFFFF;">
                      <children>
-                        <fx:include source="graphics/logo.fxml" />
+                        <Pane stylesheets="@../css/graphics/logo.fxml.css">
+                           <children>
+                              <fx:include source="graphics/logo.fxml" />
+                           </children>
+                        </Pane>
+                        <Pane stylesheets="@../css/graphics/app-title.fxml.css">
+                           <children>
+                              <fx:include source="graphics/app-title.fxml" />
+                           </children>
+                           <HBox.margin>
+                              <Insets top="5.0" />
+                           </HBox.margin>
+                        </Pane>
                      </children>
-                  </Pane>
-                  <Pane stylesheets="@../css/graphics/app-title.fxml.css">
-                     <children>
-                        <fx:include source="graphics/app-title.fxml" />
-                     </children>
-                     <HBox.margin>
-                        <Insets top="5.0" />
-                     </HBox.margin>
-                  </Pane>
-               </children>
-               <padding>
-                  <Insets left="14.0" />
-               </padding>
-            </HBox>
-            <Label text="Sports">
-               <font>
-                  <Font name="Source Sans Pro Light" size="32.0" />
-               </font>
-            </Label>
+                     <padding>
+                        <Insets left="14.0" />
+                     </padding>
+                  </HBox>
+               </content>
+            </ScrollPane>
+            <Label styleClass="section-title" text="Sports" />
          </children>
       </HBox>
       <HBox VBox.vgrow="ALWAYS">
          <children>
-            <VBox prefHeight="200.0" prefWidth="170.0" style="-fx-background-color: #3D3D3D;">
-               <children>
-                  <HBox alignment="CENTER_LEFT" fillHeight="false" prefHeight="50.0" prefWidth="200.0" style="-fx-border-width: 0 0 1 0; -fx-border-style: hidden hidden solid hidden;">
-                     <padding>
-                        <Insets left="14.0" />
-                     </padding>
+            <ScrollPane fx:id="menuPane" hbarPolicy="NEVER" prefWidth="170.0" style="-fx-background: #3D3D3D;" styleClass="edge-to-edge" vbarPolicy="NEVER">
+               <content>
+                  <VBox prefWidth="170.0" style="-fx-background-color: #3D3D3D;">
                      <children>
-                        <VBox prefWidth="30.0" spacing="6.0">
+                        <HBox alignment="CENTER_LEFT" prefHeight="50.0" style="-fx-border-width: 0 0 1 0; -fx-border-style: hidden hidden solid hidden;" VBox.vgrow="ALWAYS">
                            <children>
-                              <Line endX="30.0" stroke="WHITE" />
-                              <Line endX="30.0" stroke="WHITE" />
-                              <Line endX="30.0" stroke="WHITE" />
-                           </children>
-                        </VBox>
-                     </children>
-                     <cursor>
-                        <Cursor fx:constant="HAND" />
-                     </cursor>
-                  </HBox>
-                  <HBox alignment="CENTER_LEFT" fillHeight="false" layoutX="10.0" layoutY="10.0" prefHeight="50.0" prefWidth="200.0" spacing="14.0" style="-fx-border-width: 0 0 1 0; -fx-border-style: hidden hidden solid hidden; -fx-background-color: #1A1A1A;">
-                     <padding>
-                        <Insets left="14.0" />
-                     </padding>
-                     <children>
-                        <Pane stylesheets="@../css/graphics/sport-icon.fxml.css">
-                            <children>
-                               <fx:include source="graphics/sport-icon.fxml" />
-                            </children>
-                         </Pane>
-                        <Label text="Sports" textFill="WHITE">
-                           <font>
-                              <Font name="Source Sans Pro" size="19.0" />
-                           </font>
-                        </Label>
-                     </children>
-                     <VBox.margin>
-                        <Insets />
-                     </VBox.margin>
-                  </HBox>
-                  <HBox alignment="CENTER_LEFT" fillHeight="false" layoutX="10.0" layoutY="60.0" prefHeight="50.0" prefWidth="200.0" spacing="14.0" style="-fx-border-width: 0 0 1 0; -fx-border-style: hidden hidden solid hidden;">
-                     <padding>
-                        <Insets left="14.0" />
-                     </padding>
-                     <children>
-                        <Pane stylesheets="@../css/graphics/play-icon.fxml.css">
-                           <children>
-                              <fx:include source="graphics/play-icon.fxml" />
-                           </children>
-                        </Pane>
-                        <Label text="Jeux" textFill="WHITE">
-                           <font>
-                              <Font name="Source Sans Pro" size="19.0" />
-                           </font>
-                        </Label>
-                     </children>
-                  </HBox>
-               </children></VBox>
-            <VBox prefHeight="200.0" prefWidth="100.0" HBox.hgrow="ALWAYS">
-               <padding>
-                  <Insets bottom="14.0" left="14.0" right="14.0" top="14.0" />
-               </padding>
-               <children>
-                  <Pane>
-                     <children>
-                        <HBox alignment="CENTER_LEFT" fillHeight="false" spacing="7.0">
-                           <children>
-                               <Pane stylesheets="@../css/graphics/plus-icon.fxml.css">
+                              <VBox onMouseClicked="#onHamburgerIconClick" prefWidth="30.0" spacing="6.0" styleClass="main-menu-hamburger">
                                  <children>
-                                    <fx:include source="graphics/plus-icon.fxml" />
+                                    <Line endX="30.0" stroke="WHITE" />
+                                    <Line endX="30.0" stroke="WHITE" />
+                                    <Line endX="30.0" stroke="WHITE" />
+                                 </children>
+                                 <HBox.margin>
+                                    <Insets />
+                                 </HBox.margin>
+                                 <padding>
+                                    <Insets left="14.0" right="14.0" top="17.0" />
+                                 </padding>
+                              </VBox>
+                           </children>
+                        </HBox>
+                        <HBox alignment="CENTER_LEFT" fillHeight="false" layoutX="10.0" layoutY="10.0" prefHeight="50.0" spacing="14.0" styleClass="main-menu-item, active">
+                           <padding>
+                              <Insets left="14.0" />
+                           </padding>
+                           <children>
+                              <Pane stylesheets="@../css/graphics/sport-icon.fxml.css">
+                                  <children>
+                                     <fx:include source="graphics/sport-icon.fxml" />
+                                  </children>
+                               </Pane>
+                              <Label text="Sports" />
+                           </children>
+                           <VBox.margin>
+                              <Insets />
+                           </VBox.margin>
+                        </HBox>
+                        <HBox alignment="CENTER_LEFT" fillHeight="false" layoutX="10.0" layoutY="60.0" prefHeight="50.0" spacing="14.0" styleClass="main-menu-item">
+                           <padding>
+                              <Insets left="14.0" />
+                           </padding>
+                           <children>
+                              <Pane stylesheets="@../css/graphics/play-icon.fxml.css">
+                                 <children>
+                                    <fx:include source="graphics/play-icon.fxml" />
                                  </children>
                               </Pane>
-                              <Label text="Nouveau sport" textFill="#1895fd">
-                                 <font>
-                                    <Font name="Source Sans Pro Light" size="19.0" />
-                                 </font>
-                              </Label>
+                              <Label text="Jeux" />
                            </children>
                         </HBox>
                      </children>
-                  </Pane>
-               </children>
-            </VBox>
+                  </VBox>
+               </content>
+            </ScrollPane>
+            <fx:include source="sports-list.fxml" />
          </children>
       </HBox>
    </children>

@@ -1,0 +1,62 @@
+.root-pane, .root-section-pane {
+    -fx-font-family: 'Source Sans Pro Light' ;
+    -fx-font-size: 19;
+    -fx-text-fill: black;
+}
+
+.main-menu-item {
+    -fx-cursor: hand;
+    -fx-border-width:  0 0 1 0;
+    -fx-border-style:  hidden hidden solid hidden;
+    -fx-text-fill: white;
+}
+
+.main-menu-item:hover {
+    -fx-background-color: #2B2B2B;
+}
+
+.main-menu-item:pressed {
+    -fx-background-color: #1A1A1A;
+}
+
+.main-menu-item.active {
+     -fx-background-color: #1A1A1A;
+}
+
+.main-menu-hamburger {
+    -fx-cursor: hand;
+}
+
+.main-menu-hamburger:hover {
+    -fx-background-color: #2B2B2B;
+}
+
+.main-menu-hamburger:pressed {
+    -fx-background-color: #1A1A1A;
+}
+
+.section-title {
+    -fx-font-size: 32;
+    -fx-text-fill: #4F4F4F;
+}
+
+.link-button {
+    -fx-cursor: hand;
+}
+
+.link-button .label {
+    -fx-text-fill: #1895fd;
+}
+
+.link-button:hover .label {
+    -fx-text-fill: #184CFD;
+}
+
+.link-button:hover .st0 {
+    -fx-fill: #184CFD;
+}
+
+.tile-container {
+    -fx-border-color:  #F7931E #EBE8E5 #EBE8E5 #EBE8E5;
+    -fx-border-width:   6 1 1 1
+}
