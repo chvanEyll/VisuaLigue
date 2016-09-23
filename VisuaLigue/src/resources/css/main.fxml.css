@@ -68,13 +68,14 @@
 .button {
     -fx-text-fill: #1895fd;
     -fx-border-color: #B3B3B3;
-    -fx-border-width: 2;
+    -fx-border-width: 1;
     -fx-background-color: #F3F1EF;
     -fx-cursor: hand;
 }
 
 .button.default {
     -fx-font-family: 'Source Sans Pro' ;
+    -fx-border-width: 2;
 }
 
 .button:hover {

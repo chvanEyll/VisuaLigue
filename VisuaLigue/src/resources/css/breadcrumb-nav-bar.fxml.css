@@ -1,0 +1,20 @@
+.breadcrumb-item {
+    -fx-border-color: #EBE8E5;
+    -fx-border-width: 0 0 5 0;
+}
+
+.breadcrumb-title-item {
+    -fx-cursor: hand;
+}
+
+.breadcrumb-title-item:hover {
+    -fx-border-color: #D9D5D3;
+}
+
+.breadcrumb-title-item:hover .label {
+    -fx-text-fill: #1895fd;
+}
+
+.breadcrumb-title-item.active {
+    -fx-border-color: #FBB03B;
+}

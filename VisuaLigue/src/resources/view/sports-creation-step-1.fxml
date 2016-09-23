@@ -19,76 +19,7 @@
             <Insets bottom="14.0" left="14.0" right="14.0" top="14.0" />
          </padding>
          <children>
-            <HBox alignment="CENTER_LEFT" fillHeight="false">
-               <children>
-                  <HBox alignment="CENTER_LEFT" fillHeight="false" prefHeight="35.0">
-                     <children>
-                        <Label text="Informations générales">
-                           <padding>
-                              <Insets left="5.0" right="5.0" />
-                           </padding></Label>
-                     </children>
-                     <styleClass>
-                        <String fx:value="breadcrumb-item" />
-                        <String fx:value="breadcrumb-title-item" />
-                        <String fx:value="active" />
-                     </styleClass>
-                  </HBox>
-                  <HBox alignment="CENTER_LEFT" fillHeight="false" prefHeight="35.0" styleClass="breadcrumb-item">
-                     <children>
-                        <Pane stylesheets="@../css/graphics/breadcrumb-nav-arrow.fxml.css">
-                           <children>
-                              <fx:include source="graphics/breadcrumb-nav-arrow.fxml" />
-                           </children>
-                        </Pane>
-                     </children>
-                     <HBox.margin>
-                        <Insets />
-                     </HBox.margin>
-                     <padding>
-                        <Insets left="3.0" right="3.0" />
-                     </padding>
-                  </HBox>
-                  <HBox alignment="CENTER_LEFT" fillHeight="false" layoutX="10.0" layoutY="10.0" prefHeight="35.0">
-                     <children>
-                        <Label text="Terrain">
-                           <padding>
-                              <Insets left="5.0" right="5.0" />
-                           </padding>
-                        </Label>
-                     </children>
-                     <styleClass>
-                        <String fx:value="breadcrumb-item" />
-                        <String fx:value="breadcrumb-title-item" />
-                     </styleClass>
-                  </HBox>
-                  <HBox alignment="CENTER_LEFT" fillHeight="false" layoutX="198.0" layoutY="10.0" prefHeight="35.0" styleClass="breadcrumb-item">
-                     <children>
-                        <Pane stylesheets="@../css/graphics/breadcrumb-nav-arrow.fxml.css">
-                           <children>
-                              <fx:include source="graphics/breadcrumb-nav-arrow.fxml" />
-                           </children>
-                        </Pane>
-                     </children>
-                     <padding>
-                        <Insets left="3.0" right="3.0" />
-                     </padding>
-                  </HBox>
-                  <HBox alignment="CENTER_LEFT" fillHeight="false" layoutX="208.0" layoutY="10.0" prefHeight="35.0">
-                     <children>
-                        <Label text="Joueurs">
-                           <padding>
-                              <Insets left="5.0" right="5.0" />
-                           </padding>
-                        </Label>
-                     </children>
-                     <styleClass>
-                        <String fx:value="breadcrumb-item" />
-                        <String fx:value="breadcrumb-title-item" />
-                     </styleClass>
-                  </HBox>
-               </children>
-            </HBox>
+            <fx:include source="breadcrumb-nav-bar.fxml" />
             <VBox spacing="7.0">
                <children>
                   <Label text="Nom du sport" />
