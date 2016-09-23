@@ -9,6 +9,7 @@ import javafx.application.Application;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
+import javafx.scene.image.Image;
 import javafx.stage.Stage;
 
 /**
@@ -24,6 +25,11 @@ public class VisuaLigue extends Application {
         Scene scene = new Scene(root);
         
         stage.setScene(scene);
+        stage.setTitle("VisuaLigue");
+        stage.getIcons().add(new Image(getClass().getResourceAsStream("/resources/images/app-icon/icon_16x16.png")));
+        stage.getIcons().add(new Image(getClass().getResourceAsStream("/resources/images/app-icon/icon_32x32.png")));
+        stage.getIcons().add(new Image(getClass().getResourceAsStream("/resources/images/app-icon/icon_48x48.png")));
+        stage.getIcons().add(new Image(getClass().getResourceAsStream("/resources/images/app-icon/icon_256x256.png")));
         stage.show();
     }
 

@@ -2,6 +2,7 @@
     -fx-font-family: 'Source Sans Pro Light' ;
     -fx-font-size: 19;
     -fx-text-fill: black;
+    -fx-background: white;
 }
 
 .section-title {
@@ -42,6 +43,16 @@
     -fx-background-color: #1A1A1A;
 }
 
+/* Forms */
+
+.form-section {
+    -fx-background-color: #FBB03B;
+}
+
+.form-section .label {
+    -fx-text-fill: white;
+}
+
 /* Common controls */
 
 .link-button {
@@ -76,13 +87,34 @@
 .button.default {
     -fx-font-family: 'Source Sans Pro' ;
     -fx-border-width: 2;
+    -fx-border-insets: -1;
 }
 
 .button:hover {
     -fx-background-color: #D9D5D3;
 }
 
+.button:pressed {
+    -fx-background-color: #BFBFBF;
+}
+
 .text-field {
     -fx-border-color:  #CCCCCC;
     -fx-background-color:  white;
 }
+
+.spinner .increment-arrow-button, .spinner .decrement-arrow-button {
+    -fx-background-color: #F3F1EF;
+    -fx-border-color: #CCCCCC;
+    -fx-border-width: 1 1 1 0;
+    -fx-cursor: hand;
+}
+
+.spinner .increment-arrow-button:hover, .spinner .decrement-arrow-button:hover {
+    -fx-background-color: #D9D5D3;
+}
+
+.spinner .increment-arrow-button:pressed, .spinner .decrement-arrow-button:pressed {
+    -fx-background-color: #BFBFBF;
+}
+
