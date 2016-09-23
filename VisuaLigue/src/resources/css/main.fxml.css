@@ -4,6 +4,13 @@
     -fx-text-fill: black;
 }
 
+.section-title {
+    -fx-font-size: 32;
+    -fx-text-fill: #4F4F4F;
+}
+
+/* Main menu */
+
 .main-menu-item {
     -fx-cursor: hand;
     -fx-border-width:  0 0 1 0;
@@ -35,10 +42,7 @@
     -fx-background-color: #1A1A1A;
 }
 
-.section-title {
-    -fx-font-size: 32;
-    -fx-text-fill: #4F4F4F;
-}
+/* Common controls */
 
 .link-button {
     -fx-cursor: hand;
@@ -59,4 +63,25 @@
 .tile-container {
     -fx-border-color:  #F7931E #EBE8E5 #EBE8E5 #EBE8E5;
     -fx-border-width:   6 1 1 1
+}
+
+.button {
+    -fx-text-fill: #1895fd;
+    -fx-border-color: #B3B3B3;
+    -fx-border-width: 2;
+    -fx-background-color: #F3F1EF;
+    -fx-cursor: hand;
+}
+
+.button.default {
+    -fx-font-family: 'Source Sans Pro' ;
+}
+
+.button:hover {
+    -fx-background-color: #D9D5D3;
+}
+
+.text-field {
+    -fx-border-color:  #CCCCCC;
+    -fx-background-color:  white;
 }
