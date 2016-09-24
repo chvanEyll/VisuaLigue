@@ -17,6 +17,9 @@
     -fx-border-width:  0 0 1 0;
     -fx-border-style:  hidden hidden solid hidden;
     -fx-text-fill: white;
+    -fx-pref-height: 50;
+    -fx-spacing: 14;
+    -fx-alignment: CENTER_LEFT;
 }
 
 .main-menu-item:hover {
@@ -43,14 +46,57 @@
     -fx-background-color: #1A1A1A;
 }
 
-/* Forms */
+/* Forms & Sectionning */
 
-.form-section {
-    -fx-background-color: #FBB03B;
+.form-section.bordered {
+    -fx-border-color:  #EBE8E5 #EBE8E5 #EBE8E5 #EBE8E5;
 }
 
-.form-section .label {
+.form-section .section-header {
+    -fx-background-color: #F7931E;
+    -fx-pref-height: 38;
+    -fx-alignment: CENTER_LEFT;
+}
+
+.form-section .section-header.labeless {
+    -fx-pref-height: 5;
+}
+
+.form-section .section-header .label {
     -fx-text-fill: white;
+}
+
+.form-group {
+    -fx-spacing: 7;
+}
+
+.horizontal-form-group {
+    -fx-hgap: 14;
+    -fx-vgap: 14;
+}
+
+.button-group {
+    -fx-spacing: 14;
+}
+
+.tile-container {
+    -fx-hgap: 14;
+    -fx-vgap: 14;
+    -fx-padding: 14;
+}
+
+.tile-container .tile {
+    -fx-background-color: #F3F1EF;
+    -fx-cursor: hand;
+    -fx-padding: 14px;
+}
+
+.tile-container .tile:hover {
+    -fx-background-color: #D9D5D3;
+}
+
+.tile-container .tile:pressed {
+    -fx-background-color: #BFBFBF;
 }
 
 /* Common controls */
@@ -69,11 +115,6 @@
 
 .link-button:hover .st0 {
     -fx-fill: #184CFD;
-}
-
-.tile-container {
-    -fx-border-color:  #F7931E #EBE8E5 #EBE8E5 #EBE8E5;
-    -fx-border-width:   6 1 1 1
 }
 
 .button {
@@ -98,6 +139,15 @@
     -fx-background-color: #BFBFBF;
 }
 
+.icon-button:hover {
+    -fx-background-color: #D9D5D3;
+    -fx-cursor: hand;
+}
+
+.icon-button:pressed {
+    -fx-background-color: #BFBFBF;
+}
+
 .text-field {
     -fx-border-color:  #CCCCCC;
     -fx-background-color:  white;
@@ -118,3 +168,20 @@
     -fx-background-color: #BFBFBF;
 }
 
+.color-picker {
+    -fx-background-color: white;
+    -fx-border-color: #CCCCCC;
+    -fx-cursor: hand;
+}
+
+.color-picker:hover {
+    -fx-background-color: #D9D5D3;
+}
+
+.color-picker:pressed {
+    -fx-background-color: #BFBFBF;
+}
+
+.color-list-item {
+    -fx-border-color: #CCCCCC;
+}

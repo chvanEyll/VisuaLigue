@@ -1,0 +1,18 @@
+.tile-container .tile {
+    -fx-alignment: TOP_CENTER;
+}
+
+.tile-container .tile .item-text {
+    -fx-text-fill: #1895fd;
+    -fx-content-display: center;
+    -fx-alignment: center;
+}
+
+.tile-container .tile:hover .st0 {
+    -fx-fill: #3D3D3D;
+}
+
+.tile-container .tile.add-tile {
+    -fx-border-color: #F7931E;
+    -fx-border-width: 3
+}

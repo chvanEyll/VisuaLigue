@@ -9,7 +9,6 @@
 <?import javafx.scene.control.TextField?>
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.layout.HBox?>
-<?import javafx.scene.layout.Pane?>
 <?import javafx.scene.layout.VBox?>
 
 <ScrollPane fitToWidth="true" hbarPolicy="NEVER" HBox.hgrow="ALWAYS" xmlns="http://javafx.com/javafx/8.0.60" xmlns:fx="http://javafx.com/fxml/1">
@@ -20,7 +19,7 @@
          </padding>
          <children>
             <fx:include source="breadcrumb-nav-bar.fxml" />
-            <VBox spacing="7.0">
+            <VBox spacing="7.0" styleClass="form-group">
                <children>
                   <Label text="Nom du sport" />
                   <TextField />
@@ -28,7 +27,7 @@
             </VBox>
             <AnchorPane>
                <children>
-                  <HBox spacing="10.0" AnchorPane.rightAnchor="0.0">
+                  <HBox spacing="10.0" styleClass="button-group" AnchorPane.rightAnchor="0.0">
                      <children>
                         <Button mnemonicParsing="false" styleClass="default" text="Continuer" textFill="#1895fd" />
                         <Button layoutX="10.0" layoutY="10.0" mnemonicParsing="false" text="Annuler" textFill="#1895fd" />
@@ -41,7 +40,7 @@
    </content>
    <stylesheets>
       <URL value="@../css/main.fxml.css" />
-      <URL value="@../css/sports-creation-step-1.fxml.css" />
+      <URL value="@../css/sport-creation-step-1.fxml.css" />
    </stylesheets>
    <styleClass>
       <String fx:value="root-section-pane" />
