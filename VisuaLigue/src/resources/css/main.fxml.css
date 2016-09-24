@@ -186,3 +186,35 @@
 .color-list-item {
     -fx-border-color: #CCCCCC;
 }
+
+.scroll-bar {
+    -fx-border: 0;
+    -fx-background-color: #E1E1E1;
+}
+
+.scroll-bar .thumb {
+    -fx-border: 0;
+    -fx-background-radius: 0;
+    -fx-background-color: #8D9EAD;
+}
+
+.scroll-bar .track {
+    -fx-background-radius: 0;
+}
+
+.scroll-bar:vertical .increment-button, .scroll-bar:vertical .decrement-button {
+    -fx-pref-height:25px;
+}
+
+.scroll-bar:horizontal .increment-button, .scroll-bar:horizontal .decrement-button {
+    -fx-pref-width:25px;
+}
+
+
+.scroll-bar .increment-button:hover, .scroll-bar .decrement-button:hover {
+    -fx-background-color: #D9D5D3;
+}
+
+.scroll-bar .increment-button:pressed, .scroll-bar .decrement-button:pressed {
+    -fx-background-color: #BFBFBF;
+}
