@@ -75,10 +75,6 @@
     -fx-vgap: 14;
 }
 
-.button-group {
-    -fx-spacing: 14;
-}
-
 .tile-container {
     -fx-hgap: 14;
     -fx-vgap: 14;
@@ -86,17 +82,18 @@
 }
 
 .tile-container .tile {
-    -fx-background-color: #F3F1EF;
+    -fx-background-color: white;
     -fx-cursor: hand;
     -fx-padding: 14px;
+    -fx-border-color: #1895fd;
 }
 
 .tile-container .tile:hover {
-    -fx-background-color: #D9D5D3;
+    -fx-background-color: #F3F1EF;
 }
 
 .tile-container .tile:pressed {
-    -fx-background-color: #BFBFBF;
+    -fx-background-color: #D9D5D3;
 }
 
 /* Common controls */
@@ -137,6 +134,10 @@
 
 .button:pressed {
     -fx-background-color: #BFBFBF;
+}
+
+.button-group {
+    -fx-spacing: 14;
 }
 
 .icon-button:hover {

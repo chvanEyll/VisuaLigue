@@ -95,7 +95,7 @@
                   </VBox>
                </content>
             </ScrollPane>
-            <fx:include source="sport-list.fxml" />
+            <fx:include source="play-list.fxml" />
          </children>
       </HBox>
    </children>

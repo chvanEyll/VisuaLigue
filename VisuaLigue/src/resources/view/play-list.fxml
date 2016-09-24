@@ -5,12 +5,13 @@
 <?import javafx.geometry.Insets?>
 <?import javafx.scene.control.Label?>
 <?import javafx.scene.control.ScrollPane?>
-<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.image.ImageView?>
 <?import javafx.scene.layout.HBox?>
 <?import javafx.scene.layout.Pane?>
+<?import javafx.scene.layout.StackPane?>
 <?import javafx.scene.layout.TilePane?>
 <?import javafx.scene.layout.VBox?>
-<?import javafx.scene.text.Font?>
 
 <ScrollPane fitToWidth="true" hbarPolicy="NEVER" pannable="true" HBox.hgrow="ALWAYS" xmlns="http://javafx.com/javafx/8.0.60" xmlns:fx="http://javafx.com/fxml/1">
     <content>
@@ -28,7 +29,7 @@
                                <fx:include source="graphics/plus-icon-blue.fxml" />
                             </children>
                          </Pane>
-                         <Label text="Nouveau sport" />
+                         <Label text="Nouveau jeu" />
                       </children>
                    </HBox>
                 </children>
@@ -37,79 +38,77 @@
                <children>
                   <HBox alignment="CENTER_LEFT" prefHeight="38.0" styleClass="section-header">
                      <children>
-                        <Label text="Liste des sports" />
+                        <Label text="Jeux sauvegardés" />
                      </children>
                      <padding>
                         <Insets left="10.0" />
                      </padding>
                   </HBox>
-                   <TilePane hgap="14.0" prefTileHeight="150.0" prefTileWidth="150.0" styleClass="tile-container" tileAlignment="TOP_LEFT" vgap="14.0">
+                   <TilePane hgap="14.0" prefColumns="2" prefRows="2" prefTileHeight="300.0" prefTileWidth="400.0" styleClass="tile-container" tileAlignment="TOP_LEFT" vgap="14.0">
                       <children>
-                         <VBox alignment="TOP_CENTER" fillWidth="false" styleClass="tile">
-                            <children>
-                               <Pane stylesheets="@../css/graphics/sport-hockey-icon.fxml.css">
-                                  <children>
-                                     <fx:include source="graphics/sport-hockey-icon.fxml" />
-                                  </children>
-                               </Pane>
-                               <AnchorPane VBox.vgrow="ALWAYS">
-                                  <children>
-                                     <Label alignment="CENTER" contentDisplay="CENTER" styleClass="item-text" text="Hockey" wrapText="true" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0" />
-                                  </children>
-                               </AnchorPane>
-                            </children>
+                         <VBox alignment="TOP_CENTER" styleClass="tile">
                             <TilePane.margin>
                                <Insets />
                             </TilePane.margin>
                             <padding>
                                <Insets bottom="14.0" left="14.0" right="14.0" top="14.0" />
                             </padding>
+                           <children>
+                              <HBox alignment="CENTER_RIGHT" styleClass="tile-header">
+                                 <children>
+                                    <StackPane alignment="TOP_LEFT" styleClass="play-title-container" HBox.hgrow="ALWAYS">
+                                       <children>
+                                          <Label styleClass="item-text" text="Jeu 1" />
+                                       </children>
+                                    </StackPane>
+                                    <Pane styleClass="trash-button" stylesheets="@../css/graphics/trash-icon.fxml.css">
+                                       <children>
+                                          <fx:include source="graphics/trash-icon.fxml" />
+                                       </children>
+                                    </Pane>
+                                 </children>
+                              </HBox>
+                              <StackPane styleClass="play-preview-container" VBox.vgrow="ALWAYS">
+                                 <children>
+                                    <ImageView fitHeight="200.0" fitWidth="372.0" pickOnBounds="true" preserveRatio="true">
+                                       <image>
+                                          <Image url="@../images/built-in-playing-surfaces/hockey.png" />
+                                       </image>
+                                    </ImageView>
+                                 </children>
+                              </StackPane>
+                           </children>
                          </VBox>
-                         <VBox alignment="TOP_CENTER" fillWidth="false" layoutX="25.0" layoutY="30.0" styleClass="tile">
-                            <children>
-                               <Pane stylesheets="@../css/graphics/sport-soccer-icon.fxml.css">
-                                  <children>
-                                     <fx:include source="graphics/sport-soccer-icon.fxml" />
-                                  </children>
-                               </Pane>
-                               <AnchorPane VBox.vgrow="ALWAYS">
-                                  <children>
-                                     <Label alignment="CENTER" contentDisplay="CENTER" styleClass="item-text" text="Soccer" wrapText="true" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
-                                        <font>
-                                           <Font name="Source Sans Pro Light" size="19.0" />
-                                        </font>
-                                     </Label>
-                                  </children>
-                               </AnchorPane>
-                            </children>
-                            <padding>
-                               <Insets bottom="14.0" left="10.0" right="14.0" top="14.0" />
-                            </padding>
-                         </VBox>
-                         <VBox alignment="TOP_CENTER" fillWidth="false" layoutX="189.0" layoutY="30.0">
-                            <children>
-                               <Pane stylesheets="@../css/graphics/plus-icon-orange.fxml.css">
-                                  <children>
-                                     <fx:include source="graphics/plus-icon-orange.fxml" />
-                                  </children>
-                                  <VBox.margin>
-                                     <Insets bottom="27.0" top="27.0" />
-                                  </VBox.margin>
-                               </Pane>
-                               <AnchorPane VBox.vgrow="ALWAYS">
-                                  <children>
-                                     <Label alignment="CENTER" contentDisplay="CENTER" styleClass="item-text" text="Nouveau sport" wrapText="true" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0" />
-                                  </children>
-                               </AnchorPane>
-                            </children>
-                            <padding>
-                               <Insets bottom="14.0" left="10.0" right="14.0" top="14.0" />
-                            </padding>
-                           <styleClass>
-                              <String fx:value="tile" />
-                              <String fx:value="add-tile" />
-                           </styleClass>
-                         </VBox>
+                        <VBox alignment="TOP_CENTER" layoutX="24.0" layoutY="24.0" styleClass="tile">
+                           <padding>
+                              <Insets bottom="14.0" left="14.0" right="14.0" top="14.0" />
+                           </padding>
+                           <children>
+                              <HBox alignment="CENTER_RIGHT" styleClass="tile-header">
+                                 <children>
+                                    <StackPane alignment="TOP_LEFT" styleClass="play-title-container" HBox.hgrow="ALWAYS">
+                                       <children>
+                                          <Label styleClass="item-text" text="Jeu 2" />
+                                       </children>
+                                    </StackPane>
+                                    <Pane styleClass="trash-button" stylesheets="@../css/graphics/trash-icon.fxml.css">
+                                       <children>
+                                          <fx:include source="graphics/trash-icon.fxml" />
+                                       </children>
+                                    </Pane>
+                                 </children>
+                              </HBox>
+                              <StackPane styleClass="play-preview-container" VBox.vgrow="ALWAYS">
+                                 <children>
+                                    <ImageView fitHeight="200.0" fitWidth="372.0" pickOnBounds="true" preserveRatio="true">
+                                       <image>
+                                          <Image url="@../images/built-in-playing-surfaces/hockey.png" />
+                                       </image>
+                                    </ImageView>
+                                 </children>
+                              </StackPane>
+                           </children>
+                        </VBox>
                       </children>
                       <padding>
                          <Insets bottom="14.0" left="14.0" right="14.0" top="14.0" />
@@ -132,7 +131,7 @@
       <String fx:value="root-section-pane" />
    </styleClass>
    <stylesheets>
-      <URL value="@../css/sport-list.fxml.css" />
+      <URL value="@../css/play-list.fxml.css" />
       <URL value="@../css/main.fxml.css" />
    </stylesheets>
  </ScrollPane>

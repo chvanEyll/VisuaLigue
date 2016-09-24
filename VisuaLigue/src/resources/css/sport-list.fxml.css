@@ -3,7 +3,6 @@
 }
 
 .tile-container .tile .item-text {
-    -fx-text-fill: #1895fd;
     -fx-content-display: center;
     -fx-alignment: center;
 }
