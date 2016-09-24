@@ -15,14 +15,14 @@
 
 <ScrollPane fitToWidth="true" hbarPolicy="NEVER" pannable="true" HBox.hgrow="ALWAYS" xmlns="http://javafx.com/javafx/8.0.60" xmlns:fx="http://javafx.com/fxml/1">
     <content>
-       <VBox prefWidth="100.0" spacing="10.0">
+       <VBox spacing="10.0">
           <padding>
              <Insets bottom="14.0" left="14.0" right="14.0" top="14.0" />
           </padding>
           <children>
              <Pane>
                 <children>
-                   <HBox alignment="CENTER_LEFT" fillHeight="false" spacing="7.0" style="-fx-background-color: #;" styleClass="link-button">
+                   <HBox alignment="CENTER_LEFT" fillHeight="false" spacing="7.0" styleClass="link-button">
                       <children>
                           <Pane stylesheets="@../css/graphics/plus-icon-blue.fxml.css">
                             <children>
@@ -44,7 +44,7 @@
                         <Insets left="10.0" />
                      </padding>
                   </HBox>
-                   <TilePane hgap="14.0" prefColumns="2" prefRows="2" prefTileHeight="300.0" prefTileWidth="400.0" styleClass="tile-container" tileAlignment="TOP_LEFT" vgap="14.0">
+                   <TilePane hgap="14.0" prefColumns="2" prefRows="2" prefTileHeight="300.0" prefTileWidth="400.0" prefWidth="400.0" styleClass="tile-container" tileAlignment="TOP_LEFT" vgap="14.0">
                       <children>
                          <VBox alignment="TOP_CENTER" styleClass="tile">
                             <TilePane.margin>
@@ -61,7 +61,7 @@
                                           <Label styleClass="item-text" text="Jeu 1" />
                                        </children>
                                     </StackPane>
-                                    <Pane styleClass="trash-button" stylesheets="@../css/graphics/trash-icon.fxml.css">
+                                    <Pane styleClass="icon-button-type-2" stylesheets="@../css/graphics/trash-icon.fxml.css">
                                        <children>
                                           <fx:include source="graphics/trash-icon.fxml" />
                                        </children>
@@ -91,7 +91,7 @@
                                           <Label styleClass="item-text" text="Jeu 2" />
                                        </children>
                                     </StackPane>
-                                    <Pane styleClass="trash-button" stylesheets="@../css/graphics/trash-icon.fxml.css">
+                                    <Pane styleClass="icon-button-type-2" stylesheets="@../css/graphics/trash-icon.fxml.css">
                                        <children>
                                           <fx:include source="graphics/trash-icon.fxml" />
                                        </children>

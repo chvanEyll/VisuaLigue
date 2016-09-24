@@ -2,10 +2,6 @@
     -fx-alignment: TOP_CENTER;
 }
 
-.tile-container .tile {
-    -fx-border-color: #1895fd;
-}
-
 .tile-container .tile .tile-header {
     -fx-alignment: CENTER_RIGHT;
 }
@@ -16,12 +12,4 @@
 
 .play-preview-container {
     -fx-alignment: CENTER;
-}
-
-.trash-button {
-    -fx-cursor: hand;
-}
-
-.trash-button:hover .st0 {
-    -fx-fill: #184CFD;
 }

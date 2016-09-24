@@ -10,7 +10,7 @@
 
 <VBox minHeight="600.0" minWidth="1000.0" prefHeight="768.0" prefWidth="1024.0" style="-fx-background-color: #FFFFFF;" styleClass="root-pane" stylesheets="@../css/main.fxml.css" xmlns="http://javafx.com/javafx/8.0.60" xmlns:fx="http://javafx.com/fxml/1" fx:controller="main.java.ui.controllers.MainSceneController">
    <children>
-      <HBox alignment="CENTER_LEFT" minHeight="60.0" prefHeight="60.0" spacing="14.0" style="-fx-background-color: #F3F1EF;">
+      <HBox alignment="CENTER_LEFT" minHeight="60.0" prefHeight="60.0" style="-fx-background-color: #F3F1EF;">
          <children>
             <ScrollPane fx:id="logoPane" hbarPolicy="NEVER" styleClass="edge-to-edge" vbarPolicy="NEVER">
                <content>
@@ -36,8 +36,42 @@
                   </HBox>
                </content>
             </ScrollPane>
-            <Label styleClass="section-title" text="Sports" />
+            <HBox alignment="CENTER_LEFT" prefHeight="100.0" prefWidth="200.0" spacing="7.0" HBox.hgrow="ALWAYS">
+               <children>
+                  <HBox alignment="CENTER_LEFT" fillHeight="false" styleClass="icon-button-type-1">
+                     <children>
+                         <Pane stylesheets="@../css/graphics/previous-arrow.fxml.css">
+                          <children>
+                             <fx:include source="graphics/previous-arrow.fxml" />
+                          </children>
+                       </Pane>
+                     </children>
+                     <HBox.margin>
+                        <Insets />
+                     </HBox.margin>
+                     <padding>
+                        <Insets left="14.0" right="7.0" />
+                     </padding>
+                  </HBox>
+                  <Label styleClass="section-title" text="Sports" />
+                  <HBox alignment="CENTER_LEFT" fillHeight="false" layoutX="10.0" layoutY="10.0" styleClass="icon-button-type-1">
+                     <children>
+                        <Pane scaleX="0.75" scaleY="0.75" styleClass="icon-button-type-2" stylesheets="@../css/graphics/pen-icon.fxml.css">
+                           <children>
+                              <fx:include source="graphics/pen-icon.fxml" />
+                           </children>
+                        </Pane>
+                     </children>
+                     <padding>
+                        <Insets left="7.0" right="7.0" />
+                     </padding>
+                  </HBox>
+               </children>
+            </HBox>
          </children>
+         <VBox.margin>
+            <Insets />
+         </VBox.margin>
       </HBox>
       <HBox VBox.vgrow="ALWAYS">
          <children>
@@ -95,7 +129,7 @@
                   </VBox>
                </content>
             </ScrollPane>
-            <fx:include source="play-list.fxml" />
+            <fx:include source="play-creation.fxml" />
          </children>
       </HBox>
    </children>

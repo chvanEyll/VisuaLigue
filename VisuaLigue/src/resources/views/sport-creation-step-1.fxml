@@ -40,7 +40,6 @@
    </content>
    <stylesheets>
       <URL value="@../css/main.fxml.css" />
-      <URL value="@../css/sport-creation-step-1.fxml.css" />
    </stylesheets>
    <styleClass>
       <String fx:value="root-section-pane" />

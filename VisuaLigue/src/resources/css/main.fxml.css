@@ -85,7 +85,7 @@
     -fx-background-color: white;
     -fx-cursor: hand;
     -fx-padding: 14px;
-    -fx-border-color: #1895fd;
+    -fx-border-color: #D9D5D3;
 }
 
 .tile-container .tile:hover {
@@ -140,13 +140,25 @@
     -fx-spacing: 14;
 }
 
-.icon-button:hover {
+.icon-button-type-1:hover {
     -fx-background-color: #D9D5D3;
     -fx-cursor: hand;
 }
 
-.icon-button:pressed {
+.icon-button-type-1:pressed {
     -fx-background-color: #BFBFBF;
+}
+
+.icon-button-type-2 {
+    -fx-cursor: hand;
+}
+
+.icon-button-type-2:hover .st0 {
+    -fx-fill: #184CFD;
+}
+
+.icon-button-type-2:pressed .st0 {
+    -fx-fill: #BFBFBF;
 }
 
 .text-field {

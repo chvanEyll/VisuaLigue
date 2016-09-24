@@ -1,0 +1,61 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import java.lang.String?>
+<?import java.net.URL?>
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.ScrollPane?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.Pane?>
+<?import javafx.scene.layout.VBox?>
+
+<ScrollPane fitToWidth="true" hbarPolicy="NEVER" pannable="true" HBox.hgrow="ALWAYS" xmlns="http://javafx.com/javafx/8.0.60" xmlns:fx="http://javafx.com/fxml/1">
+    <content>
+       <VBox spacing="10.0">
+          <padding>
+             <Insets bottom="14.0" left="14.0" right="14.0" top="14.0" />
+          </padding>
+          <children>
+             <Pane>
+                <children>
+                   <HBox alignment="CENTER_LEFT" fillHeight="false" spacing="7.0" styleClass="link-button">
+                      <children>
+                          <Pane stylesheets="@../css/graphics/plus-icon-blue.fxml.css">
+                            <children>
+                               <fx:include source="graphics/plus-icon-blue.fxml" />
+                            </children>
+                         </Pane>
+                         <Label text="Nouveau sport" />
+                      </children>
+                   </HBox>
+                </children>
+             </Pane>
+            <VBox>
+               <children>
+                  <HBox alignment="CENTER_LEFT" prefHeight="38.0" styleClass="section-header">
+                     <children>
+                        <Label text="Liste des sports" />
+                     </children>
+                     <padding>
+                        <Insets left="10.0" />
+                     </padding>
+                  </HBox>
+                  <fx:include source="sport-selector.fxml" />
+               </children>
+               <styleClass>
+                  <String fx:value="form-section" />
+                  <String fx:value="bordered" />
+               </styleClass>
+            </VBox>
+          </children>
+       </VBox>
+    </content>
+   <styleClass>
+      <String fx:value="edge-to-edge" />
+      <String fx:value="root-section-pane" />
+   </styleClass>
+   <stylesheets>
+      <URL value="@../css/sport-list.fxml.css" />
+      <URL value="@../css/main.fxml.css" />
+   </stylesheets>
+ </ScrollPane>
