@@ -12,6 +12,10 @@
 
 /* Main menu */
 
+.main-menu {
+    -fx-background-color:  #3D3D3D;
+}
+
 .main-menu .menu-item {
     -fx-cursor: hand;
     -fx-border-width:  0 0 1 0;
@@ -156,10 +160,17 @@
 .borderless-button {
     -fx-background-color: transparent;
     -fx-border: 0;
-    -fx-padding: 8 8 8 8;
+    -fx-padding: 0 0 0 0;
     -fx-background-radius: 0;
     -fx-alignment: center-left;
     -fx-cursor: hand;
+    -fx-max-width: infinity;
+    -fx-max-height: infinity;
+}
+
+.borderless-button.standard-size {
+    -fx-pref-width: 41;
+    -fx-pref-height: 41;
 }
 
 .borderless-button:hover {
@@ -171,6 +182,10 @@
 }
 
 .icon-button {
+    -fx-background-color: transparent;
+    -fx-border: 0;
+    -fx-padding: 0 0 0 0;
+    -fx-background-radius: 0;
     -fx-cursor: hand;
 }
 

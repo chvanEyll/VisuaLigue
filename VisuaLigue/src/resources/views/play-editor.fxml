@@ -11,387 +11,596 @@
 <?import javafx.scene.layout.BorderPane?>
 <?import javafx.scene.layout.HBox?>
 <?import javafx.scene.layout.Pane?>
+<?import javafx.scene.layout.StackPane?>
 <?import javafx.scene.layout.TilePane?>
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.shape.Line?>
 
 <BorderPane HBox.hgrow="ALWAYS" xmlns="http://javafx.com/javafx/8.0.60" xmlns:fx="http://javafx.com/fxml/1">
-   <stylesheets>
-      <URL value="@../css/main.fxml.css" />
-      <URL value="@../css/play-editor.fxml.css" />
-   </stylesheets>
-   <styleClass>
-      <String fx:value="root-section-pane" />
-      <String fx:value="edge-to-edge" />
-   </styleClass>
-   <top>
-      <HBox alignment="CENTER_LEFT" prefHeight="50.0" styleClass="toolbar">
-         <children>
-            <Button mnemonicParsing="false" styleClass="borderless-button">
-               <graphic>
-                   <Pane stylesheets="@../css/graphics/save-icon.fxml.css">
-                     <children>
-                        <fx:include source="graphics/save-icon.fxml" />
-                     </children>
-                  </Pane>
-               </graphic>
-               <tooltip>
-                  <Tooltip text="Sauvegarder" />
-               </tooltip>
-            </Button>
-            <Button mnemonicParsing="false" styleClass="borderless-button">
-               <graphic>
-                  <Pane stylesheets="@../css/graphics/cross-icon.fxml.css">
-                     <children>
-                        <fx:include source="graphics/cross-icon.fxml" />
-                     </children>
-                  </Pane>
-               </graphic>
-               <tooltip>
-                  <Tooltip text="Fermer" />
-               </tooltip>
-            </Button>
-            <Button mnemonicParsing="false" styleClass="borderless-button">
-               <graphic>
-                  <Pane stylesheets="@../css/graphics/export-icon.fxml.css">
-                     <children>
-                        <fx:include source="graphics/export-icon.fxml" />
-                     </children>
-                  </Pane>
-               </graphic>
-               <tooltip>
-                  <Tooltip text="Exporter" />
-               </tooltip>
-            </Button>
-            <Pane prefWidth="1.0" styleClass="separator">
-               <HBox.margin>
-                  <Insets left="3.0" right="3.0" />
-               </HBox.margin></Pane>
-            <Button mnemonicParsing="false" styleClass="borderless-button">
-               <graphic>
-                  <Pane stylesheets="@../css/graphics/undo-icon.fxml.css">
-                     <children>
-                        <fx:include source="graphics/undo-icon.fxml" />
-                     </children>
-                  </Pane>
-               </graphic>
-               <tooltip>
-                  <Tooltip text="Annuler" />
-               </tooltip>
-            </Button>
-            <Button mnemonicParsing="false" styleClass="borderless-button">
-               <graphic>
-                  <Pane stylesheets="@../css/graphics/redo-icon.fxml.css">
-                     <children>
-                        <fx:include source="graphics/redo-icon.fxml" />
-                     </children>
-                  </Pane>
-               </graphic>
-               <tooltip>
-                  <Tooltip text="Rétablir" />
-               </tooltip>
-            </Button>
-            <Pane prefWidth="1.0" styleClass="separator">
-               <HBox.margin>
-                  <Insets left="3.0" right="3.0" />
-               </HBox.margin></Pane>
-            <Button mnemonicParsing="false" styleClass="borderless-button">
-               <graphic>
-                  <Pane stylesheets="@../css/graphics/zoom-in-icon.fxml.css">
-                     <children>
-                        <fx:include source="graphics/zoom-in-icon.fxml" />
-                     </children>
-                  </Pane>
-               </graphic>
-               <tooltip>
-                  <Tooltip text="Zoom avant" />
-               </tooltip>
-            </Button>
-            <TextField prefWidth="85.0" text="100%">
-               <styleClass>
-                  <String fx:value="centered-text" />
-                  <String fx:value="text-field" />
-               </styleClass></TextField>
-            <Button mnemonicParsing="false" styleClass="borderless-button">
-               <graphic>
-                  <Pane stylesheets="@../css/graphics/zoom-out-icon.fxml.css">
-                     <children>
-                        <fx:include source="graphics/zoom-out-icon.fxml" />
-                     </children>
-                  </Pane>
-               </graphic>
-               <tooltip>
-                  <Tooltip text="Zoom arrière" />
-               </tooltip>
-            </Button>
-            <Button mnemonicParsing="false" styleClass="borderless-button">
-               <graphic>
-                  <Pane stylesheets="@../css/graphics/best-fit-icon.fxml.css">
-                     <children>
-                        <fx:include source="graphics/best-fit-icon.fxml" />
-                     </children>
-                  </Pane>
-               </graphic>
-               <tooltip>
-                  <Tooltip text="Meilleur ajustement" />
-               </tooltip>
-            </Button>
-            <Pane prefWidth="1.0" styleClass="separator">
-               <HBox.margin>
-                  <Insets left="3.0" right="3.0" />
-               </HBox.margin></Pane>
-            <Button mnemonicParsing="false" styleClass="borderless-button">
-               <graphic>
-                  <Pane stylesheets="@../css/graphics/3d-icon.fxml.css">
-                     <children>
-                        <fx:include source="graphics/3d-icon.fxml" />
-                     </children>
-                  </Pane>
-               </graphic>
-               <tooltip>
-                  <Tooltip text="Vue 3D" />
-               </tooltip>
-            </Button>
-            <Button mnemonicParsing="false" styleClass="borderless-button">
-               <graphic>
-                  <Pane stylesheets="@../css/graphics/show-labels-icon.fxml.css">
-                     <children>
-                        <fx:include source="graphics/show-labels-icon.fxml" />
-                     </children>
-                  </Pane>
-               </graphic>
-               <tooltip>
-                  <Tooltip text="Afficher/masquer les catégories des joueurs" />
-               </tooltip>
-            </Button>
-            <HBox alignment="CENTER_RIGHT" HBox.hgrow="ALWAYS">
-               <children>
-                  <Label styleClass="coordinate-label" text="(111 m, 300 m)" />
-               </children>
-            </HBox>
-         </children>
-         <padding>
-            <Insets left="5.0" right="10.0" />
-         </padding>
-      </HBox>
-   </top>
-   <right>
-      <ScrollPane hbarPolicy="NEVER" minWidth="58.0" prefWidth="170.0" vbarPolicy="NEVER" BorderPane.alignment="CENTER">
-         <content>
-            <VBox prefWidth="170.0" styleClass="item-pane">
-               <children>
-                  <HBox alignment="CENTER_RIGHT" prefHeight="50.0" styleClass="toggle-container" VBox.vgrow="ALWAYS">
-                     <children>
-                        <VBox onMouseClicked="#onHamburgerIconClick" prefWidth="30.0" spacing="6.0" styleClass="toggle">
-                           <children>
-                              <Line endX="30.0" stroke="GREY" styleClass="line" />
-                              <Line endX="30.0" stroke="GREY" styleClass="line" />
-                              <Line endX="30.0" stroke="GREY" styleClass="line" />
-                           </children>
-                           <HBox.margin>
-                              <Insets />
-                           </HBox.margin>
-                           <padding>
-                              <Insets left="14.0" right="14.0" top="17.0" />
-                           </padding>
+    <stylesheets>
+        <URL value="@../css/main.fxml.css" />
+        <URL value="@../css/play-editor.fxml.css" />
+    </stylesheets>
+    <styleClass>
+        <String fx:value="root-section-pane" />
+        <String fx:value="edge-to-edge" />
+    </styleClass>
+    <top>
+        <HBox alignment="CENTER_LEFT" prefHeight="50.0" styleClass="toolbar">
+            <children>
+                <Button mnemonicParsing="false">
+                    <graphic>
+                        <StackPane stylesheets="@../css/graphics/save-icon.fxml.css">
+                            <children>
+                                <fx:include source="graphics/save-icon.fxml" />
+                            </children>
+                        </StackPane>
+                    </graphic>
+                    <tooltip>
+                        <Tooltip text="Sauvegarder" />
+                    </tooltip>
+                    <styleClass>
+                        <String fx:value="borderless-button" />
+                        <String fx:value="standard-size" />
+                    </styleClass>
+                </Button>
+                <Button mnemonicParsing="false">
+                    <graphic>
+                        <StackPane stylesheets="@../css/graphics/cross-icon.fxml.css">
+                            <children>
+                                <fx:include source="graphics/cross-icon.fxml" />
+                            </children>
+                        </StackPane>
+                    </graphic>
+                    <tooltip>
+                        <Tooltip text="Fermer" />
+                    </tooltip>
+                    <styleClass>
+                        <String fx:value="borderless-button" />
+                        <String fx:value="standard-size" />
+                    </styleClass>
+                </Button>
+                <Button mnemonicParsing="false">
+                    <graphic>
+                        <StackPane stylesheets="@../css/graphics/export-icon.fxml.css">
+                            <children>
+                                <fx:include source="graphics/export-icon.fxml" />
+                            </children>
+                        </StackPane>
+                    </graphic>
+                    <tooltip>
+                        <Tooltip text="Exporter" />
+                    </tooltip>
+                    <styleClass>
+                        <String fx:value="borderless-button" />
+                        <String fx:value="standard-size" />
+                    </styleClass>
+                </Button>
+                <Pane prefWidth="1.0" styleClass="separator">
+                    <HBox.margin>
+                        <Insets left="3.0" right="3.0" />
+                    </HBox.margin>
+                </Pane>
+                <Button mnemonicParsing="false">
+                    <graphic>
+                        <StackPane stylesheets="@../css/graphics/undo-icon.fxml.css">
+                            <children>
+                                <fx:include source="graphics/undo-icon.fxml" />
+                            </children>
+                        </StackPane>
+                    </graphic>
+                    <tooltip>
+                        <Tooltip text="Annuler" />
+                    </tooltip>
+                    <styleClass>
+                        <String fx:value="borderless-button" />
+                        <String fx:value="standard-size" />
+                    </styleClass>
+                </Button>
+                <Button mnemonicParsing="false">
+                    <graphic>
+                        <StackPane stylesheets="@../css/graphics/redo-icon.fxml.css">
+                            <children>
+                                <fx:include source="graphics/redo-icon.fxml" />
+                            </children>
+                        </StackPane>
+                    </graphic>
+                    <tooltip>
+                        <Tooltip text="Rétablir" />
+                    </tooltip>
+                    <styleClass>
+                        <String fx:value="borderless-button" />
+                        <String fx:value="standard-size" />
+                    </styleClass>
+                </Button>
+                <Pane prefWidth="1.0" styleClass="separator">
+                    <HBox.margin>
+                        <Insets left="3.0" right="3.0" />
+                    </HBox.margin>
+                </Pane>
+                <Button mnemonicParsing="false">
+                    <graphic>
+                        <StackPane stylesheets="@../css/graphics/zoom-in-icon.fxml.css">
+                            <children>
+                                <fx:include source="graphics/zoom-in-icon.fxml" />
+                            </children>
+                        </StackPane>
+                    </graphic>
+                    <tooltip>
+                        <Tooltip text="Zoom avant" />
+                    </tooltip>
+                    <styleClass>
+                        <String fx:value="borderless-button" />
+                        <String fx:value="standard-size" />
+                    </styleClass>
+                </Button>
+                <TextField prefWidth="85.0" text="100%">
+                    <styleClass>
+                        <String fx:value="centered-text" />
+                        <String fx:value="text-field" />
+                    </styleClass>
+                </TextField>
+                <Button mnemonicParsing="false">
+                    <graphic>
+                        <StackPane stylesheets="@../css/graphics/zoom-out-icon.fxml.css">
+                            <children>
+                                <fx:include source="graphics/zoom-out-icon.fxml" />
+                            </children>
+                        </StackPane>
+                    </graphic>
+                    <tooltip>
+                        <Tooltip text="Zoom arrière" />
+                    </tooltip>
+                    <styleClass>
+                        <String fx:value="borderless-button" />
+                        <String fx:value="standard-size" />
+                    </styleClass>
+                </Button>
+                <Button mnemonicParsing="false">
+                    <graphic>
+                        <StackPane stylesheets="@../css/graphics/best-fit-icon.fxml.css">
+                            <children>
+                                <fx:include source="graphics/best-fit-icon.fxml" />
+                            </children>
+                        </StackPane>
+                    </graphic>
+                    <tooltip>
+                        <Tooltip text="Meilleur ajustement" />
+                    </tooltip>
+                    <styleClass>
+                        <String fx:value="borderless-button" />
+                        <String fx:value="standard-size" />
+                    </styleClass>
+                </Button>
+                <Pane prefWidth="1.0" styleClass="separator">
+                    <HBox.margin>
+                        <Insets left="3.0" right="3.0" />
+                    </HBox.margin>
+                </Pane>
+                <Button mnemonicParsing="false">
+                    <graphic>
+                        <StackPane stylesheets="@../css/graphics/3d-icon.fxml.css">
+                            <children>
+                                <fx:include source="graphics/3d-icon.fxml" />
+                            </children>
+                        </StackPane>
+                    </graphic>
+                    <tooltip>
+                        <Tooltip text="Vue 3D" />
+                    </tooltip>
+                    <styleClass>
+                        <String fx:value="borderless-button" />
+                        <String fx:value="standard-size" />
+                    </styleClass>
+                </Button>
+                <Button mnemonicParsing="false">
+                    <graphic>
+                        <StackPane stylesheets="@../css/graphics/show-labels-icon.fxml.css">
+                            <children>
+                                <fx:include source="graphics/show-labels-icon.fxml" />
+                            </children>
+                        </StackPane>
+                    </graphic>
+                    <tooltip>
+                        <Tooltip text="Afficher/masquer les catégories des joueurs" />
+                    </tooltip>
+                    <styleClass>
+                        <String fx:value="borderless-button" />
+                        <String fx:value="standard-size" />
+                    </styleClass>
+                </Button>
+                <HBox alignment="CENTER_RIGHT" HBox.hgrow="ALWAYS">
+                    <children>
+                        <Label styleClass="coordinate-label" text="(111 m, 300 m)" />
+                    </children>
+                </HBox>
+            </children>
+            <padding>
+                <Insets left="5.0" right="10.0" />
+            </padding>
+        </HBox>
+    </top>
+    <right>
+        <VBox styleClass="item-pane">
+            <children>
+                <HBox alignment="CENTER_RIGHT" minHeight="50.0" prefHeight="50.0" styleClass="toggle-container">
+                    <children>
+                        <VBox prefWidth="30.0" spacing="6.0" styleClass="toggle">
+                            <children>
+                                <Line endX="30.0" stroke="GREY" styleClass="line" />
+                                <Line endX="30.0" stroke="GREY" styleClass="line" />
+                                <Line endX="30.0" stroke="GREY" styleClass="line" />
+                            </children>
+                            <HBox.margin>
+                                <Insets />
+                            </HBox.margin>
+                            <padding>
+                                <Insets left="14.0" right="14.0" top="17.0" />
+                            </padding>
                         </VBox>
-                     </children>
-                  </HBox>
-                  <ScrollPane fitToWidth="true" hbarPolicy="NEVER" pannable="true" style="-fx-background: transparent;" styleClass="edge-to-edge" VBox.vgrow="ALWAYS">
-                     <content>
+                    </children>
+                </HBox>
+                <ScrollPane fitToWidth="true" hbarPolicy="NEVER" pannable="true" style="-fx-background: transparent;" styleClass="edge-to-edge" VBox.vgrow="ALWAYS">
+                    <content>
                         <VBox>
-                           <children>
-                              <VBox>
-                                 <children>
-                                    <HBox alignment="CENTER_LEFT" fillHeight="false" prefHeight="50.0" spacing="14.0" styleClass="section-header">
-                                       <padding>
-                                          <Insets left="14.0" />
-                                       </padding>
-                                       <children>
-                                          <Pane stylesheets="@../css/graphics/player-object-icon.fxml.css">
-                                             <children>
-                                                <fx:include source="graphics/player-object-icon.fxml" />
-                                             </children>
-                                          </Pane>
-                                          <Label text="Joueurs" />
-                                       </children>
-                                       <VBox.margin>
-                                          <Insets />
-                                       </VBox.margin>
-                                    </HBox>
-                                    <VBox>
-                                       <children>
-                                          <HBox alignment="CENTER_LEFT" prefHeight="30.0" styleClass="player-type-section">
-                                             <children>
-                                                <Label text="Alliés" />
-                                             </children>
-                                             <padding>
+                            <children>
+                                <VBox>
+                                    <children>
+                                        <HBox alignment="CENTER_LEFT" fillHeight="false" prefHeight="50.0" spacing="14.0" styleClass="section-header">
+                                            <padding>
                                                 <Insets left="14.0" />
-                                             </padding>
-                                          </HBox>
-                                          <VBox>
-                                             <children>
-                                                <HBox alignment="CENTER_LEFT" fillHeight="false" prefHeight="50.0" spacing="14.0">
-                                                   <padding>
-                                                      <Insets left="14.0" />
-                                                   </padding>
-                                                   <children>
-                                                      <Pane stylesheets="@../css/graphics/player-object.fxml.css">
-                                                         <children>
-                                                            <fx:include source="graphics/player-object.fxml" />
-                                                         </children>
-                                                      </Pane>
-                                                      <Label text="Attaquant" />
-                                                   </children>
-                                                   <styleClass>
-                                                      <String fx:value="player-item" />
-                                                      <String fx:value="item" />
-                                                   </styleClass>
+                                            </padding>
+                                            <children>
+                                                <Pane stylesheets="@../css/graphics/player-object-icon.fxml.css">
+                                                    <children>
+                                                        <fx:include source="graphics/player-object-icon.fxml" />
+                                                    </children>
+                                                </Pane>
+                                                <Label text="Joueurs" />
+                                            </children>
+                                            <VBox.margin>
+                                                <Insets />
+                                            </VBox.margin>
+                                        </HBox>
+                                        <VBox>
+                                            <children>
+                                                <HBox alignment="CENTER_LEFT" prefHeight="30.0" styleClass="player-type-section">
+                                                    <children>
+                                                        <Label text="Alliés" />
+                                                    </children>
+                                                    <padding>
+                                                        <Insets left="14.0" />
+                                                    </padding>
                                                 </HBox>
-                                                <HBox alignment="CENTER_LEFT" fillHeight="false" layoutX="10.0" layoutY="10.0" prefHeight="50.0" spacing="14.0">
-                                                   <padding>
-                                                      <Insets left="14.0" />
-                                                   </padding>
-                                                   <children>
-                                                      <Pane stylesheets="@../css/graphics/player-object.fxml.css">
-                                                         <children>
-                                                            <fx:include source="graphics/player-object.fxml" />
-                                                         </children>
-                                                      </Pane>
-                                                      <Label text="Gardien" />
-                                                   </children>
-                                                   <styleClass>
-                                                      <String fx:value="player-item" />
-                                                      <String fx:value="item" />
-                                                   </styleClass>
+                                                <VBox>
+                                                    <children>
+                                                        <HBox alignment="CENTER_LEFT" fillHeight="false" prefHeight="50.0" spacing="14.0">
+                                                            <padding>
+                                                                <Insets left="14.0" />
+                                                            </padding>
+                                                            <children>
+                                                                <Pane stylesheets="@../css/graphics/player-object.fxml.css">
+                                                                    <children>
+                                                                        <fx:include source="graphics/player-object.fxml" />
+                                                                    </children>
+                                                                </Pane>
+                                                                <Label text="Attaquant" />
+                                                            </children>
+                                                            <styleClass>
+                                                                <String fx:value="player-item" />
+                                                                <String fx:value="item" />
+                                                            </styleClass>
+                                                        </HBox>
+                                                        <HBox alignment="CENTER_LEFT" fillHeight="false" layoutX="10.0" layoutY="10.0" prefHeight="50.0" spacing="14.0">
+                                                            <padding>
+                                                                <Insets left="14.0" />
+                                                            </padding>
+                                                            <children>
+                                                                <Pane stylesheets="@../css/graphics/player-object.fxml.css">
+                                                                    <children>
+                                                                        <fx:include source="graphics/player-object.fxml" />
+                                                                    </children>
+                                                                </Pane>
+                                                                <Label text="Gardien" />
+                                                            </children>
+                                                            <styleClass>
+                                                                <String fx:value="player-item" />
+                                                                <String fx:value="item" />
+                                                            </styleClass>
+                                                        </HBox>
+                                                    </children>
+                                                </VBox>
+                                            </children>
+                                        </VBox>
+                                        <VBox layoutX="10.0" layoutY="60.0">
+                                            <children>
+                                                <HBox alignment="CENTER_LEFT" prefHeight="30.0" styleClass="player-type-section">
+                                                    <children>
+                                                        <Label text="Adverses" />
+                                                    </children>
+                                                    <padding>
+                                                        <Insets left="14.0" />
+                                                    </padding>
                                                 </HBox>
-                                             </children>
-                                          </VBox>
-                                       </children>
-                                    </VBox>
-                                    <VBox layoutX="10.0" layoutY="60.0">
-                                       <children>
-                                          <HBox alignment="CENTER_LEFT" prefHeight="30.0" styleClass="player-type-section">
-                                             <children>
-                                                <Label text="Adverses" />
-                                             </children>
-                                             <padding>
+                                                <VBox>
+                                                    <children>
+                                                        <HBox alignment="CENTER_LEFT" fillHeight="false" prefHeight="50.0" spacing="14.0">
+                                                            <padding>
+                                                                <Insets left="14.0" />
+                                                            </padding>
+                                                            <children>
+                                                                <Pane stylesheets="@../css/graphics/player-object.fxml.css">
+                                                                    <children>
+                                                                        <fx:include source="graphics/player-object.fxml" />
+                                                                    </children>
+                                                                </Pane>
+                                                                <Label text="Attaquant" />
+                                                            </children>
+                                                            <styleClass>
+                                                                <String fx:value="player-item" />
+                                                                <String fx:value="item" />
+                                                            </styleClass>
+                                                        </HBox>
+                                                        <HBox alignment="CENTER_LEFT" fillHeight="false" layoutX="10.0" layoutY="10.0" prefHeight="50.0" spacing="14.0">
+                                                            <padding>
+                                                                <Insets left="14.0" />
+                                                            </padding>
+                                                            <children>
+                                                                <Pane stylesheets="@../css/graphics/player-object.fxml.css">
+                                                                    <children>
+                                                                        <fx:include source="graphics/player-object.fxml" />
+                                                                    </children>
+                                                                </Pane>
+                                                                <Label text="Gardien" />
+                                                            </children>
+                                                            <styleClass>
+                                                                <String fx:value="player-item" />
+                                                                <String fx:value="item" />
+                                                            </styleClass>
+                                                        </HBox>
+                                                    </children>
+                                                </VBox>
+                                            </children>
+                                        </VBox>
+                                    </children>
+                                </VBox>
+                                <VBox>
+                                    <children>
+                                        <HBox alignment="CENTER_LEFT" fillHeight="false" prefHeight="50.0" spacing="14.0" styleClass="section-header">
+                                            <padding>
                                                 <Insets left="14.0" />
-                                             </padding>
-                                          </HBox>
-                                          <VBox>
-                                             <children>
-                                                <HBox alignment="CENTER_LEFT" fillHeight="false" prefHeight="50.0" spacing="14.0">
-                                                   <padding>
-                                                      <Insets left="14.0" />
-                                                   </padding>
-                                                   <children>
-                                                      <Pane stylesheets="@../css/graphics/player-object.fxml.css">
-                                                         <children>
-                                                            <fx:include source="graphics/player-object.fxml" />
-                                                         </children>
-                                                      </Pane>
-                                                      <Label text="Attaquant" />
-                                                   </children>
-                                                   <styleClass>
-                                                      <String fx:value="player-item" />
-                                                      <String fx:value="item" />
-                                                   </styleClass>
-                                                </HBox>
-                                                <HBox alignment="CENTER_LEFT" fillHeight="false" layoutX="10.0" layoutY="10.0" prefHeight="50.0" spacing="14.0">
-                                                   <padding>
-                                                      <Insets left="14.0" />
-                                                   </padding>
-                                                   <children>
-                                                      <Pane stylesheets="@../css/graphics/player-object.fxml.css">
-                                                         <children>
-                                                            <fx:include source="graphics/player-object.fxml" />
-                                                         </children>
-                                                      </Pane>
-                                                      <Label text="Gardien" />
-                                                   </children>
-                                                   <styleClass>
-                                                      <String fx:value="player-item" />
-                                                      <String fx:value="item" />
-                                                   </styleClass>
-                                                </HBox>
-                                             </children>
-                                          </VBox>
-                                       </children>
-                                    </VBox>
-                                 </children>
-                              </VBox>
-                              <VBox>
-                                 <children>
-                                    <HBox alignment="CENTER_LEFT" fillHeight="false" prefHeight="50.0" spacing="14.0" styleClass="section-header">
-                                       <padding>
-                                          <Insets left="14.0" />
-                                       </padding>
-                                       <children>
-                                          <Pane stylesheets="@../css/graphics/object-icon.fxml.css">
-                                             <children>
-                                                <fx:include source="graphics/object-icon.fxml" />
-                                             </children>
-                                          </Pane>
-                                          <Label text="Objets" />
-                                       </children>
-                                    </HBox>
-                                    <TilePane prefColumns="3" prefRows="3" prefTileHeight="50.0" prefTileWidth="50.0">
-                                       <children>
-                                          <HBox>
-                                             <children>
-                                                <Pane stylesheets="@../css/graphics/ball-object.fxml.css">
-                                             <children>
-                                                <fx:include source="graphics/ball-object.fxml" />
-                                             </children>
-                                          </Pane>
-                                             </children>
-                                             <styleClass>
-                                                <String fx:value="object-item" />
-                                                <String fx:value="item" />
-                                             </styleClass>
-                                          </HBox>
-                                          <HBox>
-                                             <children>
-                                                <Pane stylesheets="@../css/graphics/cone-object.fxml.css">
-                                             <children>
-                                                <fx:include source="graphics/cone-object.fxml" />
-                                             </children>
-                                          </Pane>
-                                             </children>
-                                             <styleClass>
-                                                <String fx:value="object-item" />
-                                                <String fx:value="item" />
-                                             </styleClass>
-                                          </HBox>
-                                          <HBox>
-                                             <children>
-                                                <Pane stylesheets="@../css/graphics/plus-icon-blue.fxml.css">
-                                             <children>
-                                                <fx:include source="graphics/plus-icon-blue.fxml" />
-                                             </children>
-                                          </Pane>
-                                             </children>
-                                             <styleClass>
-                                                <String fx:value="object-item" />
-                                                <String fx:value="item" />
-                                             </styleClass>
-                                          </HBox>
-                                       </children>
-                                    </TilePane>
-                                 </children>
-                              </VBox>
-                           </children>
+                                            </padding>
+                                            <children>
+                                                <Pane stylesheets="@../css/graphics/object-icon.fxml.css">
+                                                    <children>
+                                                        <fx:include source="graphics/object-icon.fxml" />
+                                                    </children>
+                                                </Pane>
+                                                <Label text="Objets" />
+                                            </children>
+                                        </HBox>
+                                        <TilePane prefColumns="3" prefRows="3" prefTileHeight="50.0" prefTileWidth="50.0">
+                                            <children>
+                                                <Button>
+                                                    <graphic>
+                                                        <StackPane stylesheets="@../css/graphics/ball-object.fxml.css">
+                                                            <children>
+                                                                <fx:include source="graphics/ball-object.fxml" />
+                                                            </children>
+                                                        </StackPane>
+                                                    </graphic>
+                                                    <styleClass>
+                                                        <String fx:value="borderless-button" />
+                                                        <String fx:value="object-item" />
+                                                        <String fx:value="item" />
+                                                    </styleClass>
+                                                    <tooltip>
+                                                        <Tooltip text="Balle/Rondelle" />
+                                                    </tooltip>
+                                                </Button>
+                                                <Button>
+                                                    <graphic>
+                                                        <StackPane stylesheets="@../css/graphics/cone-object.fxml.css">
+                                                            <children>
+                                                                <fx:include source="graphics/cone-object.fxml" />
+                                                            </children>
+                                                        </StackPane>
+                                                    </graphic>
+                                                    <styleClass>
+                                                        <String fx:value="borderless-button" />
+                                                        <String fx:value="object-item" />
+                                                        <String fx:value="item" />
+                                                    </styleClass>
+                                                    <tooltip>
+                                                        <Tooltip text="Cône" />
+                                                    </tooltip>
+                                                </Button>
+                                                <Button>
+                                                    <graphic>
+                                                        <StackPane stylesheets="@../css/graphics/plus-icon-blue.fxml.css">
+                                                            <children>
+                                                                <fx:include source="graphics/plus-icon-blue.fxml" />
+                                                            </children>
+                                                        </StackPane>
+                                                    </graphic>
+                                                    <styleClass>
+                                                        <String fx:value="borderless-button" />
+                                                        <String fx:value="object-item" />
+                                                        <String fx:value="item" />
+                                                    </styleClass>
+                                                    <tooltip>
+                                                        <Tooltip text="Nouvel objet" />
+                                                    </tooltip>
+                                                </Button>
+                                            </children>
+                                        </TilePane>
+                                    </children>
+                                </VBox>
+                            </children>
                         </VBox>
-                     </content>
-                  </ScrollPane>
-               </children>
-            </VBox>
-         </content>
-         <styleClass>
-            <String fx:value="edge-to-edge" />
-            <String fx:value="item-pane-scroll-container" />
-         </styleClass>
-      </ScrollPane>
-   </right>
+                    </content>
+                </ScrollPane>
+            </children>
+            <styleClass>
+                <String fx:value="item-pane" />
+            </styleClass>
+        </VBox>
+    </right>
+    <bottom>
+        <VBox styleClass="sequence-control-pane" BorderPane.alignment="CENTER">
+            <children>
+                <HBox alignment="CENTER" styleClass="sequence-control-buttons">
+                    <children>
+                        <Button mnemonicParsing="false">
+                            <graphic>
+                                <StackPane styleClass="fixed-control-button" stylesheets="@../css/graphics/real-time-icon.fxml.css">
+                                    <children>
+                                        <fx:include source="graphics/real-time-icon.fxml" />
+                                    </children>
+                                </StackPane>
+                            </graphic>
+                            <tooltip>
+                                <Tooltip text="Mode temps réel" />
+                            </tooltip>
+                            <styleClass>
+                                <String fx:value="icon-button" />
+                                <String fx:value="control-button" />
+                            </styleClass>
+                        </Button>
+                        <Button mnemonicParsing="false">
+                            <graphic>
+                                <StackPane stylesheets="@../css/graphics/timeline-fixed-rewind-icon.fxml.css">
+                                    <children>
+                                        <fx:include source="graphics/timeline-fixed-rewind-icon.fxml" />
+                                        <Label text="5">
+                                            <StackPane.margin>
+                                                <Insets />
+                                            </StackPane.margin>
+                                        </Label>
+                                    </children>
+                                </StackPane>
+                            </graphic>
+                            <tooltip>
+                                <Tooltip text="Image précédente" />
+                            </tooltip>
+                            <styleClass>
+                                <String fx:value="borderless-button" />
+                                <String fx:value="standard-size" />
+                                <String fx:value="control-button" />
+                                <String fx:value="fixed-rewind-button" />
+                            </styleClass>
+                        </Button>
+                        <Button mnemonicParsing="false">
+                            <graphic>
+                                <StackPane stylesheets="@../css/graphics/timeline-previous-icon.fxml.css">
+                                    <children>
+                                        <fx:include source="graphics/timeline-previous-icon.fxml" />
+                                    </children>
+                                </StackPane>
+                            </graphic>
+                            <tooltip>
+                                <Tooltip text="Image précédente" />
+                            </tooltip>
+                            <styleClass>
+                                <String fx:value="borderless-button" />
+                                <String fx:value="standard-size" />
+                                <String fx:value="control-button" />
+                            </styleClass>
+                        </Button>
+                        <Button mnemonicParsing="false">
+                            <graphic>
+                                <StackPane stylesheets="@../css/graphics/timeline-rewind-icon.fxml.css">
+                                    <children>
+                                        <fx:include source="graphics/timeline-rewind-icon.fxml" />
+                                    </children>
+                                </StackPane>
+                            </graphic>
+                            <tooltip>
+                                <Tooltip text="Reculer" />
+                            </tooltip>
+                            <styleClass>
+                                <String fx:value="borderless-button" />
+                                <String fx:value="standard-size" />
+                                <String fx:value="control-button" />
+                            </styleClass>
+                        </Button>
+                        <Button mnemonicParsing="false">
+                            <graphic>
+                                <StackPane stylesheets="@../css/graphics/timeline-play-icon.fxml.css">
+                                    <children>
+                                        <fx:include source="graphics/timeline-play-icon.fxml" />
+                                    </children>
+                                </StackPane>
+                            </graphic>
+                            <tooltip>
+                                <Tooltip text="Débuter" />
+                            </tooltip>
+                            <styleClass>
+                                <String fx:value="borderless-button" />
+                                <String fx:value="standard-size" />
+                                <String fx:value="control-button" />
+                            </styleClass>
+                        </Button>
+                        <Button mnemonicParsing="false">
+                            <graphic>
+                                <StackPane stylesheets="@../css/graphics/timeline-fast-forward-icon.fxml.css">
+                                    <children>
+                                        <fx:include source="graphics/timeline-fast-forward-icon.fxml" />
+                                    </children>
+                                </StackPane>
+                            </graphic>
+                            <tooltip>
+                                <Tooltip text="Avancer" />
+                            </tooltip>
+                            <styleClass>
+                                <String fx:value="borderless-button" />
+                                <String fx:value="standard-size" />
+                                <String fx:value="control-button" />
+                            </styleClass>
+                        </Button>
+                        <Button mnemonicParsing="false">
+                            <graphic>
+                                <StackPane stylesheets="@../css/graphics/timeline-next-icon.fxml.css">
+                                    <children>
+                                        <fx:include source="graphics/timeline-next-icon.fxml" />
+                                    </children>
+                                </StackPane>
+                            </graphic>
+                            <tooltip>
+                                <Tooltip text="Image suivante" />
+                            </tooltip>
+                            <styleClass>
+                                <String fx:value="borderless-button" />
+                                <String fx:value="standard-size" />
+                                <String fx:value="control-button" />
+                            </styleClass>
+                        </Button>
+                        <Button mnemonicParsing="false">
+                            <graphic>
+                                <StackPane stylesheets="@../css/graphics/timeline-fixed-forward-icon.fxml.css">
+                                    <children>
+                                        <fx:include source="graphics/timeline-fixed-forward-icon.fxml" />
+                                        <Label text="5">
+                                            <StackPane.margin>
+                                                <Insets />
+                                            </StackPane.margin>
+                                        </Label>
+                                    </children>
+                                </StackPane>
+                            </graphic>
+                            <tooltip>
+                                <Tooltip text="Image suivante" />
+                            </tooltip>
+                            <styleClass>
+                                <String fx:value="borderless-button" />
+                                <String fx:value="standard-size" />
+                                <String fx:value="control-button" />
+                                <String fx:value="fixed-forward-button" />
+                            </styleClass>
+                        </Button>
+                    </children>
+                </HBox>
+            </children>
+        </VBox>
+    </bottom>
 </BorderPane>

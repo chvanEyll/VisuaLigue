@@ -3,8 +3,10 @@
 <?import java.lang.String?>
 <?import java.net.URL?>
 <?import javafx.geometry.Insets?>
+<?import javafx.scene.control.Button?>
 <?import javafx.scene.control.Label?>
 <?import javafx.scene.control.ScrollPane?>
+<?import javafx.scene.control.Tooltip?>
 <?import javafx.scene.image.Image?>
 <?import javafx.scene.image.ImageView?>
 <?import javafx.scene.layout.HBox?>
@@ -61,11 +63,18 @@
                                           <Label styleClass="item-text" text="Jeu 1" />
                                        </children>
                                     </StackPane>
-                                    <Pane styleClass="icon-button" stylesheets="@../css/graphics/trash-icon.fxml.css">
-                                       <children>
+                                    <Button styleClass="icon-button">
+                                       <graphic>
+                                           <StackPane stylesheets="@../css/graphics/trash-icon.fxml.css">
+                                            <children>
                                           <fx:include source="graphics/trash-icon.fxml" />
-                                       </children>
-                                    </Pane>
+                                          </children>
+                                        </StackPane>
+                                       </graphic>
+                                       <tooltip>
+                                          <Tooltip text="Supprimer" />
+                                       </tooltip>
+                                    </Button>
                                  </children>
                               </HBox>
                               <StackPane styleClass="play-preview-container" VBox.vgrow="ALWAYS">
@@ -91,11 +100,18 @@
                                           <Label styleClass="item-text" text="Jeu 2" />
                                        </children>
                                     </StackPane>
-                                    <Pane styleClass="icon-button" stylesheets="@../css/graphics/trash-icon.fxml.css">
-                                       <children>
+                                    <Button styleClass="icon-button">
+                                       <graphic>
+                                           <StackPane stylesheets="@../css/graphics/trash-icon.fxml.css">
+                                            <children>
                                           <fx:include source="graphics/trash-icon.fxml" />
-                                       </children>
-                                    </Pane>
+                                          </children>
+                                        </StackPane>
+                                       </graphic>
+                                       <tooltip>
+                                          <Tooltip text="Supprimer" />
+                                       </tooltip>
+                                    </Button>
                                  </children>
                               </HBox>
                               <StackPane styleClass="play-preview-container" VBox.vgrow="ALWAYS">

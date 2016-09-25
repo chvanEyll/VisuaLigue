@@ -2,10 +2,12 @@
 
 <?import java.lang.String?>
 <?import javafx.geometry.Insets?>
+<?import javafx.scene.control.Button?>
 <?import javafx.scene.control.Label?>
-<?import javafx.scene.control.ScrollPane?>
+<?import javafx.scene.control.Tooltip?>
 <?import javafx.scene.layout.HBox?>
 <?import javafx.scene.layout.Pane?>
+<?import javafx.scene.layout.StackPane?>
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.shape.Line?>
 
@@ -13,9 +15,9 @@
    <children>
       <HBox alignment="CENTER_LEFT" minHeight="60.0" prefHeight="60.0" style="-fx-background-color: #F3F1EF;">
          <children>
-            <ScrollPane fx:id="logoPane" hbarPolicy="NEVER" styleClass="edge-to-edge" vbarPolicy="NEVER">
-               <content>
-                  <HBox alignment="CENTER_LEFT" fillHeight="false" prefHeight="60.0" prefWidth="170.0" spacing="15.0" style="-fx-background-color: #FFFFFF;">
+            <Pane fx:id="logoPane">
+               <children>
+                  <HBox alignment="CENTER_LEFT" fillHeight="false" minWidth="170.0" prefHeight="60.0" prefWidth="170.0" spacing="15.0" style="-fx-background-color: #FFFFFF;">
                      <children>
                         <Pane stylesheets="@../css/graphics/logo.fxml.css">
                            <children>
@@ -35,38 +37,47 @@
                         <Insets left="14.0" />
                      </padding>
                   </HBox>
-               </content>
-            </ScrollPane>
-            <HBox alignment="CENTER_LEFT" prefHeight="100.0" prefWidth="200.0" spacing="7.0" HBox.hgrow="ALWAYS">
+               </children>
+            </Pane>
+            <HBox alignment="CENTER_LEFT" HBox.hgrow="ALWAYS">
                <children>
-                  <HBox alignment="CENTER_LEFT" fillHeight="false" styleClass="borderless-button">
-                     <children>
-                         <Pane stylesheets="@../css/graphics/previous-arrow.fxml.css">
+                  <Button alignment="CENTER_LEFT" prefWidth="41.0" styleClass="borderless-button">
+                     <graphic>
+                         <StackPane stylesheets="@../css/graphics/previous-arrow.fxml.css">
                           <children>
                              <fx:include source="graphics/previous-arrow.fxml" />
                           </children>
-                       </Pane>
-                     </children>
+                       </StackPane>
+                     </graphic>
                      <HBox.margin>
                         <Insets />
                      </HBox.margin>
                      <padding>
                         <Insets left="14.0" right="7.0" />
                      </padding>
-                  </HBox>
+                     <tooltip>
+                        <Tooltip text="Retour" />
+                     </tooltip>
+                  </Button>
                   <Label styleClass="section-title" text="Sports" />
-                  <HBox alignment="CENTER_LEFT" fillHeight="false" layoutX="10.0" layoutY="10.0" styleClass="borderless-button">
-                     <children>
-                        <Pane scaleX="0.75" scaleY="0.75" styleClass="icon-button" stylesheets="@../css/graphics/pen-icon.fxml.css">
+                  <Button alignment="CENTER_LEFT" prefWidth="41.0" styleClass="borderless-button">
+                     <graphic>
+                        <StackPane scaleX="0.75" scaleY="0.75" stylesheets="@../css/graphics/pen-icon.fxml.css">
                            <children>
                               <fx:include source="graphics/pen-icon.fxml" />
                            </children>
-                        </Pane>
-                     </children>
+                        </StackPane>
+                     </graphic>
                      <padding>
                         <Insets left="7.0" right="7.0" />
                      </padding>
-                  </HBox>
+                     <tooltip>
+                        <Tooltip text="Modifier le titre" />
+                     </tooltip>
+                     <HBox.margin>
+                        <Insets left="7.0" />
+                     </HBox.margin>
+                  </Button>
                </children>
             </HBox>
          </children>
@@ -76,9 +87,9 @@
       </HBox>
       <HBox VBox.vgrow="ALWAYS">
          <children>
-            <ScrollPane fx:id="menuPane" hbarPolicy="NEVER" minWidth="58.0" prefWidth="170.0" style="-fx-background: #3D3D3D;" styleClass="edge-to-edge" vbarPolicy="NEVER">
-               <content>
-                  <VBox prefWidth="170.0" styleClass="main-menu">
+            <Pane fx:id="menuPane" styleClass="main-menu">
+               <children>
+                  <VBox minWidth="170.0" prefWidth="170.0">
                      <children>
                         <HBox alignment="CENTER_LEFT" prefHeight="50.0" styleClass="menu-toggle-container" VBox.vgrow="ALWAYS">
                            <children>
@@ -132,9 +143,9 @@
                         </HBox>
                      </children>
                   </VBox>
-               </content>
-            </ScrollPane>
-            <fx:include source="play-creation.fxml" />
+               </children>
+            </Pane>
+            <fx:include source="play-editor.fxml" />
          </children>
       </HBox>
    </children>

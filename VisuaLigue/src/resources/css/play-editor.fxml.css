@@ -14,8 +14,8 @@
     -fx-text-fill: #999999;
 }
 
-.item-pane-scroll-container {
-    -fx-background: #F3F1EF;
+.item-pane {
+    -fx-background-color: #F3F1EF;
     -fx-border-color: #B3B3B3;
     -fx-border-width: 0 0 0 1;
     -fx-border-style: solid;
@@ -26,11 +26,11 @@
 }
 
 .item-pane .toggle:hover {
-    -fx-background-color: #2B2B2B;
+    -fx-background-color: #D9D5D3;
 }
 
 .item-pane .toggle:pressed {
-    -fx-background-color: #1A1A1A;
+    -fx-background-color: #BFBFBF;
 }
 
 .item-pane .toggle .line {
@@ -75,4 +75,26 @@
     -fx-border-color: #CCCCCC;
     -fx-border-width: 0 1 1 0;
     -fx-border-style: solid;
+}
+
+.sequence-control-pane {
+    -fx-background-color:  #F3F1EF;
+    -fx-border-color: #B3B3B3;
+    -fx-border-width: 1 0 0 0;
+    -fx-border-style: solid;
+    -fx-padding: 10 14 10 14;
+}
+
+.sequence-control-buttons {
+    -fx-spacing: 7;
+}
+
+.sequence-control-buttons .fixed-rewind-button .label {
+    -fx-font-size: 15;
+    -fx-padding: 0 0 0 3;
+}
+
+.sequence-control-buttons .fixed-forward-button .label {
+    -fx-font-size: 15;
+    -fx-padding: 0 3 0 0;
 }
