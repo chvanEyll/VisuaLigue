@@ -1,0 +1,174 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import java.lang.String?>
+<?import java.net.URL?>
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.control.Tooltip?>
+<?import javafx.scene.layout.BorderPane?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.Pane?>
+
+<BorderPane HBox.hgrow="ALWAYS" xmlns="http://javafx.com/javafx/8.0.60" xmlns:fx="http://javafx.com/fxml/1">
+   <stylesheets>
+      <URL value="@../css/main.fxml.css" />
+      <URL value="@../css/play-editor.fxml.css" />
+   </stylesheets>
+   <styleClass>
+      <String fx:value="root-section-pane" />
+      <String fx:value="edge-to-edge" />
+   </styleClass>
+   <top>
+      <HBox alignment="CENTER_LEFT" prefHeight="45.0" style="-fx-background-color: #F3F1EF;">
+         <children>
+            <Button mnemonicParsing="false" styleClass="borderless-button">
+               <graphic>
+                   <Pane stylesheets="@../css/graphics/save-icon.fxml.css">
+                     <children>
+                        <fx:include source="graphics/save-icon.fxml" />
+                     </children>
+                  </Pane>
+               </graphic>
+               <tooltip>
+                  <Tooltip text="Sauvegarder" />
+               </tooltip>
+            </Button>
+            <Button mnemonicParsing="false" styleClass="borderless-button">
+               <graphic>
+                  <Pane stylesheets="@../css/graphics/cross-icon.fxml.css">
+                     <children>
+                        <fx:include source="graphics/cross-icon.fxml" />
+                     </children>
+                  </Pane>
+               </graphic>
+               <tooltip>
+                  <Tooltip text="Fermer" />
+               </tooltip>
+            </Button>
+            <Button mnemonicParsing="false" styleClass="borderless-button">
+               <graphic>
+                  <Pane stylesheets="@../css/graphics/export-icon.fxml.css">
+                     <children>
+                        <fx:include source="graphics/export-icon.fxml" />
+                     </children>
+                  </Pane>
+               </graphic>
+               <tooltip>
+                  <Tooltip text="Exporter" />
+               </tooltip>
+            </Button>
+            <Pane prefWidth="1.0" styleClass="toolbar-separator">
+               <HBox.margin>
+                  <Insets left="3.0" right="3.0" />
+               </HBox.margin></Pane>
+            <Button mnemonicParsing="false" styleClass="borderless-button">
+               <graphic>
+                  <Pane stylesheets="@../css/graphics/undo-icon.fxml.css">
+                     <children>
+                        <fx:include source="graphics/undo-icon.fxml" />
+                     </children>
+                  </Pane>
+               </graphic>
+               <tooltip>
+                  <Tooltip text="Annuler" />
+               </tooltip>
+            </Button>
+            <Button mnemonicParsing="false" styleClass="borderless-button">
+               <graphic>
+                  <Pane stylesheets="@../css/graphics/redo-icon.fxml.css">
+                     <children>
+                        <fx:include source="graphics/redo-icon.fxml" />
+                     </children>
+                  </Pane>
+               </graphic>
+               <tooltip>
+                  <Tooltip text="Rétablir" />
+               </tooltip>
+            </Button>
+            <Pane prefWidth="1.0" styleClass="toolbar-separator">
+               <HBox.margin>
+                  <Insets left="3.0" right="3.0" />
+               </HBox.margin></Pane>
+            <Button mnemonicParsing="false" styleClass="borderless-button">
+               <graphic>
+                  <Pane stylesheets="@../css/graphics/zoom-in-icon.fxml.css">
+                     <children>
+                        <fx:include source="graphics/zoom-in-icon.fxml" />
+                     </children>
+                  </Pane>
+               </graphic>
+               <tooltip>
+                  <Tooltip text="Zoom avant" />
+               </tooltip>
+            </Button>
+            <TextField prefWidth="85.0" text="100%">
+               <styleClass>
+                  <String fx:value="centered-text" />
+                  <String fx:value="text-field" />
+               </styleClass></TextField>
+            <Button mnemonicParsing="false" styleClass="borderless-button">
+               <graphic>
+                  <Pane stylesheets="@../css/graphics/zoom-out-icon.fxml.css">
+                     <children>
+                        <fx:include source="graphics/zoom-out-icon.fxml" />
+                     </children>
+                  </Pane>
+               </graphic>
+               <tooltip>
+                  <Tooltip text="Zoom arrière" />
+               </tooltip>
+            </Button>
+            <Button mnemonicParsing="false" styleClass="borderless-button">
+               <graphic>
+                  <Pane stylesheets="@../css/graphics/best-fit-icon.fxml.css">
+                     <children>
+                        <fx:include source="graphics/best-fit-icon.fxml" />
+                     </children>
+                  </Pane>
+               </graphic>
+               <tooltip>
+                  <Tooltip text="Meilleur ajustement" />
+               </tooltip>
+            </Button>
+            <Pane prefWidth="1.0" styleClass="toolbar-separator">
+               <HBox.margin>
+                  <Insets left="3.0" right="3.0" />
+               </HBox.margin></Pane>
+            <Button mnemonicParsing="false" styleClass="borderless-button">
+               <graphic>
+                  <Pane stylesheets="@../css/graphics/3d-icon.fxml.css">
+                     <children>
+                        <fx:include source="graphics/3d-icon.fxml" />
+                     </children>
+                  </Pane>
+               </graphic>
+               <tooltip>
+                  <Tooltip text="Vue 3D" />
+               </tooltip>
+            </Button>
+            <Button mnemonicParsing="false" styleClass="borderless-button">
+               <graphic>
+                  <Pane stylesheets="@../css/graphics/show-labels-icon.fxml.css">
+                     <children>
+                        <fx:include source="graphics/show-labels-icon.fxml" />
+                     </children>
+                  </Pane>
+               </graphic>
+               <tooltip>
+                  <Tooltip text="Afficher/masquer les catégories des joueurs" />
+               </tooltip>
+            </Button>
+            <HBox alignment="CENTER_RIGHT" HBox.hgrow="ALWAYS">
+               <children>
+                  <Label styleClass="coordinate-label" text="(111 m, 300 m)" />
+               </children>
+            </HBox>
+         </children>
+         <padding>
+            <Insets left="3.0" right="3.0" />
+         </padding>
+      </HBox>
+   </top>
+</BorderPane>

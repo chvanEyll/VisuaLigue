@@ -38,7 +38,7 @@
             </ScrollPane>
             <HBox alignment="CENTER_LEFT" prefHeight="100.0" prefWidth="200.0" spacing="7.0" HBox.hgrow="ALWAYS">
                <children>
-                  <HBox alignment="CENTER_LEFT" fillHeight="false" styleClass="icon-button-type-1">
+                  <HBox alignment="CENTER_LEFT" fillHeight="false" styleClass="borderless-button">
                      <children>
                          <Pane stylesheets="@../css/graphics/previous-arrow.fxml.css">
                           <children>
@@ -54,9 +54,9 @@
                      </padding>
                   </HBox>
                   <Label styleClass="section-title" text="Sports" />
-                  <HBox alignment="CENTER_LEFT" fillHeight="false" layoutX="10.0" layoutY="10.0" styleClass="icon-button-type-1">
+                  <HBox alignment="CENTER_LEFT" fillHeight="false" layoutX="10.0" layoutY="10.0" styleClass="borderless-button">
                      <children>
-                        <Pane scaleX="0.75" scaleY="0.75" styleClass="icon-button-type-2" stylesheets="@../css/graphics/pen-icon.fxml.css">
+                        <Pane scaleX="0.75" scaleY="0.75" styleClass="icon-button" stylesheets="@../css/graphics/pen-icon.fxml.css">
                            <children>
                               <fx:include source="graphics/pen-icon.fxml" />
                            </children>

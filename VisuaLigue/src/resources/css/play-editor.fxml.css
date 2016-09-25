@@ -1,0 +1,8 @@
+.toolbar-separator {
+    -fx-background-color:  #B3B3B3;
+    -fx-pref-width: 1;
+}
+
+.coordinate-label {
+    -fx-text-fill: #999999;
+}

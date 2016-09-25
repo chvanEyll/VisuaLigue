@@ -52,7 +52,7 @@
                         <RowConstraints vgrow="SOMETIMES" />
                     </rowConstraints>
                      <children>
-                        <HBox alignment="CENTER" fillHeight="false" prefHeight="41.0" prefWidth="41.0" styleClass="icon-button-type-1" GridPane.columnIndex="5">
+                        <HBox alignment="CENTER" fillHeight="false" prefHeight="41.0" prefWidth="41.0" styleClass="borderless-button" GridPane.columnIndex="5">
                            <children>
                               <Pane stylesheets="@../css/graphics/cross-icon.fxml.css">
                                  <children>
@@ -61,7 +61,7 @@
                               </Pane>
                            </children>
                         </HBox>
-                        <HBox alignment="CENTER" fillHeight="false" prefHeight="41.0" prefWidth="41.0" styleClass="icon-button-type-1" GridPane.columnIndex="4">
+                        <HBox alignment="CENTER" fillHeight="false" prefHeight="41.0" prefWidth="41.0" styleClass="borderless-button" GridPane.columnIndex="4">
                             <Pane maxHeight="24.0" maxWidth="24.0" stylesheets="@../css/graphics/pen-icon.fxml.css">
                               <children>
                                  <fx:include source="graphics/pen-icon.fxml" />
@@ -79,7 +79,7 @@
                               <Insets bottom="4.0" left="4.0" right="4.0" top="4.0" />
                            </GridPane.margin>
                         </Pane>
-                        <HBox alignment="CENTER" fillHeight="false" prefHeight="41.0" prefWidth="41.0" styleClass="icon-button-type-1" GridPane.columnIndex="5" GridPane.rowIndex="1">
+                        <HBox alignment="CENTER" fillHeight="false" prefHeight="41.0" prefWidth="41.0" styleClass="borderless-button" GridPane.columnIndex="5" GridPane.rowIndex="1">
                            <children>
                               <Pane maxHeight="24.0" maxWidth="24.0" stylesheets="@../css/graphics/cross-icon.fxml.css">
                                  <children>
@@ -88,7 +88,7 @@
                               </Pane>
                            </children>
                         </HBox>
-                        <HBox alignment="CENTER" fillHeight="false" prefHeight="41.0" prefWidth="41.0" styleClass="icon-button-type-1" GridPane.columnIndex="4" GridPane.rowIndex="1">
+                        <HBox alignment="CENTER" fillHeight="false" prefHeight="41.0" prefWidth="41.0" styleClass="borderless-button" GridPane.columnIndex="4" GridPane.rowIndex="1">
                            <children>
                               <Pane maxHeight="24.0" maxWidth="24.0" stylesheets="@../css/graphics/pen-icon.fxml.css">
                                  <children>
@@ -135,14 +135,14 @@
                            </padding>
                         </VBox>
                         <VBox alignment="CENTER_RIGHT" style="-fx-background-color: #F3F1EF;" GridPane.columnIndex="5" GridPane.rowIndex="3">
-                            <HBox alignment="CENTER" fillHeight="false" prefHeight="41.0" prefWidth="41.0" styleClass="icon-button-type-1">
+                            <HBox alignment="CENTER" fillHeight="false" prefHeight="41.0" prefWidth="41.0" styleClass="borderless-button">
                             <Pane stylesheets="@../css/graphics/checkmark-icon.fxml.css">
                                 <children>
                                    <fx:include source="graphics/checkmark-icon.fxml" />
                                 </children>
                              </Pane>
                             </HBox>
-                            <HBox alignment="CENTER" fillHeight="false" prefHeight="41.0" prefWidth="41.0" styleClass="icon-button-type-1">
+                            <HBox alignment="CENTER" fillHeight="false" prefHeight="41.0" prefWidth="41.0" styleClass="borderless-button">
                              <Pane stylesheets="@../css/graphics/revert-icon.fxml.css">
                                 <children>
                                    <fx:include source="graphics/revert-icon.fxml" />
@@ -168,8 +168,12 @@
                <children>
                   <HBox spacing="10.0" styleClass="button-group" AnchorPane.rightAnchor="0.0">
                      <children>
-                        <Button mnemonicParsing="false" styleClass="default" text="Terminer" textFill="#1895fd" />
-                        <Button layoutX="10.0" layoutY="10.0" mnemonicParsing="false" text="Annuler" textFill="#1895fd" />
+                        <Button defaultButton="true" mnemonicParsing="false" text="Terminer" textFill="#1895fd">
+                           <styleClass>
+                              <String fx:value="default" />
+                              <String fx:value="standard-button" />
+                           </styleClass></Button>
+                        <Button cancelButton="true" layoutX="10.0" layoutY="10.0" mnemonicParsing="false" styleClass="standard-button" text="Annuler" textFill="#1895fd" />
                      </children>
                   </HBox>
                </children>

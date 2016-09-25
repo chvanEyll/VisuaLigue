@@ -114,7 +114,7 @@
     -fx-fill: #184CFD;
 }
 
-.button {
+.standard-button {
     -fx-text-fill: #1895fd;
     -fx-border-color: #B3B3B3;
     -fx-border-width: 1;
@@ -122,17 +122,17 @@
     -fx-cursor: hand;
 }
 
-.button.default {
+.standard-button.default {
     -fx-font-family: 'Source Sans Pro' ;
     -fx-border-width: 2;
     -fx-border-insets: -1;
 }
 
-.button:hover {
+.standard-button:hover {
     -fx-background-color: #D9D5D3;
 }
 
-.button:pressed {
+.standard-button:pressed {
     -fx-background-color: #BFBFBF;
 }
 
@@ -140,30 +140,42 @@
     -fx-spacing: 14;
 }
 
-.icon-button-type-1:hover {
+.borderless-button {
+    -fx-background-color: transparent;
+    -fx-border: 0;
+    -fx-padding: 8 8 8 8;
+    -fx-background-radius: 0;
+    -fx-alignment: center-left;
+}
+
+.borderless-button:hover {
     -fx-background-color: #D9D5D3;
     -fx-cursor: hand;
 }
 
-.icon-button-type-1:pressed {
+.borderless-button:pressed {
     -fx-background-color: #BFBFBF;
 }
 
-.icon-button-type-2 {
+.icon-button {
     -fx-cursor: hand;
 }
 
-.icon-button-type-2:hover .st0 {
+.icon-button:hover .st0 {
     -fx-fill: #184CFD;
 }
 
-.icon-button-type-2:pressed .st0 {
+.icon-button:pressed .st0 {
     -fx-fill: #BFBFBF;
 }
 
 .text-field {
     -fx-border-color:  #CCCCCC;
     -fx-background-color:  white;
+}
+
+.text-field.centered-text {
+    -fx-alignment: center;
 }
 
 .spinner .increment-arrow-button, .spinner .decrement-arrow-button {

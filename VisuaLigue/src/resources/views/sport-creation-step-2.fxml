@@ -61,7 +61,7 @@
                   </HBox>
                   <FlowPane hgap="14.0" styleClass="horizontal-form-group" vgap="14.0">
                      <children>
-                        <Button mnemonicParsing="false" text="Sélectionner une image..." textFill="#1895fd" />
+                        <Button mnemonicParsing="false" styleClass="standard-button" text="Sélectionner une image..." textFill="#1895fd" />
                         <Label text="..\images\built-in-playing-surfaces\hockey.png" />
                      </children>
                   </FlowPane>
@@ -84,8 +84,12 @@
                <children>
                   <HBox spacing="10.0" styleClass="button-group" AnchorPane.rightAnchor="0.0">
                      <children>
-                        <Button mnemonicParsing="false" styleClass="default" text="Continuer" textFill="#1895fd" />
-                        <Button layoutX="10.0" layoutY="10.0" mnemonicParsing="false" text="Annuler" textFill="#1895fd" />
+                        <Button defaultButton="true" mnemonicParsing="false" text="Continuer" textFill="#1895fd">
+                           <styleClass>
+                              <String fx:value="default" />
+                              <String fx:value="standard-button" />
+                           </styleClass></Button>
+                        <Button cancelButton="true" layoutX="10.0" layoutY="10.0" mnemonicParsing="false" styleClass="standard-button" text="Annuler" textFill="#1895fd" />
                      </children>
                   </HBox>
                </children>
