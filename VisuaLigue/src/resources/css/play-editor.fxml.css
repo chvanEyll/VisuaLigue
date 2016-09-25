@@ -1,8 +1,78 @@
-.toolbar-separator {
+.toolbar {
+    -fx-background-color:  #F3F1EF;
+    -fx-border-color: #B3B3B3;
+    -fx-border-width: 1 0 1 0;
+    -fx-border-style: solid;
+}
+
+.toolbar .separator {
     -fx-background-color:  #B3B3B3;
     -fx-pref-width: 1;
 }
 
 .coordinate-label {
     -fx-text-fill: #999999;
+}
+
+.item-pane-scroll-container {
+    -fx-background: #F3F1EF;
+    -fx-border-color: #B3B3B3;
+    -fx-border-width: 0 0 0 1;
+    -fx-border-style: solid;
+}
+
+.item-pane .toggle {
+    -fx-cursor: hand;
+}
+
+.item-pane .toggle:hover {
+    -fx-background-color: #2B2B2B;
+}
+
+.item-pane .toggle:pressed {
+    -fx-background-color: #1A1A1A;
+}
+
+.item-pane .toggle .line {
+    -fx-stroke: #808080;
+}
+
+.item-pane .section-header {
+    -fx-pref-height: 50;
+    -fx-background-color: #3D3D3D;
+}
+
+.item-pane .player-type-section {
+    -fx-background-color: #8D9EAD;
+    -fx-alignment: CENTER_LEFT;
+}
+
+.item-pane .item {
+    -fx-cursor: hand;
+}
+
+.item-pane .item:hover {
+    -fx-background-color: #D9D5D3;
+}
+
+.item-pane .item:pressed {
+    -fx-background-color: #BFBFBF;
+}
+
+.item-pane .player-item {
+    -fx-border-color: #CCCCCC;
+    -fx-border-width: 0 0 1 0;
+    -fx-border-style: solid;
+}
+
+.item-pane .player-item .label {
+    -fx-text-fill: black;
+}
+
+.item-pane .object-item {
+    -fx-alignment: CENTER;
+    -fx-fill-height: false;
+    -fx-border-color: #CCCCCC;
+    -fx-border-width: 0 1 1 0;
+    -fx-border-style: solid;
 }
