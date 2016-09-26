@@ -15,9 +15,9 @@
     <children>
         <VBox alignment="TOP_CENTER" fillWidth="false" styleClass="tile">
             <children>
-                <Pane stylesheets="@../css/graphics/sport-hockey-icon.fxml.css">
+                <Pane stylesheets="@../images/sport-hockey-icon.fxml.css">
                     <children>
-                        <fx:include source="graphics/sport-hockey-icon.fxml" />
+                        <fx:include source="../images/sport-hockey-icon.fxml" />
                     </children>
                 </Pane>
                 <AnchorPane VBox.vgrow="ALWAYS">
@@ -35,9 +35,9 @@
         </VBox>
         <VBox alignment="TOP_CENTER" fillWidth="false" layoutX="25.0" layoutY="30.0" styleClass="tile">
             <children>
-                <Pane stylesheets="@../css/graphics/sport-soccer-icon.fxml.css">
+                <Pane stylesheets="@../images/sport-soccer-icon.fxml.css">
                     <children>
-                        <fx:include source="graphics/sport-soccer-icon.fxml" />
+                        <fx:include source="../images/sport-soccer-icon.fxml" />
                     </children>
                 </Pane>
                 <AnchorPane VBox.vgrow="ALWAYS">
@@ -56,9 +56,9 @@
         </VBox>
         <VBox alignment="TOP_CENTER" fillWidth="false" layoutX="189.0" layoutY="30.0">
             <children>
-                <Pane stylesheets="@../css/graphics/plus-icon-orange.fxml.css">
+                <Pane stylesheets="@../images/plus-icon-orange.fxml.css">
                     <children>
-                        <fx:include source="graphics/plus-icon-orange.fxml" />
+                        <fx:include source="../images/plus-icon-orange.fxml" />
                     </children>
                     <VBox.margin>
                         <Insets bottom="27.0" top="27.0" />

@@ -56,9 +56,9 @@
                             <children>
                                 <Button alignment="CENTER" GridPane.columnIndex="5">
                                     <graphic>
-                                        <StackPane stylesheets="@../css/graphics/cross-icon.fxml.css">
+                                        <StackPane stylesheets="@../images/cross-icon.fxml.css">
                                             <children>
-                                                <fx:include source="graphics/cross-icon.fxml" />
+                                                <fx:include source="../images/cross-icon.fxml" />
                                             </children>
                                         </StackPane>
                                     </graphic>
@@ -72,9 +72,9 @@
                                 </Button>
                                 <Button alignment="CENTER" GridPane.columnIndex="4">
                                     <graphic>
-                                        <StackPane stylesheets="@../css/graphics/pen-icon.fxml.css">
+                                        <StackPane stylesheets="@../images/pen-icon.fxml.css">
                                             <children>
-                                                <fx:include source="graphics/pen-icon.fxml" />
+                                                <fx:include source="../images/pen-icon.fxml" />
                                             </children>
                                         </StackPane>
                                     </graphic>
@@ -99,9 +99,9 @@
                                 </Pane>
                                 <Button alignment="CENTER" GridPane.columnIndex="5" GridPane.rowIndex="1">
                                     <graphic>
-                                        <StackPane stylesheets="@../css/graphics/cross-icon.fxml.css">
+                                        <StackPane stylesheets="@../images/cross-icon.fxml.css">
                                             <children>
-                                                <fx:include source="graphics/cross-icon.fxml" />
+                                                <fx:include source="../images/cross-icon.fxml" />
                                             </children>
                                         </StackPane>
                                     </graphic>
@@ -115,9 +115,9 @@
                                 </Button>
                                 <Button alignment="CENTER" GridPane.columnIndex="4" GridPane.rowIndex="1">
                                     <graphic>
-                                        <StackPane stylesheets="@../css/graphics/pen-icon.fxml.css">
+                                        <StackPane stylesheets="@../images/pen-icon.fxml.css">
                                             <children>
-                                                <fx:include source="graphics/pen-icon.fxml" />
+                                                <fx:include source="../images/pen-icon.fxml" />
                                             </children>
                                         </StackPane>
                                     </graphic>
@@ -169,9 +169,9 @@
                                 <VBox alignment="CENTER_RIGHT" style="-fx-background-color: #F3F1EF;" GridPane.columnIndex="5" GridPane.rowIndex="3">
                                     <Button alignment="CENTER">
                                         <graphic>
-                                            <StackPane stylesheets="@../css/graphics/checkmark-icon.fxml.css">
+                                            <StackPane stylesheets="@../images/checkmark-icon.fxml.css">
                                                 <children>
-                                                    <fx:include source="graphics/checkmark-icon.fxml" />
+                                                    <fx:include source="../images/checkmark-icon.fxml" />
                                                 </children>
                                             </StackPane>
                                         </graphic>
@@ -185,9 +185,9 @@
                                     </Button>
                                     <Button alignment="CENTER">
                                         <graphic>
-                                            <StackPane stylesheets="@../css/graphics/revert-icon.fxml.css">
+                                            <StackPane stylesheets="@../images/revert-icon.fxml.css">
                                                 <children>
-                                                    <fx:include source="graphics/revert-icon.fxml" />
+                                                    <fx:include source="../images/revert-icon.fxml" />
                                                 </children>
                                             </StackPane>
                                         </graphic>
@@ -204,9 +204,9 @@
                         </GridPane>
                         <HBox alignment="CENTER_LEFT" fillHeight="false" spacing="7.0" styleClass="link-button">
                             <children>
-                                <Pane stylesheets="@../css/graphics/plus-icon-blue.fxml.css">
+                                <Pane stylesheets="@../images/plus-icon-blue.fxml.css">
                                     <children>
-                                        <fx:include source="graphics/plus-icon-blue.fxml" />
+                                        <fx:include source="../images/plus-icon-blue.fxml" />
                                     </children>
                                 </Pane>
                                 <Label text="Ajouter une catégorie" />

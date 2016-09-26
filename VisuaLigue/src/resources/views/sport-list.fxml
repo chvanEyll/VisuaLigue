@@ -20,9 +20,9 @@
                 <children>
                    <HBox alignment="CENTER_LEFT" fillHeight="false" spacing="7.0" styleClass="link-button">
                       <children>
-                          <Pane stylesheets="@../css/graphics/plus-icon-blue.fxml.css">
+                          <Pane stylesheets="@../images/plus-icon-blue.fxml.css">
                             <children>
-                               <fx:include source="graphics/plus-icon-blue.fxml" />
+                               <fx:include source="../images/plus-icon-blue.fxml" />
                             </children>
                          </Pane>
                          <Label text="Nouveau sport" />

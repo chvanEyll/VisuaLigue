@@ -19,14 +19,14 @@
                <children>
                   <HBox alignment="CENTER_LEFT" fillHeight="false" minWidth="170.0" prefHeight="60.0" prefWidth="170.0" spacing="15.0" style="-fx-background-color: #FFFFFF;">
                      <children>
-                        <Pane stylesheets="@../css/graphics/logo.fxml.css">
+                        <Pane stylesheets="@../images/logo.fxml.css">
                            <children>
-                              <fx:include source="graphics/logo.fxml" />
+                              <fx:include source="../images/logo.fxml" />
                            </children>
                         </Pane>
-                        <Pane stylesheets="@../css/graphics/app-title.fxml.css">
+                        <Pane stylesheets="@../images/app-title.fxml.css">
                            <children>
-                              <fx:include source="graphics/app-title.fxml" />
+                              <fx:include source="../images/app-title.fxml" />
                            </children>
                            <HBox.margin>
                               <Insets top="5.0" />
@@ -43,9 +43,9 @@
                <children>
                   <Button alignment="CENTER_LEFT" prefWidth="41.0" styleClass="borderless-button">
                      <graphic>
-                         <StackPane stylesheets="@../css/graphics/previous-arrow.fxml.css">
+                         <StackPane stylesheets="@../images/previous-arrow.fxml.css">
                           <children>
-                             <fx:include source="graphics/previous-arrow.fxml" />
+                             <fx:include source="../images/previous-arrow.fxml" />
                           </children>
                        </StackPane>
                      </graphic>
@@ -62,9 +62,9 @@
                   <Label styleClass="section-title" text="Sports" />
                   <Button alignment="CENTER_LEFT" prefWidth="41.0" styleClass="borderless-button">
                      <graphic>
-                        <StackPane scaleX="0.75" scaleY="0.75" stylesheets="@../css/graphics/pen-icon.fxml.css">
+                        <StackPane scaleX="0.75" scaleY="0.75" stylesheets="@../images/pen-icon.fxml.css">
                            <children>
-                              <fx:include source="graphics/pen-icon.fxml" />
+                              <fx:include source="../images/pen-icon.fxml" />
                            </children>
                         </StackPane>
                      </graphic>
@@ -111,9 +111,9 @@
                         <Insets left="14.0" />
                      </padding>
                      <children>
-                        <Pane stylesheets="@../css/graphics/sport-icon.fxml.css">
+                        <Pane stylesheets="@../images/sport-icon.fxml.css">
                             <children>
-                               <fx:include source="graphics/sport-icon.fxml" />
+                               <fx:include source="../images/sport-icon.fxml" />
                             </children>
                          </Pane>
                         <Label text="Sports" />
@@ -127,9 +127,9 @@
                         <Insets left="14.0" />
                      </padding>
                      <children>
-                        <Pane stylesheets="@../css/graphics/play-icon.fxml.css">
+                        <Pane stylesheets="@../images/play-icon.fxml.css">
                            <children>
-                              <fx:include source="graphics/play-icon.fxml" />
+                              <fx:include source="../images/play-icon.fxml" />
                            </children>
                         </Pane>
                         <Label text="Jeux" />

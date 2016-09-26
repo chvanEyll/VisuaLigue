@@ -21,9 +21,9 @@
       </HBox>
       <HBox alignment="CENTER_LEFT" fillHeight="false" minHeight="45.0" prefHeight="45.0" styleClass="breadcrumb-item">
          <children>
-            <Pane stylesheets="@../css/graphics/breadcrumb-nav-arrow.fxml.css">
+            <Pane stylesheets="@../images/breadcrumb-nav-arrow.fxml.css">
                <children>
-                  <fx:include source="graphics/breadcrumb-nav-arrow.fxml" />
+                  <fx:include source="../images/breadcrumb-nav-arrow.fxml" />
                </children>
             </Pane>
          </children>
@@ -45,9 +45,9 @@
       </HBox>
       <HBox alignment="CENTER_LEFT" fillHeight="false" layoutX="198.0" layoutY="10.0" minHeight="45.0" prefHeight="45.0" styleClass="breadcrumb-item">
          <children>
-            <Pane stylesheets="@../css/graphics/breadcrumb-nav-arrow.fxml.css">
+            <Pane stylesheets="@../images/breadcrumb-nav-arrow.fxml.css">
                <children>
-                  <fx:include source="graphics/breadcrumb-nav-arrow.fxml" />
+                  <fx:include source="../images/breadcrumb-nav-arrow.fxml" />
                </children>
             </Pane>
          </children>
