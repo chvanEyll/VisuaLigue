@@ -11,8 +11,6 @@ import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.layout.Pane;
-import javafx.scene.input.ScrollEvent;
-import javafx.scene.input.SwipeEvent;
 import javafx.scene.layout.VBox;
 import javafx.scene.shape.Rectangle;
 
@@ -22,7 +20,7 @@ import javafx.scene.shape.Rectangle;
  */
 public class MainSceneController implements Initializable {
     
-    @FXML private Pane menuPane;
+    @FXML private VBox menuPane;
     @FXML private Pane logoPane;
     private boolean isMenuPaneCollapsed = false;
     
@@ -34,12 +32,16 @@ public class MainSceneController implements Initializable {
     public void onHamburgerIconClick() {
         if (!isMenuPaneCollapsed) {
             menuPane.setPrefWidth(58);
+            menuPane.setMinWidth(58);
             logoPane.setPrefWidth(58);
+            logoPane.setMinWidth(58);
             menuPane.setClip(new Rectangle(58, Integer.MAX_VALUE));
             logoPane.setClip(new Rectangle(58, Integer.MAX_VALUE));
         } else {
             menuPane.setPrefWidth(170);
+            menuPane.setMinWidth(170);
             logoPane.setPrefWidth(170);
+            logoPane.setMinWidth(170);
             menuPane.setClip(null);
             logoPane.setClip(null);
         }

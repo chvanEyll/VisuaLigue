@@ -87,64 +87,60 @@
       </HBox>
       <HBox VBox.vgrow="ALWAYS">
          <children>
-            <Pane fx:id="menuPane" styleClass="main-menu">
+            <VBox fx:id="menuPane" minWidth="170.0" prefWidth="170.0" styleClass="main-menu">
                <children>
-                  <VBox minWidth="170.0" prefWidth="170.0">
+                  <HBox alignment="CENTER_LEFT" prefHeight="50.0" styleClass="menu-toggle-container">
                      <children>
-                        <HBox alignment="CENTER_LEFT" prefHeight="50.0" styleClass="menu-toggle-container" VBox.vgrow="ALWAYS">
+                        <VBox onMouseClicked="#onHamburgerIconClick" prefWidth="30.0" spacing="6.0" styleClass="menu-toggle">
                            <children>
-                              <VBox onMouseClicked="#onHamburgerIconClick" prefWidth="30.0" spacing="6.0" styleClass="menu-toggle">
-                                 <children>
-                                    <Line endX="30.0" stroke="WHITE" styleClass="line" />
-                                    <Line endX="30.0" stroke="WHITE" styleClass="line" />
-                                    <Line endX="30.0" stroke="WHITE" styleClass="line" />
-                                 </children>
-                                 <HBox.margin>
-                                    <Insets />
-                                 </HBox.margin>
-                                 <padding>
-                                    <Insets left="14.0" right="14.0" top="17.0" />
-                                 </padding>
-                              </VBox>
+                              <Line endX="30.0" stroke="WHITE" styleClass="line" />
+                              <Line endX="30.0" stroke="WHITE" styleClass="line" />
+                              <Line endX="30.0" stroke="WHITE" styleClass="line" />
                            </children>
-                        </HBox>
-                        <HBox alignment="CENTER_LEFT" fillHeight="false" layoutX="10.0" layoutY="10.0" prefHeight="50.0" spacing="14.0" styleClass="menu-item">
-                           <padding>
-                              <Insets left="14.0" />
-                           </padding>
-                           <children>
-                              <Pane stylesheets="@../css/graphics/sport-icon.fxml.css">
-                                  <children>
-                                     <fx:include source="graphics/sport-icon.fxml" />
-                                  </children>
-                               </Pane>
-                              <Label text="Sports" />
-                           </children>
-                           <VBox.margin>
+                           <HBox.margin>
                               <Insets />
-                           </VBox.margin>
-                        </HBox>
-                        <HBox alignment="CENTER_LEFT" fillHeight="false" layoutX="10.0" layoutY="60.0" prefHeight="50.0" spacing="14.0">
+                           </HBox.margin>
                            <padding>
-                              <Insets left="14.0" />
+                              <Insets left="14.0" right="14.0" top="17.0" />
                            </padding>
-                           <children>
-                              <Pane stylesheets="@../css/graphics/play-icon.fxml.css">
-                                 <children>
-                                    <fx:include source="graphics/play-icon.fxml" />
-                                 </children>
-                              </Pane>
-                              <Label text="Jeux" />
-                           </children>
-                           <styleClass>
-                              <String fx:value="menu-item" />
-                              <String fx:value="active" />
-                           </styleClass>
-                        </HBox>
+                        </VBox>
                      </children>
-                  </VBox>
+                  </HBox>
+                  <HBox alignment="CENTER_LEFT" fillHeight="false" layoutX="10.0" layoutY="10.0" prefHeight="50.0" spacing="14.0" styleClass="menu-item">
+                     <padding>
+                        <Insets left="14.0" />
+                     </padding>
+                     <children>
+                        <Pane stylesheets="@../css/graphics/sport-icon.fxml.css">
+                            <children>
+                               <fx:include source="graphics/sport-icon.fxml" />
+                            </children>
+                         </Pane>
+                        <Label text="Sports" />
+                     </children>
+                     <VBox.margin>
+                        <Insets />
+                     </VBox.margin>
+                  </HBox>
+                  <HBox alignment="CENTER_LEFT" fillHeight="false" layoutX="10.0" layoutY="60.0" prefHeight="50.0" spacing="14.0">
+                     <padding>
+                        <Insets left="14.0" />
+                     </padding>
+                     <children>
+                        <Pane stylesheets="@../css/graphics/play-icon.fxml.css">
+                           <children>
+                              <fx:include source="graphics/play-icon.fxml" />
+                           </children>
+                        </Pane>
+                        <Label text="Jeux" />
+                     </children>
+                     <styleClass>
+                        <String fx:value="menu-item" />
+                        <String fx:value="active" />
+                     </styleClass>
+                  </HBox>
                </children>
-            </Pane>
+            </VBox>
             <fx:include source="play-editor.fxml" />
          </children>
       </HBox>

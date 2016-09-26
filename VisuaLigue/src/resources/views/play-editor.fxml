@@ -9,8 +9,11 @@
 <?import javafx.scene.control.TextField?>
 <?import javafx.scene.control.Tooltip?>
 <?import javafx.scene.layout.BorderPane?>
+<?import javafx.scene.layout.ColumnConstraints?>
+<?import javafx.scene.layout.GridPane?>
 <?import javafx.scene.layout.HBox?>
 <?import javafx.scene.layout.Pane?>
+<?import javafx.scene.layout.RowConstraints?>
 <?import javafx.scene.layout.StackPane?>
 <?import javafx.scene.layout.TilePane?>
 <?import javafx.scene.layout.VBox?>
@@ -469,9 +472,9 @@
                         </Button>
                         <Button mnemonicParsing="false">
                             <graphic>
-                                <StackPane stylesheets="@../css/graphics/timeline-fixed-rewind-icon.fxml.css">
+                                <StackPane stylesheets="@../css/graphics/seekbar-fixed-rewind-icon.fxml.css">
                                     <children>
-                                        <fx:include source="graphics/timeline-fixed-rewind-icon.fxml" />
+                                        <fx:include source="graphics/seekbar-fixed-rewind-icon.fxml" />
                                         <Label text="5">
                                             <StackPane.margin>
                                                 <Insets />
@@ -492,9 +495,9 @@
                         </Button>
                         <Button mnemonicParsing="false">
                             <graphic>
-                                <StackPane stylesheets="@../css/graphics/timeline-previous-icon.fxml.css">
+                                <StackPane stylesheets="@../css/graphics/seekbar-previous-icon.fxml.css">
                                     <children>
-                                        <fx:include source="graphics/timeline-previous-icon.fxml" />
+                                        <fx:include source="graphics/seekbar-previous-icon.fxml" />
                                     </children>
                                 </StackPane>
                             </graphic>
@@ -509,9 +512,9 @@
                         </Button>
                         <Button mnemonicParsing="false">
                             <graphic>
-                                <StackPane stylesheets="@../css/graphics/timeline-rewind-icon.fxml.css">
+                                <StackPane stylesheets="@../css/graphics/seekbar-rewind-icon.fxml.css">
                                     <children>
-                                        <fx:include source="graphics/timeline-rewind-icon.fxml" />
+                                        <fx:include source="graphics/seekbar-rewind-icon.fxml" />
                                     </children>
                                 </StackPane>
                             </graphic>
@@ -526,9 +529,9 @@
                         </Button>
                         <Button mnemonicParsing="false">
                             <graphic>
-                                <StackPane stylesheets="@../css/graphics/timeline-play-icon.fxml.css">
+                                <StackPane stylesheets="@../css/graphics/seekbar-play-icon.fxml.css">
                                     <children>
-                                        <fx:include source="graphics/timeline-play-icon.fxml" />
+                                        <fx:include source="graphics/seekbar-play-icon.fxml" />
                                     </children>
                                 </StackPane>
                             </graphic>
@@ -540,12 +543,15 @@
                                 <String fx:value="standard-size" />
                                 <String fx:value="control-button" />
                             </styleClass>
+                     <HBox.margin>
+                        <Insets left="4.0" right="4.0" />
+                     </HBox.margin>
                         </Button>
                         <Button mnemonicParsing="false">
                             <graphic>
-                                <StackPane stylesheets="@../css/graphics/timeline-fast-forward-icon.fxml.css">
+                                <StackPane stylesheets="@../css/graphics/seekbar-fast-forward-icon.fxml.css">
                                     <children>
-                                        <fx:include source="graphics/timeline-fast-forward-icon.fxml" />
+                                        <fx:include source="graphics/seekbar-fast-forward-icon.fxml" />
                                     </children>
                                 </StackPane>
                             </graphic>
@@ -560,9 +566,9 @@
                         </Button>
                         <Button mnemonicParsing="false">
                             <graphic>
-                                <StackPane stylesheets="@../css/graphics/timeline-next-icon.fxml.css">
+                                <StackPane stylesheets="@../css/graphics/seekbar-next-icon.fxml.css">
                                     <children>
-                                        <fx:include source="graphics/timeline-next-icon.fxml" />
+                                        <fx:include source="graphics/seekbar-next-icon.fxml" />
                                     </children>
                                 </StackPane>
                             </graphic>
@@ -577,9 +583,9 @@
                         </Button>
                         <Button mnemonicParsing="false">
                             <graphic>
-                                <StackPane stylesheets="@../css/graphics/timeline-fixed-forward-icon.fxml.css">
+                                <StackPane stylesheets="@../css/graphics/seekbar-fixed-forward-icon.fxml.css">
                                     <children>
-                                        <fx:include source="graphics/timeline-fixed-forward-icon.fxml" />
+                                        <fx:include source="graphics/seekbar-fixed-forward-icon.fxml" />
                                         <Label text="5">
                                             <StackPane.margin>
                                                 <Insets />
@@ -597,6 +603,273 @@
                                 <String fx:value="control-button" />
                                 <String fx:value="fixed-forward-button" />
                             </styleClass>
+                        </Button>
+                    </children>
+                </HBox>
+                <HBox>
+                    <children>
+                        <ScrollPane fitToHeight="true" fitToWidth="true" hbarPolicy="ALWAYS" pannable="true" style="-fx-background: transparent;" vbarPolicy="NEVER" HBox.hgrow="ALWAYS">
+                            <content>
+                                <StackPane alignment="CENTER_LEFT">
+                                    <children>
+                                        <GridPane>
+                                            <columnConstraints>
+                                                <ColumnConstraints halignment="CENTER" hgrow="SOMETIMES" minWidth="45.0" percentWidth="7.692" />
+                                                <ColumnConstraints hgrow="SOMETIMES" minWidth="45.0" percentWidth="7.692" />
+                                                <ColumnConstraints minWidth="45.0" percentWidth="7.692" />
+                                                <ColumnConstraints minWidth="45.0" percentWidth="7.692" />
+                                                <ColumnConstraints minWidth="45.0" percentWidth="7.692" />
+                                                <ColumnConstraints minWidth="45.0" percentWidth="7.692" />
+                                                <ColumnConstraints minWidth="45.0" percentWidth="7.692" />
+                                                <ColumnConstraints minWidth="45.0" percentWidth="7.692" />
+                                                <ColumnConstraints minWidth="45.0" percentWidth="7.692" />
+                                                <ColumnConstraints minWidth="45.0" percentWidth="7.692" />
+                                                <ColumnConstraints minWidth="45.0" percentWidth="7.692" />
+                                                <ColumnConstraints minWidth="45.0" percentWidth="7.692" />
+                                                <ColumnConstraints minWidth="45.0" percentWidth="7.692" />
+                                                <ColumnConstraints minWidth="45.0" percentWidth="7.692" />
+                                            </columnConstraints>
+                                            <rowConstraints>
+                                                <RowConstraints vgrow="SOMETIMES" />
+                                            </rowConstraints>
+                                            <children>
+                                                <Pane maxHeight="5.0" prefHeight="5.0" styleClass="bar" GridPane.columnSpan="14" />
+                                                <StackPane stylesheets="@../css/graphics/seekbar-frame.fxml.css" GridPane.columnIndex="0">
+                                                    <children>
+                                                        <fx:include source="graphics/seekbar-frame.fxml" />
+                                                        <Label text="1">
+                                                            <StackPane.margin>
+                                                                <Insets />
+                                                            </StackPane.margin>
+                                                        </Label>
+                                                    </children>
+                                                    <styleClass>
+                                                        <String fx:value="seekbar-frame" />
+                                                    </styleClass>
+                                                </StackPane>
+                                                <StackPane stylesheets="@../css/graphics/seekbar-frame.fxml.css" GridPane.columnIndex="1">
+                                                    <children>
+                                                        <fx:include source="graphics/seekbar-frame.fxml" />
+                                                        <Label text="2">
+                                                            <StackPane.margin>
+                                                                <Insets />
+                                                            </StackPane.margin>
+                                                        </Label>
+                                                    </children>
+                                                    <styleClass>
+                                                        <String fx:value="seekbar-frame" />
+                                                    </styleClass>
+                                                </StackPane>
+                                                <StackPane stylesheets="@../css/graphics/seekbar-frame.fxml.css" GridPane.columnIndex="2">
+                                                    <children>
+                                                        <fx:include source="graphics/seekbar-frame.fxml" />
+                                                        <Label text="3">
+                                                            <StackPane.margin>
+                                                                <Insets />
+                                                            </StackPane.margin>
+                                                        </Label>
+                                                    </children>
+                                                    <styleClass>
+                                                        <String fx:value="seekbar-frame" />
+                                                    </styleClass>
+                                                </StackPane>
+                                                <StackPane stylesheets="@../css/graphics/seekbar-frame.fxml.css" GridPane.columnIndex="3">
+                                                    <children>
+                                                        <fx:include source="graphics/seekbar-frame.fxml" />
+                                                        <Label text="4">
+                                                            <StackPane.margin>
+                                                                <Insets />
+                                                            </StackPane.margin>
+                                                        </Label>
+                                                    </children>
+                                                    <styleClass>
+                                                        <String fx:value="seekbar-frame" />
+                                                    </styleClass>
+                                                </StackPane>
+                                                <StackPane stylesheets="@../css/graphics/seekbar-frame.fxml.css" GridPane.columnIndex="4">
+                                                    <children>
+                                                        <fx:include source="graphics/seekbar-frame.fxml" />
+                                                        <Label text="5">
+                                                            <StackPane.margin>
+                                                                <Insets />
+                                                            </StackPane.margin>
+                                                        </Label>
+                                                    </children>
+                                                    <styleClass>
+                                                        <String fx:value="seekbar-frame" />
+                                                    </styleClass>
+                                                </StackPane>
+                                                <StackPane stylesheets="@../css/graphics/seekbar-frame.fxml.css" GridPane.columnIndex="5">
+                                                    <children>
+                                                        <fx:include source="graphics/seekbar-frame.fxml" />
+                                                        <Label text="6">
+                                                            <StackPane.margin>
+                                                                <Insets />
+                                                            </StackPane.margin>
+                                                        </Label>
+                                                    </children>
+                                                    <styleClass>
+                                                        <String fx:value="seekbar-frame" />
+                                                    </styleClass>
+                                                </StackPane>
+                                                <StackPane stylesheets="@../css/graphics/seekbar-frame.fxml.css" GridPane.columnIndex="6">
+                                                    <children>
+                                                        <fx:include source="graphics/seekbar-frame.fxml" />
+                                                        <Label text="7">
+                                                            <StackPane.margin>
+                                                                <Insets />
+                                                            </StackPane.margin>
+                                                        </Label>
+                                                    </children>
+                                                    <styleClass>
+                                                        <String fx:value="seekbar-frame" />
+                                                    </styleClass>
+                                                </StackPane>
+                                                <StackPane stylesheets="@../css/graphics/seekbar-frame.fxml.css" GridPane.columnIndex="7">
+                                                    <children>
+                                                        <fx:include source="graphics/seekbar-frame.fxml" />
+                                                        <Label text="8">
+                                                            <StackPane.margin>
+                                                                <Insets />
+                                                            </StackPane.margin>
+                                                        </Label>
+                                                    </children>
+                                                    <styleClass>
+                                                        <String fx:value="seekbar-frame" />
+                                                    </styleClass>
+                                                </StackPane>
+                                                <StackPane stylesheets="@../css/graphics/seekbar-frame.fxml.css" GridPane.columnIndex="8">
+                                                    <children>
+                                                        <fx:include source="graphics/seekbar-frame.fxml" />
+                                                        <Label text="9">
+                                                            <StackPane.margin>
+                                                                <Insets />
+                                                            </StackPane.margin>
+                                                        </Label>
+                                                    </children>
+                                                    <styleClass>
+                                                        <String fx:value="seekbar-frame" />
+                                                    </styleClass>
+                                                </StackPane>
+                                                <StackPane stylesheets="@../css/graphics/seekbar-frame.fxml.css" GridPane.columnIndex="9">
+                                                    <children>
+                                                        <fx:include source="graphics/seekbar-frame.fxml" />
+                                                        <Label text="10">
+                                                            <StackPane.margin>
+                                                                <Insets />
+                                                            </StackPane.margin>
+                                                        </Label>
+                                                    </children>
+                                                    <styleClass>
+                                                        <String fx:value="seekbar-frame" />
+                                                    </styleClass>
+                                                </StackPane>
+                                                <StackPane stylesheets="@../css/graphics/seekbar-frame.fxml.css" GridPane.columnIndex="10">
+                                                    <children>
+                                                        <fx:include source="graphics/seekbar-frame.fxml" />
+                                                        <Label text="11">
+                                                            <StackPane.margin>
+                                                                <Insets />
+                                                            </StackPane.margin>
+                                                        </Label>
+                                                    </children>
+                                                    <styleClass>
+                                                        <String fx:value="seekbar-frame" />
+                                                    </styleClass>
+                                                </StackPane>
+                                                <StackPane stylesheets="@../css/graphics/seekbar-frame.fxml.css" GridPane.columnIndex="11">
+                                                    <children>
+                                                        <fx:include source="graphics/seekbar-frame.fxml" />
+                                                        <Label text="12">
+                                                            <StackPane.margin>
+                                                                <Insets />
+                                                            </StackPane.margin>
+                                                        </Label>
+                                                    </children>
+                                                    <styleClass>
+                                                        <String fx:value="seekbar-frame" />
+                                                    </styleClass>
+                                                </StackPane>
+                                                <StackPane stylesheets="@../css/graphics/seekbar-frame.fxml.css" GridPane.columnIndex="12">
+                                                    <children>
+                                                        <fx:include source="graphics/seekbar-frame.fxml" />
+                                                        <Label text="13">
+                                                            <StackPane.margin>
+                                                                <Insets />
+                                                            </StackPane.margin>
+                                                        </Label>
+                                                    </children>
+                                                    <styleClass>
+                                                        <String fx:value="seekbar-frame" />
+                                                    </styleClass>
+                                                </StackPane>
+                                                <StackPane stylesheets="@../css/graphics/seekbar-frame.fxml.css" GridPane.columnIndex="13">
+                                                    <children>
+                                                        <fx:include source="graphics/seekbar-frame.fxml" />
+                                                        <Label text="14">
+                                                            <StackPane.margin>
+                                                                <Insets />
+                                                            </StackPane.margin>
+                                                        </Label>
+                                                    </children>
+                                                    <styleClass>
+                                                        <String fx:value="seekbar-frame" />
+                                                    </styleClass>
+                                                </StackPane>
+                                            </children>
+                                        </GridPane>
+                                        <Button>
+                                            <graphic>
+                                                <StackPane stylesheets="@../css/graphics/seekbar-thumb.fxml.css" GridPane.columnIndex="0">
+                                                    <children>
+                                                        <fx:include source="graphics/seekbar-thumb.fxml" />
+                                                    </children>
+                                                    <styleClass>
+                                                        <String fx:value="seekbar-frame" />
+                                                    </styleClass>
+                                                </StackPane>
+                                            </graphic>
+                                            <styleClass>
+                                                <String fx:value="icon-button" />
+                                            </styleClass>
+                                            <StackPane.margin>
+                                                <Insets />
+                                            </StackPane.margin>
+                                        </Button>
+                                    </children>
+                                    <padding>
+                                        <Insets bottom="10.0" top="10.0" />
+                                    </padding>
+                                </StackPane>
+                            </content>
+                            <styleClass>
+                                <String fx:value="edge-to-edge" />
+                                <String fx:value="seekbar" />
+                            </styleClass>
+                        </ScrollPane>
+                        <Button>
+                            <graphic>
+                                <StackPane stylesheets="@../css/graphics/new-frame-icon.fxml.css" GridPane.columnIndex="0">
+                                    <children>
+                                        <fx:include source="graphics/new-frame-icon.fxml" />
+                                    </children>
+                                    <styleClass>
+                                        <String fx:value="seekbar-frame" />
+                                    </styleClass>
+                                </StackPane>
+                            </graphic>
+                            <styleClass>
+                                <String fx:value="icon-button" />
+                            </styleClass>
+                            <StackPane.margin>
+                                <Insets />
+                            </StackPane.margin>
+                     <tooltip>
+                        <Tooltip text="Nouvelle image" />
+                     </tooltip>
+                     <HBox.margin>
+                        <Insets left="14.0" top="12.0" />
+                     </HBox.margin>
                         </Button>
                     </children>
                 </HBox>

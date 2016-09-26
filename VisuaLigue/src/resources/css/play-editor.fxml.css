@@ -98,3 +98,12 @@
     -fx-font-size: 15;
     -fx-padding: 0 3 0 0;
 }
+
+.seekbar .bar {
+    -fx-background-color: #CCCCCC
+}
+
+.seekbar .seekbar-frame .label {
+    -fx-text-fill: black;
+    -fx-font-size: 15;
+}
