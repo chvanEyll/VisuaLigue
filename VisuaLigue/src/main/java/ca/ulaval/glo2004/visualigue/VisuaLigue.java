@@ -1,9 +1,4 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
-package main.java;
+package ca.ulaval.glo2004.visualigue;
 
 import java.io.IOException;
 import javafx.application.Application;
@@ -25,7 +20,7 @@ public class VisuaLigue extends Application {
     }
     
     private void initStage(Stage stage) throws IOException {
-        Parent root = FXMLLoader.load(getClass().getResource("/resources/views/main.fxml"));
+        Parent root = FXMLLoader.load(getClass().getResource("/views/main.fxml"));
         Scene scene = new Scene(root);
         stage.setScene(scene);
         setStageIcons(stage);
@@ -36,10 +31,10 @@ public class VisuaLigue extends Application {
     }
     
     private void setStageIcons(Stage stage) {
-        stage.getIcons().add(new Image(getClass().getResourceAsStream("/resources/images/app-icon/icon-16x16.png")));
-        stage.getIcons().add(new Image(getClass().getResourceAsStream("/resources/images/app-icon/icon-32x32.png")));
-        stage.getIcons().add(new Image(getClass().getResourceAsStream("/resources/images/app-icon/icon-48x48.png")));
-        stage.getIcons().add(new Image(getClass().getResourceAsStream("/resources/images/app-icon/icon-256x256.png")));
+        stage.getIcons().add(new Image(getClass().getResourceAsStream("/images/app-icon/icon-16x16.png")));
+        stage.getIcons().add(new Image(getClass().getResourceAsStream("/images/app-icon/icon-32x32.png")));
+        stage.getIcons().add(new Image(getClass().getResourceAsStream("/images/app-icon/icon-48x48.png")));
+        stage.getIcons().add(new Image(getClass().getResourceAsStream("/images/app-icon/icon-256x256.png")));
     }
     
     public static void main(String[] args) {

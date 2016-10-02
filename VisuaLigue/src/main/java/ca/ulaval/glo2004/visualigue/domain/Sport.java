@@ -1,4 +1,4 @@
-package main.java.domain;
+package ca.ulaval.glo2004.visualigue.domain;
 
 public class Sport {
     

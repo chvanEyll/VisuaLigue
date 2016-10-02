@@ -1,9 +1,9 @@
-package main.java.ui.controllers;
+package ca.ulaval.glo2004.visualigue.ui.controllers;
 
 import java.net.URL;
 import java.util.ResourceBundle;
 import javafx.fxml.Initializable;
-import main.java.services.SportService;
+import ca.ulaval.glo2004.visualigue.services.SportService;
 
 public class SportListViewController implements Initializable {
     

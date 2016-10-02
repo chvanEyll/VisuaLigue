@@ -1,7 +1,7 @@
-package main.java.services;
+package ca.ulaval.glo2004.visualigue.services;
 
 import java.util.List;
-import main.java.domain.Sport;
+import ca.ulaval.glo2004.visualigue.domain.Sport;
 
 public class SportService {
     

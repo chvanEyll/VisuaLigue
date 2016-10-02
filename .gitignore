@@ -1,5 +1,5 @@
 
-# Created by https://www.gitignore.io/api/java,netbeans
+# Created by https://www.gitignore.io/api/java,netbeans,maven
 
 ### NetBeans ###
 nbproject/private/
@@ -24,3 +24,15 @@ nbdist/
 # virtual machine crash logs, see http://www.java.com/en/download/help/error_hotspot.xml
 hs_err_pid*
 /VisuaLigue/nbproject/private/
+/VisuaLigue/target/
+
+### Maven ###
+target/
+pom.xml.tag
+pom.xml.releaseBackup
+pom.xml.versionsBackup
+pom.xml.next
+release.properties
+dependency-reduced-pom.xml
+buildNumber.properties
+.mvn/timing.properties

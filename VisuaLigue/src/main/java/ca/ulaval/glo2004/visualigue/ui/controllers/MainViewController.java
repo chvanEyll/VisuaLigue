@@ -1,4 +1,4 @@
-package main.java.ui.controllers;
+package ca.ulaval.glo2004.visualigue.ui.controllers;
 
 import java.io.IOException;
 import java.net.URL;
@@ -75,7 +75,7 @@ public class MainViewController implements Initializable {
     private void loadView(String viewName, HBox menuItem) {
         try {
             contentPane.getChildren().clear();
-            contentPane.getChildren().add(FXMLLoader.load(getClass().getResource("/resources/views/" + viewName)));
+            contentPane.getChildren().add(FXMLLoader.load(getClass().getResource("/views/" + viewName)));
         } catch (IOException ex) {
             Logger.getLogger(MainViewController.class.getName()).log(Level.SEVERE, null, ex);
         }
