@@ -23,6 +23,7 @@
     -fx-pref-height: 50;
     -fx-spacing: 14;
     -fx-alignment: CENTER_LEFT;
+    -fx-min-width: 170;
 }
 
 .main-menu .menu-item:hover {
