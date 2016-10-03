@@ -8,8 +8,7 @@ import javafx.fxml.Initializable;
 
 public class SportListController implements Initializable {
 
-    @FXML
-    SportSelectorController sportSelectorController;
+    @FXML SportSelectorController sportSelectorController;
     
     @Override
     public void initialize(URL url, ResourceBundle rb) {
