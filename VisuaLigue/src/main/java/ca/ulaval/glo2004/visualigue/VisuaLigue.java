@@ -2,7 +2,6 @@ package ca.ulaval.glo2004.visualigue;
 
 import java.io.IOException;
 import javafx.application.Application;
-import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.image.Image;
@@ -20,7 +19,7 @@ public class VisuaLigue extends Application {
     }
     
     private void initStage(Stage stage) throws IOException {
-        Parent root = FXMLLoader.load(getClass().getResource("/views/main.fxml"));
+        Parent root = GuiceFXMLLoader.load(getClass().getResource("/views/main.fxml"));
         Scene scene = new Scene(root);
         stage.setScene(scene);
         setStageIcons(stage);

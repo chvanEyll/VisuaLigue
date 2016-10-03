@@ -14,11 +14,15 @@
         <mainClass>ca.ulaval.glo2004.visualigue.VisuaLigue</mainClass>
     </properties>
 
-    <organization>
-        <!-- Used as the 'Vendor' for JNLP generation -->
-        <name>Your Organisation</name>
-    </organization>
-
+    <developers>
+        <developer>
+            <email>o.robert@hotmail.com</email>
+            <name>Olivier Robert</name>
+            <url>https://github.com/orobert91</url>
+            <id>orobert91</id>
+        </developer>
+    </developers>
+        
     <build>
         <plugins>
             <plugin>
@@ -104,5 +108,17 @@
             </plugin>
         </plugins>
     </build>
-
+    <dependencies>
+        <dependency>
+            <groupId>com.google.inject</groupId>
+            <artifactId>guice</artifactId>
+            <version>4.1.0</version>
+        </dependency>
+        <dependency>
+            <groupId>javax.inject</groupId>
+            <artifactId>javax.inject</artifactId>
+            <version>1</version>
+            <type>jar</type>
+        </dependency>
+    </dependencies>
 </project>

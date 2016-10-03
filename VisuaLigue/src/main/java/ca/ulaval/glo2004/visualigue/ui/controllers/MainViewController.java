@@ -1,12 +1,12 @@
 package ca.ulaval.glo2004.visualigue.ui.controllers;
 
+import ca.ulaval.glo2004.visualigue.GuiceFXMLLoader;
 import java.io.IOException;
 import java.net.URL;
 import java.util.ResourceBundle;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javafx.fxml.FXML;
-import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
 import javafx.scene.layout.Pane;
 import javafx.scene.layout.VBox;
@@ -17,8 +17,8 @@ public class MainViewController implements Initializable {
     
     private static final int MENU_PANE_COLLAPSED_WIDTH = 58;
     private static final int MENU_PANE_EXTENDED_WIDTH = 170;
-    private static final String sportListViewName = "sport-list.fxml";
-    private static final String playListViewName = "play-list.fxml";
+    private static final String SPORT_LIST_VIEW_NAME = "sport-list.fxml";
+    private static final String PLAY_LIST_VIEW_NAME = "play-list.fxml";
     
     @FXML private VBox menuPane;
     @FXML private Pane logoPane;
@@ -30,7 +30,7 @@ public class MainViewController implements Initializable {
     @Override
     public void initialize(URL url, ResourceBundle rb) {
         collapseMenuPane();
-        loadView(playListViewName, playsMenuItem);
+        loadView(PLAY_LIST_VIEW_NAME, playsMenuItem);
     }    
     
     @FXML
@@ -64,18 +64,18 @@ public class MainViewController implements Initializable {
     
     @FXML
     private void onSportsMenuItemClick() {
-        loadView(sportListViewName, sportsMenuItem);
+        loadView(SPORT_LIST_VIEW_NAME, sportsMenuItem);
     }
     
     @FXML
     private void onPlaysMenuItemClick() {
-        loadView(playListViewName, playsMenuItem);
+        loadView(PLAY_LIST_VIEW_NAME, playsMenuItem);
     }   
     
     private void loadView(String viewName, HBox menuItem) {
         try {
             contentPane.getChildren().clear();
-            contentPane.getChildren().add(FXMLLoader.load(getClass().getResource("/views/" + viewName)));
+            contentPane.getChildren().add(GuiceFXMLLoader.load(getClass().getResource("/views/" + viewName)));
         } catch (IOException ex) {
             Logger.getLogger(MainViewController.class.getName()).log(Level.SEVERE, null, ex);
         }
