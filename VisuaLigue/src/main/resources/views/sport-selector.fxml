@@ -11,73 +11,9 @@
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
 
-<TilePane hgap="14.0" prefTileHeight="150.0" prefTileWidth="150.0" prefWidth="150.0" styleClass="tile-container" tileAlignment="TOP_LEFT" vgap="14.0" HBox.hgrow="ALWAYS" xmlns="http://javafx.com/javafx/8.0.60" xmlns:fx="http://javafx.com/fxml/1">
+<TilePane fx:id="sportTilePane" hgap="14.0" prefTileHeight="150.0" prefTileWidth="150.0" prefWidth="150.0" styleClass="tile-container" tileAlignment="TOP_LEFT" vgap="14.0" HBox.hgrow="ALWAYS" xmlns="http://javafx.com/javafx/8.0.60" xmlns:fx="http://javafx.com/fxml/1" fx:controller="ca.ulaval.glo2004.visualigue.ui.controllers.SportSelectorController">
     <children>
-        <VBox alignment="TOP_CENTER" fillWidth="false" styleClass="tile">
-            <children>
-                <Pane stylesheets="@../images/sport-hockey-icon.fxml.css">
-                    <children>
-                        <fx:include source="../images/sport-hockey-icon.fxml" />
-                    </children>
-                </Pane>
-                <AnchorPane VBox.vgrow="ALWAYS">
-                    <children>
-                        <Label alignment="CENTER" contentDisplay="CENTER" styleClass="item-text" text="Hockey" wrapText="true" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0" />
-                    </children>
-                </AnchorPane>
-            </children>
-            <TilePane.margin>
-                <Insets />
-            </TilePane.margin>
-            <padding>
-                <Insets bottom="14.0" left="14.0" right="14.0" top="14.0" />
-            </padding>
-        </VBox>
-        <VBox alignment="TOP_CENTER" fillWidth="false" layoutX="25.0" layoutY="30.0" styleClass="tile">
-            <children>
-                <Pane stylesheets="@../images/sport-soccer-icon.fxml.css">
-                    <children>
-                        <fx:include source="../images/sport-soccer-icon.fxml" />
-                    </children>
-                </Pane>
-                <AnchorPane VBox.vgrow="ALWAYS">
-                    <children>
-                        <Label alignment="CENTER" contentDisplay="CENTER" styleClass="item-text" text="Soccer" wrapText="true" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
-                            <font>
-                                <Font name="Source Sans Pro Light" size="19.0" />
-                            </font>
-                        </Label>
-                    </children>
-                </AnchorPane>
-            </children>
-            <padding>
-                <Insets bottom="14.0" left="10.0" right="14.0" top="14.0" />
-            </padding>
-        </VBox>
-        <VBox alignment="TOP_CENTER" fillWidth="false" layoutX="189.0" layoutY="30.0">
-            <children>
-                <Pane stylesheets="@../images/plus-icon-orange.fxml.css">
-                    <children>
-                        <fx:include source="../images/plus-icon-orange.fxml" />
-                    </children>
-                    <VBox.margin>
-                        <Insets bottom="27.0" top="27.0" />
-                    </VBox.margin>
-                </Pane>
-                <AnchorPane VBox.vgrow="ALWAYS">
-                    <children>
-                        <Label alignment="CENTER" contentDisplay="CENTER" styleClass="item-text" text="Nouveau sport" wrapText="true" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0" />
-                    </children>
-                </AnchorPane>
-            </children>
-            <padding>
-                <Insets bottom="14.0" left="10.0" right="14.0" top="14.0" />
-            </padding>
-            <styleClass>
-                <String fx:value="tile" />
-                <String fx:value="add-tile" />
-            </styleClass>
-        </VBox>
+        
     </children>
     <padding>
         <Insets bottom="14.0" left="14.0" right="14.0" top="14.0" />

@@ -13,7 +13,7 @@ import javafx.scene.layout.VBox;
 import javafx.scene.layout.HBox;
 import javafx.scene.shape.Rectangle;
 
-public class MainViewController implements Initializable {
+public class MainSceneController implements Initializable {
     
     private static final int MENU_PANE_COLLAPSED_WIDTH = 58;
     private static final int MENU_PANE_EXTENDED_WIDTH = 170;
@@ -77,7 +77,7 @@ public class MainViewController implements Initializable {
             contentPane.getChildren().clear();
             contentPane.getChildren().add(GuiceFXMLLoader.load(getClass().getResource("/views/" + viewName)));
         } catch (IOException ex) {
-            Logger.getLogger(MainViewController.class.getName()).log(Level.SEVERE, null, ex);
+            Logger.getLogger(MainSceneController.class.getName()).log(Level.SEVERE, null, ex);
         }
         unselectAllMenus();
         menuItem.getStyleClass().add("active");

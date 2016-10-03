@@ -11,11 +11,15 @@ public class SportService {
     private Set<Sport> sports = new HashSet<>();
     
     public SportService() {
-        sports.add(new Sport("Sport 1"));
         sports.add(new Sport("Sport 2"));
+        sports.add(new Sport("Sport 1"));
     }
     
     public void createSport(Sport sport) {
         sports.add(sport);
+    }
+    
+    public Set<Sport> getSports() {
+        return sports;
     }
 }

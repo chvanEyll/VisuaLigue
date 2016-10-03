@@ -10,7 +10,7 @@
 <?import javafx.scene.layout.Pane?>
 <?import javafx.scene.layout.VBox?>
 
-<ScrollPane fitToWidth="true" hbarPolicy="NEVER" pannable="true" AnchorPane.rightAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.topAnchor="0.0" AnchorPane.bottomAnchor="0.0" xmlns="http://javafx.com/javafx/8.0.60" xmlns:fx="http://javafx.com/fxml/1" fx:controller="ca.ulaval.glo2004.visualigue.ui.controllers.SportListViewController">
+<ScrollPane fitToWidth="true" hbarPolicy="NEVER" pannable="true" AnchorPane.rightAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.topAnchor="0.0" AnchorPane.bottomAnchor="0.0" xmlns="http://javafx.com/javafx/8.0.60" xmlns:fx="http://javafx.com/fxml/1" fx:controller="ca.ulaval.glo2004.visualigue.ui.controllers.SportListController">
     <content>
        <VBox spacing="10.0">
           <padding>
@@ -41,7 +41,7 @@
                         <Insets left="10.0" />
                      </padding>
                   </HBox>
-                  <fx:include source="sport-selector.fxml" />
+                  <fx:include fx:id="sportSelector" source="sport-selector.fxml" />
                </children>
                <styleClass>
                   <String fx:value="form-section" />

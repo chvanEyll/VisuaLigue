@@ -12,7 +12,7 @@
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.shape.Line?>
 
-<VBox minHeight="600.0" minWidth="1000.0" prefHeight="768.0" prefWidth="1024.0" style="-fx-background-color: #FFFFFF;" styleClass="root-pane" stylesheets="@../css/main.fxml.css" xmlns="http://javafx.com/javafx/8.0.60" xmlns:fx="http://javafx.com/fxml/1" fx:controller="ca.ulaval.glo2004.visualigue.ui.controllers.MainViewController">
+<VBox minHeight="600.0" minWidth="1000.0" prefHeight="768.0" prefWidth="1024.0" style="-fx-background-color: #FFFFFF;" styleClass="root-pane" stylesheets="@../css/main.fxml.css" xmlns="http://javafx.com/javafx/8.0.60" xmlns:fx="http://javafx.com/fxml/1" fx:controller="ca.ulaval.glo2004.visualigue.ui.controllers.MainSceneController">
    <children>
       <HBox alignment="CENTER_LEFT" minHeight="60.0" prefHeight="60.0" style="-fx-background-color: #F3F1EF;">
          <children>
