@@ -1,9 +1,10 @@
 package ca.ulaval.glo2004.visualigue.ui.controllers;
 
 import ca.ulaval.glo2004.visualigue.GuiceFXMLLoader;
-import ca.ulaval.glo2004.visualigue.domain.Sport;
 import ca.ulaval.glo2004.visualigue.services.SportService;
+import ca.ulaval.glo2004.visualigue.ui.models.SportModel;
 import ca.ulaval.glo2004.visualigue.utils.EventHandler;
+import ca.ulaval.visualigue.ui.converters.SportModelConverter;
 import java.io.IOException;
 import java.net.URL;
 import java.util.ResourceBundle;
@@ -19,20 +20,19 @@ public class SportSelectorController implements Initializable {
 
     public static final String ITEM_VIEW_NAME = "/views/sport-selector-item.fxml";
 
-    @Inject
-    private SportService sportService;
-    @FXML
-    private TilePane sportTilePane;
-    public EventHandler<Sport> onSportSelected = new EventHandler<>();
+    @Inject private SportService sportService;
+    @Inject private SportModelConverter sportModelConverter;
+    @FXML private TilePane sportTilePane;
+    public EventHandler<SportModel> onSportSelected = new EventHandler<>();
 
     @Override
     public void initialize(URL url, ResourceBundle rb) {
         sportService.getSports().stream().sorted().forEach(sport -> {
-            initSportItem(sport);
+            initSportItem(sportModelConverter.Convert(sport));
         });
     }
 
-    private void initSportItem(Sport sport) {
+    private void initSportItem(SportModel sportModel) {
         FXMLLoader fxmlLoader = GuiceFXMLLoader.createLoader(getClass().getResource(ITEM_VIEW_NAME));
         try {
             fxmlLoader.load();
@@ -40,12 +40,12 @@ public class SportSelectorController implements Initializable {
             Logger.getLogger(SportSelectorController.class.getName()).log(Level.SEVERE, null, ex);
         }
         SportSelectorItemController controller = (SportSelectorItemController) fxmlLoader.getController();
-        controller.setSport(sport);
+        controller.setModel(sportModel);
         controller.onClick.addHandler(this::onSportItemClicked);
         sportTilePane.getChildren().add(controller.getRootNode());
     }
 
-    public void onSportItemClicked(Object sender, Sport sport) {
-        onSportSelected.fire(this, sport);
+    public void onSportItemClicked(Object sender, SportModel sportModel) {
+        onSportSelected.fire(this, sportModel);
     }
 }
