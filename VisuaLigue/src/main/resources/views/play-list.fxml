@@ -18,137 +18,137 @@
 
 <ScrollPane fitToWidth="true" hbarPolicy="NEVER" pannable="true" AnchorPane.rightAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.topAnchor="0.0" AnchorPane.bottomAnchor="0.0" xmlns="http://javafx.com/javafx/8.0.60" xmlns:fx="http://javafx.com/fxml/1">
     <content>
-       <VBox spacing="10.0">
-          <padding>
-             <Insets bottom="14.0" left="14.0" right="14.0" top="14.0" />
-          </padding>
-          <children>
-             <Pane>
-                <children>
-                   <HBox alignment="CENTER_LEFT" fillHeight="false" spacing="7.0" styleClass="link-button">
-                      <children>
-                          <Pane stylesheets="@../images/plus-icon-blue.fxml.css">
+        <VBox spacing="10.0">
+            <padding>
+                <Insets bottom="14.0" left="14.0" right="14.0" top="14.0" />
+            </padding>
+            <children>
+                <Pane>
+                    <children>
+                        <HBox alignment="CENTER_LEFT" fillHeight="false" spacing="7.0" styleClass="link-button">
                             <children>
-                               <fx:include source="../images/plus-icon-blue.fxml" />
+                                <Pane stylesheets="@../images/plus-icon-blue.fxml.css">
+                                    <children>
+                                        <fx:include source="../images/plus-icon-blue.fxml" />
+                                    </children>
+                                </Pane>
+                                <Label text="Nouveau jeu" />
                             </children>
-                         </Pane>
-                         <Label text="Nouveau jeu" />
-                      </children>
-                   </HBox>
-                </children>
-             </Pane>
-            <VBox>
-               <children>
-                  <HBox alignment="CENTER_LEFT" prefHeight="38.0" styleClass="section-header">
-                     <children>
-                        <Label text="Jeux sauvegardés" />
-                     </children>
-                     <padding>
-                        <Insets left="10.0" />
-                     </padding>
-                  </HBox>
-                   <TilePane hgap="14.0" prefColumns="2" prefRows="2" prefTileHeight="300.0" prefTileWidth="400.0" prefWidth="400.0" styleClass="tile-container" tileAlignment="TOP_LEFT" vgap="14.0">
-                      <children>
-                         <VBox alignment="TOP_CENTER" styleClass="tile">
-                            <TilePane.margin>
-                               <Insets />
-                            </TilePane.margin>
+                        </HBox>
+                    </children>
+                </Pane>
+                <VBox>
+                    <children>
+                        <HBox alignment="CENTER_LEFT" prefHeight="38.0" styleClass="section-header">
+                            <children>
+                                <Label text="Jeux sauvegardés" />
+                            </children>
                             <padding>
-                               <Insets bottom="14.0" left="14.0" right="14.0" top="14.0" />
+                                <Insets left="10.0" />
                             </padding>
-                           <children>
-                              <HBox alignment="CENTER_RIGHT" styleClass="tile-header">
-                                 <children>
-                                    <StackPane alignment="TOP_LEFT" styleClass="play-title-container" HBox.hgrow="ALWAYS">
-                                       <children>
-                                          <Label styleClass="item-text" text="Jeu 1" />
-                                       </children>
-                                    </StackPane>
-                                    <Button styleClass="icon-button">
-                                       <graphic>
-                                           <StackPane stylesheets="@../images/trash-icon.fxml.css">
+                        </HBox>
+                        <TilePane hgap="14.0" prefColumns="2" prefRows="2" prefTileHeight="300.0" prefTileWidth="400.0" prefWidth="400.0" styleClass="tile-container" tileAlignment="TOP_LEFT" vgap="14.0">
+                            <children>
+                                <VBox alignment="TOP_CENTER" styleClass="tile">
+                                    <TilePane.margin>
+                                        <Insets />
+                                    </TilePane.margin>
+                                    <padding>
+                                        <Insets bottom="14.0" left="14.0" right="14.0" top="14.0" />
+                                    </padding>
+                                    <children>
+                                        <HBox alignment="CENTER_RIGHT" styleClass="tile-header">
                                             <children>
-                                          <fx:include source="../images/trash-icon.fxml" />
-                                          </children>
-                                        </StackPane>
-                                       </graphic>
-                                       <tooltip>
-                                          <Tooltip text="Supprimer" />
-                                       </tooltip>
-                                    </Button>
-                                 </children>
-                              </HBox>
-                              <StackPane styleClass="play-preview-container" VBox.vgrow="ALWAYS">
-                                 <children>
-                                    <ImageView fitHeight="200.0" fitWidth="372.0" pickOnBounds="true" preserveRatio="true">
-                                       <image>
-                                          <Image url="@../images/built-in-playing-surfaces/hockey.png" />
-                                       </image>
-                                    </ImageView>
-                                 </children>
-                              </StackPane>
-                           </children>
-                         </VBox>
-                        <VBox alignment="TOP_CENTER" layoutX="24.0" layoutY="24.0" styleClass="tile">
-                           <padding>
-                              <Insets bottom="14.0" left="14.0" right="14.0" top="14.0" />
-                           </padding>
-                           <children>
-                              <HBox alignment="CENTER_RIGHT" styleClass="tile-header">
-                                 <children>
-                                    <StackPane alignment="TOP_LEFT" styleClass="play-title-container" HBox.hgrow="ALWAYS">
-                                       <children>
-                                          <Label styleClass="item-text" text="Jeu 2" />
-                                       </children>
-                                    </StackPane>
-                                    <Button styleClass="icon-button">
-                                       <graphic>
-                                           <StackPane stylesheets="@../images/trash-icon.fxml.css">
+                                                <StackPane alignment="TOP_LEFT" styleClass="play-title-container" HBox.hgrow="ALWAYS">
+                                                    <children>
+                                                        <Label styleClass="item-text" text="Jeu 1" />
+                                                    </children>
+                                                </StackPane>
+                                                <Button styleClass="icon-button">
+                                                    <graphic>
+                                                        <StackPane stylesheets="@../images/trash-icon.fxml.css">
+                                                            <children>
+                                                                <fx:include source="../images/trash-icon.fxml" />
+                                                            </children>
+                                                        </StackPane>
+                                                    </graphic>
+                                                    <tooltip>
+                                                        <Tooltip text="Supprimer" />
+                                                    </tooltip>
+                                                </Button>
+                                            </children>
+                                        </HBox>
+                                        <StackPane styleClass="play-preview-container" VBox.vgrow="ALWAYS">
                                             <children>
-                                          <fx:include source="../images/trash-icon.fxml" />
-                                          </children>
+                                                <ImageView fitHeight="200.0" fitWidth="372.0" pickOnBounds="true" preserveRatio="true">
+                                                    <image>
+                                                        <Image url="@../images/built-in-playing-surfaces/hockey.png" />
+                                                    </image>
+                                                </ImageView>
+                                            </children>
                                         </StackPane>
-                                       </graphic>
-                                       <tooltip>
-                                          <Tooltip text="Supprimer" />
-                                       </tooltip>
-                                    </Button>
-                                 </children>
-                              </HBox>
-                              <StackPane styleClass="play-preview-container" VBox.vgrow="ALWAYS">
-                                 <children>
-                                    <ImageView fitHeight="200.0" fitWidth="372.0" pickOnBounds="true" preserveRatio="true">
-                                       <image>
-                                          <Image url="@../images/built-in-playing-surfaces/hockey.png" />
-                                       </image>
-                                    </ImageView>
-                                 </children>
-                              </StackPane>
-                           </children>
-                        </VBox>
-                      </children>
-                      <padding>
-                         <Insets bottom="14.0" left="14.0" right="14.0" top="14.0" />
-                      </padding>
-                      <opaqueInsets>
-                         <Insets />
-                      </opaqueInsets>
-                   </TilePane>
-               </children>
-               <styleClass>
-                  <String fx:value="form-section" />
-                  <String fx:value="bordered" />
-               </styleClass>
-            </VBox>
-          </children>
-       </VBox>
+                                    </children>
+                                </VBox>
+                                <VBox alignment="TOP_CENTER" layoutX="24.0" layoutY="24.0" styleClass="tile">
+                                    <padding>
+                                        <Insets bottom="14.0" left="14.0" right="14.0" top="14.0" />
+                                    </padding>
+                                    <children>
+                                        <HBox alignment="CENTER_RIGHT" styleClass="tile-header">
+                                            <children>
+                                                <StackPane alignment="TOP_LEFT" styleClass="play-title-container" HBox.hgrow="ALWAYS">
+                                                    <children>
+                                                        <Label styleClass="item-text" text="Jeu 2" />
+                                                    </children>
+                                                </StackPane>
+                                                <Button styleClass="icon-button">
+                                                    <graphic>
+                                                        <StackPane stylesheets="@../images/trash-icon.fxml.css">
+                                                            <children>
+                                                                <fx:include source="../images/trash-icon.fxml" />
+                                                            </children>
+                                                        </StackPane>
+                                                    </graphic>
+                                                    <tooltip>
+                                                        <Tooltip text="Supprimer" />
+                                                    </tooltip>
+                                                </Button>
+                                            </children>
+                                        </HBox>
+                                        <StackPane styleClass="play-preview-container" VBox.vgrow="ALWAYS">
+                                            <children>
+                                                <ImageView fitHeight="200.0" fitWidth="372.0" pickOnBounds="true" preserveRatio="true">
+                                                    <image>
+                                                        <Image url="@../images/built-in-playing-surfaces/hockey.png" />
+                                                    </image>
+                                                </ImageView>
+                                            </children>
+                                        </StackPane>
+                                    </children>
+                                </VBox>
+                            </children>
+                            <padding>
+                                <Insets bottom="14.0" left="14.0" right="14.0" top="14.0" />
+                            </padding>
+                            <opaqueInsets>
+                                <Insets />
+                            </opaqueInsets>
+                        </TilePane>
+                    </children>
+                    <styleClass>
+                        <String fx:value="form-section" />
+                        <String fx:value="bordered" />
+                    </styleClass>
+                </VBox>
+            </children>
+        </VBox>
     </content>
-   <styleClass>
-      <String fx:value="edge-to-edge" />
-      <String fx:value="root-section-pane" />
-   </styleClass>
-   <stylesheets>
-      <URL value="@../css/play-list.fxml.css" />
-      <URL value="@../css/main.fxml.css" />
-   </stylesheets>
- </ScrollPane>
+    <styleClass>
+        <String fx:value="edge-to-edge" />
+        <String fx:value="root-node" />
+    </styleClass>
+    <stylesheets>
+        <URL value="@../css/play-list.fxml.css" />
+        <URL value="@../css/main.fxml.css" />
+    </stylesheets>
+</ScrollPane>

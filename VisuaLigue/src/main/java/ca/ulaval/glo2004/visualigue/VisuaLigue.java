@@ -1,8 +1,9 @@
 package ca.ulaval.glo2004.visualigue;
 
+import ca.ulaval.glo2004.visualigue.ui.controllers.MainSceneController;
 import java.io.IOException;
 import javafx.application.Application;
-import javafx.scene.Parent;
+import javafx.fxml.FXMLLoader;
 import javafx.scene.Scene;
 import javafx.scene.image.Image;
 import javafx.stage.Stage;
@@ -12,7 +13,6 @@ public class VisuaLigue extends Application {
     private static final int MIN_STAGE_WIDTH = 1000;
     private static final int MIN_STAGE_HEIGHT = 600;
     private static final String APP_NAME = "VisuaLigue";
-    private static final String MAIN_VIEW_NAME = "/views/main.fxml";
 
     @Override
     public void start(Stage stage) throws Exception {
@@ -20,8 +20,8 @@ public class VisuaLigue extends Application {
     }
 
     private void initStage(Stage stage) throws IOException {
-        Parent root = GuiceFXMLLoader.load(getClass().getResource(MAIN_VIEW_NAME));
-        Scene scene = new Scene(root);
+        FXMLLoader fxmlLoader = GuiceFXMLLoader.load(MainSceneController.VIEW_NAME);
+        Scene scene = new Scene(fxmlLoader.getRoot());
         stage.setScene(scene);
         setStageIcons(stage);
         stage.setTitle(APP_NAME);

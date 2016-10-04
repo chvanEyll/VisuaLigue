@@ -3,9 +3,9 @@ package ca.ulaval.glo2004.visualigue;
 import com.google.inject.Guice;
 import com.google.inject.Injector;
 import java.io.IOException;
-import java.net.URL;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javafx.fxml.FXMLLoader;
-import javafx.scene.Parent;
 
 public class GuiceFXMLLoader {
 
@@ -20,14 +20,14 @@ public class GuiceFXMLLoader {
         return GuiceFXMLLoaderHolder.INSTANCE;
     }
 
-    public static FXMLLoader createLoader(URL resource) {
-        FXMLLoader fxmlLoader = new FXMLLoader(resource);
+    public static FXMLLoader load(String viewName) {
+        FXMLLoader fxmlLoader = new FXMLLoader(GuiceFXMLLoader.class.getResource(viewName));
         fxmlLoader.setControllerFactory(injector::getInstance);
+        try {
+            fxmlLoader.load();
+        } catch (IOException ex) {
+            Logger.getLogger(GuiceFXMLLoader.class.getName()).log(Level.SEVERE, null, ex);
+        }
         return fxmlLoader;
-    }
-
-    public static Parent load(URL resource) throws IOException {
-        FXMLLoader fxmlLoader = createLoader(resource);
-        return fxmlLoader.load();
     }
 }

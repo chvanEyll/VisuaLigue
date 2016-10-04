@@ -10,34 +10,35 @@
 <?import javafx.scene.layout.VBox?>
 
 <ScrollPane fitToWidth="true" hbarPolicy="NEVER" AnchorPane.rightAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.topAnchor="0.0" AnchorPane.bottomAnchor="0.0" xmlns="http://javafx.com/javafx/8.0.60" xmlns:fx="http://javafx.com/fxml/1">
-   <content>
-      <VBox spacing="14.0">
-         <padding>
-            <Insets bottom="14.0" left="14.0" right="14.0" top="14.0" />
-         </padding>
-         <children>
-            <fx:include source="sport-selector.fxml" />
-            <AnchorPane>
-               <children>
-                  <HBox spacing="10.0" styleClass="button-group" AnchorPane.rightAnchor="0.0">
-                     <children>
-                        <Button defaultButton="true" layoutX="10.0" layoutY="10.0" mnemonicParsing="false" text="Annuler" textFill="#1895fd">
-                           <styleClass>
-                              <String fx:value="standard-button" />
-                              <String fx:value="default" />
-                           </styleClass></Button>
-                     </children>
-                  </HBox>
-               </children>
-            </AnchorPane>
-         </children>
-      </VBox>
-   </content>
-   <stylesheets>
-      <URL value="@../css/main.fxml.css" />
-   </stylesheets>
-   <styleClass>
-      <String fx:value="root-section-pane" />
-      <String fx:value="edge-to-edge" />
-   </styleClass>
+    <content>
+        <VBox spacing="14.0">
+            <padding>
+                <Insets bottom="14.0" left="14.0" right="14.0" top="14.0" />
+            </padding>
+            <children>
+                <fx:include source="sport-selector.fxml" />
+                <AnchorPane>
+                    <children>
+                        <HBox spacing="10.0" styleClass="button-group" AnchorPane.rightAnchor="0.0">
+                            <children>
+                                <Button defaultButton="true" layoutX="10.0" layoutY="10.0" mnemonicParsing="false" text="Annuler" textFill="#1895fd">
+                                    <styleClass>
+                                        <String fx:value="standard-button" />
+                                        <String fx:value="default" />
+                                    </styleClass>
+                                </Button>
+                            </children>
+                        </HBox>
+                    </children>
+                </AnchorPane>
+            </children>
+        </VBox>
+    </content>
+    <stylesheets>
+        <URL value="@../css/main.fxml.css" />
+    </stylesheets>
+    <styleClass>
+        <String fx:value="root-node" />
+        <String fx:value="edge-to-edge" />
+    </styleClass>
 </ScrollPane>

@@ -1,4 +1,4 @@
-.root-pane, .root-section-pane {
+.root-node {
     -fx-font-family: 'Source Sans Pro Light' ;
     -fx-font-size: 19;
     -fx-text-fill: black;
@@ -35,7 +35,7 @@
 }
 
 .main-menu .menu-item.active {
-     -fx-background-color: #1A1A1A;
+    -fx-background-color: #1A1A1A;
 }
 
 .main-menu .menu-item .label {

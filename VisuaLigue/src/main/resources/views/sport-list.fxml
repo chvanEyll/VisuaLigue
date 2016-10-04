@@ -12,50 +12,50 @@
 
 <ScrollPane fitToWidth="true" hbarPolicy="NEVER" pannable="true" AnchorPane.rightAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.topAnchor="0.0" AnchorPane.bottomAnchor="0.0" xmlns="http://javafx.com/javafx/8.0.60" xmlns:fx="http://javafx.com/fxml/1" fx:controller="ca.ulaval.glo2004.visualigue.ui.controllers.SportListController">
     <content>
-       <VBox spacing="10.0">
-          <padding>
-             <Insets bottom="14.0" left="14.0" right="14.0" top="14.0" />
-          </padding>
-          <children>
-             <Pane>
-                <children>
-                   <HBox alignment="CENTER_LEFT" fillHeight="false" spacing="7.0" styleClass="link-button">
-                      <children>
-                          <Pane stylesheets="@../images/plus-icon-blue.fxml.css">
+        <VBox spacing="10.0">
+            <padding>
+                <Insets bottom="14.0" left="14.0" right="14.0" top="14.0" />
+            </padding>
+            <children>
+                <Pane>
+                    <children>
+                        <HBox alignment="CENTER_LEFT" fillHeight="false" spacing="7.0" styleClass="link-button">
                             <children>
-                               <fx:include source="../images/plus-icon-blue.fxml" />
+                                <Pane stylesheets="@../images/plus-icon-blue.fxml.css">
+                                    <children>
+                                        <fx:include source="../images/plus-icon-blue.fxml" />
+                                    </children>
+                                </Pane>
+                                <Label text="Nouveau sport" />
                             </children>
-                         </Pane>
-                         <Label text="Nouveau sport" />
-                      </children>
-                   </HBox>
-                </children>
-             </Pane>
-            <VBox>
-               <children>
-                  <HBox alignment="CENTER_LEFT" prefHeight="38.0" styleClass="section-header">
-                     <children>
-                        <Label text="Liste des sports" />
-                     </children>
-                     <padding>
-                        <Insets left="10.0" />
-                     </padding>
-                  </HBox>
-                  <fx:include fx:id="sportSelector" source="sport-selector.fxml" />
-               </children>
-               <styleClass>
-                  <String fx:value="form-section" />
-                  <String fx:value="bordered" />
-               </styleClass>
-            </VBox>
-          </children>
-       </VBox>
+                        </HBox>
+                    </children>
+                </Pane>
+                <VBox>
+                    <children>
+                        <HBox alignment="CENTER_LEFT" prefHeight="38.0" styleClass="section-header">
+                            <children>
+                                <Label text="Liste des sports" />
+                            </children>
+                            <padding>
+                                <Insets left="10.0" />
+                            </padding>
+                        </HBox>
+                        <fx:include fx:id="sportSelector" source="sport-selector.fxml" />
+                    </children>
+                    <styleClass>
+                        <String fx:value="form-section" />
+                        <String fx:value="bordered" />
+                    </styleClass>
+                </VBox>
+            </children>
+        </VBox>
     </content>
-   <styleClass>
-      <String fx:value="edge-to-edge" />
-      <String fx:value="root-section-pane" />
-   </styleClass>
-   <stylesheets>
-      <URL value="@../css/main.fxml.css" />
-   </stylesheets>
- </ScrollPane>
+    <styleClass>
+        <String fx:value="edge-to-edge" />
+        <String fx:value="root-node" />
+    </styleClass>
+    <stylesheets>
+        <URL value="@../css/main.fxml.css" />
+    </stylesheets>
+</ScrollPane>

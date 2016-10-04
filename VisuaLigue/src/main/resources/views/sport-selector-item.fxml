@@ -1,20 +1,25 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
+<?import java.lang.String?>
 <?import javafx.geometry.Insets?>
 <?import javafx.scene.control.Label?>
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.layout.Pane?>
 <?import javafx.scene.layout.VBox?>
 
-<VBox fx:id="rootNode" alignment="TOP_CENTER" fillWidth="false" onMouseClicked="#onClick" styleClass="tile" xmlns="http://javafx.com/javafx/8.0.60" xmlns:fx="http://javafx.com/fxml/1" fx:controller="ca.ulaval.glo2004.visualigue.ui.controllers.SportSelectorItemController">
+<VBox fx:id="rootNode" alignment="TOP_CENTER" fillWidth="false" onMouseClicked="#onClick" xmlns="http://javafx.com/javafx/8.0.60" xmlns:fx="http://javafx.com/fxml/1" fx:controller="ca.ulaval.glo2004.visualigue.ui.controllers.SportSelectorItemController">
     <children>
         <AnchorPane VBox.vgrow="ALWAYS">
             <children>
-                <Label fx:id="sportName" alignment="CENTER" contentDisplay="CENTER" styleClass="item-text" text="${controller.sport.name}" wrapText="true" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0" />
+                <Label fx:id="sportName" alignment="CENTER" contentDisplay="CENTER" styleClass="item-text" text="${controller.sportModel.name}" wrapText="true" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0" />
             </children>
         </AnchorPane>
     </children>
     <padding>
         <Insets bottom="14.0" left="14.0" right="14.0" top="14.0" />
     </padding>
+    <styleClass>
+        <String fx:value="tile" />
+        <String fx:value="root-node" />
+    </styleClass>
 </VBox>

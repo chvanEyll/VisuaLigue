@@ -5,20 +5,14 @@ import ca.ulaval.glo2004.visualigue.services.SportService;
 import ca.ulaval.glo2004.visualigue.ui.models.SportModel;
 import ca.ulaval.glo2004.visualigue.utils.EventHandler;
 import ca.ulaval.visualigue.ui.converters.SportModelConverter;
-import java.io.IOException;
 import java.net.URL;
 import java.util.ResourceBundle;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
-import javafx.fxml.Initializable;
 import javafx.scene.layout.TilePane;
 import javax.inject.Inject;
 
-public class SportSelectorController implements Initializable {
-
-    public static final String ITEM_VIEW_NAME = "/views/sport-selector-item.fxml";
+public class SportSelectorController extends Controller {
 
     @Inject private SportService sportService;
     @Inject private SportModelConverter sportModelConverter;
@@ -33,16 +27,11 @@ public class SportSelectorController implements Initializable {
     }
 
     private void initSportItem(SportModel sportModel) {
-        FXMLLoader fxmlLoader = GuiceFXMLLoader.createLoader(getClass().getResource(ITEM_VIEW_NAME));
-        try {
-            fxmlLoader.load();
-        } catch (IOException ex) {
-            Logger.getLogger(SportSelectorController.class.getName()).log(Level.SEVERE, null, ex);
-        }
+        FXMLLoader fxmlLoader = GuiceFXMLLoader.load(SportSelectorItemController.VIEW_NAME);
         SportSelectorItemController controller = (SportSelectorItemController) fxmlLoader.getController();
-        controller.setModel(sportModel);
+        controller.setSportModel(sportModel);
         controller.onClick.addHandler(this::onSportItemClicked);
-        sportTilePane.getChildren().add(controller.getRootNode());
+        sportTilePane.getChildren().add(fxmlLoader.getRoot());
     }
 
     public void onSportItemClicked(Object sender, SportModel sportModel) {

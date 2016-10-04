@@ -1,12 +1,10 @@
 package ca.ulaval.glo2004.visualigue.ui.controllers;
 
 import ca.ulaval.glo2004.visualigue.GuiceFXMLLoader;
-import java.io.IOException;
 import java.net.URL;
 import java.util.ResourceBundle;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 import javafx.fxml.FXML;
+import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.Pane;
@@ -15,27 +13,22 @@ import javafx.scene.shape.Rectangle;
 
 public class MainSceneController implements Initializable {
 
+    public static final String VIEW_NAME = "/views/main.fxml";
     private static final int MENU_PANE_COLLAPSED_WIDTH = 58;
     private static final int MENU_PANE_EXTENDED_WIDTH = 170;
-    private static final String SPORT_LIST_VIEW_NAME = "/views/sport-list.fxml";
-    private static final String PLAY_LIST_VIEW_NAME = "/views/play-list.fxml";
 
-    @FXML
-    private VBox menuPane;
-    @FXML
-    private Pane logoPane;
-    @FXML
-    private HBox sportsMenuItem;
-    @FXML
-    private HBox playsMenuItem;
-    @FXML
-    private Pane contentPane;
+    @FXML private VBox menuPane;
+    @FXML private Pane logoPane;
+    @FXML private HBox sportsMenuItem;
+    @FXML private HBox playsMenuItem;
+    @FXML private Pane contentPane;
+    private FXMLLoader mainViewLoader;
     private boolean isMenuPaneCollapsed = false;
 
     @Override
     public void initialize(URL url, ResourceBundle rb) {
         collapseMenuPane();
-        loadView(PLAY_LIST_VIEW_NAME, playsMenuItem);
+
     }
 
     @FXML
@@ -69,23 +62,35 @@ public class MainSceneController implements Initializable {
 
     @FXML
     private void onSportsMenuItemClick() {
-        loadView(SPORT_LIST_VIEW_NAME, sportsMenuItem);
+        setMainView(GuiceFXMLLoader.load(SportListController.VIEW_NAME), sportsMenuItem);
     }
 
     @FXML
     private void onPlaysMenuItemClick() {
-        loadView(PLAY_LIST_VIEW_NAME, playsMenuItem);
+
     }
 
-    private void loadView(String viewName, HBox menuItem) {
-        try {
-            contentPane.getChildren().clear();
-            contentPane.getChildren().add(GuiceFXMLLoader.load(getClass().getResource(viewName)));
-        } catch (IOException ex) {
-            Logger.getLogger(MainSceneController.class.getName()).log(Level.SEVERE, null, ex);
-        }
+    private void setMainView(FXMLLoader fxmlLoader, HBox menuItem) {
         unselectAllMenus();
         menuItem.getStyleClass().add("active");
+        setView(fxmlLoader);
+        mainViewLoader = fxmlLoader;
+    }
+
+    private void setView(FXMLLoader fxmlLoader) {
+        Controller controller = fxmlLoader.getController();
+        controller.onViewChangeRequest.setHandler(this::onViewChangeRequestHandler);
+        controller.onViewCloseRequest.setHandler(this::onViewCloseRequestHandler);
+        contentPane.getChildren().clear();
+        contentPane.getChildren().add(fxmlLoader.getRoot());
+    }
+
+    private void onViewChangeRequestHandler(Object sender, FXMLLoader fxmlLoader) {
+        setView(fxmlLoader);
+    }
+
+    private void onViewCloseRequestHandler(Object sender, Object eventArgs) {
+        setView(mainViewLoader);
     }
 
     private void unselectAllMenus() {

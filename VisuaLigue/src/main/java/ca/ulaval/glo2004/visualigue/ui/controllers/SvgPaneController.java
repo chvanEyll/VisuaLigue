@@ -1,31 +1,27 @@
 package ca.ulaval.glo2004.visualigue.ui.controllers;
 
 import ca.ulaval.glo2004.visualigue.GuiceFXMLLoader;
-import java.io.IOException;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 import javafx.fxml.FXML;
+import javafx.fxml.FXMLLoader;
 import javafx.scene.Node;
 import javafx.scene.layout.Pane;
 
 public class SvgPaneController {
 
+    public static final String VIEW_NAME = "/views/svg-pane.fxml";
+
     @FXML
     private Pane rootNode;
 
-    public Pane getRootNode() {
+    public Node getRootNode() {
         return rootNode;
     }
 
     public void setSvg(String svgFileName) {
-        try {
-            Node svgNode = GuiceFXMLLoader.load(getClass().getResource(svgFileName + ".fxml"));
-            rootNode.getStylesheets().clear();
-            rootNode.getStylesheets().add(svgFileName + ".fxml.css");
-            rootNode.getChildren().add(svgNode);
-        } catch (IOException ex) {
-            Logger.getLogger(SvgPaneController.class.getName()).log(Level.SEVERE, null, ex);
-        }
+        FXMLLoader fxmlLoader = GuiceFXMLLoader.load(svgFileName + ".fxml");
+        rootNode.getStylesheets().clear();
+        rootNode.getStylesheets().add(svgFileName + ".fxml.css");
+        rootNode.getChildren().add(fxmlLoader.getRoot());
     }
 
 }
