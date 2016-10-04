@@ -2,11 +2,9 @@ package ca.ulaval.glo2004.visualigue.ui.controllers;
 
 import ca.ulaval.glo2004.visualigue.ui.models.SportModel;
 
-public class SportCreationStepController extends Controller {
+public abstract class SportCreationStepController extends Controller {
 
-    private SportModel sportModel;
+    protected SportModel sportModel;
 
-    public void setModel(SportModel sportModel) {
-        this.sportModel = sportModel;
-    }
+    public abstract void setSportModel(SportModel sportModel);
 }

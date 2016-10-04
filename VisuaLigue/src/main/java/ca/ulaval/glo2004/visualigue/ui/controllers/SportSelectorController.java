@@ -4,7 +4,7 @@ import ca.ulaval.glo2004.visualigue.GuiceFXMLLoader;
 import ca.ulaval.glo2004.visualigue.services.SportService;
 import ca.ulaval.glo2004.visualigue.ui.models.SportModel;
 import ca.ulaval.glo2004.visualigue.utils.EventHandler;
-import ca.ulaval.visualigue.ui.converters.SportModelConverter;
+import ca.ulaval.glo2004.visualigue.ui.converters.SportModelConverter;
 import java.net.URL;
 import java.util.ResourceBundle;
 import javafx.fxml.FXML;

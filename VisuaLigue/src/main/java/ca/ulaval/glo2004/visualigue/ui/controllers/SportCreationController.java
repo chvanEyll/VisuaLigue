@@ -3,9 +3,9 @@ package ca.ulaval.glo2004.visualigue.ui.controllers;
 import ca.ulaval.glo2004.visualigue.GuiceFXMLLoader;
 import ca.ulaval.glo2004.visualigue.domain.Sport;
 import ca.ulaval.glo2004.visualigue.services.SportService;
+import ca.ulaval.glo2004.visualigue.ui.converters.SportModelConverter;
 import ca.ulaval.glo2004.visualigue.ui.models.SportModel;
 import ca.ulaval.glo2004.visualigue.utils.FXUtils;
-import ca.ulaval.visualigue.ui.converters.SportModelConverter;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.control.Button;
@@ -40,7 +40,7 @@ public class SportCreationController extends Controller {
     private void setStep(int step) {
         FXMLLoader fxmlLoader = GuiceFXMLLoader.load(STEPS_VIEW_NAMES[step]);
         SportCreationStepController controller = (SportCreationStepController) fxmlLoader.getController();
-        controller.setModel(sportModel);
+        controller.setSportModel(sportModel);
         stepContent.getChildren().clear();
         stepContent.getChildren().add(fxmlLoader.getRoot());
         FXUtils.setDisplay(continueButton, step < NUMBER_OF_STEPS - 1);
