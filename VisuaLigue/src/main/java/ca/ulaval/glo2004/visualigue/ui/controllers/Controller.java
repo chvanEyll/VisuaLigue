@@ -9,9 +9,9 @@ import javafx.fxml.Initializable;
 
 public abstract class Controller implements Initializable {
 
-    public EventHandler<Object> onViewCloseRequest = new EventHandler();
-    public EventHandler<FXMLLoader> onViewChangeRequest = new EventHandler<>();
-    public EventHandler<FileSelectionEventArgs> onFileSelectionRequest = new EventHandler<>();
+    public EventHandler<Object> onViewCloseRequested = new EventHandler();
+    public EventHandler<FXMLLoader> onViewChangeRequested = new EventHandler<>();
+    public EventHandler<FileSelectionEventArgs> onFileSelectionRequested = new EventHandler<>();
 
     @Override
     public void initialize(URL location, ResourceBundle resources) {
@@ -19,9 +19,9 @@ public abstract class Controller implements Initializable {
     }
 
     public void clearHandlers() {
-        onViewCloseRequest.clear();
-        onViewChangeRequest.clear();
-        onFileSelectionRequest.clear();
+        onViewCloseRequested.clear();
+        onViewChangeRequested.clear();
+        onFileSelectionRequested.clear();
     }
 
     public abstract StringProperty getTitle();

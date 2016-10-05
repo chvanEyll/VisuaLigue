@@ -49,11 +49,11 @@ public class MainSceneController implements Initializable {
         setView(fxmlLoader);
     }
 
-    private void onViewChangeRequestHandler(Object sender, FXMLLoader fxmlLoader) {
+    private void onViewChangeRequestedHandler(Object sender, FXMLLoader fxmlLoader) {
         nextView(fxmlLoader);
     }
 
-    private void onViewCloseRequestHandler(Object sender, Object eventArgs) {
+    private void onViewCloseRequestedHandler(Object sender, Object eventArgs) {
         previousView();
     }
 
@@ -71,9 +71,9 @@ public class MainSceneController implements Initializable {
 
     private void setView(FXMLLoader view) {
         Controller controller = view.getController();
-        controller.onViewChangeRequest.setHandler(this::onViewChangeRequestHandler);
-        controller.onViewCloseRequest.setHandler(this::onViewCloseRequestHandler);
-        controller.onFileSelectionRequest.setHandler(this::onFileSelectRequestHandler);
+        controller.onViewChangeRequested.setHandler(this::onViewChangeRequestedHandler);
+        controller.onViewCloseRequested.setHandler(this::onViewCloseRequestedHandler);
+        controller.onFileSelectionRequested.setHandler(this::onFileSelectRequestHandler);
         contentPane.getChildren().clear();
         contentPane.getChildren().add(view.getRoot());
         sectionTitleLabel.textProperty().bind(controller.getTitle());

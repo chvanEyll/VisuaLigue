@@ -2,7 +2,7 @@ package ca.ulaval.glo2004.visualigue.ui.controllers.sportlist;
 
 import ca.ulaval.glo2004.visualigue.GuiceFXMLLoader;
 import ca.ulaval.glo2004.visualigue.ui.controllers.SvgPaneController;
-import ca.ulaval.glo2004.visualigue.ui.models.SportCreationModel;
+import ca.ulaval.glo2004.visualigue.ui.models.SportListItemModel;
 import ca.ulaval.glo2004.visualigue.utils.EventHandler;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
@@ -15,14 +15,14 @@ public class SportSelectorItemController {
 
     @FXML VBox rootNode;
     @FXML Label sportNameLabel;
-    private SportCreationModel model;
-    public EventHandler<SportCreationModel> onClick = new EventHandler();
+    private SportListItemModel model;
+    public EventHandler<SportListItemModel> onClick = new EventHandler();
 
-    public SportCreationModel getModel() {
+    public SportListItemModel getModel() {
         return model;
     }
 
-    public void init(SportCreationModel model) {
+    public void init(SportListItemModel model) {
         this.model = model;
         sportNameLabel.textProperty().bind(model.name);
         setSportImage(model.builtInIconFileName.get());

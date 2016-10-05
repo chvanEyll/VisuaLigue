@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import java.lang.String?>
+<?import java.net.URL?>
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.Pane?>
+
+<HBox alignment="CENTER_LEFT" fillHeight="false" xmlns="http://javafx.com/javafx/8.0.60" xmlns:fx="http://javafx.com/fxml/1" fx:controller="ca.ulaval.glo2004.visualigue.ui.controllers.BreadcrumbNavItemController">
+    <children>
+        <HBox fx:id="navigationArrow" alignment="CENTER_LEFT" fillHeight="false" layoutX="198.0" layoutY="10.0" minHeight="45.0" prefHeight="45.0" styleClass="breadcrumb-item">
+            <children>
+                <Pane stylesheets="@../images/breadcrumb-nav-arrow.fxml.css">
+                    <children>
+                        <fx:include source="../images/breadcrumb-nav-arrow.fxml" />
+                    </children>
+                </Pane>
+            </children>
+            <padding>
+                <Insets left="10.0" right="10.0" />
+            </padding>
+        </HBox>
+        <HBox fx:id="item" alignment="CENTER_LEFT" fillHeight="false" layoutX="208.0" layoutY="10.0" minHeight="45.0" prefHeight="45.0" onMouseClicked="#onClick" >
+            <children>
+                <Label fx:id="titleLabel" text="Title" />
+            </children>
+            <styleClass>
+                <String fx:value="breadcrumb-item" />
+                <String fx:value="breadcrumb-title-item" />
+            </styleClass>
+        </HBox>
+    </children>
+    <stylesheets>
+        <URL value="@../css/main.fxml.css" />
+        <URL value="@../css/breadcrumb-nav-bar.fxml.css" />
+    </stylesheets>
+</HBox>

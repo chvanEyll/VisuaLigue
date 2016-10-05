@@ -210,12 +210,17 @@
 .combo-box {
     -fx-border-color:  #CCCCCC;
     -fx-background-color:  white;
+    -fx-cursor: hand;
 }
 
 .combo-box .arrow-button {
     -fx-background-color:  #F3F1EF;
     -fx-border-color: #CCCCCC;
     -fx-border-width: 0 0 0 1;
+}
+
+.combo-box:hover .arrow-button {
+    -fx-background-color: #D9D5D3;
 }
 
 .spinner .increment-arrow-button, .spinner .decrement-arrow-button {

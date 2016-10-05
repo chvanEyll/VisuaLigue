@@ -17,7 +17,7 @@
                 <Insets bottom="14.0" left="14.0" right="14.0" top="14.0" />
             </padding>
             <children>
-                <fx:include source="breadcrumb-nav-bar.fxml" />
+                <fx:include fx:id="breadcrumbNav" source="breadcrumb-nav-bar.fxml" />
                 <VBox fx:id="stepContent" />
                 <AnchorPane>
                     <children>

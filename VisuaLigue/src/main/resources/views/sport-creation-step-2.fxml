@@ -35,15 +35,14 @@
                 <children>
                     <Label prefWidth="70.0" text="Largeur:" />
                     <Spinner fx:id="widthSpinner" editable="true" styleClass="arrows-on-right-horizontal" />
-                    <ComboBox fx:id="widthUnitComboBox" />
-                    <Label text="mètres" />
+                    <ComboBox fx:id="widthUnitComboBox" prefWidth="150" maxWidth="150" />
                 </children>
             </FlowPane>
             <FlowPane hgap="14.0" styleClass="horizontal-form-group" vgap="14.0">
                 <children>
                     <Label prefWidth="70.0" text="Longeur:" />
                     <Spinner fx:id="lengthSpinner" editable="true" styleClass="arrows-on-right-horizontal" />
-                    <ComboBox fx:id="lengthUnitComboBox" />
+                    <ComboBox fx:id="lengthUnitComboBox" prefWidth="150" maxWidth="150" />
                 </children>
             </FlowPane>
         </children>

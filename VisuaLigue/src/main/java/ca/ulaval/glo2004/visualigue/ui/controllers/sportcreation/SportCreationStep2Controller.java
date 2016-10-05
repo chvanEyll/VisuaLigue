@@ -4,6 +4,7 @@ import ca.ulaval.glo2004.visualigue.domain.PlayingSurfaceUnit;
 import ca.ulaval.glo2004.visualigue.ui.controllers.FileSelectionEventArgs;
 import ca.ulaval.glo2004.visualigue.ui.models.SportCreationModel;
 import ca.ulaval.glo2004.visualigue.utils.FXUtils;
+import java.io.File;
 import javafx.collections.FXCollections;
 import javafx.fxml.FXML;
 import javafx.scene.control.ComboBox;
@@ -42,9 +43,9 @@ public class SportCreationStep2Controller extends SportCreationStepController {
         lengthSpinner.setValueFactory(new DoubleSpinnerValueFactory(MIN_SIZE_VALUE, MAX_SIZE_VALUE, INITIAL_LENGTH_VALUE, STEP_SIZE_VALUE));
         lengthSpinner.getValueFactory().valueProperty().bindBidirectional(model.playingSurfaceLength);
         widthUnitComboBox.setItems(FXCollections.observableArrayList(PlayingSurfaceUnit.values()));
-        widthUnitComboBox.getSelectionModel().select(model.playingSurfaceWidthUnits);
+        widthUnitComboBox.getSelectionModel().select(model.playingSurfaceWidthUnits.get());
         lengthUnitComboBox.setItems(FXCollections.observableArrayList(PlayingSurfaceUnit.values()));
-        lengthUnitComboBox.getSelectionModel().select(model.playingSurfaceLengthUnits);
+        lengthUnitComboBox.getSelectionModel().select(model.playingSurfaceLengthUnits.get());
         updateImage(model.playingSurfaceImageFileName.getValue());
     }
 
@@ -54,7 +55,9 @@ public class SportCreationStep2Controller extends SportCreationStepController {
         } else {
             this.model.playingSurfaceImageFileName.set(imageFileName);
             imagePathLabel.textProperty().bindBidirectional(this.model.playingSurfaceImageFileName);
-            imageView.setImage(new Image(imageFileName));
+            File file = new File(imageFileName);
+            imageView.setImage(new Image(file.toURI().toString()));
+            FXUtils.setDisplay(imageView, true);
         }
     }
 
@@ -65,7 +68,7 @@ public class SportCreationStep2Controller extends SportCreationStepController {
         fileChooser.getExtensionFilters().addAll(new ExtensionFilter("Image Files", "*.png", "*.jpg", "*.jpeg", "*.bmp", "*.gif", "*.tiff"));
 
         FileSelectionEventArgs fileSelectionEventArgs = new FileSelectionEventArgs(fileChooser);
-        onFileSelectionRequest.fire(this, fileSelectionEventArgs);
+        onFileSelectionRequested.fire(this, fileSelectionEventArgs);
         if (fileSelectionEventArgs.selectedFile != null) {
             updateImage(fileSelectionEventArgs.selectedFile.getPath());
         }

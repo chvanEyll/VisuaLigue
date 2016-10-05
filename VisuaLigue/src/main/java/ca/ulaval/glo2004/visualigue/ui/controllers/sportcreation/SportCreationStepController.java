@@ -7,7 +7,7 @@ import ca.ulaval.glo2004.visualigue.utils.EventHandler;
 public abstract class SportCreationStepController {
 
     protected SportCreationModel model;
-    public EventHandler<FileSelectionEventArgs> onFileSelectionRequest = new EventHandler<>();
+    public EventHandler<FileSelectionEventArgs> onFileSelectionRequested = new EventHandler<>();
 
     public abstract void init(SportCreationModel model);
 }
