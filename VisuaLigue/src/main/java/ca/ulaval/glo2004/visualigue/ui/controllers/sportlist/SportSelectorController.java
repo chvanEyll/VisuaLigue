@@ -1,23 +1,24 @@
-package ca.ulaval.glo2004.visualigue.ui.controllers;
+package ca.ulaval.glo2004.visualigue.ui.controllers.sportlist;
 
 import ca.ulaval.glo2004.visualigue.GuiceFXMLLoader;
 import ca.ulaval.glo2004.visualigue.services.SportService;
-import ca.ulaval.glo2004.visualigue.ui.models.SportModel;
+import ca.ulaval.glo2004.visualigue.ui.converters.SportCreationModelConverter;
+import ca.ulaval.glo2004.visualigue.ui.models.SportCreationModel;
 import ca.ulaval.glo2004.visualigue.utils.EventHandler;
-import ca.ulaval.glo2004.visualigue.ui.converters.SportModelConverter;
 import java.net.URL;
 import java.util.ResourceBundle;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
+import javafx.fxml.Initializable;
 import javafx.scene.layout.TilePane;
 import javax.inject.Inject;
 
-public class SportSelectorController extends Controller {
+public class SportSelectorController implements Initializable {
 
     @Inject private SportService sportService;
-    @Inject private SportModelConverter sportModelConverter;
+    @Inject private SportCreationModelConverter sportModelConverter;
     @FXML private TilePane sportTilePane;
-    public EventHandler<SportModel> onSportSelected = new EventHandler<>();
+    public EventHandler<SportCreationModel> onSportSelected = new EventHandler<>();
 
     @Override
     public void initialize(URL url, ResourceBundle rb) {
@@ -26,15 +27,15 @@ public class SportSelectorController extends Controller {
         });
     }
 
-    private void initSportItem(SportModel sportModel) {
+    private void initSportItem(SportCreationModel model) {
         FXMLLoader fxmlLoader = GuiceFXMLLoader.load(SportSelectorItemController.VIEW_NAME);
         SportSelectorItemController controller = (SportSelectorItemController) fxmlLoader.getController();
-        controller.setSportModel(sportModel);
+        controller.init(model);
         controller.onClick.addHandler(this::onSportItemClicked);
         sportTilePane.getChildren().add(fxmlLoader.getRoot());
     }
 
-    public void onSportItemClicked(Object sender, SportModel sportModel) {
-        onSportSelected.fire(this, sportModel);
+    public void onSportItemClicked(Object sender, SportCreationModel model) {
+        onSportSelected.fire(this, model);
     }
 }

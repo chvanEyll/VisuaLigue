@@ -42,7 +42,7 @@
                 </Pane>
                 <HBox alignment="CENTER_LEFT" HBox.hgrow="ALWAYS">
                     <children>
-                        <Button alignment="CENTER_LEFT" prefWidth="41.0" styleClass="borderless-button">
+                        <Button fx:id="previousButton" alignment="CENTER_LEFT" prefWidth="41.0" styleClass="borderless-button" onMouseClicked="#onPreviousButtonClick">
                             <graphic>
                                 <StackPane stylesheets="@../images/previous-arrow.fxml.css">
                                     <children>
@@ -60,7 +60,8 @@
                                 <Tooltip text="Retour" />
                             </tooltip>
                         </Button>
-                        <Label styleClass="section-title" text="Sports" />
+                        <Pane fx:id="sectionTitleSpacer" prefWidth="14" />
+                        <Label fx:id="sectionTitleLabel" styleClass="section-title" text="Sports" />
                         <Button alignment="CENTER_LEFT" prefWidth="41.0" styleClass="borderless-button">
                             <graphic>
                                 <StackPane scaleX="0.75" scaleY="0.75" stylesheets="@../images/pen-icon.fxml.css">
@@ -88,60 +89,7 @@
         </HBox>
         <HBox VBox.vgrow="ALWAYS">
             <children>
-                <VBox fx:id="menuPane" minWidth="170.0" prefWidth="170.0" styleClass="main-menu">
-                    <children>
-                        <HBox alignment="CENTER_LEFT" prefHeight="50.0" styleClass="menu-toggle-container">
-                            <children>
-                                <VBox onMouseClicked="#onHamburgerIconClick" prefWidth="30.0" spacing="6.0" styleClass="menu-toggle">
-                                    <children>
-                                        <Line endX="30.0" stroke="WHITE" styleClass="line" />
-                                        <Line endX="30.0" stroke="WHITE" styleClass="line" />
-                                        <Line endX="30.0" stroke="WHITE" styleClass="line" />
-                                    </children>
-                                    <HBox.margin>
-                                        <Insets />
-                                    </HBox.margin>
-                                    <padding>
-                                        <Insets left="14.0" right="14.0" top="17.0" />
-                                    </padding>
-                                </VBox>
-                            </children>
-                        </HBox>
-                        <HBox fx:id="sportsMenuItem" alignment="CENTER_LEFT" fillHeight="false" layoutX="10.0" layoutY="10.0" onMouseClicked="#onSportsMenuItemClick" prefHeight="50.0" spacing="14.0" styleClass="menu-item">
-                            <padding>
-                                <Insets left="14.0" />
-                            </padding>
-                            <children>
-                                <Pane stylesheets="@../images/sport-icon.fxml.css">
-                                    <children>
-                                        <fx:include source="../images/sport-icon.fxml" />
-                                    </children>
-                                </Pane>
-                                <Label text="Sports" />
-                            </children>
-                            <VBox.margin>
-                                <Insets />
-                            </VBox.margin>
-                        </HBox>
-                        <HBox fx:id="playsMenuItem" alignment="CENTER_LEFT" fillHeight="false" layoutX="10.0" layoutY="60.0" onMouseClicked="#onPlaysMenuItemClick" prefHeight="50.0" spacing="14.0">
-                            <padding>
-                                <Insets left="14.0" />
-                            </padding>
-                            <children>
-                                <Pane stylesheets="@../images/play-icon.fxml.css">
-                                    <children>
-                                        <fx:include source="../images/play-icon.fxml" />
-                                    </children>
-                                </Pane>
-                                <Label text="Jeux" />
-                            </children>
-                            <styleClass>
-                                <String fx:value="menu-item" />
-                                <String fx:value="active" />
-                            </styleClass>
-                        </HBox>
-                    </children>
-                </VBox>
+                <fx:include fx:id="mainMenu" source="main-menu.fxml" />
                 <AnchorPane fx:id="contentPane" HBox.hgrow="ALWAYS" />
             </children>
         </HBox>

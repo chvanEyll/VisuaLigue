@@ -20,223 +20,197 @@
 <?import javafx.scene.layout.StackPane?>
 <?import javafx.scene.layout.VBox?>
 
-<ScrollPane fitToWidth="true" hbarPolicy="NEVER" AnchorPane.rightAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.topAnchor="0.0" AnchorPane.bottomAnchor="0.0" xmlns="http://javafx.com/javafx/8.0.60" xmlns:fx="http://javafx.com/fxml/1">
-    <content>
-        <VBox spacing="14.0">
-            <padding>
-                <Insets bottom="14.0" left="14.0" right="14.0" top="14.0" />
-            </padding>
-            <children>
-                <fx:include source="breadcrumb-nav-bar.fxml" />
-                <VBox spacing="14.0" styleClass="form-section">
-                    <children>
-                        <HBox alignment="CENTER_LEFT" prefHeight="38.0" styleClass="section-header">
-                            <children>
-                                <Label text="Catégories de joueurs" />
-                            </children>
-                            <padding>
-                                <Insets left="10.0" />
-                            </padding>
-                        </HBox>
-                        <GridPane maxWidth="500.0" vgap="5.0">
-                            <columnConstraints>
-                                <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
-                                <ColumnConstraints hgrow="SOMETIMES" maxWidth="41.0" minWidth="41.0" prefWidth="41.0" />
-                                <ColumnConstraints hgrow="SOMETIMES" maxWidth="41.0" minWidth="41.0" prefWidth="41.0" />
-                                <ColumnConstraints hgrow="SOMETIMES" maxWidth="7.0" minWidth="7.0" prefWidth="7.0" />
-                                <ColumnConstraints hgrow="SOMETIMES" maxWidth="41.0" minWidth="41.0" prefWidth="41100.0" />
-                                <ColumnConstraints hgrow="SOMETIMES" maxWidth="41.0" minWidth="41.0" prefWidth="41.0" />
-                            </columnConstraints>
-                            <rowConstraints>
-                                <RowConstraints maxHeight="41.0" minHeight="41.0" prefHeight="41.0" vgrow="SOMETIMES" />
-                                <RowConstraints maxHeight="41.0" minHeight="41.0" prefHeight="41.0" vgrow="SOMETIMES" />
-                                <RowConstraints vgrow="SOMETIMES" />
-                                <RowConstraints vgrow="SOMETIMES" />
-                            </rowConstraints>
-                            <children>
-                                <Button alignment="CENTER" GridPane.columnIndex="5">
-                                    <graphic>
-                                        <StackPane stylesheets="@../images/cross-icon.fxml.css">
-                                            <children>
-                                                <fx:include source="../images/cross-icon.fxml" />
-                                            </children>
-                                        </StackPane>
-                                    </graphic>
-                                    <tooltip>
-                                        <Tooltip text="Supprimer" />
-                                    </tooltip>
-                                    <styleClass>
-                                        <String fx:value="borderless-button" />
-                                        <String fx:value="standard-size" />
-                                    </styleClass>
-                                </Button>
-                                <Button alignment="CENTER" GridPane.columnIndex="4">
-                                    <graphic>
-                                        <StackPane stylesheets="@../images/pen-icon.fxml.css">
-                                            <children>
-                                                <fx:include source="../images/pen-icon.fxml" />
-                                            </children>
-                                        </StackPane>
-                                    </graphic>
-                                    <tooltip>
-                                        <Tooltip text="Modifier" />
-                                    </tooltip>
-                                    <styleClass>
-                                        <String fx:value="borderless-button" />
-                                        <String fx:value="standard-size" />
-                                    </styleClass>
-                                </Button>
-                                <Label text="Attaquant" />
-                                <Pane style="-fx-background-color: #0071BC;" styleClass="color-list-item" GridPane.columnIndex="2">
-                                    <GridPane.margin>
-                                        <Insets bottom="4.0" left="4.0" right="4.0" top="4.0" />
-                                    </GridPane.margin>
-                                </Pane>
-                                <Pane prefHeight="200.0" prefWidth="200.0" style="-fx-background-color: #C1272D;" styleClass="color-list-item" GridPane.columnIndex="1">
-                                    <GridPane.margin>
-                                        <Insets bottom="4.0" left="4.0" right="4.0" top="4.0" />
-                                    </GridPane.margin>
-                                </Pane>
-                                <Button alignment="CENTER" GridPane.columnIndex="5" GridPane.rowIndex="1">
-                                    <graphic>
-                                        <StackPane stylesheets="@../images/cross-icon.fxml.css">
-                                            <children>
-                                                <fx:include source="../images/cross-icon.fxml" />
-                                            </children>
-                                        </StackPane>
-                                    </graphic>
-                                    <tooltip>
-                                        <Tooltip text="Supprimer" />
-                                    </tooltip>
-                                    <styleClass>
-                                        <String fx:value="borderless-button" />
-                                        <String fx:value="standard-size" />
-                                    </styleClass>
-                                </Button>
-                                <Button alignment="CENTER" GridPane.columnIndex="4" GridPane.rowIndex="1">
-                                    <graphic>
-                                        <StackPane stylesheets="@../images/pen-icon.fxml.css">
-                                            <children>
-                                                <fx:include source="../images/pen-icon.fxml" />
-                                            </children>
-                                        </StackPane>
-                                    </graphic>
-                                    <tooltip>
-                                        <Tooltip text="Modifier" />
-                                    </tooltip>
-                                    <styleClass>
-                                        <String fx:value="borderless-button" />
-                                        <String fx:value="standard-size" />
-                                    </styleClass>
-                                </Button>
-                                <Label layoutX="10.0" layoutY="18.0" text="Gardien" GridPane.rowIndex="1" />
-                                <Pane layoutX="384.0" layoutY="14.0" style="-fx-background-color: #F7931E;" styleClass="color-list-item" GridPane.columnIndex="2" GridPane.rowIndex="1">
-                                    <GridPane.margin>
-                                        <Insets bottom="4.0" left="4.0" right="4.0" top="4.0" />
-                                    </GridPane.margin>
-                                </Pane>
-                                <Pane layoutX="343.0" layoutY="14.0" prefHeight="200.0" prefWidth="200.0" style="-fx-background-color: #F7931E;" styleClass="color-list-item" GridPane.columnIndex="1" GridPane.rowIndex="1">
-                                    <GridPane.margin>
-                                        <Insets bottom="4.0" left="4.0" right="4.0" top="4.0" />
-                                    </GridPane.margin>
-                                </Pane>
-                                <VBox spacing="14.0" style="-fx-background-color: #F3F1EF;" GridPane.columnSpan="5" GridPane.rowIndex="3">
+<VBox fx:id="rootNode" xmlns="http://javafx.com/javafx/8.0.60" xmlns:fx="http://javafx.com/fxml/1" fx:controller="ca.ulaval.glo2004.visualigue.ui.controllers.sportcreation.SportCreationStep3Controller">
+    <VBox spacing="14.0" styleClass="form-section">
+        <children>
+            <HBox alignment="CENTER_LEFT" prefHeight="38.0" styleClass="section-header">
+                <children>
+                    <Label text="Catégories de joueurs" />
+                </children>
+                <padding>
+                    <Insets left="10.0" />
+                </padding>
+            </HBox>
+            <GridPane maxWidth="500.0" vgap="5.0">
+                <columnConstraints>
+                    <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+                    <ColumnConstraints hgrow="SOMETIMES" maxWidth="41.0" minWidth="41.0" prefWidth="41.0" />
+                    <ColumnConstraints hgrow="SOMETIMES" maxWidth="41.0" minWidth="41.0" prefWidth="41.0" />
+                    <ColumnConstraints hgrow="SOMETIMES" maxWidth="7.0" minWidth="7.0" prefWidth="7.0" />
+                    <ColumnConstraints hgrow="SOMETIMES" maxWidth="41.0" minWidth="41.0" prefWidth="41100.0" />
+                    <ColumnConstraints hgrow="SOMETIMES" maxWidth="41.0" minWidth="41.0" prefWidth="41.0" />
+                </columnConstraints>
+                <rowConstraints>
+                    <RowConstraints maxHeight="41.0" minHeight="41.0" prefHeight="41.0" vgrow="SOMETIMES" />
+                    <RowConstraints maxHeight="41.0" minHeight="41.0" prefHeight="41.0" vgrow="SOMETIMES" />
+                    <RowConstraints vgrow="SOMETIMES" />
+                    <RowConstraints vgrow="SOMETIMES" />
+                </rowConstraints>
+                <children>
+                    <Button alignment="CENTER" GridPane.columnIndex="5">
+                        <graphic>
+                            <StackPane stylesheets="@../images/cross-icon.fxml.css">
+                                <children>
+                                    <fx:include source="../images/cross-icon.fxml" />
+                                </children>
+                            </StackPane>
+                        </graphic>
+                        <tooltip>
+                            <Tooltip text="Supprimer" />
+                        </tooltip>
+                        <styleClass>
+                            <String fx:value="borderless-button" />
+                            <String fx:value="standard-size" />
+                        </styleClass>
+                    </Button>
+                    <Button alignment="CENTER" GridPane.columnIndex="4">
+                        <graphic>
+                            <StackPane stylesheets="@../images/pen-icon.fxml.css">
+                                <children>
+                                    <fx:include source="../images/pen-icon.fxml" />
+                                </children>
+                            </StackPane>
+                        </graphic>
+                        <tooltip>
+                            <Tooltip text="Modifier" />
+                        </tooltip>
+                        <styleClass>
+                            <String fx:value="borderless-button" />
+                            <String fx:value="standard-size" />
+                        </styleClass>
+                    </Button>
+                    <Label text="Attaquant" />
+                    <Pane style="-fx-background-color: #0071BC;" styleClass="color-list-item" GridPane.columnIndex="2">
+                        <GridPane.margin>
+                            <Insets bottom="4.0" left="4.0" right="4.0" top="4.0" />
+                        </GridPane.margin>
+                    </Pane>
+                    <Pane prefHeight="200.0" prefWidth="200.0" style="-fx-background-color: #C1272D;" styleClass="color-list-item" GridPane.columnIndex="1">
+                        <GridPane.margin>
+                            <Insets bottom="4.0" left="4.0" right="4.0" top="4.0" />
+                        </GridPane.margin>
+                    </Pane>
+                    <Button alignment="CENTER" GridPane.columnIndex="5" GridPane.rowIndex="1">
+                        <graphic>
+                            <StackPane stylesheets="@../images/cross-icon.fxml.css">
+                                <children>
+                                    <fx:include source="../images/cross-icon.fxml" />
+                                </children>
+                            </StackPane>
+                        </graphic>
+                        <tooltip>
+                            <Tooltip text="Supprimer" />
+                        </tooltip>
+                        <styleClass>
+                            <String fx:value="borderless-button" />
+                            <String fx:value="standard-size" />
+                        </styleClass>
+                    </Button>
+                    <Button alignment="CENTER" GridPane.columnIndex="4" GridPane.rowIndex="1">
+                        <graphic>
+                            <StackPane stylesheets="@../images/pen-icon.fxml.css">
+                                <children>
+                                    <fx:include source="../images/pen-icon.fxml" />
+                                </children>
+                            </StackPane>
+                        </graphic>
+                        <tooltip>
+                            <Tooltip text="Modifier" />
+                        </tooltip>
+                        <styleClass>
+                            <String fx:value="borderless-button" />
+                            <String fx:value="standard-size" />
+                        </styleClass>
+                    </Button>
+                    <Label layoutX="10.0" layoutY="18.0" text="Gardien" GridPane.rowIndex="1" />
+                    <Pane layoutX="384.0" layoutY="14.0" style="-fx-background-color: #F7931E;" styleClass="color-list-item" GridPane.columnIndex="2" GridPane.rowIndex="1">
+                        <GridPane.margin>
+                            <Insets bottom="4.0" left="4.0" right="4.0" top="4.0" />
+                        </GridPane.margin>
+                    </Pane>
+                    <Pane layoutX="343.0" layoutY="14.0" prefHeight="200.0" prefWidth="200.0" style="-fx-background-color: #F7931E;" styleClass="color-list-item" GridPane.columnIndex="1" GridPane.rowIndex="1">
+                        <GridPane.margin>
+                            <Insets bottom="4.0" left="4.0" right="4.0" top="4.0" />
+                        </GridPane.margin>
+                    </Pane>
+                    <VBox spacing="14.0" style="-fx-background-color: #F3F1EF;" GridPane.columnSpan="5" GridPane.rowIndex="3">
+                        <children>
+                            <TextField promptText="Nom de la catégorie" />
+                            <FlowPane hgap="14.0" vgap="14.0">
+                                <children>
+                                    <Label prefWidth="130.0" text="Couleur alliée:" />
+                                    <ColorPicker style="-fx-color-label-visible: false;" />
+                                </children>
+                            </FlowPane>
+                            <FlowPane hgap="14.0" layoutX="10.0" layoutY="10.0" vgap="14.0">
+                                <children>
+                                    <Label prefWidth="130.0" text="Couleur adverse:" />
+                                    <ColorPicker style="-fx-color-label-visible: false;" />
+                                </children>
+                            </FlowPane>
+                            <FlowPane hgap="14.0" layoutX="10.0" layoutY="10.0" vgap="14.0">
+                                <children>
+                                    <Label text="Nombre de joueurs par défaut:" />
+                                    <Spinner editable="true" prefWidth="150.0" styleClass="arrows-on-right-horizontal" />
+                                </children>
+                            </FlowPane>
+                        </children>
+                        <padding>
+                            <Insets bottom="14.0" left="14.0" right="14.0" top="14.0" />
+                        </padding>
+                    </VBox>
+                    <VBox alignment="CENTER_RIGHT" style="-fx-background-color: #F3F1EF;" GridPane.columnIndex="5" GridPane.rowIndex="3">
+                        <Button alignment="CENTER">
+                            <graphic>
+                                <StackPane stylesheets="@../images/checkmark-icon.fxml.css">
                                     <children>
-                                        <TextField promptText="Nom de la catégorie" />
-                                        <FlowPane hgap="14.0" vgap="14.0">
-                                            <children>
-                                                <Label prefWidth="130.0" text="Couleur alliée:" />
-                                                <ColorPicker style="-fx-color-label-visible: false;" />
-                                            </children>
-                                        </FlowPane>
-                                        <FlowPane hgap="14.0" layoutX="10.0" layoutY="10.0" vgap="14.0">
-                                            <children>
-                                                <Label prefWidth="130.0" text="Couleur adverse:" />
-                                                <ColorPicker style="-fx-color-label-visible: false;" />
-                                            </children>
-                                        </FlowPane>
-                                        <FlowPane hgap="14.0" layoutX="10.0" layoutY="10.0" vgap="14.0">
-                                            <children>
-                                                <Label text="Nombre de joueurs par défaut:" />
-                                                <Spinner editable="true" prefWidth="150.0" styleClass="arrows-on-right-horizontal" />
-                                            </children>
-                                        </FlowPane>
+                                        <fx:include source="../images/checkmark-icon.fxml" />
                                     </children>
-                                    <padding>
-                                        <Insets bottom="14.0" left="14.0" right="14.0" top="14.0" />
-                                    </padding>
-                                </VBox>
-                                <VBox alignment="CENTER_RIGHT" style="-fx-background-color: #F3F1EF;" GridPane.columnIndex="5" GridPane.rowIndex="3">
-                                    <Button alignment="CENTER">
-                                        <graphic>
-                                            <StackPane stylesheets="@../images/checkmark-icon.fxml.css">
-                                                <children>
-                                                    <fx:include source="../images/checkmark-icon.fxml" />
-                                                </children>
-                                            </StackPane>
-                                        </graphic>
-                                        <tooltip>
-                                            <Tooltip text="Valider" />
-                                        </tooltip>
-                                        <styleClass>
-                                            <String fx:value="borderless-button" />
-                                            <String fx:value="standard-size" />
-                                        </styleClass>
-                                    </Button>
-                                    <Button alignment="CENTER">
-                                        <graphic>
-                                            <StackPane stylesheets="@../images/revert-icon.fxml.css">
-                                                <children>
-                                                    <fx:include source="../images/revert-icon.fxml" />
-                                                </children>
-                                            </StackPane>
-                                        </graphic>
-                                        <tooltip>
-                                            <Tooltip text="Annuler" />
-                                        </tooltip>
-                                        <styleClass>
-                                            <String fx:value="borderless-button" />
-                                            <String fx:value="standard-size" />
-                                        </styleClass>
-                                    </Button>
-                                </VBox>
-                            </children>
-                        </GridPane>
-                        <HBox alignment="CENTER_LEFT" fillHeight="false" spacing="7.0" styleClass="link-button">
-                            <children>
-                                <Pane stylesheets="@../images/plus-icon-blue.fxml.css">
+                                </StackPane>
+                            </graphic>
+                            <tooltip>
+                                <Tooltip text="Valider" />
+                            </tooltip>
+                            <styleClass>
+                                <String fx:value="borderless-button" />
+                                <String fx:value="standard-size" />
+                            </styleClass>
+                        </Button>
+                        <Button alignment="CENTER">
+                            <graphic>
+                                <StackPane stylesheets="@../images/revert-icon.fxml.css">
                                     <children>
-                                        <fx:include source="../images/plus-icon-blue.fxml" />
+                                        <fx:include source="../images/revert-icon.fxml" />
                                     </children>
-                                </Pane>
-                                <Label text="Ajouter une catégorie" />
-                            </children>
-                        </HBox>
-                    </children>
-                </VBox>
-                <AnchorPane>
-                    <children>
-                        <HBox spacing="10.0" styleClass="button-group" AnchorPane.rightAnchor="0.0">
-                            <children>
-                                <Button defaultButton="true" mnemonicParsing="false" text="Terminer" textFill="#1895fd">
-                                    <styleClass>
-                                        <String fx:value="default" />
-                                        <String fx:value="standard-button" />
-                                    </styleClass>
-                                </Button>
-                                <Button cancelButton="true" layoutX="10.0" layoutY="10.0" mnemonicParsing="false" styleClass="standard-button" text="Annuler" textFill="#1895fd" />
-                            </children>
-                        </HBox>
-                    </children>
-                </AnchorPane>
-            </children>
-        </VBox>
-    </content>
+                                </StackPane>
+                            </graphic>
+                            <tooltip>
+                                <Tooltip text="Annuler" />
+                            </tooltip>
+                            <styleClass>
+                                <String fx:value="borderless-button" />
+                                <String fx:value="standard-size" />
+                            </styleClass>
+                        </Button>
+                    </VBox>
+                </children>
+            </GridPane>
+            <HBox alignment="CENTER_LEFT" fillHeight="false" spacing="7.0" styleClass="link-button">
+                <children>
+                    <Pane stylesheets="@../images/plus-icon-blue.fxml.css">
+                        <children>
+                            <fx:include source="../images/plus-icon-blue.fxml" />
+                        </children>
+                    </Pane>
+                    <Label text="Ajouter une catégorie" />
+                </children>
+            </HBox>
+        </children>
+    </VBox>
     <stylesheets>
         <URL value="@../css/main.fxml.css" />
     </stylesheets>
     <styleClass>
         <String fx:value="root-node" />
-        <String fx:value="edge-to-edge" />
     </styleClass>
-</ScrollPane>
+</VBox>

@@ -1,42 +1,43 @@
-package ca.ulaval.glo2004.visualigue.ui.controllers;
+package ca.ulaval.glo2004.visualigue.ui.controllers.sportlist;
 
 import ca.ulaval.glo2004.visualigue.GuiceFXMLLoader;
-import ca.ulaval.glo2004.visualigue.ui.models.SportModel;
+import ca.ulaval.glo2004.visualigue.ui.controllers.SvgPaneController;
+import ca.ulaval.glo2004.visualigue.ui.models.SportCreationModel;
 import ca.ulaval.glo2004.visualigue.utils.EventHandler;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.control.Label;
 import javafx.scene.layout.VBox;
 
-public class SportSelectorItemController extends Controller {
+public class SportSelectorItemController {
 
     public static final String VIEW_NAME = "/views/sport-selector-item.fxml";
 
     @FXML VBox rootNode;
     @FXML Label sportNameLabel;
-    private SportModel sportModel;
-    public EventHandler<SportModel> onClick = new EventHandler();
+    private SportCreationModel model;
+    public EventHandler<SportCreationModel> onClick = new EventHandler();
 
-    public SportModel getSportModel() {
-        return sportModel;
+    public SportCreationModel getModel() {
+        return model;
     }
 
-    public void setSportModel(SportModel sportModel) {
-        this.sportModel = sportModel;
-        sportNameLabel.textProperty().bind(sportModel.name);
-        setSportImage(sportModel.builtInIconFileName.get());
+    public void init(SportCreationModel model) {
+        this.model = model;
+        sportNameLabel.textProperty().bind(model.name);
+        setSportImage(model.builtInIconFileName.get());
     }
 
     private void setSportImage(String sportImageFileName) {
         FXMLLoader fxmlLoader = GuiceFXMLLoader.load(SvgPaneController.VIEW_NAME);
         SvgPaneController controller = (SvgPaneController) fxmlLoader.getController();
-        controller.setSvg(sportImageFileName);
+        controller.init(sportImageFileName);
         rootNode.getChildren().add(0, controller.getRootNode());
     }
-    
+
     @FXML
     private void onClick() {
-        onClick.fire(this, sportModel);
+        onClick.fire(this, model);
     }
 
 }

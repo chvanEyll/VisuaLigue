@@ -3,10 +3,14 @@
 <?import java.lang.String?>
 <?import java.net.URL?>
 <?import javafx.geometry.Insets?>
+<?import javafx.collections.*?>
 <?import javafx.scene.control.Button?>
 <?import javafx.scene.control.Label?>
 <?import javafx.scene.control.ScrollPane?>
 <?import javafx.scene.control.Spinner?>
+<?import javafx.scene.control.ComboBox?>
+<?import javafx.scene.control.SpinnerValueFactory?>
+<?import javafx.scene.control.SpinnerValueFactory.IntegerSpinnerValueFactory?>
 <?import javafx.scene.image.Image?>
 <?import javafx.scene.image.ImageView?>
 <?import javafx.scene.layout.AnchorPane?>
@@ -14,95 +18,71 @@
 <?import javafx.scene.layout.HBox?>
 <?import javafx.scene.layout.Pane?>
 <?import javafx.scene.layout.VBox?>
+<?import javafx.scene.Group?>
 
-<ScrollPane fitToWidth="true" hbarPolicy="NEVER" AnchorPane.rightAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.topAnchor="0.0" AnchorPane.bottomAnchor="0.0" xmlns="http://javafx.com/javafx/8.0.60" xmlns:fx="http://javafx.com/fxml/1">
-    <content>
-        <VBox spacing="14.0">
-            <padding>
-                <Insets bottom="14.0" left="14.0" right="14.0" top="14.0" />
-            </padding>
-            <children>
-                <fx:include source="breadcrumb-nav-bar.fxml" />
-                <VBox spacing="14.0" styleClass="form-section">
-                    <children>
-                        <HBox alignment="CENTER_LEFT" prefHeight="38.0" styleClass="section-header">
-                            <children>
-                                <Label text="Dimensions réelles du terrain" />
-                            </children>
-                            <padding>
-                                <Insets left="10.0" />
-                            </padding>
-                        </HBox>
-                        <FlowPane hgap="14.0" styleClass="horizontal-form-group" vgap="14.0">
-                            <children>
-                                <Label prefWidth="70.0" text="Largeur:" />
-                                <Spinner editable="true" styleClass="arrows-on-right-horizontal" />
-                                <Label text="mètres" />
-                            </children>
-                        </FlowPane>
-                        <FlowPane hgap="14.0" styleClass="horizontal-form-group" vgap="14.0">
-                            <children>
-                                <Label prefWidth="70.0" text="Longeur:" />
-                                <Spinner editable="true" styleClass="arrows-on-right-horizontal" />
-                                <Label text="mètres" />
-                            </children>
-                        </FlowPane>
-                    </children>
-                </VBox>
-                <VBox spacing="14.0" styleClass="form-section">
-                    <children>
-                        <HBox alignment="CENTER_LEFT" prefHeight="38.0" styleClass="section-header">
-                            <children>
-                                <Label text="Image du terrain" />
-                            </children>
-                            <padding>
-                                <Insets left="10.0" />
-                            </padding>
-                        </HBox>
-                        <FlowPane hgap="14.0" styleClass="horizontal-form-group" vgap="14.0">
-                            <children>
-                                <Button mnemonicParsing="false" styleClass="standard-button" text="Sélectionner une image..." textFill="#1895fd" />
-                                <Label text="..\images\built-in-playing-surfaces\hockey.png" />
-                            </children>
-                        </FlowPane>
-                        <Pane>
-                            <children>
-                                <Pane style="-fx-border-color: #CCCCCC;">
-                                    <children>
-                                        <ImageView fitHeight="200.0" fitWidth="500.0" pickOnBounds="true" preserveRatio="true">
-                                            <image>
-                                                <Image url="@../images/built-in-playing-surfaces/hockey.png" />
-                                            </image>
-                                        </ImageView>
-                                    </children>
-                                </Pane>
-                            </children>
-                        </Pane>
-                    </children>
-                </VBox>
-                <AnchorPane>
-                    <children>
-                        <HBox spacing="10.0" styleClass="button-group" AnchorPane.rightAnchor="0.0">
-                            <children>
-                                <Button defaultButton="true" mnemonicParsing="false" text="Continuer" textFill="#1895fd">
-                                    <styleClass>
-                                        <String fx:value="default" />
-                                        <String fx:value="standard-button" />
-                                    </styleClass>
-                                </Button>
-                                <Button cancelButton="true" layoutX="10.0" layoutY="10.0" mnemonicParsing="false" styleClass="standard-button" text="Annuler" textFill="#1895fd" />
-                            </children>
-                        </HBox>
-                    </children>
-                </AnchorPane>
-            </children>
-        </VBox>
-    </content>
+<VBox fx:id="rootNode" spacing="14.0" xmlns="http://javafx.com/javafx/8.0.60" xmlns:fx="http://javafx.com/fxml/1" fx:controller="ca.ulaval.glo2004.visualigue.ui.controllers.sportcreation.SportCreationStep2Controller">
+    <VBox spacing="14.0" styleClass="form-section">
+        <children>
+            <HBox alignment="CENTER_LEFT" prefHeight="38.0" styleClass="section-header">
+                <children>
+                    <Label text="Dimensions réelles du terrain" />
+                </children>
+                <padding>
+                    <Insets left="10.0" />
+                </padding>
+            </HBox>
+            <FlowPane hgap="14.0" styleClass="horizontal-form-group" vgap="14.0">
+                <children>
+                    <Label prefWidth="70.0" text="Largeur:" />
+                    <Spinner fx:id="widthSpinner" editable="true" styleClass="arrows-on-right-horizontal" />
+                    <ComboBox fx:id="widthUnitComboBox" />
+                    <Label text="mètres" />
+                </children>
+            </FlowPane>
+            <FlowPane hgap="14.0" styleClass="horizontal-form-group" vgap="14.0">
+                <children>
+                    <Label prefWidth="70.0" text="Longeur:" />
+                    <Spinner fx:id="lengthSpinner" editable="true" styleClass="arrows-on-right-horizontal" />
+                    <ComboBox fx:id="lengthUnitComboBox" />
+                </children>
+            </FlowPane>
+        </children>
+    </VBox>
+    <VBox spacing="14.0" styleClass="form-section">
+        <children>
+            <HBox alignment="CENTER_LEFT" prefHeight="38.0" styleClass="section-header">
+                <children>
+                    <Label text="Image du terrain" />
+                </children>
+                <padding>
+                    <Insets left="10.0" />
+                </padding>
+            </HBox>
+            <FlowPane hgap="14.0" styleClass="horizontal-form-group" vgap="14.0">
+                <children>
+                    <Button mnemonicParsing="false" styleClass="standard-button" text="Sélectionner une image..." textFill="#1895fd" onMouseClicked="#onBrowseImageButtonClick" />
+                    <Label fx:id="imagePathLabel" text="..\images\built-in-playing-surfaces\hockey.png" />
+                </children>
+            </FlowPane>
+            <Pane>
+                <children>
+                    <Pane style="-fx-border-color: #CCCCCC;">
+                        <children>
+                            <ImageView fx:id="imageView" fitHeight="200.0" fitWidth="500.0" pickOnBounds="true" preserveRatio="true">
+                                <image>
+                                    <Image url="@../images/built-in-playing-surfaces/hockey.png" />
+                                </image>
+                            </ImageView>
+                        </children>
+                    </Pane>
+                </children>
+            </Pane>
+        </children>
+    </VBox>
     <stylesheets>
         <URL value="@../css/main.fxml.css" />
     </stylesheets>
     <styleClass>
         <String fx:value="root-node" />
-        <String fx:value="edge-to-edge" />
     </styleClass>
-</ScrollPane>
+</VBox>

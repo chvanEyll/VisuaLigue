@@ -16,14 +16,16 @@ public class VisuaLigue extends Application {
 
     @Override
     public void start(Stage stage) throws Exception {
-        initStage(stage);
+        FXMLLoader fxmlLoader = GuiceFXMLLoader.load(MainSceneController.VIEW_NAME);
+        MainSceneController mainSceneController = fxmlLoader.getController();
+        mainSceneController.setStage(stage);
+        Scene scene = new Scene(fxmlLoader.getRoot());
+        initStage(stage, scene);
     }
 
-    private void initStage(Stage stage) throws IOException {
-        FXMLLoader fxmlLoader = GuiceFXMLLoader.load(MainSceneController.VIEW_NAME);
-        Scene scene = new Scene(fxmlLoader.getRoot());
-        stage.setScene(scene);
+    private void initStage(Stage stage, Scene scene) throws IOException {
         setStageIcons(stage);
+        stage.setScene(scene);
         stage.setTitle(APP_NAME);
         stage.setMinWidth(MIN_STAGE_WIDTH);
         stage.setMinHeight(MIN_STAGE_HEIGHT);

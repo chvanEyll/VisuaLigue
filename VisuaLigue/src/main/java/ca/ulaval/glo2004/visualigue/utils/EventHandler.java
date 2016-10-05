@@ -17,6 +17,10 @@ public class EventHandler<T> {
         biConsumers.add(handler);
     }
 
+    public void clear() {
+        biConsumers.clear();
+    }
+
     public void fire(Object object, T eventArgs) {
         for (BiConsumer<Object, T> consumer : biConsumers) {
             consumer.accept(object, eventArgs);

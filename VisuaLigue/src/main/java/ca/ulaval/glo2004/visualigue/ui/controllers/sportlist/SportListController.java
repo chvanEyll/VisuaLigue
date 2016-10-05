@@ -1,14 +1,19 @@
-package ca.ulaval.glo2004.visualigue.ui.controllers;
+package ca.ulaval.glo2004.visualigue.ui.controllers.sportlist;
 
+import ca.ulaval.glo2004.visualigue.ui.controllers.sportcreation.SportCreationController;
 import ca.ulaval.glo2004.visualigue.GuiceFXMLLoader;
-import ca.ulaval.glo2004.visualigue.ui.models.SportModel;
+import ca.ulaval.glo2004.visualigue.ui.controllers.Controller;
+import ca.ulaval.glo2004.visualigue.ui.models.SportCreationModel;
 import java.net.URL;
 import java.util.ResourceBundle;
+import javafx.beans.property.SimpleStringProperty;
+import javafx.beans.property.StringProperty;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 
 public class SportListController extends Controller {
 
+    public static final String VIEW_TITLE = "Liste des sports";
     public static final String VIEW_NAME = "/views/sport-list.fxml";
     @FXML private SportSelectorController sportSelectorController;
 
@@ -17,10 +22,15 @@ public class SportListController extends Controller {
         sportSelectorController.onSportSelected.addHandler(this::onSportSelectedEventHandler);
     }
 
-    public void onSportSelectedEventHandler(Object sender, SportModel sportModel) {
+    @Override
+    public StringProperty getTitle() {
+        return new SimpleStringProperty(VIEW_TITLE);
+    }
+
+    public void onSportSelectedEventHandler(Object sender, SportCreationModel model) {
         FXMLLoader fxmlLoader = GuiceFXMLLoader.load(SportCreationController.VIEW_NAME);
         SportCreationController controller = (SportCreationController) fxmlLoader.getController();
-        controller.setSportModel(sportModel);
+        controller.init(model);
         onViewChangeRequest.fire(this, fxmlLoader);
     }
 }

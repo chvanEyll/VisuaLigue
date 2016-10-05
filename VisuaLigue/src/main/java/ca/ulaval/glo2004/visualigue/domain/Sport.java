@@ -3,7 +3,8 @@ package ca.ulaval.glo2004.visualigue.domain;
 public class Sport implements Comparable {
 
     private String name;
-    private String builtInIconFileName = "/images/sport-hockey-icon";
+    private String builtInIconFileName = "/images/generic-sport-icon";
+    private PlayingSurface playingSurface = new PlayingSurface();
 
     public Sport(String name) {
         this.name = name;
@@ -19,6 +20,14 @@ public class Sport implements Comparable {
 
     public void setBuiltInIconFileName(String builtInIconFileName) {
         this.builtInIconFileName = builtInIconFileName;
+    }
+
+    public PlayingSurface getPlayingSurface() {
+        return playingSurface;
+    }
+
+    public void setPlayingSurface(PlayingSurface playingSurface) {
+        this.playingSurface = playingSurface;
     }
 
     @Override

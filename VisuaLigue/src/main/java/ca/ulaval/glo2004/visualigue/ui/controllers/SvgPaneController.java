@@ -17,7 +17,7 @@ public class SvgPaneController {
         return rootNode;
     }
 
-    public void setSvg(String svgFileName) {
+    public void init(String svgFileName) {
         FXMLLoader fxmlLoader = GuiceFXMLLoader.load(svgFileName + ".fxml");
         rootNode.getStylesheets().clear();
         rootNode.getStylesheets().add(svgFileName + ".fxml.css");

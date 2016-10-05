@@ -207,6 +207,17 @@
     -fx-alignment: center;
 }
 
+.combo-box {
+    -fx-border-color:  #CCCCCC;
+    -fx-background-color:  white;
+}
+
+.combo-box .arrow-button {
+    -fx-background-color:  #F3F1EF;
+    -fx-border-color: #CCCCCC;
+    -fx-border-width: 0 0 0 1;
+}
+
 .spinner .increment-arrow-button, .spinner .decrement-arrow-button {
     -fx-background-color: #F3F1EF;
     -fx-border-color: #CCCCCC;
