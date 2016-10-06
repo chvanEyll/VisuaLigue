@@ -23,25 +23,13 @@
                     <children>
                         <HBox spacing="10.0" styleClass="button-group" AnchorPane.rightAnchor="0.0">
                             <children>
-                                <Button fx:id="continueButton" defaultButton="true" mnemonicParsing="false" onMouseClicked="#onContinueButtonClick" text="Continuer" textFill="#1895fd">
+                                <Button fx:id="defaultButton" defaultButton="true" mnemonicParsing="false" onAction="#onDefaultButtonAction" text="Continuer" textFill="#1895fd">
                                     <styleClass>
                                         <String fx:value="default" />
                                         <String fx:value="standard-button" />
                                     </styleClass>
                                 </Button>
-                                <Button fx:id="finishButton" defaultButton="true" mnemonicParsing="false" onMouseClicked="#onFinishButtonClick" text="Terminer" textFill="#1895fd">
-                                    <styleClass>
-                                        <String fx:value="default" />
-                                        <String fx:value="standard-button" />
-                                    </styleClass>
-                                </Button>
-                                <Button fx:id="saveButton" defaultButton="true" mnemonicParsing="false" onMouseClicked="#onSaveButtonClick" text="Sauvegarder" textFill="#1895fd">
-                                    <styleClass>
-                                        <String fx:value="default" />
-                                        <String fx:value="standard-button" />
-                                    </styleClass>
-                                </Button>
-                                <Button fx:id="cancelButton" cancelButton="true" layoutX="10.0" layoutY="10.0" mnemonicParsing="false" onMouseClicked="#onCancelButtonClick" styleClass="standard-button" text="Annuler" textFill="#1895fd" />
+                                <Button fx:id="cancelButton" cancelButton="true" layoutX="10.0" layoutY="10.0" mnemonicParsing="false" onAction="#onCancelButtonAction" styleClass="standard-button" text="Annuler" textFill="#1895fd" />
                             </children>
                         </HBox>
                     </children>

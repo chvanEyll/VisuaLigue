@@ -8,6 +8,7 @@ import ca.ulaval.glo2004.visualigue.ui.models.SportListItemModel;
 import ca.ulaval.glo2004.visualigue.utils.EventHandler;
 import java.net.URL;
 import java.util.ResourceBundle;
+import javafx.application.Platform;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
@@ -29,7 +30,7 @@ public class SportSelectorController implements Initializable {
     }
 
     private void onSportChangedHandler(Object sender, Sport sport) {
-        fillSportList();
+        Platform.runLater(() -> fillSportList());
     }
 
     private void fillSportList() {

@@ -11,7 +11,7 @@
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
 
-<TilePane fx:id="sportTilePane" hgap="14.0" prefTileHeight="150.0" prefTileWidth="150.0" prefWidth="150.0" styleClass="tile-container" tileAlignment="TOP_LEFT" vgap="14.0" HBox.hgrow="ALWAYS" xmlns="http://javafx.com/javafx/8.0.60" xmlns:fx="http://javafx.com/fxml/1" fx:controller="ca.ulaval.glo2004.visualigue.ui.controllers.sportlist.SportSelectorController">
+<TilePane fx:id="sportTilePane" hgap="14.0" prefTileHeight="150.0" prefTileWidth="150.0" prefWidth="150.0" tileAlignment="TOP_LEFT" vgap="14.0" HBox.hgrow="ALWAYS" xmlns="http://javafx.com/javafx/8.0.60" xmlns:fx="http://javafx.com/fxml/1" fx:controller="ca.ulaval.glo2004.visualigue.ui.controllers.sportlist.SportSelectorController">
     <children>
 
     </children>
@@ -23,11 +23,11 @@
     </opaqueInsets>
 
     <styleClass>
+        <String fx:value="tile-container" />
         <String fx:value="edge-to-edge" />
         <String fx:value="root-node" />
     </styleClass>
     <stylesheets>
-        <URL value="@../css/sport-selector.fxml.css" />
         <URL value="@../css/main.fxml.css" />
     </stylesheets>
 </TilePane>

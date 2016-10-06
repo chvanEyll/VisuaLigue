@@ -9,7 +9,6 @@ import ca.ulaval.glo2004.visualigue.ui.controllers.Controller;
 import ca.ulaval.glo2004.visualigue.ui.controllers.FileSelectionEventArgs;
 import ca.ulaval.glo2004.visualigue.ui.converters.SportCreationModelConverter;
 import ca.ulaval.glo2004.visualigue.ui.models.SportCreationModel;
-import ca.ulaval.glo2004.visualigue.utils.FXUtils;
 import javafx.beans.property.StringProperty;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
@@ -20,10 +19,8 @@ import javax.inject.Inject;
 public class SportCreationController extends Controller {
 
     @FXML VBox stepContent;
-    @FXML Button continueButton;
-    @FXML Button finishButton;
+    @FXML Button defaultButton;
     @FXML Button cancelButton;
-    @FXML Button saveButton;
     @FXML BreadcrumbNavController breadcrumbNavController;
 
     public static final String VIEW_TITLE = "Création d'un sport";
@@ -78,27 +75,30 @@ public class SportCreationController extends Controller {
             currentStepController.init(model);
             stepContent.getChildren().clear();
             stepContent.getChildren().add(fxmlLoader.getRoot());
-            FXUtils.setDisplay(continueButton, stepIndex < NUMBER_OF_STEPS - 1 && !model.hasAssociatedSport());
-            FXUtils.setDisplay(finishButton, stepIndex == NUMBER_OF_STEPS - 1 && !model.hasAssociatedSport());
-            FXUtils.setDisplay(saveButton, model.hasAssociatedSport());
+            if (!model.hasAssociatedSport() && currentStepIndex < NUMBER_OF_STEPS - 1) {
+                defaultButton.setText("Continuer");
+            } else if (!model.hasAssociatedSport() && currentStepIndex == NUMBER_OF_STEPS - 1) {
+                defaultButton.setText("Terminer");
+            } else if (model.hasAssociatedSport()) {
+                defaultButton.setText("Sauvegarder");
+            }
             breadcrumbNavController.setActiveItem(stepIndex);
             currentStepIndex = stepIndex;
         }
     }
 
-    public void onContinueButtonClick() {
-        setStep(currentStepIndex + 1);
+    public void onDefaultButtonAction() {
+        if (!model.hasAssociatedSport() && currentStepIndex < NUMBER_OF_STEPS - 1) {
+            setStep(currentStepIndex + 1);
+        } else if (!model.hasAssociatedSport() && currentStepIndex == NUMBER_OF_STEPS - 1) {
+            tryApplyChanges();
+        } else if (model.hasAssociatedSport()) {
+            tryApplyChanges();
+        }
+
     }
 
-    public void onFinishButtonClick() {
-        tryApplyChanges();
-    }
-
-    public void onSaveButtonClick() {
-        tryApplyChanges();
-    }
-
-    public void onCancelButtonClick() {
+    public void onCancelButtonAction() {
         onViewCloseRequested.fire(this, null);
     }
 

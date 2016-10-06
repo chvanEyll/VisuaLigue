@@ -37,7 +37,7 @@ public class SportCreationStep2Controller extends SportCreationStepController {
 
     @Override
     public void init(SportCreationModel sportCreation) {
-        this.model = sportCreation;
+        model = sportCreation;
         widthSpinner.setValueFactory(new DoubleSpinnerValueFactory(MIN_SIZE_VALUE, MAX_SIZE_VALUE, INITIAL_WIDTH_VALUE, STEP_SIZE_VALUE));
         widthSpinner.getValueFactory().valueProperty().bindBidirectional(model.playingSurfaceWidth);
         lengthSpinner.setValueFactory(new DoubleSpinnerValueFactory(MIN_SIZE_VALUE, MAX_SIZE_VALUE, INITIAL_LENGTH_VALUE, STEP_SIZE_VALUE));
@@ -47,6 +47,7 @@ public class SportCreationStep2Controller extends SportCreationStepController {
         lengthUnitComboBox.setItems(FXCollections.observableArrayList(PlayingSurfaceUnit.values()));
         lengthUnitComboBox.getSelectionModel().select(model.playingSurfaceLengthUnits.get());
         updateImage(model.playingSurfaceImageFileName.getValue());
+        FXUtils.requestFocusDelayed(widthSpinner);
     }
 
     private void updateImage(String imageFileName) {
