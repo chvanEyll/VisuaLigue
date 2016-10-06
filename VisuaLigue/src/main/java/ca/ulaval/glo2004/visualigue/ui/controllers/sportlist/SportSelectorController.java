@@ -1,7 +1,7 @@
 package ca.ulaval.glo2004.visualigue.ui.controllers.sportlist;
 
 import ca.ulaval.glo2004.visualigue.GuiceFXMLLoader;
-import ca.ulaval.glo2004.visualigue.domain.Sport;
+import ca.ulaval.glo2004.visualigue.domain.sport.Sport;
 import ca.ulaval.glo2004.visualigue.services.SportService;
 import ca.ulaval.glo2004.visualigue.ui.converters.SportListItemModelConverter;
 import ca.ulaval.glo2004.visualigue.ui.models.SportListItemModel;
@@ -24,7 +24,7 @@ public class SportSelectorController implements Initializable {
     @Override
     public void initialize(URL url, ResourceBundle rb) {
         sportService.getSports().stream().sorted().forEach(sport -> {
-            initSportItem(sportListItemModelConverter.Convert(sport));
+            initSportItem(sportListItemModelConverter.convert(sport));
         });
     }
 
@@ -37,6 +37,6 @@ public class SportSelectorController implements Initializable {
     }
 
     public void onItemClickedHandler(Object sender, SportListItemModel model) {
-        onSportSelected.fire(this, model.associatedEntity);
+        onSportSelected.fire(this, model.associatedSport);
     }
 }

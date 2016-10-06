@@ -1,7 +1,6 @@
 .root-node {
     -fx-font-family: 'Source Sans Pro Light' ;
     -fx-font-size: 19;
-    -fx-text-fill: black;
     -fx-background: white;
 }
 
@@ -84,13 +83,17 @@
     -fx-text-fill: white;
 }
 
-.form-group {
+.form-group.vertical {
     -fx-spacing: 7;
 }
 
-.horizontal-form-group {
+.form-group.horizontal {
     -fx-hgap: 14;
     -fx-vgap: 14;
+}
+
+.form-group .error-label {
+    -fx-text-fill: red;
 }
 
 .tile-container {

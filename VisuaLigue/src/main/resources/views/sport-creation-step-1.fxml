@@ -8,8 +8,21 @@
 
 <VBox fx:id="rootNode" spacing="7.0" xmlns="http://javafx.com/javafx/8.0.60" xmlns:fx="http://javafx.com/fxml/1" fx:controller="ca.ulaval.glo2004.visualigue.ui.controllers.sportcreation.SportCreationStep1Controller">
     <children>
-        <Label text="Nom du sport" />
-        <TextField fx:id="sportNameField" />
+        <VBox styleClass="form-section">
+            <children>
+                <VBox>
+                    <children>
+                        <Label text="Nom du sport" />
+                        <TextField fx:id="sportNameField" />
+                        <Label fx:id="sportNameErrorLabel" styleClass="error-label" text="Un sport portant ce nom existe déjà." />
+                    </children>
+                    <styleClass>
+                        <String fx:value="form-group" />
+                        <String fx:value="vertical" />
+                    </styleClass>
+                </VBox>
+            </children>
+        </VBox>
     </children>
     <stylesheets>
         <URL value="@../css/main.fxml.css" />

@@ -1,6 +1,6 @@
 package ca.ulaval.glo2004.visualigue.ui.controllers.sportcreation;
 
-import ca.ulaval.glo2004.visualigue.domain.PlayingSurfaceUnit;
+import ca.ulaval.glo2004.visualigue.domain.playingsurface.PlayingSurfaceUnit;
 import ca.ulaval.glo2004.visualigue.ui.controllers.FileSelectionEventArgs;
 import ca.ulaval.glo2004.visualigue.ui.models.SportCreationModel;
 import ca.ulaval.glo2004.visualigue.utils.FXUtils;

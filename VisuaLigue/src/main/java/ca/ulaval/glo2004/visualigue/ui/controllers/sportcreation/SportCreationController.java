@@ -1,7 +1,8 @@
 package ca.ulaval.glo2004.visualigue.ui.controllers.sportcreation;
 
 import ca.ulaval.glo2004.visualigue.GuiceFXMLLoader;
-import ca.ulaval.glo2004.visualigue.domain.Sport;
+import ca.ulaval.glo2004.visualigue.domain.sport.Sport;
+import ca.ulaval.glo2004.visualigue.domain.sport.SportNameAlreadyInUseException;
 import ca.ulaval.glo2004.visualigue.services.SportService;
 import ca.ulaval.glo2004.visualigue.ui.controllers.BreadcrumbNavController;
 import ca.ulaval.glo2004.visualigue.ui.controllers.Controller;
@@ -32,9 +33,12 @@ public class SportCreationController extends Controller {
         "/views/sport-creation-step-2.fxml",
         "/views/sport-creation-step-3.fxml"
     };
-    private static final int INITIAL_STEP = 0;
+    private static final int GENERAL_STEP_INDEX = 0;
+    private static final int PLAYING_SURFACE_STEP_INDEX = 1;
+    private static final int PLAYERS_STEP_INDEX = 2;
     private SportCreationModel model;
-    private int currentStepIndex;
+    private int currentStepIndex = -1;
+    private SportCreationStepController currentStepController;
     @Inject private SportService sportService;
     @Inject private SportCreationModelConverter sportCreationModelConverter;
 
@@ -43,13 +47,22 @@ public class SportCreationController extends Controller {
         return model.name;
     }
 
-    public void init(SportCreationModel model) {
-        this.model = model;
+    public void init() {
+        model = new SportCreationModel("Nouveau sport");
+        initView();
+    }
+
+    public void init(Sport sport) {
+        model = sportCreationModelConverter.convert(sport);
+        initView();
+    }
+
+    private void initView() {
         breadcrumbNavController.addItem("Général");
         breadcrumbNavController.addItem("Terrain");
         breadcrumbNavController.addItem("Joueurs");
         breadcrumbNavController.onItemClicked.addHandler(this::onBreadcrumNavItemClickedHandler);
-        setStep(INITIAL_STEP);
+        setStep(GENERAL_STEP_INDEX);
     }
 
     private void onBreadcrumNavItemClickedHandler(Object sender, Integer index) {
@@ -57,23 +70,25 @@ public class SportCreationController extends Controller {
     }
 
     private void setStep(int stepIndex) {
-        FXMLLoader fxmlLoader = GuiceFXMLLoader.load(STEPS_VIEW_NAMES[stepIndex]);
-        SportCreationStepController controller = (SportCreationStepController) fxmlLoader.getController();
-        controller.onFileSelectionRequested.setHandler(this::onFileSelectRequestedHandler);
-        controller.init(model);
-        stepContent.getChildren().clear();
-        stepContent.getChildren().add(fxmlLoader.getRoot());
-        FXUtils.setDisplay(continueButton, stepIndex < NUMBER_OF_STEPS - 1);
-        FXUtils.setDisplay(finishButton, stepIndex == NUMBER_OF_STEPS - 1);
-        breadcrumbNavController.setActiveItem(stepIndex);
-        currentStepIndex = stepIndex;
+        if (currentStepIndex != stepIndex) {
+            FXMLLoader fxmlLoader = GuiceFXMLLoader.load(STEPS_VIEW_NAMES[stepIndex]);
+            currentStepController = (SportCreationStepController) fxmlLoader.getController();
+            currentStepController.onFileSelectionRequested.setHandler(this::onFileSelectRequestedHandler);
+            currentStepController.init(model);
+            stepContent.getChildren().clear();
+            stepContent.getChildren().add(fxmlLoader.getRoot());
+            FXUtils.setDisplay(continueButton, stepIndex < NUMBER_OF_STEPS - 1);
+            FXUtils.setDisplay(finishButton, stepIndex == NUMBER_OF_STEPS - 1);
+            breadcrumbNavController.setActiveItem(stepIndex);
+            currentStepIndex = stepIndex;
+        }
     }
 
     public void onContinueButtonClick() {
         if (currentStepIndex < NUMBER_OF_STEPS - 1) {
             setStep(currentStepIndex + 1);
         } else {
-            createSport();
+            tryApplyChanges();
         }
     }
 
@@ -85,9 +100,24 @@ public class SportCreationController extends Controller {
         onFileSelectionRequested.fire(sender, eventArgs);
     }
 
-    public void createSport() {
-        Sport sport = sportCreationModelConverter.Convert(model);
-        sportService.createSport(sport);
+    public void tryApplyChanges() {
+        currentStepController.clearErrors();
+        try {
+            applyChanges();
+        } catch (SportNameAlreadyInUseException ex) {
+            setStep(GENERAL_STEP_INDEX);
+            currentStepController.showError(ex);
+        }
+    }
+
+    public void applyChanges() throws SportNameAlreadyInUseException {
+        if (model.hasAssociatedSport()) {
+            sportService.updateSport(model.associatedSport, model.name.get());
+        } else {
+            model.associatedSport = sportService.createSport(model.name.get());
+        }
+        sportService.updateSportPlayingSurface(model.associatedSport, model.playingSurfaceWidth.get(), model.playingSurfaceLength.get(), model.playingSurfaceWidthUnits.get(),
+                model.playingSurfaceLengthUnits.get(), model.playingSurfaceImageFileName.get());
         onViewCloseRequested.fire(this, null);
     }
 }

@@ -19,7 +19,7 @@
             <children>
                 <Pane>
                     <children>
-                        <HBox alignment="CENTER_LEFT" fillHeight="false" spacing="7.0" styleClass="link-button">
+                        <HBox alignment="CENTER_LEFT" fillHeight="false" spacing="7.0" styleClass="link-button" onMouseClicked="#onNewSportButtonClicked">
                             <children>
                                 <Pane stylesheets="@../images/plus-icon-blue.fxml.css">
                                     <children>

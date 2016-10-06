@@ -1,4 +1,4 @@
-package ca.ulaval.glo2004.visualigue.domain;
+package ca.ulaval.glo2004.visualigue.domain.playingsurface;
 
 public class PlayingSurface {
 

@@ -1,4 +1,6 @@
-package ca.ulaval.glo2004.visualigue.domain;
+package ca.ulaval.glo2004.visualigue.domain.sport;
+
+import ca.ulaval.glo2004.visualigue.domain.playingsurface.PlayingSurface;
 
 public class Sport implements Comparable {
 
@@ -12,6 +14,10 @@ public class Sport implements Comparable {
 
     public String getName() {
         return name;
+    }
+
+    public void setName(String name) {
+        this.name = name;
     }
 
     public String getBuiltInIconFileName() {

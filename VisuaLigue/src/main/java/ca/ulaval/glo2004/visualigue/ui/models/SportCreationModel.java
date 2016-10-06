@@ -1,15 +1,12 @@
 package ca.ulaval.glo2004.visualigue.ui.models;
 
-import ca.ulaval.glo2004.visualigue.domain.PlayingSurfaceUnit;
-import javafx.beans.property.DoubleProperty;
-import javafx.beans.property.ObjectProperty;
-import javafx.beans.property.SimpleDoubleProperty;
-import javafx.beans.property.SimpleObjectProperty;
-import javafx.beans.property.SimpleStringProperty;
-import javafx.beans.property.StringProperty;
+import ca.ulaval.glo2004.visualigue.domain.playingsurface.PlayingSurfaceUnit;
+import ca.ulaval.glo2004.visualigue.domain.sport.Sport;
+import javafx.beans.property.*;
 
 public class SportCreationModel {
 
+    public Sport associatedSport;
     public StringProperty name = new SimpleStringProperty("Nouveau sport");
     public StringProperty builtInIconFileName = new SimpleStringProperty("/images/generic-sport-icon");
     public DoubleProperty playingSurfaceWidth = new SimpleDoubleProperty(100.0);
@@ -20,5 +17,9 @@ public class SportCreationModel {
 
     public SportCreationModel(String name) {
         this.name.set(name);
+    }
+
+    public Boolean hasAssociatedSport() {
+        return associatedSport != null;
     }
 }
