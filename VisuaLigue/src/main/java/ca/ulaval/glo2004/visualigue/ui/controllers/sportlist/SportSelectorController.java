@@ -23,6 +23,17 @@ public class SportSelectorController implements Initializable {
 
     @Override
     public void initialize(URL url, ResourceBundle rb) {
+        sportService.onSportCreated.addHandler(this::onSportChangedHandler);
+        sportService.onSportUpdated.addHandler(this::onSportChangedHandler);
+        fillSportList();
+    }
+
+    private void onSportChangedHandler(Object sender, Sport sport) {
+        fillSportList();
+    }
+
+    private void fillSportList() {
+        sportTilePane.getChildren().clear();
         sportService.getSports().stream().sorted().forEach(sport -> {
             initSportItem(sportListItemModelConverter.convert(sport));
         });

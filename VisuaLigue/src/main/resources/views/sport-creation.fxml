@@ -29,7 +29,13 @@
                                         <String fx:value="standard-button" />
                                     </styleClass>
                                 </Button>
-                                <Button fx:id="finishButton" defaultButton="true" mnemonicParsing="false" onMouseClicked="#onContinueButtonClick" text="Continuer" textFill="#1895fd">
+                                <Button fx:id="finishButton" defaultButton="true" mnemonicParsing="false" onMouseClicked="#onFinishButtonClick" text="Terminer" textFill="#1895fd">
+                                    <styleClass>
+                                        <String fx:value="default" />
+                                        <String fx:value="standard-button" />
+                                    </styleClass>
+                                </Button>
+                                <Button fx:id="saveButton" defaultButton="true" mnemonicParsing="false" onMouseClicked="#onSaveButtonClick" text="Sauvegarder" textFill="#1895fd">
                                     <styleClass>
                                         <String fx:value="default" />
                                         <String fx:value="standard-button" />

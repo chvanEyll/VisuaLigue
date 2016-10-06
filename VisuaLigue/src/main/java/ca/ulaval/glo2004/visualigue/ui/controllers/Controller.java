@@ -25,4 +25,5 @@ public abstract class Controller implements Initializable {
     }
 
     public abstract StringProperty getTitle();
+
 }

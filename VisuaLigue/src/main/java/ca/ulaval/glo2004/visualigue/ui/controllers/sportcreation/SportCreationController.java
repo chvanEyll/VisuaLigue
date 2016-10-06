@@ -23,6 +23,7 @@ public class SportCreationController extends Controller {
     @FXML Button continueButton;
     @FXML Button finishButton;
     @FXML Button cancelButton;
+    @FXML Button saveButton;
     @FXML BreadcrumbNavController breadcrumbNavController;
 
     public static final String VIEW_TITLE = "Création d'un sport";
@@ -77,19 +78,24 @@ public class SportCreationController extends Controller {
             currentStepController.init(model);
             stepContent.getChildren().clear();
             stepContent.getChildren().add(fxmlLoader.getRoot());
-            FXUtils.setDisplay(continueButton, stepIndex < NUMBER_OF_STEPS - 1);
-            FXUtils.setDisplay(finishButton, stepIndex == NUMBER_OF_STEPS - 1);
+            FXUtils.setDisplay(continueButton, stepIndex < NUMBER_OF_STEPS - 1 && !model.hasAssociatedSport());
+            FXUtils.setDisplay(finishButton, stepIndex == NUMBER_OF_STEPS - 1 && !model.hasAssociatedSport());
+            FXUtils.setDisplay(saveButton, model.hasAssociatedSport());
             breadcrumbNavController.setActiveItem(stepIndex);
             currentStepIndex = stepIndex;
         }
     }
 
     public void onContinueButtonClick() {
-        if (currentStepIndex < NUMBER_OF_STEPS - 1) {
-            setStep(currentStepIndex + 1);
-        } else {
-            tryApplyChanges();
-        }
+        setStep(currentStepIndex + 1);
+    }
+
+    public void onFinishButtonClick() {
+        tryApplyChanges();
+    }
+
+    public void onSaveButtonClick() {
+        tryApplyChanges();
     }
 
     public void onCancelButtonClick() {

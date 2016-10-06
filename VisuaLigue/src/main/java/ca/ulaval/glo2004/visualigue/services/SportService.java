@@ -6,6 +6,7 @@ import ca.ulaval.glo2004.visualigue.domain.playingsurface.PlayingSurfaceUnit;
 import ca.ulaval.glo2004.visualigue.domain.sport.Sport;
 import ca.ulaval.glo2004.visualigue.domain.sport.SportFactory;
 import ca.ulaval.glo2004.visualigue.domain.sport.SportNameAlreadyInUseException;
+import ca.ulaval.glo2004.visualigue.utils.EventHandler;
 import java.util.HashSet;
 import java.util.Set;
 import javax.inject.Inject;
@@ -17,6 +18,9 @@ public class SportService {
     private final Set<Sport> sports = new HashSet<>();
     private final SportFactory sportFactory;
     private final PlayingSurfaceFactory playingSurfaceFactory;
+
+    public EventHandler<Sport> onSportCreated = new EventHandler<>();
+    public EventHandler<Sport> onSportUpdated = new EventHandler<>();
 
     @Inject
     public SportService(SportFactory sportFactory, PlayingSurfaceFactory playingSurfaceFactory) {
@@ -32,11 +36,13 @@ public class SportService {
         }
         Sport sport = sportFactory.create(name);
         sports.add(sport);
+        onSportCreated.fire(this, sport);
         return sport;
     }
 
     public void updateSport(Sport sport, String name) throws SportNameAlreadyInUseException {
         sport.setName(name);
+        onSportUpdated.fire(this, sport);
     }
 
     public void updateSportPlayingSurface(Sport sport, Double width, Double length, PlayingSurfaceUnit widthUnits, PlayingSurfaceUnit lengthUnits, String imageFileName) {
