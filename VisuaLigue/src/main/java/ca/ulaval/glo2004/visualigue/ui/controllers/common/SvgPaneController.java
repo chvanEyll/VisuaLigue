@@ -1,4 +1,4 @@
-package ca.ulaval.glo2004.visualigue.ui.controllers;
+package ca.ulaval.glo2004.visualigue.ui.controllers.common;
 
 import ca.ulaval.glo2004.visualigue.GuiceFXMLLoader;
 import javafx.fxml.FXML;

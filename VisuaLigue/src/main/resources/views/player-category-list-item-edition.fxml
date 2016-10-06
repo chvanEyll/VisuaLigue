@@ -1,0 +1,74 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import java.lang.String?>
+<?import java.net.URL?>
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.ColorPicker?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.ScrollPane?>
+<?import javafx.scene.control.Spinner?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.control.Tooltip?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.ColumnConstraints?>
+<?import javafx.scene.layout.FlowPane?>
+<?import javafx.scene.layout.GridPane?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.Pane?>
+<?import javafx.scene.layout.RowConstraints?>
+<?import javafx.scene.layout.StackPane?>
+<?import javafx.scene.layout.VBox?>
+
+<fx:root type="javafx.scene.layout.GridPane" xmlns="http://javafx.com/javafx/8.0.60" xmlns:fx="http://javafx.com/fxml/1" fx:controller="ca.ulaval.glo2004.visualigue.ui.controllers.sportcreation.PlayerCategoryListItemEditionController">
+    <VBox spacing="14.0" style="-fx-background-color: #F3F1EF;" GridPane.columnSpan="5">
+        <children>
+            <TextField promptText="Nom de la catégorie" />
+            <FlowPane hgap="14.0" vgap="14.0">
+                <children>
+                    <Label prefWidth="130.0" text="Couleur alliée:" />
+                    <ColorPicker fx:id="allyColorPicker" style="-fx-color-label-visible: false;" />
+                </children>
+            </FlowPane>
+            <FlowPane hgap="14.0" layoutX="10.0" layoutY="10.0" vgap="14.0">
+                <children>
+                    <Label prefWidth="130.0" text="Couleur adverse:" />
+                    <ColorPicker fx:id="opponentColorPicker" style="-fx-color-label-visible: false;" />
+                </children>
+            </FlowPane>
+            <FlowPane hgap="14.0" layoutX="10.0" layoutY="10.0" vgap="14.0">
+                <children>
+                    <Label text="Nombre de joueurs par défaut:" />
+                    <Spinner fx:id="defaultNumberOfPlayersSpinner" editable="true" prefWidth="150.0" styleClass="arrows-on-right-horizontal" />
+                </children>
+            </FlowPane>
+        </children>
+        <padding>
+            <Insets bottom="14.0" left="14.0" right="14.0" top="14.0" />
+        </padding>
+    </VBox>
+    <VBox alignment="CENTER_RIGHT" style="-fx-background-color: #F3F1EF;" GridPane.columnIndex="5">
+        <Button alignment="CENTER" defaultButton="true" onAction="#onValidateButtonAction">
+            <graphic>
+                <StackPane stylesheets="@../images/checkmark-icon.fxml.css">
+                    <children>
+                        <fx:include source="../images/checkmark-icon.fxml" />
+                    </children>
+                </StackPane>
+            </graphic>
+            <tooltip>
+                <Tooltip text="Valider" />
+            </tooltip>
+            <styleClass>
+                <String fx:value="borderless-button" />
+                <String fx:value="standard-size" />
+            </styleClass>
+        </Button>
+    </VBox>
+    <stylesheets>
+        <URL value="@../css/main.fxml.css" />
+    </stylesheets>
+    <styleClass>
+        <String fx:value="root-node" />
+    </styleClass>
+</fx:root>

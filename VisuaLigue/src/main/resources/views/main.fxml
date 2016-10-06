@@ -42,7 +42,7 @@
                 </Pane>
                 <HBox alignment="CENTER_LEFT" HBox.hgrow="ALWAYS">
                     <children>
-                        <Button fx:id="previousButton" alignment="CENTER_LEFT" prefWidth="41.0" styleClass="borderless-button" onMouseClicked="#onPreviousButtonClick">
+                        <Button fx:id="previousButton" alignment="CENTER_LEFT" prefWidth="41.0" styleClass="borderless-button" onAction="#onPreviousButtonAction">
                             <graphic>
                                 <StackPane stylesheets="@../images/previous-arrow.fxml.css">
                                     <children>

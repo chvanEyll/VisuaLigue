@@ -19,7 +19,7 @@ public class SportListController extends Controller {
 
     @Override
     public void initialize(URL url, ResourceBundle rb) {
-        sportSelectorController.onSportSelected.addHandler(this::onSportSelectedEventHandler);
+        sportSelectorController.onSportSelected.setHandler(this::onSportSelectedEventHandler);
     }
 
     @Override

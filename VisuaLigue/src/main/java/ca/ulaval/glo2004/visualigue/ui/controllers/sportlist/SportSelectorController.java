@@ -24,8 +24,8 @@ public class SportSelectorController implements Initializable {
 
     @Override
     public void initialize(URL url, ResourceBundle rb) {
-        sportService.onSportCreated.addHandler(this::onSportChangedHandler);
-        sportService.onSportUpdated.addHandler(this::onSportChangedHandler);
+        sportService.onSportCreated.setHandler(this::onSportChangedHandler);
+        sportService.onSportUpdated.setHandler(this::onSportChangedHandler);
         fillSportList();
     }
 
@@ -44,7 +44,7 @@ public class SportSelectorController implements Initializable {
         FXMLLoader fxmlLoader = GuiceFXMLLoader.load(SportSelectorItemController.VIEW_NAME);
         SportSelectorItemController controller = (SportSelectorItemController) fxmlLoader.getController();
         controller.init(model);
-        controller.onClick.addHandler(this::onItemClickedHandler);
+        controller.onClick.setHandler(this::onItemClickedHandler);
         sportTilePane.getChildren().add(fxmlLoader.getRoot());
     }
 

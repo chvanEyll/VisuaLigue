@@ -59,7 +59,7 @@
             </HBox>
             <FlowPane hgap="14.0" styleClass="form-group horizontal" vgap="14.0">
                 <children>
-                    <Button mnemonicParsing="false" styleClass="standard-button" text="Sélectionner une image..." textFill="#1895fd" onMouseClicked="#onBrowseImageButtonClick" />
+                    <Button mnemonicParsing="false" styleClass="standard-button" text="Sélectionner une image..." textFill="#1895fd" onAction="#onBrowseImageButtonAction" />
                     <Label fx:id="imagePathLabel" text="..\images\built-in-playing-surfaces\hockey.png" />
                 </children>
             </FlowPane>

@@ -1,9 +1,4 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
-package ca.ulaval.glo2004.visualigue.ui.controllers;
+package ca.ulaval.glo2004.visualigue.ui.controllers.common;
 
 import ca.ulaval.glo2004.visualigue.GuiceFXMLLoader;
 import ca.ulaval.glo2004.visualigue.utils.EventHandler;
@@ -23,13 +18,13 @@ public class BreadcrumbNavController {
         FXMLLoader fxmlLoader = GuiceFXMLLoader.load(BreadcrumbNavItemController.VIEW_NAME);
         BreadcrumbNavItemController controller = (BreadcrumbNavItemController) fxmlLoader.getController();
         controller.init(title, items.size() > 0);
-        controller.onClick.addHandler(this::onItemClickedHandler);
+        controller.onClick.setHandler(this::onItemClickedHandler);
         rootNode.getChildren().add(rootNode.getChildren().size() - 1, fxmlLoader.getRoot());
         items.add(controller);
     }
 
     public void setActiveItem(Integer itemIndex) {
-        items.stream().forEach(item -> {
+        items.forEach(item -> {
             item.setActive(item == items.get(itemIndex));
         });
     }

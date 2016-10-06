@@ -29,7 +29,7 @@ public class MainMenuController {
     }
 
     @FXML
-    private void onHamburgerIconClick() {
+    public void onHamburgerIconClick() {
         if (!isMenuPaneCollapsed) {
             collapseMenuPane();
         } else {
@@ -58,12 +58,12 @@ public class MainMenuController {
     }
 
     @FXML
-    private void onSportsMenuItemClick() {
+    public void onSportsMenuItemClick() {
         processMenuClick(SportListController.VIEW_NAME, sportsMenuItem);
     }
 
     @FXML
-    private void onPlaysMenuItemClick() {
+    public void onPlaysMenuItemClick() {
 
     }
 
@@ -74,7 +74,7 @@ public class MainMenuController {
     }
 
     private void unselectAllMenus() {
-        menuPane.getChildren().stream().forEach(n -> {
+        menuPane.getChildren().forEach(n -> {
             n.getStyleClass().remove("active");
         });
     }

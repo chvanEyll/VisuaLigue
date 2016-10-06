@@ -7,7 +7,7 @@
 <?import javafx.scene.layout.HBox?>
 <?import javafx.scene.layout.Pane?>
 
-<HBox alignment="CENTER_LEFT" fillHeight="false" xmlns="http://javafx.com/javafx/8.0.60" xmlns:fx="http://javafx.com/fxml/1" fx:controller="ca.ulaval.glo2004.visualigue.ui.controllers.BreadcrumbNavItemController">
+<HBox alignment="CENTER_LEFT" fillHeight="false" xmlns="http://javafx.com/javafx/8.0.60" xmlns:fx="http://javafx.com/fxml/1" fx:controller="ca.ulaval.glo2004.visualigue.ui.controllers.common.BreadcrumbNavItemController">
     <children>
         <HBox fx:id="navigationArrow" alignment="CENTER_LEFT" fillHeight="false" layoutX="198.0" layoutY="10.0" minHeight="45.0" prefHeight="45.0" styleClass="breadcrumb-item">
             <children>

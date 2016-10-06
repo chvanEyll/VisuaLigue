@@ -1,0 +1,76 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import java.lang.String?>
+<?import java.net.URL?>
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.ColorPicker?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.ScrollPane?>
+<?import javafx.scene.control.Spinner?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.control.Tooltip?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.ColumnConstraints?>
+<?import javafx.scene.layout.FlowPane?>
+<?import javafx.scene.layout.GridPane?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.Pane?>
+<?import javafx.scene.layout.RowConstraints?>
+<?import javafx.scene.layout.StackPane?>
+<?import javafx.scene.layout.VBox?>
+
+<fx:root type="javafx.scene.Group" xmlns="http://javafx.com/javafx/8.0.60" xmlns:fx="http://javafx.com/fxml/1" fx:controller="ca.ulaval.glo2004.visualigue.ui.controllers.sportcreation.PlayerCategoryListItemController">
+    <children>
+        <Label fx:id="nameLabel" text="Attaquant" />
+        <Pane fx:id="allyColorPane" style="-fx-background-color: #C1272D;" styleClass="color-list-item">
+            <GridPane.margin>
+                <Insets bottom="4.0" left="4.0" right="4.0" top="4.0" />
+            </GridPane.margin>
+        </Pane>
+        <Pane fx:id="opponentColorPane" style="-fx-background-color: #0071BC;" styleClass="color-list-item">
+            <GridPane.margin>
+                <Insets bottom="4.0" left="4.0" right="4.0" top="4.0" />
+            </GridPane.margin>
+        </Pane>
+        <Pane/>
+        <Button fx:id="editButton" onAction="#onEditButtonAction" alignment="CENTER">
+            <graphic>
+                <StackPane stylesheets="@../images/pen-icon.fxml.css">
+                    <children>
+                        <fx:include source="../images/pen-icon.fxml" />
+                    </children>
+                </StackPane>
+            </graphic>
+            <tooltip>
+                <Tooltip text="Modifier" />
+            </tooltip>
+            <styleClass>
+                <String fx:value="borderless-button" />
+                <String fx:value="standard-size" />
+            </styleClass>
+        </Button>
+        <Button fx:id="deleteButton" onAction="#onDeleteButtonAction" alignment="CENTER">
+            <graphic>
+                <StackPane stylesheets="@../images/cross-icon.fxml.css">
+                    <children>
+                        <fx:include source="../images/cross-icon.fxml" />
+                    </children>
+                </StackPane>
+            </graphic>
+            <tooltip>
+                <Tooltip text="Supprimer" />
+            </tooltip>
+            <styleClass>
+                <String fx:value="borderless-button" />
+                <String fx:value="standard-size" />
+            </styleClass>
+        </Button>
+    </children>
+    <stylesheets>
+        <URL value="@../css/main.fxml.css" />
+    </stylesheets>
+    <styleClass>
+        <String fx:value="root-node" />
+    </styleClass>
+</fx:root>

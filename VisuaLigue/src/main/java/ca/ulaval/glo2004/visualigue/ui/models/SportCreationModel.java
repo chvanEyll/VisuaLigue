@@ -3,6 +3,7 @@ package ca.ulaval.glo2004.visualigue.ui.models;
 import ca.ulaval.glo2004.visualigue.domain.playingsurface.PlayingSurfaceUnit;
 import ca.ulaval.glo2004.visualigue.domain.sport.Sport;
 import javafx.beans.property.*;
+import javafx.collections.ObservableList;
 
 public class SportCreationModel {
 
@@ -14,6 +15,7 @@ public class SportCreationModel {
     public StringProperty playingSurfaceImageFileName = new SimpleStringProperty();
     public ObjectProperty<PlayingSurfaceUnit> playingSurfaceWidthUnits = new SimpleObjectProperty<>(PlayingSurfaceUnit.METER);
     public ObjectProperty<PlayingSurfaceUnit> playingSurfaceLengthUnits = new SimpleObjectProperty<>(PlayingSurfaceUnit.METER);
+    public ObservableList<PlayerCategoryModel> playerCategories = new SimpleListProperty<>();
 
     public SportCreationModel(String name) {
         this.name.set(name);

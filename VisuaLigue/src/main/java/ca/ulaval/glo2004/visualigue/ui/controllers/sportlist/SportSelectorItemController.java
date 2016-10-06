@@ -1,7 +1,7 @@
 package ca.ulaval.glo2004.visualigue.ui.controllers.sportlist;
 
 import ca.ulaval.glo2004.visualigue.GuiceFXMLLoader;
-import ca.ulaval.glo2004.visualigue.ui.controllers.SvgPaneController;
+import ca.ulaval.glo2004.visualigue.ui.controllers.common.SvgPaneController;
 import ca.ulaval.glo2004.visualigue.ui.models.SportListItemModel;
 import ca.ulaval.glo2004.visualigue.utils.EventHandler;
 import javafx.fxml.FXML;
@@ -36,7 +36,7 @@ public class SportSelectorItemController {
     }
 
     @FXML
-    private void onClick() {
+    public void onClick() {
         onClick.fire(this, model);
     }
 

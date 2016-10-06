@@ -27,7 +27,7 @@ public class MainSceneController implements Initializable {
     @Override
     public void initialize(URL url, ResourceBundle rb) {
         mainMenuController.init(logoPane);
-        mainMenuController.onMenuClicked.addHandler(this::onMainMenuClickedHandler);
+        mainMenuController.onMenuClicked.setHandler(this::onMainMenuClickedHandler);
     }
 
     public void setStage(Stage stage) {
@@ -39,7 +39,7 @@ public class MainSceneController implements Initializable {
     }
 
     @FXML
-    private void onPreviousButtonClick() {
+    public void onPreviousButtonAction() {
         previousView();
     }
 

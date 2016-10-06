@@ -9,7 +9,7 @@ import javafx.fxml.Initializable;
 
 public abstract class Controller implements Initializable {
 
-    public EventHandler<Object> onViewCloseRequested = new EventHandler();
+    public EventHandler<Object> onViewCloseRequested = new EventHandler<>();
     public EventHandler<FXMLLoader> onViewChangeRequested = new EventHandler<>();
     public EventHandler<FileSelectionEventArgs> onFileSelectionRequested = new EventHandler<>();
 

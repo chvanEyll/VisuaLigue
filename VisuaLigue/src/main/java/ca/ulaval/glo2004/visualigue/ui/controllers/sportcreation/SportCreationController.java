@@ -4,7 +4,7 @@ import ca.ulaval.glo2004.visualigue.GuiceFXMLLoader;
 import ca.ulaval.glo2004.visualigue.domain.sport.Sport;
 import ca.ulaval.glo2004.visualigue.domain.sport.SportNameAlreadyInUseException;
 import ca.ulaval.glo2004.visualigue.services.SportService;
-import ca.ulaval.glo2004.visualigue.ui.controllers.BreadcrumbNavController;
+import ca.ulaval.glo2004.visualigue.ui.controllers.common.BreadcrumbNavController;
 import ca.ulaval.glo2004.visualigue.ui.controllers.Controller;
 import ca.ulaval.glo2004.visualigue.ui.controllers.FileSelectionEventArgs;
 import ca.ulaval.glo2004.visualigue.ui.converters.SportCreationModelConverter;
@@ -59,7 +59,7 @@ public class SportCreationController extends Controller {
         breadcrumbNavController.addItem("Général");
         breadcrumbNavController.addItem("Terrain");
         breadcrumbNavController.addItem("Joueurs");
-        breadcrumbNavController.onItemClicked.addHandler(this::onBreadcrumNavItemClickedHandler);
+        breadcrumbNavController.onItemClicked.setHandler(this::onBreadcrumNavItemClickedHandler);
         setStep(GENERAL_STEP_INDEX);
     }
 
