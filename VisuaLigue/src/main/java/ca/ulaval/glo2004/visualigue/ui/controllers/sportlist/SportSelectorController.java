@@ -1,12 +1,14 @@
 package ca.ulaval.glo2004.visualigue.ui.controllers.sportlist;
 
-import ca.ulaval.glo2004.visualigue.ui.InjectableFXMLLoader;
 import ca.ulaval.glo2004.visualigue.domain.sport.Sport;
 import ca.ulaval.glo2004.visualigue.services.SportService;
+import ca.ulaval.glo2004.visualigue.ui.InjectableFXMLLoader;
 import ca.ulaval.glo2004.visualigue.ui.converters.SportListItemModelConverter;
 import ca.ulaval.glo2004.visualigue.ui.models.SportListItemModel;
 import ca.ulaval.glo2004.visualigue.utils.EventHandler;
 import java.net.URL;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.ResourceBundle;
 import javafx.application.Platform;
 import javafx.fxml.FXML;
@@ -35,8 +37,12 @@ public class SportSelectorController implements Initializable {
 
     private void fillSportList() {
         rootNode.getChildren().clear();
-        sportService.getSports().stream().sorted().forEach(sport -> {
-            initSportItem(sportListItemModelConverter.convert(sport));
+        List<SportListItemModel> models = new ArrayList<>();
+        sportService.getSports().forEach(sport -> {
+            models.add(sportListItemModelConverter.convert(sport));
+        });
+        models.stream().sorted().forEach(model -> {
+            initSportItem(model);
         });
     }
 

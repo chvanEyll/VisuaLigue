@@ -6,9 +6,6 @@ import javax.inject.Singleton;
 public class PlayingSurfaceFactory {
 
     public PlayingSurface create(Double width, Double length, PlayingSurfaceUnit widthUnits, PlayingSurfaceUnit lengthUnits, String imageFileName) {
-        PlayingSurface playingSurface = new PlayingSurface(width, length, imageFileName);
-        playingSurface.setWidthUnits(widthUnits);
-        playingSurface.setLengthUnits(lengthUnits);
-        return playingSurface;
+        return new PlayingSurface(width, widthUnits, length, lengthUnits, imageFileName);
     }
 }

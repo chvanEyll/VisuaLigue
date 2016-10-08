@@ -6,10 +6,10 @@ import ca.ulaval.glo2004.visualigue.domain.playingsurface.PlayingSurface;
 import java.util.HashSet;
 import java.util.Set;
 
-public class Sport extends DomainObject implements Comparable {
+public class Sport extends DomainObject {
 
     private String name;
-    private String builtInIconFileName = "/images/generic-sport-icon";
+    private String builtInIconFileName = "/images/built-in-sport-icons/generic-icon";
     private PlayingSurface playingSurface = new PlayingSurface();
     private Set<PlayerCategory> playerCategories = new HashSet<>();
 
@@ -51,15 +51,6 @@ public class Sport extends DomainObject implements Comparable {
 
     public void addPlayerCategory(PlayerCategory playerCategory) {
         playerCategories.add(playerCategory);
-    }
-
-    @Override
-    public int compareTo(Object obj) {
-        if (!(obj instanceof Sport)) {
-            return 0;
-        }
-        Sport sport = (Sport) obj;
-        return name.compareTo(sport.getName());
     }
 
     @Override

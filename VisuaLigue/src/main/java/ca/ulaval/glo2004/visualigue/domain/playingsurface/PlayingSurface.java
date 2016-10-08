@@ -9,11 +9,14 @@ public class PlayingSurface {
     private String imageFileName;
 
     public PlayingSurface() {
+
     }
 
-    public PlayingSurface(Double width, Double length, String imageFileName) {
+    public PlayingSurface(Double width, PlayingSurfaceUnit widthUnits, Double length, PlayingSurfaceUnit lengthUnits, String imageFileName) {
         this.width = width;
+        this.widthUnits = widthUnits;
         this.length = length;
+        this.lengthUnits = lengthUnits;
         this.imageFileName = imageFileName;
     }
 

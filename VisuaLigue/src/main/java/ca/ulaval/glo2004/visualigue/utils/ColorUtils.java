@@ -22,4 +22,8 @@ public class ColorUtils {
         return new Color((int) red, (int) green, (int) blue, (int) opacity);
     }
 
+    public static String ToHex(Color color) {
+        return String.format("#%02X%02X%02X", color.getRed(), color.getGreen(), color.getBlue());
+    }
+
 }

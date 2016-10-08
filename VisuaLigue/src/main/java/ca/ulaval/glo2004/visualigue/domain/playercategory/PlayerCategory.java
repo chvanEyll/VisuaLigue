@@ -1,13 +1,19 @@
 package ca.ulaval.glo2004.visualigue.domain.playercategory;
 
+import ca.ulaval.glo2004.visualigue.domain.xmladapters.XmlColorAdapter;
 import java.awt.Color;
+import javax.xml.bind.annotation.adapters.XmlJavaTypeAdapter;
 
-public class PlayerCategory implements Comparable {
+public class PlayerCategory {
 
     private String name;
     private Color allyColor = Color.decode("#0071BC");
     private Color opponentColor = Color.decode("#C1272D");
     private Integer defaultNumberOfPlayers = 0;
+
+    protected PlayerCategory() {
+        //Required for JAXB instanciation.
+    }
 
     public PlayerCategory(String name, Color allyColor, Color opponentColor, Integer defaultNumberOfPlayers) {
         this.name = name;
@@ -24,6 +30,7 @@ public class PlayerCategory implements Comparable {
         this.name = name;
     }
 
+    @XmlJavaTypeAdapter(value = XmlColorAdapter.class)
     public Color getAllyColor() {
         return allyColor;
     }
@@ -32,6 +39,7 @@ public class PlayerCategory implements Comparable {
         this.allyColor = allyColor;
     }
 
+    @XmlJavaTypeAdapter(value = XmlColorAdapter.class)
     public Color getOpponentColor() {
         return opponentColor;
     }
@@ -46,14 +54,5 @@ public class PlayerCategory implements Comparable {
 
     public void setDefaultNumberOfPlayers(Integer defaultNumberOfPlayers) {
         this.defaultNumberOfPlayers = defaultNumberOfPlayers;
-    }
-
-    @Override
-    public int compareTo(Object obj) {
-        if (!(obj instanceof PlayerCategory)) {
-            return 0;
-        }
-        PlayerCategory category = (PlayerCategory) obj;
-        return name.compareTo(category.getName());
     }
 }

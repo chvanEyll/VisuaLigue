@@ -3,7 +3,6 @@ package ca.ulaval.glo2004.visualigue;
 import ca.ulaval.glo2004.visualigue.contexts.DefaultContext;
 import ca.ulaval.glo2004.visualigue.ui.InjectableFXMLLoader;
 import ca.ulaval.glo2004.visualigue.ui.controllers.MainSceneController;
-import ca.ulaval.glo2004.visualigue.utils.EnvironmentUtils;
 import java.io.IOException;
 import javafx.application.Application;
 import javafx.fxml.FXMLLoader;
@@ -16,6 +15,7 @@ public class VisuaLigue extends Application {
     private static final int MIN_STAGE_WIDTH = 1000;
     private static final int MIN_STAGE_HEIGHT = 600;
     private static final String APP_NAME = "VisuaLigue";
+    private static final String DATA_DIRECTORY = "data";
 
     public static void main(String[] args) {
         launch(args);
@@ -53,7 +53,7 @@ public class VisuaLigue extends Application {
     }
 
     public static String getAppDataDirectory() {
-        return String.format("%s/%s", EnvironmentUtils.getAppDataDirectory(), APP_NAME);
+        return DATA_DIRECTORY;
     }
 
 }
