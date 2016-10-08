@@ -1,11 +1,12 @@
 package ca.ulaval.glo2004.visualigue.domain.sport;
 
+import ca.ulaval.glo2004.visualigue.domain.DomainObject;
 import ca.ulaval.glo2004.visualigue.domain.playercategory.PlayerCategory;
 import ca.ulaval.glo2004.visualigue.domain.playingsurface.PlayingSurface;
 import java.util.HashSet;
 import java.util.Set;
 
-public class Sport implements Comparable {
+public class Sport extends DomainObject implements Comparable {
 
     private String name;
     private String builtInIconFileName = "/images/generic-sport-icon";
@@ -59,5 +60,10 @@ public class Sport implements Comparable {
         }
         Sport sport = (Sport) obj;
         return name.compareTo(sport.getName());
+    }
+
+    @Override
+    public int hashCode() {
+        return this.uuid.hashCode();
     }
 }

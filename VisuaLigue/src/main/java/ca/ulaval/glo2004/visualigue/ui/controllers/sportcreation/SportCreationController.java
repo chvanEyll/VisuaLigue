@@ -1,15 +1,16 @@
 package ca.ulaval.glo2004.visualigue.ui.controllers.sportcreation;
 
-import ca.ulaval.glo2004.visualigue.InjectableFXMLLoader;
 import ca.ulaval.glo2004.visualigue.domain.playercategory.PlayerCategory;
 import ca.ulaval.glo2004.visualigue.domain.sport.Sport;
-import ca.ulaval.glo2004.visualigue.domain.sport.SportNameAlreadyInUseException;
+import ca.ulaval.glo2004.visualigue.domain.sport.SportAlreadyExistsException;
 import ca.ulaval.glo2004.visualigue.services.SportService;
+import ca.ulaval.glo2004.visualigue.ui.InjectableFXMLLoader;
 import ca.ulaval.glo2004.visualigue.ui.controllers.Controller;
 import ca.ulaval.glo2004.visualigue.ui.controllers.FileSelectionEventArgs;
 import ca.ulaval.glo2004.visualigue.ui.controllers.common.BreadcrumbController;
 import ca.ulaval.glo2004.visualigue.ui.converters.SportCreationModelConverter;
 import ca.ulaval.glo2004.visualigue.ui.models.SportCreationModel;
+import ca.ulaval.glo2004.visualigue.utils.ColorUtils;
 import javafx.beans.property.StringProperty;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
@@ -112,13 +113,13 @@ public class SportCreationController extends Controller {
         currentStepController.clearErrors();
         try {
             saveChanges();
-        } catch (SportNameAlreadyInUseException ex) {
+        } catch (SportAlreadyExistsException ex) {
             setStep(GENERAL_STEP_INDEX);
             currentStepController.showError(ex);
         }
     }
 
-    private void saveChanges() throws SportNameAlreadyInUseException {
+    private void saveChanges() throws SportAlreadyExistsException {
         Sport sport;
         if (model.isNew()) {
             sport = sportService.createSport(model.name.get());
@@ -134,9 +135,9 @@ public class SportCreationController extends Controller {
     private void applyCategoryChanges(Sport sport) {
         model.playerCategoryModels.forEach(playerCategoryModel -> {
             if (playerCategoryModel.isNew()) {
-                sportService.addPlayerCategory(sport, playerCategoryModel.name.get(), playerCategoryModel.allyPlayerColor.get(), playerCategoryModel.opponentPlayerColor.get(), playerCategoryModel.defaultNumberOfPlayers.get());
+                sportService.addPlayerCategory(sport, playerCategoryModel.name.get(), ColorUtils.FXColorToAWTColor(playerCategoryModel.allyPlayerColor.get()), ColorUtils.FXColorToAWTColor(playerCategoryModel.opponentPlayerColor.get()), playerCategoryModel.defaultNumberOfPlayers.get());
             } else if (playerCategoryModel.isDirty()) {
-                sportService.updatePlayerCategory(sport, (PlayerCategory) playerCategoryModel.getAssociatedEntity(), playerCategoryModel.name.get(), playerCategoryModel.allyPlayerColor.get(), playerCategoryModel.opponentPlayerColor.get(), playerCategoryModel.defaultNumberOfPlayers.get());
+                sportService.updatePlayerCategory(sport, (PlayerCategory) playerCategoryModel.getAssociatedEntity(), playerCategoryModel.name.get(), ColorUtils.FXColorToAWTColor(playerCategoryModel.allyPlayerColor.get()), ColorUtils.FXColorToAWTColor(playerCategoryModel.opponentPlayerColor.get()), playerCategoryModel.defaultNumberOfPlayers.get());
             } else if (playerCategoryModel.isDeleted()) {
                 sportService.removePlayerCategory(sport, (PlayerCategory) playerCategoryModel.getAssociatedEntity());
             }

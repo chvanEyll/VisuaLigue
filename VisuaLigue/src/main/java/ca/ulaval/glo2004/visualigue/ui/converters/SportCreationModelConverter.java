@@ -3,6 +3,7 @@ package ca.ulaval.glo2004.visualigue.ui.converters;
 import ca.ulaval.glo2004.visualigue.domain.sport.Sport;
 import ca.ulaval.glo2004.visualigue.ui.models.PlayerCategoryModel;
 import ca.ulaval.glo2004.visualigue.ui.models.SportCreationModel;
+import ca.ulaval.glo2004.visualigue.utils.ColorUtils;
 
 public class SportCreationModelConverter {
 
@@ -22,8 +23,8 @@ public class SportCreationModelConverter {
             playerCategoryModel.setAssociatedEntity(playerCategory);
             playerCategoryModel.setIsNew(false);
             playerCategoryModel.name.set(playerCategory.getName());
-            playerCategoryModel.allyPlayerColor.set(playerCategory.getAllyColor());
-            playerCategoryModel.opponentPlayerColor.set(playerCategory.getOpponentColor());
+            playerCategoryModel.allyPlayerColor.set(ColorUtils.AWTColorToFXColor(playerCategory.getAllyColor()));
+            playerCategoryModel.opponentPlayerColor.set(ColorUtils.AWTColorToFXColor(playerCategory.getOpponentColor()));
             playerCategoryModel.defaultNumberOfPlayers.set(playerCategory.getDefaultNumberOfPlayers());
             model.playerCategoryModels.add(playerCategoryModel);
         });

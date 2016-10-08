@@ -1,15 +1,12 @@
-package ca.ulaval.glo2004.visualigue;
+package ca.ulaval.glo2004.visualigue.ui;
 
-import com.google.inject.Guice;
-import com.google.inject.Injector;
+import ca.ulaval.glo2004.visualigue.GuiceInjector;
 import java.io.IOException;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javafx.fxml.FXMLLoader;
 
 public class InjectableFXMLLoader {
-
-    private static final Injector injector = Guice.createInjector();
 
     private static class InjectableFXMLLoaderHolder {
 
@@ -22,7 +19,7 @@ public class InjectableFXMLLoader {
 
     public static FXMLLoader load(String viewName) {
         FXMLLoader fxmlLoader = new FXMLLoader(InjectableFXMLLoader.class.getResource(viewName));
-        fxmlLoader.setControllerFactory(injector::getInstance);
+        fxmlLoader.setControllerFactory(GuiceInjector.getInstance()::getInstance);
         try {
             fxmlLoader.load();
         } catch (IOException ex) {

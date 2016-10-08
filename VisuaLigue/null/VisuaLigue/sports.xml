@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<visualigue>
+    <sports>
+        <sport>
+            <uuid>4f4d9136-5995-4e28-9e91-40ce6d099b19</uuid>
+            <name>Football</name>
+            <builtInIconFileName>/images/generic-sport-icon</builtInIconFileName>
+            <playingSurface>
+                <lengthUnits>METER</lengthUnits>
+                <widthUnits>METER</widthUnits>
+            </playingSurface>
+        </sport>
+        <sport>
+            <uuid>6f115dc3-9993-4b70-8e33-e3784256d4b7</uuid>
+            <name>Hockey</name>
+            <builtInIconFileName>/images/generic-sport-icon</builtInIconFileName>
+            <playingSurface>
+                <lengthUnits>METER</lengthUnits>
+                <widthUnits>METER</widthUnits>
+            </playingSurface>
+        </sport>
+        <sport>
+            <uuid>a40b1a24-5ab4-4833-b70d-a7f2919a5ad1</uuid>
+            <name>Soccer</name>
+            <builtInIconFileName>/images/generic-sport-icon</builtInIconFileName>
+            <playingSurface>
+                <lengthUnits>METER</lengthUnits>
+                <widthUnits>METER</widthUnits>
+            </playingSurface>
+        </sport>
+    </sports>
+</visualigue>

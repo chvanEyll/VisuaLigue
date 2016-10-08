@@ -1,6 +1,6 @@
 package ca.ulaval.glo2004.visualigue.ui.controllers.sportcreation;
 
-import ca.ulaval.glo2004.visualigue.domain.sport.SportNameAlreadyInUseException;
+import ca.ulaval.glo2004.visualigue.domain.sport.SportAlreadyExistsException;
 import ca.ulaval.glo2004.visualigue.ui.models.SportCreationModel;
 import ca.ulaval.glo2004.visualigue.utils.FXUtils;
 import javafx.fxml.FXML;
@@ -27,7 +27,7 @@ public class SportCreationStep1Controller extends SportCreationStepController {
     @Override
     public void showError(Exception ex) {
         clearErrors();
-        if (ex instanceof SportNameAlreadyInUseException) {
+        if (ex instanceof SportAlreadyExistsException) {
             FXUtils.setDisplay(sportNameErrorLabel, true);
         }
     }

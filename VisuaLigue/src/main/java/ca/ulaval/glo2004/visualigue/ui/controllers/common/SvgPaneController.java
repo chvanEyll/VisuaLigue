@@ -1,6 +1,6 @@
 package ca.ulaval.glo2004.visualigue.ui.controllers.common;
 
-import ca.ulaval.glo2004.visualigue.InjectableFXMLLoader;
+import ca.ulaval.glo2004.visualigue.ui.InjectableFXMLLoader;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Node;

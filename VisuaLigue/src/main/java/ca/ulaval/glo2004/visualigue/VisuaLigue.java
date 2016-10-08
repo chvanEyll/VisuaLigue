@@ -1,6 +1,9 @@
 package ca.ulaval.glo2004.visualigue;
 
+import ca.ulaval.glo2004.visualigue.contexts.DefaultContext;
+import ca.ulaval.glo2004.visualigue.ui.InjectableFXMLLoader;
 import ca.ulaval.glo2004.visualigue.ui.controllers.MainSceneController;
+import ca.ulaval.glo2004.visualigue.utils.EnvironmentUtils;
 import java.io.IOException;
 import javafx.application.Application;
 import javafx.fxml.FXMLLoader;
@@ -14,6 +17,10 @@ public class VisuaLigue extends Application {
     private static final int MIN_STAGE_HEIGHT = 600;
     private static final String APP_NAME = "VisuaLigue";
 
+    public static void main(String[] args) {
+        launch(args);
+    }
+
     @Override
     public void start(Stage stage) throws Exception {
         FXMLLoader fxmlLoader = InjectableFXMLLoader.load(MainSceneController.VIEW_NAME);
@@ -21,6 +28,7 @@ public class VisuaLigue extends Application {
         mainSceneController.setStage(stage);
         Scene scene = new Scene(fxmlLoader.getRoot());
         initStage(stage, scene);
+        initContext();
     }
 
     private void initStage(Stage stage, Scene scene) throws IOException {
@@ -39,8 +47,13 @@ public class VisuaLigue extends Application {
         stage.getIcons().add(new Image(getClass().getResourceAsStream("/images/app-icon/icon-256x256.png")));
     }
 
-    public static void main(String[] args) {
-        launch(args);
+    private void initContext() throws Exception {
+        DefaultContext defaultContext = GuiceInjector.getInstance().getInstance(DefaultContext.class);
+        defaultContext.apply();
+    }
+
+    public static String getAppDataDirectory() {
+        return String.format("%s/%s", EnvironmentUtils.getAppDataDirectory(), APP_NAME);
     }
 
 }

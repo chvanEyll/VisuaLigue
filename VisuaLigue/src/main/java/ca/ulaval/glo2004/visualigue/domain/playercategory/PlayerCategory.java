@@ -1,12 +1,12 @@
 package ca.ulaval.glo2004.visualigue.domain.playercategory;
 
-import javafx.scene.paint.Color;
+import java.awt.Color;
 
-public class PlayerCategory {
+public class PlayerCategory implements Comparable {
 
     private String name;
-    private Color allyColor = Color.web("#0071BC");
-    private Color opponentColor = Color.web("#C1272D");
+    private Color allyColor = Color.decode("#0071BC");
+    private Color opponentColor = Color.decode("#C1272D");
     private Integer defaultNumberOfPlayers = 0;
 
     public PlayerCategory(String name, Color allyColor, Color opponentColor, Integer defaultNumberOfPlayers) {
@@ -46,5 +46,14 @@ public class PlayerCategory {
 
     public void setDefaultNumberOfPlayers(Integer defaultNumberOfPlayers) {
         this.defaultNumberOfPlayers = defaultNumberOfPlayers;
+    }
+
+    @Override
+    public int compareTo(Object obj) {
+        if (!(obj instanceof PlayerCategory)) {
+            return 0;
+        }
+        PlayerCategory category = (PlayerCategory) obj;
+        return name.compareTo(category.getName());
     }
 }
