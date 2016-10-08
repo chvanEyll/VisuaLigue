@@ -1,12 +1,13 @@
 package ca.ulaval.glo2004.visualigue.ui.controllers.sportcreation;
 
-import ca.ulaval.glo2004.visualigue.GuiceFXMLLoader;
+import ca.ulaval.glo2004.visualigue.InjectableFXMLLoader;
+import ca.ulaval.glo2004.visualigue.domain.playercategory.PlayerCategory;
 import ca.ulaval.glo2004.visualigue.domain.sport.Sport;
 import ca.ulaval.glo2004.visualigue.domain.sport.SportNameAlreadyInUseException;
 import ca.ulaval.glo2004.visualigue.services.SportService;
-import ca.ulaval.glo2004.visualigue.ui.controllers.common.BreadcrumbNavController;
 import ca.ulaval.glo2004.visualigue.ui.controllers.Controller;
 import ca.ulaval.glo2004.visualigue.ui.controllers.FileSelectionEventArgs;
+import ca.ulaval.glo2004.visualigue.ui.controllers.common.BreadcrumbNavController;
 import ca.ulaval.glo2004.visualigue.ui.converters.SportCreationModelConverter;
 import ca.ulaval.glo2004.visualigue.ui.models.SportCreationModel;
 import javafx.beans.property.StringProperty;
@@ -46,7 +47,7 @@ public class SportCreationController extends Controller {
     }
 
     public void init() {
-        model = new SportCreationModel("Nouveau sport");
+        model = new SportCreationModel();
         initView();
     }
 
@@ -69,17 +70,17 @@ public class SportCreationController extends Controller {
 
     private void setStep(int stepIndex) {
         if (currentStepIndex != stepIndex) {
-            FXMLLoader fxmlLoader = GuiceFXMLLoader.load(STEPS_VIEW_NAMES[stepIndex]);
+            FXMLLoader fxmlLoader = InjectableFXMLLoader.load(STEPS_VIEW_NAMES[stepIndex]);
             currentStepController = (SportCreationStepController) fxmlLoader.getController();
             currentStepController.onFileSelectionRequested.setHandler(this::onFileSelectRequestedHandler);
             currentStepController.init(model);
             stepContent.getChildren().clear();
             stepContent.getChildren().add(fxmlLoader.getRoot());
-            if (!model.hasAssociatedSport() && currentStepIndex < NUMBER_OF_STEPS - 1) {
+            if (model.isNew() && currentStepIndex < NUMBER_OF_STEPS - 1) {
                 defaultButton.setText("Continuer");
-            } else if (!model.hasAssociatedSport() && currentStepIndex == NUMBER_OF_STEPS - 1) {
+            } else if (model.isNew() && currentStepIndex == NUMBER_OF_STEPS - 1) {
                 defaultButton.setText("Terminer");
-            } else if (model.hasAssociatedSport()) {
+            } else if (!model.isNew()) {
                 defaultButton.setText("Sauvegarder");
             }
             breadcrumbNavController.setActiveItem(stepIndex);
@@ -87,17 +88,18 @@ public class SportCreationController extends Controller {
         }
     }
 
+    @FXML
     public void onDefaultButtonAction() {
-        if (!model.hasAssociatedSport() && currentStepIndex < NUMBER_OF_STEPS - 1) {
+        if (model.isNew() && currentStepIndex < NUMBER_OF_STEPS - 1) {
             setStep(currentStepIndex + 1);
-        } else if (!model.hasAssociatedSport() && currentStepIndex == NUMBER_OF_STEPS - 1) {
-            tryApplyChanges();
-        } else if (model.hasAssociatedSport()) {
-            tryApplyChanges();
+        } else if (model.isNew() && currentStepIndex == NUMBER_OF_STEPS - 1) {
+            trySaveChanges();
+        } else if (!model.isNew()) {
+            trySaveChanges();
         }
-
     }
 
+    @FXML
     public void onCancelButtonAction() {
         onViewCloseRequested.fire(this, null);
     }
@@ -106,24 +108,38 @@ public class SportCreationController extends Controller {
         onFileSelectionRequested.fire(sender, eventArgs);
     }
 
-    public void tryApplyChanges() {
+    private void trySaveChanges() {
         currentStepController.clearErrors();
         try {
-            applyChanges();
+            saveChanges();
         } catch (SportNameAlreadyInUseException ex) {
             setStep(GENERAL_STEP_INDEX);
             currentStepController.showError(ex);
         }
     }
 
-    public void applyChanges() throws SportNameAlreadyInUseException {
-        if (model.hasAssociatedSport()) {
-            sportService.updateSport(model.associatedSport, model.name.get());
+    private void saveChanges() throws SportNameAlreadyInUseException {
+        Sport sport;
+        if (model.isNew()) {
+            sport = sportService.createSport(model.name.get());
         } else {
-            model.associatedSport = sportService.createSport(model.name.get());
+            sport = (Sport) model.getAssociatedEntity();
+            sportService.updateSport(sport, model.name.get());
         }
-        sportService.updateSportPlayingSurface(model.associatedSport, model.playingSurfaceWidth.get(), model.playingSurfaceLength.get(), model.playingSurfaceWidthUnits.get(),
-                model.playingSurfaceLengthUnits.get(), model.playingSurfaceImageFileName.get());
+        sportService.updatePlayingSurface(sport, model.playingSurfaceWidth.get(), model.playingSurfaceLength.get(), model.playingSurfaceWidthUnits.get(), model.playingSurfaceLengthUnits.get(), model.playingSurfaceImageFileName.get());
+        applyCategoryChanges(sport);
         onViewCloseRequested.fire(this, null);
+    }
+
+    private void applyCategoryChanges(Sport sport) {
+        model.playerCategoryModels.forEach(playerCategoryModel -> {
+            if (playerCategoryModel.isNew()) {
+                sportService.addPlayerCategory(sport, playerCategoryModel.name.get(), playerCategoryModel.allyPlayerColor.get(), playerCategoryModel.opponentPlayerColor.get(), playerCategoryModel.defaultNumberOfPlayers.get());
+            } else if (playerCategoryModel.isDirty()) {
+                sportService.updatePlayerCategory(sport, (PlayerCategory) playerCategoryModel.getAssociatedEntity(), playerCategoryModel.name.get(), playerCategoryModel.allyPlayerColor.get(), playerCategoryModel.opponentPlayerColor.get(), playerCategoryModel.defaultNumberOfPlayers.get());
+            } else if (playerCategoryModel.isDeleted()) {
+                sportService.removePlayerCategory(sport, (PlayerCategory) playerCategoryModel.getAssociatedEntity());
+            }
+        });
     }
 }

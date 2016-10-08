@@ -1,6 +1,6 @@
 package ca.ulaval.glo2004.visualigue.ui.controllers.common;
 
-import ca.ulaval.glo2004.visualigue.GuiceFXMLLoader;
+import ca.ulaval.glo2004.visualigue.InjectableFXMLLoader;
 import ca.ulaval.glo2004.visualigue.utils.EventHandler;
 import java.util.ArrayList;
 import java.util.List;
@@ -15,7 +15,7 @@ public class BreadcrumbNavController {
     public EventHandler<Integer> onItemClicked = new EventHandler<>();
 
     public void addItem(String title) {
-        FXMLLoader fxmlLoader = GuiceFXMLLoader.load(BreadcrumbNavItemController.VIEW_NAME);
+        FXMLLoader fxmlLoader = InjectableFXMLLoader.load(BreadcrumbNavItemController.VIEW_NAME);
         BreadcrumbNavItemController controller = (BreadcrumbNavItemController) fxmlLoader.getController();
         controller.init(title, items.size() > 0);
         controller.onClick.setHandler(this::onItemClickedHandler);

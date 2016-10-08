@@ -2,13 +2,15 @@ package ca.ulaval.glo2004.visualigue.ui.controllers.sportcreation;
 
 import ca.ulaval.glo2004.visualigue.ui.models.PlayerCategoryModel;
 import ca.ulaval.glo2004.visualigue.utils.EventHandler;
+import ca.ulaval.glo2004.visualigue.utils.FXUtils;
+import java.util.Arrays;
 import java.util.List;
 import javafx.fxml.FXML;
-import javafx.scene.Group;
 import javafx.scene.Node;
 import javafx.scene.control.ColorPicker;
 import javafx.scene.control.Spinner;
 import javafx.scene.control.SpinnerValueFactory.IntegerSpinnerValueFactory;
+import javafx.scene.control.TextField;
 
 public class PlayerCategoryListItemEditionController {
 
@@ -18,7 +20,9 @@ public class PlayerCategoryListItemEditionController {
     public static final Integer INITIAL_DEFAULT_NUMBER_OF_PLAYERS_VALUE = 0;
     public static final Integer STEP_DEFAULT_NUMBER_OF_PLAYERS_VALUE = 1;
     public EventHandler<PlayerCategoryModel> onEditionValidationRequested = new EventHandler<>();
-    @FXML private Group rootNode;
+    @FXML private Node child1;
+    @FXML private Node child2;
+    @FXML private TextField nameTextField;
     @FXML private ColorPicker allyColorPicker;
     @FXML private ColorPicker opponentColorPicker;
     @FXML private Spinner defaultNumberOfPlayersSpinner;
@@ -26,10 +30,12 @@ public class PlayerCategoryListItemEditionController {
 
     public void init(PlayerCategoryModel model) {
         this.model = model;
-        allyColorPicker.valueProperty().bind(model.allyPlayerColor);
-        opponentColorPicker.valueProperty().bind(model.opponentPlayerColor);
+        nameTextField.textProperty().bindBidirectional(model.name);
+        allyColorPicker.valueProperty().bindBidirectional(model.allyPlayerColor);
+        opponentColorPicker.valueProperty().bindBidirectional(model.opponentPlayerColor);
         defaultNumberOfPlayersSpinner.setValueFactory(new IntegerSpinnerValueFactory(MIN_DEFAULT_NUMBER_OF_PLAYERS_VALUE, MAX_DEFAULT_NUMBER_OF_PLAYERS_VALUE,
                 INITIAL_DEFAULT_NUMBER_OF_PLAYERS_VALUE, STEP_DEFAULT_NUMBER_OF_PLAYERS_VALUE));
+        FXUtils.requestFocusDelayed(nameTextField);
     }
 
     public PlayerCategoryModel getModel() {
@@ -42,6 +48,6 @@ public class PlayerCategoryListItemEditionController {
     }
 
     public List<Node> getChildren() {
-        return rootNode.getChildren();
+        return Arrays.asList(child1, child2);
     }
 }

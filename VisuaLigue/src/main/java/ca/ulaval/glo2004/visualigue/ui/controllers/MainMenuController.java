@@ -1,6 +1,6 @@
 package ca.ulaval.glo2004.visualigue.ui.controllers;
 
-import ca.ulaval.glo2004.visualigue.GuiceFXMLLoader;
+import ca.ulaval.glo2004.visualigue.InjectableFXMLLoader;
 import ca.ulaval.glo2004.visualigue.ui.controllers.sportlist.SportListController;
 import ca.ulaval.glo2004.visualigue.utils.EventHandler;
 import javafx.fxml.FXML;
@@ -70,7 +70,7 @@ public class MainMenuController {
     private void processMenuClick(String viewName, HBox menuItem) {
         unselectAllMenus();
         menuItem.getStyleClass().add("active");
-        onMenuClicked.fire(this, GuiceFXMLLoader.load(viewName));
+        onMenuClicked.fire(this, InjectableFXMLLoader.load(viewName));
     }
 
     private void unselectAllMenus() {

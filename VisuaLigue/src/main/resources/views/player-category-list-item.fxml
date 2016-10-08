@@ -20,21 +20,21 @@
 <?import javafx.scene.layout.StackPane?>
 <?import javafx.scene.layout.VBox?>
 
-<fx:root type="javafx.scene.Group" xmlns="http://javafx.com/javafx/8.0.60" xmlns:fx="http://javafx.com/fxml/1" fx:controller="ca.ulaval.glo2004.visualigue.ui.controllers.sportcreation.PlayerCategoryListItemController">
+<fx:root type="javafx.scene.layout.GridPane" xmlns="http://javafx.com/javafx/8.0.60" xmlns:fx="http://javafx.com/fxml/1" fx:controller="ca.ulaval.glo2004.visualigue.ui.controllers.sportcreation.PlayerCategoryListItemController">
     <children>
-        <Label fx:id="nameLabel" text="Attaquant" />
-        <Pane fx:id="allyColorPane" style="-fx-background-color: #C1272D;" styleClass="color-list-item">
+        <Label fx:id="nameLabel" styleClass="item" text="Attaquant" GridPane.columnIndex="0" onMouseEntered="#onMouseEntered" onMouseExited="#onMouseExited" onMouseClicked="#onMouseClicked" />
+        <Pane fx:id="allyColorPane" styleClass="color-list-item, item" GridPane.columnIndex="1" onMouseEntered="#onMouseEntered" onMouseExited="#onMouseExited" onMouseClicked="#onMouseClicked">
             <GridPane.margin>
                 <Insets bottom="4.0" left="4.0" right="4.0" top="4.0" />
             </GridPane.margin>
         </Pane>
-        <Pane fx:id="opponentColorPane" style="-fx-background-color: #0071BC;" styleClass="color-list-item">
+        <Pane fx:id="opponentColorPane" styleClass="color-list-item, item" GridPane.columnIndex="2" onMouseEntered="#onMouseEntered" onMouseExited="#onMouseExited" onMouseClicked="#onMouseClicked">
             <GridPane.margin>
                 <Insets bottom="4.0" left="4.0" right="4.0" top="4.0" />
             </GridPane.margin>
         </Pane>
-        <Pane/>
-        <Button fx:id="editButton" onAction="#onEditButtonAction" alignment="CENTER">
+        <Pane fx:id="spacerPane" styleClass="item" GridPane.columnIndex="3" onMouseEntered="#onMouseEntered" onMouseExited="#onMouseExited" onMouseClicked="#onMouseClicked"/>
+        <Button fx:id="editButton" styleClass="item" onAction="#onEditButtonAction" alignment="CENTER" GridPane.columnIndex="4" onMouseEntered="#onMouseEntered" onMouseExited="#onMouseExited">
             <graphic>
                 <StackPane stylesheets="@../images/pen-icon.fxml.css">
                     <children>
@@ -50,7 +50,7 @@
                 <String fx:value="standard-size" />
             </styleClass>
         </Button>
-        <Button fx:id="deleteButton" onAction="#onDeleteButtonAction" alignment="CENTER">
+        <Button fx:id="deleteButton" styleClass="item" onAction="#onDeleteButtonAction" alignment="CENTER" GridPane.columnIndex="5"  onMouseEntered="#onMouseEntered" onMouseExited="#onMouseExited">
             <graphic>
                 <StackPane stylesheets="@../images/cross-icon.fxml.css">
                     <children>

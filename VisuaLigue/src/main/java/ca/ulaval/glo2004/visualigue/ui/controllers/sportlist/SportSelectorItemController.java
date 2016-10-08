@@ -1,6 +1,6 @@
 package ca.ulaval.glo2004.visualigue.ui.controllers.sportlist;
 
-import ca.ulaval.glo2004.visualigue.GuiceFXMLLoader;
+import ca.ulaval.glo2004.visualigue.InjectableFXMLLoader;
 import ca.ulaval.glo2004.visualigue.ui.controllers.common.SvgPaneController;
 import ca.ulaval.glo2004.visualigue.ui.models.SportListItemModel;
 import ca.ulaval.glo2004.visualigue.utils.EventHandler;
@@ -24,12 +24,12 @@ public class SportSelectorItemController {
 
     public void init(SportListItemModel model) {
         this.model = model;
-        sportNameLabel.textProperty().bind(model.name);
+        sportNameLabel.textProperty().bindBidirectional(model.name);
         setSportImage(model.builtInIconFileName.get());
     }
 
     private void setSportImage(String sportImageFileName) {
-        FXMLLoader fxmlLoader = GuiceFXMLLoader.load(SvgPaneController.VIEW_NAME);
+        FXMLLoader fxmlLoader = InjectableFXMLLoader.load(SvgPaneController.VIEW_NAME);
         SvgPaneController controller = (SvgPaneController) fxmlLoader.getController();
         controller.init(sportImageFileName);
         rootNode.getChildren().add(0, controller.getRootNode());

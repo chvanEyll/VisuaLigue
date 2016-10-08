@@ -3,7 +3,7 @@ package ca.ulaval.glo2004.visualigue.ui.models;
 import javafx.beans.property.*;
 import javafx.scene.paint.Color;
 
-public class PlayerCategoryModel {
+public class PlayerCategoryModel extends Model {
 
     public StringProperty name = new SimpleStringProperty("Nouvelle catégorie");
     public IntegerProperty defaultNumberOfPlayers = new SimpleIntegerProperty(0);

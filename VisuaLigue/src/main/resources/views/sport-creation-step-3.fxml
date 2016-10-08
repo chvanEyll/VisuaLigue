@@ -31,7 +31,6 @@
                     <Insets left="10.0" />
                 </padding>
             </HBox>
-            <VBox fx:id="playerCategoryList" />
             <HBox onMouseClicked="#onCategoryCreationLinkButtonClicked" alignment="CENTER_LEFT" fillHeight="false" spacing="7.0" styleClass="link-button">
                 <children>
                     <Pane stylesheets="@../images/plus-icon-blue.fxml.css">
@@ -42,6 +41,7 @@
                     <Label text="Ajouter une catégorie" />
                 </children>
             </HBox>
+            <VBox fx:id="playerCategoryList" />
         </children>
     </VBox>
     <stylesheets>

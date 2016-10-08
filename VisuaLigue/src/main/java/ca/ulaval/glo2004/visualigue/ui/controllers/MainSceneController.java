@@ -76,7 +76,7 @@ public class MainSceneController implements Initializable {
         controller.onFileSelectionRequested.setHandler(this::onFileSelectRequestHandler);
         contentPane.getChildren().clear();
         contentPane.getChildren().add(view.getRoot());
-        sectionTitleLabel.textProperty().bind(controller.getTitle());
+        sectionTitleLabel.textProperty().bindBidirectional(controller.getTitle());
         FXUtils.setDisplay(previousButton, viewFlow.count() > 1);
         FXUtils.setDisplay(sectionTitleSpacer, viewFlow.count() <= 1);
     }

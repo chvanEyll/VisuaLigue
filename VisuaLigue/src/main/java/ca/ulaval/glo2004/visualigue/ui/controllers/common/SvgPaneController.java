@@ -1,6 +1,6 @@
 package ca.ulaval.glo2004.visualigue.ui.controllers.common;
 
-import ca.ulaval.glo2004.visualigue.GuiceFXMLLoader;
+import ca.ulaval.glo2004.visualigue.InjectableFXMLLoader;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Node;
@@ -18,7 +18,7 @@ public class SvgPaneController {
     }
 
     public void init(String svgFileName) {
-        FXMLLoader fxmlLoader = GuiceFXMLLoader.load(svgFileName + ".fxml");
+        FXMLLoader fxmlLoader = InjectableFXMLLoader.load(svgFileName + ".fxml");
         rootNode.getStylesheets().clear();
         rootNode.getStylesheets().add(svgFileName + ".fxml.css");
         rootNode.getChildren().add(fxmlLoader.getRoot());

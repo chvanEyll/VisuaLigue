@@ -1,6 +1,6 @@
 package ca.ulaval.glo2004.visualigue.ui.controllers.sportcreation;
 
-import ca.ulaval.glo2004.visualigue.GuiceFXMLLoader;
+import ca.ulaval.glo2004.visualigue.InjectableFXMLLoader;
 import ca.ulaval.glo2004.visualigue.ui.models.SportCreationModel;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
@@ -20,9 +20,9 @@ public class SportCreationStep3Controller extends SportCreationStepController {
     @Override
     public void init(SportCreationModel sportCreation) {
         this.model = sportCreation;
-        FXMLLoader fxmlLoader = GuiceFXMLLoader.load(PlayerCategoryListController.VIEW_NAME);
+        FXMLLoader fxmlLoader = InjectableFXMLLoader.load(PlayerCategoryListController.VIEW_NAME);
         playerCategoryListController = (PlayerCategoryListController) fxmlLoader.getController();
-        playerCategoryListController.init(model.playerCategories);
+        playerCategoryListController.init(model.playerCategoryModels);
         playerCategoryList.getChildren().add(fxmlLoader.getRoot());
     }
 

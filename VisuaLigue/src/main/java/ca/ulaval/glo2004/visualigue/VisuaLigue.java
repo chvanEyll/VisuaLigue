@@ -16,7 +16,7 @@ public class VisuaLigue extends Application {
 
     @Override
     public void start(Stage stage) throws Exception {
-        FXMLLoader fxmlLoader = GuiceFXMLLoader.load(MainSceneController.VIEW_NAME);
+        FXMLLoader fxmlLoader = InjectableFXMLLoader.load(MainSceneController.VIEW_NAME);
         MainSceneController mainSceneController = fxmlLoader.getController();
         mainSceneController.setStage(stage);
         Scene scene = new Scene(fxmlLoader.getRoot());
