@@ -11,9 +11,11 @@ import ca.ulaval.glo2004.visualigue.domain.sport.SportFactory;
 import ca.ulaval.glo2004.visualigue.domain.sport.SportRepository;
 import ca.ulaval.glo2004.visualigue.utils.EventHandler;
 import java.awt.Color;
-import java.util.Set;
+import java.util.List;
+import java.util.function.Function;
 import javax.inject.Inject;
 import javax.inject.Singleton;
+import javax.swing.SortOrder;
 
 @Singleton
 public class SportService {
@@ -87,7 +89,7 @@ public class SportService {
         }
     }
 
-    public Set<Sport> getSports() {
-        return sportRepository.getAll();
+    public List<Sport> getSports(Function<Sport, Comparable> sortFunction, SortOrder sortOrder) {
+        return sportRepository.getAll(sortFunction, sortOrder);
     }
 }

@@ -7,8 +7,6 @@ import ca.ulaval.glo2004.visualigue.ui.converters.SportListItemModelConverter;
 import ca.ulaval.glo2004.visualigue.ui.models.SportListItemModel;
 import ca.ulaval.glo2004.visualigue.utils.EventHandler;
 import java.net.URL;
-import java.util.ArrayList;
-import java.util.List;
 import java.util.ResourceBundle;
 import javafx.application.Platform;
 import javafx.fxml.FXML;
@@ -16,6 +14,7 @@ import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
 import javafx.scene.layout.TilePane;
 import javax.inject.Inject;
+import javax.swing.SortOrder;
 
 public class SportSelectorController implements Initializable {
 
@@ -37,12 +36,8 @@ public class SportSelectorController implements Initializable {
 
     private void fillSportList() {
         rootNode.getChildren().clear();
-        List<SportListItemModel> models = new ArrayList<>();
-        sportService.getSports().forEach(sport -> {
-            models.add(sportListItemModelConverter.convert(sport));
-        });
-        models.stream().sorted().forEach(model -> {
-            initSportItem(model);
+        sportService.getSports(Sport::getName, SortOrder.ASCENDING).forEach(sport -> {
+            initSportItem(sportListItemModelConverter.convert(sport));
         });
     }
 

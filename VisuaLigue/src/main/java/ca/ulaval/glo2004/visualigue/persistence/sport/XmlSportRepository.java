@@ -5,10 +5,13 @@ import ca.ulaval.glo2004.visualigue.domain.sport.SportAlreadyExistsException;
 import ca.ulaval.glo2004.visualigue.domain.sport.SportNotFoundException;
 import ca.ulaval.glo2004.visualigue.domain.sport.SportRepository;
 import ca.ulaval.glo2004.visualigue.persistence.marshalling.XmlRepositoryMarshaller;
+import ca.ulaval.glo2004.visualigue.utils.ListUtils;
 import java.util.*;
 import java.util.concurrent.ConcurrentHashMap;
+import java.util.function.Function;
 import javax.inject.Inject;
 import javax.inject.Singleton;
+import javax.swing.SortOrder;
 
 @Singleton
 public class XmlSportRepository implements SportRepository {
@@ -64,8 +67,9 @@ public class XmlSportRepository implements SportRepository {
     }
 
     @Override
-    public Set<Sport> getAll() {
-        return new HashSet<>(sports.values());
+    public List<Sport> getAll(Function<Sport, Comparable> sortFunction, SortOrder sortOrder) {
+        List<Sport> sportList = new ArrayList(sports.values());
+        return ListUtils.sort(sportList, sortFunction, sortOrder);
     }
 
     @Override
