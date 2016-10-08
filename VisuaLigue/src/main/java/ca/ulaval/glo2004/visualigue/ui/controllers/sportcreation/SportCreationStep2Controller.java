@@ -46,20 +46,24 @@ public class SportCreationStep2Controller extends SportCreationStepController {
         widthUnitComboBox.getSelectionModel().select(model.playingSurfaceWidthUnits.get());
         lengthUnitComboBox.setItems(FXCollections.observableArrayList(PlayingSurfaceUnit.values()));
         lengthUnitComboBox.getSelectionModel().select(model.playingSurfaceLengthUnits.get());
-        updateImage(model.playingSurfaceImageFileName.getValue());
+        displayImage(model.currentPlayingSurfacePathName.getValue());
         FXUtils.requestFocusDelayed(widthSpinner);
     }
 
-    private void updateImage(String imageFileName) {
-        if (imageFileName == null) {
+    private void displayImage(String imagePathName) {
+        if (imagePathName == null) {
             clearImage();
         } else {
-            this.model.playingSurfaceImageFileName.set(imageFileName);
-            imagePathLabel.textProperty().bindBidirectional(this.model.playingSurfaceImageFileName);
-            File file = new File(imageFileName);
+            File file = new File(imagePathName);
             imageView.setImage(new Image(file.toURI().toString()));
             FXUtils.setDisplay(imageView, true);
+            imagePathLabel.textProperty().bind(this.model.newPlayingSurfacePathName);
         }
+    }
+
+    private void setImage(String imagePathName) {
+        this.model.newPlayingSurfacePathName.set(imagePathName);
+        displayImage(imagePathName);
     }
 
     @FXML
@@ -71,7 +75,7 @@ public class SportCreationStep2Controller extends SportCreationStepController {
         FileSelectionEventArgs fileSelectionEventArgs = new FileSelectionEventArgs(fileChooser);
         onFileSelectionRequested.fire(this, fileSelectionEventArgs);
         if (fileSelectionEventArgs.selectedFile != null) {
-            updateImage(fileSelectionEventArgs.selectedFile.getPath());
+            setImage(fileSelectionEventArgs.selectedFile.getPath());
         }
     }
 

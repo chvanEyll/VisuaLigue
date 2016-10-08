@@ -27,7 +27,7 @@ public class Model {
         return isDirty;
     }
 
-    public void markDirty() {
+    public void makeDirty() {
         isDirty = true;
     }
 

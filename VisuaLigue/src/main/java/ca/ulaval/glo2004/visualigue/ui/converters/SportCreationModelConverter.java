@@ -12,12 +12,12 @@ public class SportCreationModelConverter {
         model.setAssociatedEntity(sport);
         model.setIsNew(false);
         model.name.set(sport.getName());
-        model.builtInIconFileName.set(sport.getBuiltInIconFileName());
+        model.builtInIconPathName.set(sport.getBuiltInIconPathName());
         model.playingSurfaceWidth.set(sport.getPlayingSurface().getWidth());
         model.playingSurfaceLength.set(sport.getPlayingSurface().getLength());
         model.playingSurfaceWidthUnits.set(sport.getPlayingSurface().getWidthUnits());
         model.playingSurfaceLengthUnits.set(sport.getPlayingSurface().getLengthUnits());
-        model.playingSurfaceImageFileName.set(sport.getPlayingSurface().getImageFileName());
+        model.currentPlayingSurfacePathName.set(sport.getPlayingSurface().getImageRef().getStoredImagePathName());
         sport.getPlayerCategories().forEach(playerCategory -> {
             PlayerCategoryModel playerCategoryModel = new PlayerCategoryModel();
             playerCategoryModel.setAssociatedEntity(playerCategory);

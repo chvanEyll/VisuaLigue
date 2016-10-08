@@ -57,7 +57,7 @@ public class PlayerCategoryListController {
             rootNode.getChildren().remove(rowIndex);
             PlayerCategoryModel playerCategoryModel = listItemEditionController.getModel();
             insertItem(playerCategoryModel, rowIndex);
-            playerCategoryModel.markDirty();
+            playerCategoryModel.makeDirty();
             listItemEditionController = null;
         }
     }

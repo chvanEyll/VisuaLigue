@@ -1,5 +1,8 @@
 package ca.ulaval.glo2004.visualigue.services;
 
+import ca.ulaval.glo2004.visualigue.domain.Image.ImagePersistenceException;
+import ca.ulaval.glo2004.visualigue.domain.Image.ImageRepository;
+import ca.ulaval.glo2004.visualigue.domain.Image.PersistentImageRef;
 import ca.ulaval.glo2004.visualigue.domain.playercategory.PlayerCategory;
 import ca.ulaval.glo2004.visualigue.domain.playercategory.PlayerCategoryFactory;
 import ca.ulaval.glo2004.visualigue.domain.playingsurface.PlayingSurface;
@@ -21,6 +24,7 @@ import javax.swing.SortOrder;
 public class SportService {
 
     private final SportRepository sportRepository;
+    private final ImageRepository imageRepository;
     private final SportFactory sportFactory;
     private final PlayingSurfaceFactory playingSurfaceFactory;
     private final PlayerCategoryFactory playerCategoryFactory;
@@ -29,8 +33,9 @@ public class SportService {
     public EventHandler<Sport> onSportUpdated = new EventHandler<>();
 
     @Inject
-    public SportService(final SportRepository sportRepository, final SportFactory sportFactory, final PlayingSurfaceFactory playingSurfaceFactory, final PlayerCategoryFactory playerCategoryFactory) {
+    public SportService(final SportRepository sportRepository, final ImageRepository imageRepository, final SportFactory sportFactory, final PlayingSurfaceFactory playingSurfaceFactory, final PlayerCategoryFactory playerCategoryFactory) {
         this.sportRepository = sportRepository;
+        this.imageRepository = imageRepository;
         this.sportFactory = sportFactory;
         this.playingSurfaceFactory = playingSurfaceFactory;
         this.playerCategoryFactory = playerCategoryFactory;
@@ -49,14 +54,24 @@ public class SportService {
         onSportUpdated.fire(this, sport);
     }
 
-    public void updatePlayingSurface(Sport sport, Double width, Double length, PlayingSurfaceUnit widthUnits, PlayingSurfaceUnit lengthUnits, String imageFileName) {
-        PlayingSurface playingSurface = playingSurfaceFactory.create(width, length, widthUnits, lengthUnits, imageFileName);
-        sport.setPlayingSurface(playingSurface);
+    public void updatePlayingSurface(Sport sport, Double width, Double length, PlayingSurfaceUnit widthUnits, PlayingSurfaceUnit lengthUnits) {
+        PlayingSurface playingSurface = sport.getPlayingSurface();
+        playingSurface.setWidth(width);
+        playingSurface.setLength(length);
+        playingSurface.setWidthUnits(widthUnits);
+        playingSurface.setLengthUnits(lengthUnits);
         try {
             sportRepository.update(sport);
         } catch (SportAlreadyExistsException ex) {
             //Intentionally left blank.
         }
+    }
+
+    public void updatePlayingSurfaceImage(Sport sport, String newPlayingSurfacePathName) throws ImagePersistenceException {
+        PlayingSurface playingSurface = sport.getPlayingSurface();
+        PersistentImageRef imageRef = playingSurface.getImageRef();
+        imageRef.replace(newPlayingSurfacePathName);
+        imageRepository.persist(imageRef);
     }
 
     public void addPlayerCategory(Sport sport, String name, Color allyColor, Color opponentColor, Integer defaultNumberOfPlayers) {

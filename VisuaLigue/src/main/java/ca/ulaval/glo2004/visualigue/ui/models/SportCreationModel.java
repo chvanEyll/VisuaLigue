@@ -8,10 +8,11 @@ import javafx.collections.ObservableList;
 public class SportCreationModel extends Model {
 
     public StringProperty name = new SimpleStringProperty("Nouveau sport");
-    public StringProperty builtInIconFileName = new SimpleStringProperty("/images/built-in-sport-icons/generic-icon");
+    public StringProperty builtInIconPathName = new SimpleStringProperty("/images/built-in-sport-icons/generic-icon");
     public DoubleProperty playingSurfaceWidth = new SimpleDoubleProperty(100.0);
     public DoubleProperty playingSurfaceLength = new SimpleDoubleProperty(200.0);
-    public StringProperty playingSurfaceImageFileName = new SimpleStringProperty();
+    public StringProperty newPlayingSurfacePathName = new SimpleStringProperty();
+    public StringProperty currentPlayingSurfacePathName = new SimpleStringProperty();
     public ObjectProperty<PlayingSurfaceUnit> playingSurfaceWidthUnits = new SimpleObjectProperty<>(PlayingSurfaceUnit.METER);
     public ObjectProperty<PlayingSurfaceUnit> playingSurfaceLengthUnits = new SimpleObjectProperty<>(PlayingSurfaceUnit.METER);
     public ObservableList<PlayerCategoryModel> playerCategoryModels = FXCollections.observableArrayList();

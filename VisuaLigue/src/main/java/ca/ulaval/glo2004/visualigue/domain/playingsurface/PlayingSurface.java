@@ -1,31 +1,42 @@
 package ca.ulaval.glo2004.visualigue.domain.playingsurface;
 
-public class PlayingSurface {
+import ca.ulaval.glo2004.visualigue.domain.DomainObject;
+import ca.ulaval.glo2004.visualigue.domain.Image.PersistentImageRef;
+
+public class PlayingSurface extends DomainObject {
 
     private Double width = 100.0;
     private Double length = 200.0;
     private PlayingSurfaceUnit widthUnits = PlayingSurfaceUnit.METER;
     private PlayingSurfaceUnit lengthUnits = PlayingSurfaceUnit.METER;
-    private String imageFileName;
+    private PersistentImageRef imageRef;
 
     public PlayingSurface() {
 
     }
 
-    public PlayingSurface(Double width, PlayingSurfaceUnit widthUnits, Double length, PlayingSurfaceUnit lengthUnits, String imageFileName) {
+    public PlayingSurface(Double width, PlayingSurfaceUnit widthUnits, Double length, PlayingSurfaceUnit lengthUnits, PersistentImageRef imageRef) {
         this.width = width;
         this.widthUnits = widthUnits;
         this.length = length;
         this.lengthUnits = lengthUnits;
-        this.imageFileName = imageFileName;
+        this.imageRef = imageRef;
     }
 
     public Double getWidth() {
         return width;
     }
 
+    public void setWidth(Double length) {
+        this.width = width;
+    }
+
     public Double getLength() {
         return length;
+    }
+
+    public void setLength(Double length) {
+        this.length = length;
     }
 
     public PlayingSurfaceUnit getWidthUnits() {
@@ -44,8 +55,12 @@ public class PlayingSurface {
         this.lengthUnits = lengthUnits;
     }
 
-    public String getImageFileName() {
-        return imageFileName;
+    public PersistentImageRef getImageRef() {
+        return imageRef;
+    }
+
+    public void setImageRef(PersistentImageRef imageRef) {
+        this.imageRef = imageRef;
     }
 
 }

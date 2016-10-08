@@ -9,7 +9,7 @@ public class SportListItemModelConverter {
         SportListItemModel model = new SportListItemModel(sport.getName());
         model.setAssociatedEntity(sport);
         model.setIsNew(false);
-        model.builtInIconFileName.set(sport.getBuiltInIconFileName());
+        model.builtInIconPathName.set(sport.getBuiltInIconPathName());
         return model;
     }
 

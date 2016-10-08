@@ -1,5 +1,6 @@
 package ca.ulaval.glo2004.visualigue.ui.controllers.sportcreation;
 
+import ca.ulaval.glo2004.visualigue.domain.Image.ImagePersistenceException;
 import ca.ulaval.glo2004.visualigue.domain.playercategory.PlayerCategory;
 import ca.ulaval.glo2004.visualigue.domain.sport.Sport;
 import ca.ulaval.glo2004.visualigue.domain.sport.SportAlreadyExistsException;
@@ -116,10 +117,12 @@ public class SportCreationController extends Controller {
         } catch (SportAlreadyExistsException ex) {
             setStep(GENERAL_STEP_INDEX);
             currentStepController.showError(ex);
+        } catch (ImagePersistenceException ex) {
+
         }
     }
 
-    private void saveChanges() throws SportAlreadyExistsException {
+    private void saveChanges() throws SportAlreadyExistsException, ImagePersistenceException {
         Sport sport;
         if (model.isNew()) {
             sport = sportService.createSport(model.name.get());
@@ -127,9 +130,16 @@ public class SportCreationController extends Controller {
             sport = (Sport) model.getAssociatedEntity();
             sportService.updateSport(sport, model.name.get());
         }
-        sportService.updatePlayingSurface(sport, model.playingSurfaceWidth.get(), model.playingSurfaceLength.get(), model.playingSurfaceWidthUnits.get(), model.playingSurfaceLengthUnits.get(), model.playingSurfaceImageFileName.get());
+        applyPlayingSurfaceChanges(sport);
         applyCategoryChanges(sport);
         onViewCloseRequested.fire(this, null);
+    }
+
+    private void applyPlayingSurfaceChanges(Sport sport) throws ImagePersistenceException {
+        sportService.updatePlayingSurface(sport, model.playingSurfaceWidth.get(), model.playingSurfaceLength.get(), model.playingSurfaceWidthUnits.get(), model.playingSurfaceLengthUnits.get());
+        if (!model.newPlayingSurfacePathName.isEmpty().get()) {
+            sportService.updatePlayingSurfaceImage(sport, model.newPlayingSurfacePathName.get());
+        }
     }
 
     private void applyCategoryChanges(Sport sport) {

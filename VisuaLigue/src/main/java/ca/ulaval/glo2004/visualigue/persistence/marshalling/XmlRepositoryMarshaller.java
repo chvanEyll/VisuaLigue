@@ -9,22 +9,22 @@ import org.apache.commons.io.FileUtils;
 
 public class XmlRepositoryMarshaller<T> extends XmlMarshaller<T> {
 
-    private String fileName;
+    private String pathName;
 
     @Inject
-    public XmlRepositoryMarshaller(final Class<T> type, final String fileName) {
+    public XmlRepositoryMarshaller(final Class<T> type, final String pathName) {
         super(type);
-        init(fileName);
+        init(pathName);
     }
 
     @Inject
-    public XmlRepositoryMarshaller(final Marshaller marshaller, final Unmarshaller unmarshaller, final String fileName) {
+    public XmlRepositoryMarshaller(final Marshaller marshaller, final Unmarshaller unmarshaller, final String pathName) {
         super(marshaller, unmarshaller);
-        init(fileName);
+        init(pathName);
     }
 
-    private void init(final String fileName) {
-        this.fileName = fileName;
+    private void init(final String pathName) {
+        this.pathName = pathName;
     }
 
     @SuppressWarnings("rawtypes")
@@ -36,7 +36,7 @@ public class XmlRepositoryMarshaller<T> extends XmlMarshaller<T> {
     public synchronized T unmarshal(T defaultObject) {
         T unmarshalledObject;
         try {
-            File file = new File(fileName);
+            File file = new File(pathName);
             String t = file.getAbsolutePath();
             InputStream inputStream = FileUtils.openInputStream(file);
             unmarshalledObject = super.unmarshal(inputStream);
@@ -44,24 +44,24 @@ public class XmlRepositoryMarshaller<T> extends XmlMarshaller<T> {
         } catch (FileNotFoundException e) {
             return defaultObject;
         } catch (IOException e) {
-            throw new UncheckedIOException(String.format("An I/O exception occured while trying to read file '%s'.", fileName), e);
+            throw new UncheckedIOException(String.format("An I/O exception occured while trying to read file '%s'.", pathName), e);
         }
         return unmarshalledObject;
     }
 
     public synchronized void marshal(T object) {
         try {
-            File file = new File(fileName);
+            File file = new File(pathName);
             file.getParentFile().mkdirs();
             OutputStream outputStream = FileUtils.openOutputStream(file);
             super.marshal(object, outputStream);
             outputStream.close();
         } catch (IOException e) {
-            throw new UncheckedIOException(String.format("An I/O exception occured while trying to write file '%s'.", fileName), e);
+            throw new UncheckedIOException(String.format("An I/O exception occured while trying to write file '%s'.", pathName), e);
         }
     }
 
     public String getResourceName() {
-        return fileName;
+        return pathName;
     }
 }

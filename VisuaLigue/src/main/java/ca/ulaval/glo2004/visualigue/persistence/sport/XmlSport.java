@@ -12,7 +12,7 @@ public class XmlSport {
 
     public UUID uuid;
     public String name;
-    public String builtInIconFileName;
+    public String builtInIconPathName;
     public PlayingSurface playingSurface;
     public Set<PlayerCategory> playerCategories = new HashSet<>();
 }

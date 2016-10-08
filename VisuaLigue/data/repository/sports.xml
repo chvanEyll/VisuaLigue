@@ -4,7 +4,7 @@
         <sport>
             <uuid>ee253275-cf8d-4b3b-8abc-7d00ac046bdc</uuid>
             <name>Football</name>
-            <builtInIconFileName>/images/built-in-sport-icons/football-icon</builtInIconFileName>
+            <builtInIconPathName>/images/built-in-sport-icons/football-icon</builtInIconPathName>
             <playingSurface>
                 <lengthUnits>FOOTS</lengthUnits>
                 <widthUnits>FOOTS</widthUnits>
@@ -103,7 +103,7 @@
         <sport>
             <uuid>a2ee6ebf-aa47-4c78-9f31-79238e83c2a7</uuid>
             <name>Soccer</name>
-            <builtInIconFileName>/images/built-in-sport-icons/hockey-icon</builtInIconFileName>
+            <builtInIconPathName>/images/built-in-sport-icons/hockey-icon</builtInIconPathName>
             <playingSurface>
                 <lengthUnits>METER</lengthUnits>
                 <widthUnits>METER</widthUnits>
@@ -208,7 +208,7 @@
         <sport>
             <uuid>75351e8a-4dc0-4d22-a113-17b8f1191220</uuid>
             <name>Hockey</name>
-            <builtInIconFileName>/images/built-in-sport-icons/hockey-icon</builtInIconFileName>
+            <builtInIconPathName>/images/built-in-sport-icons/hockey-icon</builtInIconPathName>
             <playingSurface>
                 <lengthUnits>FOOTS</lengthUnits>
                 <widthUnits>FOOTS</widthUnits>

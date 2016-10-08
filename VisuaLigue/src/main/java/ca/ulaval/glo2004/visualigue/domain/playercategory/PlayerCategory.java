@@ -1,10 +1,11 @@
 package ca.ulaval.glo2004.visualigue.domain.playercategory;
 
+import ca.ulaval.glo2004.visualigue.domain.DomainObject;
 import ca.ulaval.glo2004.visualigue.domain.xmladapters.XmlColorAdapter;
 import java.awt.Color;
 import javax.xml.bind.annotation.adapters.XmlJavaTypeAdapter;
 
-public class PlayerCategory {
+public class PlayerCategory extends DomainObject {
 
     private String name;
     private Color allyColor = Color.decode("#0071BC");

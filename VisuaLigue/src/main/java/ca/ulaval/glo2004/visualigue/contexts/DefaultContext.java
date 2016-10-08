@@ -1,5 +1,6 @@
 package ca.ulaval.glo2004.visualigue.contexts;
 
+import ca.ulaval.glo2004.visualigue.domain.Image.PersistentImageRef;
 import ca.ulaval.glo2004.visualigue.domain.playercategory.PlayerCategory;
 import ca.ulaval.glo2004.visualigue.domain.playingsurface.PlayingSurface;
 import ca.ulaval.glo2004.visualigue.domain.playingsurface.PlayingSurfaceUnit;
@@ -38,9 +39,9 @@ public class DefaultContext extends ContextBase {
         createSports();
 
         Sport soccerSport = sportFactory.create("Soccer");
-        soccerSport.setBuiltInIconFileName("/images/built-in-sport-icons/soccer-icon");
+        soccerSport.setBuiltInIconPathName("/images/built-in-sport-icons/soccer-icon");
         Sport footballSport = sportFactory.create("Football");
-        footballSport.setBuiltInIconFileName("/images/built-in-sport-icons/football-icon");
+        footballSport.setBuiltInIconPathName("/images/built-in-sport-icons/football-icon");
 
     }
 
@@ -54,8 +55,8 @@ public class DefaultContext extends ContextBase {
 
     private Sport createHockeySport() {
         Sport sport = sportFactory.create("Hockey");
-        sport.setBuiltInIconFileName("/images/built-in-sport-icons/hockey-icon");
-        PlayingSurface playingSurface = new PlayingSurface(200.0, PlayingSurfaceUnit.FOOTS, 85.0, PlayingSurfaceUnit.FOOTS, "/images/built-in-playing-surfaces/hockey.png");
+        sport.setBuiltInIconPathName("/images/built-in-sport-icons/hockey-icon");
+        PlayingSurface playingSurface = new PlayingSurface(200.0, PlayingSurfaceUnit.FOOTS, 85.0, PlayingSurfaceUnit.FOOTS, new PersistentImageRef("/images/built-in-playing-surfaces/hockey.png"));
         sport.setPlayingSurface(playingSurface);
         Set<PlayerCategory> playerCategories = new HashSet<>();
         playerCategories.add(new PlayerCategory("Gardien", Color.decode("#F7931E"), Color.decode("#F7931E"), 1));
@@ -69,8 +70,8 @@ public class DefaultContext extends ContextBase {
 
     private Sport createSoccerSport() {
         Sport sport = sportFactory.create("Soccer");
-        sport.setBuiltInIconFileName("/images/built-in-sport-icons/soccer-icon");
-        PlayingSurface playingSurface = new PlayingSurface(68.0, PlayingSurfaceUnit.METER, 100.0, PlayingSurfaceUnit.METER, "/images/built-in-playing-surfaces/soccer.jpg");
+        sport.setBuiltInIconPathName("/images/built-in-sport-icons/soccer-icon");
+        PlayingSurface playingSurface = new PlayingSurface(68.0, PlayingSurfaceUnit.METER, 100.0, PlayingSurfaceUnit.METER, new PersistentImageRef("/images/built-in-playing-surfaces/soccer.jpg"));
         sport.setPlayingSurface(playingSurface);
         Set<PlayerCategory> playerCategories = new HashSet<>();
         playerCategories.add(new PlayerCategory("Gardien", Color.decode("#F7931E"), Color.decode("#F7931E"), 1));
@@ -95,8 +96,8 @@ public class DefaultContext extends ContextBase {
 
     private Sport createFootballSport() {
         Sport sport = sportFactory.create("Football");
-        sport.setBuiltInIconFileName("/images/built-in-sport-icons/football-icon");
-        PlayingSurface playingSurface = new PlayingSurface(160.0, PlayingSurfaceUnit.FOOTS, 360.0, PlayingSurfaceUnit.FOOTS, "/images/built-in-playing-surfaces/football.png");
+        sport.setBuiltInIconPathName("/images/built-in-sport-icons/football-icon");
+        PlayingSurface playingSurface = new PlayingSurface(160.0, PlayingSurfaceUnit.FOOTS, 360.0, PlayingSurfaceUnit.FOOTS, new PersistentImageRef("/images/built-in-playing-surfaces/football.png"));
         sport.setPlayingSurface(playingSurface);
         Set<PlayerCategory> playerCategories = new HashSet<>();
         playerCategories.add(new PlayerCategory("Safety", Color.decode("#F7931E"), Color.decode("#F7931E"), 2));

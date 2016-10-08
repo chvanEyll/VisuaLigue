@@ -25,13 +25,13 @@ public class SportSelectorItemController {
     public void init(SportListItemModel model) {
         this.model = model;
         sportNameLabel.textProperty().bindBidirectional(model.name);
-        setSportImage(model.builtInIconFileName.get());
+        setSportImage(model.builtInIconPathName.get());
     }
 
-    private void setSportImage(String sportImageFileName) {
+    private void setSportImage(String sportImagePathName) {
         FXMLLoader fxmlLoader = InjectableFXMLLoader.load(SvgPaneController.VIEW_NAME);
         SvgPaneController controller = (SvgPaneController) fxmlLoader.getController();
-        controller.init(sportImageFileName);
+        controller.init(sportImagePathName);
         rootNode.getChildren().add(0, controller.getRootNode());
     }
 

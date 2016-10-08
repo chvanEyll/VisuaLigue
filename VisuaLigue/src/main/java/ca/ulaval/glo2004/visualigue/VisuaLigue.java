@@ -16,6 +16,7 @@ public class VisuaLigue extends Application {
     private static final int MIN_STAGE_HEIGHT = 600;
     private static final String APP_NAME = "VisuaLigue";
     private static final String DATA_DIRECTORY = "data";
+    private static final String REPOSITORY_DIRECTORTY = "/repository";
 
     public static void main(String[] args) {
         launch(args);
@@ -54,6 +55,10 @@ public class VisuaLigue extends Application {
 
     public static String getAppDataDirectory() {
         return DATA_DIRECTORY;
+    }
+
+    public static String getRepositoryDirectory() {
+        return getAppDataDirectory() + REPOSITORY_DIRECTORTY;
     }
 
 }

@@ -17,10 +17,10 @@ public class SvgPaneController {
         return rootNode;
     }
 
-    public void init(String svgFileName) {
-        FXMLLoader fxmlLoader = InjectableFXMLLoader.load(svgFileName + ".fxml");
+    public void init(String svgPathName) {
+        FXMLLoader fxmlLoader = InjectableFXMLLoader.load(svgPathName + ".fxml");
         rootNode.getStylesheets().clear();
-        rootNode.getStylesheets().add(svgFileName + ".fxml.css");
+        rootNode.getStylesheets().add(svgPathName + ".fxml.css");
         rootNode.getChildren().add(fxmlLoader.getRoot());
     }
 

@@ -16,7 +16,7 @@ public class InjectionConfigProvider extends AbstractModule {
 
     @Provides
     XmlRepositoryMarshaller<XmlSportRootElement> provideXmlSportRepository() {
-        return new XmlRepositoryMarshaller<>(XmlSportRootElement.class, VisuaLigue.getAppDataDirectory() + "/sports.xml");
+        return new XmlRepositoryMarshaller<>(XmlSportRootElement.class, VisuaLigue.getRepositoryDirectory() + "/sports.xml");
     }
 
 }

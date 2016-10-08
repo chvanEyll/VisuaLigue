@@ -20,7 +20,7 @@ public class XmlSportAdapter extends XmlAdapter<XmlSport, Sport> {
     public Sport unmarshal(XmlSport xmlSport) throws Exception {
         Sport sport = sportFactory.create(xmlSport.name);
         sport.setUUID(xmlSport.uuid);
-        sport.setBuiltInIconFileName(xmlSport.builtInIconFileName);
+        sport.setBuiltInIconPathName(xmlSport.builtInIconPathName);
         sport.setPlayingSurface(xmlSport.playingSurface);
         sport.setPlayerCategories(xmlSport.playerCategories);
         return sport;
@@ -32,7 +32,7 @@ public class XmlSportAdapter extends XmlAdapter<XmlSport, Sport> {
 
         xmlSport.uuid = sport.getUUID();
         xmlSport.name = sport.getName();
-        xmlSport.builtInIconFileName = sport.getBuiltInIconFileName();
+        xmlSport.builtInIconPathName = sport.getBuiltInIconPathName();
         xmlSport.playingSurface = sport.getPlayingSurface();
         xmlSport.playerCategories = sport.getPlayerCategories();
 

@@ -9,7 +9,7 @@ import java.util.Set;
 public class Sport extends DomainObject {
 
     private String name;
-    private String builtInIconFileName = "/images/built-in-sport-icons/generic-icon";
+    private String builtInIconPathName = "/images/built-in-sport-icons/generic-icon";
     private PlayingSurface playingSurface = new PlayingSurface();
     private Set<PlayerCategory> playerCategories = new HashSet<>();
 
@@ -25,12 +25,12 @@ public class Sport extends DomainObject {
         this.name = name;
     }
 
-    public String getBuiltInIconFileName() {
-        return builtInIconFileName;
+    public String getBuiltInIconPathName() {
+        return builtInIconPathName;
     }
 
-    public void setBuiltInIconFileName(String builtInIconFileName) {
-        this.builtInIconFileName = builtInIconFileName;
+    public void setBuiltInIconPathName(String builtInIconPathName) {
+        this.builtInIconPathName = builtInIconPathName;
     }
 
     public PlayingSurface getPlayingSurface() {
