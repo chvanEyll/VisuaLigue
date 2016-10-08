@@ -16,7 +16,7 @@
                 <Insets bottom="14.0" left="14.0" right="14.0" top="14.0" />
             </padding>
             <children>
-                <fx:include source="sport-selector.fxml" />
+                <fx:include source="/views/sport-list/sport-selector.fxml" />
                 <AnchorPane>
                     <children>
                         <HBox spacing="10.0" styleClass="button-group" AnchorPane.rightAnchor="0.0">
@@ -35,7 +35,7 @@
         </VBox>
     </content>
     <stylesheets>
-        <URL value="@../css/main.fxml.css" />
+        <URL value="@/css/main.fxml.css" />
     </stylesheets>
     <styleClass>
         <String fx:value="root-node" />

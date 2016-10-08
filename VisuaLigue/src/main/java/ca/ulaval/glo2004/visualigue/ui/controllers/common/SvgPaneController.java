@@ -8,7 +8,7 @@ import javafx.scene.layout.Pane;
 
 public class SvgPaneController {
 
-    public static final String VIEW_NAME = "/views/svg-pane.fxml";
+    public static final String VIEW_NAME = "/views/common/svg-pane.fxml";
 
     @FXML
     private Pane rootNode;

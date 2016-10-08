@@ -12,7 +12,7 @@ import javafx.scene.layout.Pane;
 
 public class PlayerCategoryListItemController {
 
-    public static final String VIEW_NAME = "/views/player-category-list-item.fxml";
+    public static final String VIEW_NAME = "/views/sport-creation/player-category-list-item.fxml";
     @FXML private GridPane rootNode;
     @FXML private Label nameLabel;
     @FXML private Pane allyColorPane;

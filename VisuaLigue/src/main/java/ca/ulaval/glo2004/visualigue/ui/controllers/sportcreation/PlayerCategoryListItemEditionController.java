@@ -11,7 +11,7 @@ import javafx.scene.control.TextField;
 
 public class PlayerCategoryListItemEditionController {
 
-    public static final String VIEW_NAME = "/views/player-category-list-item-edition.fxml";
+    public static final String VIEW_NAME = "/views/sport-creation/player-category-list-item-edition.fxml";
     public static final Integer MIN_DEFAULT_NUMBER_OF_PLAYERS_VALUE = 0;
     public static final Integer MAX_DEFAULT_NUMBER_OF_PLAYERS_VALUE = 30;
     public static final Integer INITIAL_DEFAULT_NUMBER_OF_PLAYERS_VALUE = 0;

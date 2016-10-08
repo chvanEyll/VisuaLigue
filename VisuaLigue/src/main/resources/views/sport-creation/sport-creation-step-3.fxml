@@ -33,9 +33,9 @@
             </HBox>
             <HBox onMouseClicked="#onCategoryCreationLinkButtonClicked" alignment="CENTER_LEFT" fillHeight="false" spacing="7.0" styleClass="link-button">
                 <children>
-                    <Pane stylesheets="@../images/plus-icon-blue.fxml.css">
+                    <Pane stylesheets="@/images/plus-icon-blue.fxml.css">
                         <children>
-                            <fx:include source="../images/plus-icon-blue.fxml" />
+                            <fx:include source="/images/plus-icon-blue.fxml" />
                         </children>
                     </Pane>
                     <Label text="Ajouter une catégorie" />
@@ -45,7 +45,7 @@
         </children>
     </VBox>
     <stylesheets>
-        <URL value="@../css/main.fxml.css" />
+        <URL value="@/css/main.fxml.css" />
     </stylesheets>
     <styleClass>
         <String fx:value="root-node" />

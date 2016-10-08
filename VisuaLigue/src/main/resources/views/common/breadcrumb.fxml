@@ -7,12 +7,12 @@
 <?import javafx.scene.layout.HBox?>
 <?import javafx.scene.layout.Pane?>
 
-<HBox fx:id="rootNode" styleClass="root-node" alignment="CENTER_LEFT" fillHeight="true" xmlns="http://javafx.com/javafx/8.0.60" xmlns:fx="http://javafx.com/fxml/1" fx:controller="ca.ulaval.glo2004.visualigue.ui.controllers.common.BreadcrumbNavController">
+<HBox fx:id="rootNode" styleClass="root-node" alignment="CENTER_LEFT" fillHeight="true" xmlns="http://javafx.com/javafx/8.0.60" xmlns:fx="http://javafx.com/fxml/1" fx:controller="ca.ulaval.glo2004.visualigue.ui.controllers.common.BreadcrumbController">
     <children>
         <Pane minHeight="45.0" prefHeight="45.0" styleClass="breadcrumb-item" HBox.hgrow="ALWAYS" />
     </children>
     <stylesheets>
-        <URL value="@../css/main.fxml.css" />
-        <URL value="@../css/breadcrumb-nav-bar.fxml.css" />
+        <URL value="@/css/main.fxml.css" />
+        <URL value="@/css/breadcrumb-nav-bar.fxml.css" />
     </stylesheets>
 </HBox>

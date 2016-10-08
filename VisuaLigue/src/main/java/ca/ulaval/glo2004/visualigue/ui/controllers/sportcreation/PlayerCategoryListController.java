@@ -9,7 +9,7 @@ import javafx.scene.layout.VBox;
 
 public class PlayerCategoryListController {
 
-    public static final String VIEW_NAME = "/views/player-category-list.fxml";
+    public static final String VIEW_NAME = "/views/sport-creation/player-category-list.fxml";
     @FXML private VBox rootNode;
     private ObservableList<PlayerCategoryModel> playerCategoryModels;
     private PlayerCategoryListItemEditionController listItemEditionController;

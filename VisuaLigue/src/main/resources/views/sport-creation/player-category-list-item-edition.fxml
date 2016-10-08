@@ -45,9 +45,9 @@
     <VBox alignment="CENTER_RIGHT" style="-fx-background-color: #F3F1EF;" GridPane.columnIndex="5">
         <Button alignment="CENTER" defaultButton="true" onAction="#onValidateButtonAction">
             <graphic>
-                <StackPane stylesheets="@../images/checkmark-icon.fxml.css">
+                <StackPane stylesheets="@/images/checkmark-icon.fxml.css">
                     <children>
-                        <fx:include source="../images/checkmark-icon.fxml" />
+                        <fx:include source="/images/checkmark-icon.fxml" />
                     </children>
                 </StackPane>
             </graphic>
@@ -61,7 +61,7 @@
         </Button>
     </VBox>
     <stylesheets>
-        <URL value="@../css/main.fxml.css" />
+        <URL value="@/css/main.fxml.css" />
     </stylesheets>
     <styleClass>
         <String fx:value="root-node" />

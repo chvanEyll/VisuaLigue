@@ -44,9 +44,9 @@
         <Pane fx:id="spacerPane" GridPane.columnIndex="3"/>
         <Button fx:id="editButton" onAction="#onEditButtonAction" alignment="CENTER" GridPane.columnIndex="4">
             <graphic>
-                <StackPane stylesheets="@../images/pen-icon.fxml.css">
+                <StackPane stylesheets="@/images/pen-icon.fxml.css">
                     <children>
-                        <fx:include source="../images/pen-icon.fxml" />
+                        <fx:include source="/images/pen-icon.fxml" />
                     </children>
                 </StackPane>
             </graphic>
@@ -60,9 +60,9 @@
         </Button>
         <Button fx:id="deleteButton" onAction="#onDeleteButtonAction" alignment="CENTER" GridPane.columnIndex="5">
             <graphic>
-                <StackPane stylesheets="@../images/cross-icon.fxml.css">
+                <StackPane stylesheets="@/images/cross-icon.fxml.css">
                     <children>
-                        <fx:include source="../images/cross-icon.fxml" />
+                        <fx:include source="/images/cross-icon.fxml" />
                     </children>
                 </StackPane>
             </graphic>
@@ -76,7 +76,7 @@
         </Button>
     </children>
     <stylesheets>
-        <URL value="@../css/main.fxml.css" />
+        <URL value="@/css/main.fxml.css" />
     </stylesheets>
     <styleClass>
         <String fx:value="grid-pane" />

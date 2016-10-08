@@ -11,7 +11,7 @@ import javafx.scene.layout.VBox;
 
 public class SportSelectorItemController {
 
-    public static final String VIEW_NAME = "/views/sport-selector-item.fxml";
+    public static final String VIEW_NAME = "/views/sport-list/sport-selector-item.fxml";
 
     @FXML VBox rootNode;
     @FXML Label sportNameLabel;

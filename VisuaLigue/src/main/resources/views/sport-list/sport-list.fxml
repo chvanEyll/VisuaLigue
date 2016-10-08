@@ -21,9 +21,9 @@
                     <children>
                         <HBox alignment="CENTER_LEFT" fillHeight="false" spacing="7.0" styleClass="link-button" onMouseClicked="#onNewSportButtonClicked">
                             <children>
-                                <Pane stylesheets="@../images/plus-icon-blue.fxml.css">
+                                <Pane stylesheets="@/images/plus-icon-blue.fxml.css">
                                     <children>
-                                        <fx:include source="../images/plus-icon-blue.fxml" />
+                                        <fx:include source="/images/plus-icon-blue.fxml" />
                                     </children>
                                 </Pane>
                                 <Label text="Nouveau sport" />
@@ -41,7 +41,7 @@
                                 <Insets left="10.0" />
                             </padding>
                         </HBox>
-                        <fx:include fx:id="sportSelector" source="sport-selector.fxml" />
+                        <fx:include fx:id="sportSelector" source="/views/sport-list/sport-selector.fxml" />
                     </children>
                     <styleClass>
                         <String fx:value="form-section" />
@@ -56,6 +56,6 @@
         <String fx:value="root-node" />
     </styleClass>
     <stylesheets>
-        <URL value="@../css/main.fxml.css" />
+        <URL value="@/css/main.fxml.css" />
     </stylesheets>
 </ScrollPane>

@@ -69,7 +69,7 @@
                         <children>
                             <ImageView fx:id="imageView" fitHeight="200.0" fitWidth="500.0" pickOnBounds="true" preserveRatio="true">
                                 <image>
-                                    <Image url="@../images/built-in-playing-surfaces/hockey.png" />
+                                    <Image url="@/images/built-in-playing-surfaces/hockey.png" />
                                 </image>
                             </ImageView>
                         </children>
@@ -79,7 +79,7 @@
         </children>
     </VBox>
     <stylesheets>
-        <URL value="@../css/main.fxml.css" />
+        <URL value="@/css/main.fxml.css" />
     </stylesheets>
     <styleClass>
         <String fx:value="root-node" />

@@ -7,7 +7,7 @@ import ca.ulaval.glo2004.visualigue.domain.sport.SportNameAlreadyInUseException;
 import ca.ulaval.glo2004.visualigue.services.SportService;
 import ca.ulaval.glo2004.visualigue.ui.controllers.Controller;
 import ca.ulaval.glo2004.visualigue.ui.controllers.FileSelectionEventArgs;
-import ca.ulaval.glo2004.visualigue.ui.controllers.common.BreadcrumbNavController;
+import ca.ulaval.glo2004.visualigue.ui.controllers.common.BreadcrumbController;
 import ca.ulaval.glo2004.visualigue.ui.converters.SportCreationModelConverter;
 import ca.ulaval.glo2004.visualigue.ui.models.SportCreationModel;
 import javafx.beans.property.StringProperty;
@@ -22,10 +22,10 @@ public class SportCreationController extends Controller {
     @FXML VBox stepContent;
     @FXML Button defaultButton;
     @FXML Button cancelButton;
-    @FXML BreadcrumbNavController breadcrumbNavController;
+    @FXML BreadcrumbController breadcrumbController;
 
     public static final String VIEW_TITLE = "Création d'un sport";
-    public static final String VIEW_NAME = "/views/sport-creation.fxml";
+    public static final String VIEW_NAME = "/views/sport-creation/sport-creation.fxml";
     private static final int NUMBER_OF_STEPS = 3;
     private static final String STEPS_VIEW_NAMES[] = {
         "/views/sport-creation-step-1.fxml",
@@ -57,10 +57,10 @@ public class SportCreationController extends Controller {
     }
 
     private void initView() {
-        breadcrumbNavController.addItem("Général");
-        breadcrumbNavController.addItem("Terrain");
-        breadcrumbNavController.addItem("Joueurs");
-        breadcrumbNavController.onItemClicked.setHandler(this::onBreadcrumNavItemClickedHandler);
+        breadcrumbController.addItem("Général");
+        breadcrumbController.addItem("Terrain");
+        breadcrumbController.addItem("Joueurs");
+        breadcrumbController.onItemClicked.setHandler(this::onBreadcrumNavItemClickedHandler);
         setStep(GENERAL_STEP_INDEX);
     }
 
@@ -83,7 +83,7 @@ public class SportCreationController extends Controller {
             } else if (!model.isNew()) {
                 defaultButton.setText("Sauvegarder");
             }
-            breadcrumbNavController.setActiveItem(stepIndex);
+            breadcrumbController.setActiveItem(stepIndex);
             currentStepIndex = stepIndex;
         }
     }

@@ -12,7 +12,7 @@
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.shape.Line?>
 
-<VBox fx:id="menuPane" minWidth="170.0" prefWidth="170.0" stylesheets="@../css/main.fxml.css" xmlns="http://javafx.com/javafx/8.0.60" xmlns:fx="http://javafx.com/fxml/1" fx:controller="ca.ulaval.glo2004.visualigue.ui.controllers.MainMenuController">
+<VBox fx:id="menuPane" minWidth="170.0" prefWidth="170.0" stylesheets="@/css/main.fxml.css" xmlns="http://javafx.com/javafx/8.0.60" xmlns:fx="http://javafx.com/fxml/1" fx:controller="ca.ulaval.glo2004.visualigue.ui.controllers.MainMenuController">
     <children>
         <HBox alignment="CENTER_LEFT" prefHeight="50.0" styleClass="menu-toggle-container">
             <children>
@@ -36,9 +36,9 @@
                 <Insets left="14.0" />
             </padding>
             <children>
-                <Pane stylesheets="@../images/sport-icon.fxml.css">
+                <Pane stylesheets="@/images/sport-icon.fxml.css">
                     <children>
-                        <fx:include source="../images/sport-icon.fxml" />
+                        <fx:include source="/images/sport-icon.fxml" />
                     </children>
                 </Pane>
                 <Label text="Sports" />
@@ -52,9 +52,9 @@
                 <Insets left="14.0" />
             </padding>
             <children>
-                <Pane stylesheets="@../images/play-icon.fxml.css">
+                <Pane stylesheets="@/images/play-icon.fxml.css">
                     <children>
-                        <fx:include source="../images/play-icon.fxml" />
+                        <fx:include source="/images/play-icon.fxml" />
                     </children>
                 </Pane>
                 <Label text="Jeux" />

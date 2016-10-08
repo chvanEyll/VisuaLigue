@@ -22,8 +22,8 @@
 
 <BorderPane AnchorPane.rightAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.topAnchor="0.0" AnchorPane.bottomAnchor="0.0" xmlns="http://javafx.com/javafx/8.0.60" xmlns:fx="http://javafx.com/fxml/1">
     <stylesheets>
-        <URL value="@../css/main.fxml.css" />
-        <URL value="@../css/play-editor.fxml.css" />
+        <URL value="@/css/main.fxml.css" />
+        <URL value="@/css/play-editor.fxml.css" />
     </stylesheets>
     <styleClass>
         <String fx:value="root-node" />
@@ -34,9 +34,9 @@
             <children>
                 <Button mnemonicParsing="false">
                     <graphic>
-                        <StackPane stylesheets="@../images/save-icon.fxml.css">
+                        <StackPane stylesheets="@/images/save-icon.fxml.css">
                             <children>
-                                <fx:include source="../images/save-icon.fxml" />
+                                <fx:include source="/images/save-icon.fxml" />
                             </children>
                         </StackPane>
                     </graphic>
@@ -50,9 +50,9 @@
                 </Button>
                 <Button mnemonicParsing="false">
                     <graphic>
-                        <StackPane stylesheets="@../images/cross-icon.fxml.css">
+                        <StackPane stylesheets="@/images/cross-icon.fxml.css">
                             <children>
-                                <fx:include source="../images/cross-icon.fxml" />
+                                <fx:include source="/images/cross-icon.fxml" />
                             </children>
                         </StackPane>
                     </graphic>
@@ -66,9 +66,9 @@
                 </Button>
                 <Button mnemonicParsing="false">
                     <graphic>
-                        <StackPane stylesheets="@../images/export-icon.fxml.css">
+                        <StackPane stylesheets="@/images/export-icon.fxml.css">
                             <children>
-                                <fx:include source="../images/export-icon.fxml" />
+                                <fx:include source="/images/export-icon.fxml" />
                             </children>
                         </StackPane>
                     </graphic>
@@ -87,9 +87,9 @@
                 </Pane>
                 <Button mnemonicParsing="false">
                     <graphic>
-                        <StackPane stylesheets="@../images/undo-icon.fxml.css">
+                        <StackPane stylesheets="@/images/undo-icon.fxml.css">
                             <children>
-                                <fx:include source="../images/undo-icon.fxml" />
+                                <fx:include source="/images/undo-icon.fxml" />
                             </children>
                         </StackPane>
                     </graphic>
@@ -103,9 +103,9 @@
                 </Button>
                 <Button mnemonicParsing="false">
                     <graphic>
-                        <StackPane stylesheets="@../images/redo-icon.fxml.css">
+                        <StackPane stylesheets="@/images/redo-icon.fxml.css">
                             <children>
-                                <fx:include source="../images/redo-icon.fxml" />
+                                <fx:include source="/images/redo-icon.fxml" />
                             </children>
                         </StackPane>
                     </graphic>
@@ -124,9 +124,9 @@
                 </Pane>
                 <Button mnemonicParsing="false">
                     <graphic>
-                        <StackPane stylesheets="@../images/zoom-in-icon.fxml.css">
+                        <StackPane stylesheets="@/images/zoom-in-icon.fxml.css">
                             <children>
-                                <fx:include source="../images/zoom-in-icon.fxml" />
+                                <fx:include source="/images/zoom-in-icon.fxml" />
                             </children>
                         </StackPane>
                     </graphic>
@@ -146,9 +146,9 @@
                 </TextField>
                 <Button mnemonicParsing="false">
                     <graphic>
-                        <StackPane stylesheets="@../images/zoom-out-icon.fxml.css">
+                        <StackPane stylesheets="@/images/zoom-out-icon.fxml.css">
                             <children>
-                                <fx:include source="../images/zoom-out-icon.fxml" />
+                                <fx:include source="/images/zoom-out-icon.fxml" />
                             </children>
                         </StackPane>
                     </graphic>
@@ -162,9 +162,9 @@
                 </Button>
                 <Button mnemonicParsing="false">
                     <graphic>
-                        <StackPane stylesheets="@../images/best-fit-icon.fxml.css">
+                        <StackPane stylesheets="@/images/best-fit-icon.fxml.css">
                             <children>
-                                <fx:include source="../images/best-fit-icon.fxml" />
+                                <fx:include source="/images/best-fit-icon.fxml" />
                             </children>
                         </StackPane>
                     </graphic>
@@ -183,9 +183,9 @@
                 </Pane>
                 <Button mnemonicParsing="false">
                     <graphic>
-                        <StackPane stylesheets="@../images/3d-icon.fxml.css">
+                        <StackPane stylesheets="@/images/3d-icon.fxml.css">
                             <children>
-                                <fx:include source="../images/3d-icon.fxml" />
+                                <fx:include source="/images/3d-icon.fxml" />
                             </children>
                         </StackPane>
                     </graphic>
@@ -199,9 +199,9 @@
                 </Button>
                 <Button mnemonicParsing="false">
                     <graphic>
-                        <StackPane stylesheets="@../images/show-labels-icon.fxml.css">
+                        <StackPane stylesheets="@/images/show-labels-icon.fxml.css">
                             <children>
-                                <fx:include source="../images/show-labels-icon.fxml" />
+                                <fx:include source="/images/show-labels-icon.fxml" />
                             </children>
                         </StackPane>
                     </graphic>
@@ -255,9 +255,9 @@
                                                 <Insets left="14.0" />
                                             </padding>
                                             <children>
-                                                <Pane stylesheets="@../images/player-object-icon.fxml.css">
+                                                <Pane stylesheets="@/images/player-object-icon.fxml.css">
                                                     <children>
-                                                        <fx:include source="../images/player-object-icon.fxml" />
+                                                        <fx:include source="/images/player-object-icon.fxml" />
                                                     </children>
                                                 </Pane>
                                                 <Label text="Joueurs" />
@@ -283,9 +283,9 @@
                                                                 <Insets left="14.0" />
                                                             </padding>
                                                             <children>
-                                                                <Pane stylesheets="@../images/player-object.fxml.css">
+                                                                <Pane stylesheets="@/images/player-object.fxml.css">
                                                                     <children>
-                                                                        <fx:include source="../images/player-object.fxml" />
+                                                                        <fx:include source="/images/player-object.fxml" />
                                                                     </children>
                                                                 </Pane>
                                                                 <Label text="Attaquant" />
@@ -300,9 +300,9 @@
                                                                 <Insets left="14.0" />
                                                             </padding>
                                                             <children>
-                                                                <Pane stylesheets="@../images/player-object.fxml.css">
+                                                                <Pane stylesheets="@/images/player-object.fxml.css">
                                                                     <children>
-                                                                        <fx:include source="../images/player-object.fxml" />
+                                                                        <fx:include source="/images/player-object.fxml" />
                                                                     </children>
                                                                 </Pane>
                                                                 <Label text="Gardien" />
@@ -333,9 +333,9 @@
                                                                 <Insets left="14.0" />
                                                             </padding>
                                                             <children>
-                                                                <Pane stylesheets="@../images/player-object.fxml.css">
+                                                                <Pane stylesheets="@/images/player-object.fxml.css">
                                                                     <children>
-                                                                        <fx:include source="../images/player-object.fxml" />
+                                                                        <fx:include source="/images/player-object.fxml" />
                                                                     </children>
                                                                 </Pane>
                                                                 <Label text="Attaquant" />
@@ -350,9 +350,9 @@
                                                                 <Insets left="14.0" />
                                                             </padding>
                                                             <children>
-                                                                <Pane stylesheets="@../images/player-object.fxml.css">
+                                                                <Pane stylesheets="@/images/player-object.fxml.css">
                                                                     <children>
-                                                                        <fx:include source="../images/player-object.fxml" />
+                                                                        <fx:include source="/images/player-object.fxml" />
                                                                     </children>
                                                                 </Pane>
                                                                 <Label text="Gardien" />
@@ -375,9 +375,9 @@
                                                 <Insets left="14.0" />
                                             </padding>
                                             <children>
-                                                <Pane stylesheets="@../images/object-icon.fxml.css">
+                                                <Pane stylesheets="@/images/object-icon.fxml.css">
                                                     <children>
-                                                        <fx:include source="../images/object-icon.fxml" />
+                                                        <fx:include source="/images/object-icon.fxml" />
                                                     </children>
                                                 </Pane>
                                                 <Label text="Objets" />
@@ -387,9 +387,9 @@
                                             <children>
                                                 <Button>
                                                     <graphic>
-                                                        <StackPane stylesheets="@../images/ball-object.fxml.css">
+                                                        <StackPane stylesheets="@/images/ball-object.fxml.css">
                                                             <children>
-                                                                <fx:include source="../images/ball-object.fxml" />
+                                                                <fx:include source="/images/ball-object.fxml" />
                                                             </children>
                                                         </StackPane>
                                                     </graphic>
@@ -404,9 +404,9 @@
                                                 </Button>
                                                 <Button>
                                                     <graphic>
-                                                        <StackPane stylesheets="@../images/cone-object.fxml.css">
+                                                        <StackPane stylesheets="@/images/cone-object.fxml.css">
                                                             <children>
-                                                                <fx:include source="../images/cone-object.fxml" />
+                                                                <fx:include source="/images/cone-object.fxml" />
                                                             </children>
                                                         </StackPane>
                                                     </graphic>
@@ -421,9 +421,9 @@
                                                 </Button>
                                                 <Button>
                                                     <graphic>
-                                                        <StackPane stylesheets="@../images/plus-icon-blue.fxml.css">
+                                                        <StackPane stylesheets="@/images/plus-icon-blue.fxml.css">
                                                             <children>
-                                                                <fx:include source="../images/plus-icon-blue.fxml" />
+                                                                <fx:include source="/images/plus-icon-blue.fxml" />
                                                             </children>
                                                         </StackPane>
                                                     </graphic>
@@ -457,9 +457,9 @@
                     <children>
                         <Button mnemonicParsing="false">
                             <graphic>
-                                <StackPane styleClass="fixed-control-button" stylesheets="@../images/real-time-icon.fxml.css">
+                                <StackPane styleClass="fixed-control-button" stylesheets="@/images/real-time-icon.fxml.css">
                                     <children>
-                                        <fx:include source="../images/real-time-icon.fxml" />
+                                        <fx:include source="/images/real-time-icon.fxml" />
                                     </children>
                                 </StackPane>
                             </graphic>
@@ -473,9 +473,9 @@
                         </Button>
                         <Button mnemonicParsing="false">
                             <graphic>
-                                <StackPane stylesheets="@../images/seekbar-fixed-rewind-icon.fxml.css">
+                                <StackPane stylesheets="@/images/seekbar-fixed-rewind-icon.fxml.css">
                                     <children>
-                                        <fx:include source="../images/seekbar-fixed-rewind-icon.fxml" />
+                                        <fx:include source="/images/seekbar-fixed-rewind-icon.fxml" />
                                         <Label text="5">
                                             <StackPane.margin>
                                                 <Insets />
@@ -496,9 +496,9 @@
                         </Button>
                         <Button mnemonicParsing="false">
                             <graphic>
-                                <StackPane stylesheets="@../images/seekbar-previous-icon.fxml.css">
+                                <StackPane stylesheets="@/images/seekbar-previous-icon.fxml.css">
                                     <children>
-                                        <fx:include source="../images/seekbar-previous-icon.fxml" />
+                                        <fx:include source="/images/seekbar-previous-icon.fxml" />
                                     </children>
                                 </StackPane>
                             </graphic>
@@ -513,9 +513,9 @@
                         </Button>
                         <Button mnemonicParsing="false">
                             <graphic>
-                                <StackPane stylesheets="@../images/seekbar-rewind-icon.fxml.css">
+                                <StackPane stylesheets="@/images/seekbar-rewind-icon.fxml.css">
                                     <children>
-                                        <fx:include source="../images/seekbar-rewind-icon.fxml" />
+                                        <fx:include source="/images/seekbar-rewind-icon.fxml" />
                                     </children>
                                 </StackPane>
                             </graphic>
@@ -530,9 +530,9 @@
                         </Button>
                         <Button mnemonicParsing="false">
                             <graphic>
-                                <StackPane stylesheets="@../images/seekbar-play-icon.fxml.css">
+                                <StackPane stylesheets="@/images/seekbar-play-icon.fxml.css">
                                     <children>
-                                        <fx:include source="../images/seekbar-play-icon.fxml" />
+                                        <fx:include source="/images/seekbar-play-icon.fxml" />
                                     </children>
                                 </StackPane>
                             </graphic>
@@ -550,9 +550,9 @@
                         </Button>
                         <Button mnemonicParsing="false">
                             <graphic>
-                                <StackPane stylesheets="@../images/seekbar-fast-forward-icon.fxml.css">
+                                <StackPane stylesheets="@/images/seekbar-fast-forward-icon.fxml.css">
                                     <children>
-                                        <fx:include source="../images/seekbar-fast-forward-icon.fxml" />
+                                        <fx:include source="/images/seekbar-fast-forward-icon.fxml" />
                                     </children>
                                 </StackPane>
                             </graphic>
@@ -567,9 +567,9 @@
                         </Button>
                         <Button mnemonicParsing="false">
                             <graphic>
-                                <StackPane stylesheets="@../images/seekbar-next-icon.fxml.css">
+                                <StackPane stylesheets="@/images/seekbar-next-icon.fxml.css">
                                     <children>
-                                        <fx:include source="../images/seekbar-next-icon.fxml" />
+                                        <fx:include source="/images/seekbar-next-icon.fxml" />
                                     </children>
                                 </StackPane>
                             </graphic>
@@ -584,9 +584,9 @@
                         </Button>
                         <Button mnemonicParsing="false">
                             <graphic>
-                                <StackPane stylesheets="@../images/seekbar-fixed-forward-icon.fxml.css">
+                                <StackPane stylesheets="@/images/seekbar-fixed-forward-icon.fxml.css">
                                     <children>
-                                        <fx:include source="../images/seekbar-fixed-forward-icon.fxml" />
+                                        <fx:include source="/images/seekbar-fixed-forward-icon.fxml" />
                                         <Label text="5">
                                             <StackPane.margin>
                                                 <Insets />
@@ -635,9 +635,9 @@
                                             </rowConstraints>
                                             <children>
                                                 <Pane maxHeight="5.0" prefHeight="5.0" styleClass="bar" GridPane.columnSpan="14" />
-                                                <StackPane stylesheets="@../images/seekbar-frame.fxml.css" GridPane.columnIndex="0">
+                                                <StackPane stylesheets="@/images/seekbar-frame.fxml.css" GridPane.columnIndex="0">
                                                     <children>
-                                                        <fx:include source="../images/seekbar-frame.fxml" />
+                                                        <fx:include source="/images/seekbar-frame.fxml" />
                                                         <Label text="1">
                                                             <StackPane.margin>
                                                                 <Insets />
@@ -648,9 +648,9 @@
                                                         <String fx:value="seekbar-frame" />
                                                     </styleClass>
                                                 </StackPane>
-                                                <StackPane stylesheets="@../images/seekbar-frame.fxml.css" GridPane.columnIndex="1">
+                                                <StackPane stylesheets="@/images/seekbar-frame.fxml.css" GridPane.columnIndex="1">
                                                     <children>
-                                                        <fx:include source="../images/seekbar-frame.fxml" />
+                                                        <fx:include source="/images/seekbar-frame.fxml" />
                                                         <Label text="2">
                                                             <StackPane.margin>
                                                                 <Insets />
@@ -661,9 +661,9 @@
                                                         <String fx:value="seekbar-frame" />
                                                     </styleClass>
                                                 </StackPane>
-                                                <StackPane stylesheets="@../images/seekbar-frame.fxml.css" GridPane.columnIndex="2">
+                                                <StackPane stylesheets="@/images/seekbar-frame.fxml.css" GridPane.columnIndex="2">
                                                     <children>
-                                                        <fx:include source="../images/seekbar-frame.fxml" />
+                                                        <fx:include source="/images/seekbar-frame.fxml" />
                                                         <Label text="3">
                                                             <StackPane.margin>
                                                                 <Insets />
@@ -674,9 +674,9 @@
                                                         <String fx:value="seekbar-frame" />
                                                     </styleClass>
                                                 </StackPane>
-                                                <StackPane stylesheets="@../images/seekbar-frame.fxml.css" GridPane.columnIndex="3">
+                                                <StackPane stylesheets="@/images/seekbar-frame.fxml.css" GridPane.columnIndex="3">
                                                     <children>
-                                                        <fx:include source="../images/seekbar-frame.fxml" />
+                                                        <fx:include source="/images/seekbar-frame.fxml" />
                                                         <Label text="4">
                                                             <StackPane.margin>
                                                                 <Insets />
@@ -687,9 +687,9 @@
                                                         <String fx:value="seekbar-frame" />
                                                     </styleClass>
                                                 </StackPane>
-                                                <StackPane stylesheets="@../images/seekbar-frame.fxml.css" GridPane.columnIndex="4">
+                                                <StackPane stylesheets="@/images/seekbar-frame.fxml.css" GridPane.columnIndex="4">
                                                     <children>
-                                                        <fx:include source="../images/seekbar-frame.fxml" />
+                                                        <fx:include source="/images/seekbar-frame.fxml" />
                                                         <Label text="5">
                                                             <StackPane.margin>
                                                                 <Insets />
@@ -700,9 +700,9 @@
                                                         <String fx:value="seekbar-frame" />
                                                     </styleClass>
                                                 </StackPane>
-                                                <StackPane stylesheets="@../images/seekbar-frame.fxml.css" GridPane.columnIndex="5">
+                                                <StackPane stylesheets="@/images/seekbar-frame.fxml.css" GridPane.columnIndex="5">
                                                     <children>
-                                                        <fx:include source="../images/seekbar-frame.fxml" />
+                                                        <fx:include source="/images/seekbar-frame.fxml" />
                                                         <Label text="6">
                                                             <StackPane.margin>
                                                                 <Insets />
@@ -713,9 +713,9 @@
                                                         <String fx:value="seekbar-frame" />
                                                     </styleClass>
                                                 </StackPane>
-                                                <StackPane stylesheets="@../images/seekbar-frame.fxml.css" GridPane.columnIndex="6">
+                                                <StackPane stylesheets="@/images/seekbar-frame.fxml.css" GridPane.columnIndex="6">
                                                     <children>
-                                                        <fx:include source="../images/seekbar-frame.fxml" />
+                                                        <fx:include source="/images/seekbar-frame.fxml" />
                                                         <Label text="7">
                                                             <StackPane.margin>
                                                                 <Insets />
@@ -726,9 +726,9 @@
                                                         <String fx:value="seekbar-frame" />
                                                     </styleClass>
                                                 </StackPane>
-                                                <StackPane stylesheets="@../images/seekbar-frame.fxml.css" GridPane.columnIndex="7">
+                                                <StackPane stylesheets="@/images/seekbar-frame.fxml.css" GridPane.columnIndex="7">
                                                     <children>
-                                                        <fx:include source="../images/seekbar-frame.fxml" />
+                                                        <fx:include source="/images/seekbar-frame.fxml" />
                                                         <Label text="8">
                                                             <StackPane.margin>
                                                                 <Insets />
@@ -739,9 +739,9 @@
                                                         <String fx:value="seekbar-frame" />
                                                     </styleClass>
                                                 </StackPane>
-                                                <StackPane stylesheets="@../images/seekbar-frame.fxml.css" GridPane.columnIndex="8">
+                                                <StackPane stylesheets="@/images/seekbar-frame.fxml.css" GridPane.columnIndex="8">
                                                     <children>
-                                                        <fx:include source="../images/seekbar-frame.fxml" />
+                                                        <fx:include source="/images/seekbar-frame.fxml" />
                                                         <Label text="9">
                                                             <StackPane.margin>
                                                                 <Insets />
@@ -752,9 +752,9 @@
                                                         <String fx:value="seekbar-frame" />
                                                     </styleClass>
                                                 </StackPane>
-                                                <StackPane stylesheets="@../images/seekbar-frame.fxml.css" GridPane.columnIndex="9">
+                                                <StackPane stylesheets="@/images/seekbar-frame.fxml.css" GridPane.columnIndex="9">
                                                     <children>
-                                                        <fx:include source="../images/seekbar-frame.fxml" />
+                                                        <fx:include source="/images/seekbar-frame.fxml" />
                                                         <Label text="10">
                                                             <StackPane.margin>
                                                                 <Insets />
@@ -765,9 +765,9 @@
                                                         <String fx:value="seekbar-frame" />
                                                     </styleClass>
                                                 </StackPane>
-                                                <StackPane stylesheets="@../images/seekbar-frame.fxml.css" GridPane.columnIndex="10">
+                                                <StackPane stylesheets="@/images/seekbar-frame.fxml.css" GridPane.columnIndex="10">
                                                     <children>
-                                                        <fx:include source="../images/seekbar-frame.fxml" />
+                                                        <fx:include source="/images/seekbar-frame.fxml" />
                                                         <Label text="11">
                                                             <StackPane.margin>
                                                                 <Insets />
@@ -778,9 +778,9 @@
                                                         <String fx:value="seekbar-frame" />
                                                     </styleClass>
                                                 </StackPane>
-                                                <StackPane stylesheets="@../images/seekbar-frame.fxml.css" GridPane.columnIndex="11">
+                                                <StackPane stylesheets="@/images/seekbar-frame.fxml.css" GridPane.columnIndex="11">
                                                     <children>
-                                                        <fx:include source="../images/seekbar-frame.fxml" />
+                                                        <fx:include source="/images/seekbar-frame.fxml" />
                                                         <Label text="12">
                                                             <StackPane.margin>
                                                                 <Insets />
@@ -791,9 +791,9 @@
                                                         <String fx:value="seekbar-frame" />
                                                     </styleClass>
                                                 </StackPane>
-                                                <StackPane stylesheets="@../images/seekbar-frame.fxml.css" GridPane.columnIndex="12">
+                                                <StackPane stylesheets="@/images/seekbar-frame.fxml.css" GridPane.columnIndex="12">
                                                     <children>
-                                                        <fx:include source="../images/seekbar-frame.fxml" />
+                                                        <fx:include source="/images/seekbar-frame.fxml" />
                                                         <Label text="13">
                                                             <StackPane.margin>
                                                                 <Insets />
@@ -804,9 +804,9 @@
                                                         <String fx:value="seekbar-frame" />
                                                     </styleClass>
                                                 </StackPane>
-                                                <StackPane stylesheets="@../images/seekbar-frame.fxml.css" GridPane.columnIndex="13">
+                                                <StackPane stylesheets="@/images/seekbar-frame.fxml.css" GridPane.columnIndex="13">
                                                     <children>
-                                                        <fx:include source="../images/seekbar-frame.fxml" />
+                                                        <fx:include source="/images/seekbar-frame.fxml" />
                                                         <Label text="14">
                                                             <StackPane.margin>
                                                                 <Insets />
@@ -821,9 +821,9 @@
                                         </GridPane>
                                         <Button>
                                             <graphic>
-                                                <StackPane stylesheets="@../images/seekbar-thumb.fxml.css" GridPane.columnIndex="0">
+                                                <StackPane stylesheets="@/images/seekbar-thumb.fxml.css" GridPane.columnIndex="0">
                                                     <children>
-                                                        <fx:include source="../images/seekbar-thumb.fxml" />
+                                                        <fx:include source="/images/seekbar-thumb.fxml" />
                                                     </children>
                                                     <styleClass>
                                                         <String fx:value="seekbar-frame" />
@@ -850,9 +850,9 @@
                         </ScrollPane>
                         <Button>
                             <graphic>
-                                <StackPane stylesheets="@../images/new-frame-icon.fxml.css" GridPane.columnIndex="0">
+                                <StackPane stylesheets="@/images/new-frame-icon.fxml.css" GridPane.columnIndex="0">
                                     <children>
-                                        <fx:include source="../images/new-frame-icon.fxml" />
+                                        <fx:include source="/images/new-frame-icon.fxml" />
                                     </children>
                                     <styleClass>
                                         <String fx:value="seekbar-frame" />

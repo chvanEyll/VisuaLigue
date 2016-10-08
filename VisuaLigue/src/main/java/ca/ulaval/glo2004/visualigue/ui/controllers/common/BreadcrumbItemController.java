@@ -6,9 +6,9 @@ import javafx.fxml.FXML;
 import javafx.scene.control.Label;
 import javafx.scene.layout.HBox;
 
-public class BreadcrumbNavItemController {
+public class BreadcrumbItemController {
 
-    public static final String VIEW_NAME = "/views/breadcrumb-nav-bar-item.fxml";
+    public static final String VIEW_NAME = "/views/common/breadcrumb-item.fxml";
 
     @FXML private Label titleLabel;
     @FXML private HBox navigationArrow;

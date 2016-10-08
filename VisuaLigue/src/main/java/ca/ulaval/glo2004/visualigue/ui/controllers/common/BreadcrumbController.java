@@ -8,15 +8,15 @@ import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.layout.HBox;
 
-public class BreadcrumbNavController {
+public class BreadcrumbController {
 
     @FXML HBox rootNode;
-    private final List<BreadcrumbNavItemController> items = new ArrayList<>();
+    private final List<BreadcrumbItemController> items = new ArrayList<>();
     public EventHandler<Integer> onItemClicked = new EventHandler<>();
 
     public void addItem(String title) {
-        FXMLLoader fxmlLoader = InjectableFXMLLoader.load(BreadcrumbNavItemController.VIEW_NAME);
-        BreadcrumbNavItemController controller = (BreadcrumbNavItemController) fxmlLoader.getController();
+        FXMLLoader fxmlLoader = InjectableFXMLLoader.load(BreadcrumbItemController.VIEW_NAME);
+        BreadcrumbItemController controller = (BreadcrumbItemController) fxmlLoader.getController();
         controller.init(title, items.size() > 0);
         controller.onClick.setHandler(this::onItemClickedHandler);
         rootNode.getChildren().add(rootNode.getChildren().size() - 1, fxmlLoader.getRoot());
