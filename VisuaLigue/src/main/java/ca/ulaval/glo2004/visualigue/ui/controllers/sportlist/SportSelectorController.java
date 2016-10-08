@@ -19,7 +19,7 @@ public class SportSelectorController implements Initializable {
 
     @Inject private SportService sportService;
     @Inject private SportListItemModelConverter sportListItemModelConverter;
-    @FXML private TilePane sportTilePane;
+    @FXML private TilePane rootNode;
     public EventHandler<SportListItemModel> onSportSelected = new EventHandler<>();
 
     @Override
@@ -34,7 +34,7 @@ public class SportSelectorController implements Initializable {
     }
 
     private void fillSportList() {
-        sportTilePane.getChildren().clear();
+        rootNode.getChildren().clear();
         sportService.getSports().stream().sorted().forEach(sport -> {
             initSportItem(sportListItemModelConverter.convert(sport));
         });
@@ -45,7 +45,7 @@ public class SportSelectorController implements Initializable {
         SportSelectorItemController controller = (SportSelectorItemController) fxmlLoader.getController();
         controller.init(model);
         controller.onClick.setHandler(this::onItemClickedHandler);
-        sportTilePane.getChildren().add(fxmlLoader.getRoot());
+        rootNode.getChildren().add(fxmlLoader.getRoot());
     }
 
     public void onItemClickedHandler(Object sender, SportListItemModel model) {

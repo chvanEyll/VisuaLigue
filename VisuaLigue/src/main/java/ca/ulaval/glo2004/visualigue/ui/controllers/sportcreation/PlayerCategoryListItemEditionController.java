@@ -3,10 +3,7 @@ package ca.ulaval.glo2004.visualigue.ui.controllers.sportcreation;
 import ca.ulaval.glo2004.visualigue.ui.models.PlayerCategoryModel;
 import ca.ulaval.glo2004.visualigue.utils.EventHandler;
 import ca.ulaval.glo2004.visualigue.utils.FXUtils;
-import java.util.Arrays;
-import java.util.List;
 import javafx.fxml.FXML;
-import javafx.scene.Node;
 import javafx.scene.control.ColorPicker;
 import javafx.scene.control.Spinner;
 import javafx.scene.control.SpinnerValueFactory.IntegerSpinnerValueFactory;
@@ -20,8 +17,6 @@ public class PlayerCategoryListItemEditionController {
     public static final Integer INITIAL_DEFAULT_NUMBER_OF_PLAYERS_VALUE = 0;
     public static final Integer STEP_DEFAULT_NUMBER_OF_PLAYERS_VALUE = 1;
     public EventHandler<PlayerCategoryModel> onEditionValidationRequested = new EventHandler<>();
-    @FXML private Node child1;
-    @FXML private Node child2;
     @FXML private TextField nameTextField;
     @FXML private ColorPicker allyColorPicker;
     @FXML private ColorPicker opponentColorPicker;
@@ -45,9 +40,5 @@ public class PlayerCategoryListItemEditionController {
     @FXML
     public void onValidateButtonAction() {
         onEditionValidationRequested.fire(this, model);
-    }
-
-    public List<Node> getChildren() {
-        return Arrays.asList(child1, child2);
     }
 }

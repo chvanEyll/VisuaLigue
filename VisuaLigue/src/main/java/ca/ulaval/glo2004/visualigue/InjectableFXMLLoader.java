@@ -6,7 +6,6 @@ import java.io.IOException;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javafx.fxml.FXMLLoader;
-import javafx.scene.Node;
 
 public class InjectableFXMLLoader {
 
@@ -22,15 +21,8 @@ public class InjectableFXMLLoader {
     }
 
     public static FXMLLoader load(String viewName) {
-        return load(viewName, null);
-    }
-
-    public static FXMLLoader load(String viewName, Node rootNode) {
         FXMLLoader fxmlLoader = new FXMLLoader(InjectableFXMLLoader.class.getResource(viewName));
         fxmlLoader.setControllerFactory(injector::getInstance);
-        if (rootNode != null) {
-            fxmlLoader.setRoot(rootNode);
-        }
         try {
             fxmlLoader.load();
         } catch (IOException ex) {
