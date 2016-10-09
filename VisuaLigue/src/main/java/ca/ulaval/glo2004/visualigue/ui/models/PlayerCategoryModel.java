@@ -7,8 +7,8 @@ public class PlayerCategoryModel extends Model implements Comparable {
 
     public StringProperty name = new SimpleStringProperty("Nouvelle catégorie");
     public IntegerProperty defaultNumberOfPlayers = new SimpleIntegerProperty(0);
-    public ObjectProperty<Color> allyPlayerColor = new SimpleObjectProperty<>(Color.web("#0071BC"));
-    public ObjectProperty<Color> opponentPlayerColor = new SimpleObjectProperty<>(Color.web("#C1272D"));
+    public ObjectProperty<Color> allyPlayerColor = new SimpleObjectProperty<>(Color.web("#001A80"));
+    public ObjectProperty<Color> opponentPlayerColor = new SimpleObjectProperty<>(Color.web("#990000"));
 
     @Override
     public int compareTo(Object obj) {

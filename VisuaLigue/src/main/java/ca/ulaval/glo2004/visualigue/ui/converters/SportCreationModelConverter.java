@@ -17,7 +17,7 @@ public class SportCreationModelConverter {
         model.playingSurfaceLength.set(sport.getPlayingSurface().getLength());
         model.playingSurfaceWidthUnits.set(sport.getPlayingSurface().getWidthUnits());
         model.playingSurfaceLengthUnits.set(sport.getPlayingSurface().getLengthUnits());
-        model.currentPlayingSurfacePathName.set(sport.getPlayingSurface().getImageResource().getAbsolutePathName());
+        model.currentPlayingSurfaceURI.set(sport.getPlayingSurface().getImageResource().getURIString());
         sport.getPlayerCategories().forEach(playerCategory -> {
             PlayerCategoryModel playerCategoryModel = new PlayerCategoryModel();
             playerCategoryModel.setAssociatedEntity(playerCategory);

@@ -1,6 +1,6 @@
 package ca.ulaval.glo2004.visualigue.ui.controllers.sportcreation;
 
-import ca.ulaval.glo2004.visualigue.domain.Ifmage.ImagePersistenceException;
+import ca.ulaval.glo2004.visualigue.domain.image.ImagePersistenceException;
 import ca.ulaval.glo2004.visualigue.domain.playercategory.PlayerCategory;
 import ca.ulaval.glo2004.visualigue.domain.sport.Sport;
 import ca.ulaval.glo2004.visualigue.domain.sport.SportAlreadyExistsException;
@@ -30,9 +30,9 @@ public class SportCreationController extends Controller {
     public static final String VIEW_NAME = "/views/sport-creation/sport-creation.fxml";
     private static final int NUMBER_OF_STEPS = 3;
     private static final String STEPS_VIEW_NAMES[] = {
-        "/views/sport-creation-step-1.fxml",
-        "/views/sport-creation-step-2.fxml",
-        "/views/sport-creation-step-3.fxml"
+        "/views/sport-creation/sport-creation-step-1.fxml",
+        "/views/sport-creation/sport-creation-step-2.fxml",
+        "/views/sport-creation/sport-creation-step-3.fxml"
     };
     private static final int GENERAL_STEP_INDEX = 0;
     private static final int PLAYING_SURFACE_STEP_INDEX = 1;

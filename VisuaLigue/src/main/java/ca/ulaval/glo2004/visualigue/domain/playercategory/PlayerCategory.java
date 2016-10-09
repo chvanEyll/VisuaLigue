@@ -8,8 +8,8 @@ import javax.xml.bind.annotation.adapters.XmlJavaTypeAdapter;
 public class PlayerCategory extends DomainObject {
 
     private String name;
-    private Color allyColor = Color.decode("#0071BC");
-    private Color opponentColor = Color.decode("#C1272D");
+    private Color allyColor = Color.decode("#001A80");
+    private Color opponentColor = Color.decode("#990000");
     private Integer defaultNumberOfPlayers = 0;
 
     protected PlayerCategory() {

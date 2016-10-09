@@ -73,7 +73,7 @@ public class PersistentResource extends DomainObject {
         return targetPersistenceType == TargetPersistenceType.RESOURCE;
     }
 
-    public String getAbsolutePathName() {
+    public String getURIString() {
         if (targetPersistenceType == TargetPersistenceType.DATA_STORE) {
             return FilenameUtils.getURIString(persistedPathName);
         } else {

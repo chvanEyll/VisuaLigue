@@ -12,7 +12,7 @@ public class SportCreationModel extends Model {
     public DoubleProperty playingSurfaceWidth = new SimpleDoubleProperty(100.0);
     public DoubleProperty playingSurfaceLength = new SimpleDoubleProperty(200.0);
     public StringProperty newPlayingSurfacePathName = new SimpleStringProperty();
-    public StringProperty currentPlayingSurfacePathName = new SimpleStringProperty();
+    public StringProperty currentPlayingSurfaceURI = new SimpleStringProperty();
     public ObjectProperty<PlayingSurfaceUnit> playingSurfaceWidthUnits = new SimpleObjectProperty<>(PlayingSurfaceUnit.METER);
     public ObjectProperty<PlayingSurfaceUnit> playingSurfaceLengthUnits = new SimpleObjectProperty<>(PlayingSurfaceUnit.METER);
     public ObservableList<PlayerCategoryModel> playerCategoryModels = FXCollections.observableArrayList();

@@ -1,8 +1,8 @@
 package ca.ulaval.glo2004.visualigue.persistence.image;
 
 import ca.ulaval.glo2004.visualigue.VisuaLigue;
-import ca.ulaval.glo2004.visualigue.domain.Ifmage.ImagePersistenceException;
-import ca.ulaval.glo2004.visualigue.domain.Ifmage.ImageRepository;
+import ca.ulaval.glo2004.visualigue.domain.image.ImagePersistenceException;
+import ca.ulaval.glo2004.visualigue.domain.image.ImageRepository;
 import ca.ulaval.glo2004.visualigue.domain.resource.PersistentResource;
 import ca.ulaval.glo2004.visualigue.utils.FileUtils;
 import java.io.File;

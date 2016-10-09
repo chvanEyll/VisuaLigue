@@ -18,8 +18,7 @@ public class ColorUtils {
         double green = fxColor.getGreen();
         double blue = fxColor.getBlue();
         double opacity = fxColor.getOpacity();
-        double alpha = opacity * 255.0;
-        return new Color((int) red, (int) green, (int) blue, (int) opacity);
+        return new Color((int) (red * 255.0), (int) (green * 255.0), (int) (blue * 255.0), (int) (opacity * 255.0));
     }
 
     public static String ToHex(Color color) {

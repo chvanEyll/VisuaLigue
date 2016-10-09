@@ -1,4 +1,4 @@
-package ca.ulaval.glo2004.visualigue.domain.Ifmage;
+package ca.ulaval.glo2004.visualigue.domain.image;
 
 import ca.ulaval.glo2004.visualigue.domain.resource.PersistentResource;
 

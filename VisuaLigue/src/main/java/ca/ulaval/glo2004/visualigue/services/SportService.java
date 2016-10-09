@@ -1,7 +1,7 @@
 package ca.ulaval.glo2004.visualigue.services;
 
-import ca.ulaval.glo2004.visualigue.domain.Ifmage.ImagePersistenceException;
-import ca.ulaval.glo2004.visualigue.domain.Ifmage.ImageRepository;
+import ca.ulaval.glo2004.visualigue.domain.image.ImagePersistenceException;
+import ca.ulaval.glo2004.visualigue.domain.image.ImageRepository;
 import ca.ulaval.glo2004.visualigue.domain.playercategory.PlayerCategory;
 import ca.ulaval.glo2004.visualigue.domain.playercategory.PlayerCategoryFactory;
 import ca.ulaval.glo2004.visualigue.domain.playingsurface.PlayingSurface;
