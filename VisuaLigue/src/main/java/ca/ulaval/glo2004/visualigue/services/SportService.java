@@ -1,18 +1,20 @@
 package ca.ulaval.glo2004.visualigue.services;
 
-import ca.ulaval.glo2004.visualigue.domain.image.ImagePersistenceException;
 import ca.ulaval.glo2004.visualigue.domain.image.ImageRepository;
 import ca.ulaval.glo2004.visualigue.domain.playercategory.PlayerCategory;
 import ca.ulaval.glo2004.visualigue.domain.playercategory.PlayerCategoryFactory;
 import ca.ulaval.glo2004.visualigue.domain.playingsurface.PlayingSurface;
 import ca.ulaval.glo2004.visualigue.domain.playingsurface.PlayingSurfaceFactory;
 import ca.ulaval.glo2004.visualigue.domain.playingsurface.PlayingSurfaceUnit;
-import ca.ulaval.glo2004.visualigue.domain.resource.PersistentResource;
+import ca.ulaval.glo2004.visualigue.domain.resource.LocatedResource;
+import ca.ulaval.glo2004.visualigue.domain.resource.ResourceLocationType;
 import ca.ulaval.glo2004.visualigue.domain.sport.Sport;
 import ca.ulaval.glo2004.visualigue.domain.sport.SportAlreadyExistsException;
 import ca.ulaval.glo2004.visualigue.domain.sport.SportFactory;
 import ca.ulaval.glo2004.visualigue.domain.sport.SportRepository;
 import ca.ulaval.glo2004.visualigue.utils.EventHandler;
+import java.awt.image.BufferedImage;
+import java.io.File;
 import java.util.List;
 import java.util.function.Function;
 import javafx.scene.paint.Color;
@@ -67,11 +69,13 @@ public class SportService {
         }
     }
 
-    public void updatePlayingSurfaceImage(Sport sport, String newPlayingSurfacePathName) throws ImagePersistenceException {
-        PersistentResource imageResource = PersistentResource.fromSource(newPlayingSurfacePathName);
-        imageRepository.persist(imageResource);
+    public void updatePlayingSurfaceImage(Sport sport, BufferedImage image) {
+        File file = imageRepository.persist(image);
+        LocatedResource imageResource = new LocatedResource(file.getPath(), ResourceLocationType.EXTERNAL);
         PlayingSurface playingSurface = sport.getPlayingSurface();
-        imageRepository.delete(playingSurface.getImageResource());
+        if (playingSurface.getImageResource().isExternalResource()) {
+            imageRepository.delete(playingSurface.getImageResource().getName());
+        }
         playingSurface.setImageResource(imageResource);
         try {
             sportRepository.update(sport);

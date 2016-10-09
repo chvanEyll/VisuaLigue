@@ -30,6 +30,7 @@ public class SportCreationStep2Controller extends SportCreationStepController {
     @FXML ComboBox lengthUnitComboBox;
     @FXML Label imagePathLabel;
     @FXML ImageView imageView;
+    @FXML Label imageErrorLabel;
 
     public SportCreationModel getSportModel() {
         return model;
@@ -46,23 +47,30 @@ public class SportCreationStep2Controller extends SportCreationStepController {
         widthUnitComboBox.getSelectionModel().select(model.playingSurfaceWidthUnits.get());
         lengthUnitComboBox.setItems(FXCollections.observableArrayList(PlayingSurfaceUnit.values()));
         lengthUnitComboBox.getSelectionModel().select(model.playingSurfaceLengthUnits.get());
-        displayImage(model.currentPlayingSurfaceURI.getValue());
+        displayImage(model.currentPlayingSurfaceImage.get());
         FXUtils.requestFocusDelayed(widthSpinner);
     }
 
-    private void displayImage(String imageURI) {
-        if (imageURI == null) {
+    private void displayImage(Image image) {
+        if (image == null) {
             clearImage();
         } else {
-            imageView.setImage(new Image(imageURI));
+            imageView.setImage(image);
             FXUtils.setDisplay(imageView, true);
-            imagePathLabel.textProperty().bind(this.model.newPlayingSurfacePathName);
+            imagePathLabel.textProperty().bind(this.model.newPlayingSurfaceImagePathName);
         }
     }
 
     private void setImage(String imagePathName) {
-        this.model.newPlayingSurfacePathName.set(imagePathName);
-        displayImage(FilenameUtils.getURIString(imagePathName));
+        try {
+            this.model.newPlayingSurfaceImage.set(new Image(FilenameUtils.getURIString(imagePathName)));
+        } catch (Exception ex) {
+            clearErrors();
+            imageErrorLabel.setText("The selected image could not be loaded.");
+            FXUtils.setDisplay(imageErrorLabel, true);
+        }
+        this.model.newPlayingSurfaceImagePathName.set(imagePathName);
+        displayImage(new Image(FilenameUtils.getURIString(imagePathName)));
     }
 
     @FXML
@@ -82,5 +90,10 @@ public class SportCreationStep2Controller extends SportCreationStepController {
         FXUtils.setDisplay(imageView, false);
         imagePathLabel.textProperty().unbind();
         imagePathLabel.setText("Aucune image sélectionnée");
+    }
+
+    @Override
+    public void clearErrors() {
+        FXUtils.setDisplay(imageErrorLabel, false);
     }
 }

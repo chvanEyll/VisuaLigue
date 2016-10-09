@@ -1,6 +1,5 @@
 package ca.ulaval.glo2004.visualigue.ui.controllers.sportcreation;
 
-import ca.ulaval.glo2004.visualigue.domain.image.ImagePersistenceException;
 import ca.ulaval.glo2004.visualigue.domain.playercategory.PlayerCategory;
 import ca.ulaval.glo2004.visualigue.domain.sport.Sport;
 import ca.ulaval.glo2004.visualigue.domain.sport.SportAlreadyExistsException;
@@ -11,7 +10,9 @@ import ca.ulaval.glo2004.visualigue.ui.controllers.FileSelectionEventArgs;
 import ca.ulaval.glo2004.visualigue.ui.controllers.common.BreadcrumbController;
 import ca.ulaval.glo2004.visualigue.ui.converters.SportCreationModelConverter;
 import ca.ulaval.glo2004.visualigue.ui.models.SportCreationModel;
+import java.awt.image.BufferedImage;
 import javafx.beans.property.StringProperty;
+import javafx.embed.swing.SwingFXUtils;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.control.Button;
@@ -116,12 +117,10 @@ public class SportCreationController extends Controller {
         } catch (SportAlreadyExistsException ex) {
             setStep(GENERAL_STEP_INDEX);
             currentStepController.showError(ex);
-        } catch (ImagePersistenceException ex) {
-
         }
     }
 
-    private void saveChanges() throws SportAlreadyExistsException, ImagePersistenceException {
+    private void saveChanges() throws SportAlreadyExistsException {
         Sport sport;
         if (model.isNew()) {
             sport = sportService.createSport(model.name.get());
@@ -134,10 +133,11 @@ public class SportCreationController extends Controller {
         onViewCloseRequested.fire(this, null);
     }
 
-    private void applyPlayingSurfaceChanges(Sport sport) throws ImagePersistenceException {
+    private void applyPlayingSurfaceChanges(Sport sport) {
         sportService.updatePlayingSurface(sport, model.playingSurfaceWidth.get(), model.playingSurfaceLength.get(), model.playingSurfaceWidthUnits.get(), model.playingSurfaceLengthUnits.get());
-        if (!model.newPlayingSurfacePathName.isEmpty().get()) {
-            sportService.updatePlayingSurfaceImage(sport, model.newPlayingSurfacePathName.get());
+        if (model.newPlayingSurfaceImage.isNotNull().get()) {
+            BufferedImage image = SwingFXUtils.fromFXImage(model.newPlayingSurfaceImage.get(), null);
+            sportService.updatePlayingSurfaceImage(sport, image);
         }
     }
 

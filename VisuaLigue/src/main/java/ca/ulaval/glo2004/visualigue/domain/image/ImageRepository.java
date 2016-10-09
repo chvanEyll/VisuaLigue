@@ -1,10 +1,11 @@
 package ca.ulaval.glo2004.visualigue.domain.image;
 
-import ca.ulaval.glo2004.visualigue.domain.resource.PersistentResource;
+import java.awt.image.BufferedImage;
+import java.io.File;
 
 public interface ImageRepository {
 
-    void persist(PersistentResource imageResource) throws ImagePersistenceException;
+    File persist(BufferedImage image);
 
-    void delete(PersistentResource imageResource);
+    void delete(String filePath);
 }

@@ -1,7 +1,7 @@
 package ca.ulaval.glo2004.visualigue.domain.playingsurface;
 
 import ca.ulaval.glo2004.visualigue.domain.DomainObject;
-import ca.ulaval.glo2004.visualigue.domain.resource.PersistentResource;
+import ca.ulaval.glo2004.visualigue.domain.resource.LocatedResource;
 
 public class PlayingSurface extends DomainObject {
 
@@ -9,13 +9,13 @@ public class PlayingSurface extends DomainObject {
     private Double length = 200.0;
     private PlayingSurfaceUnit widthUnits = PlayingSurfaceUnit.METER;
     private PlayingSurfaceUnit lengthUnits = PlayingSurfaceUnit.METER;
-    private PersistentResource imageResource;
+    private LocatedResource imageResource = new LocatedResource();
 
     public PlayingSurface() {
 
     }
 
-    public PlayingSurface(Double width, PlayingSurfaceUnit widthUnits, Double length, PlayingSurfaceUnit lengthUnits, PersistentResource imageRef) {
+    public PlayingSurface(Double width, PlayingSurfaceUnit widthUnits, Double length, PlayingSurfaceUnit lengthUnits, LocatedResource imageRef) {
         this.width = width;
         this.widthUnits = widthUnits;
         this.length = length;
@@ -55,11 +55,11 @@ public class PlayingSurface extends DomainObject {
         this.lengthUnits = lengthUnits;
     }
 
-    public PersistentResource getImageResource() {
+    public LocatedResource getImageResource() {
         return imageResource;
     }
 
-    public void setImageResource(PersistentResource imageResource) {
+    public void setImageResource(LocatedResource imageResource) {
         this.imageResource = imageResource;
     }
 
