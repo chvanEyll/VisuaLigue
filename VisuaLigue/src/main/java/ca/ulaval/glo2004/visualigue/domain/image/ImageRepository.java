@@ -1,15 +1,12 @@
 package ca.ulaval.glo2004.visualigue.domain.image;
 
-import java.awt.image.BufferedImage;
 import java.util.UUID;
 
 public interface ImageRepository {
 
-    UUID persist(BufferedImage image);
+    UUID persist(String sourceImagePathName);
 
-    UUID persistFromResource(String resourceName);
-
-    BufferedImage get(UUID uuid) throws ImageLoadException;
+    String get(UUID uuid);
 
     void delete(UUID uuid);
 }

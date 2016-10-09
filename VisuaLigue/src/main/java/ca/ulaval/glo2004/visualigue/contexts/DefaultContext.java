@@ -10,7 +10,6 @@ import ca.ulaval.glo2004.visualigue.domain.sport.SportFactory;
 import ca.ulaval.glo2004.visualigue.domain.sport.SportRepository;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.UUID;
 import javafx.scene.paint.Color;
 import javax.inject.Inject;
 
@@ -57,8 +56,8 @@ public class DefaultContext extends ContextBase {
     private Sport createHockeySport() throws Exception {
         Sport sport = sportFactory.create("Hockey");
         sport.setBuiltInIconPathName("/images/built-in-sport-icons/hockey-icon");
-        UUID playingSurfaceUUID = imageRepository.persistFromResource("/images/built-in-playing-surfaces/hockey.png");
-        PlayingSurface playingSurface = new PlayingSurface(200.0, PlayingSurfaceUnit.FOOTS, 85.0, PlayingSurfaceUnit.FOOTS, playingSurfaceUUID);
+        PlayingSurface playingSurface = new PlayingSurface(200.0, PlayingSurfaceUnit.FOOTS, 85.0, PlayingSurfaceUnit.FOOTS);
+        playingSurface.setBuiltInImagePathName("/images/built-in-playing-surfaces/hockey.png");
         sport.setPlayingSurface(playingSurface);
         sport.addPlayerCategory(new PlayerCategory("Gardien", Color.web("#F7931E"), Color.web("#F7931E"), 1));
         sport.addPlayerCategory(new PlayerCategory("Défenseur", Color.web("#0071BC"), Color.web("#C1272D"), 2));
@@ -71,8 +70,8 @@ public class DefaultContext extends ContextBase {
     private Sport createSoccerSport() throws Exception {
         Sport sport = sportFactory.create("Soccer");
         sport.setBuiltInIconPathName("/images/built-in-sport-icons/soccer-icon");
-        UUID playingSurfaceUUID = imageRepository.persistFromResource("/images/built-in-playing-surfaces/soccer.jpg");
-        PlayingSurface playingSurface = new PlayingSurface(68.0, PlayingSurfaceUnit.METER, 100.0, PlayingSurfaceUnit.METER, playingSurfaceUUID);
+        PlayingSurface playingSurface = new PlayingSurface(68.0, PlayingSurfaceUnit.METER, 100.0, PlayingSurfaceUnit.METER);
+        playingSurface.setBuiltInImagePathName("/images/built-in-playing-surfaces/soccer.jpg");
         sport.setPlayingSurface(playingSurface);
         sport.addPlayerCategory(new PlayerCategory("Gardien", Color.web("#F7931E"), Color.web("#F7931E"), 1));
         sport.addPlayerCategory(new PlayerCategory("Défenseur Droit", Color.web("#0071BC"), Color.web("#C1272D"), 1));
@@ -96,8 +95,8 @@ public class DefaultContext extends ContextBase {
     private Sport createFootballSport() throws Exception {
         Sport sport = sportFactory.create("Football");
         sport.setBuiltInIconPathName("/images/built-in-sport-icons/football-icon");
-        UUID playingSurfaceUUID = imageRepository.persistFromResource("/images/built-in-playing-surfaces/football.png");
-        PlayingSurface playingSurface = new PlayingSurface(160.0, PlayingSurfaceUnit.FOOTS, 360.0, PlayingSurfaceUnit.FOOTS, playingSurfaceUUID);
+        PlayingSurface playingSurface = new PlayingSurface(160.0, PlayingSurfaceUnit.FOOTS, 360.0, PlayingSurfaceUnit.FOOTS);
+        playingSurface.setBuiltInImagePathName("/images/built-in-playing-surfaces/football.png");
         sport.setPlayingSurface(playingSurface);
         sport.addPlayerCategory(new PlayerCategory("Safety", Color.web("#F7931E"), Color.web("#F7931E"), 2));
         sport.addPlayerCategory(new PlayerCategory("Cornerback", Color.web("#0071BC"), Color.web("#C1272D"), 2));

@@ -1,16 +1,12 @@
 package ca.ulaval.glo2004.visualigue.persistence;
 
 import ca.ulaval.glo2004.visualigue.VisuaLigue;
-import ca.ulaval.glo2004.visualigue.domain.image.ImageLoadException;
 import ca.ulaval.glo2004.visualigue.domain.image.ImageRepository;
 import ca.ulaval.glo2004.visualigue.utils.FileUtils;
-import ca.ulaval.glo2004.visualigue.utils.ResourceUtils;
-import java.awt.image.BufferedImage;
 import java.io.File;
 import java.io.IOException;
 import java.io.UncheckedIOException;
 import java.util.UUID;
-import javax.imageio.ImageIO;
 import javax.inject.Singleton;
 
 @Singleton
@@ -24,37 +20,20 @@ public class FileBasedImageRepository implements ImageRepository {
     }
 
     @Override
-    public UUID persist(BufferedImage image) {
+    public UUID persist(String sourceImagePathName) {
         UUID uuid = UUID.randomUUID();
         String storedFileName = getStoredFileName(uuid);
-        File outputFile = new File(storedFileName);
         try {
-            ImageIO.write(image, IMAGE_FORMAT, outputFile);
+            FileUtils.copyFile(new File(sourceImagePathName), new File(storedFileName));
         } catch (IOException ex) {
-            throw new UncheckedIOException(String.format("Failed to persist image to '%s'.", storedFileName), ex);
+            throw new UncheckedIOException(String.format("Failed to persist image from '%s' to '%s'.", sourceImagePathName, storedFileName), ex);
         }
         return uuid;
     }
 
     @Override
-    public UUID persistFromResource(String resourceName) {
-        UUID uuid = UUID.randomUUID();
-        String storedFileName = getStoredFileName(uuid);
-        try {
-            ResourceUtils.copyTo(resourceName, storedFileName);
-        } catch (IOException ex) {
-            throw new UncheckedIOException(String.format("Failed to copy image resource from '%s' to '%s'.", resourceName, storedFileName), ex);
-        }
-        return uuid;
-    }
-
-    @Override
-    public BufferedImage get(UUID uuid) throws ImageLoadException {
-        try {
-            return ImageIO.read(new File(getStoredFileName(uuid)));
-        } catch (IOException ex) {
-            throw new ImageLoadException(String.format("Failed to load image with UUID '%s'.", uuid.toString()), ex);
-        }
+    public String get(UUID uuid) {
+        return new File(getStoredFileName(uuid)).getAbsolutePath();
     }
 
     @Override

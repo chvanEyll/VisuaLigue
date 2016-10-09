@@ -11,13 +11,11 @@ import ca.ulaval.glo2004.visualigue.ui.controllers.common.BreadcrumbController;
 import ca.ulaval.glo2004.visualigue.ui.converters.SportCreationModelConverter;
 import ca.ulaval.glo2004.visualigue.ui.models.PlayerCategoryModel;
 import ca.ulaval.glo2004.visualigue.ui.models.SportCreationModel;
-import java.awt.image.BufferedImage;
 import java.util.UUID;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javafx.beans.property.StringProperty;
 import javafx.collections.ObservableList;
-import javafx.embed.swing.SwingFXUtils;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.control.Button;
@@ -143,9 +141,8 @@ public class SportCreationController extends Controller {
 
     private void applyPlayingSurfaceChanges(UUID sportUuid) throws Exception {
         sportService.updatePlayingSurface(sportUuid, model.playingSurfaceWidth.get(), model.playingSurfaceLength.get(), model.playingSurfaceWidthUnits.get(), model.playingSurfaceLengthUnits.get());
-        if (model.newPlayingSurfaceImage.isNotNull().get()) {
-            BufferedImage image = SwingFXUtils.fromFXImage(model.newPlayingSurfaceImage.get(), null);
-            sportService.updatePlayingSurfaceImage(sportUuid, image);
+        if (model.newPlayingSurfaceImagePathName.isNotNull().get()) {
+            sportService.updatePlayingSurfaceImage(sportUuid, model.newPlayingSurfaceImagePathName.get());
         }
     }
 

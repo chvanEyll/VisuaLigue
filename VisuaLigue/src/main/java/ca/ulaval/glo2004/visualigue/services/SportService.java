@@ -7,7 +7,6 @@ import ca.ulaval.glo2004.visualigue.domain.playingsurface.PlayingSurface;
 import ca.ulaval.glo2004.visualigue.domain.playingsurface.PlayingSurfaceUnit;
 import ca.ulaval.glo2004.visualigue.domain.sport.*;
 import ca.ulaval.glo2004.visualigue.utils.EventHandler;
-import java.awt.image.BufferedImage;
 import java.util.List;
 import java.util.UUID;
 import java.util.function.Function;
@@ -59,14 +58,14 @@ public class SportService {
         sportRepository.update(sport);
     }
 
-    public void updatePlayingSurfaceImage(UUID sportUUID, BufferedImage image) throws SportNotFoundException, SportAlreadyExistsException {
+    public void updatePlayingSurfaceImage(UUID sportUUID, String sourceImagePathName) throws SportNotFoundException, SportAlreadyExistsException {
         Sport sport = sportRepository.get(sportUUID);
-        UUID imageUuid = imageRepository.persist(image);
+        UUID imageUuid = imageRepository.persist(sourceImagePathName);
         PlayingSurface playingSurface = sport.getPlayingSurface();
-        playingSurface.setImageUUID(imageUuid);
-        if (playingSurface.hasImage()) {
-            imageRepository.delete(playingSurface.getImageUUID());
+        if (playingSurface.hasCustomImage()) {
+            imageRepository.delete(playingSurface.getCustomImageUUID());
         }
+        playingSurface.setCustomImageUUID(imageUuid);
         sportRepository.update(sport);
     }
 

@@ -12,18 +12,18 @@ public class PlayingSurface extends DomainObject {
     private Double length = 200.0;
     private PlayingSurfaceUnit widthUnits = PlayingSurfaceUnit.METER;
     private PlayingSurfaceUnit lengthUnits = PlayingSurfaceUnit.METER;
-    private UUID imageUUID;
+    private UUID customImageUUID;
+    private String builtInImagePathName;
 
     public PlayingSurface() {
         //Required for JAXB instanciation.
     }
 
-    public PlayingSurface(Double width, PlayingSurfaceUnit widthUnits, Double length, PlayingSurfaceUnit lengthUnits, UUID imageUUID) {
+    public PlayingSurface(Double width, PlayingSurfaceUnit widthUnits, Double length, PlayingSurfaceUnit lengthUnits) {
         this.width = width;
         this.widthUnits = widthUnits;
         this.length = length;
         this.lengthUnits = lengthUnits;
-        this.imageUUID = imageUUID;
     }
 
     public Double getWidth() {
@@ -58,15 +58,23 @@ public class PlayingSurface extends DomainObject {
         this.lengthUnits = lengthUnits;
     }
 
-    public UUID getImageUUID() {
-        return imageUUID;
+    public UUID getCustomImageUUID() {
+        return customImageUUID;
     }
 
-    public void setImageUUID(UUID imageUUID) {
-        this.imageUUID = imageUUID;
+    public void setCustomImageUUID(UUID customImageUUID) {
+        this.customImageUUID = customImageUUID;
     }
 
-    public Boolean hasImage() {
-        return imageUUID != null;
+    public Boolean hasCustomImage() {
+        return customImageUUID != null;
+    }
+
+    public String getBuiltInImagePathName() {
+        return builtInImagePathName;
+    }
+
+    public void setBuiltInImagePathName(String builtInImagePathName) {
+        this.builtInImagePathName = builtInImagePathName;
     }
 }

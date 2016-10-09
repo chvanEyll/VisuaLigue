@@ -47,31 +47,36 @@ public class SportCreationStep2Controller extends SportCreationStepController {
         widthUnitComboBox.getSelectionModel().select(model.playingSurfaceWidthUnits.get());
         lengthUnitComboBox.setItems(FXCollections.observableArrayList(PlayingSurfaceUnit.values()));
         lengthUnitComboBox.getSelectionModel().select(model.playingSurfaceLengthUnits.get());
-        displayImage(model.currentPlayingSurfaceImage.get());
+        if (model.currentPlayingSurfacePathName.isNotNull().get()) {
+            displayImage(FilenameUtils.getURIString(model.currentPlayingSurfacePathName.get()));
+        } else if (model.builtInPlayingSurfaceImage.isNotNull().get()) {
+            displayImage(model.builtInPlayingSurfaceImage.get());
+        } else {
+            clearImage();
+        }
         FXUtils.requestFocusDelayed(widthSpinner);
         super.init();
     }
 
-    private void displayImage(Image image) {
-        if (image == null) {
+    private void displayImage(String imageURL) {
+        if (imageURL == null) {
             clearImage();
         } else {
-            imageView.setImage(image);
+            imageView.setImage(new Image(imageURL));
             FXUtils.setDisplay(imageView, true);
             imagePathLabel.textProperty().bind(this.model.newPlayingSurfaceImagePathName);
         }
     }
 
-    private void setImage(String imagePathName) {
+    private void setNewImage(String imagePathName) {
         try {
-            this.model.newPlayingSurfaceImage.set(new Image(FilenameUtils.getURIString(imagePathName)));
+            this.model.newPlayingSurfaceImagePathName.set(imagePathName);
+            displayImage(FilenameUtils.getURIString(imagePathName));
         } catch (Exception ex) {
             clearErrors();
             imageErrorLabel.setText("The selected image could not be loaded.");
             FXUtils.setDisplay(imageErrorLabel, true);
         }
-        this.model.newPlayingSurfaceImagePathName.set(imagePathName);
-        displayImage(new Image(FilenameUtils.getURIString(imagePathName)));
     }
 
     @FXML
@@ -83,7 +88,7 @@ public class SportCreationStep2Controller extends SportCreationStepController {
         FileSelectionEventArgs fileSelectionEventArgs = new FileSelectionEventArgs(fileChooser);
         onFileSelectionRequested.fire(this, fileSelectionEventArgs);
         if (fileSelectionEventArgs.selectedFile != null) {
-            setImage(fileSelectionEventArgs.selectedFile.getPath());
+            setNewImage(fileSelectionEventArgs.selectedFile.getPath());
         }
     }
 
