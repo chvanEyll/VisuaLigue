@@ -49,6 +49,7 @@ public class SportCreationStep2Controller extends SportCreationStepController {
         lengthUnitComboBox.getSelectionModel().select(model.playingSurfaceLengthUnits.get());
         displayImage(model.currentPlayingSurfaceImage.get());
         FXUtils.requestFocusDelayed(widthSpinner);
+        super.init();
     }
 
     private void displayImage(Image image) {

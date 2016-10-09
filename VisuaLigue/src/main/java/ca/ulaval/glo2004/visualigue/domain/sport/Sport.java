@@ -3,17 +3,21 @@ package ca.ulaval.glo2004.visualigue.domain.sport;
 import ca.ulaval.glo2004.visualigue.domain.DomainObject;
 import ca.ulaval.glo2004.visualigue.domain.playercategory.PlayerCategory;
 import ca.ulaval.glo2004.visualigue.domain.playingsurface.PlayingSurface;
-import java.util.HashSet;
-import java.util.Set;
+import java.util.Map;
+import java.util.UUID;
+import java.util.concurrent.ConcurrentHashMap;
+import javax.xml.bind.annotation.XmlAccessType;
+import javax.xml.bind.annotation.XmlAccessorType;
 import javax.xml.bind.annotation.XmlRootElement;
 
 @XmlRootElement(name = "sport")
+@XmlAccessorType(XmlAccessType.FIELD)
 public class Sport extends DomainObject {
 
     private String name;
     private String builtInIconPathName = "/images/built-in-sport-icons/generic-icon";
     private PlayingSurface playingSurface = new PlayingSurface();
-    private Set<PlayerCategory> playerCategories = new HashSet<>();
+    private Map<UUID, PlayerCategory> playerCategories = new ConcurrentHashMap<>();
 
     public Sport() {
         //Required for JAXB instanciation.
@@ -47,16 +51,20 @@ public class Sport extends DomainObject {
         this.playingSurface = playingSurface;
     }
 
-    public Set<PlayerCategory> getPlayerCategories() {
+    public Map<UUID, PlayerCategory> getPlayerCategories() {
         return playerCategories;
     }
 
-    public void setPlayerCategories(Set<PlayerCategory> playerCategories) {
-        this.playerCategories = playerCategories;
+    public void addPlayerCategory(PlayerCategory playerCategory) {
+        playerCategories.put(playerCategory.getUUID(), playerCategory);
     }
 
-    public void addPlayerCategory(PlayerCategory playerCategory) {
-        playerCategories.add(playerCategory);
+    public void removeCategory(UUID playerCategoryUUID) {
+        playerCategories.remove(playerCategoryUUID);
+    }
+
+    public PlayerCategory getPlayerCategory(UUID playerCategoryUUID) {
+        return playerCategories.get(playerCategoryUUID);
     }
 
     @Override

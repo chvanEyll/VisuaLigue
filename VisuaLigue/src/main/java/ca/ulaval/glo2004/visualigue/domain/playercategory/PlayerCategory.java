@@ -3,12 +3,17 @@ package ca.ulaval.glo2004.visualigue.domain.playercategory;
 import ca.ulaval.glo2004.visualigue.domain.DomainObject;
 import ca.ulaval.glo2004.visualigue.domain.xmladapters.XmlColorAdapter;
 import javafx.scene.paint.Color;
+import javax.xml.bind.annotation.XmlAccessType;
+import javax.xml.bind.annotation.XmlAccessorType;
 import javax.xml.bind.annotation.adapters.XmlJavaTypeAdapter;
 
+@XmlAccessorType(XmlAccessType.FIELD)
 public class PlayerCategory extends DomainObject {
 
     private String name;
+    @XmlJavaTypeAdapter(value = XmlColorAdapter.class)
     private Color allyColor = Color.web("#001A80");
+    @XmlJavaTypeAdapter(value = XmlColorAdapter.class)
     private Color opponentColor = Color.web("#990000");
     private Integer defaultNumberOfPlayers = 0;
 
@@ -31,7 +36,6 @@ public class PlayerCategory extends DomainObject {
         this.name = name;
     }
 
-    @XmlJavaTypeAdapter(value = XmlColorAdapter.class)
     public Color getAllyColor() {
         return allyColor;
     }
@@ -40,7 +44,6 @@ public class PlayerCategory extends DomainObject {
         this.allyColor = allyColor;
     }
 
-    @XmlJavaTypeAdapter(value = XmlColorAdapter.class)
     public Color getOpponentColor() {
         return opponentColor;
     }

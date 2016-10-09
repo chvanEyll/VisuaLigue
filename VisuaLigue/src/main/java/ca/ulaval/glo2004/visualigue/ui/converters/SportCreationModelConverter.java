@@ -4,14 +4,15 @@ import ca.ulaval.glo2004.visualigue.domain.playercategory.PlayerCategory;
 import ca.ulaval.glo2004.visualigue.domain.sport.Sport;
 import ca.ulaval.glo2004.visualigue.ui.models.PlayerCategoryModel;
 import ca.ulaval.glo2004.visualigue.ui.models.SportCreationModel;
-import java.util.Set;
+import java.util.Map;
+import java.util.UUID;
 import javafx.scene.image.Image;
 
 public class SportCreationModelConverter {
 
     public SportCreationModel convert(Sport sport) {
         SportCreationModel model = new SportCreationModel();
-        model.setAssociatedEntity(sport);
+        model.setUUID(sport.getUUID());
         model.setIsNew(false);
         model.name.set(sport.getName());
         model.builtInIconPathName.set(sport.getBuiltInIconPathName());
@@ -26,10 +27,10 @@ public class SportCreationModelConverter {
         return model;
     }
 
-    private void convertPlayerCategories(Set<PlayerCategory> playerCategories, SportCreationModel model) {
-        playerCategories.forEach(playerCategory -> {
+    private void convertPlayerCategories(Map<UUID, PlayerCategory> playerCategories, SportCreationModel model) {
+        playerCategories.values().forEach(playerCategory -> {
             PlayerCategoryModel playerCategoryModel = new PlayerCategoryModel();
-            playerCategoryModel.setAssociatedEntity(playerCategory);
+            playerCategoryModel.setUUID(playerCategory.getUUID());
             playerCategoryModel.setIsNew(false);
             playerCategoryModel.name.set(playerCategory.getName());
             playerCategoryModel.allyPlayerColor.set(playerCategory.getAllyColor());

@@ -20,8 +20,8 @@ public class SportCreationStep1Controller extends SportCreationStepController {
     public void init(SportCreationModel sportCreation) {
         model = sportCreation;
         sportNameField.textProperty().bindBidirectional(sportCreation.name);
-        clearErrors();
         FXUtils.requestFocusDelayed(sportNameField);
+        super.init();
     }
 
     @Override

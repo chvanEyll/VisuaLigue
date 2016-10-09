@@ -24,6 +24,7 @@ public class SportCreationStep3Controller extends SportCreationStepController {
         playerCategoryListController = (PlayerCategoryListController) fxmlLoader.getController();
         playerCategoryListController.init(model.playerCategoryModels);
         playerCategoryList.getChildren().add(fxmlLoader.getRoot());
+        super.init();
     }
 
     @FXML

@@ -1,17 +1,22 @@
 package ca.ulaval.glo2004.visualigue.ui.controllers.sportcreation;
 
-import ca.ulaval.glo2004.visualigue.domain.playercategory.PlayerCategory;
 import ca.ulaval.glo2004.visualigue.domain.sport.Sport;
 import ca.ulaval.glo2004.visualigue.domain.sport.SportAlreadyExistsException;
+import ca.ulaval.glo2004.visualigue.domain.sport.SportNotFoundException;
 import ca.ulaval.glo2004.visualigue.services.SportService;
 import ca.ulaval.glo2004.visualigue.ui.InjectableFXMLLoader;
 import ca.ulaval.glo2004.visualigue.ui.controllers.Controller;
 import ca.ulaval.glo2004.visualigue.ui.controllers.FileSelectionEventArgs;
 import ca.ulaval.glo2004.visualigue.ui.controllers.common.BreadcrumbController;
 import ca.ulaval.glo2004.visualigue.ui.converters.SportCreationModelConverter;
+import ca.ulaval.glo2004.visualigue.ui.models.PlayerCategoryModel;
 import ca.ulaval.glo2004.visualigue.ui.models.SportCreationModel;
 import java.awt.image.BufferedImage;
+import java.util.UUID;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javafx.beans.property.StringProperty;
+import javafx.collections.ObservableList;
 import javafx.embed.swing.SwingFXUtils;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
@@ -53,7 +58,8 @@ public class SportCreationController extends Controller {
         initView();
     }
 
-    public void init(Sport sport) {
+    public void init(UUID sportUUID) throws SportNotFoundException {
+        Sport sport = sportService.getSport(sportUUID);
         model = sportCreationModelConverter.convert(sport);
         initView();
     }
@@ -117,39 +123,42 @@ public class SportCreationController extends Controller {
         } catch (SportAlreadyExistsException ex) {
             setStep(GENERAL_STEP_INDEX);
             currentStepController.showError(ex);
+        } catch (Exception ex) {
+            Logger.getLogger(SportCreationController.class.getName()).log(Level.SEVERE, null, ex);
         }
     }
 
-    private void saveChanges() throws SportAlreadyExistsException {
-        Sport sport;
+    private void saveChanges() throws Exception {
+        UUID sportUuid;
         if (model.isNew()) {
-            sport = sportService.createSport(model.name.get());
+            sportUuid = sportService.createSport(model.name.get());
         } else {
-            sport = (Sport) model.getAssociatedEntity();
-            sportService.updateSport(sport, model.name.get());
+            sportUuid = model.getUUID();
+            sportService.updateSport(sportUuid, model.name.get());
         }
-        applyPlayingSurfaceChanges(sport);
-        applyCategoryChanges(sport);
+        applyPlayingSurfaceChanges(sportUuid);
+        applyCategoryChanges(sportUuid);
         onViewCloseRequested.fire(this, null);
     }
 
-    private void applyPlayingSurfaceChanges(Sport sport) {
-        sportService.updatePlayingSurface(sport, model.playingSurfaceWidth.get(), model.playingSurfaceLength.get(), model.playingSurfaceWidthUnits.get(), model.playingSurfaceLengthUnits.get());
+    private void applyPlayingSurfaceChanges(UUID sportUuid) throws Exception {
+        sportService.updatePlayingSurface(sportUuid, model.playingSurfaceWidth.get(), model.playingSurfaceLength.get(), model.playingSurfaceWidthUnits.get(), model.playingSurfaceLengthUnits.get());
         if (model.newPlayingSurfaceImage.isNotNull().get()) {
             BufferedImage image = SwingFXUtils.fromFXImage(model.newPlayingSurfaceImage.get(), null);
-            sportService.updatePlayingSurfaceImage(sport, image);
+            sportService.updatePlayingSurfaceImage(sportUuid, image);
         }
     }
 
-    private void applyCategoryChanges(Sport sport) {
-        model.playerCategoryModels.forEach(playerCategoryModel -> {
+    private void applyCategoryChanges(UUID sportUuid) throws Exception {
+        ObservableList<PlayerCategoryModel> playerCategoryModels = model.playerCategoryModels;
+        for (PlayerCategoryModel playerCategoryModel : model.playerCategoryModels) {
             if (playerCategoryModel.isNew()) {
-                sportService.addPlayerCategory(sport, playerCategoryModel.name.get(), playerCategoryModel.allyPlayerColor.get(), playerCategoryModel.opponentPlayerColor.get(), playerCategoryModel.defaultNumberOfPlayers.get());
+                sportService.addPlayerCategory(sportUuid, playerCategoryModel.name.get(), playerCategoryModel.allyPlayerColor.get(), playerCategoryModel.opponentPlayerColor.get(), playerCategoryModel.defaultNumberOfPlayers.get());
             } else if (playerCategoryModel.isDirty()) {
-                sportService.updatePlayerCategory(sport, (PlayerCategory) playerCategoryModel.getAssociatedEntity(), playerCategoryModel.name.get(), playerCategoryModel.allyPlayerColor.get(), playerCategoryModel.opponentPlayerColor.get(), playerCategoryModel.defaultNumberOfPlayers.get());
+                sportService.updatePlayerCategory(sportUuid, playerCategoryModel.getUUID(), playerCategoryModel.name.get(), playerCategoryModel.allyPlayerColor.get(), playerCategoryModel.opponentPlayerColor.get(), playerCategoryModel.defaultNumberOfPlayers.get());
             } else if (playerCategoryModel.isDeleted()) {
-                sportService.removePlayerCategory(sport, (PlayerCategory) playerCategoryModel.getAssociatedEntity());
+                sportService.removePlayerCategory(sportUuid, playerCategoryModel.getUUID());
             }
-        });
+        }
     }
 }

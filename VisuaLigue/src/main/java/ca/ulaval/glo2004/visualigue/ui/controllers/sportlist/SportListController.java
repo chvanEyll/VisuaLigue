@@ -1,12 +1,14 @@
 package ca.ulaval.glo2004.visualigue.ui.controllers.sportlist;
 
+import ca.ulaval.glo2004.visualigue.domain.sport.SportNotFoundException;
 import ca.ulaval.glo2004.visualigue.ui.InjectableFXMLLoader;
-import ca.ulaval.glo2004.visualigue.domain.sport.Sport;
 import ca.ulaval.glo2004.visualigue.ui.controllers.Controller;
 import ca.ulaval.glo2004.visualigue.ui.controllers.sportcreation.SportCreationController;
 import ca.ulaval.glo2004.visualigue.ui.models.SportListItemModel;
 import java.net.URL;
 import java.util.ResourceBundle;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javafx.beans.property.SimpleStringProperty;
 import javafx.beans.property.StringProperty;
 import javafx.fxml.FXML;
@@ -31,7 +33,11 @@ public class SportListController extends Controller {
     public void onSportSelectedEventHandler(Object sender, SportListItemModel sportListItemModel) {
         FXMLLoader fxmlLoader = InjectableFXMLLoader.load(SportCreationController.VIEW_NAME);
         SportCreationController controller = (SportCreationController) fxmlLoader.getController();
-        controller.init((Sport) sportListItemModel.getAssociatedEntity());
+        try {
+            controller.init(sportListItemModel.getUUID());
+        } catch (SportNotFoundException ex) {
+            Logger.getLogger(SportListController.class.getName()).log(Level.SEVERE, null, ex);
+        }
         onViewChangeRequested.fire(this, fxmlLoader);
     }
 

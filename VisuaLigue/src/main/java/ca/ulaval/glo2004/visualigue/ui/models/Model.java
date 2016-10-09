@@ -1,18 +1,20 @@
 package ca.ulaval.glo2004.visualigue.ui.models;
 
+import java.util.UUID;
+
 public class Model {
 
-    private Object associatedEntity;
+    private UUID uuid;
     private Boolean isNew = true;
     private Boolean isDirty = false;
     private Boolean isDeleted = false;
 
-    public Object getAssociatedEntity() {
-        return associatedEntity;
+    public UUID getUUID() {
+        return uuid;
     }
 
-    public void setAssociatedEntity(Object associatedEntity) {
-        this.associatedEntity = associatedEntity;
+    public void setUUID(UUID uuid) {
+        this.uuid = uuid;
     }
 
     public Boolean isNew() {

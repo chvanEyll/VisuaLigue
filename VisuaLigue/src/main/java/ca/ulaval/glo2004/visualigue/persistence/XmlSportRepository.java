@@ -2,6 +2,7 @@ package ca.ulaval.glo2004.visualigue.persistence;
 
 import ca.ulaval.glo2004.visualigue.domain.sport.Sport;
 import ca.ulaval.glo2004.visualigue.domain.sport.SportAlreadyExistsException;
+import ca.ulaval.glo2004.visualigue.domain.sport.SportNotFoundException;
 import ca.ulaval.glo2004.visualigue.domain.sport.SportRepository;
 import ca.ulaval.glo2004.visualigue.persistence.marshalling.XmlRepositoryMarshaller;
 import ca.ulaval.glo2004.visualigue.utils.ListUtils;
@@ -24,6 +25,7 @@ public class XmlSportRepository implements SportRepository {
     public XmlSportRepository(XmlRepositoryMarshaller<Sport> xmlRepositoryMarshaller) {
         this.xmlRepositoryMarshaller = xmlRepositoryMarshaller;
         sports = xmlRepositoryMarshaller.unmarshalAll();
+        int i = 8;
     }
 
     @Override
@@ -45,6 +47,15 @@ public class XmlSportRepository implements SportRepository {
             throw new SportAlreadyExistsException(String.format("A sport with name '%s' already exists.", sport.getName()));
         }
         xmlRepositoryMarshaller.marshal(sport, sport.getUUID());
+    }
+
+    @Override
+    public Sport get(UUID uuid) throws SportNotFoundException {
+        Sport sport = sports.get(uuid);
+        if (sport == null) {
+            throw new SportNotFoundException(String.format("Cannot find sport with UUID '%s'.", uuid.toString()));
+        }
+        return sport;
     }
 
     @Override

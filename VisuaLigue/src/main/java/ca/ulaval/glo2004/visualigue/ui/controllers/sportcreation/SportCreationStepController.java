@@ -11,6 +11,10 @@ public abstract class SportCreationStepController {
 
     public abstract void init(SportCreationModel model);
 
+    public void init() {
+        clearErrors();
+    }
+
     public void showError(Exception ex) {
         //Intentionally left blank. Sub-controllers may or may not implement this function.
     }

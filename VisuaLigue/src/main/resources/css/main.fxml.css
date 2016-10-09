@@ -92,10 +92,6 @@
     -fx-vgap: 14;
 }
 
-.form-group .error-label {
-    -fx-text-fill: red;
-}
-
 .tile-container {
     -fx-hgap: 14;
     -fx-vgap: 14;
@@ -115,6 +111,14 @@
 
 .tile-container .tile:pressed {
     -fx-background-color: #D9D5D3;
+}
+
+.grid-pane.hoverable {
+    -fx-cursor: hand;
+}
+
+.grid-pane.hoverable:hover {
+    -fx-background-color: #F3F1EF;
 }
 
 /* Common controls */
@@ -298,10 +302,6 @@
     -fx-effect: dropshadow(gaussian, transparent, 0, 0, 0, 0);
 }
 
-.grid-pane.hoverable {
-    -fx-cursor: hand;
-}
-
-.grid-pane.hoverable:hover {
-    -fx-background-color: #F3F1EF;
+.error-label {
+    -fx-text-fill: red;
 }

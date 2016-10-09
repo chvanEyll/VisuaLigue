@@ -2,7 +2,10 @@ package ca.ulaval.glo2004.visualigue.domain.playingsurface;
 
 import ca.ulaval.glo2004.visualigue.domain.DomainObject;
 import ca.ulaval.glo2004.visualigue.domain.resource.LocatedResource;
+import javax.xml.bind.annotation.XmlAccessType;
+import javax.xml.bind.annotation.XmlAccessorType;
 
+@XmlAccessorType(XmlAccessType.FIELD)
 public class PlayingSurface extends DomainObject {
 
     private Double width = 100.0;
@@ -12,7 +15,7 @@ public class PlayingSurface extends DomainObject {
     private LocatedResource imageResource = new LocatedResource();
 
     public PlayingSurface() {
-
+        //Required for JAXB instanciation.
     }
 
     public PlayingSurface(Double width, PlayingSurfaceUnit widthUnits, Double length, PlayingSurfaceUnit lengthUnits, LocatedResource imageRef) {
