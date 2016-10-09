@@ -4,9 +4,9 @@ import ca.ulaval.glo2004.visualigue.domain.playercategory.PlayerCategory;
 import ca.ulaval.glo2004.visualigue.domain.sport.Sport;
 import ca.ulaval.glo2004.visualigue.ui.models.PlayerCategoryModel;
 import ca.ulaval.glo2004.visualigue.ui.models.SportCreationModel;
+import ca.ulaval.glo2004.visualigue.utils.ImageUtils;
 import java.util.Map;
 import java.util.UUID;
-import javafx.scene.image.Image;
 
 public class SportCreationModelConverter {
 
@@ -21,7 +21,7 @@ public class SportCreationModelConverter {
         model.playingSurfaceWidthUnits.set(sport.getPlayingSurface().getWidthUnits());
         model.playingSurfaceLengthUnits.set(sport.getPlayingSurface().getLengthUnits());
         if (!sport.getPlayingSurface().getImageResource().isEmpty()) {
-            model.currentPlayingSurfaceImage.set(new Image(sport.getPlayingSurface().getImageResource().getURIString()));
+            model.currentPlayingSurfaceImage.set(ImageUtils.loadImageFromLocatedResource(sport.getPlayingSurface().getImageResource()));
         }
         convertPlayerCategories(sport.getPlayerCategories(), model);
         return model;

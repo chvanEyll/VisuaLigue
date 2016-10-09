@@ -1,8 +1,10 @@
 package ca.ulaval.glo2004.visualigue.domain.resource;
 
 import ca.ulaval.glo2004.visualigue.domain.DomainObject;
-import ca.ulaval.glo2004.visualigue.utils.FilenameUtils;
+import javax.xml.bind.annotation.XmlAccessType;
+import javax.xml.bind.annotation.XmlAccessorType;
 
+@XmlAccessorType(XmlAccessType.FIELD)
 public class LocatedResource extends DomainObject {
 
     private String name;
@@ -39,13 +41,5 @@ public class LocatedResource extends DomainObject {
 
     public Boolean isExternalResource() {
         return locationType == ResourceLocationType.EXTERNAL;
-    }
-
-    public String getURIString() {
-        if (locationType == ResourceLocationType.EXTERNAL) {
-            return FilenameUtils.getURIString(name);
-        } else {
-            return name;
-        }
     }
 }
