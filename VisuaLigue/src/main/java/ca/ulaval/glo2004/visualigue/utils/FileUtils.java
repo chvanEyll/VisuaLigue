@@ -9,4 +9,14 @@ public class FileUtils extends org.apache.commons.io.FileUtils {
         file.mkdir();
     }
 
+    public static void createDirectoryTree(File file) {
+        file.getParentFile().mkdirs();
+    }
+
+    public static File createFile(String pathName) {
+        File file = new File(pathName);
+        FileUtils.createDirectoryTree(file);
+        return file;
+    }
+
 }

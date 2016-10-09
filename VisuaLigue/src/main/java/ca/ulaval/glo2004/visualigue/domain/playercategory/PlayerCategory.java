@@ -2,14 +2,14 @@ package ca.ulaval.glo2004.visualigue.domain.playercategory;
 
 import ca.ulaval.glo2004.visualigue.domain.DomainObject;
 import ca.ulaval.glo2004.visualigue.domain.xmladapters.XmlColorAdapter;
-import java.awt.Color;
+import javafx.scene.paint.Color;
 import javax.xml.bind.annotation.adapters.XmlJavaTypeAdapter;
 
 public class PlayerCategory extends DomainObject {
 
     private String name;
-    private Color allyColor = Color.decode("#001A80");
-    private Color opponentColor = Color.decode("#990000");
+    private Color allyColor = Color.web("#001A80");
+    private Color opponentColor = Color.web("#990000");
     private Integer defaultNumberOfPlayers = 0;
 
     protected PlayerCategory() {

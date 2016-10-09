@@ -1,13 +1,14 @@
-package ca.ulaval.glo2004.visualigue.persistence.sport;
+package ca.ulaval.glo2004.visualigue.persistence;
 
 import ca.ulaval.glo2004.visualigue.domain.sport.Sport;
 import ca.ulaval.glo2004.visualigue.domain.sport.SportAlreadyExistsException;
-import ca.ulaval.glo2004.visualigue.domain.sport.SportNotFoundException;
 import ca.ulaval.glo2004.visualigue.domain.sport.SportRepository;
 import ca.ulaval.glo2004.visualigue.persistence.marshalling.XmlRepositoryMarshaller;
 import ca.ulaval.glo2004.visualigue.utils.ListUtils;
-import java.util.*;
-import java.util.concurrent.ConcurrentHashMap;
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Map;
+import java.util.UUID;
 import java.util.function.Function;
 import javax.inject.Inject;
 import javax.inject.Singleton;
@@ -16,23 +17,13 @@ import javax.swing.SortOrder;
 @Singleton
 public class XmlSportRepository implements SportRepository {
 
-    private final XmlRepositoryMarshaller<XmlSportRootElement> xmlRepositoryMarshaller;
-    private XmlSportRootElement xmlSportRootElement;
-
-    private final Map<UUID, Sport> sports = new ConcurrentHashMap<>();
+    private final XmlRepositoryMarshaller<Sport> xmlRepositoryMarshaller;
+    private final Map<UUID, Sport> sports;
 
     @Inject
-    public XmlSportRepository(final XmlRepositoryMarshaller<XmlSportRootElement> xmlRepositoryMarshaller,
-            final XmlSportAdapter xmlSportAdapter) {
+    public XmlSportRepository(XmlRepositoryMarshaller<Sport> xmlRepositoryMarshaller) {
         this.xmlRepositoryMarshaller = xmlRepositoryMarshaller;
-        initRepository(xmlSportAdapter);
-    }
-
-    private void initRepository(final XmlSportAdapter xmlSportAdapter) {
-        xmlRepositoryMarshaller.setMarshallingAdapters(xmlSportAdapter);
-        xmlSportRootElement = xmlRepositoryMarshaller.unmarshal(new XmlSportRootElement());
-        Collection<Sport> sportElements = xmlSportRootElement.getSports();
-        sportElements.forEach(s -> sports.put(s.getUUID(), s));
+        sports = xmlRepositoryMarshaller.unmarshalAll();
     }
 
     @Override
@@ -43,16 +34,7 @@ public class XmlSportRepository implements SportRepository {
             throw new SportAlreadyExistsException(String.format("A sport with name '%s' already exists.", sport.getName()));
         }
         sports.put(sport.getUUID(), sport);
-        marshal();
-    }
-
-    @Override
-    public Sport getByUUID(UUID uuid) throws SportNotFoundException {
-        Sport sport = sports.get(uuid);
-        if (sport == null) {
-            throw new SportNotFoundException(String.format("Cannot find sport with UUID '%s'.", uuid));
-        }
-        return sport;
+        xmlRepositoryMarshaller.marshal(sport, sport.getUUID());
     }
 
     @Override
@@ -62,8 +44,7 @@ public class XmlSportRepository implements SportRepository {
         } else if (sports.values().stream().anyMatch(s -> s != sport && s.getName().equals(sport.getName()))) {
             throw new SportAlreadyExistsException(String.format("A sport with name '%s' already exists.", sport.getName()));
         }
-
-        marshal();
+        xmlRepositoryMarshaller.marshal(sport, sport.getUUID());
     }
 
     @Override
@@ -75,11 +56,6 @@ public class XmlSportRepository implements SportRepository {
     @Override
     public Boolean isEmpty() {
         return sports.isEmpty();
-    }
-
-    private void marshal() {
-        xmlSportRootElement.setSports(sports.values());
-        xmlRepositoryMarshaller.marshal(xmlSportRootElement);
     }
 
 }

@@ -1,6 +1,6 @@
 package ca.ulaval.glo2004.visualigue.domain.playercategory;
 
-import java.awt.Color;
+import javafx.scene.paint.Color;
 import javax.inject.Singleton;
 
 @Singleton
