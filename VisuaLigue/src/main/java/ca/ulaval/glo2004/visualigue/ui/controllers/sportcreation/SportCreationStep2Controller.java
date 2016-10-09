@@ -4,7 +4,7 @@ import ca.ulaval.glo2004.visualigue.domain.playingsurface.PlayingSurfaceUnit;
 import ca.ulaval.glo2004.visualigue.ui.controllers.FileSelectionEventArgs;
 import ca.ulaval.glo2004.visualigue.ui.models.SportCreationModel;
 import ca.ulaval.glo2004.visualigue.utils.FXUtils;
-import java.io.File;
+import ca.ulaval.glo2004.visualigue.utils.FilenameUtils;
 import javafx.collections.FXCollections;
 import javafx.fxml.FXML;
 import javafx.scene.control.ComboBox;
@@ -50,12 +50,11 @@ public class SportCreationStep2Controller extends SportCreationStepController {
         FXUtils.requestFocusDelayed(widthSpinner);
     }
 
-    private void displayImage(String imagePathName) {
-        if (imagePathName == null) {
+    private void displayImage(String imageURI) {
+        if (imageURI == null) {
             clearImage();
         } else {
-            File file = new File(imagePathName);
-            imageView.setImage(new Image(file.toURI().toString()));
+            imageView.setImage(new Image(imageURI));
             FXUtils.setDisplay(imageView, true);
             imagePathLabel.textProperty().bind(this.model.newPlayingSurfacePathName);
         }
@@ -63,7 +62,7 @@ public class SportCreationStep2Controller extends SportCreationStepController {
 
     private void setImage(String imagePathName) {
         this.model.newPlayingSurfacePathName.set(imagePathName);
-        displayImage(imagePathName);
+        displayImage(FilenameUtils.getURIString(imagePathName));
     }
 
     @FXML

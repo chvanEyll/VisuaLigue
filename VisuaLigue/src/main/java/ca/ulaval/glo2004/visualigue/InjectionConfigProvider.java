@@ -1,6 +1,6 @@
 package ca.ulaval.glo2004.visualigue;
 
-import ca.ulaval.glo2004.visualigue.domain.Image.ImageRepository;
+import ca.ulaval.glo2004.visualigue.domain.Ifmage.ImageRepository;
 import ca.ulaval.glo2004.visualigue.domain.sport.SportRepository;
 import ca.ulaval.glo2004.visualigue.persistence.image.FileBasedImageRepository;
 import ca.ulaval.glo2004.visualigue.persistence.marshalling.XmlRepositoryMarshaller;

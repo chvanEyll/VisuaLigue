@@ -1,7 +1,7 @@
 package ca.ulaval.glo2004.visualigue.services;
 
-import ca.ulaval.glo2004.visualigue.domain.Image.ImagePersistenceException;
-import ca.ulaval.glo2004.visualigue.domain.Image.ImageRepository;
+import ca.ulaval.glo2004.visualigue.domain.Ifmage.ImagePersistenceException;
+import ca.ulaval.glo2004.visualigue.domain.Ifmage.ImageRepository;
 import ca.ulaval.glo2004.visualigue.domain.playercategory.PlayerCategory;
 import ca.ulaval.glo2004.visualigue.domain.playercategory.PlayerCategoryFactory;
 import ca.ulaval.glo2004.visualigue.domain.playingsurface.PlayingSurface;
@@ -68,11 +68,16 @@ public class SportService {
     }
 
     public void updatePlayingSurfaceImage(Sport sport, String newPlayingSurfacePathName) throws ImagePersistenceException {
-        PersistentResource imageResource = PersistentResource.fromResource(newPlayingSurfacePathName);
+        PersistentResource imageResource = PersistentResource.fromSource(newPlayingSurfacePathName);
         imageRepository.persist(imageResource);
         PlayingSurface playingSurface = sport.getPlayingSurface();
         imageRepository.delete(playingSurface.getImageResource());
         playingSurface.setImageResource(imageResource);
+        try {
+            sportRepository.update(sport);
+        } catch (SportAlreadyExistsException ex) {
+            //Intentionally left blank.
+        }
     }
 
     public void addPlayerCategory(Sport sport, String name, Color allyColor, Color opponentColor, Integer defaultNumberOfPlayers) {

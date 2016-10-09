@@ -1,11 +1,12 @@
 package ca.ulaval.glo2004.visualigue.domain.resource;
 
 import ca.ulaval.glo2004.visualigue.domain.DomainObject;
+import ca.ulaval.glo2004.visualigue.utils.FilenameUtils;
 
 public class PersistentResource extends DomainObject {
 
-    private String persistedImagePathName;
-    private String sourceImagePathName;
+    private String persistedPathName;
+    private String sourcePathName;
     private Boolean persisted = true;
     private TargetPersistenceType targetPersistenceType;
 
@@ -13,43 +14,43 @@ public class PersistentResource extends DomainObject {
         //Required for JAXB instanciation.
     }
 
-    public static PersistentResource fromResource(String resourceImagePathName) {
-        PersistentResource persistentImageResource = new PersistentResource();
-        persistentImageResource.persistedImagePathName = resourceImagePathName;
-        persistentImageResource.targetPersistenceType = TargetPersistenceType.RESOURCE;
-        return persistentImageResource;
+    public static PersistentResource fromResource(String resourcePathName) {
+        PersistentResource persistentResource = new PersistentResource();
+        persistentResource.persistedPathName = resourcePathName;
+        persistentResource.targetPersistenceType = TargetPersistenceType.RESOURCE;
+        return persistentResource;
     }
 
-    public static PersistentResource fromSource(String sourceImagePathName) {
-        PersistentResource persistentImageResource = new PersistentResource();
-        persistentImageResource.sourceImagePathName = sourceImagePathName;
-        persistentImageResource.targetPersistenceType = TargetPersistenceType.DATA_STORE;
-        persistentImageResource.persisted = false;
-        return persistentImageResource;
+    public static PersistentResource fromSource(String sourcePathName) {
+        PersistentResource persistentResource = new PersistentResource();
+        persistentResource.sourcePathName = sourcePathName;
+        persistentResource.targetPersistenceType = TargetPersistenceType.DATA_STORE;
+        persistentResource.persisted = false;
+        return persistentResource;
     }
 
-    public String getPersistedImagePathName() {
-        return persistedImagePathName;
+    public String getPersistedPathName() {
+        return persistedPathName;
     }
 
-    public void setPersistedImagePathName(String persistedImagePathName) {
-        this.persistedImagePathName = persistedImagePathName;
+    public void setPersistedPathName(String persistedPathName) {
+        this.persistedPathName = persistedPathName;
     }
 
-    public Boolean isPersistedImagePathNameSet() {
-        return persistedImagePathName != null;
+    public Boolean isPersistedPathNameSet() {
+        return persistedPathName != null;
     }
 
-    public String getSourceImagePathName() {
-        return sourceImagePathName;
+    public String getSourcePathName() {
+        return sourcePathName;
     }
 
-    public void setSourceImagePathName(String sourceImagePathName) {
-        this.sourceImagePathName = sourceImagePathName;
+    public void setSourcePathName(String sourcePathName) {
+        this.sourcePathName = sourcePathName;
     }
 
-    public Boolean isSourceImagePathNameSet() {
-        return sourceImagePathName != null;
+    public Boolean isSourcePathNameSet() {
+        return sourcePathName != null;
     }
 
     public Boolean isPersisted() {
@@ -72,4 +73,11 @@ public class PersistentResource extends DomainObject {
         return targetPersistenceType == TargetPersistenceType.RESOURCE;
     }
 
+    public String getAbsolutePathName() {
+        if (targetPersistenceType == TargetPersistenceType.DATA_STORE) {
+            return FilenameUtils.getURIString(persistedPathName);
+        } else {
+            return persistedPathName;
+        }
+    }
 }

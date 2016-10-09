@@ -1,8 +1,8 @@
 package ca.ulaval.glo2004.visualigue.persistence.image;
 
 import ca.ulaval.glo2004.visualigue.VisuaLigue;
-import ca.ulaval.glo2004.visualigue.domain.Image.ImagePersistenceException;
-import ca.ulaval.glo2004.visualigue.domain.Image.ImageRepository;
+import ca.ulaval.glo2004.visualigue.domain.Ifmage.ImagePersistenceException;
+import ca.ulaval.glo2004.visualigue.domain.Ifmage.ImageRepository;
 import ca.ulaval.glo2004.visualigue.domain.resource.PersistentResource;
 import ca.ulaval.glo2004.visualigue.utils.FileUtils;
 import java.io.File;
@@ -31,22 +31,24 @@ public class FileBasedImageRepository implements ImageRepository {
 
     @Override
     public void persist(PersistentResource imageResource) throws ImagePersistenceException {
-        if (!imageResource.isPersisted() && imageResource.isSourceImagePathNameSet()) {
+        if (!imageResource.isPersisted() && imageResource.isSourcePathNameSet()) {
             UUID uuid = UUID.randomUUID();
-            String sourceFileExtension = FilenameUtils.getExtension(imageResource.getSourceImagePathName());
+            String sourceFileExtension = FilenameUtils.getExtension(imageResource.getSourcePathName());
+            String destinationPathName = String.format("%s/%s.%s", PHOTO_DIRECTORY_NAME, uuid.toString(), sourceFileExtension);
             try {
-                FileUtils.copyFile(new File(imageResource.getSourceImagePathName()), new File(String.format("%s/%s.%s", PHOTO_DIRECTORY_NAME, uuid.toString(), sourceFileExtension)));
+                FileUtils.copyFile(new File(imageResource.getSourcePathName()), new File(destinationPathName));
             } catch (IOException ex) {
-                throw new ImagePersistenceException(String.format("Failed to persist image '%s' to '%s'.", imageResource.getSourceImagePathName(), imageResource.getAbsolutePersistedPathName()));
+                throw new ImagePersistenceException(String.format("Failed to persist image '%s' to '%s'.", imageResource.getSourcePathName(), destinationPathName));
             }
+            imageResource.setPersistedPathName(destinationPathName);
             imageResource.setPersisted(true);
         }
     }
 
     @Override
     public void delete(PersistentResource imageResource) {
-        if (!imageResource.isResource() && imageResource.isPersistedImagePathNameSet()) {
-            FileUtils.deleteQuietly(new File(imageResource.getAbsolutePersistedPathName()));
+        if (!imageResource.isResource() && imageResource.isPersistedPathNameSet()) {
+            FileUtils.deleteQuietly(new File(imageResource.getPersistedPathName()));
         }
     }
 
