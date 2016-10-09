@@ -29,7 +29,7 @@ public class FileBasedImageRepository implements ImageRepository {
     }
 
     @Override
-    public File persist(BufferedImage image) {
+    public String persist(BufferedImage image) {
         String storedFileName = String.format("%s/%s.%s", REPOSITORY_NAME, UUID.randomUUID(), IMAGE_FORMAT);
         File outputFile = new File(storedFileName);
         try {
@@ -38,7 +38,7 @@ public class FileBasedImageRepository implements ImageRepository {
             throw new UncheckedIOException(String.format("Failed to persist image to '%s'.", storedFileName), ex);
         }
         imagePathNames.add(storedFileName);
-        return outputFile;
+        return storedFileName;
     }
 
     @Override

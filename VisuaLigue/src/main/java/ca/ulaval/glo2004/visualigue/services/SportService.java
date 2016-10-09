@@ -13,7 +13,6 @@ import ca.ulaval.glo2004.visualigue.domain.sport.SportFactory;
 import ca.ulaval.glo2004.visualigue.domain.sport.SportRepository;
 import ca.ulaval.glo2004.visualigue.utils.EventHandler;
 import java.awt.image.BufferedImage;
-import java.io.File;
 import java.util.List;
 import java.util.function.Function;
 import javafx.scene.paint.Color;
@@ -67,8 +66,8 @@ public class SportService {
     }
 
     public void updatePlayingSurfaceImage(Sport sport, BufferedImage image) {
-        File file = imageRepository.persist(image);
-        LocatedResource imageResource = new LocatedResource(file.getPath(), ResourceLocationType.EXTERNAL);
+        String fileName = imageRepository.persist(image);
+        LocatedResource imageResource = new LocatedResource(fileName, ResourceLocationType.EXTERNAL);
         PlayingSurface playingSurface = sport.getPlayingSurface();
         if (playingSurface.getImageResource().isExternalResource()) {
             imageRepository.delete(playingSurface.getImageResource().getName());
