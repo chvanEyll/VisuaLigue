@@ -27,7 +27,7 @@ public class PlayingSurface extends DomainObject {
         return width;
     }
 
-    public void setWidth(Double length) {
+    public void setWidth(Double width) {
         this.width = width;
     }
 

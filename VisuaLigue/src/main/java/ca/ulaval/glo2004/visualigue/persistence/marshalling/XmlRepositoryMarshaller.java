@@ -9,6 +9,7 @@ import java.util.concurrent.ConcurrentHashMap;
 import javax.inject.Inject;
 import javax.xml.bind.Marshaller;
 import javax.xml.bind.Unmarshaller;
+import org.apache.commons.io.FilenameUtils;
 import org.apache.commons.io.IOUtils;
 
 public class XmlRepositoryMarshaller<T> extends XmlMarshaller<T> {
@@ -33,18 +34,20 @@ public class XmlRepositoryMarshaller<T> extends XmlMarshaller<T> {
 
     public synchronized Map<UUID, T> unmarshalAll() {
         Map<UUID, T> objects = new ConcurrentHashMap<>();
-        Collection<File> files = FileUtils.listFiles(new File(repositoryName), new String[]{}, false);
-        files.forEach(file -> {
-            objects.put(UUID.fromString(file.getName()), unmarshal(file));
-        });
+        if (FileUtils.directoryExists(repositoryName)) {
+            Collection<File> files = FileUtils.listFiles(new File(repositoryName), null, false);
+            files.forEach(file -> {
+                UUID uuid = UUID.fromString(FilenameUtils.removeExtension(file.getName()));
+                objects.put(uuid, unmarshal(file));
+            });
+        }
         return objects;
     }
 
     private synchronized T unmarshal(File file) {
-        T unmarshalledObject;
         InputStream inputStream = null;
         try {
-            inputStream = ca.ulaval.glo2004.visualigue.utils.FileUtils.openInputStream(file);
+            inputStream = FileUtils.openInputStream(file);
             return (T) super.unmarshal(inputStream);
         } catch (IOException e) {
             throw new UncheckedIOException(String.format("An I/O exception occured while trying to read file '%s'.", repositoryName), e);

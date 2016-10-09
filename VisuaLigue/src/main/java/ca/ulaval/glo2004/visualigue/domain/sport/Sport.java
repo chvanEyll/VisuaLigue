@@ -5,13 +5,19 @@ import ca.ulaval.glo2004.visualigue.domain.playercategory.PlayerCategory;
 import ca.ulaval.glo2004.visualigue.domain.playingsurface.PlayingSurface;
 import java.util.HashSet;
 import java.util.Set;
+import javax.xml.bind.annotation.XmlRootElement;
 
+@XmlRootElement(name = "sport")
 public class Sport extends DomainObject {
 
     private String name;
     private String builtInIconPathName = "/images/built-in-sport-icons/generic-icon";
     private PlayingSurface playingSurface = new PlayingSurface();
     private Set<PlayerCategory> playerCategories = new HashSet<>();
+
+    public Sport() {
+        //Required for JAXB instanciation.
+    }
 
     public Sport(String name) {
         this.name = name;

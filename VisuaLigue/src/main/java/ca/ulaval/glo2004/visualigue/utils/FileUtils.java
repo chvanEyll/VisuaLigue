@@ -19,4 +19,9 @@ public class FileUtils extends org.apache.commons.io.FileUtils {
         return file;
     }
 
+    public static Boolean directoryExists(String pathName) {
+        File file = new File(pathName);
+        return file.exists() && file.isDirectory();
+    }
+
 }
