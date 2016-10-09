@@ -5,8 +5,6 @@ import ca.ulaval.glo2004.visualigue.domain.playercategory.PlayerCategory;
 import ca.ulaval.glo2004.visualigue.domain.playercategory.PlayerCategoryFactory;
 import ca.ulaval.glo2004.visualigue.domain.playingsurface.PlayingSurface;
 import ca.ulaval.glo2004.visualigue.domain.playingsurface.PlayingSurfaceUnit;
-import ca.ulaval.glo2004.visualigue.domain.resource.LocatedResource;
-import ca.ulaval.glo2004.visualigue.domain.resource.ResourceLocationType;
 import ca.ulaval.glo2004.visualigue.domain.sport.*;
 import ca.ulaval.glo2004.visualigue.utils.EventHandler;
 import java.awt.image.BufferedImage;
@@ -63,11 +61,11 @@ public class SportService {
 
     public void updatePlayingSurfaceImage(UUID sportUUID, BufferedImage image) throws SportNotFoundException, SportAlreadyExistsException {
         Sport sport = sportRepository.get(sportUUID);
-        String fileName = imageRepository.persist(image);
+        UUID imageUuid = imageRepository.persist(image);
         PlayingSurface playingSurface = sport.getPlayingSurface();
-        playingSurface.setImageResource(new LocatedResource(fileName, ResourceLocationType.EXTERNAL));
-        if (playingSurface.getImageResource().isExternalResource()) {
-            imageRepository.delete(playingSurface.getImageResource().getName());
+        playingSurface.setImageUUID(imageUuid);
+        if (playingSurface.hasImage()) {
+            imageRepository.delete(playingSurface.getImageUUID());
         }
         sportRepository.update(sport);
     }

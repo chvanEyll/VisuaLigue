@@ -6,7 +6,6 @@ public class FilenameUtils extends org.apache.commons.io.FilenameUtils {
 
     public static String getURIString(String fileName) {
         File file = new File(fileName);
-        String uri = file.toURI().toString();
         return file.toURI().toString();
     }
 }

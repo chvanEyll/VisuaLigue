@@ -1,31 +1,16 @@
 package ca.ulaval.glo2004.visualigue.utils;
 
-import java.io.FileNotFoundException;
-import java.net.URI;
-import java.net.URISyntaxException;
-import java.net.URL;
+import java.io.*;
+import org.apache.commons.io.IOUtils;
 
 public class ResourceUtils {
 
-    public static String getResourcePathName(String resourceName) throws FileNotFoundException {
-        return getResourceURI(resourceName).toString();
+    public static void copyTo(String resourceName, String destination) throws IOException {
+        InputStream inputStream = ResourceUtils.class.getResourceAsStream(resourceName);
+        File file = FileUtils.createFile(destination);
+        OutputStream outputStream = new FileOutputStream(file);
+        IOUtils.copy(inputStream, outputStream);
+        inputStream.close();
+        outputStream.close();
     }
-
-    public static URI getResourceURI(String resourceName) throws FileNotFoundException {
-        try {
-            URL url = getResourceURL(resourceName);
-            return url.toURI();
-        } catch (URISyntaxException e) {
-            throw new RuntimeException(String.format("Failed to get resource URI of '%s'.", resourceName), e);
-        }
-    }
-
-    public static URL getResourceURL(String resourceName) throws FileNotFoundException {
-        URL url = ResourceUtils.class.getResource(resourceName);
-        if (url == null) {
-            throw new FileNotFoundException(String.format("Resource '%s' does not exist.", resourceName));
-        }
-        return url;
-    }
-
 }

@@ -1,14 +1,28 @@
 package ca.ulaval.glo2004.visualigue.ui.converters;
 
+import ca.ulaval.glo2004.visualigue.domain.image.ImageLoadException;
+import ca.ulaval.glo2004.visualigue.domain.image.ImageRepository;
 import ca.ulaval.glo2004.visualigue.domain.playercategory.PlayerCategory;
+import ca.ulaval.glo2004.visualigue.domain.playingsurface.PlayingSurface;
 import ca.ulaval.glo2004.visualigue.domain.sport.Sport;
 import ca.ulaval.glo2004.visualigue.ui.models.PlayerCategoryModel;
 import ca.ulaval.glo2004.visualigue.ui.models.SportCreationModel;
-import ca.ulaval.glo2004.visualigue.utils.ImageUtils;
+import java.awt.image.BufferedImage;
 import java.util.Map;
 import java.util.UUID;
+import java.util.logging.Level;
+import java.util.logging.Logger;
+import javafx.embed.swing.SwingFXUtils;
+import javax.inject.Inject;
 
 public class SportCreationModelConverter {
+
+    ImageRepository imageRepository;
+
+    @Inject
+    public SportCreationModelConverter(ImageRepository imageRepository) {
+        this.imageRepository = imageRepository;
+    }
 
     public SportCreationModel convert(Sport sport) {
         SportCreationModel model = new SportCreationModel();
@@ -20,11 +34,20 @@ public class SportCreationModelConverter {
         model.playingSurfaceLength.set(sport.getPlayingSurface().getLength());
         model.playingSurfaceWidthUnits.set(sport.getPlayingSurface().getWidthUnits());
         model.playingSurfaceLengthUnits.set(sport.getPlayingSurface().getLengthUnits());
-        if (!sport.getPlayingSurface().getImageResource().isEmpty()) {
-            model.currentPlayingSurfaceImage.set(ImageUtils.loadImageFromLocatedResource(sport.getPlayingSurface().getImageResource()));
-        }
+        convertPlayingSurfaceImage(sport.getPlayingSurface(), model);
         convertPlayerCategories(sport.getPlayerCategories(), model);
         return model;
+    }
+
+    private void convertPlayingSurfaceImage(PlayingSurface playingSurface, SportCreationModel model) {
+        if (playingSurface.hasImage()) {
+            try {
+                BufferedImage image = imageRepository.get(playingSurface.getImageUUID());
+                model.currentPlayingSurfaceImage.set(SwingFXUtils.toFXImage(image, null));
+            } catch (ImageLoadException ex) {
+                Logger.getLogger(SportCreationModelConverter.class.getName()).log(Level.SEVERE, null, ex);
+            }
+        }
     }
 
     private void convertPlayerCategories(Map<UUID, PlayerCategory> playerCategories, SportCreationModel model) {

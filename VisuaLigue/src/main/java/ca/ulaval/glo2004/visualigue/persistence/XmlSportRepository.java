@@ -29,7 +29,7 @@ public class XmlSportRepository implements SportRepository {
     }
 
     @Override
-    public void persist(Sport sport) throws SportAlreadyExistsException {
+    public UUID persist(Sport sport) throws SportAlreadyExistsException {
         if (sports.containsValue(sport)) {
             throw new SportAlreadyExistsException(String.format("A sport with UUID '%s' already exists.", sport.getUUID()));
         } else if (sports.values().stream().anyMatch(s -> s.getName().equals(sport.getName()))) {
@@ -37,6 +37,7 @@ public class XmlSportRepository implements SportRepository {
         }
         sports.put(sport.getUUID(), sport);
         xmlRepositoryMarshaller.marshal(sport, sport.getUUID());
+        return sport.getUUID();
     }
 
     @Override

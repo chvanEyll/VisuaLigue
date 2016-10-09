@@ -7,7 +7,7 @@ import javax.swing.SortOrder;
 
 public interface SportRepository {
 
-    void persist(Sport sport) throws SportAlreadyExistsException;
+    UUID persist(Sport sport) throws SportAlreadyExistsException;
 
     void update(Sport sport) throws SportAlreadyExistsException;
 

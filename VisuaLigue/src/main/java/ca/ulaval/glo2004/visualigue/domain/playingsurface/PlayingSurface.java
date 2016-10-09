@@ -1,7 +1,7 @@
 package ca.ulaval.glo2004.visualigue.domain.playingsurface;
 
 import ca.ulaval.glo2004.visualigue.domain.DomainObject;
-import ca.ulaval.glo2004.visualigue.domain.resource.LocatedResource;
+import java.util.UUID;
 import javax.xml.bind.annotation.XmlAccessType;
 import javax.xml.bind.annotation.XmlAccessorType;
 
@@ -12,18 +12,18 @@ public class PlayingSurface extends DomainObject {
     private Double length = 200.0;
     private PlayingSurfaceUnit widthUnits = PlayingSurfaceUnit.METER;
     private PlayingSurfaceUnit lengthUnits = PlayingSurfaceUnit.METER;
-    private LocatedResource imageResource = new LocatedResource();
+    private UUID imageUUID;
 
     public PlayingSurface() {
         //Required for JAXB instanciation.
     }
 
-    public PlayingSurface(Double width, PlayingSurfaceUnit widthUnits, Double length, PlayingSurfaceUnit lengthUnits, LocatedResource imageRef) {
+    public PlayingSurface(Double width, PlayingSurfaceUnit widthUnits, Double length, PlayingSurfaceUnit lengthUnits, UUID imageUUID) {
         this.width = width;
         this.widthUnits = widthUnits;
         this.length = length;
         this.lengthUnits = lengthUnits;
-        this.imageResource = imageRef;
+        this.imageUUID = imageUUID;
     }
 
     public Double getWidth() {
@@ -58,12 +58,15 @@ public class PlayingSurface extends DomainObject {
         this.lengthUnits = lengthUnits;
     }
 
-    public LocatedResource getImageResource() {
-        return imageResource;
+    public UUID getImageUUID() {
+        return imageUUID;
     }
 
-    public void setImageResource(LocatedResource imageResource) {
-        this.imageResource = imageResource;
+    public void setImageUUID(UUID imageUUID) {
+        this.imageUUID = imageUUID;
     }
 
+    public Boolean hasImage() {
+        return imageUUID != null;
+    }
 }
