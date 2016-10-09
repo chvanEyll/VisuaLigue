@@ -2,246 +2,309 @@
 <visualigue>
     <sports>
         <sport>
-            <uuid>ee253275-cf8d-4b3b-8abc-7d00ac046bdc</uuid>
-            <name>Football</name>
-            <builtInIconPathName>/images/built-in-sport-icons/football-icon</builtInIconPathName>
-            <playingSurface>
-                <lengthUnits>FOOTS</lengthUnits>
-                <widthUnits>FOOTS</widthUnits>
-            </playingSurface>
-            <playerCategories>
-                <allyColor>#0071BC</allyColor>
-                <defaultNumberOfPlayers>1</defaultNumberOfPlayers>
-                <name>Fullback</name>
-                <opponentColor>#C1272D</opponentColor>
-            </playerCategories>
-            <playerCategories>
-                <allyColor>#0071BC</allyColor>
-                <defaultNumberOfPlayers>2</defaultNumberOfPlayers>
-                <name>Cornerback</name>
-                <opponentColor>#C1272D</opponentColor>
-            </playerCategories>
-            <playerCategories>
-                <allyColor>#0071BC</allyColor>
-                <defaultNumberOfPlayers>1</defaultNumberOfPlayers>
-                <name>Halfback</name>
-                <opponentColor>#C1272D</opponentColor>
-            </playerCategories>
-            <playerCategories>
-                <allyColor>#0071BC</allyColor>
-                <defaultNumberOfPlayers>2</defaultNumberOfPlayers>
-                <name>Defensive Tackle</name>
-                <opponentColor>#C1272D</opponentColor>
-            </playerCategories>
-            <playerCategories>
-                <allyColor>#F7931E</allyColor>
-                <defaultNumberOfPlayers>2</defaultNumberOfPlayers>
-                <name>Safety</name>
-                <opponentColor>#F7931E</opponentColor>
-            </playerCategories>
-            <playerCategories>
-                <allyColor>#0071BC</allyColor>
-                <defaultNumberOfPlayers>1</defaultNumberOfPlayers>
-                <name>Center</name>
-                <opponentColor>#C1272D</opponentColor>
-            </playerCategories>
-            <playerCategories>
-                <allyColor>#0071BC</allyColor>
-                <defaultNumberOfPlayers>2</defaultNumberOfPlayers>
-                <name>Offensive Tackle</name>
-                <opponentColor>#C1272D</opponentColor>
-            </playerCategories>
-            <playerCategories>
-                <allyColor>#0071BC</allyColor>
-                <defaultNumberOfPlayers>2</defaultNumberOfPlayers>
-                <name>Defensive End</name>
-                <opponentColor>#C1272D</opponentColor>
-            </playerCategories>
-            <playerCategories>
-                <allyColor>#0071BC</allyColor>
-                <defaultNumberOfPlayers>2</defaultNumberOfPlayers>
-                <name>Offensive Guard</name>
-                <opponentColor>#C1272D</opponentColor>
-            </playerCategories>
-            <playerCategories>
-                <allyColor>#0071BC</allyColor>
-                <defaultNumberOfPlayers>1</defaultNumberOfPlayers>
-                <name>Quarterback</name>
-                <opponentColor>#C1272D</opponentColor>
-            </playerCategories>
-            <playerCategories>
-                <allyColor>#0071BC</allyColor>
-                <defaultNumberOfPlayers>1</defaultNumberOfPlayers>
-                <name>Tight End</name>
-                <opponentColor>#C1272D</opponentColor>
-            </playerCategories>
-            <playerCategories>
-                <allyColor>#0071BC</allyColor>
-                <defaultNumberOfPlayers>0</defaultNumberOfPlayers>
-                <name>Running Back</name>
-                <opponentColor>#C1272D</opponentColor>
-            </playerCategories>
-            <playerCategories>
-                <allyColor>#0071BC</allyColor>
-                <defaultNumberOfPlayers>1</defaultNumberOfPlayers>
-                <name>Middle Linebacker</name>
-                <opponentColor>#C1272D</opponentColor>
-            </playerCategories>
-            <playerCategories>
-                <allyColor>#0071BC</allyColor>
-                <defaultNumberOfPlayers>2</defaultNumberOfPlayers>
-                <name>Outside Linebacker</name>
-                <opponentColor>#C1272D</opponentColor>
-            </playerCategories>
-            <playerCategories>
-                <allyColor>#0071BC</allyColor>
-                <defaultNumberOfPlayers>2</defaultNumberOfPlayers>
-                <name>Wide Receiver</name>
-                <opponentColor>#C1272D</opponentColor>
-            </playerCategories>
-        </sport>
-        <sport>
-            <uuid>a2ee6ebf-aa47-4c78-9f31-79238e83c2a7</uuid>
-            <name>Soccer</name>
-            <builtInIconPathName>/images/built-in-sport-icons/hockey-icon</builtInIconPathName>
-            <playingSurface>
-                <lengthUnits>METER</lengthUnits>
-                <widthUnits>METER</widthUnits>
-            </playingSurface>
-            <playerCategories>
-                <allyColor>#0071BC</allyColor>
-                <defaultNumberOfPlayers>1</defaultNumberOfPlayers>
-                <name>Défenseur Gauche</name>
-                <opponentColor>#C1272D</opponentColor>
-            </playerCategories>
-            <playerCategories>
-                <allyColor>#0071BC</allyColor>
-                <defaultNumberOfPlayers>0</defaultNumberOfPlayers>
-                <name>Milieu Offensif Axial</name>
-                <opponentColor>#C1272D</opponentColor>
-            </playerCategories>
-            <playerCategories>
-                <allyColor>#0071BC</allyColor>
-                <defaultNumberOfPlayers>1</defaultNumberOfPlayers>
-                <name>Milieu Défensif Droit</name>
-                <opponentColor>#C1272D</opponentColor>
-            </playerCategories>
-            <playerCategories>
-                <allyColor>#0071BC</allyColor>
-                <defaultNumberOfPlayers>0</defaultNumberOfPlayers>
-                <name>Milieu Défensif Central</name>
-                <opponentColor>#C1272D</opponentColor>
-            </playerCategories>
-            <playerCategories>
-                <allyColor>#0071BC</allyColor>
-                <defaultNumberOfPlayers>1</defaultNumberOfPlayers>
-                <name>Milieu Offensif Gauche</name>
-                <opponentColor>#C1272D</opponentColor>
-            </playerCategories>
-            <playerCategories>
-                <allyColor>#F7931E</allyColor>
-                <defaultNumberOfPlayers>1</defaultNumberOfPlayers>
-                <name>Gardien</name>
-                <opponentColor>#F7931E</opponentColor>
-            </playerCategories>
-            <playerCategories>
-                <allyColor>#0071BC</allyColor>
-                <defaultNumberOfPlayers>1</defaultNumberOfPlayers>
-                <name>Défenseur Droit</name>
-                <opponentColor>#C1272D</opponentColor>
-            </playerCategories>
-            <playerCategories>
-                <allyColor>#0071BC</allyColor>
-                <defaultNumberOfPlayers>1</defaultNumberOfPlayers>
-                <name>Défenseur Central</name>
-                <opponentColor>#C1272D</opponentColor>
-            </playerCategories>
-            <playerCategories>
-                <allyColor>#0071BC</allyColor>
-                <defaultNumberOfPlayers>1</defaultNumberOfPlayers>
-                <name>Attaquant Gauche</name>
-                <opponentColor>#C1272D</opponentColor>
-            </playerCategories>
-            <playerCategories>
-                <allyColor>#0071BC</allyColor>
-                <defaultNumberOfPlayers>1</defaultNumberOfPlayers>
-                <name>Attaquant Axial</name>
-                <opponentColor>#C1272D</opponentColor>
-            </playerCategories>
-            <playerCategories>
-                <allyColor>#0071BC</allyColor>
-                <defaultNumberOfPlayers>1</defaultNumberOfPlayers>
-                <name>Attaquant Droit</name>
-                <opponentColor>#C1272D</opponentColor>
-            </playerCategories>
-            <playerCategories>
-                <allyColor>#0071BC</allyColor>
-                <defaultNumberOfPlayers>0</defaultNumberOfPlayers>
-                <name>Milieu Gauche</name>
-                <opponentColor>#C1272D</opponentColor>
-            </playerCategories>
-            <playerCategories>
-                <allyColor>#0071BC</allyColor>
-                <defaultNumberOfPlayers>1</defaultNumberOfPlayers>
-                <name>Milieu Central</name>
-                <opponentColor>#C1272D</opponentColor>
-            </playerCategories>
-            <playerCategories>
-                <allyColor>#0071BC</allyColor>
-                <defaultNumberOfPlayers>1</defaultNumberOfPlayers>
-                <name>Milieu Offensif Droit</name>
-                <opponentColor>#C1272D</opponentColor>
-            </playerCategories>
-            <playerCategories>
-                <allyColor>#0071BC</allyColor>
-                <defaultNumberOfPlayers>1</defaultNumberOfPlayers>
-                <name>Milieu Défensif Gauche</name>
-                <opponentColor>#C1272D</opponentColor>
-            </playerCategories>
-            <playerCategories>
-                <allyColor>#0071BC</allyColor>
-                <defaultNumberOfPlayers>0</defaultNumberOfPlayers>
-                <name>Milieu Droit</name>
-                <opponentColor>#C1272D</opponentColor>
-            </playerCategories>
-        </sport>
-        <sport>
-            <uuid>75351e8a-4dc0-4d22-a113-17b8f1191220</uuid>
+            <uuid>a0b6bc2a-2d54-4d17-85f6-fbccc47dbb48</uuid>
             <name>Hockey</name>
             <builtInIconPathName>/images/built-in-sport-icons/hockey-icon</builtInIconPathName>
             <playingSurface>
+                <UUID>818a364d-c26c-4a3e-b2ec-acd26a1db622</UUID>
+                <imageResource>
+                    <UUID>488ddf69-5c0f-4778-94f4-ccce4cbcd2e0</UUID>
+                    <persisted>true</persisted>
+                    <persistedImagePathName>/images/built-in-playing-surfaces/hockey.png</persistedImagePathName>
+                    <targetPersistenceType>RESOURCE</targetPersistenceType>
+                </imageResource>
+                <length>85.0</length>
                 <lengthUnits>FOOTS</lengthUnits>
+                <width>200.0</width>
                 <widthUnits>FOOTS</widthUnits>
             </playingSurface>
             <playerCategories>
-                <allyColor>#0071BC</allyColor>
-                <defaultNumberOfPlayers>1</defaultNumberOfPlayers>
-                <name>Centre</name>
-                <opponentColor>#C1272D</opponentColor>
-            </playerCategories>
-            <playerCategories>
-                <allyColor>#0071BC</allyColor>
-                <defaultNumberOfPlayers>2</defaultNumberOfPlayers>
-                <name>Défenseur</name>
-                <opponentColor>#C1272D</opponentColor>
-            </playerCategories>
-            <playerCategories>
+                <UUID>a29e16c7-7e03-4f21-af29-71b9420ee910</UUID>
                 <allyColor>#0071BC</allyColor>
                 <defaultNumberOfPlayers>1</defaultNumberOfPlayers>
                 <name>Ailier Gauche</name>
                 <opponentColor>#C1272D</opponentColor>
             </playerCategories>
             <playerCategories>
+                <UUID>3afb2f45-fa60-4f0a-807d-36100c1d9ec0</UUID>
+                <allyColor>#0071BC</allyColor>
+                <defaultNumberOfPlayers>2</defaultNumberOfPlayers>
+                <name>Défenseur</name>
+                <opponentColor>#C1272D</opponentColor>
+            </playerCategories>
+            <playerCategories>
+                <UUID>4805034d-59df-4993-9e62-45822d276c67</UUID>
+                <allyColor>#F7931E</allyColor>
+                <defaultNumberOfPlayers>1</defaultNumberOfPlayers>
+                <name>Gardien</name>
+                <opponentColor>#F7931E</opponentColor>
+            </playerCategories>
+            <playerCategories>
+                <UUID>3166fe42-5e0f-4e06-84c0-ebba8b495eb3</UUID>
+                <allyColor>#0071BC</allyColor>
+                <defaultNumberOfPlayers>1</defaultNumberOfPlayers>
+                <name>Centre</name>
+                <opponentColor>#C1272D</opponentColor>
+            </playerCategories>
+            <playerCategories>
+                <UUID>2e55e9f3-40b3-4812-8d0d-df3b0284c4e4</UUID>
                 <allyColor>#0071BC</allyColor>
                 <defaultNumberOfPlayers>1</defaultNumberOfPlayers>
                 <name>Ailier Droit</name>
                 <opponentColor>#C1272D</opponentColor>
             </playerCategories>
+        </sport>
+        <sport>
+            <uuid>86f6a228-ba72-4695-98e0-1c8bf8063744</uuid>
+            <name>Football</name>
+            <builtInIconPathName>/images/built-in-sport-icons/football-icon</builtInIconPathName>
+            <playingSurface>
+                <UUID>30f62eda-46b9-4277-b987-d3a3cdbb874b</UUID>
+                <imageResource>
+                    <UUID>2f459cb4-4f62-4a2f-8805-e4b99b606fe1</UUID>
+                    <persisted>true</persisted>
+                    <persistedImagePathName>/images/built-in-playing-surfaces/football.png</persistedImagePathName>
+                    <targetPersistenceType>RESOURCE</targetPersistenceType>
+                </imageResource>
+                <length>360.0</length>
+                <lengthUnits>FOOTS</lengthUnits>
+                <width>160.0</width>
+                <widthUnits>FOOTS</widthUnits>
+            </playingSurface>
             <playerCategories>
+                <UUID>3c18e014-4214-4fd0-a788-bffaa241dd6a</UUID>
+                <allyColor>#0071BC</allyColor>
+                <defaultNumberOfPlayers>1</defaultNumberOfPlayers>
+                <name>Center</name>
+                <opponentColor>#C1272D</opponentColor>
+            </playerCategories>
+            <playerCategories>
+                <UUID>b75bf0c1-f54c-4560-90d8-9977e400d0bf</UUID>
+                <allyColor>#0071BC</allyColor>
+                <defaultNumberOfPlayers>0</defaultNumberOfPlayers>
+                <name>Running Back</name>
+                <opponentColor>#C1272D</opponentColor>
+            </playerCategories>
+            <playerCategories>
+                <UUID>78d64ae8-8653-4ea8-b8b3-10681018e2ef</UUID>
+                <allyColor>#0071BC</allyColor>
+                <defaultNumberOfPlayers>2</defaultNumberOfPlayers>
+                <name>Defensive Tackle</name>
+                <opponentColor>#C1272D</opponentColor>
+            </playerCategories>
+            <playerCategories>
+                <UUID>5f9115fc-75c3-47a4-9fca-f01ceb9c5244</UUID>
+                <allyColor>#0071BC</allyColor>
+                <defaultNumberOfPlayers>2</defaultNumberOfPlayers>
+                <name>Offensive Tackle</name>
+                <opponentColor>#C1272D</opponentColor>
+            </playerCategories>
+            <playerCategories>
+                <UUID>fd570966-dc41-40f7-8762-dd06f0f778ab</UUID>
+                <allyColor>#F7931E</allyColor>
+                <defaultNumberOfPlayers>2</defaultNumberOfPlayers>
+                <name>Safety</name>
+                <opponentColor>#F7931E</opponentColor>
+            </playerCategories>
+            <playerCategories>
+                <UUID>4f745c66-1ead-49ee-a187-5c268eaf1726</UUID>
+                <allyColor>#0071BC</allyColor>
+                <defaultNumberOfPlayers>1</defaultNumberOfPlayers>
+                <name>Quarterback</name>
+                <opponentColor>#C1272D</opponentColor>
+            </playerCategories>
+            <playerCategories>
+                <UUID>b96d812a-6786-47a2-a09f-f029448bdc30</UUID>
+                <allyColor>#0071BC</allyColor>
+                <defaultNumberOfPlayers>1</defaultNumberOfPlayers>
+                <name>Tight End</name>
+                <opponentColor>#C1272D</opponentColor>
+            </playerCategories>
+            <playerCategories>
+                <UUID>f3ccfce7-bddb-4b41-9b77-42916f813f45</UUID>
+                <allyColor>#0071BC</allyColor>
+                <defaultNumberOfPlayers>2</defaultNumberOfPlayers>
+                <name>Outside Linebacker</name>
+                <opponentColor>#C1272D</opponentColor>
+            </playerCategories>
+            <playerCategories>
+                <UUID>b00b38d7-fefb-499c-87e2-b787cc4df6b1</UUID>
+                <allyColor>#0071BC</allyColor>
+                <defaultNumberOfPlayers>1</defaultNumberOfPlayers>
+                <name>Fullback</name>
+                <opponentColor>#C1272D</opponentColor>
+            </playerCategories>
+            <playerCategories>
+                <UUID>eaa07013-031c-45e8-a669-ef021cdc2430</UUID>
+                <allyColor>#0071BC</allyColor>
+                <defaultNumberOfPlayers>2</defaultNumberOfPlayers>
+                <name>Defensive End</name>
+                <opponentColor>#C1272D</opponentColor>
+            </playerCategories>
+            <playerCategories>
+                <UUID>7bf5548d-8ebc-4f94-8f3a-2ad0168f15ba</UUID>
+                <allyColor>#0071BC</allyColor>
+                <defaultNumberOfPlayers>2</defaultNumberOfPlayers>
+                <name>Wide Receiver</name>
+                <opponentColor>#C1272D</opponentColor>
+            </playerCategories>
+            <playerCategories>
+                <UUID>6cd89861-c282-45cc-b686-9f1bf7325d7a</UUID>
+                <allyColor>#0071BC</allyColor>
+                <defaultNumberOfPlayers>2</defaultNumberOfPlayers>
+                <name>Cornerback</name>
+                <opponentColor>#C1272D</opponentColor>
+            </playerCategories>
+            <playerCategories>
+                <UUID>044dadee-5624-4ff2-8be7-fe3f227edc14</UUID>
+                <allyColor>#0071BC</allyColor>
+                <defaultNumberOfPlayers>1</defaultNumberOfPlayers>
+                <name>Middle Linebacker</name>
+                <opponentColor>#C1272D</opponentColor>
+            </playerCategories>
+            <playerCategories>
+                <UUID>03cbda7b-9d0a-4059-b9c6-628efdb479d4</UUID>
+                <allyColor>#0071BC</allyColor>
+                <defaultNumberOfPlayers>1</defaultNumberOfPlayers>
+                <name>Halfback</name>
+                <opponentColor>#C1272D</opponentColor>
+            </playerCategories>
+            <playerCategories>
+                <UUID>82cc9d46-4344-4a17-8d7b-96f712dcfdf2</UUID>
+                <allyColor>#0071BC</allyColor>
+                <defaultNumberOfPlayers>2</defaultNumberOfPlayers>
+                <name>Offensive Guard</name>
+                <opponentColor>#C1272D</opponentColor>
+            </playerCategories>
+        </sport>
+        <sport>
+            <uuid>46dc0061-a731-4187-94e5-44f5c79a8524</uuid>
+            <name>Soccer</name>
+            <builtInIconPathName>/images/built-in-sport-icons/soccer-icon</builtInIconPathName>
+            <playingSurface>
+                <UUID>804237fc-ce6a-4887-8a0c-d694a8f8652a</UUID>
+                <imageResource>
+                    <UUID>c01380d0-f55d-4460-8421-bc605a95884d</UUID>
+                    <persisted>true</persisted>
+                    <persistedImagePathName>/images/built-in-playing-surfaces/soccer.jpg</persistedImagePathName>
+                    <targetPersistenceType>RESOURCE</targetPersistenceType>
+                </imageResource>
+                <length>100.0</length>
+                <lengthUnits>METER</lengthUnits>
+                <width>68.0</width>
+                <widthUnits>METER</widthUnits>
+            </playingSurface>
+            <playerCategories>
+                <UUID>445c1157-c356-4928-9e53-da193e12587b</UUID>
+                <allyColor>#0071BC</allyColor>
+                <defaultNumberOfPlayers>0</defaultNumberOfPlayers>
+                <name>Milieu Défensif Central</name>
+                <opponentColor>#C1272D</opponentColor>
+            </playerCategories>
+            <playerCategories>
+                <UUID>9ec31903-4dad-4472-8bbd-0929f5286916</UUID>
+                <allyColor>#0071BC</allyColor>
+                <defaultNumberOfPlayers>1</defaultNumberOfPlayers>
+                <name>Milieu Défensif Gauche</name>
+                <opponentColor>#C1272D</opponentColor>
+            </playerCategories>
+            <playerCategories>
+                <UUID>6b86a8a0-9fc1-4f66-bba7-b2f455d794a1</UUID>
+                <allyColor>#0071BC</allyColor>
+                <defaultNumberOfPlayers>1</defaultNumberOfPlayers>
+                <name>Défenseur Droit</name>
+                <opponentColor>#C1272D</opponentColor>
+            </playerCategories>
+            <playerCategories>
+                <UUID>369c0be9-e564-443a-a06b-b8962c87c4c7</UUID>
+                <allyColor>#0071BC</allyColor>
+                <defaultNumberOfPlayers>1</defaultNumberOfPlayers>
+                <name>Défenseur Central</name>
+                <opponentColor>#C1272D</opponentColor>
+            </playerCategories>
+            <playerCategories>
+                <UUID>4852bc84-feab-4f10-925f-8da8597b671e</UUID>
+                <allyColor>#0071BC</allyColor>
+                <defaultNumberOfPlayers>1</defaultNumberOfPlayers>
+                <name>Attaquant Axial</name>
+                <opponentColor>#C1272D</opponentColor>
+            </playerCategories>
+            <playerCategories>
+                <UUID>81c8e4ef-8c65-4466-a034-41e2ed6164ff</UUID>
+                <allyColor>#0071BC</allyColor>
+                <defaultNumberOfPlayers>1</defaultNumberOfPlayers>
+                <name>Milieu Offensif Gauche</name>
+                <opponentColor>#C1272D</opponentColor>
+            </playerCategories>
+            <playerCategories>
+                <UUID>ff166ba1-32db-449c-8017-7ec585e361a2</UUID>
+                <allyColor>#0071BC</allyColor>
+                <defaultNumberOfPlayers>1</defaultNumberOfPlayers>
+                <name>Défenseur Gauche</name>
+                <opponentColor>#C1272D</opponentColor>
+            </playerCategories>
+            <playerCategories>
+                <UUID>6b9788c3-fff6-4c5b-90ae-8a68800c2185</UUID>
+                <allyColor>#0071BC</allyColor>
+                <defaultNumberOfPlayers>0</defaultNumberOfPlayers>
+                <name>Milieu Offensif Axial</name>
+                <opponentColor>#C1272D</opponentColor>
+            </playerCategories>
+            <playerCategories>
+                <UUID>90a89d03-95d2-4f02-bc6d-31876ff26d45</UUID>
+                <allyColor>#0071BC</allyColor>
+                <defaultNumberOfPlayers>0</defaultNumberOfPlayers>
+                <name>Milieu Droit</name>
+                <opponentColor>#C1272D</opponentColor>
+            </playerCategories>
+            <playerCategories>
+                <UUID>e681f5ea-5e54-4a8c-8f61-f39675bb56dc</UUID>
                 <allyColor>#F7931E</allyColor>
                 <defaultNumberOfPlayers>1</defaultNumberOfPlayers>
                 <name>Gardien</name>
                 <opponentColor>#F7931E</opponentColor>
+            </playerCategories>
+            <playerCategories>
+                <UUID>1d20cf49-6a4c-492c-af5d-4032d84fe961</UUID>
+                <allyColor>#0071BC</allyColor>
+                <defaultNumberOfPlayers>1</defaultNumberOfPlayers>
+                <name>Milieu Offensif Droit</name>
+                <opponentColor>#C1272D</opponentColor>
+            </playerCategories>
+            <playerCategories>
+                <UUID>aef0c899-5a1b-4609-82b8-2fdab6e11159</UUID>
+                <allyColor>#0071BC</allyColor>
+                <defaultNumberOfPlayers>1</defaultNumberOfPlayers>
+                <name>Milieu Central</name>
+                <opponentColor>#C1272D</opponentColor>
+            </playerCategories>
+            <playerCategories>
+                <UUID>2653d5b8-3e95-45d8-a9f7-efaa25f862e5</UUID>
+                <allyColor>#0071BC</allyColor>
+                <defaultNumberOfPlayers>1</defaultNumberOfPlayers>
+                <name>Attaquant Gauche</name>
+                <opponentColor>#C1272D</opponentColor>
+            </playerCategories>
+            <playerCategories>
+                <UUID>6a74ccc4-f154-4f82-bbc8-3bd4dd7c8184</UUID>
+                <allyColor>#0071BC</allyColor>
+                <defaultNumberOfPlayers>1</defaultNumberOfPlayers>
+                <name>Milieu Défensif Droit</name>
+                <opponentColor>#C1272D</opponentColor>
+            </playerCategories>
+            <playerCategories>
+                <UUID>0385ce4b-6d92-430e-8aff-6beecf497696</UUID>
+                <allyColor>#0071BC</allyColor>
+                <defaultNumberOfPlayers>1</defaultNumberOfPlayers>
+                <name>Attaquant Droit</name>
+                <opponentColor>#C1272D</opponentColor>
+            </playerCategories>
+            <playerCategories>
+                <UUID>1d4fa1bb-5c02-4d5b-a2f8-4bccb087189e</UUID>
+                <allyColor>#0071BC</allyColor>
+                <defaultNumberOfPlayers>0</defaultNumberOfPlayers>
+                <name>Milieu Gauche</name>
+                <opponentColor>#C1272D</opponentColor>
             </playerCategories>
         </sport>
     </sports>

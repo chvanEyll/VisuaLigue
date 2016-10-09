@@ -1,7 +1,7 @@
 package ca.ulaval.glo2004.visualigue.domain.playingsurface;
 
 import ca.ulaval.glo2004.visualigue.domain.DomainObject;
-import ca.ulaval.glo2004.visualigue.domain.Image.PersistentImageRef;
+import ca.ulaval.glo2004.visualigue.domain.resource.PersistentResource;
 
 public class PlayingSurface extends DomainObject {
 
@@ -9,18 +9,18 @@ public class PlayingSurface extends DomainObject {
     private Double length = 200.0;
     private PlayingSurfaceUnit widthUnits = PlayingSurfaceUnit.METER;
     private PlayingSurfaceUnit lengthUnits = PlayingSurfaceUnit.METER;
-    private PersistentImageRef imageRef;
+    private PersistentResource imageResource;
 
     public PlayingSurface() {
 
     }
 
-    public PlayingSurface(Double width, PlayingSurfaceUnit widthUnits, Double length, PlayingSurfaceUnit lengthUnits, PersistentImageRef imageRef) {
+    public PlayingSurface(Double width, PlayingSurfaceUnit widthUnits, Double length, PlayingSurfaceUnit lengthUnits, PersistentResource imageRef) {
         this.width = width;
         this.widthUnits = widthUnits;
         this.length = length;
         this.lengthUnits = lengthUnits;
-        this.imageRef = imageRef;
+        this.imageResource = imageRef;
     }
 
     public Double getWidth() {
@@ -55,12 +55,12 @@ public class PlayingSurface extends DomainObject {
         this.lengthUnits = lengthUnits;
     }
 
-    public PersistentImageRef getImageRef() {
-        return imageRef;
+    public PersistentResource getImageResource() {
+        return imageResource;
     }
 
-    public void setImageRef(PersistentImageRef imageRef) {
-        this.imageRef = imageRef;
+    public void setImageResource(PersistentResource imageResource) {
+        this.imageResource = imageResource;
     }
 
 }
