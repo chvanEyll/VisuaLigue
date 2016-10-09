@@ -4,7 +4,6 @@ import ca.ulaval.glo2004.visualigue.domain.image.ImageRepository;
 import ca.ulaval.glo2004.visualigue.domain.playercategory.PlayerCategory;
 import ca.ulaval.glo2004.visualigue.domain.playercategory.PlayerCategoryFactory;
 import ca.ulaval.glo2004.visualigue.domain.playingsurface.PlayingSurface;
-import ca.ulaval.glo2004.visualigue.domain.playingsurface.PlayingSurfaceFactory;
 import ca.ulaval.glo2004.visualigue.domain.playingsurface.PlayingSurfaceUnit;
 import ca.ulaval.glo2004.visualigue.domain.resource.LocatedResource;
 import ca.ulaval.glo2004.visualigue.domain.resource.ResourceLocationType;
@@ -28,18 +27,16 @@ public class SportService {
     private final SportRepository sportRepository;
     private final ImageRepository imageRepository;
     private final SportFactory sportFactory;
-    private final PlayingSurfaceFactory playingSurfaceFactory;
     private final PlayerCategoryFactory playerCategoryFactory;
 
     public EventHandler<Sport> onSportCreated = new EventHandler<>();
     public EventHandler<Sport> onSportUpdated = new EventHandler<>();
 
     @Inject
-    public SportService(final SportRepository sportRepository, final ImageRepository imageRepository, final SportFactory sportFactory, final PlayingSurfaceFactory playingSurfaceFactory, final PlayerCategoryFactory playerCategoryFactory) {
+    public SportService(final SportRepository sportRepository, final ImageRepository imageRepository, final SportFactory sportFactory, final PlayerCategoryFactory playerCategoryFactory) {
         this.sportRepository = sportRepository;
         this.imageRepository = imageRepository;
         this.sportFactory = sportFactory;
-        this.playingSurfaceFactory = playingSurfaceFactory;
         this.playerCategoryFactory = playerCategoryFactory;
     }
 
