@@ -6,6 +6,7 @@ import ca.ulaval.glo2004.visualigue.domain.playingsurface.PlayingSurface;
 import ca.ulaval.glo2004.visualigue.domain.sport.Sport;
 import ca.ulaval.glo2004.visualigue.ui.models.PlayerCategoryModel;
 import ca.ulaval.glo2004.visualigue.ui.models.SportCreationModel;
+import java.util.Collections;
 import java.util.Map;
 import java.util.UUID;
 import javax.inject.Inject;
@@ -51,6 +52,7 @@ public class SportCreationModelConverter {
             playerCategoryModel.opponentPlayerColor.set(playerCategory.getOpponentColor());
             playerCategoryModel.defaultNumberOfPlayers.set(playerCategory.getDefaultNumberOfPlayers());
             model.playerCategoryModels.add(playerCategoryModel);
+            Collections.sort(model.playerCategoryModels);
         });
     }
 }

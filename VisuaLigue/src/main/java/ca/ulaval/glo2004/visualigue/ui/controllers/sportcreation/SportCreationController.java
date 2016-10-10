@@ -82,9 +82,9 @@ public class SportCreationController extends Controller {
             currentStepController.init(model);
             stepContent.getChildren().clear();
             stepContent.getChildren().add(fxmlLoader.getRoot());
-            if (model.isNew() && currentStepIndex < NUMBER_OF_STEPS - 1) {
+            if (model.isNew() && stepIndex < NUMBER_OF_STEPS - 1) {
                 defaultButton.setText("Continuer");
-            } else if (model.isNew() && currentStepIndex == NUMBER_OF_STEPS - 1) {
+            } else if (model.isNew() && stepIndex == NUMBER_OF_STEPS - 1) {
                 defaultButton.setText("Terminer");
             } else if (!model.isNew()) {
                 defaultButton.setText("Sauvegarder");

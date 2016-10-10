@@ -47,36 +47,9 @@ public class SportCreationStep2Controller extends SportCreationStepController {
         widthUnitComboBox.getSelectionModel().select(model.playingSurfaceWidthUnits.get());
         lengthUnitComboBox.setItems(FXCollections.observableArrayList(PlayingSurfaceUnit.values()));
         lengthUnitComboBox.getSelectionModel().select(model.playingSurfaceLengthUnits.get());
-        if (model.currentPlayingSurfacePathName.isNotNull().get()) {
-            displayImage(FilenameUtils.getURIString(model.currentPlayingSurfacePathName.get()));
-        } else if (model.builtInPlayingSurfaceImage.isNotNull().get()) {
-            displayImage(model.builtInPlayingSurfaceImage.get());
-        } else {
-            clearImage();
-        }
+        updateImage();
         FXUtils.requestFocusDelayed(widthSpinner);
         super.init();
-    }
-
-    private void displayImage(String imageURL) {
-        if (imageURL == null) {
-            clearImage();
-        } else {
-            imageView.setImage(new Image(imageURL));
-            FXUtils.setDisplay(imageView, true);
-            imagePathLabel.textProperty().bind(this.model.newPlayingSurfaceImagePathName);
-        }
-    }
-
-    private void setNewImage(String imagePathName) {
-        try {
-            this.model.newPlayingSurfaceImagePathName.set(imagePathName);
-            displayImage(FilenameUtils.getURIString(imagePathName));
-        } catch (Exception ex) {
-            clearErrors();
-            imageErrorLabel.setText("The selected image could not be loaded.");
-            FXUtils.setDisplay(imageErrorLabel, true);
-        }
     }
 
     @FXML
@@ -88,7 +61,32 @@ public class SportCreationStep2Controller extends SportCreationStepController {
         FileSelectionEventArgs fileSelectionEventArgs = new FileSelectionEventArgs(fileChooser);
         onFileSelectionRequested.fire(this, fileSelectionEventArgs);
         if (fileSelectionEventArgs.selectedFile != null) {
-            setNewImage(fileSelectionEventArgs.selectedFile.getPath());
+            this.model.newPlayingSurfaceImagePathName.set(fileSelectionEventArgs.selectedFile.getPath());
+            updateImage();
+        }
+    }
+
+    private void updateImage() {
+        if (this.model.newPlayingSurfaceImagePathName.isNotNull().get()) {
+            displayImage(FilenameUtils.getURIString(model.newPlayingSurfaceImagePathName.get()));
+        } else if (model.currentPlayingSurfacePathName.isNotNull().get()) {
+            displayImage(FilenameUtils.getURIString(model.currentPlayingSurfacePathName.get()));
+        } else if (model.builtInPlayingSurfaceImage.isNotNull().get()) {
+            displayImage(model.builtInPlayingSurfaceImage.get());
+        } else {
+            clearImage();
+        }
+    }
+
+    private void displayImage(String imageURL) {
+        try {
+            imageView.setImage(new Image(imageURL));
+            FXUtils.setDisplay(imageView, true);
+            imagePathLabel.textProperty().bind(this.model.newPlayingSurfaceImagePathName);
+        } catch (Exception ex) {
+            clearErrors();
+            imageErrorLabel.setText("The selected image could not be loaded.");
+            FXUtils.setDisplay(imageErrorLabel, true);
         }
     }
 

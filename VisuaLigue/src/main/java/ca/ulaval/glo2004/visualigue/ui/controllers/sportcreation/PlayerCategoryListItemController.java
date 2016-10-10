@@ -32,6 +32,9 @@ public class PlayerCategoryListItemController {
             updateOpponentColorBackground();
         });
         updateOpponentColorBackground();
+        if (model.isDeleted()) {
+            hide();
+        }
     }
 
     private void updateAllyColorBackground() {

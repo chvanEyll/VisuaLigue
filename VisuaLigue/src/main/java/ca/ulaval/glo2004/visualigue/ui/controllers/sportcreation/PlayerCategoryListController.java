@@ -16,7 +16,7 @@ public class PlayerCategoryListController {
     private Integer itemCount = 0;
 
     public void init(ObservableList<PlayerCategoryModel> playerCategoryModels) {
-        this.playerCategoryModels = playerCategoryModels.sorted();
+        this.playerCategoryModels = playerCategoryModels;
         this.playerCategoryModels.forEach(playerCategoryModel -> {
             insertItem(playerCategoryModel, itemCount);
         });
