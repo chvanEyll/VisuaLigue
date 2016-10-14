@@ -18,6 +18,7 @@ public class MainSceneController implements Initializable {
     @FXML private Pane logoPane;
     @FXML private Pane contentPane;
     @FXML private Button previousButton;
+    @FXML private Button titleEditButton;
     @FXML private Label sectionTitleLabel;
     @FXML private Pane sectionTitleSpacer;
     @FXML private MainMenuController mainMenuController;
@@ -79,6 +80,7 @@ public class MainSceneController implements Initializable {
         sectionTitleLabel.textProperty().bindBidirectional(controller.getTitle());
         FXUtils.setDisplay(previousButton, viewFlow.count() > 1);
         FXUtils.setDisplay(sectionTitleSpacer, viewFlow.count() <= 1);
+        FXUtils.setDisplay(titleEditButton, controller.isTitleEditable());
     }
 
     private void onFileSelectRequestHandler(Object sender, FileSelectionEventArgs eventArgs) {

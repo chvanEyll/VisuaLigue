@@ -5,9 +5,9 @@ import java.util.logging.Level;
 import java.util.logging.Logger;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Node;
-import javafx.scene.layout.Pane;
+import javafx.scene.layout.StackPane;
 
-public class SvgImage extends Pane {
+public class SvgImage extends StackPane {
 
     private String url;
 
