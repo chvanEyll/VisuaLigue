@@ -21,12 +21,7 @@
                     <children>
                         <HBox spacing="10.0" styleClass="button-group" AnchorPane.rightAnchor="0.0">
                             <children>
-                                <Button defaultButton="true" layoutX="10.0" layoutY="10.0" mnemonicParsing="false" text="Annuler" textFill="#1895fd">
-                                    <styleClass>
-                                        <String fx:value="standard-button" />
-                                        <String fx:value="default" />
-                                    </styleClass>
-                                </Button>
+                                <Button defaultButton="true" layoutX="10.0" layoutY="10.0" mnemonicParsing="false" text="Annuler" />
                             </children>
                         </HBox>
                     </children>

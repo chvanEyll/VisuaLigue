@@ -59,7 +59,7 @@
                 <Tooltip text="Valider" />
             </tooltip>
             <styleClass>
-                <String fx:value="borderless-button" />
+                <String fx:value="borderless" />
                 <String fx:value="standard-size" />
             </styleClass>
         </Button>

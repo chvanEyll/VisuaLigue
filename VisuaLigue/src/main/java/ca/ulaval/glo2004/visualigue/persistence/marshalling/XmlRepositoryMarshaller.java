@@ -59,7 +59,7 @@ public class XmlRepositoryMarshaller<T> extends XmlMarshaller<T> {
     public synchronized void marshal(T object, UUID uuid) {
         OutputStream outputStream = null;
         try {
-            File file = FileUtils.createFile(String.format("%s/%s.xml", repositoryName, uuid));
+            File file = FileUtils.createFile(getFileName(uuid));
             outputStream = FileUtils.openOutputStream(file);
             super.marshal(object, outputStream);
         } catch (IOException e) {
@@ -69,7 +69,12 @@ public class XmlRepositoryMarshaller<T> extends XmlMarshaller<T> {
         }
     }
 
-    public String getResourceName() {
-        return repositoryName;
+    public synchronized void remove(UUID uuid) {
+        File file = new File(getFileName(uuid));
+        file.delete();
+    }
+
+    private String getFileName(UUID uuid) {
+        return String.format("%s/%s.xml", repositoryName, uuid);
     }
 }

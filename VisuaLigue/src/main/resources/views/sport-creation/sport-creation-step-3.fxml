@@ -33,7 +33,11 @@
                     <Insets left="10.0" />
                 </padding>
             </HBox>
-            <LinkButton imageUrl="/images/plus-icon-blue.fxml" text="Ajouter une catégorie" onMouseClicked="#onCategoryCreationLinkButtonClicked" />
+            <Pane>
+                <children>
+                    <LinkButton imageUrl="/images/plus-icon-blue.fxml" text="Ajouter une catégorie" onMouseClicked="#onCategoryCreationLinkButtonClicked" />
+                </children>
+            </Pane>
             <VBox fx:id="playerCategoryList" />
         </children>
     </VBox>

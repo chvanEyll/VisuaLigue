@@ -9,6 +9,28 @@
     -fx-text-fill: #4F4F4F;
 }
 
+/* Dialogs */
+
+.dialog-pane:header .header-panel .label {
+    -fx-font-family: 'Source Sans Pro';
+}
+
+.dialog-pane {
+    -fx-background-color: white;
+}
+
+.dialog-pane:header .header-panel {
+    -fx-background-color: #F3F1EF;
+}
+
+.dialog-pane .button-bar .container {
+    -fx-background-color: #F3F1EF;
+}
+
+.dialog-pane > .label {
+    -fx-padding: 25.3 15.8 25.3 15.8;
+}
+
 /* Main menu */
 
 .main-menu {
@@ -95,7 +117,6 @@
 .tile-container {
     -fx-hgap: 14;
     -fx-vgap: 14;
-    -fx-padding: 14;
 }
 
 .tile-container .tile {
@@ -112,12 +133,19 @@
     -fx-background-color: #D9D5D3;
 }
 
+.grid-pane {
+    -fx-padding: 0 7 0 7;
+}
+
 .grid-pane.hoverable {
     -fx-cursor: hand;
 }
 
 .grid-pane.hoverable:hover {
     -fx-background-color: #F3F1EF;
+    -fx-padding: 0 7 0 3;
+    -fx-border-width: 0 0 0 4;
+    -fx-border-color: #F7931E;
 }
 
 /* Common controls */
@@ -138,70 +166,86 @@
     -fx-fill: #184CFD;
 }
 
-.standard-button {
+.button {
     -fx-text-fill: #1895fd;
     -fx-border-color: #B3B3B3;
     -fx-border-width: 1;
     -fx-background-color: #F3F1EF;
+    -fx-background-insets: 0;
+    -fx-background-radius: 0;
     -fx-cursor: hand;
 }
 
-.standard-button.default {
-    -fx-font-family: 'Source Sans Pro' ;
+.button:default {
+    -fx-font-family: 'Source Sans Pro';
     -fx-border-width: 2;
     -fx-border-insets: -1;
 }
 
-.standard-button:hover {
+.button:hover {
     -fx-background-color: #D9D5D3;
 }
 
-.standard-button:pressed {
+.button:pressed {
     -fx-background-color: #BFBFBF;
 }
 
-.button-group {
-    -fx-spacing: 14;
+.button.color-red {
+    -fx-background-color: #A04040;
+    -fx-text-fill: white;
 }
 
-.borderless-button {
+.button.color-red:hover {
+    -fx-background-color: #990000;
+    -fx-text-fill: white;
+}
+
+.button.color-red:pressed {
+    -fx-background-color: #5E0000;
+    -fx-text-fill: white;
+}
+
+.button.borderless {
     -fx-background-color: transparent;
     -fx-border: 0;
+    -fx-border-width: 0;
     -fx-padding: 0 0 0 0;
-    -fx-background-radius: 0;
     -fx-alignment: center-left;
-    -fx-cursor: hand;
     -fx-max-width: infinity;
     -fx-max-height: infinity;
 }
 
-.borderless-button.standard-size {
+.button.borderless.standard-size {
     -fx-pref-width: 41;
     -fx-pref-height: 41;
 }
 
-.borderless-button:hover {
+.button.borderless:hover {
     -fx-background-color: #D9D5D3;
 }
 
-.borderless-button:pressed {
+.button.borderless:pressed {
     -fx-background-color: #BFBFBF;
 }
-
-.icon-button {
+.button.icon-button {
     -fx-background-color: transparent;
     -fx-border: 0;
+    -fx-border-width: 0;
     -fx-padding: 0 0 0 0;
     -fx-background-radius: 0;
     -fx-cursor: hand;
 }
 
-.icon-button:hover .st0 {
+.button.icon-button:hover .st0 {
     -fx-fill: #184CFD;
 }
 
-.icon-button:pressed .st0 {
+.button.icon-button:pressed .st0 {
     -fx-fill: #BFBFBF;
+}
+
+.button-group {
+    -fx-spacing: 14;
 }
 
 .text-field {

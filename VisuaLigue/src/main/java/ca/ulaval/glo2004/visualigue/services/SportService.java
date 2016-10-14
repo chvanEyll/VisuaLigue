@@ -25,6 +25,7 @@ public class SportService {
 
     public EventHandler<Sport> onSportCreated = new EventHandler<>();
     public EventHandler<Sport> onSportUpdated = new EventHandler<>();
+    public EventHandler<Sport> onSportDeleted = new EventHandler<>();
 
     @Inject
     public SportService(final SportRepository sportRepository, final ImageRepository imageRepository, final SportFactory sportFactory, final PlayerCategoryFactory playerCategoryFactory) {
@@ -67,6 +68,12 @@ public class SportService {
         }
         playingSurface.setCustomImageUUID(imageUuid);
         sportRepository.update(sport);
+    }
+
+    public void deleteSport(UUID sportUUID) throws SportNotFoundException {
+        Sport sport = sportRepository.get(sportUUID);
+        sportRepository.delete(sportUUID);
+        onSportDeleted.fire(this, sport);
     }
 
     public void addPlayerCategory(UUID sportUUID, String name, String abbreviation, Color allyColor, Color opponentColor, Integer defaultNumberOfPlayers) throws SportAlreadyExistsException, SportNotFoundException {

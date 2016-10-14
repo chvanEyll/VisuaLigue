@@ -50,6 +50,7 @@ public class DefaultContext extends ContextBase {
     private Sport createHockeySport() throws Exception {
         Sport sport = sportFactory.create("Hockey");
         sport.setBuiltInIconPathName("/images/built-in-sport-icons/hockey-icon.fxml");
+        sport.setIsBuiltIn(true);
         PlayingSurface playingSurface = new PlayingSurface(200.0, PlayingSurfaceUnit.FOOTS, 85.0, PlayingSurfaceUnit.FOOTS);
         playingSurface.setBuiltInImagePathName("/images/built-in-playing-surfaces/hockey.png");
         sport.setPlayingSurface(playingSurface);
@@ -65,6 +66,7 @@ public class DefaultContext extends ContextBase {
     private Sport createSoccerSport() throws Exception {
         Sport sport = sportFactory.create("Soccer");
         sport.setBuiltInIconPathName("/images/built-in-sport-icons/soccer-icon.fxml");
+        sport.setIsBuiltIn(true);
         PlayingSurface playingSurface = new PlayingSurface(68.0, PlayingSurfaceUnit.METER, 100.0, PlayingSurfaceUnit.METER);
         playingSurface.setBuiltInImagePathName("/images/built-in-playing-surfaces/soccer.jpg");
         sport.setPlayingSurface(playingSurface);
@@ -93,6 +95,7 @@ public class DefaultContext extends ContextBase {
     private Sport createFootballSport() throws Exception {
         Sport sport = sportFactory.create("Football");
         sport.setBuiltInIconPathName("/images/built-in-sport-icons/football-icon.fxml");
+        sport.setIsBuiltIn(true);
         PlayingSurface playingSurface = new PlayingSurface(160.0, PlayingSurfaceUnit.FOOTS, 360.0, PlayingSurfaceUnit.FOOTS);
         playingSurface.setBuiltInImagePathName("/images/built-in-playing-surfaces/football.png");
         sport.setPlayingSurface(playingSurface);

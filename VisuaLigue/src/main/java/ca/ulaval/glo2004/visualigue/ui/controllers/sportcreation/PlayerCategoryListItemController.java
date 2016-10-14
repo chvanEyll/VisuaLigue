@@ -3,12 +3,12 @@ package ca.ulaval.glo2004.visualigue.ui.controllers.sportcreation;
 import ca.ulaval.glo2004.visualigue.ui.models.PlayerCategoryModel;
 import ca.ulaval.glo2004.visualigue.utils.EventHandler;
 import ca.ulaval.glo2004.visualigue.utils.FXUtils;
+import javafx.beans.value.ObservableValue;
 import javafx.fxml.FXML;
+import javafx.scene.control.Button;
 import javafx.scene.control.Label;
-import javafx.scene.layout.Background;
-import javafx.scene.layout.BackgroundFill;
-import javafx.scene.layout.GridPane;
-import javafx.scene.layout.Pane;
+import javafx.scene.input.SwipeEvent;
+import javafx.scene.layout.*;
 
 public class PlayerCategoryListItemController {
 
@@ -18,6 +18,8 @@ public class PlayerCategoryListItemController {
     @FXML private Label abbreviationLabel;
     @FXML private Pane allyColorPane;
     @FXML private Pane opponentColorPane;
+    @FXML private HBox deleteConfirmButtonContainer;
+    @FXML private Button deleteConfirmButton;
     private PlayerCategoryModel model;
     public EventHandler<PlayerCategoryModel> onEditRequested = new EventHandler<>();
     public EventHandler<PlayerCategoryModel> onDeleteRequested = new EventHandler<>();
@@ -34,6 +36,7 @@ public class PlayerCategoryListItemController {
             updateOpponentColorBackground();
         });
         updateOpponentColorBackground();
+        FXUtils.setDisplay(deleteConfirmButtonContainer, false);
         if (model.isDeleted()) {
             hide();
         }
@@ -59,12 +62,36 @@ public class PlayerCategoryListItemController {
     }
 
     @FXML
+    public void onSwipeLeft(SwipeEvent e) {
+        displayDeleteConfirmationButton();
+    }
+
+    @FXML
     public void onDeleteButtonAction() {
+        displayDeleteConfirmationButton();
+    }
+
+    private void displayDeleteConfirmationButton() {
+        FXUtils.setDisplay(deleteConfirmButtonContainer, true);
+        deleteConfirmButton.requestFocus();
+        deleteConfirmButton.focusedProperty().addListener(this::onDeleteConfirmButtonFocuschanged);
+    }
+
+    public void onDeleteConfirmButtonFocuschanged(ObservableValue<? extends Boolean> arg0, Boolean oldPropertyValue, Boolean newPropertyValue) {
+        if (!newPropertyValue) {
+            FXUtils.setDisplay(deleteConfirmButtonContainer, false);
+        }
+    }
+
+    @FXML
+    public void onDeleteConfirmButtonAction() {
         onDeleteRequested.fire(this, model);
     }
 
     @FXML
     public void onMouseClicked() {
-        onEditRequested.fire(this, model);
+        if (!deleteConfirmButtonContainer.isVisible()) {
+            onEditRequested.fire(this, model);
+        }
     }
 }

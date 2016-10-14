@@ -7,35 +7,50 @@
 <?import javafx.scene.control.ScrollPane?>
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.VBox?>
 <?import javafx.scene.layout.Pane?>
 <?import javafx.scene.layout.VBox?>
 <?import ca.ulaval.glo2004.visualigue.ui.customcontrols.Breadcrumb?>
 
-<ScrollPane fx:id="rootNode" fitToWidth="true" hbarPolicy="NEVER" styleClass="root-node" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0" xmlns="http://javafx.com/javafx/8.0.60" xmlns:fx="http://javafx.com/fxml/1" fx:controller="ca.ulaval.glo2004.visualigue.ui.controllers.sportcreation.SportCreationController">
-    <content>
-        <VBox spacing="14.0">
+<VBox fx:id="rootNode" styleClass="root-node" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0" xmlns="http://javafx.com/javafx/8.0.60" xmlns:fx="http://javafx.com/fxml/1" fx:controller="ca.ulaval.glo2004.visualigue.ui.controllers.sportcreation.SportCreationController">
+    <children>
+        <VBox spacing="14.0" VBox.vgrow="ALWAYS">
             <padding>
                 <Insets bottom="14.0" left="14.0" right="14.0" top="14.0" />
             </padding>
             <children>
                 <Breadcrumb fx:id="breadcrumb" />
-                <VBox fx:id="stepContent" />
-                <AnchorPane>
-                    <children>
-                        <HBox spacing="10.0" styleClass="button-group" AnchorPane.rightAnchor="0.0">
-                            <children>
-                                <Button fx:id="defaultButton" defaultButton="true" mnemonicParsing="false" onAction="#onDefaultButtonAction" text="Continuer" textFill="#1895fd">
-                                    <styleClass>
-                                        <String fx:value="default" />
-                                        <String fx:value="standard-button" />
-                                    </styleClass>
-                                </Button>
-                                <Button fx:id="cancelButton" cancelButton="true" layoutX="10.0" layoutY="10.0" mnemonicParsing="false" onAction="#onCancelButtonAction" styleClass="standard-button" text="Annuler" textFill="#1895fd" />
-                            </children>
-                        </HBox>
-                    </children>
-                </AnchorPane>
+                <ScrollPane fitToWidth="true" hbarPolicy="NEVER" >
+                    <content>
+                        <VBox fx:id="stepContent" />
+                    </content>
+                    <styleClass>
+                        <String fx:value="edge-to-edge" />
+                    </styleClass>
+                </ScrollPane>
             </children>
         </VBox>
-    </content>
-</ScrollPane>
+        <AnchorPane VBox.vgrow="NEVER">
+            <padding>
+                <Insets left="14.0" right="14.0" top="14.0" bottom="14.0" />
+            </padding>
+            <children>
+                <HBox spacing="10.0" styleClass="button-group" AnchorPane.leftAnchor="0.0" AnchorPane.topAnchor="0.0">
+                    <children>
+                        <Button fx:id="deleteButton" cancelButton="true" layoutX="10.0" layoutY="10.0" mnemonicParsing="false" onAction="#onDeleteButtonAction" text="Supprimer"  >
+                            <styleClass>
+                                <String fx:value="color-red" />
+                            </styleClass>
+                        </Button>
+                    </children>
+                </HBox>
+                <HBox spacing="10.0" styleClass="button-group" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+                    <children>
+                        <Button fx:id="defaultButton" defaultButton="true" mnemonicParsing="false" onAction="#onDefaultButtonAction" text="Continuer" />
+                        <Button fx:id="cancelButton" cancelButton="true" layoutX="10.0" layoutY="10.0" mnemonicParsing="false" onAction="#onCancelButtonAction" text="Annuler" />
+                    </children>
+                </HBox>
+            </children>
+        </AnchorPane>
+    </children>
+</VBox>

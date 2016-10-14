@@ -41,7 +41,7 @@
                         <Tooltip text="Sauvegarder" />
                     </tooltip>
                     <styleClass>
-                        <String fx:value="borderless-button" />
+                        <String fx:value="borderless" />
                         <String fx:value="standard-size" />
                     </styleClass>
                 </Button>
@@ -53,7 +53,7 @@
                         <Tooltip text="Fermer" />
                     </tooltip>
                     <styleClass>
-                        <String fx:value="borderless-button" />
+                        <String fx:value="borderless" />
                         <String fx:value="standard-size" />
                     </styleClass>
                 </Button>
@@ -65,7 +65,7 @@
                         <Tooltip text="Exporter" />
                     </tooltip>
                     <styleClass>
-                        <String fx:value="borderless-button" />
+                        <String fx:value="borderless" />
                         <String fx:value="standard-size" />
                     </styleClass>
                 </Button>
@@ -82,7 +82,7 @@
                         <Tooltip text="Annuler" />
                     </tooltip>
                     <styleClass>
-                        <String fx:value="borderless-button" />
+                        <String fx:value="borderless" />
                         <String fx:value="standard-size" />
                     </styleClass>
                 </Button>
@@ -94,7 +94,7 @@
                         <Tooltip text="Rétablir" />
                     </tooltip>
                     <styleClass>
-                        <String fx:value="borderless-button" />
+                        <String fx:value="borderless" />
                         <String fx:value="standard-size" />
                     </styleClass>
                 </Button>
@@ -111,7 +111,7 @@
                         <Tooltip text="Zoom avant" />
                     </tooltip>
                     <styleClass>
-                        <String fx:value="borderless-button" />
+                        <String fx:value="borderless" />
                         <String fx:value="standard-size" />
                     </styleClass>
                 </Button>
@@ -129,7 +129,7 @@
                         <Tooltip text="Zoom arrière" />
                     </tooltip>
                     <styleClass>
-                        <String fx:value="borderless-button" />
+                        <String fx:value="borderless" />
                         <String fx:value="standard-size" />
                     </styleClass>
                 </Button>
@@ -141,7 +141,7 @@
                         <Tooltip text="Meilleur ajustement" />
                     </tooltip>
                     <styleClass>
-                        <String fx:value="borderless-button" />
+                        <String fx:value="borderless" />
                         <String fx:value="standard-size" />
                     </styleClass>
                 </Button>
@@ -158,7 +158,7 @@
                         <Tooltip text="Vue 3D" />
                     </tooltip>
                     <styleClass>
-                        <String fx:value="borderless-button" />
+                        <String fx:value="borderless" />
                         <String fx:value="standard-size" />
                     </styleClass>
                 </Button>
@@ -170,7 +170,7 @@
                         <Tooltip text="Afficher/masquer les catégories des joueurs" />
                     </tooltip>
                     <styleClass>
-                        <String fx:value="borderless-button" />
+                        <String fx:value="borderless" />
                         <String fx:value="standard-size" />
                     </styleClass>
                 </Button>
@@ -327,7 +327,7 @@
                                                         <SvgImage url="/images/ball-object.fxml" />
                                                     </graphic>
                                                     <styleClass>
-                                                        <String fx:value="borderless-button" />
+                                                        <String fx:value="borderless" />
                                                         <String fx:value="object-item" />
                                                         <String fx:value="item" />
                                                     </styleClass>
@@ -340,7 +340,7 @@
                                                         <SvgImage url="/images/cone-object.fxml" />
                                                     </graphic>
                                                     <styleClass>
-                                                        <String fx:value="borderless-button" />
+                                                        <String fx:value="borderless" />
                                                         <String fx:value="object-item" />
                                                         <String fx:value="item" />
                                                     </styleClass>
@@ -353,7 +353,7 @@
                                                         <SvgImage url="/images/plus-icon-blue.fxml" />
                                                     </graphic>
                                                     <styleClass>
-                                                        <String fx:value="borderless-button" />
+                                                        <String fx:value="borderless" />
                                                         <String fx:value="object-item" />
                                                         <String fx:value="item" />
                                                     </styleClass>
@@ -409,7 +409,7 @@
                                 <Tooltip text="Image précédente" />
                             </tooltip>
                             <styleClass>
-                                <String fx:value="borderless-button" />
+                                <String fx:value="borderless" />
                                 <String fx:value="standard-size" />
                                 <String fx:value="control-button" />
                                 <String fx:value="fixed-rewind-button" />
@@ -423,7 +423,7 @@
                                 <Tooltip text="Image précédente" />
                             </tooltip>
                             <styleClass>
-                                <String fx:value="borderless-button" />
+                                <String fx:value="borderless" />
                                 <String fx:value="standard-size" />
                                 <String fx:value="control-button" />
                             </styleClass>
@@ -436,7 +436,7 @@
                                 <Tooltip text="Reculer" />
                             </tooltip>
                             <styleClass>
-                                <String fx:value="borderless-button" />
+                                <String fx:value="borderless" />
                                 <String fx:value="standard-size" />
                                 <String fx:value="control-button" />
                             </styleClass>
@@ -449,7 +449,7 @@
                                 <Tooltip text="Débuter" />
                             </tooltip>
                             <styleClass>
-                                <String fx:value="borderless-button" />
+                                <String fx:value="borderless" />
                                 <String fx:value="standard-size" />
                                 <String fx:value="control-button" />
                             </styleClass>
@@ -465,7 +465,7 @@
                                 <Tooltip text="Avancer" />
                             </tooltip>
                             <styleClass>
-                                <String fx:value="borderless-button" />
+                                <String fx:value="borderless" />
                                 <String fx:value="standard-size" />
                                 <String fx:value="control-button" />
                             </styleClass>
@@ -478,7 +478,7 @@
                                 <Tooltip text="Image suivante" />
                             </tooltip>
                             <styleClass>
-                                <String fx:value="borderless-button" />
+                                <String fx:value="borderless" />
                                 <String fx:value="standard-size" />
                                 <String fx:value="control-button" />
                             </styleClass>
@@ -500,7 +500,7 @@
                                 <Tooltip text="Image suivante" />
                             </tooltip>
                             <styleClass>
-                                <String fx:value="borderless-button" />
+                                <String fx:value="borderless" />
                                 <String fx:value="standard-size" />
                                 <String fx:value="control-button" />
                                 <String fx:value="fixed-forward-button" />

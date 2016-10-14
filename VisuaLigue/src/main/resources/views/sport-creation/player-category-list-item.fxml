@@ -12,9 +12,10 @@
 <?import javafx.scene.layout.GridPane?>
 <?import javafx.scene.layout.Pane?>
 <?import javafx.scene.layout.StackPane?>
+<?import javafx.scene.layout.HBox?>
 <?import ca.ulaval.glo2004.visualigue.ui.customcontrols.SvgImage?>
 
-<GridPane fx:id="rootNode" style="-fx-padding: 1 0 1 0" onMouseClicked="#onMouseClicked" xmlns="http://javafx.com/javafx/8.0.60" xmlns:fx="http://javafx.com/fxml/1" fx:controller="ca.ulaval.glo2004.visualigue.ui.controllers.sportcreation.PlayerCategoryListItemController">
+<GridPane fx:id="rootNode" onMouseClicked="#onMouseClicked" onSwipeLeft="#onSwipeLeft" xmlns="http://javafx.com/javafx/8.0.60" xmlns:fx="http://javafx.com/fxml/1" fx:controller="ca.ulaval.glo2004.visualigue.ui.controllers.sportcreation.PlayerCategoryListItemController">
     <columnConstraints>
         <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
         <ColumnConstraints hgrow="SOMETIMES" minWidth="50.0" prefWidth="75.0" />
@@ -46,7 +47,7 @@
                 <Tooltip text="Modifier" />
             </tooltip>
             <styleClass>
-                <String fx:value="borderless-button" />
+                <String fx:value="borderless" />
                 <String fx:value="standard-size" />
             </styleClass>
         </Button>
@@ -58,10 +59,19 @@
                 <Tooltip text="Supprimer" />
             </tooltip>
             <styleClass>
-                <String fx:value="borderless-button" />
+                <String fx:value="borderless" />
                 <String fx:value="standard-size" />
             </styleClass>
         </Button>
+        <HBox fx:id="deleteConfirmButtonContainer" alignment="CENTER_RIGHT" GridPane.columnIndex="2" GridPane.columnSpan="5"  >
+            <children>
+                <Button fx:id="deleteConfirmButton" mnemonicParsing="false" text="Supprimer" onAction="#onDeleteConfirmButtonAction" >
+                    <styleClass>
+                        <String fx:value="color-red" />
+                    </styleClass>
+                </Button>
+            </children>
+        </HBox>
     </children>
     <styleClass>
         <String fx:value="grid-pane" />

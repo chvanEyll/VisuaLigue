@@ -9,8 +9,11 @@ import ca.ulaval.glo2004.visualigue.ui.controllers.Controller;
 import ca.ulaval.glo2004.visualigue.ui.controllers.FileSelectionEventArgs;
 import ca.ulaval.glo2004.visualigue.ui.converters.SportCreationModelConverter;
 import ca.ulaval.glo2004.visualigue.ui.customcontrols.Breadcrumb;
+import ca.ulaval.glo2004.visualigue.ui.dialog.AlertDialogBuilder;
 import ca.ulaval.glo2004.visualigue.ui.models.PlayerCategoryModel;
 import ca.ulaval.glo2004.visualigue.ui.models.SportCreationModel;
+import ca.ulaval.glo2004.visualigue.utils.FXUtils;
+import java.util.Optional;
 import java.util.UUID;
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -18,7 +21,10 @@ import javafx.beans.property.StringProperty;
 import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
+import javafx.scene.control.Alert;
 import javafx.scene.control.Button;
+import javafx.scene.control.ButtonBar.ButtonData;
+import javafx.scene.control.ButtonType;
 import javafx.scene.layout.VBox;
 import javax.inject.Inject;
 
@@ -27,6 +33,7 @@ public class SportCreationController extends Controller {
     @FXML VBox stepContent;
     @FXML Button defaultButton;
     @FXML Button cancelButton;
+    @FXML Button deleteButton;
     @FXML Breadcrumb breadcrumb;
 
     public static final String VIEW_TITLE = "Création d'un sport";
@@ -89,6 +96,7 @@ public class SportCreationController extends Controller {
             } else if (!model.isNew()) {
                 defaultButton.setText("Sauvegarder");
             }
+            FXUtils.setDisplay(deleteButton, stepIndex == 0 && !model.isNew());
             breadcrumb.setActiveItem(stepIndex);
             currentStepIndex = stepIndex;
         }
@@ -102,6 +110,23 @@ public class SportCreationController extends Controller {
             trySaveChanges();
         } else if (!model.isNew()) {
             trySaveChanges();
+        }
+    }
+
+    @FXML
+    public void onDeleteButtonAction() {
+        Optional<ButtonType> result = new AlertDialogBuilder().alertType(Alert.AlertType.ERROR).headerText("Suppression d'un sport")
+                .contentText(String.format("Êtes-vous sûr de vouloir supprimer '%s'?", model.name.get()))
+                .buttonType(new ButtonType("Supprimer", ButtonData.YES))
+                .buttonType(new ButtonType("Annuler", ButtonData.CANCEL_CLOSE)).showAndWait();
+
+        if (result.get().getButtonData() == ButtonData.YES) {
+            try {
+                sportService.deleteSport(model.getUUID());
+                onViewCloseRequested.fire(this, null);
+            } catch (SportNotFoundException ex) {
+                Logger.getLogger(SportCreationController.class.getName()).log(Level.SEVERE, null, ex);
+            }
         }
     }
 

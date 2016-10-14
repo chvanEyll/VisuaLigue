@@ -32,7 +32,7 @@
                 </Pane>
                 <HBox alignment="CENTER_LEFT" HBox.hgrow="ALWAYS">
                     <children>
-                        <Button fx:id="previousButton" alignment="CENTER_LEFT" prefWidth="41.0" styleClass="borderless-button" onAction="#onPreviousButtonAction">
+                        <Button fx:id="previousButton" alignment="CENTER_LEFT" prefWidth="41.0" styleClass="borderless" onAction="#onPreviousButtonAction">
                             <graphic>
                                 <SvgImage url="/images/previous-arrow.fxml" />
                             </graphic>
@@ -48,7 +48,7 @@
                         </Button>
                         <Pane fx:id="sectionTitleSpacer" prefWidth="14" />
                         <Label fx:id="sectionTitleLabel" styleClass="section-title" text="Sports" />
-                        <Button fx:id="titleEditButton" alignment="CENTER_LEFT" prefWidth="41.0" styleClass="borderless-button">
+                        <Button fx:id="titleEditButton" alignment="CENTER_LEFT" prefWidth="41.0" styleClass="borderless">
                             <graphic>
                                 <StackPane scaleX="0.75" scaleY="0.75" stylesheets="@/images/pen-icon.fxml.css">
                                     <children>

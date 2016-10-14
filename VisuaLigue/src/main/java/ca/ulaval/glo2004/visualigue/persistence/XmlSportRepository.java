@@ -51,6 +51,15 @@ public class XmlSportRepository implements SportRepository {
     }
 
     @Override
+    public void delete(UUID uuid) throws SportNotFoundException {
+        if (!sports.containsKey(uuid)) {
+            throw new SportNotFoundException(String.format("Cannot find sport with UUID '%s'.", uuid.toString()));
+        }
+        xmlRepositoryMarshaller.remove(uuid);
+        sports.remove(uuid);
+    }
+
+    @Override
     public Sport get(UUID uuid) throws SportNotFoundException {
         Sport sport = sports.get(uuid);
         if (sport == null) {

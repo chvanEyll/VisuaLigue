@@ -17,6 +17,8 @@ public class VisuaLigue extends Application {
     private static final String APP_NAME = "VisuaLigue";
     private static final String DATA_DIRECTORY = "data";
     private static final String REPOSITORY_DIRECTORTY = "/repository";
+    private static final String MAIN_STYLE_SHEET = "css/main.fxml.css";
+    private static Stage stage;
 
     public static void main(String[] args) {
         launch(args);
@@ -24,6 +26,7 @@ public class VisuaLigue extends Application {
 
     @Override
     public void start(Stage stage) throws Exception {
+        this.stage = stage;
         FXMLLoader fxmlLoader = InjectableFXMLLoader.load(MainSceneController.VIEW_NAME);
         MainSceneController mainSceneController = fxmlLoader.getController();
         mainSceneController.setStage(stage);
@@ -61,4 +64,15 @@ public class VisuaLigue extends Application {
         return getAppDataDirectory() + REPOSITORY_DIRECTORTY;
     }
 
+    public static Stage getMainStage() {
+        return stage;
+    }
+
+    public static String getAppName() {
+        return APP_NAME;
+    }
+
+    public static String getMainStyleSheet() {
+        return MAIN_STYLE_SHEET;
+    }
 }

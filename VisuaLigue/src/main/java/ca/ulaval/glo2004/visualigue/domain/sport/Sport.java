@@ -15,7 +15,9 @@ import javax.xml.bind.annotation.XmlRootElement;
 public class Sport extends DomainObject {
 
     private String name;
-    private String builtInIconPathName = "/images/built-in-sport-icons/generic-icon";
+    private Boolean isBuiltIn = false;
+    private String builtInIconPathName = "/images/built-in-sport-icons/generic-icon.fxml";
+
     private PlayingSurface playingSurface = new PlayingSurface();
     private Map<UUID, PlayerCategory> playerCategories = new ConcurrentHashMap<>();
 
@@ -33,6 +35,14 @@ public class Sport extends DomainObject {
 
     public void setName(String name) {
         this.name = name;
+    }
+
+    public Boolean isBuiltIn() {
+        return isBuiltIn;
+    }
+
+    public void setIsBuiltIn(Boolean isBuiltIn) {
+        this.isBuiltIn = isBuiltIn;
     }
 
     public String getBuiltInIconPathName() {
