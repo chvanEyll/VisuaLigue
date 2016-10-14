@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
 <?import java.lang.String?>
+<?import java.net.URL?>
 <?import javafx.geometry.Insets?>
 <?import javafx.scene.control.Label?>
 <?import javafx.scene.layout.AnchorPane?>
@@ -16,10 +17,13 @@
         </AnchorPane>
     </children>
     <padding>
-        <Insets bottom="14.0" left="14.0" right="14.0" top="14.0" />
+        <Insets bottom="4.0" left="14.0" right="14.0" top="14.0" />
     </padding>
     <styleClass>
         <String fx:value="tile" />
         <String fx:value="root-node" />
     </styleClass>
+    <stylesheets>
+        <URL value="@/css/main.fxml.css" />
+    </stylesheets>
 </VBox>

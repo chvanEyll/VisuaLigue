@@ -101,7 +101,6 @@
 .tile-container .tile {
     -fx-background-color: white;
     -fx-cursor: hand;
-    -fx-padding: 14px;
     -fx-border-color: #D9D5D3;
 }
 

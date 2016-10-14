@@ -7,8 +7,8 @@ import ca.ulaval.glo2004.visualigue.services.SportService;
 import ca.ulaval.glo2004.visualigue.ui.InjectableFXMLLoader;
 import ca.ulaval.glo2004.visualigue.ui.controllers.Controller;
 import ca.ulaval.glo2004.visualigue.ui.controllers.FileSelectionEventArgs;
-import ca.ulaval.glo2004.visualigue.ui.controllers.common.BreadcrumbController;
 import ca.ulaval.glo2004.visualigue.ui.converters.SportCreationModelConverter;
+import ca.ulaval.glo2004.visualigue.ui.customcontrols.Breadcrumb;
 import ca.ulaval.glo2004.visualigue.ui.models.PlayerCategoryModel;
 import ca.ulaval.glo2004.visualigue.ui.models.SportCreationModel;
 import java.util.UUID;
@@ -27,7 +27,7 @@ public class SportCreationController extends Controller {
     @FXML VBox stepContent;
     @FXML Button defaultButton;
     @FXML Button cancelButton;
-    @FXML BreadcrumbController breadcrumbController;
+    @FXML Breadcrumb breadcrumb;
 
     public static final String VIEW_TITLE = "Création d'un sport";
     public static final String VIEW_NAME = "/views/sport-creation/sport-creation.fxml";
@@ -63,10 +63,10 @@ public class SportCreationController extends Controller {
     }
 
     private void initView() {
-        breadcrumbController.addItem("Général");
-        breadcrumbController.addItem("Terrain");
-        breadcrumbController.addItem("Joueurs");
-        breadcrumbController.onItemClicked.setHandler(this::onBreadcrumNavItemClickedHandler);
+        breadcrumb.addItem("Général");
+        breadcrumb.addItem("Terrain");
+        breadcrumb.addItem("Joueurs");
+        breadcrumb.onItemClicked.setHandler(this::onBreadcrumNavItemClickedHandler);
         setStep(GENERAL_STEP_INDEX);
     }
 
@@ -89,7 +89,7 @@ public class SportCreationController extends Controller {
             } else if (!model.isNew()) {
                 defaultButton.setText("Sauvegarder");
             }
-            breadcrumbController.setActiveItem(stepIndex);
+            breadcrumb.setActiveItem(stepIndex);
             currentStepIndex = stepIndex;
         }
     }
@@ -150,7 +150,7 @@ public class SportCreationController extends Controller {
         ObservableList<PlayerCategoryModel> playerCategoryModels = model.playerCategoryModels;
         for (PlayerCategoryModel playerCategoryModel : model.playerCategoryModels) {
             if (playerCategoryModel.isNew()) {
-                sportService.addPlayerCategory(sportUuid, playerCategoryModel.name.get(), playerCategoryModel.allyPlayerColor.get(), playerCategoryModel.opponentPlayerColor.get(), playerCategoryModel.defaultNumberOfPlayers.get());
+                sportService.addPlayerCategory(sportUuid, playerCategoryModel.name.get(), playerCategoryModel.abbreviation.get(), playerCategoryModel.allyPlayerColor.get(), playerCategoryModel.opponentPlayerColor.get(), playerCategoryModel.defaultNumberOfPlayers.get());
             } else if (playerCategoryModel.isDirty()) {
                 sportService.updatePlayerCategory(sportUuid, playerCategoryModel.getUUID(), playerCategoryModel.name.get(), playerCategoryModel.allyPlayerColor.get(), playerCategoryModel.opponentPlayerColor.get(), playerCategoryModel.defaultNumberOfPlayers.get());
             } else if (playerCategoryModel.isDeleted()) {

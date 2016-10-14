@@ -14,11 +14,18 @@
 <?import javafx.scene.layout.HBox?>
 <?import javafx.scene.layout.StackPane?>
 <?import javafx.scene.layout.VBox?>
+<?import ca.ulaval.glo2004.visualigue.ui.customcontrols.ExtendedTextField?>
 
 <HBox xmlns="http://javafx.com/javafx/8.0.60" xmlns:fx="http://javafx.com/fxml/1" fx:controller="ca.ulaval.glo2004.visualigue.ui.controllers.sportcreation.PlayerCategoryListItemEditionController">
-    <VBox spacing="14.0" style="-fx-background-color: #F3F1EF;" GridPane.columnIndex="0" GridPane.columnSpan="5" HBox.hgrow="ALWAYS">
+    <VBox spacing="14.0" style="-fx-background-color: #F3F1EF;" GridPane.columnIndex="0" GridPane.columnSpan="6" HBox.hgrow="ALWAYS">
         <children>
-            <TextField fx:id="nameTextField" promptText="Nom de la catégorie" />
+            <ExtendedTextField fx:id="nameTextField" promptText="Nom de la catégorie" maxLength="64" />
+            <FlowPane hgap="14.0" vgap="14.0">
+                <children>
+                    <Label prefWidth="130.0" text="Abbréviation:" />
+                    <ExtendedTextField fx:id="abbreviationTextField" maxLength="3" upperCase="true" prefWidth="150.0"/>
+                </children>
+            </FlowPane>
             <FlowPane hgap="14.0" vgap="14.0">
                 <children>
                     <Label prefWidth="130.0" text="Couleur alliée:" />

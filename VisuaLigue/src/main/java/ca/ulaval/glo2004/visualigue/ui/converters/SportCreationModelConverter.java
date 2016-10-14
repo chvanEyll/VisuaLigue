@@ -48,6 +48,7 @@ public class SportCreationModelConverter {
             playerCategoryModel.setUUID(playerCategory.getUUID());
             playerCategoryModel.setIsNew(false);
             playerCategoryModel.name.set(playerCategory.getName());
+            playerCategoryModel.abbreviation.set(playerCategory.getAbbreviation());
             playerCategoryModel.allyPlayerColor.set(playerCategory.getAllyColor());
             playerCategoryModel.opponentPlayerColor.set(playerCategory.getOpponentColor());
             playerCategoryModel.defaultNumberOfPlayers.set(playerCategory.getDefaultNumberOfPlayers());

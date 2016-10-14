@@ -9,6 +9,7 @@
 <?import javafx.scene.layout.HBox?>
 <?import javafx.scene.layout.Pane?>
 <?import javafx.scene.layout.VBox?>
+<?import ca.ulaval.glo2004.visualigue.ui.customcontrols.Breadcrumb?>
 
 <ScrollPane fx:id="rootNode" fitToWidth="true" hbarPolicy="NEVER" styleClass="root-node" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0" xmlns="http://javafx.com/javafx/8.0.60" xmlns:fx="http://javafx.com/fxml/1" fx:controller="ca.ulaval.glo2004.visualigue.ui.controllers.sportcreation.SportCreationController">
     <content>
@@ -17,7 +18,7 @@
                 <Insets bottom="14.0" left="14.0" right="14.0" top="14.0" />
             </padding>
             <children>
-                <fx:include fx:id="breadcrumb" source="/views/common/breadcrumb.fxml" />
+                <Breadcrumb fx:id="breadcrumb" />
                 <VBox fx:id="stepContent" />
                 <AnchorPane>
                     <children>

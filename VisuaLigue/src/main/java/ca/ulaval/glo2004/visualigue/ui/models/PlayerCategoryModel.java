@@ -6,6 +6,7 @@ import javafx.scene.paint.Color;
 public class PlayerCategoryModel extends Model implements Comparable {
 
     public StringProperty name = new SimpleStringProperty("Nouvelle catégorie");
+    public StringProperty abbreviation = new SimpleStringProperty("NC");
     public IntegerProperty defaultNumberOfPlayers = new SimpleIntegerProperty(0);
     public ObjectProperty<Color> allyPlayerColor = new SimpleObjectProperty<>(Color.web("#001A80"));
     public ObjectProperty<Color> opponentPlayerColor = new SimpleObjectProperty<>(Color.web("#990000"));

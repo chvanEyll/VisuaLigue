@@ -11,6 +11,7 @@ import javax.xml.bind.annotation.adapters.XmlJavaTypeAdapter;
 public class PlayerCategory extends DomainObject {
 
     private String name;
+    private String abbreviation;
     @XmlJavaTypeAdapter(value = XmlColorAdapter.class)
     private Color allyColor = Color.web("#001A80");
     @XmlJavaTypeAdapter(value = XmlColorAdapter.class)
@@ -21,8 +22,9 @@ public class PlayerCategory extends DomainObject {
         //Required for JAXB instanciation.
     }
 
-    public PlayerCategory(String name, Color allyColor, Color opponentColor, Integer defaultNumberOfPlayers) {
+    public PlayerCategory(String name, String abbreviation, Color allyColor, Color opponentColor, Integer defaultNumberOfPlayers) {
         this.name = name;
+        this.abbreviation = abbreviation;
         this.allyColor = allyColor;
         this.opponentColor = opponentColor;
         this.defaultNumberOfPlayers = defaultNumberOfPlayers;
@@ -34,6 +36,14 @@ public class PlayerCategory extends DomainObject {
 
     public void setName(String name) {
         this.name = name;
+    }
+
+    public String getAbbreviation() {
+        return abbreviation;
+    }
+
+    public void setAbbreviation(String abbreviation) {
+        this.abbreviation = abbreviation;
     }
 
     public Color getAllyColor() {

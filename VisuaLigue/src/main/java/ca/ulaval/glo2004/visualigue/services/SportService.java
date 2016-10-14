@@ -69,9 +69,9 @@ public class SportService {
         sportRepository.update(sport);
     }
 
-    public void addPlayerCategory(UUID sportUUID, String name, Color allyColor, Color opponentColor, Integer defaultNumberOfPlayers) throws SportAlreadyExistsException, SportNotFoundException {
+    public void addPlayerCategory(UUID sportUUID, String name, String abbreviation, Color allyColor, Color opponentColor, Integer defaultNumberOfPlayers) throws SportAlreadyExistsException, SportNotFoundException {
         Sport sport = sportRepository.get(sportUUID);
-        sport.addPlayerCategory(playerCategoryFactory.create(name, allyColor, opponentColor, defaultNumberOfPlayers));
+        sport.addPlayerCategory(playerCategoryFactory.create(name, abbreviation, allyColor, opponentColor, defaultNumberOfPlayers));
         sportRepository.update(sport);
     }
 

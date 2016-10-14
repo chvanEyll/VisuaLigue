@@ -1,11 +1,9 @@
 package ca.ulaval.glo2004.visualigue.ui.controllers.sportlist;
 
-import ca.ulaval.glo2004.visualigue.ui.InjectableFXMLLoader;
-import ca.ulaval.glo2004.visualigue.ui.controllers.common.SvgPaneController;
+import ca.ulaval.glo2004.visualigue.ui.customcontrols.SvgImage;
 import ca.ulaval.glo2004.visualigue.ui.models.SportListItemModel;
 import ca.ulaval.glo2004.visualigue.utils.EventHandler;
 import javafx.fxml.FXML;
-import javafx.fxml.FXMLLoader;
 import javafx.scene.control.Label;
 import javafx.scene.layout.VBox;
 
@@ -29,10 +27,9 @@ public class SportSelectorItemController {
     }
 
     private void setSportImage(String sportImagePathName) {
-        FXMLLoader fxmlLoader = InjectableFXMLLoader.load(SvgPaneController.VIEW_NAME);
-        SvgPaneController controller = (SvgPaneController) fxmlLoader.getController();
-        controller.init(sportImagePathName);
-        rootNode.getChildren().add(0, controller.getRootNode());
+        SvgImage svgImage = new SvgImage();
+        svgImage.setUrl(sportImagePathName);
+        rootNode.getChildren().add(0, svgImage);
     }
 
     @FXML

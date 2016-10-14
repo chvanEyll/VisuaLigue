@@ -15,6 +15,7 @@ public class PlayerCategoryListItemController {
     public static final String VIEW_NAME = "/views/sport-creation/player-category-list-item.fxml";
     @FXML private GridPane rootNode;
     @FXML private Label nameLabel;
+    @FXML private Label abbreviationLabel;
     @FXML private Pane allyColorPane;
     @FXML private Pane opponentColorPane;
     private PlayerCategoryModel model;
@@ -23,7 +24,8 @@ public class PlayerCategoryListItemController {
 
     public void init(PlayerCategoryModel model) {
         this.model = model;
-        nameLabel.textProperty().bindBidirectional(model.name);
+        nameLabel.textProperty().bind(model.name);
+        abbreviationLabel.textProperty().bind(model.abbreviation);
         model.allyPlayerColor.addListener((observable, oldValue, newValue) -> {
             updateAllyColorBackground();
         });
