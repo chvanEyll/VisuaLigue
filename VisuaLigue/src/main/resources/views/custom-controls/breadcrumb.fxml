@@ -12,7 +12,6 @@
         <Pane minHeight="45.0" prefHeight="45.0" styleClass="breadcrumb-item" HBox.hgrow="ALWAYS" />
     </children>
     <stylesheets>
-        <URL value="@/css/main.fxml.css" />
         <URL value="@/css/breadcrumb-nav-bar.fxml.css" />
     </stylesheets>
 </fx:root>

@@ -25,9 +25,6 @@
             </children>
         </VBox>
     </children>
-    <stylesheets>
-        <URL value="@/css/main.fxml.css" />
-    </stylesheets>
     <styleClass>
         <String fx:value="form-group" />
         <String fx:value="root-node" />

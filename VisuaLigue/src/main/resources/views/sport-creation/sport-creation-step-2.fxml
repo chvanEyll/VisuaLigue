@@ -79,9 +79,6 @@
             </Pane>
         </children>
     </VBox>
-    <stylesheets>
-        <URL value="@/css/main.fxml.css" />
-    </stylesheets>
     <styleClass>
         <String fx:value="root-node" />
     </styleClass>

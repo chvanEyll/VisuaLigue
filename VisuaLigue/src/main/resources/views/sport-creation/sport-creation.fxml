@@ -38,7 +38,4 @@
             </children>
         </VBox>
     </content>
-    <stylesheets>
-        <URL value="@/css/main.fxml.css" />
-    </stylesheets>
 </ScrollPane>

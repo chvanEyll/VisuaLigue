@@ -27,7 +27,4 @@
         <String fx:value="edge-to-edge" />
         <String fx:value="root-node" />
     </styleClass>
-    <stylesheets>
-        <URL value="@/css/main.fxml.css" />
-    </stylesheets>
 </TilePane>

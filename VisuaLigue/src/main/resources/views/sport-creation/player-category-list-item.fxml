@@ -12,6 +12,7 @@
 <?import javafx.scene.layout.GridPane?>
 <?import javafx.scene.layout.Pane?>
 <?import javafx.scene.layout.StackPane?>
+<?import ca.ulaval.glo2004.visualigue.ui.customcontrols.SvgImage?>
 
 <GridPane fx:id="rootNode" style="-fx-padding: 1 0 1 0" onMouseClicked="#onMouseClicked" xmlns="http://javafx.com/javafx/8.0.60" xmlns:fx="http://javafx.com/fxml/1" fx:controller="ca.ulaval.glo2004.visualigue.ui.controllers.sportcreation.PlayerCategoryListItemController">
     <columnConstraints>
@@ -39,11 +40,7 @@
         <Pane fx:id="spacerPane" GridPane.columnIndex="4"/>
         <Button fx:id="editButton" onAction="#onEditButtonAction" alignment="CENTER" GridPane.columnIndex="5">
             <graphic>
-                <StackPane stylesheets="@/images/pen-icon.fxml.css">
-                    <children>
-                        <fx:include source="/images/pen-icon.fxml" />
-                    </children>
-                </StackPane>
+                <SvgImage url="/images/pen-icon.fxml" />
             </graphic>
             <tooltip>
                 <Tooltip text="Modifier" />
@@ -55,11 +52,7 @@
         </Button>
         <Button fx:id="deleteButton" onAction="#onDeleteButtonAction" alignment="CENTER" GridPane.columnIndex="6">
             <graphic>
-                <StackPane stylesheets="@/images/cross-icon.fxml.css">
-                    <children>
-                        <fx:include source="/images/cross-icon.fxml" />
-                    </children>
-                </StackPane>
+                <SvgImage url="/images/cross-icon.fxml" />
             </graphic>
             <tooltip>
                 <Tooltip text="Supprimer" />
@@ -70,9 +63,6 @@
             </styleClass>
         </Button>
     </children>
-    <stylesheets>
-        <URL value="@/css/main.fxml.css" />
-    </stylesheets>
     <styleClass>
         <String fx:value="grid-pane" />
         <String fx:value="hoverable" />

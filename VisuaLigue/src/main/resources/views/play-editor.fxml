@@ -47,11 +47,7 @@
                 </Button>
                 <Button mnemonicParsing="false">
                     <graphic>
-                        <StackPane stylesheets="@../images/cross-icon.fxml.css">
-                            <children>
-                                <fx:include source="../images/cross-icon.fxml" />
-                            </children>
-                        </StackPane>
+                        <SvgImage url="/images/cross-icon.fxml" />
                     </graphic>
                     <tooltip>
                         <Tooltip text="Fermer" />
@@ -63,11 +59,7 @@
                 </Button>
                 <Button mnemonicParsing="false">
                     <graphic>
-                        <StackPane stylesheets="@../images/export-icon.fxml.css">
-                            <children>
-                                <fx:include source="../images/export-icon.fxml" />
-                            </children>
-                        </StackPane>
+                        <SvgImage url="/images/export-icon.fxml" />
                     </graphic>
                     <tooltip>
                         <Tooltip text="Exporter" />
@@ -84,11 +76,7 @@
                 </Pane>
                 <Button mnemonicParsing="false">
                     <graphic>
-                        <StackPane stylesheets="@../images/undo-icon.fxml.css">
-                            <children>
-                                <fx:include source="../images/undo-icon.fxml" />
-                            </children>
-                        </StackPane>
+                        <SvgImage url="/images/undo-icon.fxml" />
                     </graphic>
                     <tooltip>
                         <Tooltip text="Annuler" />
@@ -100,11 +88,7 @@
                 </Button>
                 <Button mnemonicParsing="false">
                     <graphic>
-                        <StackPane stylesheets="@../images/redo-icon.fxml.css">
-                            <children>
-                                <fx:include source="../images/redo-icon.fxml" />
-                            </children>
-                        </StackPane>
+                        <SvgImage url="/images/redo-icon.fxml" />
                     </graphic>
                     <tooltip>
                         <Tooltip text="Rétablir" />
@@ -121,11 +105,7 @@
                 </Pane>
                 <Button mnemonicParsing="false">
                     <graphic>
-                        <StackPane stylesheets="@../images/zoom-in-icon.fxml.css">
-                            <children>
-                                <fx:include source="../images/zoom-in-icon.fxml" />
-                            </children>
-                        </StackPane>
+                        <SvgImage url="/images/zoom-in-icon.fxml" />
                     </graphic>
                     <tooltip>
                         <Tooltip text="Zoom avant" />
@@ -143,11 +123,7 @@
                 </TextField>
                 <Button mnemonicParsing="false">
                     <graphic>
-                        <StackPane stylesheets="@../images/zoom-out-icon.fxml.css">
-                            <children>
-                                <fx:include source="../images/zoom-out-icon.fxml" />
-                            </children>
-                        </StackPane>
+                        <SvgImage url="/images/zoom-out-icon.fxml" />
                     </graphic>
                     <tooltip>
                         <Tooltip text="Zoom arrière" />
@@ -159,11 +135,7 @@
                 </Button>
                 <Button mnemonicParsing="false">
                     <graphic>
-                        <StackPane stylesheets="@../images/best-fit-icon.fxml.css">
-                            <children>
-                                <fx:include source="../images/best-fit-icon.fxml" />
-                            </children>
-                        </StackPane>
+                        <SvgImage url="/images/best-fit-icon.fxml" />
                     </graphic>
                     <tooltip>
                         <Tooltip text="Meilleur ajustement" />
@@ -180,11 +152,7 @@
                 </Pane>
                 <Button mnemonicParsing="false">
                     <graphic>
-                        <StackPane stylesheets="@../images/3d-icon.fxml.css">
-                            <children>
-                                <fx:include source="../images/3d-icon.fxml" />
-                            </children>
-                        </StackPane>
+                        <SvgImage url="/images/3d-icon.fxml" />
                     </graphic>
                     <tooltip>
                         <Tooltip text="Vue 3D" />
@@ -196,11 +164,7 @@
                 </Button>
                 <Button mnemonicParsing="false">
                     <graphic>
-                        <StackPane stylesheets="@../images/show-labels-icon.fxml.css">
-                            <children>
-                                <fx:include source="../images/show-labels-icon.fxml" />
-                            </children>
-                        </StackPane>
+                        <SvgImage url="/images/show-labels-icon.fxml" />
                     </graphic>
                     <tooltip>
                         <Tooltip text="Afficher/masquer les catégories des joueurs" />
@@ -252,11 +216,7 @@
                                                 <Insets left="14.0" />
                                             </padding>
                                             <children>
-                                                <Pane stylesheets="@../images/player-object-icon.fxml.css">
-                                                    <children>
-                                                        <fx:include source="../images/player-object-icon.fxml" />
-                                                    </children>
-                                                </Pane>
+                                                <SvgImage url="/images/player-object-icon.fxml" />
                                                 <Label text="Joueurs" />
                                             </children>
                                             <VBox.margin>
@@ -280,11 +240,7 @@
                                                                 <Insets left="14.0" />
                                                             </padding>
                                                             <children>
-                                                                <Pane stylesheets="@../images/player-object.fxml.css">
-                                                                    <children>
-                                                                        <fx:include source="../images/player-object.fxml" />
-                                                                    </children>
-                                                                </Pane>
+                                                                <SvgImage url="/images/player-object.fxml" />
                                                                 <Label text="Attaquant" />
                                                             </children>
                                                             <styleClass>
@@ -297,11 +253,7 @@
                                                                 <Insets left="14.0" />
                                                             </padding>
                                                             <children>
-                                                                <Pane stylesheets="@../images/player-object.fxml.css">
-                                                                    <children>
-                                                                        <fx:include source="../images/player-object.fxml" />
-                                                                    </children>
-                                                                </Pane>
+                                                                <SvgImage url="/images/player-object.fxml" />
                                                                 <Label text="Gardien" />
                                                             </children>
                                                             <styleClass>
@@ -330,11 +282,7 @@
                                                                 <Insets left="14.0" />
                                                             </padding>
                                                             <children>
-                                                                <Pane stylesheets="@../images/player-object.fxml.css">
-                                                                    <children>
-                                                                        <fx:include source="../images/player-object.fxml" />
-                                                                    </children>
-                                                                </Pane>
+                                                                <SvgImage url="/images/player-object.fxml" />
                                                                 <Label text="Attaquant" />
                                                             </children>
                                                             <styleClass>
@@ -347,11 +295,7 @@
                                                                 <Insets left="14.0" />
                                                             </padding>
                                                             <children>
-                                                                <Pane stylesheets="@../images/player-object.fxml.css">
-                                                                    <children>
-                                                                        <fx:include source="../images/player-object.fxml" />
-                                                                    </children>
-                                                                </Pane>
+                                                                <SvgImage url="/images/player-object.fxml" />
                                                                 <Label text="Gardien" />
                                                             </children>
                                                             <styleClass>
@@ -372,11 +316,7 @@
                                                 <Insets left="14.0" />
                                             </padding>
                                             <children>
-                                                <Pane stylesheets="@../images/object-icon.fxml.css">
-                                                    <children>
-                                                        <fx:include source="../images/object-icon.fxml" />
-                                                    </children>
-                                                </Pane>
+                                                <SvgImage url="/images/object-icon.fxml" />
                                                 <Label text="Objets" />
                                             </children>
                                         </HBox>
@@ -384,11 +324,7 @@
                                             <children>
                                                 <Button>
                                                     <graphic>
-                                                        <StackPane stylesheets="@../images/ball-object.fxml.css">
-                                                            <children>
-                                                                <fx:include source="../images/ball-object.fxml" />
-                                                            </children>
-                                                        </StackPane>
+                                                        <SvgImage url="/images/ball-object.fxml" />
                                                     </graphic>
                                                     <styleClass>
                                                         <String fx:value="borderless-button" />
@@ -401,11 +337,7 @@
                                                 </Button>
                                                 <Button>
                                                     <graphic>
-                                                        <StackPane stylesheets="@../images/cone-object.fxml.css">
-                                                            <children>
-                                                                <fx:include source="../images/cone-object.fxml" />
-                                                            </children>
-                                                        </StackPane>
+                                                        <SvgImage url="/images/cone-object.fxml" />
                                                     </graphic>
                                                     <styleClass>
                                                         <String fx:value="borderless-button" />
@@ -418,11 +350,7 @@
                                                 </Button>
                                                 <Button>
                                                     <graphic>
-                                                        <StackPane stylesheets="@../images/plus-icon-blue.fxml.css">
-                                                            <children>
-                                                                <fx:include source="../images/plus-icon-blue.fxml" />
-                                                            </children>
-                                                        </StackPane>
+                                                        <SvgImage url="/images/plus-icon-blue.fxml" />
                                                     </graphic>
                                                     <styleClass>
                                                         <String fx:value="borderless-button" />
@@ -454,11 +382,7 @@
                     <children>
                         <Button mnemonicParsing="false">
                             <graphic>
-                                <StackPane styleClass="fixed-control-button" stylesheets="@../images/real-time-icon.fxml.css">
-                                    <children>
-                                        <fx:include source="../images/real-time-icon.fxml" />
-                                    </children>
-                                </StackPane>
+                                <SvgImage url="/images/real-time-icon.fxml" />
                             </graphic>
                             <tooltip>
                                 <Tooltip text="Mode temps réel" />
@@ -470,9 +394,9 @@
                         </Button>
                         <Button mnemonicParsing="false">
                             <graphic>
-                                <StackPane stylesheets="@../images/seekbar-fixed-rewind-icon.fxml.css">
+                                <StackPane>
                                     <children>
-                                        <fx:include source="../images/seekbar-fixed-rewind-icon.fxml" />
+                                        <SvgImage url="/images/seekbar-fixed-rewind-icon.fxml" />
                                         <Label text="5">
                                             <StackPane.margin>
                                                 <Insets />
@@ -493,11 +417,7 @@
                         </Button>
                         <Button mnemonicParsing="false">
                             <graphic>
-                                <StackPane stylesheets="@../images/seekbar-previous-icon.fxml.css">
-                                    <children>
-                                        <fx:include source="../images/seekbar-previous-icon.fxml" />
-                                    </children>
-                                </StackPane>
+                                <SvgImage url="/images/seekbar-previous-icon.fxml" />
                             </graphic>
                             <tooltip>
                                 <Tooltip text="Image précédente" />
@@ -510,11 +430,7 @@
                         </Button>
                         <Button mnemonicParsing="false">
                             <graphic>
-                                <StackPane stylesheets="@../images/seekbar-rewind-icon.fxml.css">
-                                    <children>
-                                        <fx:include source="../images/seekbar-rewind-icon.fxml" />
-                                    </children>
-                                </StackPane>
+                                <SvgImage url="/images/seekbar-rewind-icon.fxml" />
                             </graphic>
                             <tooltip>
                                 <Tooltip text="Reculer" />
@@ -527,11 +443,7 @@
                         </Button>
                         <Button mnemonicParsing="false">
                             <graphic>
-                                <StackPane stylesheets="@../images/seekbar-play-icon.fxml.css">
-                                    <children>
-                                        <fx:include source="../images/seekbar-play-icon.fxml" />
-                                    </children>
-                                </StackPane>
+                                <SvgImage url="/images/seekbar-play-icon.fxml" />
                             </graphic>
                             <tooltip>
                                 <Tooltip text="Débuter" />
@@ -547,11 +459,7 @@
                         </Button>
                         <Button mnemonicParsing="false">
                             <graphic>
-                                <StackPane stylesheets="@../images/seekbar-fast-forward-icon.fxml.css">
-                                    <children>
-                                        <fx:include source="../images/seekbar-fast-forward-icon.fxml" />
-                                    </children>
-                                </StackPane>
+                                <SvgImage url="/images/seekbar-fast-forward-icon.fxml" />
                             </graphic>
                             <tooltip>
                                 <Tooltip text="Avancer" />
@@ -564,11 +472,7 @@
                         </Button>
                         <Button mnemonicParsing="false">
                             <graphic>
-                                <StackPane stylesheets="@../images/seekbar-next-icon.fxml.css">
-                                    <children>
-                                        <fx:include source="../images/seekbar-next-icon.fxml" />
-                                    </children>
-                                </StackPane>
+                                <SvgImage url="/images/seekbar-next-icon.fxml" />
                             </graphic>
                             <tooltip>
                                 <Tooltip text="Image suivante" />
@@ -581,9 +485,9 @@
                         </Button>
                         <Button mnemonicParsing="false">
                             <graphic>
-                                <StackPane stylesheets="@../images/seekbar-fixed-forward-icon.fxml.css">
+                                <StackPane>
                                     <children>
-                                        <fx:include source="../images/seekbar-fixed-forward-icon.fxml" />
+                                        <SvgImage url="/images/seekbar-fixed-forward-icon.fxml" />
                                         <Label text="5">
                                             <StackPane.margin>
                                                 <Insets />
@@ -632,9 +536,9 @@
                                             </rowConstraints>
                                             <children>
                                                 <Pane maxHeight="5.0" prefHeight="5.0" styleClass="bar" GridPane.columnSpan="14" />
-                                                <StackPane stylesheets="@../images/seekbar-frame.fxml.css" GridPane.columnIndex="0">
+                                                <StackPane GridPane.columnIndex="0">
                                                     <children>
-                                                        <fx:include source="../images/seekbar-frame.fxml" />
+                                                        <SvgImage url="/images/seekbar-frame.fxml" />
                                                         <Label text="1">
                                                             <StackPane.margin>
                                                                 <Insets />
@@ -645,9 +549,9 @@
                                                         <String fx:value="seekbar-frame" />
                                                     </styleClass>
                                                 </StackPane>
-                                                <StackPane stylesheets="@../images/seekbar-frame.fxml.css" GridPane.columnIndex="1">
+                                                <StackPane GridPane.columnIndex="1">
                                                     <children>
-                                                        <fx:include source="../images/seekbar-frame.fxml" />
+                                                        <SvgImage url="/images/seekbar-frame.fxml" />
                                                         <Label text="2">
                                                             <StackPane.margin>
                                                                 <Insets />
@@ -658,9 +562,9 @@
                                                         <String fx:value="seekbar-frame" />
                                                     </styleClass>
                                                 </StackPane>
-                                                <StackPane stylesheets="@../images/seekbar-frame.fxml.css" GridPane.columnIndex="2">
+                                                <StackPane GridPane.columnIndex="2">
                                                     <children>
-                                                        <fx:include source="../images/seekbar-frame.fxml" />
+                                                        <SvgImage url="/images/seekbar-frame.fxml" />
                                                         <Label text="3">
                                                             <StackPane.margin>
                                                                 <Insets />
@@ -671,9 +575,9 @@
                                                         <String fx:value="seekbar-frame" />
                                                     </styleClass>
                                                 </StackPane>
-                                                <StackPane stylesheets="@../images/seekbar-frame.fxml.css" GridPane.columnIndex="3">
+                                                <StackPane GridPane.columnIndex="3">
                                                     <children>
-                                                        <fx:include source="../images/seekbar-frame.fxml" />
+                                                        <SvgImage url="/images/seekbar-frame.fxml" />
                                                         <Label text="4">
                                                             <StackPane.margin>
                                                                 <Insets />
@@ -684,9 +588,9 @@
                                                         <String fx:value="seekbar-frame" />
                                                     </styleClass>
                                                 </StackPane>
-                                                <StackPane stylesheets="@../images/seekbar-frame.fxml.css" GridPane.columnIndex="4">
+                                                <StackPane GridPane.columnIndex="4">
                                                     <children>
-                                                        <fx:include source="../images/seekbar-frame.fxml" />
+                                                        <SvgImage url="/images/seekbar-frame.fxml" />
                                                         <Label text="5">
                                                             <StackPane.margin>
                                                                 <Insets />
@@ -697,9 +601,9 @@
                                                         <String fx:value="seekbar-frame" />
                                                     </styleClass>
                                                 </StackPane>
-                                                <StackPane stylesheets="@../images/seekbar-frame.fxml.css" GridPane.columnIndex="5">
+                                                <StackPane GridPane.columnIndex="5">
                                                     <children>
-                                                        <fx:include source="../images/seekbar-frame.fxml" />
+                                                        <SvgImage url="/images/seekbar-frame.fxml" />
                                                         <Label text="6">
                                                             <StackPane.margin>
                                                                 <Insets />
@@ -710,9 +614,9 @@
                                                         <String fx:value="seekbar-frame" />
                                                     </styleClass>
                                                 </StackPane>
-                                                <StackPane stylesheets="@../images/seekbar-frame.fxml.css" GridPane.columnIndex="6">
+                                                <StackPane GridPane.columnIndex="6">
                                                     <children>
-                                                        <fx:include source="../images/seekbar-frame.fxml" />
+                                                        <SvgImage url="/images/seekbar-frame.fxml" />
                                                         <Label text="7">
                                                             <StackPane.margin>
                                                                 <Insets />
@@ -723,9 +627,9 @@
                                                         <String fx:value="seekbar-frame" />
                                                     </styleClass>
                                                 </StackPane>
-                                                <StackPane stylesheets="@../images/seekbar-frame.fxml.css" GridPane.columnIndex="7">
+                                                <StackPane GridPane.columnIndex="7">
                                                     <children>
-                                                        <fx:include source="../images/seekbar-frame.fxml" />
+                                                        <SvgImage url="/images/seekbar-frame.fxml" />
                                                         <Label text="8">
                                                             <StackPane.margin>
                                                                 <Insets />
@@ -736,9 +640,9 @@
                                                         <String fx:value="seekbar-frame" />
                                                     </styleClass>
                                                 </StackPane>
-                                                <StackPane stylesheets="@../images/seekbar-frame.fxml.css" GridPane.columnIndex="8">
+                                                <StackPane GridPane.columnIndex="8">
                                                     <children>
-                                                        <fx:include source="../images/seekbar-frame.fxml" />
+                                                        <SvgImage url="/images/seekbar-frame.fxml" />
                                                         <Label text="9">
                                                             <StackPane.margin>
                                                                 <Insets />
@@ -749,9 +653,9 @@
                                                         <String fx:value="seekbar-frame" />
                                                     </styleClass>
                                                 </StackPane>
-                                                <StackPane stylesheets="@../images/seekbar-frame.fxml.css" GridPane.columnIndex="9">
+                                                <StackPane GridPane.columnIndex="9">
                                                     <children>
-                                                        <fx:include source="../images/seekbar-frame.fxml" />
+                                                        <SvgImage url="/images/seekbar-frame.fxml" />
                                                         <Label text="10">
                                                             <StackPane.margin>
                                                                 <Insets />
@@ -762,9 +666,9 @@
                                                         <String fx:value="seekbar-frame" />
                                                     </styleClass>
                                                 </StackPane>
-                                                <StackPane stylesheets="@../images/seekbar-frame.fxml.css" GridPane.columnIndex="10">
+                                                <StackPane GridPane.columnIndex="10">
                                                     <children>
-                                                        <fx:include source="../images/seekbar-frame.fxml" />
+                                                        <SvgImage url="/images/seekbar-frame.fxml" />
                                                         <Label text="11">
                                                             <StackPane.margin>
                                                                 <Insets />
@@ -775,9 +679,9 @@
                                                         <String fx:value="seekbar-frame" />
                                                     </styleClass>
                                                 </StackPane>
-                                                <StackPane stylesheets="@../images/seekbar-frame.fxml.css" GridPane.columnIndex="11">
+                                                <StackPane GridPane.columnIndex="11">
                                                     <children>
-                                                        <fx:include source="../images/seekbar-frame.fxml" />
+                                                        <SvgImage url="/images/seekbar-frame.fxml" />
                                                         <Label text="12">
                                                             <StackPane.margin>
                                                                 <Insets />
@@ -788,9 +692,9 @@
                                                         <String fx:value="seekbar-frame" />
                                                     </styleClass>
                                                 </StackPane>
-                                                <StackPane stylesheets="@../images/seekbar-frame.fxml.css" GridPane.columnIndex="12">
+                                                <StackPane GridPane.columnIndex="12">
                                                     <children>
-                                                        <fx:include source="../images/seekbar-frame.fxml" />
+                                                        <SvgImage url="/images/seekbar-frame.fxml" />
                                                         <Label text="13">
                                                             <StackPane.margin>
                                                                 <Insets />
@@ -801,9 +705,9 @@
                                                         <String fx:value="seekbar-frame" />
                                                     </styleClass>
                                                 </StackPane>
-                                                <StackPane stylesheets="@../images/seekbar-frame.fxml.css" GridPane.columnIndex="13">
+                                                <StackPane GridPane.columnIndex="13">
                                                     <children>
-                                                        <fx:include source="../images/seekbar-frame.fxml" />
+                                                        <SvgImage url="/images/seekbar-frame.fxml" />
                                                         <Label text="14">
                                                             <StackPane.margin>
                                                                 <Insets />
@@ -818,14 +722,7 @@
                                         </GridPane>
                                         <Button>
                                             <graphic>
-                                                <StackPane stylesheets="@../images/seekbar-thumb.fxml.css" GridPane.columnIndex="0">
-                                                    <children>
-                                                        <fx:include source="../images/seekbar-thumb.fxml" />
-                                                    </children>
-                                                    <styleClass>
-                                                        <String fx:value="seekbar-frame" />
-                                                    </styleClass>
-                                                </StackPane>
+                                                <SvgImage url="/images/seekbar-thumb.fxml" />
                                             </graphic>
                                             <styleClass>
                                                 <String fx:value="icon-button" />
@@ -847,14 +744,7 @@
                         </ScrollPane>
                         <Button>
                             <graphic>
-                                <StackPane stylesheets="@../images/new-frame-icon.fxml.css" GridPane.columnIndex="0">
-                                    <children>
-                                        <fx:include source="../images/new-frame-icon.fxml" />
-                                    </children>
-                                    <styleClass>
-                                        <String fx:value="seekbar-frame" />
-                                    </styleClass>
-                                </StackPane>
+                                <SvgImage url="/images/new-frame-icon.fxml" />
                             </graphic>
                             <styleClass>
                                 <String fx:value="icon-button" />

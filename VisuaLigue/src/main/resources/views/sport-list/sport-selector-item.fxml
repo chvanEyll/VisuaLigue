@@ -23,7 +23,4 @@
         <String fx:value="tile" />
         <String fx:value="root-node" />
     </styleClass>
-    <stylesheets>
-        <URL value="@/css/main.fxml.css" />
-    </stylesheets>
 </VBox>

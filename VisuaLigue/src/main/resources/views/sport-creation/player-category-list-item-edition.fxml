@@ -15,6 +15,7 @@
 <?import javafx.scene.layout.StackPane?>
 <?import javafx.scene.layout.VBox?>
 <?import ca.ulaval.glo2004.visualigue.ui.customcontrols.ExtendedTextField?>
+<?import ca.ulaval.glo2004.visualigue.ui.customcontrols.SvgImage?>
 
 <HBox xmlns="http://javafx.com/javafx/8.0.60" xmlns:fx="http://javafx.com/fxml/1" fx:controller="ca.ulaval.glo2004.visualigue.ui.controllers.sportcreation.PlayerCategoryListItemEditionController">
     <VBox spacing="14.0" style="-fx-background-color: #F3F1EF;" GridPane.columnIndex="0" GridPane.columnSpan="6" HBox.hgrow="ALWAYS">
@@ -52,11 +53,7 @@
     <VBox alignment="CENTER_RIGHT" style="-fx-background-color: #F3F1EF;" GridPane.columnIndex="5">
         <Button alignment="CENTER" defaultButton="true" onAction="#onValidateButtonAction">
             <graphic>
-                <StackPane stylesheets="@/images/checkmark-icon.fxml.css">
-                    <children>
-                        <fx:include source="/images/checkmark-icon.fxml" />
-                    </children>
-                </StackPane>
+                <SvgImage url="/images/checkmark-icon.fxml" />
             </graphic>
             <tooltip>
                 <Tooltip text="Valider" />
@@ -67,9 +64,6 @@
             </styleClass>
         </Button>
     </VBox>
-    <stylesheets>
-        <URL value="@/css/main.fxml.css" />
-    </stylesheets>
     <styleClass>
         <String fx:value="root-node" />
     </styleClass>

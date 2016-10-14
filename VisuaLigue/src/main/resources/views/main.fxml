@@ -21,19 +21,8 @@
                     <children>
                         <HBox alignment="CENTER_LEFT" fillHeight="false" minWidth="170.0" prefHeight="60.0" prefWidth="170.0" spacing="15.0" style="-fx-background-color: #FFFFFF;">
                             <children>
-                                <Pane stylesheets="@/images/logo.fxml.css">
-                                    <children>
-                                        <fx:include source="/images/logo.fxml" />
-                                    </children>
-                                </Pane>
-                                <Pane stylesheets="@/images/app-title.fxml.css">
-                                    <children>
-                                        <fx:include source="/images/app-title.fxml" />
-                                    </children>
-                                    <HBox.margin>
-                                        <Insets top="5.0" />
-                                    </HBox.margin>
-                                </Pane>
+                                <SvgImage url="/images/logo.fxml" />
+                                <SvgImage url="/images/app-title.fxml" />
                             </children>
                             <padding>
                                 <Insets left="14.0" />
