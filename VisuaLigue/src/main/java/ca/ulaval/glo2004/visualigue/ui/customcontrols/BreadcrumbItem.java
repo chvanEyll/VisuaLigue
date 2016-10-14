@@ -1,5 +1,6 @@
 package ca.ulaval.glo2004.visualigue.ui.customcontrols;
 
+import ca.ulaval.glo2004.visualigue.ui.InjectableFXMLLoader;
 import ca.ulaval.glo2004.visualigue.utils.EventHandler;
 import ca.ulaval.glo2004.visualigue.utils.FXUtils;
 import java.io.IOException;
@@ -20,7 +21,7 @@ public class BreadcrumbItem extends HBox {
 
     public BreadcrumbItem(String title, Boolean showArrow) {
         try {
-            FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource(VIEW_NAME));
+            FXMLLoader fxmlLoader = InjectableFXMLLoader.createLoader(VIEW_NAME);
             fxmlLoader.setController(this);
             fxmlLoader.setRoot(this);
             fxmlLoader.load();

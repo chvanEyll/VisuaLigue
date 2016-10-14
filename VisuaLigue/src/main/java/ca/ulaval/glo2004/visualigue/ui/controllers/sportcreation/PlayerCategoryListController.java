@@ -2,6 +2,7 @@ package ca.ulaval.glo2004.visualigue.ui.controllers.sportcreation;
 
 import ca.ulaval.glo2004.visualigue.ui.InjectableFXMLLoader;
 import ca.ulaval.glo2004.visualigue.ui.models.PlayerCategoryModel;
+import javafx.application.Platform;
 import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
@@ -18,7 +19,9 @@ public class PlayerCategoryListController {
     public void init(ObservableList<PlayerCategoryModel> playerCategoryModels) {
         this.playerCategoryModels = playerCategoryModels;
         this.playerCategoryModels.forEach(playerCategoryModel -> {
-            insertItem(playerCategoryModel, itemCount);
+            Platform.runLater(() -> {
+                insertItem(playerCategoryModel, itemCount);
+            });
         });
     }
 
