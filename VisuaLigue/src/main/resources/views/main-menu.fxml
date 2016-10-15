@@ -32,30 +32,33 @@
                 </VBox>
             </children>
         </HBox>
-        <HBox fx:id="sportsMenuItem" alignment="CENTER_LEFT" fillHeight="false" layoutX="10.0" layoutY="10.0" onMouseClicked="#onSportsMenuItemClick" prefHeight="50.0" spacing="14.0" styleClass="menu-item">
-            <padding>
-                <Insets left="14.0" />
-            </padding>
+        <HBox fx:id="playsMenuItem" alignment="CENTER_LEFT" fillHeight="false" layoutX="10.0" layoutY="60.0" onMouseClicked="#onPlaysMenuItemClick">
             <children>
-                <SvgImage url="/images/sport-icon.fxml" />
-                <Label text="Sports" />
-            </children>
-            <VBox.margin>
-                <Insets />
-            </VBox.margin>
-        </HBox>
-        <HBox fx:id="playsMenuItem" alignment="CENTER_LEFT" fillHeight="false" layoutX="10.0" layoutY="60.0" onMouseClicked="#onPlaysMenuItemClick" prefHeight="50.0" spacing="14.0">
-            <padding>
-                <Insets left="14.0" />
-            </padding>
-            <children>
-                <SvgImage url="/images/play-icon.fxml" />
+                <SvgImage styleClass="icon" url="/images/play-icon.fxml" />
                 <Label text="Jeux" />
             </children>
             <styleClass>
                 <String fx:value="menu-item" />
                 <String fx:value="active" />
             </styleClass>
+        </HBox>
+        <HBox fx:id="sportsMenuItem" alignment="CENTER_LEFT" fillHeight="false" layoutX="10.0" layoutY="10.0" onMouseClicked="#onSportsMenuItemClick" styleClass="menu-item">
+            <children>
+                <SvgImage styleClass="icon" url="/images/sport-icon.fxml" />
+                <Label text="Sports" />
+            </children>
+        </HBox>
+        <HBox fx:id="obstaclesMenuItem" alignment="CENTER_LEFT" fillHeight="false" layoutX="10.0" layoutY="10.0" onMouseClicked="#onObstaclesMenuItemClick" styleClass="menu-item">
+            <children>
+                <SvgImage styleClass="icon" url="/images/obstacle-icon.fxml" />
+                <Label text="Obstacles" />
+            </children>
+        </HBox>
+        <HBox fx:id="settingsMenuItem" alignment="CENTER_LEFT" fillHeight="false" layoutX="10.0" layoutY="10.0" onMouseClicked="#onSettingsMenuItemClick" styleClass="menu-item">
+            <children>
+                <SvgImage styleClass="icon" url="/images/gear-icon.fxml" />
+                <Label text="Paramètres" />
+            </children>
         </HBox>
     </children>
     <styleClass>

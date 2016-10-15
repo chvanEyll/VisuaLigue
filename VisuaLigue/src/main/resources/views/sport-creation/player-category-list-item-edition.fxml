@@ -23,7 +23,7 @@
             <ExtendedTextField fx:id="nameTextField" promptText="Nom de la catégorie" maxLength="64" />
             <FlowPane hgap="14.0" vgap="14.0">
                 <children>
-                    <Label prefWidth="130.0" text="Abbréviation:" />
+                    <Label prefWidth="130.0" text="Abréviation:" />
                     <ExtendedTextField fx:id="abbreviationTextField" maxLength="3" upperCase="true" prefWidth="150.0"/>
                 </children>
             </FlowPane>

@@ -34,7 +34,7 @@
             </columnConstraints>
             <children>
                 <Label text="Nom" GridPane.columnIndex="0" />
-                <Label text="Abbréviation" GridPane.columnIndex="1"  />
+                <Label text="Abréviation" GridPane.columnIndex="1"  />
                 <Label text="Couleur" GridPane.columnIndex="2" GridPane.columnSpan="2"  />
             </children>
             <styleClass>

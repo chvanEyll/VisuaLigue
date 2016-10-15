@@ -17,8 +17,10 @@ public class MainMenuController {
     private static final int MENU_PANE_EXTENDED_WIDTH = 170;
 
     @FXML private VBox menuPane;
-    @FXML private HBox sportsMenuItem;
     @FXML private HBox playsMenuItem;
+    @FXML private HBox sportsMenuItem;
+    @FXML private HBox obstaclesMenuItem;
+    @FXML private HBox settingsMenuItem;
     private Pane logoPane;
     private boolean isMenuPaneCollapsed = false;
     public EventHandler<FXMLLoader> onMenuClicked = new EventHandler<>();
@@ -58,12 +60,22 @@ public class MainMenuController {
     }
 
     @FXML
+    public void onPlaysMenuItemClick() {
+
+    }
+
+    @FXML
     public void onSportsMenuItemClick() {
         processMenuClick(SportListController.VIEW_NAME, sportsMenuItem);
     }
 
     @FXML
-    public void onPlaysMenuItemClick() {
+    public void onObstaclesMenuItemClick() {
+
+    }
+
+    @FXML
+    public void onSettingsMenuItemClick() {
 
     }
 

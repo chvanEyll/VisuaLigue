@@ -45,6 +45,7 @@
     -fx-spacing: 14;
     -fx-alignment: CENTER_LEFT;
     -fx-min-width: 170;
+    -fx-padding: 0 0 0 14;
 }
 
 .main-menu .menu-item:hover {
@@ -57,6 +58,11 @@
 
 .main-menu .menu-item.active {
     -fx-background-color: #1A1A1A;
+}
+
+.main-menu .menu-item .icon {
+    -fx-min-width: 30;
+    -fx-pref-width: 30;
 }
 
 .main-menu .menu-item .label {
