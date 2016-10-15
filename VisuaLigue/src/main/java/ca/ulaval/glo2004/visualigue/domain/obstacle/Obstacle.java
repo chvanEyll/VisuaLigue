@@ -10,8 +10,16 @@ public class Obstacle extends DomainObject {
 
     private String name;
     private Boolean isBuiltIn = false;
-    private String builtInIconPathName = "/images/built-in-sport-icons/cone-icon.fxml";
+    private String builtInImagePathName = "/images/built-in-sport-icons/cone-icon.fxml";
     private UUID customImageUUID;
+
+    public Obstacle() {
+        //Required for JAXB instanciation.
+    }
+
+    public Obstacle(String name) {
+        this.name = name;
+    }
 
     public String getName() {
         return name;
@@ -29,12 +37,12 @@ public class Obstacle extends DomainObject {
         this.isBuiltIn = isBuiltIn;
     }
 
-    public String getBuiltInIconPathName() {
-        return builtInIconPathName;
+    public String getBuiltInImagePathName() {
+        return builtInImagePathName;
     }
 
-    public void setBuiltInIconPathName(String builtInIconPathName) {
-        this.builtInIconPathName = builtInIconPathName;
+    public void setBuiltInImagePathName(String builtInImagePathName) {
+        this.builtInImagePathName = builtInImagePathName;
     }
 
     public UUID getCustomImageUUID() {

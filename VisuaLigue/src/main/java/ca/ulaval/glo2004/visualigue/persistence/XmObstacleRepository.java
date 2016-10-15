@@ -38,7 +38,7 @@ public class XmObstacleRepository implements ObstacleRepository {
     }
 
     @Override
-    public void update(Obstacle obstacle) throws ObstacleAlreadyExistsException {
+    public void update(Obstacle obstacle) {
         if (!obstacles.containsValue(obstacle)) {
             throw new IllegalStateException("Update requested for an object that is not persisted.");
         }

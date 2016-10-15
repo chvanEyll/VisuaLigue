@@ -9,7 +9,7 @@ public interface ObstacleRepository {
 
     UUID persist(Obstacle obstacle) throws ObstacleAlreadyExistsException;
 
-    void update(Obstacle obstacle) throws ObstacleAlreadyExistsException;
+    void update(Obstacle obstacle);
 
     Obstacle get(UUID uuid) throws ObstacleNotFoundException;
 
