@@ -31,7 +31,7 @@ import javax.inject.Inject;
 public class SportCreationController extends Controller {
 
     @FXML VBox stepContent;
-    @FXML Button defaultButton;
+    @FXML Button validateButton;
     @FXML Button cancelButton;
     @FXML Button deleteButton;
     @FXML Breadcrumb breadcrumb;
@@ -89,13 +89,6 @@ public class SportCreationController extends Controller {
             currentStepController.init(model);
             stepContent.getChildren().clear();
             stepContent.getChildren().add(fxmlLoader.getRoot());
-            if (model.isNew() && stepIndex < NUMBER_OF_STEPS - 1) {
-                defaultButton.setText("Continuer");
-            } else if (model.isNew() && stepIndex == NUMBER_OF_STEPS - 1) {
-                defaultButton.setText("Terminer");
-            } else if (!model.isNew()) {
-                defaultButton.setText("Sauvegarder");
-            }
             FXUtils.setDisplay(deleteButton, stepIndex == 0 && !model.isNew());
             breadcrumb.setActiveItem(stepIndex);
             currentStepIndex = stepIndex;
@@ -103,7 +96,7 @@ public class SportCreationController extends Controller {
     }
 
     @FXML
-    public void onDefaultButtonAction() {
+    public void onValidateButtonAction() {
         if (model.isNew() && currentStepIndex < NUMBER_OF_STEPS - 1) {
             setStep(currentStepIndex + 1);
         } else if (model.isNew() && currentStepIndex == NUMBER_OF_STEPS - 1) {

@@ -114,6 +114,10 @@
     -fx-vgap: 14;
 }
 
+.form-action-buttons {
+    -fx-background-color: #F3F1EF;
+}
+
 .tile-container {
     -fx-hgap: 14;
     -fx-vgap: 14;
@@ -133,19 +137,23 @@
     -fx-background-color: #D9D5D3;
 }
 
-.grid-pane {
+.grid-list.hoverable .content .grid-item {
     -fx-padding: 0 7 0 7;
-}
-
-.grid-pane.hoverable {
     -fx-cursor: hand;
 }
 
-.grid-pane.hoverable:hover {
+.grid-list.hoverable .content .grid-item:hover {
     -fx-background-color: #F3F1EF;
     -fx-padding: 0 7 0 3;
     -fx-border-width: 0 0 0 4;
     -fx-border-color: #F7931E;
+}
+
+.grid-list .header {
+    -fx-padding: 0 7 0 7;
+    -fx-font-family: 'Source Sans Pro';
+    -fx-border-width: 0 0 2 0;
+    -fx-border-color: #F3F1EF;
 }
 
 /* Common controls */
@@ -215,9 +223,14 @@
     -fx-max-height: infinity;
 }
 
-.button.borderless.standard-size {
+.button.borderless.medium {
     -fx-pref-width: 41;
     -fx-pref-height: 41;
+}
+
+.button.borderless.large {
+    -fx-pref-width: 70;
+    -fx-pref-height: 70;
 }
 
 .button.borderless:hover {

@@ -42,7 +42,7 @@
                     </tooltip>
                     <styleClass>
                         <String fx:value="borderless" />
-                        <String fx:value="standard-size" />
+                        <String fx:value="medium" />
                     </styleClass>
                 </Button>
                 <Button mnemonicParsing="false">
@@ -54,7 +54,7 @@
                     </tooltip>
                     <styleClass>
                         <String fx:value="borderless" />
-                        <String fx:value="standard-size" />
+                        <String fx:value="medium" />
                     </styleClass>
                 </Button>
                 <Button mnemonicParsing="false">
@@ -66,7 +66,7 @@
                     </tooltip>
                     <styleClass>
                         <String fx:value="borderless" />
-                        <String fx:value="standard-size" />
+                        <String fx:value="medium" />
                     </styleClass>
                 </Button>
                 <Pane prefWidth="1.0" styleClass="separator">
@@ -83,7 +83,7 @@
                     </tooltip>
                     <styleClass>
                         <String fx:value="borderless" />
-                        <String fx:value="standard-size" />
+                        <String fx:value="medium" />
                     </styleClass>
                 </Button>
                 <Button mnemonicParsing="false">
@@ -95,7 +95,7 @@
                     </tooltip>
                     <styleClass>
                         <String fx:value="borderless" />
-                        <String fx:value="standard-size" />
+                        <String fx:value="medium" />
                     </styleClass>
                 </Button>
                 <Pane prefWidth="1.0" styleClass="separator">
@@ -112,7 +112,7 @@
                     </tooltip>
                     <styleClass>
                         <String fx:value="borderless" />
-                        <String fx:value="standard-size" />
+                        <String fx:value="medium" />
                     </styleClass>
                 </Button>
                 <TextField prefWidth="85.0" text="100%">
@@ -130,7 +130,7 @@
                     </tooltip>
                     <styleClass>
                         <String fx:value="borderless" />
-                        <String fx:value="standard-size" />
+                        <String fx:value="medium" />
                     </styleClass>
                 </Button>
                 <Button mnemonicParsing="false">
@@ -142,7 +142,7 @@
                     </tooltip>
                     <styleClass>
                         <String fx:value="borderless" />
-                        <String fx:value="standard-size" />
+                        <String fx:value="medium" />
                     </styleClass>
                 </Button>
                 <Pane prefWidth="1.0" styleClass="separator">
@@ -159,7 +159,7 @@
                     </tooltip>
                     <styleClass>
                         <String fx:value="borderless" />
-                        <String fx:value="standard-size" />
+                        <String fx:value="medium" />
                     </styleClass>
                 </Button>
                 <Button mnemonicParsing="false">
@@ -171,7 +171,7 @@
                     </tooltip>
                     <styleClass>
                         <String fx:value="borderless" />
-                        <String fx:value="standard-size" />
+                        <String fx:value="medium" />
                     </styleClass>
                 </Button>
                 <HBox alignment="CENTER_RIGHT" HBox.hgrow="ALWAYS">
@@ -410,7 +410,7 @@
                             </tooltip>
                             <styleClass>
                                 <String fx:value="borderless" />
-                                <String fx:value="standard-size" />
+                                <String fx:value="medium" />
                                 <String fx:value="control-button" />
                                 <String fx:value="fixed-rewind-button" />
                             </styleClass>
@@ -424,7 +424,7 @@
                             </tooltip>
                             <styleClass>
                                 <String fx:value="borderless" />
-                                <String fx:value="standard-size" />
+                                <String fx:value="medium" />
                                 <String fx:value="control-button" />
                             </styleClass>
                         </Button>
@@ -437,7 +437,7 @@
                             </tooltip>
                             <styleClass>
                                 <String fx:value="borderless" />
-                                <String fx:value="standard-size" />
+                                <String fx:value="medium" />
                                 <String fx:value="control-button" />
                             </styleClass>
                         </Button>
@@ -450,7 +450,7 @@
                             </tooltip>
                             <styleClass>
                                 <String fx:value="borderless" />
-                                <String fx:value="standard-size" />
+                                <String fx:value="medium" />
                                 <String fx:value="control-button" />
                             </styleClass>
                             <HBox.margin>
@@ -466,7 +466,7 @@
                             </tooltip>
                             <styleClass>
                                 <String fx:value="borderless" />
-                                <String fx:value="standard-size" />
+                                <String fx:value="medium" />
                                 <String fx:value="control-button" />
                             </styleClass>
                         </Button>
@@ -479,7 +479,7 @@
                             </tooltip>
                             <styleClass>
                                 <String fx:value="borderless" />
-                                <String fx:value="standard-size" />
+                                <String fx:value="medium" />
                                 <String fx:value="control-button" />
                             </styleClass>
                         </Button>
@@ -501,7 +501,7 @@
                             </tooltip>
                             <styleClass>
                                 <String fx:value="borderless" />
-                                <String fx:value="standard-size" />
+                                <String fx:value="medium" />
                                 <String fx:value="control-button" />
                                 <String fx:value="fixed-forward-button" />
                             </styleClass>

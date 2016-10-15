@@ -21,7 +21,33 @@
 <?import javafx.scene.layout.VBox?>
 
 <VBox fx:id="rootNode" xmlns="http://javafx.com/javafx/8.0.60" xmlns:fx="http://javafx.com/fxml/1" fx:controller="ca.ulaval.glo2004.visualigue.ui.controllers.sportcreation.PlayerCategoryListController">
+    <children>
+        <GridPane styleClass="header">
+            <columnConstraints>
+                <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+                <ColumnConstraints hgrow="SOMETIMES" minWidth="50.0" prefWidth="75.0" />
+                <ColumnConstraints hgrow="SOMETIMES" maxWidth="41.0" minWidth="41.0" prefWidth="41.0" />
+                <ColumnConstraints hgrow="SOMETIMES" maxWidth="41.0" minWidth="41.0" prefWidth="41.0" />
+                <ColumnConstraints hgrow="SOMETIMES" maxWidth="7.0" minWidth="7.0" prefWidth="7.0" />
+                <ColumnConstraints hgrow="SOMETIMES" maxWidth="41.0" minWidth="41.0" prefWidth="41.0" />
+                <ColumnConstraints hgrow="SOMETIMES" maxWidth="41.0" minWidth="41.0" prefWidth="41.0" />
+            </columnConstraints>
+            <children>
+                <Label text="Nom" GridPane.columnIndex="0" />
+                <Label text="Abbréviation" GridPane.columnIndex="1"  />
+                <Label text="Couleur" GridPane.columnIndex="3" GridPane.columnSpan="4" />
+            </children>
+            <styleClass>
+                <String fx:value="grid-pane" />
+                <String fx:value="grid-pane-header" />
+            </styleClass>
+        </GridPane>
+        <VBox fx:id="gridContent" styleClass="content">
+        </VBox>
+    </children>
     <styleClass>
+        <String fx:value="grid-list" />
+        <String fx:value="hoverable" />
         <String fx:value="root-node" />
     </styleClass>
 </VBox>

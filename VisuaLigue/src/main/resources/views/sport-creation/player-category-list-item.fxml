@@ -48,7 +48,7 @@
             </tooltip>
             <styleClass>
                 <String fx:value="borderless" />
-                <String fx:value="standard-size" />
+                <String fx:value="medium" />
             </styleClass>
         </Button>
         <Button fx:id="deleteButton" onAction="#onDeleteButtonAction" alignment="CENTER" GridPane.columnIndex="6">
@@ -60,7 +60,7 @@
             </tooltip>
             <styleClass>
                 <String fx:value="borderless" />
-                <String fx:value="standard-size" />
+                <String fx:value="medium" />
             </styleClass>
         </Button>
         <HBox fx:id="deleteConfirmButtonContainer" alignment="CENTER_RIGHT" GridPane.columnIndex="2" GridPane.columnSpan="5"  >
@@ -74,8 +74,7 @@
         </HBox>
     </children>
     <styleClass>
-        <String fx:value="grid-pane" />
-        <String fx:value="hoverable" />
+        <String fx:value="grid-item" />
         <String fx:value="root-node" />
     </styleClass>
 </GridPane>

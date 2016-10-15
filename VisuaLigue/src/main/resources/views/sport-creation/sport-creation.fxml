@@ -7,10 +7,14 @@
 <?import javafx.scene.control.ScrollPane?>
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.layout.HBox?>
+<?import javafx.scene.control.Tooltip?>
 <?import javafx.scene.layout.VBox?>
+<?import javafx.scene.layout.ColumnConstraints?>
 <?import javafx.scene.layout.Pane?>
 <?import javafx.scene.layout.VBox?>
+<?import javafx.scene.layout.GridPane?>
 <?import ca.ulaval.glo2004.visualigue.ui.customcontrols.Breadcrumb?>
+<?import ca.ulaval.glo2004.visualigue.ui.customcontrols.SvgImage?>
 
 <VBox fx:id="rootNode" styleClass="root-node" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0" xmlns="http://javafx.com/javafx/8.0.60" xmlns:fx="http://javafx.com/fxml/1" fx:controller="ca.ulaval.glo2004.visualigue.ui.controllers.sportcreation.SportCreationController">
     <children>
@@ -30,27 +34,54 @@
                 </ScrollPane>
             </children>
         </VBox>
-        <AnchorPane VBox.vgrow="NEVER">
-            <padding>
-                <Insets left="14.0" right="14.0" top="14.0" bottom="14.0" />
-            </padding>
+        <GridPane styleClass="form-action-buttons" minHeight="70">
+            <columnConstraints>
+                <ColumnConstraints hgrow="SOMETIMES" minWidth="50" prefWidth="70.0" maxWidth="70"/>
+                <ColumnConstraints hgrow="SOMETIMES" minWidth="0" prefWidth="0" />
+                <ColumnConstraints hgrow="SOMETIMES" minWidth="50" prefWidth="70.0" maxWidth="70" />
+                <ColumnConstraints hgrow="SOMETIMES" minWidth="50" prefWidth="70.0" maxWidth="70" />
+            </columnConstraints>
             <children>
-                <HBox spacing="10.0" styleClass="button-group" AnchorPane.leftAnchor="0.0" AnchorPane.topAnchor="0.0">
-                    <children>
-                        <Button fx:id="deleteButton" cancelButton="true" layoutX="10.0" layoutY="10.0" mnemonicParsing="false" onAction="#onDeleteButtonAction" text="Supprimer"  >
-                            <styleClass>
-                                <String fx:value="color-red" />
-                            </styleClass>
-                        </Button>
-                    </children>
-                </HBox>
-                <HBox spacing="10.0" styleClass="button-group" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
-                    <children>
-                        <Button fx:id="defaultButton" defaultButton="true" mnemonicParsing="false" onAction="#onDefaultButtonAction" text="Continuer" />
-                        <Button fx:id="cancelButton" cancelButton="true" layoutX="10.0" layoutY="10.0" mnemonicParsing="false" onAction="#onCancelButtonAction" text="Annuler" />
-                    </children>
-                </HBox>
+                <Button fx:id="deleteButton" onAction="#onDeleteButtonAction" alignment="CENTER" GridPane.columnIndex="0">
+                    <graphic>
+                        <SvgImage url="/images/trash-icon.fxml" />
+                    </graphic>
+                    <tooltip>
+                        <Tooltip text="Supprimer" />
+                    </tooltip>
+                    <styleClass>
+                        <String fx:value="borderless" />
+                        <String fx:value="large" />
+                    </styleClass>
+                </Button>
+                <Button fx:id="validateButton" defaultButton="true" onAction="#onValidateButtonAction" alignment="CENTER" GridPane.columnIndex="2">
+                    <graphic>
+                        <SvgImage url="/images/checkmark-icon.fxml" />
+                    </graphic>
+                    <tooltip>
+                        <Tooltip text="Valider" />
+                    </tooltip>
+                    <styleClass>
+                        <String fx:value="borderless" />
+                        <String fx:value="large" />
+                    </styleClass>
+                </Button>
+                <Button fx:id="cancelButton" cancelButton="true" onAction="#onCancelButtonAction" alignment="CENTER" GridPane.columnIndex="3">
+                    <graphic>
+                        <SvgImage url="/images/cross-icon.fxml" />
+                    </graphic>
+                    <tooltip>
+                        <Tooltip text="Annuler" />
+                    </tooltip>
+                    <styleClass>
+                        <String fx:value="borderless" />
+                        <String fx:value="large" />
+                    </styleClass>
+                </Button>
             </children>
-        </AnchorPane>
+            <styleClass>
+                <String fx:value="grid-pane" />
+            </styleClass>
+        </GridPane>
     </children>
 </VBox>

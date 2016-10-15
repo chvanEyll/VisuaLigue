@@ -11,7 +11,7 @@ import javafx.scene.layout.VBox;
 public class PlayerCategoryListController {
 
     public static final String VIEW_NAME = "/views/sport-creation/player-category-list.fxml";
-    @FXML private VBox rootNode;
+    @FXML private VBox gridContent;
     private ObservableList<PlayerCategoryModel> playerCategoryModels;
     private PlayerCategoryListItemEditionController listItemEditionController;
     private Integer itemCount = 0;
@@ -31,7 +31,7 @@ public class PlayerCategoryListController {
         listItemController.init(playerCategoryModel);
         listItemController.onEditRequested.setHandler(this::onItemEditRequestedHandler);
         listItemController.onDeleteRequested.setHandler(this::onItemDeleteRequestHandler);
-        rootNode.getChildren().add(rowIndex, fxmlLoader.getRoot());
+        gridContent.getChildren().add(rowIndex, fxmlLoader.getRoot());
         itemCount += 1;
     }
 
@@ -46,8 +46,8 @@ public class PlayerCategoryListController {
         listItemEditionController.init(model);
         listItemEditionController.onEditionValidationRequested.setHandler(this::onEditionValidationRequestedHandler);
         int rowIndex = playerCategoryModels.indexOf(model);
-        rootNode.getChildren().remove(rowIndex);
-        rootNode.getChildren().add(rowIndex, fxmlLoader.getRoot());
+        gridContent.getChildren().remove(rowIndex);
+        gridContent.getChildren().add(rowIndex, fxmlLoader.getRoot());
     }
 
     public void onEditionValidationRequestedHandler(Object sender, PlayerCategoryModel model) {
@@ -57,7 +57,7 @@ public class PlayerCategoryListController {
     private void validateItemEdition() {
         if (listItemEditionController != null) {
             int rowIndex = playerCategoryModels.indexOf(listItemEditionController.getModel());
-            rootNode.getChildren().remove(rowIndex);
+            gridContent.getChildren().remove(rowIndex);
             PlayerCategoryModel playerCategoryModel = listItemEditionController.getModel();
             insertItem(playerCategoryModel, rowIndex);
             playerCategoryModel.makeDirty();
