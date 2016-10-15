@@ -337,7 +337,7 @@
                                                 </Button>
                                                 <Button>
                                                     <graphic>
-                                                        <SvgImage url="/images/cone-object.fxml" />
+                                                        <SvgImage url="/images/cone-icon.fxml" />
                                                     </graphic>
                                                     <styleClass>
                                                         <String fx:value="borderless" />

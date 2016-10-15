@@ -50,7 +50,7 @@
         </HBox>
         <HBox fx:id="obstaclesMenuItem" alignment="CENTER_LEFT" fillHeight="false" layoutX="10.0" layoutY="10.0" onMouseClicked="#onObstaclesMenuItemClick" styleClass="menu-item">
             <children>
-                <SvgImage styleClass="icon" url="/images/obstacle-icon.fxml" />
+                <SvgImage styleClass="icon" url="/images/cone-icon-white.fxml" />
                 <Label text="Obstacles" />
             </children>
         </HBox>

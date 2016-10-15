@@ -25,7 +25,6 @@ public class XmlSportRepository implements SportRepository {
     public XmlSportRepository(XmlRepositoryMarshaller<Sport> xmlRepositoryMarshaller) {
         this.xmlRepositoryMarshaller = xmlRepositoryMarshaller;
         sports = xmlRepositoryMarshaller.unmarshalAll();
-        int i = 8;
     }
 
     @Override
