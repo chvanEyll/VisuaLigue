@@ -12,8 +12,8 @@ import javafx.stage.Stage;
 
 public class VisuaLigue extends Application {
 
-    private static final int MIN_STAGE_WIDTH = 1000;
-    private static final int MIN_STAGE_HEIGHT = 600;
+    private static final int MIN_STAGE_WIDTH = 500;
+    private static final int MIN_STAGE_HEIGHT = 500;
     private static final String APP_NAME = "VisuaLigue";
     private static final String DATA_DIRECTORY = "data";
     private static final String REPOSITORY_DIRECTORTY = "/repository";
