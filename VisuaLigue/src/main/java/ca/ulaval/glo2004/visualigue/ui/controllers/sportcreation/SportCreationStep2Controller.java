@@ -2,6 +2,7 @@ package ca.ulaval.glo2004.visualigue.ui.controllers.sportcreation;
 
 import ca.ulaval.glo2004.visualigue.domain.playingsurface.PlayingSurfaceUnit;
 import ca.ulaval.glo2004.visualigue.ui.controllers.FileSelectionEventArgs;
+import ca.ulaval.glo2004.visualigue.ui.customcontrols.ResizableImageView;
 import ca.ulaval.glo2004.visualigue.ui.models.SportCreationModel;
 import ca.ulaval.glo2004.visualigue.utils.FXUtils;
 import ca.ulaval.glo2004.visualigue.utils.FilenameUtils;
@@ -12,7 +13,6 @@ import javafx.scene.control.Label;
 import javafx.scene.control.Spinner;
 import javafx.scene.control.SpinnerValueFactory.DoubleSpinnerValueFactory;
 import javafx.scene.image.Image;
-import javafx.scene.image.ImageView;
 import javafx.stage.FileChooser;
 import javafx.stage.FileChooser.ExtensionFilter;
 
@@ -29,7 +29,7 @@ public class SportCreationStep2Controller extends SportCreationStepController {
     @FXML ComboBox widthUnitComboBox;
     @FXML ComboBox lengthUnitComboBox;
     @FXML Label imagePathLabel;
-    @FXML ImageView imageView;
+    @FXML ResizableImageView resizableImageView;
     @FXML Label imageErrorLabel;
 
     public SportCreationModel getSportModel() {
@@ -80,8 +80,7 @@ public class SportCreationStep2Controller extends SportCreationStepController {
 
     private void displayImage(String imageURL) {
         try {
-            imageView.setImage(new Image(imageURL));
-            FXUtils.setDisplay(imageView, true);
+            resizableImageView.setImage(new Image(imageURL));
             imagePathLabel.textProperty().bind(this.model.newPlayingSurfaceImagePathName);
         } catch (Exception ex) {
             clearErrors();
@@ -91,7 +90,7 @@ public class SportCreationStep2Controller extends SportCreationStepController {
     }
 
     private void clearImage() {
-        FXUtils.setDisplay(imageView, false);
+        resizableImageView.setImage(null);
         imagePathLabel.textProperty().unbind();
         imagePathLabel.setText("Aucune image sélectionnée");
     }

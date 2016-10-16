@@ -16,17 +16,24 @@ public class SvgImage extends StackPane {
     }
 
     public void setUrl(String url) {
-        if (url != null) {
-            this.url = url;
-            updateSvgImage();
-        }
+        this.url = url;
+        updateSvgImage();
     }
 
     private void updateSvgImage() {
+        if (url == null) {
+            this.getChildren().clear();
+        } else {
+            setVectorImage(url);
+        }
+    }
+
+    private void setVectorImage(String url) {
         try {
             Node svgRootNode = FXMLLoader.load(getClass().getResource(url));
             this.getStylesheets().clear();
             this.getStylesheets().add(url + ".css");
+            this.getChildren().clear();
             this.getChildren().add(svgRootNode);
         } catch (IOException ex) {
             Logger.getLogger(SvgImage.class.getName()).log(Level.SEVERE, null, ex);

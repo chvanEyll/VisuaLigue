@@ -19,6 +19,7 @@
 <?import javafx.scene.layout.Pane?>
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.Group?>
+<?import ca.ulaval.glo2004.visualigue.ui.customcontrols.ResizableImageView?>
 
 <VBox fx:id="rootNode" spacing="14.0" xmlns="http://javafx.com/javafx/8.0.60" xmlns:fx="http://javafx.com/fxml/1" fx:controller="ca.ulaval.glo2004.visualigue.ui.controllers.sportcreation.SportCreationStep2Controller">
     <VBox spacing="14.0" styleClass="form-section">
@@ -64,19 +65,11 @@
                 </children>
             </FlowPane>
             <Label fx:id="imageErrorLabel" styleClass="error-label" text="Error." />
-            <Pane>
-                <children>
-                    <Pane style="-fx-border-color: #CCCCCC;">
-                        <children>
-                            <ImageView fx:id="imageView" fitHeight="200.0" fitWidth="500.0" pickOnBounds="true" preserveRatio="true">
-                                <image>
-                                    <Image url="@/images/built-in-playing-surfaces/hockey.png" />
-                                </image>
-                            </ImageView>
-                        </children>
-                    </Pane>
-                </children>
-            </Pane>
+            <ResizableImageView fx:id="resizableImageView" style="-fx-border-color: #CCCCCC;" >
+                <image>
+                    <Image url="@/images/built-in-playing-surfaces/hockey.png" />
+                </image>
+            </ResizableImageView>
         </children>
     </VBox>
     <styleClass>
