@@ -1,10 +1,11 @@
 package ca.ulaval.glo2004.visualigue.ui.controllers.sportlist;
 
-import ca.ulaval.glo2004.visualigue.ui.customcontrols.SvgImage;
 import ca.ulaval.glo2004.visualigue.ui.models.SportListItemModel;
 import ca.ulaval.glo2004.visualigue.utils.EventHandler;
 import javafx.fxml.FXML;
 import javafx.scene.control.Label;
+import javafx.scene.image.Image;
+import javafx.scene.image.ImageView;
 import javafx.scene.layout.VBox;
 
 public class SportSelectorItemController {
@@ -27,9 +28,12 @@ public class SportSelectorItemController {
     }
 
     private void setSportImage(String sportImagePathName) {
-        SvgImage svgImage = new SvgImage();
-        svgImage.setUrl(sportImagePathName);
-        rootNode.getChildren().add(0, svgImage);
+        ImageView imageView = new ImageView();
+        Image image = new Image(sportImagePathName);
+        imageView.setImage(new Image(sportImagePathName));
+        imageView.setFitWidth(image.getWidth());
+        imageView.setFitHeight(image.getHeight());
+        rootNode.getChildren().add(0, imageView);
     }
 
     @FXML

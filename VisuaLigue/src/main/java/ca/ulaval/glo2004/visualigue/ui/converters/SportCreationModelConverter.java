@@ -25,7 +25,7 @@ public class SportCreationModelConverter {
         model.setUUID(sport.getUUID());
         model.setIsNew(false);
         model.name.set(sport.getName());
-        model.builtInIconPathName.set(sport.getBuiltInIconPathName());
+        model.iconPathName.set(sport.getIconPathName());
         model.playingSurfaceWidth.set(sport.getPlayingSurface().getWidth());
         model.playingSurfaceLength.set(sport.getPlayingSurface().getLength());
         model.playingSurfaceWidthUnits.set(sport.getPlayingSurface().getWidthUnits());

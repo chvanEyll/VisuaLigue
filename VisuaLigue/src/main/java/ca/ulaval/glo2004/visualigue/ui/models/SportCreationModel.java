@@ -8,7 +8,7 @@ import javafx.collections.ObservableList;
 public class SportCreationModel extends Model {
 
     public StringProperty name = new SimpleStringProperty("Nouveau sport");
-    public StringProperty builtInIconPathName = new SimpleStringProperty("/images/built-in-sport-icons/generic-icon.fxml");
+    public StringProperty iconPathName = new SimpleStringProperty("/images/built-in-sport-icons/generic-icon.png");
     public DoubleProperty playingSurfaceWidth = new SimpleDoubleProperty(100.0);
     public DoubleProperty playingSurfaceLength = new SimpleDoubleProperty(200.0);
     public StringProperty newPlayingSurfaceImagePathName = new SimpleStringProperty();
