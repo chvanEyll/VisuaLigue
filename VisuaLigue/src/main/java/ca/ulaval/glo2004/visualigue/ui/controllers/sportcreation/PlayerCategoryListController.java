@@ -29,13 +29,13 @@ public class PlayerCategoryListController {
         FXMLLoader fxmlLoader = InjectableFXMLLoader.load(PlayerCategoryListItemController.VIEW_NAME);
         PlayerCategoryListItemController listItemController = (PlayerCategoryListItemController) fxmlLoader.getController();
         listItemController.init(playerCategoryModel);
-        listItemController.onEditRequested.setHandler(this::onItemEditRequestedHandler);
-        listItemController.onDeleteRequested.setHandler(this::onItemDeleteRequestHandler);
+        listItemController.onEditRequested.setHandler(this::onItemEditRequested);
+        listItemController.onDeleteRequested.setHandler(this::onItemDeleteRequest);
         gridContent.getChildren().add(rowIndex, fxmlLoader.getRoot());
         itemCount += 1;
     }
 
-    private void onItemEditRequestedHandler(Object sender, PlayerCategoryModel model) {
+    private void onItemEditRequested(Object sender, PlayerCategoryModel model) {
         enterItemEditionMode(model);
     }
 
@@ -44,13 +44,13 @@ public class PlayerCategoryListController {
         FXMLLoader fxmlLoader = InjectableFXMLLoader.load(PlayerCategoryListItemEditionController.VIEW_NAME);
         listItemEditionController = (PlayerCategoryListItemEditionController) fxmlLoader.getController();
         listItemEditionController.init(model);
-        listItemEditionController.onEditionValidationRequested.setHandler(this::onEditionValidationRequestedHandler);
+        listItemEditionController.onEditionValidationRequested.setHandler(this::onEditionValidationRequested);
         int rowIndex = playerCategoryModels.indexOf(model);
         gridContent.getChildren().remove(rowIndex);
         gridContent.getChildren().add(rowIndex, fxmlLoader.getRoot());
     }
 
-    public void onEditionValidationRequestedHandler(Object sender, PlayerCategoryModel model) {
+    private void onEditionValidationRequested(Object sender, PlayerCategoryModel model) {
         validateItemEdition();
     }
 
@@ -73,7 +73,7 @@ public class PlayerCategoryListController {
         enterItemEditionMode(playerCategoryModel);
     }
 
-    private void onItemDeleteRequestHandler(Object sender, PlayerCategoryModel model) {
+    private void onItemDeleteRequest(Object sender, PlayerCategoryModel model) {
         deleteItem((PlayerCategoryListItemController) sender, model);
     }
 

@@ -15,7 +15,6 @@ public class MainSceneController implements Initializable {
 
     public static final String VIEW_NAME = "/views/main.fxml";
 
-    @FXML private Pane logoPane;
     @FXML private Pane contentPane;
     @FXML private Button previousButton;
     @FXML private Button titleEditButton;
@@ -27,16 +26,21 @@ public class MainSceneController implements Initializable {
 
     @Override
     public void initialize(URL url, ResourceBundle rb) {
-        mainMenuController.init(logoPane);
-        mainMenuController.onMenuClicked.setHandler(this::onMainMenuClickedHandler);
+        mainMenuController.init();
+        mainMenuController.onMenuClicked.setHandler(this::onMainMenuClicked);
     }
 
     public void setStage(Stage stage) {
         this.mainStage = stage;
     }
 
-    private void onMainMenuClickedHandler(Object sender, FXMLLoader requestedView) {
+    private void onMainMenuClicked(Object sender, FXMLLoader requestedView) {
         setMainView(requestedView);
+    }
+
+    @FXML
+    public void onMenuToggleClicked() {
+        mainMenuController.toggleOpen();
     }
 
     @FXML
@@ -50,11 +54,11 @@ public class MainSceneController implements Initializable {
         setView(fxmlLoader);
     }
 
-    private void onViewChangeRequestedHandler(Object sender, FXMLLoader fxmlLoader) {
+    private void onViewChangeRequested(Object sender, FXMLLoader fxmlLoader) {
         nextView(fxmlLoader);
     }
 
-    private void onViewCloseRequestedHandler(Object sender, Object eventArgs) {
+    private void onViewCloseRequested(Object sender, Object eventArgs) {
         previousView();
     }
 
@@ -72,9 +76,9 @@ public class MainSceneController implements Initializable {
 
     private void setView(FXMLLoader view) {
         Controller controller = view.getController();
-        controller.onViewChangeRequested.setHandler(this::onViewChangeRequestedHandler);
-        controller.onViewCloseRequested.setHandler(this::onViewCloseRequestedHandler);
-        controller.onFileSelectionRequested.setHandler(this::onFileSelectRequestHandler);
+        controller.onViewChangeRequested.setHandler(this::onViewChangeRequested);
+        controller.onViewCloseRequested.setHandler(this::onViewCloseRequested);
+        controller.onFileSelectionRequested.setHandler(this::onFileSelectRequest);
         contentPane.getChildren().clear();
         contentPane.getChildren().add(view.getRoot());
         sectionTitleLabel.textProperty().bindBidirectional(controller.getTitle());
@@ -83,7 +87,7 @@ public class MainSceneController implements Initializable {
         FXUtils.setDisplay(titleEditButton, controller.isTitleEditable());
     }
 
-    private void onFileSelectRequestHandler(Object sender, FileSelectionEventArgs eventArgs) {
+    private void onFileSelectRequest(Object sender, FileSelectionEventArgs eventArgs) {
         eventArgs.selectedFile = eventArgs.fileChooser.showOpenDialog(mainStage);
     }
 }

@@ -69,27 +69,28 @@
     -fx-text-fill: white;
 }
 
-.main-menu .menu-toggle-container {
+.menu-toggle {
+    -fx-alignment: CENTER;
+    -fx-cursor: hand;
+    -fx-background-color: #3D3D3D;
     -fx-border-width:  0 0 1 0;
     -fx-border-style: solid;
+    -fx-min-width: 58px;
+    -fx-pref-width: 58px;
+    -fx-fill-height: false;
 }
 
-.main-menu .menu-toggle {
-    -fx-cursor: hand;
-}
-
-.main-menu .menu-toggle:hover {
+.menu-toggle:hover {
     -fx-background-color: #2B2B2B;
 }
 
-.main-menu .menu-toggle:pressed {
+.menu-toggle:pressed {
     -fx-background-color: #1A1A1A;
 }
 
-.main-menu .menu-toggle .line {
+.menu-toggle .line {
     -fx-stroke: white;
 }
-
 
 /* Forms & Sectionning */
 

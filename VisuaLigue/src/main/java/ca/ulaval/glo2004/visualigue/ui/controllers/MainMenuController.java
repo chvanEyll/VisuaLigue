@@ -6,7 +6,6 @@ import ca.ulaval.glo2004.visualigue.utils.EventHandler;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.layout.HBox;
-import javafx.scene.layout.Pane;
 import javafx.scene.layout.VBox;
 import javafx.scene.shape.Rectangle;
 
@@ -21,17 +20,14 @@ public class MainMenuController {
     @FXML private HBox sportsMenuItem;
     @FXML private HBox obstaclesMenuItem;
     @FXML private HBox settingsMenuItem;
-    private Pane logoPane;
     private boolean isMenuPaneCollapsed = false;
     public EventHandler<FXMLLoader> onMenuClicked = new EventHandler<>();
 
-    public void init(Pane logoPane) {
-        this.logoPane = logoPane;
+    public void init() {
         collapseMenuPane();
     }
 
-    @FXML
-    public void onHamburgerIconClick() {
+    public void toggleOpen() {
         if (!isMenuPaneCollapsed) {
             collapseMenuPane();
         } else {
@@ -42,40 +38,34 @@ public class MainMenuController {
     private void collapseMenuPane() {
         menuPane.setPrefWidth(MENU_PANE_COLLAPSED_WIDTH);
         menuPane.setMinWidth(MENU_PANE_COLLAPSED_WIDTH);
-        logoPane.setPrefWidth(MENU_PANE_COLLAPSED_WIDTH);
-        logoPane.setMinWidth(MENU_PANE_COLLAPSED_WIDTH);
         menuPane.setClip(new Rectangle(MENU_PANE_COLLAPSED_WIDTH, Integer.MAX_VALUE));
-        logoPane.setClip(new Rectangle(MENU_PANE_COLLAPSED_WIDTH, Integer.MAX_VALUE));
         isMenuPaneCollapsed = true;
     }
 
     private void extendMenuPane() {
         menuPane.setPrefWidth(MENU_PANE_EXTENDED_WIDTH);
         menuPane.setMinWidth(MENU_PANE_EXTENDED_WIDTH);
-        logoPane.setPrefWidth(MENU_PANE_EXTENDED_WIDTH);
-        logoPane.setMinWidth(MENU_PANE_EXTENDED_WIDTH);
         menuPane.setClip(null);
-        logoPane.setClip(null);
         isMenuPaneCollapsed = false;
     }
 
     @FXML
-    public void onPlaysMenuItemClick() {
+    public void onPlaysMenuItemClicked() {
 
     }
 
     @FXML
-    public void onSportsMenuItemClick() {
+    public void onSportsMenuItemClicked() {
         processMenuClick(SportListController.VIEW_NAME, sportsMenuItem);
     }
 
     @FXML
-    public void onObstaclesMenuItemClick() {
+    public void onObstaclesMenuItemClicked() {
 
     }
 
     @FXML
-    public void onSettingsMenuItemClick() {
+    public void onSettingsMenuItemClicked() {
 
     }
 

@@ -73,11 +73,11 @@ public class SportCreationController extends Controller {
         breadcrumb.addItem("Général");
         breadcrumb.addItem("Terrain");
         breadcrumb.addItem("Joueurs");
-        breadcrumb.onItemClicked.setHandler(this::onBreadcrumNavItemClickedHandler);
+        breadcrumb.onItemClicked.setHandler(this::onBreadcrumNavItemClicked);
         setStep(GENERAL_STEP_INDEX);
     }
 
-    private void onBreadcrumNavItemClickedHandler(Object sender, Integer index) {
+    private void onBreadcrumNavItemClicked(Object sender, Integer index) {
         setStep(index);
     }
 
@@ -85,7 +85,7 @@ public class SportCreationController extends Controller {
         if (currentStepIndex != stepIndex) {
             FXMLLoader fxmlLoader = InjectableFXMLLoader.load(STEPS_VIEW_NAMES[stepIndex]);
             currentStepController = (SportCreationStepController) fxmlLoader.getController();
-            currentStepController.onFileSelectionRequested.setHandler(this::onFileSelectRequestedHandler);
+            currentStepController.onFileSelectionRequested.setHandler(this::onFileSelectRequested);
             currentStepController.init(model);
             stepContent.getChildren().clear();
             stepContent.getChildren().add(fxmlLoader.getRoot());
@@ -128,7 +128,7 @@ public class SportCreationController extends Controller {
         onViewCloseRequested.fire(this, null);
     }
 
-    private void onFileSelectRequestedHandler(Object sender, FileSelectionEventArgs eventArgs) {
+    private void onFileSelectRequested(Object sender, FileSelectionEventArgs eventArgs) {
         onFileSelectionRequested.fire(sender, eventArgs);
     }
 

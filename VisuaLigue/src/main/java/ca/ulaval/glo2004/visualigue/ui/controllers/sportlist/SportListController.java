@@ -22,7 +22,7 @@ public class SportListController extends Controller {
 
     @Override
     public void initialize(URL url, ResourceBundle rb) {
-        sportSelectorController.onSportSelected.setHandler(this::onSportSelectedEventHandler);
+        sportSelectorController.onSportSelected.setHandler(this::onSportSelectedEvent);
     }
 
     @Override
@@ -30,7 +30,7 @@ public class SportListController extends Controller {
         return new SimpleStringProperty(VIEW_TITLE);
     }
 
-    public void onSportSelectedEventHandler(Object sender, SportListItemModel sportListItemModel) {
+    private void onSportSelectedEvent(Object sender, SportListItemModel sportListItemModel) {
         FXMLLoader fxmlLoader = InjectableFXMLLoader.load(SportCreationController.VIEW_NAME);
         SportCreationController controller = (SportCreationController) fxmlLoader.getController();
         try {

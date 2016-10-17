@@ -29,7 +29,7 @@ public class Breadcrumb extends HBox {
 
     public void addItem(String title) {
         BreadcrumbItem breadcrumbItem = new BreadcrumbItem(title, items.size() > 0);
-        breadcrumbItem.onClick.setHandler(this::onItemClickedHandler);
+        breadcrumbItem.onClick.setHandler(this::onItemClicked);
         items.add(breadcrumbItem);
         this.getChildren().add(this.getChildren().size() - 1, breadcrumbItem);
     }
@@ -41,7 +41,7 @@ public class Breadcrumb extends HBox {
         });
     }
 
-    public void onItemClickedHandler(Object sender, Object eventArgs) {
+    private void onItemClicked(Object sender, Object eventArgs) {
         onItemClicked.fire(this, items.indexOf(sender));
     }
 }

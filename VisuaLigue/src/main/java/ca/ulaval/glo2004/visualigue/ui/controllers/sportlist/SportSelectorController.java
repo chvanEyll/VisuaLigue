@@ -29,13 +29,13 @@ public class SportSelectorController implements Initializable {
 
     @Override
     public void initialize(URL url, ResourceBundle rb) {
-        sportService.onSportCreated.setHandler(this::onSportChangedHandler);
-        sportService.onSportUpdated.setHandler(this::onSportChangedHandler);
-        sportService.onSportDeleted.setHandler(this::onSportChangedHandler);
+        sportService.onSportCreated.setHandler(this::onSportChanged);
+        sportService.onSportUpdated.setHandler(this::onSportChanged);
+        sportService.onSportDeleted.setHandler(this::onSportChanged);
         fillSportList();
     }
 
-    private void onSportChangedHandler(Object sender, Sport sport) {
+    private void onSportChanged(Object sender, Sport sport) {
         Platform.runLater(() -> fillSportList());
     }
 
@@ -52,11 +52,11 @@ public class SportSelectorController implements Initializable {
         FXMLLoader fxmlLoader = InjectableFXMLLoader.load(SportSelectorItemController.VIEW_NAME);
         SportSelectorItemController controller = (SportSelectorItemController) fxmlLoader.getController();
         controller.init(model);
-        controller.onClick.setHandler(this::onItemClickedHandler);
+        controller.onClick.setHandler(this::onItemClicked);
         tilePane.getChildren().add(fxmlLoader.getRoot());
     }
 
-    public void onItemClickedHandler(Object sender, SportListItemModel model) {
+    private void onItemClicked(Object sender, SportListItemModel model) {
         onSportSelected.fire(this, model);
     }
 }
