@@ -161,6 +161,8 @@
     -fx-font-family: 'Source Sans Pro';
     -fx-border-width: 0 0 2 0;
     -fx-border-color: #F3F1EF;
+    -fx-pref-height: 40;
+    -fx-min-height: 40;
 }
 
 /* Common controls */

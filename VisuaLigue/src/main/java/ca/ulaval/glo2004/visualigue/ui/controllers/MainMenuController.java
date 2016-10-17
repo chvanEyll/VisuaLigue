@@ -1,6 +1,7 @@
 package ca.ulaval.glo2004.visualigue.ui.controllers;
 
 import ca.ulaval.glo2004.visualigue.ui.InjectableFXMLLoader;
+import ca.ulaval.glo2004.visualigue.ui.animation.Animation;
 import ca.ulaval.glo2004.visualigue.ui.controllers.sportlist.SportListController;
 import ca.ulaval.glo2004.visualigue.utils.EventHandler;
 import javafx.fxml.FXML;
@@ -12,8 +13,8 @@ import javafx.scene.shape.Rectangle;
 public class MainMenuController {
 
     public static final String VIEW_NAME = "/views/main-menu.fxml";
-    private static final int MENU_PANE_COLLAPSED_WIDTH = 58;
-    private static final int MENU_PANE_EXTENDED_WIDTH = 170;
+    private static final double MENU_PANE_COLLAPSED_WIDTH = 58.0;
+    private static final double MENU_PANE_EXTENDED_WIDTH = 170.0;
 
     @FXML private VBox menuPane;
     @FXML private HBox playsMenuItem;
@@ -36,16 +37,16 @@ public class MainMenuController {
     }
 
     private void collapseMenuPane() {
-        menuPane.setPrefWidth(MENU_PANE_COLLAPSED_WIDTH);
-        menuPane.setMinWidth(MENU_PANE_COLLAPSED_WIDTH);
-        menuPane.setClip(new Rectangle(MENU_PANE_COLLAPSED_WIDTH, Integer.MAX_VALUE));
+        Animation.method(menuPane::setClip).duration(0.4).from(menuPane.getClip()).to(new Rectangle(MENU_PANE_COLLAPSED_WIDTH, Integer.MAX_VALUE)).groupBegin().easeOutExp();
+        Animation.method(menuPane::setPrefWidth).duration(0.4).from(menuPane.getPrefWidth()).to(MENU_PANE_COLLAPSED_WIDTH).easeOutExp();
+        Animation.method(menuPane::setMinWidth).duration(0.4).from(menuPane.getMinWidth()).to(MENU_PANE_COLLAPSED_WIDTH).groupEnd().easeOutExp();
         isMenuPaneCollapsed = true;
     }
 
     private void extendMenuPane() {
-        menuPane.setPrefWidth(MENU_PANE_EXTENDED_WIDTH);
-        menuPane.setMinWidth(MENU_PANE_EXTENDED_WIDTH);
-        menuPane.setClip(null);
+        Animation.method(menuPane::setPrefWidth).duration(0.4).from(menuPane.getPrefWidth()).to(MENU_PANE_EXTENDED_WIDTH).groupBegin().easeOutExp();
+        Animation.method(menuPane::setMinWidth).duration(0.4).from(menuPane.getMinWidth()).to(MENU_PANE_EXTENDED_WIDTH).easeOutExp();
+        Animation.method(menuPane::setClip).duration(0.4).from(menuPane.getClip()).to(new Rectangle(MENU_PANE_EXTENDED_WIDTH, Integer.MAX_VALUE)).groupEnd().easeOutExp();
         isMenuPaneCollapsed = false;
     }
 

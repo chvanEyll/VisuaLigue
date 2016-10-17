@@ -22,7 +22,7 @@
 
 <VBox fx:id="rootNode" xmlns="http://javafx.com/javafx/8.0.60" xmlns:fx="http://javafx.com/fxml/1" fx:controller="ca.ulaval.glo2004.visualigue.ui.controllers.sportcreation.PlayerCategoryListController">
     <children>
-        <GridPane styleClass="header">
+        <GridPane styleClass="header" alignment="CENTER_LEFT" >
             <columnConstraints>
                 <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
                 <ColumnConstraints hgrow="SOMETIMES" minWidth="50.0" prefWidth="75.0" halignment="CENTER"  />
@@ -34,8 +34,8 @@
             </columnConstraints>
             <children>
                 <Label text="Nom" GridPane.columnIndex="0" />
-                <Label text="Abréviation" GridPane.columnIndex="1"  />
-                <Label text="Couleur" GridPane.columnIndex="2" GridPane.columnSpan="2"  />
+                <Label text="Abréviation" GridPane.columnIndex="1" />
+                <Label text="Couleur" GridPane.columnIndex="2" GridPane.columnSpan="2" />
             </children>
             <styleClass>
                 <String fx:value="grid-pane" />
