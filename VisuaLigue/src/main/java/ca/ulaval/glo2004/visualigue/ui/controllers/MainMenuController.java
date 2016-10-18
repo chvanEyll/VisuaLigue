@@ -2,6 +2,7 @@ package ca.ulaval.glo2004.visualigue.ui.controllers;
 
 import ca.ulaval.glo2004.visualigue.ui.InjectableFXMLLoader;
 import ca.ulaval.glo2004.visualigue.ui.animation.Animation;
+import ca.ulaval.glo2004.visualigue.ui.controllers.obstaclecreation.ObstacleCreationController;
 import ca.ulaval.glo2004.visualigue.ui.controllers.sportlist.SportListController;
 import ca.ulaval.glo2004.visualigue.utils.EventHandler;
 import javafx.fxml.FXML;
@@ -25,7 +26,9 @@ public class MainMenuController {
     public EventHandler<FXMLLoader> onMenuClicked = new EventHandler<>();
 
     public void init() {
-        collapseMenuPane();
+        menuPane.setPrefWidth(MENU_PANE_COLLAPSED_WIDTH);
+        menuPane.setMinWidth(MENU_PANE_COLLAPSED_WIDTH);
+        menuPane.setClip(new Rectangle(MENU_PANE_COLLAPSED_WIDTH, Integer.MAX_VALUE));
     }
 
     public void toggleOpen() {
@@ -62,7 +65,7 @@ public class MainMenuController {
 
     @FXML
     public void onObstaclesMenuItemClicked() {
-
+        processMenuClick(ObstacleCreationController.VIEW_NAME, obstaclesMenuItem);
     }
 
     @FXML

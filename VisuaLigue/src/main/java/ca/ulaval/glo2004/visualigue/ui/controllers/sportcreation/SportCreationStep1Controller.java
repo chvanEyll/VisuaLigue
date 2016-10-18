@@ -12,10 +12,6 @@ public class SportCreationStep1Controller extends SportCreationStepController {
     @FXML TextField sportNameField;
     @FXML Label sportNameErrorLabel;
 
-    public SportCreationModel getModel() {
-        return model;
-    }
-
     @Override
     public void init(SportCreationModel sportCreation) {
         model = sportCreation;

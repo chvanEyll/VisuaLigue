@@ -18,7 +18,8 @@ public class PlayerCategoryListItemEditionController {
     public static final Integer MAX_DEFAULT_NUMBER_OF_PLAYERS_VALUE = 30;
     public static final Integer INITIAL_DEFAULT_NUMBER_OF_PLAYERS_VALUE = 0;
     public static final Integer STEP_DEFAULT_NUMBER_OF_PLAYERS_VALUE = 1;
-    public EventHandler<PlayerCategoryModel> onEditionValidationRequested = new EventHandler<>();
+    public EventHandler<PlayerCategoryModel> onCloseRequested = new EventHandler<>();
+
     @FXML private TextField nameTextField;
     @FXML private TextField abbreviationTextField;
     @FXML private ColorPicker allyColorPicker;
@@ -28,13 +29,13 @@ public class PlayerCategoryListItemEditionController {
 
     public void init(PlayerCategoryModel model) {
         this.model = model;
-        nameTextField.textProperty().bindBidirectional(model.name);
+        nameTextField.textProperty().set(model.name.get());
         nameTextField.textProperty().addListener(this::onCategoryNameTextChanged);
-        abbreviationTextField.textProperty().bindBidirectional(model.abbreviation);
-        allyColorPicker.valueProperty().bindBidirectional(model.allyPlayerColor);
-        opponentColorPicker.valueProperty().bindBidirectional(model.opponentPlayerColor);
+        abbreviationTextField.textProperty().set(model.abbreviation.get());
+        allyColorPicker.valueProperty().set(model.allyPlayerColor.get());
+        opponentColorPicker.valueProperty().set(model.opponentPlayerColor.get());
         defaultNumberOfPlayersSpinner.setValueFactory(new IntegerSpinnerValueFactory(MIN_DEFAULT_NUMBER_OF_PLAYERS_VALUE, MAX_DEFAULT_NUMBER_OF_PLAYERS_VALUE,
-                INITIAL_DEFAULT_NUMBER_OF_PLAYERS_VALUE, STEP_DEFAULT_NUMBER_OF_PLAYERS_VALUE));
+                model.defaultNumberOfPlayers.get(), STEP_DEFAULT_NUMBER_OF_PLAYERS_VALUE));
         FXUtils.requestFocusDelayed(nameTextField);
     }
 
@@ -44,8 +45,18 @@ public class PlayerCategoryListItemEditionController {
 
     @FXML
     public void onValidateButtonAction() {
-        onEditionValidationRequested.fire(this, model);
+        model.name.set(nameTextField.textProperty().get());
+        model.abbreviation.set(abbreviationTextField.getText());
+        model.allyPlayerColor.set(allyColorPicker.getValue());
+        model.opponentPlayerColor.set(opponentColorPicker.getValue());
+        model.defaultNumberOfPlayers.set((int) defaultNumberOfPlayersSpinner.getValue());
         model.makeDirty();
+        onCloseRequested.fire(this, model);
+    }
+
+    @FXML
+    public void onRevertButtonAction() {
+        onCloseRequested.fire(this, model);
     }
 
     private void onCategoryNameTextChanged(final ObservableValue<? extends String> ov, final String oldValue, final String newValue) {

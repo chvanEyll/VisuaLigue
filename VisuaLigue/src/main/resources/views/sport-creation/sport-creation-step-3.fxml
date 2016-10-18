@@ -35,7 +35,7 @@
             </HBox>
             <Pane>
                 <children>
-                    <LinkButton imageUrl="/images/plus-icon-blue.fxml" text="Ajouter une catégorie" onMouseClicked="#onCategoryCreationLinkButtonClicked" />
+                    <LinkButton imageUrl="/images/plus-icon-blue.fxml" text="Nouvelle catégorie" onMouseClicked="#onCategoryCreationLinkButtonClicked" />
                 </children>
             </Pane>
             <VBox fx:id="playerCategoryList" />

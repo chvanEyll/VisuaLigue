@@ -13,10 +13,6 @@ public class SportCreationStep3Controller extends SportCreationStepController {
     @FXML VBox playerCategoryList;
     private PlayerCategoryListController playerCategoryListController;
 
-    public SportCreationModel getModel() {
-        return model;
-    }
-
     @Override
     public void init(SportCreationModel sportCreation) {
         this.model = sportCreation;

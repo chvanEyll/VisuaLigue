@@ -16,13 +16,13 @@ import javax.inject.Singleton;
 import javax.swing.SortOrder;
 
 @Singleton
-public class XmObstacleRepository implements ObstacleRepository {
+public class XmlObstacleRepository implements ObstacleRepository {
 
     private final XmlRepositoryMarshaller<Obstacle> xmlRepositoryMarshaller;
     private final Map<UUID, Obstacle> obstacles;
 
     @Inject
-    public XmObstacleRepository(XmlRepositoryMarshaller<Obstacle> xmlRepositoryMarshaller) {
+    public XmlObstacleRepository(XmlRepositoryMarshaller<Obstacle> xmlRepositoryMarshaller) {
         this.xmlRepositoryMarshaller = xmlRepositoryMarshaller;
         obstacles = xmlRepositoryMarshaller.unmarshalAll();
     }

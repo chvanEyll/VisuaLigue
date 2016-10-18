@@ -1,11 +1,12 @@
 package ca.ulaval.glo2004.visualigue.ui.controllers.sportcreation;
 
+import ca.ulaval.glo2004.visualigue.VisuaLigue;
 import ca.ulaval.glo2004.visualigue.domain.playingsurface.PlayingSurfaceUnit;
-import ca.ulaval.glo2004.visualigue.ui.controllers.FileSelectionEventArgs;
 import ca.ulaval.glo2004.visualigue.ui.customcontrols.ResizableImageView;
 import ca.ulaval.glo2004.visualigue.ui.models.SportCreationModel;
 import ca.ulaval.glo2004.visualigue.utils.FXUtils;
 import ca.ulaval.glo2004.visualigue.utils.FilenameUtils;
+import java.io.File;
 import javafx.collections.FXCollections;
 import javafx.fxml.FXML;
 import javafx.scene.control.ComboBox;
@@ -29,7 +30,7 @@ public class SportCreationStep2Controller extends SportCreationStepController {
     @FXML ComboBox widthUnitComboBox;
     @FXML ComboBox lengthUnitComboBox;
     @FXML Label imagePathLabel;
-    @FXML ResizableImageView resizableImageView;
+    @FXML ResizableImageView imageView;
     @FXML Label imageErrorLabel;
 
     public SportCreationModel getSportModel() {
@@ -57,21 +58,19 @@ public class SportCreationStep2Controller extends SportCreationStepController {
         FileChooser fileChooser = new FileChooser();
         fileChooser.setTitle("Select Image File");
         fileChooser.getExtensionFilters().addAll(new ExtensionFilter("Image Files", "*.png", "*.jpg", "*.jpeg", "*.bmp", "*.gif", "*.tiff"));
-
-        FileSelectionEventArgs fileSelectionEventArgs = new FileSelectionEventArgs(fileChooser);
-        onFileSelectionRequested.fire(this, fileSelectionEventArgs);
-        if (fileSelectionEventArgs.selectedFile != null) {
-            this.model.newPlayingSurfaceImagePathName.set(fileSelectionEventArgs.selectedFile.getPath());
+        File selectedFile = fileChooser.showOpenDialog(VisuaLigue.getMainStage());
+        if (selectedFile != null) {
+            this.model.newPlayingSurfaceImagePathName.set(selectedFile.getPath());
             updateImage();
         }
     }
 
     private void updateImage() {
-        if (this.model.newPlayingSurfaceImagePathName.isNotNull().get()) {
+        if (model.newPlayingSurfaceImagePathName.isNotEmpty().get()) {
             displayImage(FilenameUtils.getURIString(model.newPlayingSurfaceImagePathName.get()));
-        } else if (model.currentPlayingSurfacePathName.isNotNull().get()) {
+        } else if (model.currentPlayingSurfacePathName.isNotEmpty().get()) {
             displayImage(FilenameUtils.getURIString(model.currentPlayingSurfacePathName.get()));
-        } else if (model.builtInPlayingSurfaceImage.isNotNull().get()) {
+        } else if (model.builtInPlayingSurfaceImage.isNotEmpty().get()) {
             displayImage(model.builtInPlayingSurfaceImage.get());
         } else {
             clearImage();
@@ -80,7 +79,7 @@ public class SportCreationStep2Controller extends SportCreationStepController {
 
     private void displayImage(String imageURL) {
         try {
-            resizableImageView.setImage(new Image(imageURL));
+            imageView.setImage(new Image(imageURL));
             imagePathLabel.textProperty().bind(this.model.newPlayingSurfaceImagePathName);
         } catch (Exception ex) {
             clearErrors();
@@ -90,7 +89,7 @@ public class SportCreationStep2Controller extends SportCreationStepController {
     }
 
     private void clearImage() {
-        resizableImageView.setImage(null);
+        imageView.setImage(null);
         imagePathLabel.textProperty().unbind();
         imagePathLabel.setText("Aucune image sélectionnée");
     }

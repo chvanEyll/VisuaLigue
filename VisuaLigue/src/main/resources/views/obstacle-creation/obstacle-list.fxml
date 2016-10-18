@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import java.lang.String?>
+<?import java.net.URL?>
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.ColorPicker?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.ScrollPane?>
+<?import javafx.scene.control.Spinner?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.control.Tooltip?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.ColumnConstraints?>
+<?import javafx.scene.layout.FlowPane?>
+<?import javafx.scene.layout.GridPane?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.Pane?>
+<?import javafx.scene.layout.RowConstraints?>
+<?import javafx.scene.layout.StackPane?>
+<?import javafx.scene.layout.VBox?>
+
+<VBox fx:id="rootNode" xmlns="http://javafx.com/javafx/8.0.60" xmlns:fx="http://javafx.com/fxml/1" fx:controller="ca.ulaval.glo2004.visualigue.ui.controllers.obstaclecreation.ObstacleListController">
+    <children>
+        <GridPane styleClass="header" >
+            <columnConstraints>
+                <ColumnConstraints hgrow="SOMETIMES" maxWidth="60.0" minWidth="60.0" prefWidth="60.0" halignment="CENTER" />
+                <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" halignment="LEFT"  />
+                <ColumnConstraints hgrow="SOMETIMES" maxWidth="41.0" minWidth="41.0" prefWidth="41.0" halignment="CENTER"/>
+                <ColumnConstraints hgrow="SOMETIMES" maxWidth="41.0" minWidth="41.0" prefWidth="41.0" halignment="CENTER"/>
+            </columnConstraints>
+            <children>
+                <Label text="Nom" GridPane.columnIndex="1" />
+            </children>
+        </GridPane>
+        <VBox fx:id="gridContent" styleClass="content">
+        </VBox>
+    </children>
+    <styleClass>
+        <String fx:value="grid-list" />
+        <String fx:value="hoverable" />
+        <String fx:value="root-node" />
+    </styleClass>
+</VBox>

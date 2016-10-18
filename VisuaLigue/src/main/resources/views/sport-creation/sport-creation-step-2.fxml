@@ -65,7 +65,7 @@
                 </children>
             </FlowPane>
             <Label fx:id="imageErrorLabel" styleClass="error-label" text="Error." />
-            <ResizableImageView fx:id="resizableImageView" style="-fx-border-color: #CCCCCC;" >
+            <ResizableImageView fx:id="imageView" style="-fx-border-color: #CCCCCC;" >
                 <image>
                     <Image url="@/images/built-in-playing-surfaces/hockey.png" />
                 </image>

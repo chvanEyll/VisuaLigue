@@ -29,9 +29,19 @@ public class ObstacleService {
         return obstacle.getUUID();
     }
 
-    public void updateSport(UUID obstacleUUID, String name) throws ObstacleNotFoundException {
+    public void updateObstacle(UUID obstacleUUID, String name) throws ObstacleNotFoundException {
         Obstacle obstacle = obstacleRepository.get(obstacleUUID);
         obstacle.setName(name);
+        obstacleRepository.update(obstacle);
+    }
+
+    public void updateObstacleImage(UUID sportUUID, String sourceImagePathName) throws ObstacleNotFoundException {
+        Obstacle obstacle = obstacleRepository.get(sportUUID);
+        UUID imageUuid = imageRepository.persist(sourceImagePathName);
+        if (obstacle.hasCustomImage()) {
+            imageRepository.delete(obstacle.getCustomImageUUID());
+        }
+        obstacle.setCustomImageUUID(imageUuid);
         obstacleRepository.update(obstacle);
     }
 
@@ -43,7 +53,7 @@ public class ObstacleService {
         return obstacleRepository.get(obstacleUUID);
     }
 
-    public List<Obstacle> getSports(Function<Obstacle, Comparable> sortFunction, SortOrder sortOrder) {
+    public List<Obstacle> getObstacles(Function<Obstacle, Comparable> sortFunction, SortOrder sortOrder) {
         return obstacleRepository.getAll(sortFunction, sortOrder);
     }
 }

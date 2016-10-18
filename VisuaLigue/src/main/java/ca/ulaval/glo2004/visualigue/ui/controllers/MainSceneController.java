@@ -78,16 +78,11 @@ public class MainSceneController implements Initializable {
         Controller controller = view.getController();
         controller.onViewChangeRequested.setHandler(this::onViewChangeRequested);
         controller.onViewCloseRequested.setHandler(this::onViewCloseRequested);
-        controller.onFileSelectionRequested.setHandler(this::onFileSelectRequest);
         contentPane.getChildren().clear();
         contentPane.getChildren().add(view.getRoot());
         sectionTitleLabel.textProperty().bindBidirectional(controller.getTitle());
         FXUtils.setDisplay(previousButton, viewFlow.count() > 1);
         FXUtils.setDisplay(sectionTitleSpacer, viewFlow.count() <= 1);
         FXUtils.setDisplay(titleEditButton, controller.isTitleEditable());
-    }
-
-    private void onFileSelectRequest(Object sender, FileSelectionEventArgs eventArgs) {
-        eventArgs.selectedFile = eventArgs.fileChooser.showOpenDialog(mainStage);
     }
 }

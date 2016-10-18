@@ -40,21 +40,21 @@ public class PlayerCategoryListController {
     }
 
     private void enterItemEditionMode(PlayerCategoryModel model) {
-        validateItemEdition();
+        closeItemEdition();
         FXMLLoader fxmlLoader = InjectableFXMLLoader.load(PlayerCategoryListItemEditionController.VIEW_NAME);
         listItemEditionController = (PlayerCategoryListItemEditionController) fxmlLoader.getController();
         listItemEditionController.init(model);
-        listItemEditionController.onEditionValidationRequested.setHandler(this::onEditionValidationRequested);
+        listItemEditionController.onCloseRequested.setHandler(this::onItemEditionCloseRequested);
         int rowIndex = playerCategoryModels.indexOf(model);
         gridContent.getChildren().remove(rowIndex);
         gridContent.getChildren().add(rowIndex, fxmlLoader.getRoot());
     }
 
-    private void onEditionValidationRequested(Object sender, PlayerCategoryModel model) {
-        validateItemEdition();
+    private void onItemEditionCloseRequested(Object sender, PlayerCategoryModel model) {
+        closeItemEdition();
     }
 
-    private void validateItemEdition() {
+    private void closeItemEdition() {
         if (listItemEditionController != null) {
             int rowIndex = playerCategoryModels.indexOf(listItemEditionController.getModel());
             gridContent.getChildren().remove(rowIndex);
@@ -66,7 +66,7 @@ public class PlayerCategoryListController {
     }
 
     public void newCategory() {
-        validateItemEdition();
+        closeItemEdition();
         PlayerCategoryModel playerCategoryModel = new PlayerCategoryModel();
         playerCategoryModels.add(0, playerCategoryModel);
         insertItem(playerCategoryModel, 0);

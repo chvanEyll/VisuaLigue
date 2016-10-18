@@ -6,7 +6,6 @@ import ca.ulaval.glo2004.visualigue.domain.sport.SportNotFoundException;
 import ca.ulaval.glo2004.visualigue.services.SportService;
 import ca.ulaval.glo2004.visualigue.ui.InjectableFXMLLoader;
 import ca.ulaval.glo2004.visualigue.ui.controllers.Controller;
-import ca.ulaval.glo2004.visualigue.ui.controllers.FileSelectionEventArgs;
 import ca.ulaval.glo2004.visualigue.ui.converters.SportCreationModelConverter;
 import ca.ulaval.glo2004.visualigue.ui.customcontrols.Breadcrumb;
 import ca.ulaval.glo2004.visualigue.ui.dialog.AlertDialogBuilder;
@@ -85,7 +84,6 @@ public class SportCreationController extends Controller {
         if (currentStepIndex != stepIndex) {
             FXMLLoader fxmlLoader = InjectableFXMLLoader.load(STEPS_VIEW_NAMES[stepIndex]);
             currentStepController = (SportCreationStepController) fxmlLoader.getController();
-            currentStepController.onFileSelectionRequested.setHandler(this::onFileSelectRequested);
             currentStepController.init(model);
             stepContent.getChildren().clear();
             stepContent.getChildren().add(fxmlLoader.getRoot());
@@ -128,10 +126,6 @@ public class SportCreationController extends Controller {
         onViewCloseRequested.fire(this, null);
     }
 
-    private void onFileSelectRequested(Object sender, FileSelectionEventArgs eventArgs) {
-        onFileSelectionRequested.fire(sender, eventArgs);
-    }
-
     private void trySaveChanges() {
         currentStepController.clearErrors();
         try {
@@ -159,7 +153,7 @@ public class SportCreationController extends Controller {
 
     private void applyPlayingSurfaceChanges(UUID sportUuid) throws Exception {
         sportService.updatePlayingSurface(sportUuid, model.playingSurfaceWidth.get(), model.playingSurfaceLength.get(), model.playingSurfaceWidthUnits.get(), model.playingSurfaceLengthUnits.get());
-        if (model.newPlayingSurfaceImagePathName.isNotNull().get()) {
+        if (model.newPlayingSurfaceImagePathName.isNotEmpty().get()) {
             sportService.updatePlayingSurfaceImage(sportUuid, model.newPlayingSurfaceImagePathName.get());
         }
     }

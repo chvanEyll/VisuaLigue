@@ -17,10 +17,6 @@ public class SportSelectorItemController {
     private SportListItemModel model;
     public EventHandler<SportListItemModel> onClick = new EventHandler();
 
-    public SportListItemModel getModel() {
-        return model;
-    }
-
     public void init(SportListItemModel model) {
         this.model = model;
         sportNameLabel.textProperty().bindBidirectional(model.name);

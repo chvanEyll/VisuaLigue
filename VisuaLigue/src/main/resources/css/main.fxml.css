@@ -147,6 +147,7 @@
 .grid-list.hoverable .content .grid-item {
     -fx-padding: 0 7 0 7;
     -fx-cursor: hand;
+    -fx-alignment: CENTER;
 }
 
 .grid-list.hoverable .content .grid-item:hover {
@@ -163,6 +164,15 @@
     -fx-border-color: #F3F1EF;
     -fx-pref-height: 40;
     -fx-min-height: 40;
+    -fx-alignment: CENTER;
+}
+
+.grid-list .edit-pane {
+    -fx-background-color: #F3F1EF;
+}
+
+.grid-list .edit-pane .action-buttons {
+    -fx-spacing: 14;
 }
 
 /* Common controls */
@@ -197,6 +207,7 @@
     -fx-font-family: 'Source Sans Pro';
     -fx-border-width: 2;
     -fx-border-insets: -1;
+    -fx-background-color: #F3F1EF;
 }
 
 .button:hover {
@@ -360,10 +371,11 @@
 }
 
 .tooltip {
+    -fx-text-fill: #D9D5D3;
     -fx-border-color: #B3B3B3;
     -fx-border-width: 1;
     -fx-background-radius: 0;
-    -fx-background-color: rgba(0, 113, 188, 0.7);
+    -fx-background-color: rgba(243, 241, 249, 0.7);
     -fx-effect: dropshadow(gaussian, transparent, 0, 0, 0, 0);
 }
 

@@ -1,6 +1,10 @@
 package ca.ulaval.glo2004.visualigue.contexts;
 
 import ca.ulaval.glo2004.visualigue.domain.image.ImageRepository;
+import ca.ulaval.glo2004.visualigue.domain.obstacle.Obstacle;
+import ca.ulaval.glo2004.visualigue.domain.obstacle.ObstacleAlreadyExistsException;
+import ca.ulaval.glo2004.visualigue.domain.obstacle.ObstacleFactory;
+import ca.ulaval.glo2004.visualigue.domain.obstacle.ObstacleRepository;
 import ca.ulaval.glo2004.visualigue.domain.playercategory.PlayerCategory;
 import ca.ulaval.glo2004.visualigue.domain.playingsurface.PlayingSurface;
 import ca.ulaval.glo2004.visualigue.domain.playingsurface.PlayingSurfaceUnit;
@@ -18,12 +22,16 @@ public class DefaultContext extends ContextBase {
     private final SportFactory sportFactory;
     private final SportRepository sportRepository;
     private final ImageRepository imageRepository;
+    private final ObstacleFactory obstacleFactory;
+    private final ObstacleRepository obstacleRepository;
 
     @Inject
-    public DefaultContext(final SportFactory sportFactory, final SportRepository sportRepository, final ImageRepository imageRepository) {
+    public DefaultContext(final SportFactory sportFactory, final SportRepository sportRepository, final ImageRepository imageRepository, final ObstacleFactory obstacleFactory, final ObstacleRepository obstacleRepository) {
         this.sportFactory = sportFactory;
         this.sportRepository = sportRepository;
         this.imageRepository = imageRepository;
+        this.obstacleFactory = obstacleFactory;
+        this.obstacleRepository = obstacleRepository;
     }
 
     @Override
@@ -37,6 +45,7 @@ public class DefaultContext extends ContextBase {
 
     private void fill() throws Exception {
         createSports();
+        createObstacles();
     }
 
     private void createSports() throws Exception {
@@ -120,6 +129,25 @@ public class DefaultContext extends ContextBase {
     private void persistSports(List<Sport> sportPool) throws SportAlreadyExistsException {
         for (Sport sport : sportPool) {
             sportRepository.persist(sport);
+        }
+    }
+
+    private void createObstacles() throws Exception {
+        List<Obstacle> obstaclePool = new ArrayList<>();
+        obstaclePool.add(createConeObstacle());
+        persistObstacles(obstaclePool);
+    }
+
+    private Obstacle createConeObstacle() {
+        Obstacle obstacle = obstacleFactory.create("Cône");
+        obstacle.setBuiltInImagePathName("/images/built-in-obstacle-icons/cone-icon.png");
+        obstacle.setIsBuiltIn(true);
+        return obstacle;
+    }
+
+    private void persistObstacles(List<Obstacle> obstaclePool) throws ObstacleAlreadyExistsException {
+        for (Obstacle obstacle : obstaclePool) {
+            obstacleRepository.persist(obstacle);
         }
     }
 }
