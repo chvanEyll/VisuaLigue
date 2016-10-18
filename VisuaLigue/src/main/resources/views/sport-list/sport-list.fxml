@@ -12,7 +12,7 @@
 <?import ca.ulaval.glo2004.visualigue.ui.customcontrols.SvgImage?>
 <?import ca.ulaval.glo2004.visualigue.ui.customcontrols.LinkButton?>
 
-<ScrollPane fitToWidth="true" hbarPolicy="NEVER" pannable="true" AnchorPane.rightAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.topAnchor="0.0" AnchorPane.bottomAnchor="0.0" xmlns="http://javafx.com/javafx/8.0.60" xmlns:fx="http://javafx.com/fxml/1" fx:controller="ca.ulaval.glo2004.visualigue.ui.controllers.sportlist.SportListController">
+<ScrollPane fitToWidth="true" hbarPolicy="NEVER" pannable="true" AnchorPane.rightAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.topAnchor="0.0" AnchorPane.bottomAnchor="0.0" xmlns="http://javafx.com/javafx/8.0.60" xmlns:fx="http://javafx.com/fxml/1" fx:controller="ca.ulaval.glo2004.visualigue.ui.controllers.sportmanagement.SportManagementController">
     <content>
         <VBox spacing="10.0">
             <padding>
@@ -34,7 +34,7 @@
                                 <Insets left="10.0" />
                             </padding>
                         </HBox>
-                        <fx:include fx:id="sportSelector" source="/views/sport-list/sport-selector.fxml" />
+                        <fx:include fx:id="sportList" source="/views/sport-list/sport-selector.fxml" />
                     </children>
                     <styleClass>
                         <String fx:value="form-section" />

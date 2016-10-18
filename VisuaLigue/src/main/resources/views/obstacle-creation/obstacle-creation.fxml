@@ -17,7 +17,7 @@
 <?import ca.ulaval.glo2004.visualigue.ui.customcontrols.SvgImage?>
 <?import ca.ulaval.glo2004.visualigue.ui.customcontrols.LinkButton?>
 
-<VBox fx:id="rootNode" styleClass="root-node" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0" xmlns="http://javafx.com/javafx/8.0.60" xmlns:fx="http://javafx.com/fxml/1" fx:controller="ca.ulaval.glo2004.visualigue.ui.controllers.obstaclecreation.ObstacleCreationController">
+<VBox fx:id="rootNode" styleClass="root-node" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0" xmlns="http://javafx.com/javafx/8.0.60" xmlns:fx="http://javafx.com/fxml/1" fx:controller="ca.ulaval.glo2004.visualigue.ui.controllers.obstaclemanagement.ObstacleManagementController">
     <children>
         <VBox spacing="14.0" VBox.vgrow="ALWAYS">
             <padding>

@@ -16,7 +16,7 @@
 <?import ca.ulaval.glo2004.visualigue.ui.customcontrols.ExtendedTextField?>
 <?import ca.ulaval.glo2004.visualigue.ui.customcontrols.SvgImage?>
 
-<HBox xmlns="http://javafx.com/javafx/8.0.60" xmlns:fx="http://javafx.com/fxml/1" fx:controller="ca.ulaval.glo2004.visualigue.ui.controllers.obstaclecreation.ObstacleListItemEditionController">
+<HBox xmlns="http://javafx.com/javafx/8.0.60" xmlns:fx="http://javafx.com/fxml/1" fx:controller="ca.ulaval.glo2004.visualigue.ui.controllers.obstaclemanagement.ObstacleListItemEditionController">
     <VBox spacing="14.0" GridPane.columnIndex="0" GridPane.columnSpan="6" HBox.hgrow="ALWAYS">
         <children>
             <ExtendedTextField fx:id="nameTextField" promptText="Nom de la catégorie" maxLength="64" />

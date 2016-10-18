@@ -1,11 +1,12 @@
-package ca.ulaval.glo2004.visualigue.ui.controllers.obstaclecreation;
+package ca.ulaval.glo2004.visualigue.ui.controllers.obstaclemanagement;
 
 import ca.ulaval.glo2004.visualigue.VisuaLigue;
 import ca.ulaval.glo2004.visualigue.domain.obstacle.ObstacleAlreadyExistsException;
 import ca.ulaval.glo2004.visualigue.domain.obstacle.ObstacleNotFoundException;
 import ca.ulaval.glo2004.visualigue.services.ObstacleService;
+import ca.ulaval.glo2004.visualigue.ui.controllers.common.ListItemEditionController;
+import ca.ulaval.glo2004.visualigue.ui.models.Model;
 import ca.ulaval.glo2004.visualigue.ui.models.ObstacleCreationModel;
-import ca.ulaval.glo2004.visualigue.utils.EventHandler;
 import ca.ulaval.glo2004.visualigue.utils.FXUtils;
 import ca.ulaval.glo2004.visualigue.utils.FilenameUtils;
 import java.io.File;
@@ -18,14 +19,13 @@ import javafx.scene.image.ImageView;
 import javafx.stage.FileChooser;
 import javax.inject.Inject;
 
-public class ObstacleListItemEditionController {
+public class ObstacleListItemEditionController extends ListItemEditionController {
 
     public static final String VIEW_NAME = "/views/obstacle-creation/obstacle-list-item-edition.fxml";
     public static final Integer MIN_DEFAULT_NUMBER_OF_PLAYERS_VALUE = 0;
     public static final Integer MAX_DEFAULT_NUMBER_OF_PLAYERS_VALUE = 30;
     public static final Integer INITIAL_DEFAULT_NUMBER_OF_PLAYERS_VALUE = 0;
     public static final Integer STEP_DEFAULT_NUMBER_OF_PLAYERS_VALUE = 1;
-    public EventHandler<ObstacleCreationModel> onCloseRequested = new EventHandler<>();
 
     @Inject private ObstacleService obstacleService;
     @FXML private TextField nameTextField;
@@ -34,14 +34,16 @@ public class ObstacleListItemEditionController {
 
     private ObstacleCreationModel model;
 
-    public void init(ObstacleCreationModel model) {
-        this.model = model;
+    @Override
+    public void init(Model model) {
+        this.model = (ObstacleCreationModel) model;
         clearErrors();
-        nameTextField.textProperty().set(model.name.get());
+        nameTextField.textProperty().set(this.model.name.get());
         updateImage();
         FXUtils.requestFocusDelayed(nameTextField);
     }
 
+    @Override
     public ObstacleCreationModel getModel() {
         return model;
     }

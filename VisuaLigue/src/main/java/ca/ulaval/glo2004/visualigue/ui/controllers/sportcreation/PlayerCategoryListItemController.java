@@ -1,19 +1,22 @@
 package ca.ulaval.glo2004.visualigue.ui.controllers.sportcreation;
 
+import ca.ulaval.glo2004.visualigue.ui.controllers.common.ListItemController;
+import ca.ulaval.glo2004.visualigue.ui.models.Model;
 import ca.ulaval.glo2004.visualigue.ui.models.PlayerCategoryModel;
-import ca.ulaval.glo2004.visualigue.utils.EventHandler;
 import ca.ulaval.glo2004.visualigue.utils.FXUtils;
 import javafx.beans.value.ObservableValue;
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.input.SwipeEvent;
-import javafx.scene.layout.*;
+import javafx.scene.layout.Background;
+import javafx.scene.layout.BackgroundFill;
+import javafx.scene.layout.HBox;
+import javafx.scene.layout.Pane;
 
-public class PlayerCategoryListItemController {
+public class PlayerCategoryListItemController extends ListItemController {
 
     public static final String VIEW_NAME = "/views/sport-creation/player-category-list-item.fxml";
-    @FXML private GridPane rootNode;
     @FXML private Label nameLabel;
     @FXML private Label abbreviationLabel;
     @FXML private Pane allyColorPane;
@@ -21,25 +24,22 @@ public class PlayerCategoryListItemController {
     @FXML private HBox deleteConfirmButtonContainer;
     @FXML private Button deleteConfirmButton;
     private PlayerCategoryModel model;
-    public EventHandler<PlayerCategoryModel> onEditRequested = new EventHandler<>();
-    public EventHandler<PlayerCategoryModel> onDeleteRequested = new EventHandler<>();
 
-    public void init(PlayerCategoryModel model) {
-        this.model = model;
-        nameLabel.textProperty().bind(model.name);
-        abbreviationLabel.textProperty().bind(model.abbreviation);
-        model.allyPlayerColor.addListener((observable, oldValue, newValue) -> {
+    @Override
+    public void init(Model model) {
+        this.model = (PlayerCategoryModel) model;
+        nameLabel.textProperty().bind(this.model.name);
+        abbreviationLabel.textProperty().bind(this.model.abbreviation);
+        this.model.allyPlayerColor.addListener((observable, oldValue, newValue) -> {
             updateAllyColorBackground();
         });
         updateAllyColorBackground();
-        model.opponentPlayerColor.addListener((observable, oldValue, newValue) -> {
+        this.model.opponentPlayerColor.addListener((observable, oldValue, newValue) -> {
             updateOpponentColorBackground();
         });
         updateOpponentColorBackground();
         FXUtils.setDisplay(deleteConfirmButtonContainer, false);
-        if (model.isDeleted()) {
-            hide();
-        }
+        super.init(model);
     }
 
     private void updateAllyColorBackground() {
@@ -48,12 +48,6 @@ public class PlayerCategoryListItemController {
 
     private void updateOpponentColorBackground() {
         opponentColorPane.setBackground(new Background(new BackgroundFill(model.opponentPlayerColor.get(), null, null)));
-    }
-
-    public void hide() {
-        rootNode.getChildren().forEach(child -> {
-            FXUtils.setDisplay(child, false);
-        });
     }
 
     @FXML

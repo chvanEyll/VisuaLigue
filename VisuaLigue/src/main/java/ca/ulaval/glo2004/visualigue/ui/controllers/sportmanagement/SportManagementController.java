@@ -1,4 +1,4 @@
-package ca.ulaval.glo2004.visualigue.ui.controllers.sportlist;
+package ca.ulaval.glo2004.visualigue.ui.controllers.sportmanagement;
 
 import ca.ulaval.glo2004.visualigue.domain.sport.SportNotFoundException;
 import ca.ulaval.glo2004.visualigue.ui.InjectableFXMLLoader;
@@ -14,15 +14,15 @@ import javafx.beans.property.StringProperty;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 
-public class SportListController extends Controller {
+public class SportManagementController extends Controller {
 
     public static final String VIEW_TITLE = "Liste des sports";
     public static final String VIEW_NAME = "/views/sport-list/sport-list.fxml";
-    @FXML private SportSelectorController sportSelectorController;
+    @FXML private SportListController sportListController;
 
     @Override
     public void initialize(URL url, ResourceBundle rb) {
-        sportSelectorController.onSportSelected.setHandler(this::onSportSelectedEvent);
+        sportListController.onSportSelected.setHandler(this::onSportSelectedEvent);
     }
 
     @Override
@@ -36,7 +36,7 @@ public class SportListController extends Controller {
         try {
             controller.init(sportListItemModel.getUUID());
         } catch (SportNotFoundException ex) {
-            Logger.getLogger(SportListController.class.getName()).log(Level.SEVERE, null, ex);
+            Logger.getLogger(SportManagementController.class.getName()).log(Level.SEVERE, null, ex);
         }
         onViewChangeRequested.fire(this, fxmlLoader);
     }

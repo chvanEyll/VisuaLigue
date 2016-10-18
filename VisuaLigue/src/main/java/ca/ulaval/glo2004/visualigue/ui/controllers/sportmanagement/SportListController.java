@@ -1,4 +1,4 @@
-package ca.ulaval.glo2004.visualigue.ui.controllers.sportlist;
+package ca.ulaval.glo2004.visualigue.ui.controllers.sportmanagement;
 
 import ca.ulaval.glo2004.visualigue.domain.sport.Sport;
 import ca.ulaval.glo2004.visualigue.services.SportService;
@@ -19,7 +19,7 @@ import javafx.scene.layout.TilePane;
 import javax.inject.Inject;
 import javax.swing.SortOrder;
 
-public class SportSelectorController implements Initializable {
+public class SportListController implements Initializable {
 
     @Inject private SportService sportService;
     @Inject private SportListItemModelConverter sportListItemModelConverter;
@@ -49,8 +49,8 @@ public class SportSelectorController implements Initializable {
     }
 
     private void initSportItem(SportListItemModel model) {
-        FXMLLoader fxmlLoader = InjectableFXMLLoader.load(SportSelectorItemController.VIEW_NAME);
-        SportSelectorItemController controller = (SportSelectorItemController) fxmlLoader.getController();
+        FXMLLoader fxmlLoader = InjectableFXMLLoader.load(SportListItemController.VIEW_NAME);
+        SportListItemController controller = (SportListItemController) fxmlLoader.getController();
         controller.init(model);
         controller.onClick.setHandler(this::onItemClicked);
         tilePane.getChildren().add(fxmlLoader.getRoot());

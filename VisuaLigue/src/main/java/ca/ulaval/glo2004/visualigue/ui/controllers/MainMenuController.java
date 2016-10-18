@@ -2,8 +2,8 @@ package ca.ulaval.glo2004.visualigue.ui.controllers;
 
 import ca.ulaval.glo2004.visualigue.ui.InjectableFXMLLoader;
 import ca.ulaval.glo2004.visualigue.ui.animation.Animation;
-import ca.ulaval.glo2004.visualigue.ui.controllers.obstaclecreation.ObstacleCreationController;
-import ca.ulaval.glo2004.visualigue.ui.controllers.sportlist.SportListController;
+import ca.ulaval.glo2004.visualigue.ui.controllers.obstaclemanagement.ObstacleManagementController;
+import ca.ulaval.glo2004.visualigue.ui.controllers.sportmanagement.SportManagementController;
 import ca.ulaval.glo2004.visualigue.utils.EventHandler;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
@@ -60,12 +60,12 @@ public class MainMenuController {
 
     @FXML
     public void onSportsMenuItemClicked() {
-        processMenuClick(SportListController.VIEW_NAME, sportsMenuItem);
+        processMenuClick(SportManagementController.VIEW_NAME, sportsMenuItem);
     }
 
     @FXML
     public void onObstaclesMenuItemClicked() {
-        processMenuClick(ObstacleCreationController.VIEW_NAME, obstaclesMenuItem);
+        processMenuClick(ObstacleManagementController.VIEW_NAME, obstaclesMenuItem);
     }
 
     @FXML

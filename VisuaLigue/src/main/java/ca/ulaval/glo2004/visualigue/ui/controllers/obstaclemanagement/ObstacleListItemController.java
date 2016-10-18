@@ -1,7 +1,8 @@
-package ca.ulaval.glo2004.visualigue.ui.controllers.obstaclecreation;
+package ca.ulaval.glo2004.visualigue.ui.controllers.obstaclemanagement;
 
+import ca.ulaval.glo2004.visualigue.ui.controllers.common.ListItemController;
+import ca.ulaval.glo2004.visualigue.ui.models.Model;
 import ca.ulaval.glo2004.visualigue.ui.models.ObstacleCreationModel;
-import ca.ulaval.glo2004.visualigue.utils.EventHandler;
 import ca.ulaval.glo2004.visualigue.utils.FXUtils;
 import ca.ulaval.glo2004.visualigue.utils.FilenameUtils;
 import javafx.beans.value.ObservableValue;
@@ -11,26 +12,24 @@ import javafx.scene.control.Label;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.input.SwipeEvent;
-import javafx.scene.layout.GridPane;
 import javafx.scene.layout.HBox;
 
-public class ObstacleListItemController {
+public class ObstacleListItemController extends ListItemController {
 
     public static final String VIEW_NAME = "/views/obstacle-creation/obstacle-list-item.fxml";
-    @FXML private GridPane rootNode;
     @FXML private ImageView imageView;
     @FXML private Label nameLabel;
     @FXML private HBox deleteConfirmButtonContainer;
     @FXML private Button deleteConfirmButton;
     private ObstacleCreationModel model;
-    public EventHandler<ObstacleCreationModel> onEditRequested = new EventHandler<>();
-    public EventHandler<ObstacleCreationModel> onDeleteRequested = new EventHandler<>();
 
-    public void init(ObstacleCreationModel model) {
-        this.model = model;
+    @Override
+    public void init(Model model) {
+        this.model = (ObstacleCreationModel) model;
         updateImage();
-        nameLabel.textProperty().bind(model.name);
+        nameLabel.textProperty().bind(this.model.name);
         FXUtils.setDisplay(deleteConfirmButtonContainer, false);
+        super.init(model);
     }
 
     private void updateImage() {

@@ -15,7 +15,7 @@
 <?import javafx.scene.image.Image?>
 <?import ca.ulaval.glo2004.visualigue.ui.customcontrols.SvgImage?>
 
-<GridPane fx:id="rootNode" onMouseClicked="#onMouseClicked" onSwipeLeft="#onSwipeLeft" minHeight="60" prefHeight="60" xmlns="http://javafx.com/javafx/8.0.60" xmlns:fx="http://javafx.com/fxml/1" fx:controller="ca.ulaval.glo2004.visualigue.ui.controllers.obstaclecreation.ObstacleListItemController">
+<GridPane fx:id="rootNode" onMouseClicked="#onMouseClicked" onSwipeLeft="#onSwipeLeft" minHeight="60" prefHeight="60" xmlns="http://javafx.com/javafx/8.0.60" xmlns:fx="http://javafx.com/fxml/1" fx:controller="ca.ulaval.glo2004.visualigue.ui.controllers.obstaclemanagement.ObstacleListItemController">
     <columnConstraints>
         <ColumnConstraints hgrow="SOMETIMES" maxWidth="60.0" minWidth="60.0" prefWidth="60.0" halignment="CENTER" />
         <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" halignment="LEFT"  />

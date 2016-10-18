@@ -1,4 +1,4 @@
-package ca.ulaval.glo2004.visualigue.ui.controllers.sportlist;
+package ca.ulaval.glo2004.visualigue.ui.controllers.sportmanagement;
 
 import ca.ulaval.glo2004.visualigue.ui.models.SportListItemModel;
 import ca.ulaval.glo2004.visualigue.utils.EventHandler;
@@ -8,7 +8,7 @@ import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.VBox;
 
-public class SportSelectorItemController {
+public class SportListItemController {
 
     public static final String VIEW_NAME = "/views/sport-list/sport-selector-item.fxml";
 
