@@ -19,7 +19,7 @@ import javax.swing.SortOrder;
 public class ObstacleManagementController extends Controller {
 
     public static final String VIEW_NAME = "/views/obstacle-management/obstacle-management.fxml";
-    public static final String VIEW_TITLE = "Liste des obstacles";
+    public static final String VIEW_TITLE = "Obstacles";
     @FXML private ObstacleListController obstacleListController;
     @Inject private ObstacleService obstacleService;
     @Inject private ObstacleCreationModelConverter obstacleCreationModelConverter;

@@ -215,6 +215,7 @@
                                             <padding>
                                                 <Insets left="14.0" />
                                             </padding>
+
                                             <children>
                                                 <SvgImage url="/images/player-object-icon.fxml" />
                                                 <Label text="Joueurs" />
@@ -315,6 +316,7 @@
                                             <padding>
                                                 <Insets left="14.0" />
                                             </padding>
+
                                             <children>
                                                 <SvgImage url="/images/object-icon.fxml" />
                                                 <Label text="Objets" />

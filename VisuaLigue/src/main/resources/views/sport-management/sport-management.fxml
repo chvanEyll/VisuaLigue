@@ -14,34 +14,24 @@
 
 <ScrollPane fitToWidth="true" hbarPolicy="NEVER" pannable="true" AnchorPane.rightAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.topAnchor="0.0" AnchorPane.bottomAnchor="0.0" xmlns="http://javafx.com/javafx/8.0.60" xmlns:fx="http://javafx.com/fxml/1" fx:controller="ca.ulaval.glo2004.visualigue.ui.controllers.sportmanagement.SportManagementController">
     <content>
-        <VBox spacing="10.0">
-            <padding>
-                <Insets bottom="14.0" left="14.0" right="14.0" top="14.0" />
-            </padding>
+        <VBox styleClass="form, view-content">
             <children>
                 <Pane>
                     <children>
                         <LinkButton imageUrl="/images/plus-icon-blue.fxml" text="Nouveau sport" onMouseClicked="#onNewSportButtonClicked" />
                     </children>
                 </Pane>
-                <VBox>
+                <HBox alignment="CENTER_LEFT" styleClass="section-header">
                     <children>
-                        <HBox alignment="CENTER_LEFT" prefHeight="38.0" styleClass="section-header">
-                            <children>
-                                <Label text="Liste des sports" />
-                            </children>
-                            <padding>
-                                <Insets left="10.0" />
-                            </padding>
-                        </HBox>
-                        <fx:include fx:id="sportList" source="/views/sport-management/sport-list.fxml" />
+                        <Label text="Liste des sports" />
                     </children>
-                    <styleClass>
-                        <String fx:value="form-section" />
-                        <String fx:value="bordered" />
-                    </styleClass>
-                </VBox>
+                </HBox>
+                <fx:include fx:id="sportList" source="/views/sport-management/sport-list.fxml" />
             </children>
+            <styleClass>
+                <String fx:value="form-section" />
+                <String fx:value="bordered" />
+            </styleClass>
         </VBox>
     </content>
     <styleClass>

@@ -18,10 +18,7 @@
 
 <VBox fx:id="rootNode" styleClass="root-node" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0" xmlns="http://javafx.com/javafx/8.0.60" xmlns:fx="http://javafx.com/fxml/1" fx:controller="ca.ulaval.glo2004.visualigue.ui.controllers.sportcreation.SportCreationController">
     <children>
-        <VBox spacing="14.0" VBox.vgrow="ALWAYS">
-            <padding>
-                <Insets bottom="14.0" left="14.0" right="14.0" top="14.0" />
-            </padding>
+        <VBox spacing="14.0" styleClass="view-content" VBox.vgrow="ALWAYS">
             <children>
                 <Breadcrumb fx:id="breadcrumb" />
                 <ScrollPane fitToWidth="true" hbarPolicy="NEVER" >

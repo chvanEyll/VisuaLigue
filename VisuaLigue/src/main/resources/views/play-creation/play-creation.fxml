@@ -11,10 +11,7 @@
 
 <ScrollPane fitToWidth="true" hbarPolicy="NEVER" AnchorPane.rightAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.topAnchor="0.0" AnchorPane.bottomAnchor="0.0" xmlns="http://javafx.com/javafx/8.0.60" xmlns:fx="http://javafx.com/fxml/1">
     <content>
-        <VBox spacing="14.0">
-            <padding>
-                <Insets bottom="14.0" left="14.0" right="14.0" top="14.0" />
-            </padding>
+        <VBox spacing="14.0" styleClass="view-content">
             <children>
                 <fx:include source="/views/sport-management/sport-list.fxml" />
                 <AnchorPane>

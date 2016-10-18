@@ -32,13 +32,10 @@
                 </Pane>
                 <VBox>
                     <children>
-                        <HBox alignment="CENTER_LEFT" prefHeight="38.0" styleClass="section-header">
+                        <HBox alignment="CENTER_LEFT" styleClass="section-header">
                             <children>
                                 <Label text="Jeux sauvegardés" />
                             </children>
-                            <padding>
-                                <Insets left="10.0" />
-                            </padding>
                         </HBox>
                         <TilePane hgap="14.0" prefColumns="2" prefRows="2" prefTileHeight="300.0" prefTileWidth="400.0" prefWidth="400.0" styleClass="tile-container" tileAlignment="TOP_LEFT" vgap="14.0">
                             <children>

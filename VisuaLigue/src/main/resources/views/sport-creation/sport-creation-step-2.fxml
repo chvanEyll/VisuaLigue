@@ -22,24 +22,21 @@
 <?import ca.ulaval.glo2004.visualigue.ui.customcontrols.ResizableImageView?>
 
 <VBox fx:id="rootNode" spacing="14.0" xmlns="http://javafx.com/javafx/8.0.60" xmlns:fx="http://javafx.com/fxml/1" fx:controller="ca.ulaval.glo2004.visualigue.ui.controllers.sportcreation.SportCreationStep2Controller">
-    <VBox spacing="14.0" styleClass="form-section">
+    <VBox styleClass="form-section">
         <children>
-            <HBox alignment="CENTER_LEFT" prefHeight="38.0" styleClass="section-header">
+            <HBox alignment="CENTER_LEFT" styleClass="section-header">
                 <children>
                     <Label text="Dimensions réelles du terrain" />
                 </children>
-                <padding>
-                    <Insets left="10.0" />
-                </padding>
             </HBox>
-            <FlowPane hgap="14.0" styleClass="form-group horizontal" vgap="14.0">
+            <FlowPane styleClass="form-group, horizontal">
                 <children>
                     <Label prefWidth="70.0" text="Largeur:" />
                     <Spinner fx:id="widthSpinner" editable="true" styleClass="arrows-on-right-horizontal" />
                     <ComboBox fx:id="widthUnitComboBox" prefWidth="150" maxWidth="150" />
                 </children>
             </FlowPane>
-            <FlowPane hgap="14.0" styleClass="form-group horizontal" vgap="14.0">
+            <FlowPane styleClass="form-group, horizontal">
                 <children>
                     <Label prefWidth="70.0" text="Longeur:" />
                     <Spinner fx:id="lengthSpinner" editable="true" styleClass="arrows-on-right-horizontal" />
@@ -48,17 +45,14 @@
             </FlowPane>
         </children>
     </VBox>
-    <VBox spacing="14.0" styleClass="form-section">
+    <VBox styleClass="form-section">
         <children>
-            <HBox alignment="CENTER_LEFT" prefHeight="38.0" styleClass="section-header">
+            <HBox alignment="CENTER_LEFT" styleClass="section-header">
                 <children>
                     <Label text="Image du terrain" />
                 </children>
-                <padding>
-                    <Insets left="10.0" />
-                </padding>
             </HBox>
-            <FlowPane hgap="14.0" styleClass="form-group horizontal" vgap="14.0">
+            <FlowPane styleClass="form-group, horizontal">
                 <children>
                     <Button mnemonicParsing="false" text="Sélectionner une image..." onAction="#onBrowseImageButtonAction" />
                     <Label fx:id="imagePathLabel" text="..\images\built-in-playing-surfaces\hockey.png" />
@@ -73,6 +67,7 @@
         </children>
     </VBox>
     <styleClass>
+        <String fx:value="form" />
         <String fx:value="root-node" />
     </styleClass>
 </VBox>

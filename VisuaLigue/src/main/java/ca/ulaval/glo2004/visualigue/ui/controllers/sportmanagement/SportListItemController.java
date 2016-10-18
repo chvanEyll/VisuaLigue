@@ -10,7 +10,7 @@ import javafx.scene.layout.VBox;
 
 public class SportListItemController {
 
-    public static final String VIEW_NAME = "/views/sport-management/sport-selector-item.fxml";
+    public static final String VIEW_NAME = "/views/sport-management/sport-list-item.fxml";
 
     @FXML private VBox rootNode;
     @FXML private Label sportNameLabel;

@@ -109,7 +109,7 @@ public class SportCreationController extends Controller {
 
     @FXML
     public void onDeleteButtonAction() {
-        Optional<ButtonType> result = new AlertDialogBuilder().alertType(Alert.AlertType.ERROR).headerText("Suppression d'un sport")
+        Optional<ButtonType> result = new AlertDialogBuilder().alertType(Alert.AlertType.WARNING).headerText("Suppression d'un sport")
                 .contentText(String.format("Êtes-vous sûr de vouloir supprimer '%s'?", model.name.get()))
                 .buttonType(new ButtonType("Supprimer", ButtonData.YES))
                 .buttonType(new ButtonType("Annuler", ButtonData.CANCEL_CLOSE)).showAndWait();

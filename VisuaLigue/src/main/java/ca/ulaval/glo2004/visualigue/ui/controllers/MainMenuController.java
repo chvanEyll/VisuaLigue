@@ -3,6 +3,7 @@ package ca.ulaval.glo2004.visualigue.ui.controllers;
 import ca.ulaval.glo2004.visualigue.ui.InjectableFXMLLoader;
 import ca.ulaval.glo2004.visualigue.ui.animation.Animation;
 import ca.ulaval.glo2004.visualigue.ui.controllers.obstaclemanagement.ObstacleManagementController;
+import ca.ulaval.glo2004.visualigue.ui.controllers.settings.SettingsController;
 import ca.ulaval.glo2004.visualigue.ui.controllers.sportmanagement.SportManagementController;
 import ca.ulaval.glo2004.visualigue.utils.EventHandler;
 import javafx.fxml.FXML;
@@ -22,7 +23,7 @@ public class MainMenuController {
     @FXML private HBox sportsMenuItem;
     @FXML private HBox obstaclesMenuItem;
     @FXML private HBox settingsMenuItem;
-    private boolean isMenuPaneCollapsed = false;
+    private boolean isMenuPaneCollapsed = true;
     public EventHandler<FXMLLoader> onMenuClicked = new EventHandler<>();
 
     public void init() {
@@ -70,7 +71,7 @@ public class MainMenuController {
 
     @FXML
     public void onSettingsMenuItemClicked() {
-
+        processMenuClick(SettingsController.VIEW_NAME, settingsMenuItem);
     }
 
     private void processMenuClick(String viewName, HBox menuItem) {

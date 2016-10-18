@@ -1,5 +1,6 @@
 package ca.ulaval.glo2004.visualigue;
 
+import ca.ulaval.glo2004.visualigue.contexts.ContextBase;
 import ca.ulaval.glo2004.visualigue.contexts.DefaultContext;
 import ca.ulaval.glo2004.visualigue.ui.InjectableFXMLLoader;
 import ca.ulaval.glo2004.visualigue.ui.controllers.MainSceneController;
@@ -18,6 +19,7 @@ public class VisuaLigue extends Application {
     private static final String DATA_DIRECTORY = "data";
     private static final String REPOSITORY_DIRECTORTY = "/repository";
     private static final String MAIN_STYLE_SHEET = "css/main.fxml.css";
+    private static ContextBase defaultContext;
     private static Stage stage;
 
     public static void main(String[] args) {
@@ -52,7 +54,7 @@ public class VisuaLigue extends Application {
     }
 
     private void initContext() throws Exception {
-        DefaultContext defaultContext = GuiceInjector.getInstance().getInstance(DefaultContext.class);
+        defaultContext = GuiceInjector.getInstance().getInstance(DefaultContext.class);
         defaultContext.apply();
     }
 
@@ -74,5 +76,9 @@ public class VisuaLigue extends Application {
 
     public static String getMainStyleSheet() {
         return MAIN_STYLE_SHEET;
+    }
+
+    public static ContextBase getDefaultContext() {
+        return defaultContext;
     }
 }
