@@ -106,10 +106,6 @@
     -fx-spacing: 14;
 }
 
-.form-section.bordered {
-    -fx-border-color:  #EBE8E5 #EBE8E5 #EBE8E5 #EBE8E5;
-}
-
 .form-section .section-header {
     -fx-background-color: #F7931E;
     -fx-pref-height: 38;

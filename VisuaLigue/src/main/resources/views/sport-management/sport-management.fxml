@@ -15,23 +15,24 @@
 <ScrollPane fitToWidth="true" hbarPolicy="NEVER" pannable="true" AnchorPane.rightAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.topAnchor="0.0" AnchorPane.bottomAnchor="0.0" xmlns="http://javafx.com/javafx/8.0.60" xmlns:fx="http://javafx.com/fxml/1" fx:controller="ca.ulaval.glo2004.visualigue.ui.controllers.sportmanagement.SportManagementController">
     <content>
         <VBox styleClass="form, view-content">
-            <children>
-                <Pane>
-                    <children>
-                        <LinkButton imageUrl="/images/plus-icon-blue.fxml" text="Nouveau sport" onMouseClicked="#onNewSportButtonClicked" />
-                    </children>
-                </Pane>
-                <HBox alignment="CENTER_LEFT" styleClass="section-header">
-                    <children>
-                        <Label text="Liste des sports" />
-                    </children>
-                </HBox>
-                <fx:include fx:id="sportList" source="/views/sport-management/sport-list.fxml" />
-            </children>
-            <styleClass>
-                <String fx:value="form-section" />
-                <String fx:value="bordered" />
-            </styleClass>
+            <VBox>
+                <children>
+                    <HBox alignment="CENTER_LEFT" styleClass="section-header">
+                        <children>
+                            <Label text="Liste des sports" />
+                        </children>
+                    </HBox>
+                    <Pane>
+                        <children>
+                            <LinkButton imageUrl="/images/plus-icon-blue.fxml" text="Nouveau sport" onMouseClicked="#onNewSportButtonClicked" />
+                        </children>
+                    </Pane>
+                    <fx:include fx:id="sportList" source="/views/sport-management/sport-list.fxml" />
+                </children>
+                <styleClass>
+                    <String fx:value="form-section" />
+                </styleClass>
+            </VBox>
         </VBox>
     </content>
     <styleClass>

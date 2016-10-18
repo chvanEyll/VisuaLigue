@@ -119,7 +119,6 @@
                     </children>
                     <styleClass>
                         <String fx:value="form-section" />
-                        <String fx:value="bordered" />
                     </styleClass>
                 </VBox>
             </children>
