@@ -1,25 +1,18 @@
 package ca.ulaval.glo2004.visualigue.ui.controllers.sportcreation;
 
-import ca.ulaval.glo2004.visualigue.ui.InjectableFXMLLoader;
 import ca.ulaval.glo2004.visualigue.ui.models.SportCreationModel;
 import javafx.fxml.FXML;
-import javafx.fxml.FXMLLoader;
 import javafx.scene.control.TextField;
-import javafx.scene.layout.VBox;
 
 public class SportCreationStep3Controller extends SportCreationStepController {
 
     @FXML TextField sportNameField;
-    @FXML VBox playerCategoryList;
-    private PlayerCategoryListController playerCategoryListController;
+    @FXML PlayerCategoryListController playerCategoryListController;
 
     @Override
     public void init(SportCreationModel sportCreation) {
         this.model = sportCreation;
-        FXMLLoader fxmlLoader = InjectableFXMLLoader.load(PlayerCategoryListController.VIEW_NAME);
-        playerCategoryListController = (PlayerCategoryListController) fxmlLoader.getController();
         playerCategoryListController.init(model.playerCategoryModels);
-        playerCategoryList.getChildren().add(fxmlLoader.getRoot());
         super.init();
     }
 

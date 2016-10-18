@@ -6,7 +6,9 @@ import ca.ulaval.glo2004.visualigue.services.ObstacleService;
 import ca.ulaval.glo2004.visualigue.ui.InjectableFXMLLoader;
 import ca.ulaval.glo2004.visualigue.ui.converters.ObstacleCreationModelConverter;
 import ca.ulaval.glo2004.visualigue.ui.models.ObstacleCreationModel;
+import java.net.URL;
 import java.util.List;
+import java.util.ResourceBundle;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javafx.application.Platform;
@@ -14,11 +16,12 @@ import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
+import javafx.fxml.Initializable;
 import javafx.scene.layout.VBox;
 import javax.inject.Inject;
 import javax.swing.SortOrder;
 
-public class ObstacleListController {
+public class ObstacleListController implements Initializable {
 
     public static final String VIEW_NAME = "/views/obstacle-creation/obstacle-list.fxml";
     @Inject private ObstacleService obstacleService;
@@ -28,7 +31,8 @@ public class ObstacleListController {
     @FXML private VBox gridContent;
     private Integer itemCount = 0;
 
-    public void init() {
+    @Override
+    public void initialize(URL location, ResourceBundle resources) {
         List<Obstacle> obstacles = obstacleService.getObstacles(Obstacle::getName, SortOrder.ASCENDING);
         obstacles.forEach(obstacle -> {
             ObstacleCreationModel obstacleCreationModel = obstacleCreationModelConverter.convert(obstacle);
