@@ -32,7 +32,7 @@
                                     <LinkButton imageUrl="/images/plus-icon-blue.fxml" text="Nouvel obstacle" onMouseClicked="#onObstacleCreationLinkButtonClicked" />
                                 </children>
                             </Pane>
-                            <fx:include fx:id="obstacleList" source="/views/obstacle-creation/obstacle-list.fxml" />
+                            <fx:include fx:id="obstacleList" source="/views/obstacle-management/obstacle-list.fxml" />
                         </VBox>
                     </content>
                     <styleClass>

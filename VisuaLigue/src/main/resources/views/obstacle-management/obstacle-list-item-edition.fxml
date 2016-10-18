@@ -20,6 +20,7 @@
     <VBox spacing="14.0" GridPane.columnIndex="0" GridPane.columnSpan="6" HBox.hgrow="ALWAYS">
         <children>
             <ExtendedTextField fx:id="nameTextField" promptText="Nom de la catégorie" maxLength="64" />
+            <Label fx:id="nameErrorLabel" styleClass="error-label" text="Error." />
             <FlowPane hgap="14.0" vgap="14.0">
                 <children>
                     <Button mnemonicParsing="false" text="Sélectionner une image..." onAction="#onBrowseImageButtonAction" />

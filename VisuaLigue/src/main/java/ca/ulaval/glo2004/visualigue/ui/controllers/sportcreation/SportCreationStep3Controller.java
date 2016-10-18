@@ -8,8 +8,8 @@ import javafx.scene.control.TextField;
 
 public class SportCreationStep3Controller extends SportCreationStepController {
 
-    @FXML TextField sportNameField;
-    @FXML EditableListController playerCategoryListController;
+    @FXML private TextField sportNameField;
+    @FXML private EditableListController playerCategoryListController;
 
     @Override
     public void init(SportCreationModel sportCreationModel) {

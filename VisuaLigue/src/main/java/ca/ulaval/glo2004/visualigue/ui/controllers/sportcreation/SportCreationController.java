@@ -26,14 +26,15 @@ import javafx.scene.control.ButtonBar.ButtonData;
 import javafx.scene.control.ButtonType;
 import javafx.scene.layout.VBox;
 import javax.inject.Inject;
+import org.apache.commons.lang3.StringUtils;
 
 public class SportCreationController extends Controller {
 
-    @FXML VBox stepContent;
-    @FXML Button validateButton;
-    @FXML Button cancelButton;
-    @FXML Button deleteButton;
-    @FXML Breadcrumb breadcrumb;
+    @FXML private VBox stepContent;
+    @FXML private Button validateButton;
+    @FXML private Button cancelButton;
+    @FXML private Button deleteButton;
+    @FXML private Breadcrumb breadcrumb;
 
     public static final String VIEW_TITLE = "Création d'un sport";
     public static final String VIEW_NAME = "/views/sport-creation/sport-creation.fxml";
@@ -96,7 +97,9 @@ public class SportCreationController extends Controller {
     @FXML
     public void onValidateButtonAction() {
         if (model.isNew() && currentStepIndex < NUMBER_OF_STEPS - 1) {
-            setStep(currentStepIndex + 1);
+            if (currentStepController.validate()) {
+                setStep(currentStepIndex + 1);
+            }
         } else if (model.isNew() && currentStepIndex == NUMBER_OF_STEPS - 1) {
             trySaveChanges();
         } else if (!model.isNew()) {
@@ -141,10 +144,10 @@ public class SportCreationController extends Controller {
     private void saveChanges() throws Exception {
         UUID sportUuid;
         if (model.isNew()) {
-            sportUuid = sportService.createSport(model.name.get());
+            sportUuid = sportService.createSport(StringUtils.trim(model.name.get()));
         } else {
             sportUuid = model.getUUID();
-            sportService.updateSport(sportUuid, model.name.get());
+            sportService.updateSport(sportUuid, StringUtils.trim(model.name.get()));
         }
         applyPlayingSurfaceChanges(sportUuid);
         applyCategoryChanges(sportUuid);

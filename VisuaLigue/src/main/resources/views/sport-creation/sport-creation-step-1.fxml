@@ -15,7 +15,7 @@
                     <children>
                         <Label text="Nom du sport" />
                         <ExtendedTextField fx:id="sportNameField" maxLength="64"/>
-                        <Label fx:id="sportNameErrorLabel" styleClass="error-label" text="Un sport portant ce nom existe déjà." />
+                        <Label fx:id="sportNameErrorLabel" styleClass="error-label" text="Error label." />
                     </children>
                     <styleClass>
                         <String fx:value="form-group" />

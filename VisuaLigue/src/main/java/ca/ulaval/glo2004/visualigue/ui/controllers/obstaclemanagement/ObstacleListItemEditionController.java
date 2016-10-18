@@ -18,10 +18,11 @@ import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.stage.FileChooser;
 import javax.inject.Inject;
+import org.apache.commons.lang3.StringUtils;
 
 public class ObstacleListItemEditionController extends ListItemEditionController {
 
-    public static final String VIEW_NAME = "/views/obstacle-creation/obstacle-list-item-edition.fxml";
+    public static final String VIEW_NAME = "/views/obstacle-management/obstacle-list-item-edition.fxml";
     public static final Integer MIN_DEFAULT_NUMBER_OF_PLAYERS_VALUE = 0;
     public static final Integer MAX_DEFAULT_NUMBER_OF_PLAYERS_VALUE = 30;
     public static final Integer INITIAL_DEFAULT_NUMBER_OF_PLAYERS_VALUE = 0;
@@ -29,8 +30,9 @@ public class ObstacleListItemEditionController extends ListItemEditionController
 
     @Inject private ObstacleService obstacleService;
     @FXML private TextField nameTextField;
-    @FXML ImageView imageView;
-    @FXML Label imageErrorLabel;
+    @FXML private ImageView imageView;
+    @FXML private Label nameErrorLabel;
+    @FXML private Label imageErrorLabel;
 
     private ObstacleCreationModel model;
 
@@ -50,19 +52,21 @@ public class ObstacleListItemEditionController extends ListItemEditionController
 
     @FXML
     public void onValidateButtonAction() throws ObstacleAlreadyExistsException, ObstacleNotFoundException {
-        if (model.isNew()) {
-            UUID obstacleUuid = obstacleService.createObstacle(model.name.get());
-            model.setUUID(obstacleUuid);
-        } else {
-            obstacleService.updateObstacle(model.getUUID(), model.name.get());
+        if (validate()) {
+            if (model.isNew()) {
+                UUID obstacleUuid = obstacleService.createObstacle(StringUtils.trim(model.name.get()));
+                model.setUUID(obstacleUuid);
+            } else {
+                obstacleService.updateObstacle(model.getUUID(), StringUtils.trim(model.name.get()));
+            }
+            if (model.newImagePathName.isNotEmpty().get()) {
+                obstacleService.updateObstacleImage(model.getUUID(), model.newImagePathName.get());
+                model.currentImagePathName.set(model.newImagePathName.get());
+                model.newImagePathName.set(null);
+            }
+            model.name.set(nameTextField.getText());
+            onCloseRequested.fire(this, model);
         }
-        if (model.newImagePathName.isNotEmpty().get()) {
-            obstacleService.updateObstacleImage(model.getUUID(), model.newImagePathName.get());
-            model.currentImagePathName.set(model.newImagePathName.get());
-            model.newImagePathName.set(null);
-        }
-        model.name.set(nameTextField.getText());
-        onCloseRequested.fire(this, model);
     }
 
     @FXML
@@ -102,7 +106,7 @@ public class ObstacleListItemEditionController extends ListItemEditionController
             imageView.setFitHeight(45);
         } catch (Exception ex) {
             clearErrors();
-            imageErrorLabel.setText("The selected image could not be loaded.");
+            imageErrorLabel.setText("L'image sélectionnée n'a pu être chargée.");
             FXUtils.setDisplay(imageErrorLabel, true);
         }
     }
@@ -111,7 +115,19 @@ public class ObstacleListItemEditionController extends ListItemEditionController
         imageView.setImage(null);
     }
 
+    private Boolean validate() {
+        clearErrors();
+        if (ca.ulaval.glo2004.visualigue.utils.StringUtils.isBlank(nameTextField.getText())) {
+            nameErrorLabel.setText("Le nom de l'obstacle doit être spécifié.");
+            FXUtils.setDisplay(nameErrorLabel, true);
+        } else {
+            return true;
+        }
+        return false;
+    }
+
     private void clearErrors() {
+        FXUtils.setDisplay(nameErrorLabel, false);
         FXUtils.setDisplay(imageErrorLabel, false);
     }
 }

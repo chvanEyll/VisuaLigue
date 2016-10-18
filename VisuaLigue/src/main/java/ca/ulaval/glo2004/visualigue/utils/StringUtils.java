@@ -1,6 +1,6 @@
 package ca.ulaval.glo2004.visualigue.utils;
 
-public class StringUtils {
+public class StringUtils extends org.apache.commons.lang3.StringUtils {
 
     public static String getFirstLetterOfEachWord(String categoryName) {
         StringBuilder abbreviation = new StringBuilder();

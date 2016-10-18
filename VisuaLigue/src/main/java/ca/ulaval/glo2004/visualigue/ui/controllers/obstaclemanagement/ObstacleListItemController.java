@@ -16,7 +16,7 @@ import javafx.scene.layout.HBox;
 
 public class ObstacleListItemController extends ListItemController {
 
-    public static final String VIEW_NAME = "/views/obstacle-creation/obstacle-list-item.fxml";
+    public static final String VIEW_NAME = "/views/obstacle-management/obstacle-list-item.fxml";
     @FXML private ImageView imageView;
     @FXML private Label nameLabel;
     @FXML private HBox deleteConfirmButtonContainer;

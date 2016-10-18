@@ -8,6 +8,7 @@ import ca.ulaval.glo2004.visualigue.utils.StringUtils;
 import javafx.beans.value.ObservableValue;
 import javafx.fxml.FXML;
 import javafx.scene.control.ColorPicker;
+import javafx.scene.control.Label;
 import javafx.scene.control.Spinner;
 import javafx.scene.control.SpinnerValueFactory.IntegerSpinnerValueFactory;
 import javafx.scene.control.TextField;
@@ -26,9 +27,11 @@ public class PlayerCategoryListItemEditionController extends ListItemEditionCont
     @FXML private ColorPicker allyColorPicker;
     @FXML private ColorPicker opponentColorPicker;
     @FXML private Spinner defaultNumberOfPlayersSpinner;
+    @FXML private Label nameErrorLabel;
 
     @Override
     public void init(Model model) {
+        clearErrors();
         this.model = (PlayerCategoryModel) model;
         nameTextField.textProperty().set(this.model.name.get());
         nameTextField.textProperty().addListener(this::onCategoryNameTextChanged);
@@ -47,13 +50,15 @@ public class PlayerCategoryListItemEditionController extends ListItemEditionCont
 
     @FXML
     public void onValidateButtonAction() {
-        model.name.set(nameTextField.textProperty().get());
-        model.abbreviation.set(abbreviationTextField.getText());
-        model.allyPlayerColor.set(allyColorPicker.getValue());
-        model.opponentPlayerColor.set(opponentColorPicker.getValue());
-        model.defaultNumberOfPlayers.set((int) defaultNumberOfPlayersSpinner.getValue());
-        model.makeDirty();
-        onCloseRequested.fire(this, model);
+        if (validate()) {
+            model.name.set(StringUtils.trim(nameTextField.textProperty().get()));
+            model.abbreviation.set(StringUtils.trim(abbreviationTextField.getText()));
+            model.allyPlayerColor.set(allyColorPicker.getValue());
+            model.opponentPlayerColor.set(opponentColorPicker.getValue());
+            model.defaultNumberOfPlayers.set((int) defaultNumberOfPlayersSpinner.getValue());
+            model.makeDirty();
+            onCloseRequested.fire(this, model);
+        }
     }
 
     @FXML
@@ -66,5 +71,20 @@ public class PlayerCategoryListItemEditionController extends ListItemEditionCont
         if (oldAutoAbbreviation.compareTo(model.abbreviation.get()) == 0) {
             model.abbreviation.set(StringUtils.getFirstLetterOfEachWord(newValue));
         }
+    }
+
+    private Boolean validate() {
+        clearErrors();
+        if (StringUtils.isBlank(nameTextField.getText())) {
+            nameErrorLabel.setText("Le nom de la catégorie doit être spécifié.");
+            FXUtils.setDisplay(nameErrorLabel, true);
+        } else {
+            return true;
+        }
+        return false;
+    }
+
+    private void clearErrors() {
+        FXUtils.setDisplay(nameErrorLabel, false);
     }
 }

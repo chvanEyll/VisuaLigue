@@ -25,13 +25,15 @@ public class SportCreationStep2Controller extends SportCreationStepController {
     private static final Double INITIAL_LENGTH_VALUE = 200.0;
     private static final Double STEP_SIZE_VALUE = 1.0;
 
-    @FXML Spinner widthSpinner;
-    @FXML Spinner lengthSpinner;
-    @FXML ComboBox widthUnitComboBox;
-    @FXML ComboBox lengthUnitComboBox;
-    @FXML Label imagePathLabel;
-    @FXML ResizableImageView imageView;
-    @FXML Label imageErrorLabel;
+    @FXML private Spinner widthSpinner;
+    @FXML private Spinner lengthSpinner;
+    @FXML private ComboBox widthUnitComboBox;
+    @FXML private ComboBox lengthUnitComboBox;
+    @FXML private Label imagePathLabel;
+    @FXML private ResizableImageView imageView;
+    @FXML private Label imageErrorLabel;
+    @FXML private Label widthErrorLabel;
+    @FXML private Label lengthErrorLabel;
 
     public SportCreationModel getSportModel() {
         return model;
@@ -83,7 +85,7 @@ public class SportCreationStep2Controller extends SportCreationStepController {
             imagePathLabel.textProperty().bind(this.model.newPlayingSurfaceImagePathName);
         } catch (Exception ex) {
             clearErrors();
-            imageErrorLabel.setText("The selected image could not be loaded.");
+            imageErrorLabel.setText("L'image sélectionnée n'a pu être chargée.");
             FXUtils.setDisplay(imageErrorLabel, true);
         }
     }

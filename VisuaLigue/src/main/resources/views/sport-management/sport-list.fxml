@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import java.lang.String?>
+<?import java.net.URL?>
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.Pane?>
+<?import javafx.scene.layout.TilePane?>
+<?import javafx.scene.layout.VBox?>
+<?import javafx.scene.text.Font?>
+
+<VBox fx:id="rootNode" fillWidth="true" alignment="TOP_CENTER" HBox.hgrow="ALWAYS" xmlns="http://javafx.com/javafx/8.0.60" xmlns:fx="http://javafx.com/fxml/1" fx:controller="ca.ulaval.glo2004.visualigue.ui.controllers.sportmanagement.SportListController">
+    <padding>
+        <Insets bottom="14.0" left="14.0" right="14.0" top="14.0" />
+    </padding>
+    <Label fx:id="emptyNoticeLabel" >Aucun élément à afficher dans cette vue</Label>
+    <TilePane fx:id="tilePane" hgap="14.0" prefTileHeight="160.0" prefTileWidth="160.0" tileAlignment="TOP_LEFT" vgap="14.0" >
+        <children>
+
+        </children>
+        <opaqueInsets>
+            <Insets />
+        </opaqueInsets>
+        <styleClass>
+            <String fx:value="tile-container" />
+            <String fx:value="edge-to-edge" />
+            <String fx:value="root-node" />
+        </styleClass>
+    </TilePane>
+</VBox>
+

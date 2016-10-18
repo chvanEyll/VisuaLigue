@@ -13,10 +13,14 @@ public abstract class SportCreationStepController {
     }
 
     public void showError(Exception ex) {
-        //Intentionally left blank. Sub-controllers may or may not implement this function.
+        //Intentionally left blank. Sub-controllers may or may not implement this method.
     }
 
     public void clearErrors() {
-        //Intentionally left blank. Sub-controllers may or may not implement this function.
+        //Intentionally left blank. Sub-controllers may or may not implement this method.
+    }
+
+    public Boolean validate() {
+        return true;
     }
 }

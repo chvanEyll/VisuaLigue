@@ -34,7 +34,7 @@
                                 <Insets left="10.0" />
                             </padding>
                         </HBox>
-                        <fx:include fx:id="sportList" source="/views/sport-list/sport-selector.fxml" />
+                        <fx:include fx:id="sportList" source="/views/sport-management/sport-list.fxml" />
                     </children>
                     <styleClass>
                         <String fx:value="form-section" />

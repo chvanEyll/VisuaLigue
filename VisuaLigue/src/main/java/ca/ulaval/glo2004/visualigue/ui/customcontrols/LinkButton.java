@@ -12,8 +12,8 @@ import javafx.scene.layout.HBox;
 public class LinkButton extends HBox {
 
     public static final String VIEW_NAME = "/views/custom-controls/link-button.fxml";
-    @FXML SvgImage svgImage;
-    @FXML Label textLabel;
+    @FXML private SvgImage svgImage;
+    @FXML private Label textLabel;
     private String text;
     private String imageUrl;
 

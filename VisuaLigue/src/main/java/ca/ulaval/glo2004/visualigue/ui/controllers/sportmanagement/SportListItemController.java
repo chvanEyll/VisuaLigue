@@ -10,10 +10,10 @@ import javafx.scene.layout.VBox;
 
 public class SportListItemController {
 
-    public static final String VIEW_NAME = "/views/sport-list/sport-selector-item.fxml";
+    public static final String VIEW_NAME = "/views/sport-management/sport-selector-item.fxml";
 
-    @FXML VBox rootNode;
-    @FXML Label sportNameLabel;
+    @FXML private VBox rootNode;
+    @FXML private Label sportNameLabel;
     private SportListItemModel model;
     public EventHandler<SportListItemModel> onClick = new EventHandler();
 

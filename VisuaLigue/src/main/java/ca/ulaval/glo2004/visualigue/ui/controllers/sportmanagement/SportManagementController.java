@@ -17,7 +17,7 @@ import javafx.fxml.FXMLLoader;
 public class SportManagementController extends Controller {
 
     public static final String VIEW_TITLE = "Liste des sports";
-    public static final String VIEW_NAME = "/views/sport-list/sport-list.fxml";
+    public static final String VIEW_NAME = "/views/sport-management/sport-management.fxml";
     @FXML private SportListController sportListController;
 
     @Override
