@@ -5,6 +5,7 @@ import ca.ulaval.glo2004.visualigue.domain.sport.SportAlreadyExistsException;
 import ca.ulaval.glo2004.visualigue.domain.sport.SportNotFoundException;
 import ca.ulaval.glo2004.visualigue.services.SportService;
 import ca.ulaval.glo2004.visualigue.ui.InjectableFXMLLoader;
+import ca.ulaval.glo2004.visualigue.ui.View;
 import ca.ulaval.glo2004.visualigue.ui.animation.PredefinedAnimations;
 import ca.ulaval.glo2004.visualigue.ui.controllers.Controller;
 import ca.ulaval.glo2004.visualigue.ui.converters.SportCreationModelConverter;
@@ -21,8 +22,8 @@ import java.util.logging.Level;
 import java.util.logging.Logger;
 import javafx.beans.property.StringProperty;
 import javafx.collections.ObservableList;
+import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
-import javafx.fxml.FXMLLoader;
 import javafx.scene.Node;
 import javafx.scene.control.Alert;
 import javafx.scene.control.Button;
@@ -41,12 +42,12 @@ public class SportCreationController extends Controller {
     @FXML private Breadcrumb breadcrumb;
 
     public static final String VIEW_TITLE = "Création d'un sport";
-    public static final String VIEW_NAME = "/views/sport-creation/sport-creation.fxml";
+    public static final String VIEW_NAME = "/views/sportcreation/sport-creation.fxml";
     private static final int NUMBER_OF_STEPS = 3;
     private static final String STEPS_VIEW_NAMES[] = {
-        "/views/sport-creation/sport-creation-step-1.fxml",
-        "/views/sport-creation/sport-creation-step-2.fxml",
-        "/views/sport-creation/sport-creation-step-3.fxml"
+        "/views/sportcreation/sport-creation-step-1.fxml",
+        "/views/sportcreation/sport-creation-step-2.fxml",
+        "/views/sportcreation/sport-creation-step-3.fxml"
     };
     private static final int GENERAL_STEP_INDEX = 0;
     private static final int PLAYING_SURFACE_STEP_INDEX = 1;
@@ -54,7 +55,7 @@ public class SportCreationController extends Controller {
     private SportCreationModel model;
     private int currentStepIndex = -1;
     private SportCreationStepController currentStepController;
-    private List<FXMLLoader> stepViews = new ArrayList<>();
+    private List<View> stepViews = new ArrayList<>();
     @Inject private SportService sportService;
     @Inject private SportCreationModelConverter sportCreationModelConverter;
 
@@ -89,10 +90,10 @@ public class SportCreationController extends Controller {
 
     private void loadSteps() {
         for (Integer stepIndex = 0; stepIndex < NUMBER_OF_STEPS; stepIndex++) {
-            FXMLLoader fxmlLoader = InjectableFXMLLoader.load(STEPS_VIEW_NAMES[stepIndex]);
-            currentStepController = fxmlLoader.getController();
+            View view = InjectableFXMLLoader.loadView(STEPS_VIEW_NAMES[stepIndex]);
+            currentStepController = (SportCreationStepController) view.getController();
             currentStepController.init(model);
-            stepViews.add(fxmlLoader);
+            stepViews.add(view);
         }
     }
 
@@ -109,7 +110,7 @@ public class SportCreationController extends Controller {
     }
 
     @FXML
-    public void onValidateButtonAction() {
+    public void onValidateButtonAction(ActionEvent e) {
         if (model.isNew() && currentStepIndex < NUMBER_OF_STEPS - 1) {
             if (currentStepController.validate()) {
                 setStep(currentStepIndex + 1);
@@ -122,7 +123,7 @@ public class SportCreationController extends Controller {
     }
 
     @FXML
-    public void onDeleteButtonAction() {
+    public void onDeleteButtonAction(ActionEvent e) {
         Optional<ButtonType> result = new AlertDialogBuilder().alertType(Alert.AlertType.WARNING).headerText("Suppression d'un sport")
                 .contentText(String.format("Êtes-vous sûr de vouloir supprimer '%s'?", model.name.get()))
                 .buttonType(new ButtonType("Supprimer", ButtonData.YES))
@@ -139,7 +140,7 @@ public class SportCreationController extends Controller {
     }
 
     @FXML
-    public void onCancelButtonAction() {
+    public void onCancelButtonAction(ActionEvent e) {
         onViewCloseRequested.fire(this, null);
     }
 

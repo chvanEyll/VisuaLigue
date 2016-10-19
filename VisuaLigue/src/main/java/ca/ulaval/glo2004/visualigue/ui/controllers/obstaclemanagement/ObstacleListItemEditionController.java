@@ -11,6 +11,7 @@ import ca.ulaval.glo2004.visualigue.utils.FXUtils;
 import ca.ulaval.glo2004.visualigue.utils.FilenameUtils;
 import java.io.File;
 import java.util.UUID;
+import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
@@ -22,7 +23,7 @@ import org.apache.commons.lang3.StringUtils;
 
 public class ObstacleListItemEditionController extends ListItemEditionController {
 
-    public static final String VIEW_NAME = "/views/obstacle-management/obstacle-list-item-edition.fxml";
+    public static final String VIEW_NAME = "/views/obstaclemanagement/obstacle-list-item-edition.fxml";
     public static final Integer MIN_DEFAULT_NUMBER_OF_PLAYERS_VALUE = 0;
     public static final Integer MAX_DEFAULT_NUMBER_OF_PLAYERS_VALUE = 30;
     public static final Integer INITIAL_DEFAULT_NUMBER_OF_PLAYERS_VALUE = 0;
@@ -51,7 +52,7 @@ public class ObstacleListItemEditionController extends ListItemEditionController
     }
 
     @FXML
-    public void onValidateButtonAction() throws ObstacleAlreadyExistsException, ObstacleNotFoundException {
+    public void onValidateButtonAction(ActionEvent e) throws ObstacleAlreadyExistsException, ObstacleNotFoundException {
         if (validate()) {
             if (model.isNew()) {
                 UUID obstacleUuid = obstacleService.createObstacle(StringUtils.trim(model.name.get()));
@@ -70,13 +71,13 @@ public class ObstacleListItemEditionController extends ListItemEditionController
     }
 
     @FXML
-    public void onRevertButtonAction() {
+    public void onRevertButtonAction(ActionEvent e) {
         model.newImagePathName.set(null);
         onCloseRequested.fire(this, model);
     }
 
     @FXML
-    public void onBrowseImageButtonAction() {
+    public void onBrowseImageButtonAction(ActionEvent e) {
         FileChooser fileChooser = new FileChooser();
         fileChooser.setTitle("Select Image File");
         fileChooser.getExtensionFilters().addAll(new FileChooser.ExtensionFilter("Image Files", "*.png", "*.jpg", "*.jpeg", "*.bmp", "*.gif", "*.tiff"));

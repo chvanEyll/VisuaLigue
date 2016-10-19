@@ -7,6 +7,7 @@ import ca.ulaval.glo2004.visualigue.ui.models.ObstacleCreationModel;
 import ca.ulaval.glo2004.visualigue.utils.FXUtils;
 import ca.ulaval.glo2004.visualigue.utils.FilenameUtils;
 import javafx.beans.value.ObservableValue;
+import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
@@ -17,7 +18,7 @@ import javafx.scene.layout.HBox;
 
 public class ObstacleListItemController extends ListItemController {
 
-    public static final String VIEW_NAME = "/views/obstacle-management/obstacle-list-item.fxml";
+    public static final String VIEW_NAME = "/views/obstaclemanagement/obstacle-list-item.fxml";
     @FXML private ImageView imageView;
     @FXML private Label nameLabel;
     @FXML private HBox deleteConfirmButtonContainer;
@@ -46,7 +47,7 @@ public class ObstacleListItemController extends ListItemController {
     }
 
     @FXML
-    public void onEditButtonAction() {
+    public void onEditButtonAction(ActionEvent e) {
         onEditRequested.fire(this, model);
     }
 
@@ -56,7 +57,7 @@ public class ObstacleListItemController extends ListItemController {
     }
 
     @FXML
-    public void onDeleteButtonAction() {
+    public void onDeleteButtonAction(ActionEvent e) {
         displayDeleteConfirmationButton();
     }
 
@@ -74,7 +75,7 @@ public class ObstacleListItemController extends ListItemController {
     }
 
     @FXML
-    public void onDeleteConfirmButtonAction() {
+    public void onDeleteConfirmButtonAction(ActionEvent e) {
         onDeleteRequested.fire(this, model);
     }
 

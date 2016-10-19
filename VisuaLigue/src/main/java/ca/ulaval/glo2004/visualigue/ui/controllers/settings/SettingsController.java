@@ -9,6 +9,7 @@ import java.util.Optional;
 import java.util.ResourceBundle;
 import javafx.beans.property.SimpleStringProperty;
 import javafx.beans.property.StringProperty;
+import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.control.Alert;
 import javafx.scene.control.ButtonBar;
@@ -34,7 +35,7 @@ public class SettingsController extends Controller {
     }
 
     @FXML
-    public void onResetButtonAction() {
+    public void onResetButtonAction(ActionEvent e) {
         Optional<ButtonType> result = new AlertDialogBuilder().alertType(Alert.AlertType.WARNING).headerText("Réinitialisation de l'application et des données")
                 .contentText("Êtes-vous sûr de vouloir supprimer réinitialiser l'application et les données (cette action est irréversible)?")
                 .buttonType(new ButtonType("Réinitialiser", ButtonBar.ButtonData.YES))

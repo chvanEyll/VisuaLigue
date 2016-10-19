@@ -12,15 +12,13 @@ import javafx.scene.layout.HBox;
 
 public class Breadcrumb extends HBox {
 
-    public static final String VIEW_NAME = "/views/custom-controls/breadcrumb.fxml";
+    public static final String VIEW_NAME = "/views/customcontrols/breadcrumb.fxml";
     private final List<BreadcrumbItem> items = new ArrayList<>();
     public EventHandler<Integer> onItemClicked = new EventHandler<>();
 
     public Breadcrumb() {
         try {
-            FXMLLoader fxmlLoader = InjectableFXMLLoader.createLoader(VIEW_NAME);
-            fxmlLoader.setController(this);
-            fxmlLoader.setRoot(this);
+            FXMLLoader fxmlLoader = InjectableFXMLLoader.createLoader(VIEW_NAME, this, this);
             fxmlLoader.load();
         } catch (IOException ex) {
             Logger.getLogger(Breadcrumb.class.getName()).log(Level.SEVERE, null, ex);

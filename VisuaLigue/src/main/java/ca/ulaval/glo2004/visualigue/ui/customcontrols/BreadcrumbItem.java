@@ -9,11 +9,12 @@ import java.util.logging.Logger;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.control.Label;
+import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.HBox;
 
 public class BreadcrumbItem extends HBox {
 
-    public static final String VIEW_NAME = "/views/custom-controls/breadcrumb-item.fxml";
+    public static final String VIEW_NAME = "/views/customcontrols/breadcrumb-item.fxml";
     @FXML private Label titleLabel;
     @FXML private HBox navigationArrow;
     @FXML private HBox item;
@@ -21,9 +22,7 @@ public class BreadcrumbItem extends HBox {
 
     public BreadcrumbItem(String title, Boolean showArrow) {
         try {
-            FXMLLoader fxmlLoader = InjectableFXMLLoader.createLoader(VIEW_NAME);
-            fxmlLoader.setController(this);
-            fxmlLoader.setRoot(this);
+            FXMLLoader fxmlLoader = InjectableFXMLLoader.createLoader(VIEW_NAME, this, this);
             fxmlLoader.load();
             titleLabel.setText(title);
             FXUtils.setDisplay(navigationArrow, showArrow);
@@ -41,7 +40,7 @@ public class BreadcrumbItem extends HBox {
     }
 
     @FXML
-    private void onClick() {
+    private void onClick(MouseEvent e) {
         onClick.fire(this, null);
     }
 

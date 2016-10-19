@@ -3,37 +3,31 @@
 <?import java.lang.String?>
 <?import java.net.URL?>
 <?import javafx.geometry.Insets?>
-<?import javafx.scene.control.Button?>
-<?import javafx.scene.control.ScrollPane?>
-<?import javafx.scene.layout.AnchorPane?>
-<?import javafx.scene.layout.HBox?>
 <?import javafx.scene.control.Label?>
-<?import javafx.scene.control.Tooltip?>
-<?import javafx.scene.layout.VBox?>
-<?import javafx.scene.layout.ColumnConstraints?>
+<?import javafx.scene.control.ScrollPane?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.layout.Pane?>
 <?import javafx.scene.layout.VBox?>
-<?import javafx.scene.layout.GridPane?>
-<?import ca.ulaval.glo2004.visualigue.ui.customcontrols.Breadcrumb?>
 <?import ca.ulaval.glo2004.visualigue.ui.customcontrols.SvgImage?>
 <?import ca.ulaval.glo2004.visualigue.ui.customcontrols.LinkButton?>
 
-<ScrollPane fitToWidth="true" hbarPolicy="NEVER" pannable="true" AnchorPane.rightAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.topAnchor="0.0" AnchorPane.bottomAnchor="0.0" xmlns="http://javafx.com/javafx/8.0.60" xmlns:fx="http://javafx.com/fxml/1" fx:controller="ca.ulaval.glo2004.visualigue.ui.controllers.obstaclemanagement.ObstacleManagementController">
+<ScrollPane fitToWidth="true" hbarPolicy="NEVER" pannable="true" AnchorPane.rightAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.topAnchor="0.0" AnchorPane.bottomAnchor="0.0" xmlns="http://javafx.com/javafx/8.0.60" xmlns:fx="http://javafx.com/fxml/1" fx:controller="ca.ulaval.glo2004.visualigue.ui.controllers.sportmanagement.SportManagementController">
     <content>
         <VBox styleClass="form, view-content">
             <VBox>
                 <children>
                     <HBox alignment="CENTER_LEFT" styleClass="section-header">
                         <children>
-                            <Label text="Liste des obstacles" />
+                            <Label text="Liste des sports" />
                         </children>
                     </HBox>
                     <Pane>
                         <children>
-                            <LinkButton imageUrl="/images/plus-icon-blue.fxml" text="Nouvel obstacle" onMouseClicked="#onObstacleCreationLinkButtonClicked" />
+                            <LinkButton imageUrl="/images/plus-icon-blue.fxml" text="Nouveau sport" onMouseClicked="#onNewSportButtonClicked" />
                         </children>
                     </Pane>
-                    <fx:include fx:id="obstacleList" source="/views/obstacle-management/obstacle-list.fxml" />
+                    <fx:include fx:id="sportList" source="/views/sportmanagement/sport-list.fxml" />
                 </children>
                 <styleClass>
                     <String fx:value="form-section" />

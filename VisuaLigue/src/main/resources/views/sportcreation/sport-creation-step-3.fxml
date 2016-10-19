@@ -35,7 +35,7 @@
                     <LinkButton imageUrl="/images/plus-icon-blue.fxml" text="Nouvelle catégorie" onMouseClicked="#onCategoryCreationLinkButtonClicked" />
                 </children>
             </Pane>
-            <fx:include fx:id="playerCategoryList" source="/views/sport-creation/player-category-list.fxml" />
+            <fx:include fx:id="playerCategoryList" source="/views/sportcreation/player-category-list.fxml" />
         </children>
     </VBox>
     <styleClass>

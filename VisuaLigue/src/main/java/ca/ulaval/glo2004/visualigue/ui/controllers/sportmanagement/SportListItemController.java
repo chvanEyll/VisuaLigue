@@ -6,11 +6,12 @@ import javafx.fxml.FXML;
 import javafx.scene.control.Label;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
+import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.VBox;
 
 public class SportListItemController {
 
-    public static final String VIEW_NAME = "/views/sport-management/sport-list-item.fxml";
+    public static final String VIEW_NAME = "/views/sportmanagement/sport-list-item.fxml";
 
     @FXML private VBox rootNode;
     @FXML private Label sportNameLabel;
@@ -33,7 +34,7 @@ public class SportListItemController {
     }
 
     @FXML
-    public void onClick() {
+    public void onClick(MouseEvent e) {
         onClick.fire(this, model);
     }
 

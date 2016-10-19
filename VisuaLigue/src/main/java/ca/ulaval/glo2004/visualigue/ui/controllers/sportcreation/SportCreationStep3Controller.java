@@ -5,6 +5,7 @@ import ca.ulaval.glo2004.visualigue.ui.models.PlayerCategoryModel;
 import ca.ulaval.glo2004.visualigue.ui.models.SportCreationModel;
 import javafx.fxml.FXML;
 import javafx.scene.control.TextField;
+import javafx.scene.input.MouseEvent;
 
 public class SportCreationStep3Controller extends SportCreationStepController {
 
@@ -20,7 +21,7 @@ public class SportCreationStep3Controller extends SportCreationStepController {
     }
 
     @FXML
-    public void onCategoryCreationLinkButtonClicked() {
+    public void onCategoryCreationLinkButtonClicked(MouseEvent e) {
         playerCategoryListController.newItem();
     }
 }

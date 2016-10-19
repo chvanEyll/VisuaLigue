@@ -13,12 +13,13 @@ import javafx.beans.property.StringProperty;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
+import javafx.scene.input.MouseEvent;
 import javax.inject.Inject;
 import javax.swing.SortOrder;
 
 public class ObstacleManagementController extends Controller {
 
-    public static final String VIEW_NAME = "/views/obstacle-management/obstacle-management.fxml";
+    public static final String VIEW_NAME = "/views/obstaclemanagement/obstacle-management.fxml";
     public static final String VIEW_TITLE = "Obstacles";
     @FXML private ObstacleListController obstacleListController;
     @Inject private ObstacleService obstacleService;
@@ -30,7 +31,7 @@ public class ObstacleManagementController extends Controller {
     }
 
     @FXML
-    public void onObstacleCreationLinkButtonClicked() {
+    public void onObstacleCreationLinkButtonClicked(MouseEvent e) {
         obstacleListController.newItem();
     }
 

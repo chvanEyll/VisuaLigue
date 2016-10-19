@@ -6,6 +6,7 @@ import ca.ulaval.glo2004.visualigue.ui.models.PlayerCategoryModel;
 import ca.ulaval.glo2004.visualigue.utils.FXUtils;
 import ca.ulaval.glo2004.visualigue.utils.StringUtils;
 import javafx.beans.value.ObservableValue;
+import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.control.ColorPicker;
 import javafx.scene.control.Label;
@@ -15,7 +16,7 @@ import javafx.scene.control.TextField;
 
 public class PlayerCategoryListItemEditionController extends ListItemEditionController {
 
-    public static final String VIEW_NAME = "/views/sport-creation/player-category-list-item-edition.fxml";
+    public static final String VIEW_NAME = "/views/sportcreation/player-category-list-item-edition.fxml";
     public static final Integer MIN_DEFAULT_NUMBER_OF_PLAYERS_VALUE = 0;
     public static final Integer MAX_DEFAULT_NUMBER_OF_PLAYERS_VALUE = 30;
     public static final Integer INITIAL_DEFAULT_NUMBER_OF_PLAYERS_VALUE = 0;
@@ -49,7 +50,7 @@ public class PlayerCategoryListItemEditionController extends ListItemEditionCont
     }
 
     @FXML
-    public void onValidateButtonAction() {
+    public void onValidateButtonAction(ActionEvent e) {
         if (validate()) {
             model.name.set(StringUtils.trim(nameTextField.textProperty().get()));
             model.abbreviation.set(StringUtils.trim(abbreviationTextField.getText()));
@@ -62,7 +63,7 @@ public class PlayerCategoryListItemEditionController extends ListItemEditionCont
     }
 
     @FXML
-    public void onRevertButtonAction() {
+    public void onRevertButtonAction(ActionEvent e) {
         onCloseRequested.fire(this, model);
     }
 

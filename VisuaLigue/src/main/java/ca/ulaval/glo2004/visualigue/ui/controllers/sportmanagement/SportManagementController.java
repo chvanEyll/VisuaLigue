@@ -2,6 +2,7 @@ package ca.ulaval.glo2004.visualigue.ui.controllers.sportmanagement;
 
 import ca.ulaval.glo2004.visualigue.domain.sport.SportNotFoundException;
 import ca.ulaval.glo2004.visualigue.ui.InjectableFXMLLoader;
+import ca.ulaval.glo2004.visualigue.ui.View;
 import ca.ulaval.glo2004.visualigue.ui.controllers.Controller;
 import ca.ulaval.glo2004.visualigue.ui.controllers.sportcreation.SportCreationController;
 import ca.ulaval.glo2004.visualigue.ui.models.SportListItemModel;
@@ -12,12 +13,12 @@ import java.util.logging.Logger;
 import javafx.beans.property.SimpleStringProperty;
 import javafx.beans.property.StringProperty;
 import javafx.fxml.FXML;
-import javafx.fxml.FXMLLoader;
+import javafx.scene.input.MouseEvent;
 
 public class SportManagementController extends Controller {
 
     public static final String VIEW_TITLE = "Sports";
-    public static final String VIEW_NAME = "/views/sport-management/sport-management.fxml";
+    public static final String VIEW_NAME = "/views/sportmanagement/sport-management.fxml";
     @FXML private SportListController sportListController;
 
     @Override
@@ -31,21 +32,21 @@ public class SportManagementController extends Controller {
     }
 
     private void onSportSelectedEvent(Object sender, SportListItemModel sportListItemModel) {
-        FXMLLoader fxmlLoader = InjectableFXMLLoader.load(SportCreationController.VIEW_NAME);
-        SportCreationController controller = (SportCreationController) fxmlLoader.getController();
+        View view = InjectableFXMLLoader.loadView(SportCreationController.VIEW_NAME);
+        SportCreationController controller = (SportCreationController) view.getController();
         try {
             controller.init(sportListItemModel.getUUID());
         } catch (SportNotFoundException ex) {
             Logger.getLogger(SportManagementController.class.getName()).log(Level.SEVERE, null, ex);
         }
-        onViewChangeRequested.fire(this, fxmlLoader);
+        onViewChangeRequested.fire(this, view);
     }
 
     @FXML
-    public void onNewSportButtonClicked() {
-        FXMLLoader fxmlLoader = InjectableFXMLLoader.load(SportCreationController.VIEW_NAME);
-        SportCreationController controller = (SportCreationController) fxmlLoader.getController();
+    public void onNewSportButtonClicked(MouseEvent e) {
+        View view = InjectableFXMLLoader.loadView(SportCreationController.VIEW_NAME);
+        SportCreationController controller = (SportCreationController) view.getController();
         controller.init();
-        onViewChangeRequested.fire(this, fxmlLoader);
+        onViewChangeRequested.fire(this, view);
     }
 }

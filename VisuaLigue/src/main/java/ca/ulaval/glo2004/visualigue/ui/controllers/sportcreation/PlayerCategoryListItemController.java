@@ -5,9 +5,11 @@ import ca.ulaval.glo2004.visualigue.ui.models.Model;
 import ca.ulaval.glo2004.visualigue.ui.models.PlayerCategoryModel;
 import ca.ulaval.glo2004.visualigue.utils.FXUtils;
 import javafx.beans.value.ObservableValue;
+import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
+import javafx.scene.input.MouseEvent;
 import javafx.scene.input.SwipeEvent;
 import javafx.scene.layout.Background;
 import javafx.scene.layout.BackgroundFill;
@@ -16,7 +18,7 @@ import javafx.scene.layout.Pane;
 
 public class PlayerCategoryListItemController extends ListItemController {
 
-    public static final String VIEW_NAME = "/views/sport-creation/player-category-list-item.fxml";
+    public static final String VIEW_NAME = "/views/sportcreation/player-category-list-item.fxml";
     @FXML private Label nameLabel;
     @FXML private Label abbreviationLabel;
     @FXML private Pane allyColorPane;
@@ -51,7 +53,7 @@ public class PlayerCategoryListItemController extends ListItemController {
     }
 
     @FXML
-    public void onEditButtonAction() {
+    public void onEditButtonAction(ActionEvent e) {
         onEditRequested.fire(this, model);
     }
 
@@ -61,7 +63,7 @@ public class PlayerCategoryListItemController extends ListItemController {
     }
 
     @FXML
-    public void onDeleteButtonAction() {
+    public void onDeleteButtonAction(ActionEvent e) {
         displayDeleteConfirmationButton();
     }
 
@@ -78,12 +80,12 @@ public class PlayerCategoryListItemController extends ListItemController {
     }
 
     @FXML
-    public void onDeleteConfirmButtonAction() {
+    public void onDeleteConfirmButtonAction(ActionEvent e) {
         onDeleteRequested.fire(this, model);
     }
 
     @FXML
-    public void onMouseClicked() {
+    public void onMouseClicked(MouseEvent e) {
         if (!deleteConfirmButtonContainer.isVisible()) {
             onEditRequested.fire(this, model);
         }

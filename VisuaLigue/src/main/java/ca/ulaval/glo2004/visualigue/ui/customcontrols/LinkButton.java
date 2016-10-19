@@ -11,7 +11,7 @@ import javafx.scene.layout.HBox;
 
 public class LinkButton extends HBox {
 
-    public static final String VIEW_NAME = "/views/custom-controls/link-button.fxml";
+    public static final String VIEW_NAME = "/views/customcontrols/link-button.fxml";
     @FXML private SvgImage svgImage;
     @FXML private Label textLabel;
     private String text;
@@ -19,9 +19,7 @@ public class LinkButton extends HBox {
 
     public LinkButton() {
         try {
-            FXMLLoader fxmlLoader = InjectableFXMLLoader.createLoader(VIEW_NAME);
-            fxmlLoader.setController(this);
-            fxmlLoader.setRoot(this);
+            FXMLLoader fxmlLoader = InjectableFXMLLoader.createLoader(VIEW_NAME, this, this);
             fxmlLoader.load();
         } catch (IOException ex) {
             Logger.getLogger(Breadcrumb.class.getName()).log(Level.SEVERE, null, ex);

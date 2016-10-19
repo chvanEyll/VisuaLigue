@@ -3,6 +3,7 @@ package ca.ulaval.glo2004.visualigue.ui.controllers.sportmanagement;
 import ca.ulaval.glo2004.visualigue.domain.sport.Sport;
 import ca.ulaval.glo2004.visualigue.services.SportService;
 import ca.ulaval.glo2004.visualigue.ui.InjectableFXMLLoader;
+import ca.ulaval.glo2004.visualigue.ui.View;
 import ca.ulaval.glo2004.visualigue.ui.converters.SportListItemModelConverter;
 import ca.ulaval.glo2004.visualigue.ui.models.SportListItemModel;
 import ca.ulaval.glo2004.visualigue.utils.EventHandler;
@@ -12,7 +13,6 @@ import java.util.List;
 import java.util.ResourceBundle;
 import javafx.application.Platform;
 import javafx.fxml.FXML;
-import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
 import javafx.scene.control.Label;
 import javafx.scene.layout.TilePane;
@@ -49,11 +49,11 @@ public class SportListController implements Initializable {
     }
 
     private void initSportItem(SportListItemModel model) {
-        FXMLLoader fxmlLoader = InjectableFXMLLoader.load(SportListItemController.VIEW_NAME);
-        SportListItemController controller = (SportListItemController) fxmlLoader.getController();
+        View view = InjectableFXMLLoader.loadView(SportListItemController.VIEW_NAME);
+        SportListItemController controller = (SportListItemController) view.getController();
         controller.init(model);
         controller.onClick.setHandler(this::onItemClicked);
-        tilePane.getChildren().add(fxmlLoader.getRoot());
+        tilePane.getChildren().add(view.getRoot());
     }
 
     private void onItemClicked(Object sender, SportListItemModel model) {

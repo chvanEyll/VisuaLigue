@@ -1,20 +1,20 @@
 package ca.ulaval.glo2004.visualigue.ui.controllers;
 
+import ca.ulaval.glo2004.visualigue.ui.View;
 import java.util.Stack;
-import javafx.fxml.FXMLLoader;
 
 public class ViewFlow {
 
-    Stack<FXMLLoader> viewStack = new Stack<>();
+    Stack<View> viewStack = new Stack<>();
 
     public ViewFlow() {
     }
 
-    public ViewFlow(FXMLLoader initialView) {
+    public ViewFlow(View initialView) {
         viewStack.push(initialView);
     }
 
-    public void addView(FXMLLoader view) {
+    public void addView(View view) {
         viewStack.push(view);
     }
 
@@ -24,13 +24,13 @@ public class ViewFlow {
         }
     }
 
-    public FXMLLoader moveToPrevious() {
+    public View moveToPrevious() {
         clearView(viewStack.pop());
         return viewStack.peek();
     }
 
-    public void clearView(FXMLLoader view) {
-        Controller controller = view.getController();
+    public void clearView(View view) {
+        Controller controller = (Controller) view.getController();
         controller.clearHandlers();
     }
 

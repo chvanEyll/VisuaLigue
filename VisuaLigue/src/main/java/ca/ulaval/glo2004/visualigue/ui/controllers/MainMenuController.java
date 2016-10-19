@@ -1,13 +1,14 @@
 package ca.ulaval.glo2004.visualigue.ui.controllers;
 
 import ca.ulaval.glo2004.visualigue.ui.InjectableFXMLLoader;
+import ca.ulaval.glo2004.visualigue.ui.View;
 import ca.ulaval.glo2004.visualigue.ui.animation.PredefinedAnimations;
 import ca.ulaval.glo2004.visualigue.ui.controllers.obstaclemanagement.ObstacleManagementController;
 import ca.ulaval.glo2004.visualigue.ui.controllers.settings.SettingsController;
 import ca.ulaval.glo2004.visualigue.ui.controllers.sportmanagement.SportManagementController;
 import ca.ulaval.glo2004.visualigue.utils.EventHandler;
 import javafx.fxml.FXML;
-import javafx.fxml.FXMLLoader;
+import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
 import javafx.scene.shape.Rectangle;
@@ -24,7 +25,7 @@ public class MainMenuController {
     @FXML private HBox obstaclesMenuItem;
     @FXML private HBox settingsMenuItem;
     private boolean isMenuPaneCollapsed = true;
-    public EventHandler<FXMLLoader> onMenuClicked = new EventHandler<>();
+    public EventHandler<View> onMenuClicked = new EventHandler<>();
 
     public void init() {
         menuPane.setPrefWidth(MENU_PANE_COLLAPSED_WIDTH);
@@ -51,29 +52,29 @@ public class MainMenuController {
     }
 
     @FXML
-    public void onPlaysMenuItemClicked() {
+    public void onPlaysMenuItemClicked(MouseEvent e) {
 
     }
 
     @FXML
-    public void onSportsMenuItemClicked() {
+    public void onSportsMenuItemClicked(MouseEvent e) {
         processMenuClick(SportManagementController.VIEW_NAME, sportsMenuItem);
     }
 
     @FXML
-    public void onObstaclesMenuItemClicked() {
+    public void onObstaclesMenuItemClicked(MouseEvent e) {
         processMenuClick(ObstacleManagementController.VIEW_NAME, obstaclesMenuItem);
     }
 
     @FXML
-    public void onSettingsMenuItemClicked() {
+    public void onSettingsMenuItemClicked(MouseEvent e) {
         processMenuClick(SettingsController.VIEW_NAME, settingsMenuItem);
     }
 
     private void processMenuClick(String viewName, HBox menuItem) {
         unselectAllMenus();
         menuItem.getStyleClass().add("active");
-        onMenuClicked.fire(this, InjectableFXMLLoader.load(viewName));
+        onMenuClicked.fire(this, InjectableFXMLLoader.loadView(viewName));
     }
 
     private void unselectAllMenus() {

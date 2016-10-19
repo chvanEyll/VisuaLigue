@@ -11,7 +11,7 @@ import javax.inject.Inject;
 
 public class ObstacleListController extends EditableListController {
 
-    public static final String VIEW_NAME = "/views/obstacle-management/obstacle-list.fxml";
+    public static final String VIEW_NAME = "/views/obstaclemanagement/obstacle-list.fxml";
     @Inject private ObstacleService obstacleService;
 
     @Override

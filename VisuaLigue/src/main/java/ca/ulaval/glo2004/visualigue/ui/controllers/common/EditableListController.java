@@ -1,13 +1,13 @@
 package ca.ulaval.glo2004.visualigue.ui.controllers.common;
 
 import ca.ulaval.glo2004.visualigue.ui.InjectableFXMLLoader;
+import ca.ulaval.glo2004.visualigue.ui.View;
 import ca.ulaval.glo2004.visualigue.ui.animation.PredefinedAnimations;
 import ca.ulaval.glo2004.visualigue.ui.models.Model;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
-import javafx.fxml.FXMLLoader;
 import javafx.scene.Node;
 import javafx.scene.layout.VBox;
 
@@ -32,12 +32,12 @@ public class EditableListController {
     }
 
     private void insertItem(Model model, Integer rowIndex) {
-        FXMLLoader fxmlLoader = InjectableFXMLLoader.load(itemControllerName);
-        ListItemController listItemController = (ListItemController) fxmlLoader.getController();
+        View view = InjectableFXMLLoader.loadView(itemControllerName);
+        ListItemController listItemController = (ListItemController) view.getController();
         listItemController.init(model);
         listItemController.onEditRequested.setHandler(this::onItemEditRequested);
         listItemController.onDeleteRequested.setHandler(this::onItemDeleteRequest);
-        gridContent.getChildren().add(rowIndex, fxmlLoader.getRoot());
+        gridContent.getChildren().add(rowIndex, view.getRoot());
         itemCount += 1;
     }
 
@@ -47,14 +47,14 @@ public class EditableListController {
 
     private void enterItemEditionMode(Model model) {
         closeItemEdition();
-        FXMLLoader fxmlLoader = InjectableFXMLLoader.load(itemEditionControllerName);
-        listItemEditionController = (ListItemEditionController) fxmlLoader.getController();
+        View view = InjectableFXMLLoader.loadView(itemEditionControllerName);
+        listItemEditionController = (ListItemEditionController) view.getController();
         listItemEditionController.init(model);
         listItemEditionController.onCloseRequested.setHandler(this::onItemEditionCloseRequested);
         int rowIndex = models.indexOf(model);
         gridContent.getChildren().remove(rowIndex);
-        PredefinedAnimations.nodeSplit(fxmlLoader.getRoot());
-        gridContent.getChildren().add(rowIndex, fxmlLoader.getRoot());
+        PredefinedAnimations.nodeSplit(view.getRoot());
+        gridContent.getChildren().add(rowIndex, view.getRoot());
     }
 
     private void onItemEditionCloseRequested(Object sender, Model model) {

@@ -3,10 +3,11 @@ package ca.ulaval.glo2004.visualigue;
 import ca.ulaval.glo2004.visualigue.contexts.ContextBase;
 import ca.ulaval.glo2004.visualigue.contexts.DefaultContext;
 import ca.ulaval.glo2004.visualigue.ui.InjectableFXMLLoader;
+import ca.ulaval.glo2004.visualigue.ui.View;
 import ca.ulaval.glo2004.visualigue.ui.controllers.MainSceneController;
 import java.io.IOException;
 import javafx.application.Application;
-import javafx.fxml.FXMLLoader;
+import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.image.Image;
 import javafx.stage.Stage;
@@ -29,10 +30,10 @@ public class VisuaLigue extends Application {
     @Override
     public void start(Stage stage) throws Exception {
         this.stage = stage;
-        FXMLLoader fxmlLoader = InjectableFXMLLoader.load(MainSceneController.VIEW_NAME);
-        MainSceneController mainSceneController = fxmlLoader.getController();
+        View view = InjectableFXMLLoader.loadView(MainSceneController.VIEW_NAME);
+        MainSceneController mainSceneController = (MainSceneController) view.getController();
         mainSceneController.setStage(stage);
-        Scene scene = new Scene(fxmlLoader.getRoot());
+        Scene scene = new Scene((Parent) view.getRoot());
         initStage(stage, scene);
         initContext();
     }

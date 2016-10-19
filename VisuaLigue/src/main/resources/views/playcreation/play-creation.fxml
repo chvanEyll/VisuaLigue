@@ -13,7 +13,7 @@
     <content>
         <VBox spacing="14.0" styleClass="view-content">
             <children>
-                <fx:include source="/views/sport-management/sport-list.fxml" />
+                <fx:include source="/views/sportmanagement/sport-list.fxml" />
                 <AnchorPane>
                     <children>
                         <HBox spacing="10.0" styleClass="button-group" AnchorPane.rightAnchor="0.0">
