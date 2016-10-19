@@ -7,12 +7,19 @@ import ca.ulaval.glo2004.visualigue.ui.controllers.common.ListItemController;
 import ca.ulaval.glo2004.visualigue.ui.models.Model;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import javafx.fxml.FXML;
+import javafx.scene.input.MouseEvent;
 import javax.inject.Inject;
 
 public class ObstacleListController extends EditableListController {
 
     public static final String VIEW_NAME = "/views/obstaclemanagement/obstacle-list.fxml";
     @Inject private ObstacleService obstacleService;
+
+    @FXML
+    public void onObstacleCreationLinkButtonClicked(MouseEvent e) {
+        newItem();
+    }
 
     @Override
     protected void deleteItem(ListItemController listItemController, Model model) {
@@ -23,4 +30,5 @@ public class ObstacleListController extends EditableListController {
         }
         super.deleteItem(listItemController, model);
     }
+
 }

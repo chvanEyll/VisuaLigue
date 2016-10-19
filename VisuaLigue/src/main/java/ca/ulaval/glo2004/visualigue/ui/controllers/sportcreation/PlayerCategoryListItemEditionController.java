@@ -8,11 +8,8 @@ import ca.ulaval.glo2004.visualigue.utils.StringUtils;
 import javafx.beans.value.ObservableValue;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
-import javafx.scene.control.ColorPicker;
-import javafx.scene.control.Label;
-import javafx.scene.control.Spinner;
 import javafx.scene.control.SpinnerValueFactory.IntegerSpinnerValueFactory;
-import javafx.scene.control.TextField;
+import javafx.scene.control.*;
 
 public class PlayerCategoryListItemEditionController extends ListItemEditionController {
 
@@ -28,6 +25,7 @@ public class PlayerCategoryListItemEditionController extends ListItemEditionCont
     @FXML private ColorPicker allyColorPicker;
     @FXML private ColorPicker opponentColorPicker;
     @FXML private Spinner defaultNumberOfPlayersSpinner;
+    @FXML private Button revertButton;
     @FXML private Label nameErrorLabel;
 
     @Override

@@ -13,7 +13,6 @@ import java.util.logging.Logger;
 import javafx.beans.property.SimpleStringProperty;
 import javafx.beans.property.StringProperty;
 import javafx.fxml.FXML;
-import javafx.scene.input.MouseEvent;
 
 public class SportManagementController extends Controller {
 
@@ -24,6 +23,7 @@ public class SportManagementController extends Controller {
     @Override
     public void initialize(URL url, ResourceBundle rb) {
         sportListController.onSportSelected.setHandler(this::onSportSelectedEvent);
+        sportListController.onViewChangeRequested.forward(this.onViewChangeRequested);
     }
 
     @Override
@@ -39,14 +39,6 @@ public class SportManagementController extends Controller {
         } catch (SportNotFoundException ex) {
             Logger.getLogger(SportManagementController.class.getName()).log(Level.SEVERE, null, ex);
         }
-        onViewChangeRequested.fire(this, view);
-    }
-
-    @FXML
-    public void onNewSportButtonClicked(MouseEvent e) {
-        View view = InjectableFXMLLoader.loadView(SportCreationController.VIEW_NAME);
-        SportCreationController controller = (SportCreationController) view.getController();
-        controller.init();
         onViewChangeRequested.fire(this, view);
     }
 }

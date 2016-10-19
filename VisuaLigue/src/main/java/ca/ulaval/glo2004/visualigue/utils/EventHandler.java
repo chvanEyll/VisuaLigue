@@ -7,6 +7,7 @@ import java.util.function.BiConsumer;
 public class EventHandler<T> {
 
     Set<BiConsumer<Object, T>> biConsumers = new HashSet<>();
+    Set<EventHandler> forwardHandlers = new HashSet<>();
 
     public void addHandler(BiConsumer<Object, T> handler) {
         biConsumers.add(handler);
@@ -17,6 +18,10 @@ public class EventHandler<T> {
         biConsumers.add(handler);
     }
 
+    public void forward(EventHandler<T> handler) {
+        forwardHandlers.add(handler);
+    }
+
     public void clear() {
         biConsumers.clear();
     }
@@ -24,6 +29,9 @@ public class EventHandler<T> {
     public void fire(Object object, T eventArgs) {
         for (BiConsumer<Object, T> consumer : biConsumers) {
             consumer.accept(object, eventArgs);
+        }
+        for (EventHandler forwardHandler : forwardHandlers) {
+            forwardHandler.fire(object, eventArgs);
         }
     }
 }

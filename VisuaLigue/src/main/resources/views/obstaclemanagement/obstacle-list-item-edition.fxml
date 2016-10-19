@@ -43,7 +43,7 @@
                 <String fx:value="medium" />
             </styleClass>
         </Button>
-        <Button alignment="CENTER" cancelButton="true" onAction="#onRevertButtonAction">
+        <Button fx:id="revertButton" alignment="CENTER" cancelButton="true" onAction="#onRevertButtonAction">
             <graphic>
                 <SvgImage url="/images/revert-icon.fxml" />
             </graphic>

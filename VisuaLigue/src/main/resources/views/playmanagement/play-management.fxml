@@ -10,11 +10,10 @@
 <?import javafx.scene.layout.Pane?>
 <?import javafx.scene.layout.VBox?>
 <?import ca.ulaval.glo2004.visualigue.ui.customcontrols.SvgImage?>
-<?import ca.ulaval.glo2004.visualigue.ui.customcontrols.LinkButton?>
 
 <ScrollPane fitToWidth="true" hbarPolicy="NEVER" pannable="true" AnchorPane.rightAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.topAnchor="0.0" AnchorPane.bottomAnchor="0.0" xmlns="http://javafx.com/javafx/8.0.60" xmlns:fx="http://javafx.com/fxml/1" fx:controller="ca.ulaval.glo2004.visualigue.ui.controllers.playmanagement.PlayManagementController">
     <content>
-        <VBox styleClass="form, view-content">
+        <VBox styleClass="form">
             <VBox>
                 <children>
                     <HBox alignment="CENTER_LEFT" styleClass="section-header">
@@ -22,11 +21,6 @@
                             <Label text="Liste des jeux" />
                         </children>
                     </HBox>
-                    <Pane>
-                        <children>
-                            <LinkButton imageUrl="/images/plus-icon-blue.fxml" text="Nouveau jeu" onMouseClicked="#onNewPlayButtonClicked" />
-                        </children>
-                    </Pane>
                     <fx:include fx:id="playList" source="/views/playmanagement/play-list.fxml" />
                 </children>
                 <styleClass>
@@ -37,6 +31,7 @@
     </content>
     <styleClass>
         <String fx:value="edge-to-edge" />
+        <String fx:value="view-content" />
         <String fx:value="root-node" />
     </styleClass>
 </ScrollPane>

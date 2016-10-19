@@ -13,6 +13,7 @@ import java.io.File;
 import java.util.UUID;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
+import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
 import javafx.scene.image.Image;
@@ -32,6 +33,7 @@ public class ObstacleListItemEditionController extends ListItemEditionController
     @Inject private ObstacleService obstacleService;
     @FXML private TextField nameTextField;
     @FXML private ImageView imageView;
+    @FXML private Button revertButton;
     @FXML private Label nameErrorLabel;
     @FXML private Label imageErrorLabel;
 
@@ -43,6 +45,9 @@ public class ObstacleListItemEditionController extends ListItemEditionController
         clearErrors();
         nameTextField.textProperty().set(this.model.name.get());
         updateImage();
+        if (model.isNew()) {
+            FXUtils.setDisplay(revertButton, false);
+        }
         FXUtils.requestFocusDelayed(nameTextField);
     }
 
@@ -57,6 +62,7 @@ public class ObstacleListItemEditionController extends ListItemEditionController
             if (model.isNew()) {
                 UUID obstacleUuid = obstacleService.createObstacle(StringUtils.trim(model.name.get()));
                 model.setUUID(obstacleUuid);
+                model.setIsNew(false);
             } else {
                 obstacleService.updateObstacle(model.getUUID(), StringUtils.trim(model.name.get()));
             }

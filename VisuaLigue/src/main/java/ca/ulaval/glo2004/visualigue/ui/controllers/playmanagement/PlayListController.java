@@ -5,6 +5,8 @@ import ca.ulaval.glo2004.visualigue.domain.play.PlayNotFoundException;
 import ca.ulaval.glo2004.visualigue.services.PlayService;
 import ca.ulaval.glo2004.visualigue.ui.InjectableFXMLLoader;
 import ca.ulaval.glo2004.visualigue.ui.View;
+import ca.ulaval.glo2004.visualigue.ui.controllers.Controller;
+import ca.ulaval.glo2004.visualigue.ui.controllers.playcreation.PlayCreationController;
 import ca.ulaval.glo2004.visualigue.ui.converters.PlayListItemModelConverter;
 import ca.ulaval.glo2004.visualigue.ui.models.PlayListItemModel;
 import ca.ulaval.glo2004.visualigue.utils.EventHandler;
@@ -17,13 +19,13 @@ import java.util.logging.Level;
 import java.util.logging.Logger;
 import javafx.application.Platform;
 import javafx.fxml.FXML;
-import javafx.fxml.Initializable;
 import javafx.scene.control.Label;
+import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.TilePane;
 import javax.inject.Inject;
 import javax.swing.SortOrder;
 
-public class PlayListController implements Initializable {
+public class PlayListController extends Controller {
 
     @Inject private PlayService playService;
     @Inject private PlayListItemModelConverter playListItemModelConverter;
@@ -76,5 +78,11 @@ public class PlayListController implements Initializable {
         int tileIndex = models.indexOf(model);
         tilePane.getChildren().remove(tileIndex);
         models.remove(model);
+    }
+
+    @FXML
+    public void onNewPlayButtonClicked(MouseEvent e) {
+        View view = InjectableFXMLLoader.loadView(PlayCreationController.VIEW_NAME);
+        onViewChangeRequested.fire(this, view);
     }
 }

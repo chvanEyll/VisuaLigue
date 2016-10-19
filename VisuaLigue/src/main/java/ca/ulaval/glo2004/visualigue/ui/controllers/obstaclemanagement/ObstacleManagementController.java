@@ -13,7 +13,6 @@ import javafx.beans.property.StringProperty;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
-import javafx.scene.input.MouseEvent;
 import javax.inject.Inject;
 import javax.swing.SortOrder;
 
@@ -28,11 +27,6 @@ public class ObstacleManagementController extends Controller {
     @Override
     public StringProperty getTitle() {
         return new SimpleStringProperty(VIEW_TITLE);
-    }
-
-    @FXML
-    public void onObstacleCreationLinkButtonClicked(MouseEvent e) {
-        obstacleListController.newItem();
     }
 
     @Override

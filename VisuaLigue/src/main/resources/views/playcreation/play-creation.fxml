@@ -5,29 +5,32 @@
 <?import javafx.geometry.Insets?>
 <?import javafx.scene.control.Button?>
 <?import javafx.scene.control.ScrollPane?>
+<?import javafx.scene.control.Label?>
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.layout.HBox?>
 <?import javafx.scene.layout.VBox?>
 
-<ScrollPane fitToWidth="true" hbarPolicy="NEVER" AnchorPane.rightAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.topAnchor="0.0" AnchorPane.bottomAnchor="0.0" xmlns="http://javafx.com/javafx/8.0.60" xmlns:fx="http://javafx.com/fxml/1">
+<ScrollPane fitToWidth="true" hbarPolicy="NEVER" AnchorPane.rightAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.topAnchor="0.0" AnchorPane.bottomAnchor="0.0" xmlns="http://javafx.com/javafx/8.0.60" xmlns:fx="http://javafx.com/fxml/1" fx:controller="ca.ulaval.glo2004.visualigue.ui.controllers.playcreation.PlayCreationController">
     <content>
-        <VBox spacing="14.0" styleClass="view-content">
-            <children>
-                <fx:include source="/views/sportmanagement/sport-list.fxml" />
-                <AnchorPane>
-                    <children>
-                        <HBox spacing="10.0" styleClass="button-group" AnchorPane.rightAnchor="0.0">
-                            <children>
-                                <Button defaultButton="true" layoutX="10.0" layoutY="10.0" mnemonicParsing="false" text="Annuler" />
-                            </children>
-                        </HBox>
-                    </children>
-                </AnchorPane>
-            </children>
+        <VBox styleClass="form">
+            <VBox>
+                <children>
+                    <HBox alignment="CENTER_LEFT" styleClass="section-header">
+                        <children>
+                            <Label text="Sélectionner un sport" />
+                        </children>
+                    </HBox>
+                    <fx:include fx:id="sportList" source="/views/sportmanagement/sport-list.fxml" />
+                </children>
+                <styleClass>
+                    <String fx:value="form-section" />
+                </styleClass>
+            </VBox>
         </VBox>
     </content>
     <styleClass>
         <String fx:value="root-node" />
+        <String fx:value="view-content" />
         <String fx:value="edge-to-edge" />
     </styleClass>
 </ScrollPane>
