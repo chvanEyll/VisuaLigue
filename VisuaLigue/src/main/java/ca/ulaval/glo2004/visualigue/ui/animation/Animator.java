@@ -1,9 +1,9 @@
 package ca.ulaval.glo2004.visualigue.ui.animation;
 
 import ca.ulaval.glo2004.visualigue.ui.animation.easing.EasingFunction;
-import ca.ulaval.glo2004.visualigue.ui.animation.tasks.RectangleTransition;
-import ca.ulaval.glo2004.visualigue.ui.animation.tasks.SimpleValueTransition;
-import ca.ulaval.glo2004.visualigue.ui.animation.tasks.Transition;
+import ca.ulaval.glo2004.visualigue.ui.animation.transitions.RectangleTransition;
+import ca.ulaval.glo2004.visualigue.ui.animation.transitions.SimpleValueTransition;
+import ca.ulaval.glo2004.visualigue.ui.animation.transitions.Transition;
 import java.time.Duration;
 import java.time.LocalDateTime;
 import java.util.*;

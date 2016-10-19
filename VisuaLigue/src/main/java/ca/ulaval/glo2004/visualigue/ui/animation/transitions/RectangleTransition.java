@@ -1,4 +1,4 @@
-package ca.ulaval.glo2004.visualigue.ui.animation.tasks;
+package ca.ulaval.glo2004.visualigue.ui.animation.transitions;
 
 import ca.ulaval.glo2004.visualigue.ui.animation.easing.EasingFunction;
 import java.time.Duration;
