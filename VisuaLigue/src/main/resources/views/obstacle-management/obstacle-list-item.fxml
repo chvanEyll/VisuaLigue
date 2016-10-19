@@ -49,7 +49,7 @@
                 <String fx:value="medium" />
             </styleClass>
         </Button>
-        <HBox fx:id="deleteConfirmButtonContainer" alignment="CENTER_RIGHT" GridPane.columnIndex="1" GridPane.columnSpan="3"  >
+        <HBox fx:id="deleteConfirmButtonContainer" styleClass="delete-confirm-button-container" alignment="CENTER_RIGHT" GridPane.vgrow="ALWAYS" GridPane.columnIndex="0" GridPane.columnSpan="4"  >
             <children>
                 <Button fx:id="deleteConfirmButton" mnemonicParsing="false" text="Supprimer" onAction="#onDeleteConfirmButtonAction" >
                     <styleClass>

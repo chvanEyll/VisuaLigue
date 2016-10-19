@@ -5,6 +5,7 @@ import ca.ulaval.glo2004.visualigue.domain.sport.SportAlreadyExistsException;
 import ca.ulaval.glo2004.visualigue.domain.sport.SportNotFoundException;
 import ca.ulaval.glo2004.visualigue.services.SportService;
 import ca.ulaval.glo2004.visualigue.ui.InjectableFXMLLoader;
+import ca.ulaval.glo2004.visualigue.ui.animation.PredefinedAnimations;
 import ca.ulaval.glo2004.visualigue.ui.controllers.Controller;
 import ca.ulaval.glo2004.visualigue.ui.converters.SportCreationModelConverter;
 import ca.ulaval.glo2004.visualigue.ui.customcontrols.Breadcrumb;
@@ -12,6 +13,8 @@ import ca.ulaval.glo2004.visualigue.ui.dialog.AlertDialogBuilder;
 import ca.ulaval.glo2004.visualigue.ui.models.PlayerCategoryModel;
 import ca.ulaval.glo2004.visualigue.ui.models.SportCreationModel;
 import ca.ulaval.glo2004.visualigue.utils.FXUtils;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Optional;
 import java.util.UUID;
 import java.util.logging.Level;
@@ -50,6 +53,7 @@ public class SportCreationController extends Controller {
     private SportCreationModel model;
     private int currentStepIndex = -1;
     private SportCreationStepController currentStepController;
+    private List<FXMLLoader> stepViews = new ArrayList<>();
     @Inject private SportService sportService;
     @Inject private SportCreationModelConverter sportCreationModelConverter;
 
@@ -74,6 +78,7 @@ public class SportCreationController extends Controller {
         breadcrumb.addItem("Terrain");
         breadcrumb.addItem("Joueurs");
         breadcrumb.onItemClicked.setHandler(this::onBreadcrumNavItemClicked);
+        loadSteps();
         setStep(GENERAL_STEP_INDEX);
     }
 
@@ -81,13 +86,20 @@ public class SportCreationController extends Controller {
         setStep(index);
     }
 
+    private void loadSteps() {
+        for (Integer stepIndex = 0; stepIndex < NUMBER_OF_STEPS; stepIndex++) {
+            FXMLLoader fxmlLoader = InjectableFXMLLoader.load(STEPS_VIEW_NAMES[stepIndex]);
+            currentStepController = fxmlLoader.getController();
+            currentStepController.init(model);
+            stepViews.add(fxmlLoader);
+        }
+    }
+
     private void setStep(int stepIndex) {
         if (currentStepIndex != stepIndex) {
-            FXMLLoader fxmlLoader = InjectableFXMLLoader.load(STEPS_VIEW_NAMES[stepIndex]);
-            currentStepController = (SportCreationStepController) fxmlLoader.getController();
-            currentStepController.init(model);
             stepContent.getChildren().clear();
-            stepContent.getChildren().add(fxmlLoader.getRoot());
+            PredefinedAnimations.nodePan(stepContent);
+            stepContent.getChildren().add(stepViews.get(stepIndex).getRoot());
             FXUtils.setDisplay(deleteButton, stepIndex == 0 && !model.isNew());
             breadcrumb.setActiveItem(stepIndex);
             currentStepIndex = stepIndex;

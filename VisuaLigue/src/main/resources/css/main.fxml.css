@@ -13,6 +13,12 @@
     -fx-text-fill: #4F4F4F;
 }
 
+/* Styles */
+
+.bold {
+    -fx-font-family: 'Source Sans Pro';
+}
+
 /* Dialogs */
 
 .dialog-pane:header .header-panel .label {
@@ -186,6 +192,10 @@
 
 .grid-list .edit-pane .content {
     -fx-padding: 14;
+}
+
+.grid-list .delete-confirm-button-container {
+    -fx-background-color: white;
 }
 
 /* Common controls */

@@ -7,6 +7,7 @@
 <?import javafx.scene.control.ScrollPane?>
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.layout.HBox?>
+<?import javafx.scene.control.Label?>
 <?import javafx.scene.control.Tooltip?>
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.layout.ColumnConstraints?>
@@ -17,26 +18,31 @@
 <?import ca.ulaval.glo2004.visualigue.ui.customcontrols.SvgImage?>
 <?import ca.ulaval.glo2004.visualigue.ui.customcontrols.LinkButton?>
 
-<VBox fx:id="rootNode" styleClass="root-node" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0" xmlns="http://javafx.com/javafx/8.0.60" xmlns:fx="http://javafx.com/fxml/1" fx:controller="ca.ulaval.glo2004.visualigue.ui.controllers.obstaclemanagement.ObstacleManagementController">
-    <children>
-        <VBox styleClass="form, view-content" VBox.vgrow="ALWAYS">
-            <children>
-                <ScrollPane fitToWidth="true" hbarPolicy="NEVER" >
-                    <content>
-                        <VBox>
-                            <Pane>
-                                <children>
-                                    <LinkButton imageUrl="/images/plus-icon-blue.fxml" text="Nouvel obstacle" onMouseClicked="#onObstacleCreationLinkButtonClicked" />
-                                </children>
-                            </Pane>
-                            <fx:include fx:id="obstacleList" source="/views/obstacle-management/obstacle-list.fxml" />
-                        </VBox>
-                    </content>
-                    <styleClass>
-                        <String fx:value="edge-to-edge" />
-                    </styleClass>
-                </ScrollPane>
-            </children>
+<ScrollPane fitToWidth="true" hbarPolicy="NEVER" pannable="true" AnchorPane.rightAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.topAnchor="0.0" AnchorPane.bottomAnchor="0.0" xmlns="http://javafx.com/javafx/8.0.60" xmlns:fx="http://javafx.com/fxml/1" fx:controller="ca.ulaval.glo2004.visualigue.ui.controllers.obstaclemanagement.ObstacleManagementController">
+    <content>
+        <VBox styleClass="form, view-content">
+            <VBox>
+                <children>
+                    <HBox alignment="CENTER_LEFT" styleClass="section-header">
+                        <children>
+                            <Label text="Liste des obstacles" />
+                        </children>
+                    </HBox>
+                    <Pane>
+                        <children>
+                            <LinkButton imageUrl="/images/plus-icon-blue.fxml" text="Nouvel obstacle" onMouseClicked="#onObstacleCreationLinkButtonClicked" />
+                        </children>
+                    </Pane>
+                    <fx:include fx:id="obstacleList" source="/views/obstacle-management/obstacle-list.fxml" />
+                </children>
+                <styleClass>
+                    <String fx:value="form-section" />
+                </styleClass>
+            </VBox>
         </VBox>
-    </children>
-</VBox>
+    </content>
+    <styleClass>
+        <String fx:value="edge-to-edge" />
+        <String fx:value="root-node" />
+    </styleClass>
+</ScrollPane>

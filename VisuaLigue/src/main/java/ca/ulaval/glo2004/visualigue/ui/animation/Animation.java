@@ -4,18 +4,20 @@ import ca.ulaval.glo2004.visualigue.ui.animation.easing.EasingFunction;
 import ca.ulaval.glo2004.visualigue.ui.animation.easing.ExponentialEaseOut;
 import java.time.Duration;
 import java.util.function.Consumer;
+import javafx.scene.shape.Rectangle;
 
 public class Animation<T> {
 
-    private final Consumer method;
-    private T startValue;
-    private T endValue;
+    private final Consumer<T> method;
+    private Object startValue;
+    private Object endValue;
     private Duration duration;
     private EasingFunction easingFunction;
+    private Object groupKey = null;
     private Boolean isFirstOfGroup = false;
     private Boolean isLastOfGroup = false;
 
-    public Animation(Consumer method) {
+    public Animation(Consumer<T> method) {
         this.method = method;
     }
 
@@ -23,12 +25,22 @@ public class Animation<T> {
         return new Animation(method);
     }
 
-    public Animation from(T value) {
+    public Animation from(Double value) {
         this.startValue = value;
         return this;
     }
 
-    public Animation to(T value) {
+    public Animation to(Double value) {
+        this.endValue = value;
+        return this;
+    }
+
+    public Animation from(Rectangle value) {
+        this.startValue = value;
+        return this;
+    }
+
+    public Animation to(Rectangle value) {
         this.endValue = value;
         return this;
     }
@@ -39,12 +51,17 @@ public class Animation<T> {
         return this;
     }
 
-    public Animation groupBegin() {
+    public Animation group(Object key) {
+        this.groupKey = key;
+        return this;
+    }
+
+    public Animation first() {
         this.isFirstOfGroup = true;
         return this;
     }
 
-    public Animation groupEnd() {
+    public Animation last() {
         this.isLastOfGroup = true;
         return this;
     }
@@ -54,7 +71,8 @@ public class Animation<T> {
     }
 
     private void build(EasingFunction easingFunction) {
-        Animator animator = new Animator(method, startValue, endValue, duration, easingFunction, isFirstOfGroup, isLastOfGroup);
+        method.accept((T) startValue);
+        Animator animator = new Animator(method, startValue, endValue, duration, easingFunction, groupKey, isFirstOfGroup, isLastOfGroup);
         animator.animate();
     }
 

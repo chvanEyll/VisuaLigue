@@ -1,5 +1,6 @@
 package ca.ulaval.glo2004.visualigue.ui.controllers;
 
+import ca.ulaval.glo2004.visualigue.ui.animation.PredefinedAnimations;
 import ca.ulaval.glo2004.visualigue.utils.FXUtils;
 import java.net.URL;
 import java.util.ResourceBundle;
@@ -79,6 +80,7 @@ public class MainSceneController implements Initializable {
         controller.onViewChangeRequested.setHandler(this::onViewChangeRequested);
         controller.onViewCloseRequested.setHandler(this::onViewCloseRequested);
         contentPane.getChildren().clear();
+        PredefinedAnimations.nodeZoom(contentPane);
         contentPane.getChildren().add(view.getRoot());
         sectionTitleLabel.textProperty().bindBidirectional(controller.getTitle());
         FXUtils.setDisplay(previousButton, viewFlow.count() > 1);

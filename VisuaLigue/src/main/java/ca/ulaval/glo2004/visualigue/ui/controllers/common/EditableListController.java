@@ -1,13 +1,14 @@
 package ca.ulaval.glo2004.visualigue.ui.controllers.common;
 
 import ca.ulaval.glo2004.visualigue.ui.InjectableFXMLLoader;
+import ca.ulaval.glo2004.visualigue.ui.animation.PredefinedAnimations;
 import ca.ulaval.glo2004.visualigue.ui.models.Model;
 import java.util.logging.Level;
 import java.util.logging.Logger;
-import javafx.application.Platform;
 import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
+import javafx.scene.Node;
 import javafx.scene.layout.VBox;
 
 public class EditableListController {
@@ -26,9 +27,7 @@ public class EditableListController {
         this.itemEditionControllerName = itemEditionControllerName;
         this.models = models;
         this.models.forEach(model -> {
-            Platform.runLater(() -> {
-                insertItem((Model) model, itemCount);
-            });
+            insertItem((Model) model, itemCount);
         });
     }
 
@@ -54,6 +53,7 @@ public class EditableListController {
         listItemEditionController.onCloseRequested.setHandler(this::onItemEditionCloseRequested);
         int rowIndex = models.indexOf(model);
         gridContent.getChildren().remove(rowIndex);
+        PredefinedAnimations.nodeSplit(fxmlLoader.getRoot());
         gridContent.getChildren().add(rowIndex, fxmlLoader.getRoot());
     }
 
@@ -64,6 +64,7 @@ public class EditableListController {
     private void closeItemEdition() {
         if (listItemEditionController != null) {
             int rowIndex = models.indexOf(listItemEditionController.getModel());
+            Node node = gridContent.getChildren().get(rowIndex);
             gridContent.getChildren().remove(rowIndex);
             Model model = listItemEditionController.getModel();
             insertItem(model, rowIndex);
@@ -90,7 +91,7 @@ public class EditableListController {
     }
 
     protected void deleteItem(ListItemController listItemController, Model model) {
-        listItemController.hide();
         model.delete();
+        listItemController.hide();
     }
 }

@@ -6,10 +6,7 @@ import ca.ulaval.glo2004.visualigue.ui.animation.tasks.SimpleValueTransition;
 import ca.ulaval.glo2004.visualigue.ui.animation.tasks.Transition;
 import java.time.Duration;
 import java.time.LocalDateTime;
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Timer;
-import java.util.TimerTask;
+import java.util.*;
 import java.util.function.Consumer;
 import java.util.stream.Collectors;
 import javafx.application.Platform;
@@ -18,27 +15,29 @@ import javafx.scene.shape.Rectangle;
 public class Animator<T> {
 
     private static final Integer ANIMATION_PERIOD = 15;
-    private static final List<Animator> runningAnimators = new ArrayList<>();
+    private static final List<Animator> runningAnimators = Collections.synchronizedList(new ArrayList<>());
 
     private final Consumer method;
     private T startValue;
     private T endValue;
     private Duration duration;
     private EasingFunction easingFunction;
+    private Object groupKey;
     private Boolean isFirstOfGroup;
     private Boolean isLastOfGroup;
     private LocalDateTime animationStartTime;
     private Timer timer;
     private Transition transition;
 
-    public Animator(Consumer method, T startValue, T endValue, Duration duration, EasingFunction easingFunction, Boolean isFirstOfGroup, Boolean isLastOfGroup) {
+    public Animator(Consumer method, T startValue, T endValue, Duration duration, EasingFunction easingFunction, Object groupKey, Boolean firstOfGroup, Boolean lastOfGroup) {
         this.method = method;
         this.startValue = startValue;
         this.endValue = endValue;
         this.duration = duration;
         this.easingFunction = easingFunction;
-        this.isFirstOfGroup = isFirstOfGroup;
-        this.isLastOfGroup = isLastOfGroup;
+        this.groupKey = groupKey;
+        this.isFirstOfGroup = firstOfGroup;
+        this.isLastOfGroup = lastOfGroup;
     }
 
     public void animate() {
@@ -57,15 +56,15 @@ public class Animator<T> {
         };
         animationStartTime = LocalDateTime.now();
         timer = new Timer();
-        if (isFirstOfGroup) {
-            stopRunningAnimations();
+        if (groupKey != null && isFirstOfGroup) {
+            stopAnimationsOfGroup(groupKey);
         }
         runningAnimators.add(this);
         timer.schedule(timerTask, ANIMATION_PERIOD, ANIMATION_PERIOD);
     }
 
-    private static void stopRunningAnimations() {
-        runningAnimators.stream().collect(Collectors.toList()).forEach(animator -> {
+    private static synchronized void stopAnimationsOfGroup(Object groupKey) {
+        runningAnimators.stream().filter(a -> a.groupKey == groupKey).collect(Collectors.toList()).forEach(animator -> {
             animator.cancel();
         });
     }

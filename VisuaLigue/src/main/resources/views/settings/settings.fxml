@@ -21,7 +21,7 @@
                     <children>
                         <HBox alignment="CENTER_LEFT" styleClass="section-header">
                             <children>
-                                <Label text="Options générales" />
+                                <Label text="Réinitialisation" />
                             </children>
                         </HBox>
                         <Button fx:id="resetButton" text="Réinitialiser l'application et les données" onAction="#onResetButtonAction" />
@@ -34,7 +34,7 @@
                         </children>
                     </HBox>
                     <VBox alignment="TOP_LEFT">
-                        <Label fx:id="productName" style="-fx-padding: 0 0 14 0" >VisuaLigue</Label>
+                        <Label fx:id="productName" style="-fx-padding: 0 0 14 0" styleClass="bold" >VisuaLigue</Label>
                         <Label>© 2016</Label>
                         <Label>Maxime Gagnon-Legault (maxime.gagnon-legault.1@ulaval.ca)</Label>
                         <Label>Guillaume Manseau (guillaume.manseau.1@ulaval.ca)</Label>
