@@ -7,10 +7,10 @@ import javafx.scene.shape.Rectangle;
 public class PredefinedAnimations {
 
     public static void nodeZoom(Node node) {
-        Animation.method(node::setScaleX).duration(0.75).from(0.9).to(1.0).group(node).first().easeOutExp();
-        Animation.method(node::setScaleY).duration(0.75).from(0.9).to(1.0).group(node).easeOutExp();
-        Animation.method(node::setScaleZ).duration(0.75).from(0.9).to(1.0).group(node).easeOutExp();
-        Animation.method(node::setOpacity).duration(0.75).from(0.0).to(1.0).group(node).last().easeOutExp();
+        Animation.method(node::setScaleX).duration(0.6).from(0.95).to(1.0).group(node).first().easeOutExp();
+        Animation.method(node::setScaleY).duration(0.6).from(0.95).to(1.0).group(node).easeOutExp();
+        Animation.method(node::setScaleZ).duration(0.6).from(0.95).to(1.0).group(node).easeOutExp();
+        Animation.method(node::setOpacity).duration(0.6).from(0.0).to(1.0).group(node).last().easeOutExp();
     }
 
     public static void nodePan(Node node) {

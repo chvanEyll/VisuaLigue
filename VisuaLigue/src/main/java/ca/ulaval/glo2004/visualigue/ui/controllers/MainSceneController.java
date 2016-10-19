@@ -80,11 +80,11 @@ public class MainSceneController implements Initializable {
         controller.onViewChangeRequested.setHandler(this::onViewChangeRequested);
         controller.onViewCloseRequested.setHandler(this::onViewCloseRequested);
         contentPane.getChildren().clear();
-        PredefinedAnimations.nodeZoom(contentPane);
         contentPane.getChildren().add(view.getRoot());
         sectionTitleLabel.textProperty().bindBidirectional(controller.getTitle());
         FXUtils.setDisplay(previousButton, viewFlow.count() > 1);
         FXUtils.setDisplay(sectionTitleSpacer, viewFlow.count() <= 1);
         FXUtils.setDisplay(titleEditButton, controller.isTitleEditable());
+        PredefinedAnimations.nodeZoom(view.getRoot());
     }
 }

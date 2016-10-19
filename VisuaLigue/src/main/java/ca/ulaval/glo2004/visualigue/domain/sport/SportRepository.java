@@ -18,4 +18,6 @@ public interface SportRepository {
     List<Sport> getAll(Function<Sport, Comparable> sortFunction, SortOrder sortOrder);
 
     Boolean isEmpty();
+
+    void clear();
 }

@@ -9,4 +9,6 @@ public interface ImageRepository {
     String get(UUID uuid);
 
     void delete(UUID uuid);
+
+    void clear();
 }

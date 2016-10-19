@@ -17,4 +17,5 @@ public interface ObstacleRepository {
 
     List<Obstacle> getAll(Function<Obstacle, Comparable> sortFunction, SortOrder sortOrder);
 
+    void clear();
 }

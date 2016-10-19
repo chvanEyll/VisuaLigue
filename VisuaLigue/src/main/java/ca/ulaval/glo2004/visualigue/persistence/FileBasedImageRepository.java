@@ -6,6 +6,7 @@ import ca.ulaval.glo2004.visualigue.utils.FileUtils;
 import java.io.File;
 import java.io.IOException;
 import java.io.UncheckedIOException;
+import java.util.Collection;
 import java.util.UUID;
 import javax.inject.Singleton;
 
@@ -39,6 +40,14 @@ public class FileBasedImageRepository implements ImageRepository {
     @Override
     public void delete(UUID uuid) {
         FileUtils.deleteQuietly(new File(getStoredFileName(uuid)));
+    }
+
+    @Override
+    public void clear() {
+        Collection<File> files = FileUtils.listFiles(new File(REPOSITORY_NAME), null, false);
+        files.forEach(file -> {
+            FileUtils.deleteQuietly(file);
+        });
     }
 
     private String getStoredFileName(UUID uuid) {

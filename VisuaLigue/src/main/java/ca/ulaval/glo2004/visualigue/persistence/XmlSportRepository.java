@@ -11,6 +11,9 @@ import java.util.List;
 import java.util.Map;
 import java.util.UUID;
 import java.util.function.Function;
+import java.util.logging.Level;
+import java.util.logging.Logger;
+import java.util.stream.Collectors;
 import javax.inject.Inject;
 import javax.inject.Singleton;
 import javax.swing.SortOrder;
@@ -76,6 +79,17 @@ public class XmlSportRepository implements SportRepository {
     @Override
     public Boolean isEmpty() {
         return sports.isEmpty();
+    }
+
+    @Override
+    public void clear() {
+        sports.keySet().stream().collect(Collectors.toList()).forEach(uuid -> {
+            try {
+                delete(uuid);
+            } catch (SportNotFoundException ex) {
+                Logger.getLogger(XmlSportRepository.class.getName()).log(Level.SEVERE, null, ex);
+            }
+        });
     }
 
 }

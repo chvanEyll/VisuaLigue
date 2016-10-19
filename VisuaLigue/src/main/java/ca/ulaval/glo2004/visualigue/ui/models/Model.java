@@ -37,7 +37,7 @@ public class Model {
         return isDeleted;
     }
 
-    public void delete() {
+    public void markAsDeleted() {
         isDeleted = true;
     }
 

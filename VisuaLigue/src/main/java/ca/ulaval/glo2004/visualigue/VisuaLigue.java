@@ -55,7 +55,7 @@ public class VisuaLigue extends Application {
 
     private void initContext() throws Exception {
         defaultContext = GuiceInjector.getInstance().getInstance(DefaultContext.class);
-        defaultContext.apply();
+        defaultContext.apply(false);
     }
 
     public static String getAppDataDirectory() {

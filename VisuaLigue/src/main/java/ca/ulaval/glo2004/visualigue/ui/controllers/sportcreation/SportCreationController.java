@@ -23,6 +23,7 @@ import javafx.beans.property.StringProperty;
 import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
+import javafx.scene.Node;
 import javafx.scene.control.Alert;
 import javafx.scene.control.Button;
 import javafx.scene.control.ButtonBar.ButtonData;
@@ -98,8 +99,9 @@ public class SportCreationController extends Controller {
     private void setStep(int stepIndex) {
         if (currentStepIndex != stepIndex) {
             stepContent.getChildren().clear();
-            PredefinedAnimations.nodePan(stepContent);
-            stepContent.getChildren().add(stepViews.get(stepIndex).getRoot());
+            Node root = stepViews.get(stepIndex).getRoot();
+            PredefinedAnimations.nodePan(root);
+            stepContent.getChildren().add(root);
             FXUtils.setDisplay(deleteButton, stepIndex == 0 && !model.isNew());
             breadcrumb.setActiveItem(stepIndex);
             currentStepIndex = stepIndex;

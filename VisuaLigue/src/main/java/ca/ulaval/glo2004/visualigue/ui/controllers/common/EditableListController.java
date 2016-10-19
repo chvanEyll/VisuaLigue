@@ -26,7 +26,7 @@ public class EditableListController {
         this.itemControllerName = itemControllerName;
         this.itemEditionControllerName = itemEditionControllerName;
         this.models = models;
-        this.models.forEach(model -> {
+        EditableListController.this.models.forEach(model -> {
             insertItem((Model) model, itemCount);
         });
     }
@@ -91,7 +91,7 @@ public class EditableListController {
     }
 
     protected void deleteItem(ListItemController listItemController, Model model) {
-        model.delete();
+        model.markAsDeleted();
         listItemController.hide();
     }
 }

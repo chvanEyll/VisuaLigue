@@ -20,27 +20,30 @@ import javax.inject.Inject;
 public class DefaultContext extends ContextBase {
 
     private final SportFactory sportFactory;
-    private final SportRepository sportRepository;
-    private final ImageRepository imageRepository;
     private final ObstacleFactory obstacleFactory;
-    private final ObstacleRepository obstacleRepository;
 
     @Inject
     public DefaultContext(final SportFactory sportFactory, final SportRepository sportRepository, final ImageRepository imageRepository, final ObstacleFactory obstacleFactory, final ObstacleRepository obstacleRepository) {
+        super(sportRepository, imageRepository, obstacleRepository);
         this.sportFactory = sportFactory;
-        this.sportRepository = sportRepository;
-        this.imageRepository = imageRepository;
         this.obstacleFactory = obstacleFactory;
-        this.obstacleRepository = obstacleRepository;
     }
 
     @Override
-    protected void applyFillers() throws Exception {
-        if (!sportRepository.isEmpty()) {
+    protected void applyFillers(Boolean forceClear) throws Exception {
+        if (!sportRepository.isEmpty() && forceClear) {
+            clearRepositories();
+        } else if (!sportRepository.isEmpty()) {
             System.out.println("Repositories are not empty: Skipping default context repository filling.");
             return;
         }
         fill();
+    }
+
+    private void clearRepositories() {
+        sportRepository.clear();
+        imageRepository.clear();
+        obstacleRepository.clear();
     }
 
     private void fill() throws Exception {

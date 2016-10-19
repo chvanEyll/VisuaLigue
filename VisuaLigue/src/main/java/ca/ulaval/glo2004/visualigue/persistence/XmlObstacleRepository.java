@@ -11,6 +11,9 @@ import java.util.List;
 import java.util.Map;
 import java.util.UUID;
 import java.util.function.Function;
+import java.util.logging.Level;
+import java.util.logging.Logger;
+import java.util.stream.Collectors;
 import javax.inject.Inject;
 import javax.inject.Singleton;
 import javax.swing.SortOrder;
@@ -67,6 +70,17 @@ public class XmlObstacleRepository implements ObstacleRepository {
     public List<Obstacle> getAll(Function<Obstacle, Comparable> sortFunction, SortOrder sortOrder) {
         List<Obstacle> obstacleList = new ArrayList(obstacles.values());
         return ListUtils.sort(obstacleList, sortFunction, sortOrder);
+    }
+
+    @Override
+    public void clear() {
+        obstacles.keySet().stream().collect(Collectors.toList()).forEach(uuid -> {
+            try {
+                delete(uuid);
+            } catch (ObstacleNotFoundException ex) {
+                Logger.getLogger(XmlObstacleRepository.class.getName()).log(Level.SEVERE, null, ex);
+            }
+        });
     }
 
 }
