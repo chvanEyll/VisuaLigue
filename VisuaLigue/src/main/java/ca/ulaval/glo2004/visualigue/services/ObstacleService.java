@@ -13,8 +13,8 @@ import javax.swing.SortOrder;
 public class ObstacleService {
 
     private final ObstacleRepository obstacleRepository;
-    private final ImageRepository imageRepository;
     private final ObstacleFactory obstacleFactory;
+    private final ImageRepository imageRepository;
 
     @Inject
     public ObstacleService(final ObstacleRepository obstacleRepository, final ImageRepository imageRepository, final ObstacleFactory obstacleFactory) {

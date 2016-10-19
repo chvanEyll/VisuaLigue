@@ -11,9 +11,9 @@
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
 
-<VBox fx:id="rootNode" fillWidth="true" alignment="TOP_CENTER" HBox.hgrow="ALWAYS" xmlns="http://javafx.com/javafx/8.0.60" xmlns:fx="http://javafx.com/fxml/1" fx:controller="ca.ulaval.glo2004.visualigue.ui.controllers.sportmanagement.SportListController">
+<VBox fx:id="rootNode" fillWidth="true" alignment="TOP_CENTER" HBox.hgrow="ALWAYS" xmlns="http://javafx.com/javafx/8.0.60" xmlns:fx="http://javafx.com/fxml/1" fx:controller="ca.ulaval.glo2004.visualigue.ui.controllers.playmanagement.PlayListController">
     <Label fx:id="emptyNoticeLabel" >Aucun élément à afficher dans cette vue.</Label>
-    <TilePane fx:id="tilePane" prefTileHeight="160.0" prefTileWidth="160.0" tileAlignment="TOP_LEFT" >
+    <TilePane fx:id="tilePane" prefTileHeight="275.0" prefTileWidth="400.0" tileAlignment="TOP_LEFT" >
         <children>
 
         </children>

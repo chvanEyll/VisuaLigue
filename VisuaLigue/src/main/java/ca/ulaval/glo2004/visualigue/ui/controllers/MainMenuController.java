@@ -4,6 +4,7 @@ import ca.ulaval.glo2004.visualigue.ui.InjectableFXMLLoader;
 import ca.ulaval.glo2004.visualigue.ui.View;
 import ca.ulaval.glo2004.visualigue.ui.animation.PredefinedAnimations;
 import ca.ulaval.glo2004.visualigue.ui.controllers.obstaclemanagement.ObstacleManagementController;
+import ca.ulaval.glo2004.visualigue.ui.controllers.playmanagement.PlayManagementController;
 import ca.ulaval.glo2004.visualigue.ui.controllers.settings.SettingsController;
 import ca.ulaval.glo2004.visualigue.ui.controllers.sportmanagement.SportManagementController;
 import ca.ulaval.glo2004.visualigue.utils.EventHandler;
@@ -31,6 +32,7 @@ public class MainMenuController {
         menuPane.setPrefWidth(MENU_PANE_COLLAPSED_WIDTH);
         menuPane.setMinWidth(MENU_PANE_COLLAPSED_WIDTH);
         menuPane.setClip(new Rectangle(MENU_PANE_COLLAPSED_WIDTH, Integer.MAX_VALUE));
+        selectMenu(PlayManagementController.VIEW_NAME, playsMenuItem);
     }
 
     public void toggleOpen() {
@@ -53,25 +55,25 @@ public class MainMenuController {
 
     @FXML
     public void onPlaysMenuItemClicked(MouseEvent e) {
-
+        selectMenu(PlayManagementController.VIEW_NAME, playsMenuItem);
     }
 
     @FXML
     public void onSportsMenuItemClicked(MouseEvent e) {
-        processMenuClick(SportManagementController.VIEW_NAME, sportsMenuItem);
+        selectMenu(SportManagementController.VIEW_NAME, sportsMenuItem);
     }
 
     @FXML
     public void onObstaclesMenuItemClicked(MouseEvent e) {
-        processMenuClick(ObstacleManagementController.VIEW_NAME, obstaclesMenuItem);
+        selectMenu(ObstacleManagementController.VIEW_NAME, obstaclesMenuItem);
     }
 
     @FXML
     public void onSettingsMenuItemClicked(MouseEvent e) {
-        processMenuClick(SettingsController.VIEW_NAME, settingsMenuItem);
+        selectMenu(SettingsController.VIEW_NAME, settingsMenuItem);
     }
 
-    private void processMenuClick(String viewName, HBox menuItem) {
+    private void selectMenu(String viewName, HBox menuItem) {
         unselectAllMenus();
         menuItem.getStyleClass().add("active");
         onMenuClicked.fire(this, InjectableFXMLLoader.loadView(viewName));

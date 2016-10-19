@@ -23,7 +23,7 @@
         <ColumnConstraints hgrow="SOMETIMES" maxWidth="41.0" minWidth="41.0" prefWidth="41.0" halignment="CENTER" />
     </columnConstraints>
     <children>
-        <ImageView fx:id="imageView" GridPane.valignment="CENTER" GridPane.columnIndex="0" />
+        <ImageView fx:id="imageView" GridPane.valignment="CENTER" GridPane.columnIndex="0" preserveRatio="true"  />
         <Label fx:id="nameLabel" styleClass="item" text="Catégorie" GridPane.valignment="CENTER" GridPane.columnIndex="1" />
         <Button fx:id="editButton" onAction="#onEditButtonAction" GridPane.valignment="CENTER" GridPane.columnIndex="2">
             <graphic>

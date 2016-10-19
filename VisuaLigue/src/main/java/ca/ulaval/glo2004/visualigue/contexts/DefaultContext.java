@@ -5,6 +5,10 @@ import ca.ulaval.glo2004.visualigue.domain.obstacle.Obstacle;
 import ca.ulaval.glo2004.visualigue.domain.obstacle.ObstacleAlreadyExistsException;
 import ca.ulaval.glo2004.visualigue.domain.obstacle.ObstacleFactory;
 import ca.ulaval.glo2004.visualigue.domain.obstacle.ObstacleRepository;
+import ca.ulaval.glo2004.visualigue.domain.play.Play;
+import ca.ulaval.glo2004.visualigue.domain.play.PlayAlreadyExistsException;
+import ca.ulaval.glo2004.visualigue.domain.play.PlayFactory;
+import ca.ulaval.glo2004.visualigue.domain.play.PlayRepository;
 import ca.ulaval.glo2004.visualigue.domain.playercategory.PlayerCategory;
 import ca.ulaval.glo2004.visualigue.domain.playingsurface.PlayingSurface;
 import ca.ulaval.glo2004.visualigue.domain.playingsurface.PlayingSurfaceUnit;
@@ -21,12 +25,15 @@ public class DefaultContext extends ContextBase {
 
     private final SportFactory sportFactory;
     private final ObstacleFactory obstacleFactory;
+    private final PlayFactory playFactory;
 
     @Inject
-    public DefaultContext(final SportFactory sportFactory, final SportRepository sportRepository, final ImageRepository imageRepository, final ObstacleFactory obstacleFactory, final ObstacleRepository obstacleRepository) {
-        super(sportRepository, imageRepository, obstacleRepository);
+    public DefaultContext(final SportFactory sportFactory, final SportRepository sportRepository, final ImageRepository imageRepository, final ObstacleFactory obstacleFactory,
+            final ObstacleRepository obstacleRepository, final PlayRepository playRepository, final PlayFactory playFactory) {
+        super(sportRepository, imageRepository, obstacleRepository, playRepository);
         this.sportFactory = sportFactory;
         this.obstacleFactory = obstacleFactory;
+        this.playFactory = playFactory;
     }
 
     @Override
@@ -41,14 +48,16 @@ public class DefaultContext extends ContextBase {
     }
 
     private void clearRepositories() {
+        playRepository.clear();
         sportRepository.clear();
-        imageRepository.clear();
         obstacleRepository.clear();
+        imageRepository.clear();
     }
 
     private void fill() throws Exception {
         createSports();
         createObstacles();
+        createPlays();
     }
 
     private void createSports() throws Exception {
@@ -151,6 +160,23 @@ public class DefaultContext extends ContextBase {
     private void persistObstacles(List<Obstacle> obstaclePool) throws ObstacleAlreadyExistsException {
         for (Obstacle obstacle : obstaclePool) {
             obstacleRepository.persist(obstacle);
+        }
+    }
+
+    private void createPlays() throws Exception {
+        List<Play> playPool = new ArrayList<>();
+        playPool.add(createDefaultPlay());
+        persistPlays(playPool);
+    }
+
+    private Play createDefaultPlay() {
+        Play play = playFactory.create("Test");
+        return play;
+    }
+
+    private void persistPlays(List<Play> playPool) throws PlayAlreadyExistsException {
+        for (Play play : playPool) {
+            playRepository.persist(play);
         }
     }
 }

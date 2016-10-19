@@ -22,7 +22,6 @@
             </children>
             <styleClass>
                 <String fx:value="menu-item" />
-                <String fx:value="active" />
             </styleClass>
         </HBox>
         <HBox fx:id="sportsMenuItem" alignment="CENTER_LEFT" fillHeight="false" layoutX="10.0" layoutY="10.0" onMouseClicked="#onSportsMenuItemClicked" styleClass="menu-item">

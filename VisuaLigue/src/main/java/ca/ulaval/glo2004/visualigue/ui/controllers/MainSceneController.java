@@ -29,8 +29,8 @@ public class MainSceneController implements Initializable {
 
     @Override
     public void initialize(URL url, ResourceBundle rb) {
-        mainMenuController.init();
         mainMenuController.onMenuClicked.setHandler(this::onMainMenuClicked);
+        mainMenuController.init();
     }
 
     public void setStage(Stage stage) {

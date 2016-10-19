@@ -27,6 +27,7 @@ public class SportListItemController {
     private void setSportImage(String sportImagePathName) {
         ImageView imageView = new ImageView();
         Image image = new Image(sportImagePathName);
+        imageView.setPreserveRatio(true);
         imageView.setImage(new Image(sportImagePathName));
         imageView.setFitWidth(image.getWidth());
         imageView.setFitHeight(image.getHeight());

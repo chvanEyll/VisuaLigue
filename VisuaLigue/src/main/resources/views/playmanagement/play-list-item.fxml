@@ -1,0 +1,48 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import java.lang.String?>
+<?import java.net.URL?>
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.Tooltip?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.Pane?>
+<?import javafx.scene.layout.VBox?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.StackPane?>
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.image.ImageView?>
+<?import ca.ulaval.glo2004.visualigue.ui.customcontrols.SvgImage?>
+
+<VBox fx:id="rootNode" alignment="TOP_CENTER" fillWidth="true" spacing="14" onMouseClicked="#onClick" xmlns="http://javafx.com/javafx/8.0.60" xmlns:fx="http://javafx.com/fxml/1" fx:controller="ca.ulaval.glo2004.visualigue.ui.controllers.playmanagement.PlayListItemController">
+    <children>
+        <HBox alignment="CENTER_RIGHT" styleClass="tile-header">
+            <children>
+                <StackPane alignment="TOP_LEFT" styleClass="play-title-container" HBox.hgrow="ALWAYS">
+                    <children>
+                        <Label fx:id="playTitleLabel" styleClass="item-text" text="Jeu" />
+                    </children>
+                </StackPane>
+                <Button styleClass="icon-button" onAction="#onDeleteButtonAction">
+                    <graphic>
+                        <SvgImage url="/images/trash-icon.fxml" />
+                    </graphic>
+                    <tooltip>
+                        <Tooltip text="Supprimer" />
+                    </tooltip>
+                </Button>
+            </children>
+        </HBox>
+    </children>
+    <padding>
+        <Insets bottom="4.0" left="14.0" right="14.0" top="14.0" />
+    </padding>
+    <styleClass>
+        <String fx:value="tile" />
+        <String fx:value="root-node" />
+    </styleClass>
+    <stylesheets>
+        <URL value="@/css/play-list.fxml.css" />
+    </stylesheets>
+</VBox>

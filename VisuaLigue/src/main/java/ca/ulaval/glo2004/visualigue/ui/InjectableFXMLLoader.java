@@ -11,7 +11,6 @@ import javafx.scene.Node;
 public class InjectableFXMLLoader {
 
     public static final CachedClassLoader CACHED_CLASS_LOADER = new CachedClassLoader(FXMLLoader.getDefaultClassLoader());
-    private static final InjectableFXMLLoader INSTANCE = new InjectableFXMLLoader();
 
     public static FXMLLoader createLoader(String viewName, Object controller, Node root) {
         FXMLLoader fxmlLoader = new FXMLLoader(InjectableFXMLLoader.class.getResource(viewName));
