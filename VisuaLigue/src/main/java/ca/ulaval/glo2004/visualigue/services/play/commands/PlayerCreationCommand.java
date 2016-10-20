@@ -7,6 +7,7 @@ import ca.ulaval.glo2004.visualigue.domain.play.actor.playerinstance.PlayerInsta
 import ca.ulaval.glo2004.visualigue.domain.play.actor.playerinstance.TeamSide;
 import ca.ulaval.glo2004.visualigue.domain.play.actorstate.PlayerState;
 import ca.ulaval.glo2004.visualigue.domain.play.position.Position;
+import java.util.Optional;
 import java.util.UUID;
 import javax.inject.Inject;
 
@@ -36,14 +37,14 @@ public class PlayerCreationCommand implements Command {
     @Override
     public void execute() throws PlayNotFoundException {
         play = playRepository.get(playUUID);
-        playerState = new PlayerState(position, orientation);
+        playerState = new PlayerState(Optional.of(position), Optional.of(orientation));
         playerInstance = new PlayerInstance(play.getSport().getPlayerCategory(playerCategoryUUID), teamSide);
         play.mergeActorState(time, playerInstance, playerState);
     }
 
     @Override
     public void revert() {
-        play.removeActorState(time, playerInstance, playerState);
+        play.unmergeActorState(time, playerInstance, playerState);
     }
 
 }

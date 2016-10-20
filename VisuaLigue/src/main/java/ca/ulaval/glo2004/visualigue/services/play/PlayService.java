@@ -7,9 +7,7 @@ import ca.ulaval.glo2004.visualigue.domain.play.position.Position;
 import ca.ulaval.glo2004.visualigue.domain.sport.Sport;
 import ca.ulaval.glo2004.visualigue.domain.sport.SportNotFoundException;
 import ca.ulaval.glo2004.visualigue.domain.sport.SportRepository;
-import ca.ulaval.glo2004.visualigue.services.play.commands.Command;
-import ca.ulaval.glo2004.visualigue.services.play.commands.ObstacleCreationCommand;
-import ca.ulaval.glo2004.visualigue.services.play.commands.PlayerCreationCommand;
+import ca.ulaval.glo2004.visualigue.services.play.commands.*;
 import ca.ulaval.glo2004.visualigue.utils.EventHandler;
 import java.util.ArrayDeque;
 import java.util.Deque;
@@ -75,25 +73,29 @@ public class PlayService {
         executeNewCommand(command);
     }
 
-    public void updatePlayerPosition(UUID playUUID, Integer time, UUID ownerPlayer, Position position) {
-
-    }
-
-    public void updatePlayerOrientation(UUID playUUID, Integer time, UUID ownerPlayer, Double orientation) {
-
-    }
-
-    public void addObstacle(UUID playUUID, Integer time, UUID obstacleUUID, Position position) throws Exception {
-        ObstacleCreationCommand command = new ObstacleCreationCommand(playUUID, time, obstacleUUID, position);
+    public void updatePlayerPosition(UUID playUUID, Integer time, UUID ownerPlayerInstanceUUID, Position position) throws Exception {
+        PlayerPositionUpdateCommand command = new PlayerPositionUpdateCommand(playUUID, time, ownerPlayerInstanceUUID, position);
         executeNewCommand(command);
     }
 
-    public void addBall(UUID playUUID, Integer time, UUID ownerPlayer, Position position) {
-
+    public void updatePlayerOrientation(UUID playUUID, Integer time, UUID ownerPlayerInstanceUUID, Double orientation) throws Exception {
+        PlayerOrientationUpdateCommand command = new PlayerOrientationUpdateCommand(playUUID, time, ownerPlayerInstanceUUID, orientation);
+        executeNewCommand(command);
     }
 
-    public void updateBall(UUID playUUID, Integer time, UUID ownerPlayer, Position position) {
+    public void addObstacle(UUID playUUID, Integer time, UUID obstacleInstanceUUID, Position position) throws Exception {
+        ObstacleCreationCommand command = new ObstacleCreationCommand(playUUID, time, obstacleInstanceUUID, position);
+        executeNewCommand(command);
+    }
 
+    public void addBall(UUID playUUID, Integer time, UUID ownerPlayerInstanceUUID, Position position) throws Exception {
+        BallCreationCommand command = new BallCreationCommand(playUUID, time, ownerPlayerInstanceUUID, position);
+        executeNewCommand(command);
+    }
+
+    public void updateBall(UUID playUUID, Integer time, UUID ballInstanceUUID, UUID ownerPlayerInstanceUUID, Position position) throws Exception {
+        BallUpdateCommand command = new BallUpdateCommand(playUUID, time, ballInstanceUUID, ownerPlayerInstanceUUID, position);
+        executeNewCommand(command);
     }
 
     public void savePlay(UUID playUUID) throws PlayAlreadyExistsException, PlayNotFoundException {

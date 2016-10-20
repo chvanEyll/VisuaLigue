@@ -5,9 +5,7 @@ import ca.ulaval.glo2004.visualigue.domain.play.actor.Actor;
 import ca.ulaval.glo2004.visualigue.domain.play.actorstate.ActorState;
 import ca.ulaval.glo2004.visualigue.domain.play.keyframe.Keyframe;
 import ca.ulaval.glo2004.visualigue.domain.sport.Sport;
-import java.util.SortedMap;
-import java.util.TreeMap;
-import java.util.UUID;
+import java.util.*;
 import javax.xml.bind.annotation.XmlAccessType;
 import javax.xml.bind.annotation.XmlAccessorType;
 import javax.xml.bind.annotation.XmlRootElement;
@@ -24,6 +22,7 @@ public class Play extends DomainObject {
     @XmlTransient
     private Sport sport;
     private SortedMap<Integer, Keyframe> keyframes = new TreeMap<>();
+    private Map<UUID, Actor> actorInstances = new HashMap<>();
 
     public Play() {
         //Required for JAXB instanciation.
@@ -66,7 +65,11 @@ public class Play extends DomainObject {
         return sport;
     }
 
-    public void mergeActorState(Integer time, Actor actor, ActorState state) {
+    public Actor getActorInstance(UUID actorInstanceUUID) {
+        return actorInstances.get(actorInstanceUUID);
+    }
+
+    public ActorState mergeActorState(Integer time, Actor actor, ActorState state) {
         Keyframe keyframe;
         if (keyframes.containsKey(time)) {
             keyframe = keyframes.get(time);
@@ -74,12 +77,16 @@ public class Play extends DomainObject {
             keyframe = new Keyframe();
             keyframes.put(time, keyframe);
         }
-        keyframe.mergeActorState(actor, state);
+        actorInstances.put(actor.getUUID(), actor);
+        return keyframe.mergeActorState(actor, state);
     }
 
-    public void removeActorState(Integer time, Actor actorInstance, ActorState state) {
+    public void unmergeActorState(Integer time, Actor actorInstance, ActorState state) {
         Keyframe keyframe = keyframes.get(time);
-        keyframe.removeActorState(actorInstance, state);
+        keyframe.unmergeActorState(actorInstance, state);
+        if (keyframe.isEmpty()) {
+            keyframes.remove(time);
+        }
     }
 
 }

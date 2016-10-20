@@ -10,12 +10,26 @@ public class Keyframe extends DomainObject {
 
     private Map<Actor, ActorState> actorStateDelta = new HashMap<>();
 
-    public void mergeActorState(Actor actor, ActorState actorState) {
-        actorStateDelta.put(actor, actorState);
+    public ActorState mergeActorState(Actor actor, ActorState actorState) {
+        if (actorStateDelta.containsKey(actor)) {
+            ActorState currentActorState = actorStateDelta.get(actor);
+            return currentActorState.merge(actorState);
+        } else {
+            actorStateDelta.put(actor, actorState);
+            return null;
+        }
     }
 
-    public void removeActorState(Actor actor, ActorState actorState) {
-        actorStateDelta.remove(actor);
+    public void unmergeActorState(Actor actor, ActorState actorState) {
+        ActorState currentActorState = actorStateDelta.get(actor);
+        currentActorState.unmerge(actorState);
+        if (actorState.isBlank()) {
+            actorStateDelta.remove(actor);
+        }
+    }
+
+    public Boolean isEmpty() {
+        return actorStateDelta.isEmpty();
     }
 
 }

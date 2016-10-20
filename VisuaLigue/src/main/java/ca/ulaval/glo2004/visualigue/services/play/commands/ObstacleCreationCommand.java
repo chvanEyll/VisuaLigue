@@ -7,15 +7,16 @@ import ca.ulaval.glo2004.visualigue.domain.play.PlayRepository;
 import ca.ulaval.glo2004.visualigue.domain.play.actor.obstacleinstance.ObstacleInstance;
 import ca.ulaval.glo2004.visualigue.domain.play.actorstate.ObstacleState;
 import ca.ulaval.glo2004.visualigue.domain.play.position.Position;
+import java.util.Optional;
 import java.util.UUID;
 import javax.inject.Inject;
 
 public class ObstacleCreationCommand implements Command {
 
-    UUID playUUID;
-    Integer time;
-    UUID obstacleUUID;
-    Position position;
+    private UUID playUUID;
+    private Integer time;
+    private UUID obstacleInstanceUUID;
+    private Position position;
     @Inject private PlayRepository playRepository;
     @Inject private ObstacleRepository obstacleRepository;
 
@@ -24,25 +25,25 @@ public class ObstacleCreationCommand implements Command {
     private Obstacle obstacle;
     private ObstacleInstance obstacleInstance;
 
-    public ObstacleCreationCommand(UUID playUUID, Integer time, UUID obstacleUUID, Position position) {
+    public ObstacleCreationCommand(UUID playUUID, Integer time, UUID obstacleInstanceUUID, Position position) {
         this.playUUID = playUUID;
         this.time = time;
-        this.obstacleUUID = obstacleUUID;
+        this.obstacleInstanceUUID = obstacleInstanceUUID;
         this.position = position;
     }
 
     @Override
     public void execute() throws Exception {
         play = playRepository.get(playUUID);
-        obstacleState = new ObstacleState(position);
-        obstacle = obstacleRepository.get(obstacleUUID);
+        obstacleState = new ObstacleState(Optional.of(position));
+        obstacle = obstacleRepository.get(obstacleInstanceUUID);
         obstacleInstance = new ObstacleInstance(obstacle);
         play.mergeActorState(time, obstacleInstance, obstacleState);
     }
 
     @Override
     public void revert() {
-
+        play.unmergeActorState(time, obstacleInstance, obstacleState);
     }
 
 }

@@ -29,8 +29,8 @@ public class ObstacleService {
         return obstacle.getUUID();
     }
 
-    public void updateObstacle(UUID obstacleUUID, String name) throws ObstacleNotFoundException {
-        Obstacle obstacle = obstacleRepository.get(obstacleUUID);
+    public void updateObstacle(UUID obstacleInstanceUUID, String name) throws ObstacleNotFoundException {
+        Obstacle obstacle = obstacleRepository.get(obstacleInstanceUUID);
         obstacle.setName(name);
         obstacleRepository.update(obstacle);
     }
@@ -45,13 +45,13 @@ public class ObstacleService {
         obstacleRepository.update(obstacle);
     }
 
-    public void deleteObstacle(UUID obstacleUUID) throws ObstacleNotFoundException {
-        Obstacle obstacle = obstacleRepository.get(obstacleUUID);
+    public void deleteObstacle(UUID obstacleInstanceUUID) throws ObstacleNotFoundException {
+        Obstacle obstacle = obstacleRepository.get(obstacleInstanceUUID);
         obstacleRepository.delete(obstacle);
     }
 
-    public Obstacle getObstacle(UUID obstacleUUID) throws ObstacleNotFoundException {
-        return obstacleRepository.get(obstacleUUID);
+    public Obstacle getObstacle(UUID obstacleInstanceUUID) throws ObstacleNotFoundException {
+        return obstacleRepository.get(obstacleInstanceUUID);
     }
 
     public List<Obstacle> getObstacles(Function<Obstacle, Comparable> sortFunction, SortOrder sortOrder) {
