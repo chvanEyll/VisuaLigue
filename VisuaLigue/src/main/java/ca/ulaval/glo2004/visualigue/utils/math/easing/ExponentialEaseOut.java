@@ -1,7 +1,5 @@
 package ca.ulaval.glo2004.visualigue.utils.math.easing;
 
-import ca.ulaval.glo2004.visualigue.utils.math.easing.EasingFunction;
-
 public class ExponentialEaseOut implements EasingFunction {
 
     @Override

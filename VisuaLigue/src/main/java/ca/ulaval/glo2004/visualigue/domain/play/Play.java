@@ -25,8 +25,8 @@ public class Play extends DomainObject {
     private UUID sportUUID;
     @XmlTransient
     private Sport sport;
-    private NavigableMap<Pair<ActorInstance, Integer>, Keyframe> keyframes = new TreeMap<>();
-    private Map<UUID, ActorInstance> actorInstances = new HashMap<>();
+    private final NavigableMap<Pair<ActorInstance, Integer>, Keyframe> keyframes = new TreeMap<>();
+    private final Map<UUID, ActorInstance> actorInstances = new HashMap<>();
 
     public Play() {
         //Required for JAXB instanciation.
