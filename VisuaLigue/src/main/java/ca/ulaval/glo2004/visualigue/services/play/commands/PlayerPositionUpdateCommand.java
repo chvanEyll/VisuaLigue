@@ -3,6 +3,7 @@ package ca.ulaval.glo2004.visualigue.services.play.commands;
 import ca.ulaval.glo2004.visualigue.domain.play.Play;
 import ca.ulaval.glo2004.visualigue.domain.play.PlayRepository;
 import ca.ulaval.glo2004.visualigue.domain.play.actor.playerinstance.PlayerInstance;
+import ca.ulaval.glo2004.visualigue.domain.play.actorstate.ActorState;
 import ca.ulaval.glo2004.visualigue.domain.play.actorstate.PlayerState;
 import ca.ulaval.glo2004.visualigue.domain.play.position.Position;
 import java.util.Optional;
@@ -18,9 +19,8 @@ public class PlayerPositionUpdateCommand implements Command {
     @Inject private PlayRepository playRepository;
 
     private Play play;
-    private PlayerState playerState;
     private PlayerInstance playerInstance;
-    private PlayerState oldPlayerState;
+    private Optional<ActorState> oldPlayerState;
 
     public PlayerPositionUpdateCommand(UUID playUUID, Integer time, UUID ownerPlayerInstanceUUID, Position position) {
         this.playUUID = playUUID;
@@ -32,9 +32,9 @@ public class PlayerPositionUpdateCommand implements Command {
     @Override
     public void execute() throws Exception {
         play = playRepository.get(playUUID);
-        playerState = new PlayerState(Optional.of(position), Optional.empty());
+        PlayerState playerState = new PlayerState(Optional.of(position), Optional.empty());
         playerInstance = (PlayerInstance) play.getActorInstance(ownerPlayerInstanceUUID);
-        oldPlayerState = (PlayerState) play.mergeActorState(time, playerInstance, playerState);
+        oldPlayerState = play.mergeActorState(time, playerInstance, playerState);
     }
 
     @Override

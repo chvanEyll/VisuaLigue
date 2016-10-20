@@ -1,35 +1,55 @@
 package ca.ulaval.glo2004.visualigue.domain.play.keyframe;
 
 import ca.ulaval.glo2004.visualigue.domain.DomainObject;
-import ca.ulaval.glo2004.visualigue.domain.play.actor.Actor;
+import ca.ulaval.glo2004.visualigue.domain.play.actor.ActorInstance;
 import ca.ulaval.glo2004.visualigue.domain.play.actorstate.ActorState;
-import java.util.HashMap;
-import java.util.Map;
+import ca.ulaval.glo2004.visualigue.utils.math.easing.ExponentialEaseOut;
 
 public class Keyframe extends DomainObject {
 
-    private Map<Actor, ActorState> actorStateDelta = new HashMap<>();
+    private Integer time;
+    private ActorInstance actorInstance;
+    private ActorState actorState;
 
-    public ActorState mergeActorState(Actor actor, ActorState actorState) {
-        if (actorStateDelta.containsKey(actor)) {
-            ActorState currentActorState = actorStateDelta.get(actor);
-            return currentActorState.merge(actorState);
-        } else {
-            actorStateDelta.put(actor, actorState);
-            return null;
-        }
+    private Keyframe() {
     }
 
-    public void unmergeActorState(Actor actor, ActorState actorState) {
-        ActorState currentActorState = actorStateDelta.get(actor);
-        currentActorState.unmerge(actorState);
-        if (actorState.isBlank()) {
-            actorStateDelta.remove(actor);
-        }
+    public Keyframe(Integer time, ActorInstance actor, ActorState actorState) {
+        this.time = time;
+        this.actorInstance = actor;
+        this.actorState = actorState;
+    }
+
+    public Integer getTime() {
+        return time;
+    }
+
+    public ActorInstance getActorInstance() {
+        return actorInstance;
+    }
+
+    public ActorState getActorState() {
+        return actorState;
+    }
+
+    public ActorState mergeActorState(ActorState actorState) {
+        return actorState.merge(actorState);
+    }
+
+    public void unmergeActorState(ActorInstance actor, ActorState actorState) {
+        this.actorState.unmerge(actorState);
     }
 
     public Boolean isEmpty() {
-        return actorStateDelta.isEmpty();
+        return actorState.isBlank();
+    }
+
+    public Keyframe interpolate(Integer interpolant, Keyframe nextKeyframe) {
+        Keyframe interpolatedKeyFrame = new Keyframe();
+        interpolatedKeyFrame.time = this.time + (nextKeyframe.time - this.time) * interpolant;
+        interpolatedKeyFrame.actorState = actorState.interpolate(nextKeyframe.actorState, (nextKeyframe.time - this.time) * interpolant, new ExponentialEaseOut());
+        interpolatedKeyFrame.actorInstance = actorInstance;
+        return interpolatedKeyFrame;
     }
 
 }

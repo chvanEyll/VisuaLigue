@@ -21,8 +21,6 @@ public class ObstacleCreationCommand implements Command {
     @Inject private ObstacleRepository obstacleRepository;
 
     private Play play;
-    private ObstacleState obstacleState;
-    private Obstacle obstacle;
     private ObstacleInstance obstacleInstance;
 
     public ObstacleCreationCommand(UUID playUUID, Integer time, UUID obstacleInstanceUUID, Position position) {
@@ -35,15 +33,15 @@ public class ObstacleCreationCommand implements Command {
     @Override
     public void execute() throws Exception {
         play = playRepository.get(playUUID);
-        obstacleState = new ObstacleState(Optional.of(position));
-        obstacle = obstacleRepository.get(obstacleInstanceUUID);
+        ObstacleState obstacleState = new ObstacleState(Optional.of(position));
+        Obstacle obstacle = obstacleRepository.get(obstacleInstanceUUID);
         obstacleInstance = new ObstacleInstance(obstacle);
         play.mergeActorState(time, obstacleInstance, obstacleState);
     }
 
     @Override
     public void revert() {
-        play.unmergeActorState(time, obstacleInstance, obstacleState);
+        play.unmergeActorState(time, obstacleInstance, Optional.empty());
     }
 
 }

@@ -1,9 +1,9 @@
 package ca.ulaval.glo2004.visualigue.domain.play.actor.obstacleinstance;
 
 import ca.ulaval.glo2004.visualigue.domain.obstacle.Obstacle;
-import ca.ulaval.glo2004.visualigue.domain.play.actor.Actor;
+import ca.ulaval.glo2004.visualigue.domain.play.actor.ActorInstance;
 
-public class ObstacleInstance extends Actor {
+public class ObstacleInstance extends ActorInstance {
 
     private Obstacle obstacle;
 

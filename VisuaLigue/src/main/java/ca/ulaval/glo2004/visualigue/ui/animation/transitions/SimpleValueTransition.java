@@ -1,6 +1,6 @@
 package ca.ulaval.glo2004.visualigue.ui.animation.transitions;
 
-import ca.ulaval.glo2004.visualigue.ui.animation.easing.EasingFunction;
+import ca.ulaval.glo2004.visualigue.utils.math.easing.EasingFunction;
 import java.time.Duration;
 
 public class SimpleValueTransition extends Transition<Double> {

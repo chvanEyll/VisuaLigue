@@ -1,4 +1,4 @@
-package ca.ulaval.glo2004.visualigue.ui.animation.easing;
+package ca.ulaval.glo2004.visualigue.utils.math.easing;
 
 public interface EasingFunction {
 

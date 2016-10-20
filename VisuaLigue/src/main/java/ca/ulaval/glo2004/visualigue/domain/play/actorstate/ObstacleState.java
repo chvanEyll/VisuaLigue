@@ -1,6 +1,7 @@
 package ca.ulaval.glo2004.visualigue.domain.play.actorstate;
 
 import ca.ulaval.glo2004.visualigue.domain.play.position.Position;
+import ca.ulaval.glo2004.visualigue.utils.math.easing.EasingFunction;
 import java.util.Optional;
 
 public class ObstacleState extends ActorState implements Cloneable {
@@ -46,5 +47,15 @@ public class ObstacleState extends ActorState implements Cloneable {
         } catch (CloneNotSupportedException ex) {
             throw new RuntimeException(ex);
         }
+    }
+
+    @Override
+    public ObstacleState interpolate(ActorState nextState, Integer interpolant, EasingFunction easingFunction) {
+        ObstacleState nextObstacleState = (ObstacleState) nextState;
+        ObstacleState interpolatedState = this.clone();
+        if (nextObstacleState.position.isPresent()) {
+            interpolatedState.position = Optional.of(position.get().interpolate(nextObstacleState.position.get(), interpolant, easingFunction));
+        }
+        return interpolatedState;
     }
 }

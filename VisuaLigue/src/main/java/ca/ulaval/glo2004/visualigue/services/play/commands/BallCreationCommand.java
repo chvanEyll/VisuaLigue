@@ -19,8 +19,6 @@ public class BallCreationCommand implements Command {
     @Inject private PlayRepository playRepository;
 
     private Play play;
-    private PlayerInstance playerInstance;
-    private BallState ballState;
     private BallInstance ballInstance;
 
     public BallCreationCommand(UUID playUUID, Integer time, UUID ownerPlayerInstanceUUID, Position position) {
@@ -33,15 +31,15 @@ public class BallCreationCommand implements Command {
     @Override
     public void execute() throws Exception {
         play = playRepository.get(playUUID);
-        playerInstance = (PlayerInstance) play.getActorInstance(ownerPlayerInstanceUUID);
-        ballState = new BallState(Optional.of(position), Optional.of(playerInstance));
+        PlayerInstance playerInstance = (PlayerInstance) play.getActorInstance(ownerPlayerInstanceUUID);
+        BallState ballState = new BallState(Optional.of(position), Optional.of(playerInstance));
         ballInstance = new BallInstance();
         play.mergeActorState(time, ballInstance, ballState);
     }
 
     @Override
     public void revert() {
-        play.unmergeActorState(time, playerInstance, ballState);
+        play.unmergeActorState(time, ballInstance, Optional.empty());
     }
 
 }

@@ -4,6 +4,7 @@ import ca.ulaval.glo2004.visualigue.domain.play.Play;
 import ca.ulaval.glo2004.visualigue.domain.play.PlayRepository;
 import ca.ulaval.glo2004.visualigue.domain.play.actor.ballinstance.BallInstance;
 import ca.ulaval.glo2004.visualigue.domain.play.actor.playerinstance.PlayerInstance;
+import ca.ulaval.glo2004.visualigue.domain.play.actorstate.ActorState;
 import ca.ulaval.glo2004.visualigue.domain.play.actorstate.BallState;
 import ca.ulaval.glo2004.visualigue.domain.play.position.Position;
 import java.util.Optional;
@@ -20,10 +21,8 @@ public class BallUpdateCommand implements Command {
     @Inject private PlayRepository playRepository;
 
     private Play play;
-    private BallState ballState;
     private BallInstance ballInstance;
-    private PlayerInstance playerInstance;
-    private BallState oldBallState;
+    private Optional<ActorState> oldBallState;
 
     public BallUpdateCommand(UUID playUUID, Integer time, UUID ballInstanceUUID, UUID ownerPlayerInstanceUUID, Position position) {
         this.playUUID = playUUID;
@@ -32,19 +31,19 @@ public class BallUpdateCommand implements Command {
         this.ownerPlayerInstanceUUID = ownerPlayerInstanceUUID;
         this.position = position;
     }
-    
+
     @Override
     public void execute() throws Exception {
         play = playRepository.get(playUUID);
-        playerInstance = (PlayerInstance) play.getActorInstance(ownerPlayerInstanceUUID);
+        PlayerInstance playerInstance = (PlayerInstance) play.getActorInstance(ownerPlayerInstanceUUID);
         ballInstance = (BallInstance) play.getActorInstance(ballInstanceUUID);
-        ballState = new BallState(Optional.of(position), Optional.of(playerInstance));
-        oldBallState = (BallState) play.mergeActorState(time, ballInstance, ballState);
+        BallState ballState = new BallState(Optional.of(position), Optional.of(playerInstance));
+        oldBallState = play.mergeActorState(time, ballInstance, ballState);
     }
 
     @Override
     public void revert() {
-        play.unmergeActorState(time, ballInstance, ballState);
+        play.unmergeActorState(time, ballInstance, oldBallState);
     }
 
 }

@@ -1,22 +1,22 @@
 package ca.ulaval.glo2004.visualigue.services.play;
 
 import ca.ulaval.glo2004.visualigue.domain.play.*;
+import ca.ulaval.glo2004.visualigue.domain.play.actor.ActorInstance;
 import ca.ulaval.glo2004.visualigue.domain.play.actor.playerinstance.TeamSide;
 import ca.ulaval.glo2004.visualigue.domain.play.frame.Frame;
+import ca.ulaval.glo2004.visualigue.domain.play.keyframe.Keyframe;
 import ca.ulaval.glo2004.visualigue.domain.play.position.Position;
 import ca.ulaval.glo2004.visualigue.domain.sport.Sport;
 import ca.ulaval.glo2004.visualigue.domain.sport.SportNotFoundException;
 import ca.ulaval.glo2004.visualigue.domain.sport.SportRepository;
 import ca.ulaval.glo2004.visualigue.services.play.commands.*;
 import ca.ulaval.glo2004.visualigue.utils.EventHandler;
-import java.util.ArrayDeque;
-import java.util.Deque;
-import java.util.List;
-import java.util.UUID;
+import java.util.*;
 import java.util.function.Function;
 import javax.inject.Inject;
 import javax.inject.Singleton;
 import javax.swing.SortOrder;
+import org.apache.commons.lang3.tuple.Pair;
 
 @Singleton
 public class PlayService {
@@ -108,8 +108,14 @@ public class PlayService {
         playRepository.discard(play);
     }
 
-    public Frame getFrame(UUID playUUID, Integer time) {
-        return new Frame();
+    public Frame getFrame(UUID playUUID, Integer time) throws PlayNotFoundException {
+        Play play = playRepository.get(playUUID);
+        return play.getFrame(time);
+    }
+
+    public SortedMap<Pair<ActorInstance, Integer>, Keyframe> getKeyframes(UUID playUUID) throws PlayNotFoundException {
+        Play play = playRepository.get(playUUID);
+        return play.getKeyframes();
     }
 
     public Boolean isUndoAvailable() {

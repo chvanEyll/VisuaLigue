@@ -1,7 +1,7 @@
 package ca.ulaval.glo2004.visualigue.ui.animation;
 
-import ca.ulaval.glo2004.visualigue.ui.animation.easing.EasingFunction;
-import ca.ulaval.glo2004.visualigue.ui.animation.easing.ExponentialEaseOut;
+import ca.ulaval.glo2004.visualigue.utils.math.easing.EasingFunction;
+import ca.ulaval.glo2004.visualigue.utils.math.easing.ExponentialEaseOut;
 import java.time.Duration;
 import java.util.function.Consumer;
 import javafx.scene.shape.Rectangle;

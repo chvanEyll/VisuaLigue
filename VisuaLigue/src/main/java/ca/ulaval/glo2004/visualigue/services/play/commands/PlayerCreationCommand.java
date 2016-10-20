@@ -22,7 +22,6 @@ public class PlayerCreationCommand implements Command {
     @Inject private PlayRepository playRepository;
 
     private Play play;
-    private PlayerState playerState;
     private PlayerInstance playerInstance;
 
     public PlayerCreationCommand(UUID playUUID, Integer time, UUID playerCategoryUUID, TeamSide teamSide, Double orientation, Position position) {
@@ -37,14 +36,14 @@ public class PlayerCreationCommand implements Command {
     @Override
     public void execute() throws PlayNotFoundException {
         play = playRepository.get(playUUID);
-        playerState = new PlayerState(Optional.of(position), Optional.of(orientation));
+        PlayerState playerState = new PlayerState(Optional.of(position), Optional.of(orientation));
         playerInstance = new PlayerInstance(play.getSport().getPlayerCategory(playerCategoryUUID), teamSide);
         play.mergeActorState(time, playerInstance, playerState);
     }
 
     @Override
     public void revert() {
-        play.unmergeActorState(time, playerInstance, playerState);
+        play.unmergeActorState(time, playerInstance, Optional.empty());
     }
 
 }
