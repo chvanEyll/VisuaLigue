@@ -1,4 +1,4 @@
-package ca.ulaval.glo2004.visualigue.domain.obstacle;
+package ca.ulaval.glo2004.visualigue.domain.play.actor.obstacle;
 
 import javax.inject.Singleton;
 

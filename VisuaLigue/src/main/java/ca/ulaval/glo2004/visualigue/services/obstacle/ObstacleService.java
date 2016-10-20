@@ -1,7 +1,11 @@
-package ca.ulaval.glo2004.visualigue.services;
+package ca.ulaval.glo2004.visualigue.services.obstacle;
 
+import ca.ulaval.glo2004.visualigue.domain.play.actor.obstacle.ObstacleNotFoundException;
+import ca.ulaval.glo2004.visualigue.domain.play.actor.obstacle.Obstacle;
+import ca.ulaval.glo2004.visualigue.domain.play.actor.obstacle.ObstacleAlreadyExistsException;
+import ca.ulaval.glo2004.visualigue.domain.play.actor.obstacle.ObstacleFactory;
+import ca.ulaval.glo2004.visualigue.domain.play.actor.obstacle.ObstacleRepository;
 import ca.ulaval.glo2004.visualigue.domain.image.ImageRepository;
-import ca.ulaval.glo2004.visualigue.domain.obstacle.*;
 import java.util.List;
 import java.util.UUID;
 import java.util.function.Function;

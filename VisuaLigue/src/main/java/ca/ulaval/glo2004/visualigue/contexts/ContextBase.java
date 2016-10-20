@@ -1,7 +1,7 @@
 package ca.ulaval.glo2004.visualigue.contexts;
 
 import ca.ulaval.glo2004.visualigue.domain.image.ImageRepository;
-import ca.ulaval.glo2004.visualigue.domain.obstacle.ObstacleRepository;
+import ca.ulaval.glo2004.visualigue.domain.play.actor.obstacle.ObstacleRepository;
 import ca.ulaval.glo2004.visualigue.domain.play.PlayRepository;
 import ca.ulaval.glo2004.visualigue.domain.sport.SportRepository;
 import javax.inject.Inject;

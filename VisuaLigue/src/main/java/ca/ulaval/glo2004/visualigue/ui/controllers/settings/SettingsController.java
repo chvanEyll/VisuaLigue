@@ -1,8 +1,8 @@
 package ca.ulaval.glo2004.visualigue.ui.controllers.settings;
 
 import ca.ulaval.glo2004.visualigue.VisuaLigue;
-import ca.ulaval.glo2004.visualigue.services.SettingsService;
-import ca.ulaval.glo2004.visualigue.ui.controllers.Controller;
+import ca.ulaval.glo2004.visualigue.services.settings.SettingsService;
+import ca.ulaval.glo2004.visualigue.ui.controllers.ControllerBase;
 import ca.ulaval.glo2004.visualigue.ui.dialog.AlertDialogBuilder;
 import java.net.URL;
 import java.util.Optional;
@@ -17,7 +17,7 @@ import javafx.scene.control.ButtonType;
 import javafx.scene.control.Label;
 import javax.inject.Inject;
 
-public class SettingsController extends Controller {
+public class SettingsController extends ControllerBase {
 
     public static final String VIEW_NAME = "/views/settings/settings.fxml";
     public static final String VIEW_TITLE = "Paramètres";

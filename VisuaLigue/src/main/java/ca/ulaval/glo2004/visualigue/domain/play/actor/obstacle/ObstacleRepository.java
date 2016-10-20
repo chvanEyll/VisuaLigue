@@ -1,4 +1,4 @@
-package ca.ulaval.glo2004.visualigue.domain.obstacle;
+package ca.ulaval.glo2004.visualigue.domain.play.actor.obstacle;
 
 import java.util.List;
 import java.util.UUID;

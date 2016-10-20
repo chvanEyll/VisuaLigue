@@ -1,14 +1,14 @@
 package ca.ulaval.glo2004.visualigue.contexts;
 
 import ca.ulaval.glo2004.visualigue.domain.image.ImageRepository;
-import ca.ulaval.glo2004.visualigue.domain.obstacle.Obstacle;
-import ca.ulaval.glo2004.visualigue.domain.obstacle.ObstacleAlreadyExistsException;
-import ca.ulaval.glo2004.visualigue.domain.obstacle.ObstacleFactory;
-import ca.ulaval.glo2004.visualigue.domain.obstacle.ObstacleRepository;
 import ca.ulaval.glo2004.visualigue.domain.play.Play;
 import ca.ulaval.glo2004.visualigue.domain.play.PlayAlreadyExistsException;
 import ca.ulaval.glo2004.visualigue.domain.play.PlayFactory;
 import ca.ulaval.glo2004.visualigue.domain.play.PlayRepository;
+import ca.ulaval.glo2004.visualigue.domain.play.actor.obstacle.Obstacle;
+import ca.ulaval.glo2004.visualigue.domain.play.actor.obstacle.ObstacleAlreadyExistsException;
+import ca.ulaval.glo2004.visualigue.domain.play.actor.obstacle.ObstacleFactory;
+import ca.ulaval.glo2004.visualigue.domain.play.actor.obstacle.ObstacleRepository;
 import ca.ulaval.glo2004.visualigue.domain.playercategory.PlayerCategory;
 import ca.ulaval.glo2004.visualigue.domain.playingsurface.PlayingSurface;
 import ca.ulaval.glo2004.visualigue.domain.playingsurface.PlayingSurfaceUnit;
@@ -26,6 +26,7 @@ public class DefaultContext extends ContextBase {
     private final SportFactory sportFactory;
     private final ObstacleFactory obstacleFactory;
     private final PlayFactory playFactory;
+    private final List<Sport> sportPool = new ArrayList<>();
 
     @Inject
     public DefaultContext(final SportFactory sportFactory, final SportRepository sportRepository, final ImageRepository imageRepository, final ObstacleFactory obstacleFactory,
@@ -61,7 +62,6 @@ public class DefaultContext extends ContextBase {
     }
 
     private void createSports() throws Exception {
-        List<Sport> sportPool = new ArrayList<>();
         sportPool.add(createHockeySport());
         sportPool.add(createSoccerSport());
         sportPool.add(createFootballSport());
@@ -170,7 +170,7 @@ public class DefaultContext extends ContextBase {
     }
 
     private Play createDefaultPlay() {
-        Play play = playFactory.create("Test");
+        Play play = playFactory.create("Test", sportPool.get(0));
         return play;
     }
 

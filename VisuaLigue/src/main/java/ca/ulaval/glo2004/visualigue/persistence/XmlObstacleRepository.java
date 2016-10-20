@@ -1,9 +1,9 @@
 package ca.ulaval.glo2004.visualigue.persistence;
 
-import ca.ulaval.glo2004.visualigue.domain.obstacle.Obstacle;
-import ca.ulaval.glo2004.visualigue.domain.obstacle.ObstacleAlreadyExistsException;
-import ca.ulaval.glo2004.visualigue.domain.obstacle.ObstacleNotFoundException;
-import ca.ulaval.glo2004.visualigue.domain.obstacle.ObstacleRepository;
+import ca.ulaval.glo2004.visualigue.domain.play.actor.obstacle.Obstacle;
+import ca.ulaval.glo2004.visualigue.domain.play.actor.obstacle.ObstacleAlreadyExistsException;
+import ca.ulaval.glo2004.visualigue.domain.play.actor.obstacle.ObstacleNotFoundException;
+import ca.ulaval.glo2004.visualigue.domain.play.actor.obstacle.ObstacleRepository;
 import ca.ulaval.glo2004.visualigue.persistence.marshalling.XmlRepositoryMarshaller;
 import ca.ulaval.glo2004.visualigue.utils.ListUtils;
 import java.util.ArrayList;

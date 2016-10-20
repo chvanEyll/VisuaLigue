@@ -1,7 +1,7 @@
 package ca.ulaval.glo2004.visualigue.ui.controllers.obstaclemanagement;
 
-import ca.ulaval.glo2004.visualigue.domain.obstacle.ObstacleNotFoundException;
-import ca.ulaval.glo2004.visualigue.services.ObstacleService;
+import ca.ulaval.glo2004.visualigue.domain.play.actor.obstacle.ObstacleNotFoundException;
+import ca.ulaval.glo2004.visualigue.services.obstacle.ObstacleService;
 import ca.ulaval.glo2004.visualigue.ui.controllers.common.EditableListController;
 import ca.ulaval.glo2004.visualigue.ui.controllers.common.ListItemController;
 import ca.ulaval.glo2004.visualigue.ui.models.Model;

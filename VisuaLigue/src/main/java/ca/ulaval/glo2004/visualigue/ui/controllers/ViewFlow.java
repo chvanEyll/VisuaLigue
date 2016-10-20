@@ -30,7 +30,7 @@ public class ViewFlow {
     }
 
     public void clearView(View view) {
-        Controller controller = (Controller) view.getController();
+        ControllerBase controller = (ControllerBase) view.getController();
         controller.clearHandlers();
     }
 

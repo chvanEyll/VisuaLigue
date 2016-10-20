@@ -8,7 +8,7 @@ import javafx.beans.property.SimpleStringProperty;
 import javafx.beans.property.StringProperty;
 import javafx.fxml.Initializable;
 
-public abstract class Controller implements Initializable {
+public abstract class ControllerBase implements Initializable {
 
     public EventHandler<Object> onViewCloseRequested = new EventHandler<>();
     public EventHandler<View> onViewChangeRequested = new EventHandler<>();

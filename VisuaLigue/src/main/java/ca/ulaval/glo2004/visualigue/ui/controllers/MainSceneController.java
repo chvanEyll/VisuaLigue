@@ -78,7 +78,7 @@ public class MainSceneController implements Initializable {
     }
 
     private void setView(View view) {
-        Controller controller = (Controller) view.getController();
+        ControllerBase controller = (ControllerBase) view.getController();
         controller.onViewChangeRequested.setHandler(this::onViewChangeRequested);
         controller.onViewCloseRequested.setHandler(this::onViewCloseRequested);
         contentPane.getChildren().clear();

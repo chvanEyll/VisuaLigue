@@ -2,10 +2,10 @@ package ca.ulaval.glo2004.visualigue.ui.controllers.playmanagement;
 
 import ca.ulaval.glo2004.visualigue.domain.play.Play;
 import ca.ulaval.glo2004.visualigue.domain.play.PlayNotFoundException;
-import ca.ulaval.glo2004.visualigue.services.PlayService;
+import ca.ulaval.glo2004.visualigue.services.play.PlayService;
 import ca.ulaval.glo2004.visualigue.ui.InjectableFXMLLoader;
 import ca.ulaval.glo2004.visualigue.ui.View;
-import ca.ulaval.glo2004.visualigue.ui.controllers.Controller;
+import ca.ulaval.glo2004.visualigue.ui.controllers.ControllerBase;
 import ca.ulaval.glo2004.visualigue.ui.controllers.playcreation.PlayCreationController;
 import ca.ulaval.glo2004.visualigue.ui.converters.PlayListItemModelConverter;
 import ca.ulaval.glo2004.visualigue.ui.models.PlayListItemModel;
@@ -25,7 +25,7 @@ import javafx.scene.layout.TilePane;
 import javax.inject.Inject;
 import javax.swing.SortOrder;
 
-public class PlayListController extends Controller {
+public class PlayListController extends ControllerBase {
 
     @Inject private PlayService playService;
     @Inject private PlayListItemModelConverter playListItemModelConverter;

@@ -3,7 +3,7 @@ package ca.ulaval.glo2004.visualigue.ui.controllers.playmanagement;
 import ca.ulaval.glo2004.visualigue.domain.play.PlayNotFoundException;
 import ca.ulaval.glo2004.visualigue.ui.InjectableFXMLLoader;
 import ca.ulaval.glo2004.visualigue.ui.View;
-import ca.ulaval.glo2004.visualigue.ui.controllers.Controller;
+import ca.ulaval.glo2004.visualigue.ui.controllers.ControllerBase;
 import ca.ulaval.glo2004.visualigue.ui.controllers.playeditor.PlayEditorController;
 import ca.ulaval.glo2004.visualigue.ui.models.PlayListItemModel;
 import java.net.URL;
@@ -14,7 +14,7 @@ import javafx.beans.property.SimpleStringProperty;
 import javafx.beans.property.StringProperty;
 import javafx.fxml.FXML;
 
-public class PlayManagementController extends Controller {
+public class PlayManagementController extends ControllerBase {
 
     public static final String VIEW_TITLE = "Jeux";
     public static final String VIEW_NAME = "/views/playmanagement/play-management.fxml";
