@@ -1,4 +1,4 @@
-package ca.ulaval.glo2004.visualigue.domain.play.actor.obstacle;
+package ca.ulaval.glo2004.visualigue.domain.obstacle;
 
 import java.util.List;
 import java.util.UUID;
@@ -13,7 +13,7 @@ public interface ObstacleRepository {
 
     Obstacle get(UUID uuid) throws ObstacleNotFoundException;
 
-    void delete(UUID uuid) throws ObstacleNotFoundException;
+    void delete(Obstacle obstacle) throws ObstacleNotFoundException;
 
     List<Obstacle> getAll(Function<Obstacle, Comparable> sortFunction, SortOrder sortOrder);
 

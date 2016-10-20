@@ -49,19 +49,25 @@ public class XmlPlayRepository implements PlayRepository {
     }
 
     @Override
-    public void delete(UUID uuid) throws PlayNotFoundException {
-        if (!plays.containsKey(uuid)) {
-            throw new PlayNotFoundException(String.format("Cannot find play with UUID '%s'.", uuid.toString()));
+    public void delete(Play play) throws PlayNotFoundException {
+        if (!plays.containsKey(play.getUUID())) {
+            throw new PlayNotFoundException(String.format("Cannot find play with UUID '%s'.", play.getUUID()));
         }
-        xmlRepositoryMarshaller.remove(uuid);
-        plays.remove(uuid);
+        xmlRepositoryMarshaller.remove(play.getUUID());
+        plays.remove(play.getUUID());
+    }
+
+    @Override
+    public void discard(Play play) throws PlayNotFoundException {
+        Play restoredPlay = xmlRepositoryMarshaller.unmarshal(play.getUUID());
+        plays.put(play.getUUID(), restoredPlay);
     }
 
     @Override
     public Play get(UUID uuid) throws PlayNotFoundException {
         Play play = plays.get(uuid);
         if (play == null) {
-            throw new PlayNotFoundException(String.format("Cannot find play with UUID '%s'.", uuid.toString()));
+            throw new PlayNotFoundException(String.format("Cannot find play with UUID '%s'.", uuid));
         }
         return play;
     }
@@ -74,7 +80,7 @@ public class XmlPlayRepository implements PlayRepository {
 
     @Override
     public void clear() {
-        plays.keySet().stream().collect(Collectors.toList()).forEach(uuid -> {
+        plays.values().stream().collect(Collectors.toList()).forEach(uuid -> {
             try {
                 delete(uuid);
             } catch (PlayNotFoundException ex) {

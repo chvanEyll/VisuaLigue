@@ -1,6 +1,6 @@
-package ca.ulaval.glo2004.visualigue.domain.play.actor.obstacle;
+package ca.ulaval.glo2004.visualigue.domain.obstacle;
 
-import ca.ulaval.glo2004.visualigue.domain.play.actor.Actor;
+import ca.ulaval.glo2004.visualigue.domain.DomainObject;
 import java.util.UUID;
 import javax.xml.bind.annotation.XmlAccessType;
 import javax.xml.bind.annotation.XmlAccessorType;
@@ -8,7 +8,7 @@ import javax.xml.bind.annotation.XmlRootElement;
 
 @XmlRootElement(name = "obstacle")
 @XmlAccessorType(XmlAccessType.FIELD)
-public class Obstacle extends Actor {
+public class Obstacle extends DomainObject {
 
     private String name;
     private Boolean isBuiltIn = false;

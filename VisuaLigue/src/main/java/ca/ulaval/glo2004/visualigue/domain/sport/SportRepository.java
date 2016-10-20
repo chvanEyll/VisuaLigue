@@ -13,7 +13,7 @@ public interface SportRepository {
 
     Sport get(UUID uuid) throws SportNotFoundException;
 
-    void delete(UUID uuid) throws SportNotFoundException;
+    void delete(Sport sport) throws SportNotFoundException;
 
     List<Sport> getAll(Function<Sport, Comparable> sortFunction, SortOrder sortOrder);
 

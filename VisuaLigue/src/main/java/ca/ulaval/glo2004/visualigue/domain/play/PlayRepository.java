@@ -13,7 +13,9 @@ public interface PlayRepository {
 
     Play get(UUID uuid) throws PlayNotFoundException;
 
-    void delete(UUID uuid) throws PlayNotFoundException;
+    void delete(Play play) throws PlayNotFoundException;
+
+    void discard(Play play) throws PlayNotFoundException;
 
     List<Play> getAll(Function<Play, Comparable> sortFunction, SortOrder sortOrder);
 

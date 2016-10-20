@@ -77,9 +77,9 @@ public class Play extends DomainObject {
         keyframe.mergeActorState(actor, state);
     }
 
-    public void removeActorState(Integer time, Actor actor, ActorState state) {
+    public void removeActorState(Integer time, Actor actorInstance, ActorState state) {
         Keyframe keyframe = keyframes.get(time);
-        keyframe.removeActorState(actor, state);
+        keyframe.removeActorState(actorInstance, state);
     }
 
 }

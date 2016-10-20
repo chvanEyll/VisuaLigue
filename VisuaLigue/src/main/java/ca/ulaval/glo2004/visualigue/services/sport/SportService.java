@@ -72,7 +72,7 @@ public class SportService {
 
     public void deleteSport(UUID sportUUID) throws SportNotFoundException {
         Sport sport = sportRepository.get(sportUUID);
-        sportRepository.delete(sportUUID);
+        sportRepository.delete(sport);
         onSportDeleted.fire(this, sport);
     }
 

@@ -1,13 +1,14 @@
 package ca.ulaval.glo2004.visualigue.services.play;
 
 import ca.ulaval.glo2004.visualigue.domain.play.*;
-import ca.ulaval.glo2004.visualigue.domain.play.actor.player.TeamSide;
+import ca.ulaval.glo2004.visualigue.domain.play.actor.playerinstance.TeamSide;
 import ca.ulaval.glo2004.visualigue.domain.play.frame.Frame;
 import ca.ulaval.glo2004.visualigue.domain.play.position.Position;
 import ca.ulaval.glo2004.visualigue.domain.sport.Sport;
 import ca.ulaval.glo2004.visualigue.domain.sport.SportNotFoundException;
 import ca.ulaval.glo2004.visualigue.domain.sport.SportRepository;
 import ca.ulaval.glo2004.visualigue.services.play.commands.Command;
+import ca.ulaval.glo2004.visualigue.services.play.commands.ObstacleCreationCommand;
 import ca.ulaval.glo2004.visualigue.services.play.commands.PlayerCreationCommand;
 import ca.ulaval.glo2004.visualigue.utils.EventHandler;
 import java.util.ArrayDeque;
@@ -57,7 +58,7 @@ public class PlayService {
 
     public void deletePlay(UUID playUUID) throws PlayNotFoundException {
         Play play = playRepository.get(playUUID);
-        playRepository.delete(playUUID);
+        playRepository.delete(play);
         onPlayDeleted.fire(this, play);
     }
 
@@ -74,24 +75,35 @@ public class PlayService {
         executeNewCommand(command);
     }
 
-    public void updatePlayerPosition(UUID playUUID, Integer time, Position position) {
+    public void updatePlayerPosition(UUID playUUID, Integer time, UUID ownerPlayer, Position position) {
 
     }
 
-    public void updatePlayerOrientation(UUID playUUID, Integer time, Double orientation) {
+    public void updatePlayerOrientation(UUID playUUID, Integer time, UUID ownerPlayer, Double orientation) {
 
     }
 
-    public void addObstacle(UUID playUUID, Integer time, UUID obstacleUUID, Position position) {
+    public void addObstacle(UUID playUUID, Integer time, UUID obstacleUUID, Position position) throws Exception {
+        ObstacleCreationCommand command = new ObstacleCreationCommand(playUUID, time, obstacleUUID, position);
+        executeNewCommand(command);
+    }
+
+    public void addBall(UUID playUUID, Integer time, UUID ownerPlayer, Position position) {
 
     }
 
-    public void savePlay(UUID playUUID) {
+    public void updateBall(UUID playUUID, Integer time, UUID ownerPlayer, Position position) {
 
     }
 
-    public void discardChanges(UUID playUUID) {
+    public void savePlay(UUID playUUID) throws PlayAlreadyExistsException, PlayNotFoundException {
+        Play play = playRepository.get(playUUID);
+        playRepository.persist(play);
+    }
 
+    public void discardChanges(UUID playUUID) throws PlayNotFoundException {
+        Play play = playRepository.get(playUUID);
+        playRepository.discard(play);
     }
 
     public Frame getFrame(UUID playUUID, Integer time) {

@@ -38,15 +38,16 @@ public class XmlRepositoryMarshaller<T> extends XmlMarshaller<T> {
             Collection<File> files = FileUtils.listFiles(new File(repositoryName), null, false);
             files.forEach(file -> {
                 UUID uuid = UUID.fromString(FilenameUtils.removeExtension(file.getName()));
-                objects.put(uuid, unmarshal(file));
+                objects.put(uuid, unmarshal(uuid));
             });
         }
         return objects;
     }
 
-    private synchronized T unmarshal(File file) {
+    public synchronized T unmarshal(UUID uuid) {
         InputStream inputStream = null;
         try {
+            File file = new File(getFileName(uuid));
             inputStream = FileUtils.openInputStream(file);
             return (T) super.unmarshal(inputStream);
         } catch (IOException e) {

@@ -1,8 +1,8 @@
 package ca.ulaval.glo2004.visualigue;
 
 import ca.ulaval.glo2004.visualigue.domain.image.ImageRepository;
-import ca.ulaval.glo2004.visualigue.domain.play.actor.obstacle.Obstacle;
-import ca.ulaval.glo2004.visualigue.domain.play.actor.obstacle.ObstacleRepository;
+import ca.ulaval.glo2004.visualigue.domain.obstacle.Obstacle;
+import ca.ulaval.glo2004.visualigue.domain.obstacle.ObstacleRepository;
 import ca.ulaval.glo2004.visualigue.domain.play.Play;
 import ca.ulaval.glo2004.visualigue.domain.play.PlayRepository;
 import ca.ulaval.glo2004.visualigue.domain.sport.Sport;

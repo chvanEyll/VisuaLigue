@@ -1,9 +1,9 @@
 package ca.ulaval.glo2004.visualigue.persistence;
 
-import ca.ulaval.glo2004.visualigue.domain.play.actor.obstacle.Obstacle;
-import ca.ulaval.glo2004.visualigue.domain.play.actor.obstacle.ObstacleAlreadyExistsException;
-import ca.ulaval.glo2004.visualigue.domain.play.actor.obstacle.ObstacleNotFoundException;
-import ca.ulaval.glo2004.visualigue.domain.play.actor.obstacle.ObstacleRepository;
+import ca.ulaval.glo2004.visualigue.domain.obstacle.Obstacle;
+import ca.ulaval.glo2004.visualigue.domain.obstacle.ObstacleAlreadyExistsException;
+import ca.ulaval.glo2004.visualigue.domain.obstacle.ObstacleNotFoundException;
+import ca.ulaval.glo2004.visualigue.domain.obstacle.ObstacleRepository;
 import ca.ulaval.glo2004.visualigue.persistence.marshalling.XmlRepositoryMarshaller;
 import ca.ulaval.glo2004.visualigue.utils.ListUtils;
 import java.util.ArrayList;
@@ -49,19 +49,19 @@ public class XmlObstacleRepository implements ObstacleRepository {
     }
 
     @Override
-    public void delete(UUID uuid) throws ObstacleNotFoundException {
-        if (!obstacles.containsKey(uuid)) {
-            throw new ObstacleNotFoundException(String.format("Cannot find obstacle with UUID '%s'.", uuid.toString()));
+    public void delete(Obstacle obstacle) throws ObstacleNotFoundException {
+        if (!obstacles.containsKey(obstacle.getUUID())) {
+            throw new ObstacleNotFoundException(String.format("Cannot find obstacle with UUID '%s'.", obstacle.getUUID()));
         }
-        xmlRepositoryMarshaller.remove(uuid);
-        obstacles.remove(uuid);
+        xmlRepositoryMarshaller.remove(obstacle.getUUID());
+        obstacles.remove(obstacle.getUUID());
     }
 
     @Override
     public Obstacle get(UUID uuid) throws ObstacleNotFoundException {
         Obstacle obstacle = obstacles.get(uuid);
         if (obstacle == null) {
-            throw new ObstacleNotFoundException(String.format("Cannot find obstacle with UUID '%s'.", uuid.toString()));
+            throw new ObstacleNotFoundException(String.format("Cannot find obstacle with UUID '%s'.", uuid));
         }
         return obstacle;
     }
@@ -74,7 +74,7 @@ public class XmlObstacleRepository implements ObstacleRepository {
 
     @Override
     public void clear() {
-        obstacles.keySet().stream().collect(Collectors.toList()).forEach(uuid -> {
+        obstacles.values().stream().collect(Collectors.toList()).forEach(uuid -> {
             try {
                 delete(uuid);
             } catch (ObstacleNotFoundException ex) {

@@ -1,6 +1,6 @@
 package ca.ulaval.glo2004.visualigue.ui.controllers.obstaclemanagement;
 
-import ca.ulaval.glo2004.visualigue.domain.play.actor.obstacle.Obstacle;
+import ca.ulaval.glo2004.visualigue.domain.obstacle.Obstacle;
 import ca.ulaval.glo2004.visualigue.services.obstacle.ObstacleService;
 import ca.ulaval.glo2004.visualigue.ui.controllers.ControllerBase;
 import ca.ulaval.glo2004.visualigue.ui.converters.ObstacleCreationModelConverter;

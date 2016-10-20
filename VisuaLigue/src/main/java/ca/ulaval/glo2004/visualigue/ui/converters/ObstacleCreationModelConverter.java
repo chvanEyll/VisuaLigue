@@ -1,7 +1,7 @@
 package ca.ulaval.glo2004.visualigue.ui.converters;
 
 import ca.ulaval.glo2004.visualigue.domain.image.ImageRepository;
-import ca.ulaval.glo2004.visualigue.domain.play.actor.obstacle.Obstacle;
+import ca.ulaval.glo2004.visualigue.domain.obstacle.Obstacle;
 import ca.ulaval.glo2004.visualigue.ui.models.ObstacleCreationModel;
 import javax.inject.Inject;
 
