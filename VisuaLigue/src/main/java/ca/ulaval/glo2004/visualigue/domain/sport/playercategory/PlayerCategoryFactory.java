@@ -1,4 +1,4 @@
-package ca.ulaval.glo2004.visualigue.domain.playercategory;
+package ca.ulaval.glo2004.visualigue.domain.sport.playercategory;
 
 import javafx.scene.paint.Color;
 import javax.inject.Singleton;

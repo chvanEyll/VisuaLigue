@@ -1,22 +1,25 @@
 package ca.ulaval.glo2004.visualigue.domain.play;
 
+import ca.ulaval.glo2004.visualigue.domain.play.keyframe.Keyframe;
+import ca.ulaval.glo2004.visualigue.domain.play.frame.Frame;
 import ca.ulaval.glo2004.visualigue.domain.DomainObject;
 import ca.ulaval.glo2004.visualigue.domain.play.actor.ActorInstance;
 import ca.ulaval.glo2004.visualigue.domain.play.actorstate.ActorState;
-import ca.ulaval.glo2004.visualigue.domain.play.frame.Frame;
-import ca.ulaval.glo2004.visualigue.domain.play.keyframe.Keyframe;
 import ca.ulaval.glo2004.visualigue.domain.sport.Sport;
+import ca.ulaval.glo2004.visualigue.domain.xmladapters.XmlPlayAdapter;
 import java.util.Map.Entry;
 import java.util.*;
 import javax.xml.bind.annotation.XmlAccessType;
 import javax.xml.bind.annotation.XmlAccessorType;
 import javax.xml.bind.annotation.XmlRootElement;
 import javax.xml.bind.annotation.XmlTransient;
+import javax.xml.bind.annotation.adapters.XmlJavaTypeAdapter;
 import org.apache.commons.lang3.tuple.ImmutablePair;
 import org.apache.commons.lang3.tuple.Pair;
 
 @XmlRootElement(name = "play")
 @XmlAccessorType(XmlAccessType.FIELD)
+@XmlJavaTypeAdapter(XmlPlayAdapter.class)
 public class Play extends DomainObject {
 
     private String title;
@@ -65,8 +68,20 @@ public class Play extends DomainObject {
         this.defaultThumbnailImage = defaultThumbnailImage;
     }
 
+    public UUID getSportUUID() {
+        return sportUUID;
+    }
+
+    public void setSportUUID(UUID sportUUID) {
+        this.sportUUID = sportUUID;
+    }
+
     public Sport getSport() {
         return sport;
+    }
+
+    public void setSport(Sport sport) {
+        this.sport = sport;
     }
 
     public ActorInstance getActorInstance(UUID actorInstanceUUID) {

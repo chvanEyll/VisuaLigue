@@ -1,8 +1,8 @@
 package ca.ulaval.glo2004.visualigue.domain.sport;
 
 import ca.ulaval.glo2004.visualigue.domain.DomainObject;
-import ca.ulaval.glo2004.visualigue.domain.playercategory.PlayerCategory;
-import ca.ulaval.glo2004.visualigue.domain.playingsurface.PlayingSurface;
+import ca.ulaval.glo2004.visualigue.domain.sport.playercategory.PlayerCategory;
+import ca.ulaval.glo2004.visualigue.domain.sport.playingsurface.PlayingSurface;
 import java.util.Map;
 import java.util.UUID;
 import java.util.concurrent.ConcurrentHashMap;

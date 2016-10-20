@@ -1,6 +1,6 @@
 package ca.ulaval.glo2004.visualigue.ui.models;
 
-import ca.ulaval.glo2004.visualigue.domain.playingsurface.PlayingSurfaceUnit;
+import ca.ulaval.glo2004.visualigue.domain.sport.playingsurface.PlayingSurfaceUnit;
 import javafx.beans.property.*;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;

@@ -1,10 +1,10 @@
 package ca.ulaval.glo2004.visualigue.services.sport;
 
 import ca.ulaval.glo2004.visualigue.domain.image.ImageRepository;
-import ca.ulaval.glo2004.visualigue.domain.playercategory.PlayerCategory;
-import ca.ulaval.glo2004.visualigue.domain.playercategory.PlayerCategoryFactory;
-import ca.ulaval.glo2004.visualigue.domain.playingsurface.PlayingSurface;
-import ca.ulaval.glo2004.visualigue.domain.playingsurface.PlayingSurfaceUnit;
+import ca.ulaval.glo2004.visualigue.domain.sport.playercategory.PlayerCategory;
+import ca.ulaval.glo2004.visualigue.domain.sport.playercategory.PlayerCategoryFactory;
+import ca.ulaval.glo2004.visualigue.domain.sport.playingsurface.PlayingSurface;
+import ca.ulaval.glo2004.visualigue.domain.sport.playingsurface.PlayingSurfaceUnit;
 import ca.ulaval.glo2004.visualigue.domain.sport.*;
 import ca.ulaval.glo2004.visualigue.utils.EventHandler;
 import java.util.List;

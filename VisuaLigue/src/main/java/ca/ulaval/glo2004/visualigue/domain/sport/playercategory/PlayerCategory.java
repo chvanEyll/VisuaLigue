@@ -1,4 +1,4 @@
-package ca.ulaval.glo2004.visualigue.domain.playercategory;
+package ca.ulaval.glo2004.visualigue.domain.sport.playercategory;
 
 import ca.ulaval.glo2004.visualigue.domain.DomainObject;
 import ca.ulaval.glo2004.visualigue.domain.xmladapters.XmlColorAdapter;

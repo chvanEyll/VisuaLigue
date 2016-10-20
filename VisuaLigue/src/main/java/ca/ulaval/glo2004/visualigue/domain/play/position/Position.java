@@ -2,7 +2,12 @@ package ca.ulaval.glo2004.visualigue.domain.play.position;
 
 import ca.ulaval.glo2004.visualigue.domain.DomainObject;
 import ca.ulaval.glo2004.visualigue.utils.math.easing.EasingFunction;
+import javax.xml.bind.annotation.XmlAccessType;
+import javax.xml.bind.annotation.XmlAccessorType;
+import javax.xml.bind.annotation.XmlRootElement;
 
+@XmlRootElement(name = "position")
+@XmlAccessorType(XmlAccessType.FIELD)
 public class Position extends DomainObject {
 
     private Double x;

@@ -1,4 +1,4 @@
-package ca.ulaval.glo2004.visualigue.domain.playingsurface;
+package ca.ulaval.glo2004.visualigue.domain.sport.playingsurface;
 
 public enum PlayingSurfaceUnit {
     METER("mètres"),

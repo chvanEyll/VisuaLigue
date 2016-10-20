@@ -3,7 +3,12 @@ package ca.ulaval.glo2004.visualigue.domain.play.actorstate;
 import ca.ulaval.glo2004.visualigue.domain.play.position.Position;
 import ca.ulaval.glo2004.visualigue.utils.math.easing.EasingFunction;
 import java.util.Optional;
+import javax.xml.bind.annotation.XmlAccessType;
+import javax.xml.bind.annotation.XmlAccessorType;
+import javax.xml.bind.annotation.XmlRootElement;
 
+@XmlRootElement(name = "obstaclestate")
+@XmlAccessorType(XmlAccessType.FIELD)
 public class ObstacleState extends ActorState implements Cloneable {
 
     private Optional<Position> position = Optional.empty();
@@ -39,14 +44,9 @@ public class ObstacleState extends ActorState implements Cloneable {
 
     @Override
     public ObstacleState clone() {
-        try {
-            super.clone();
-            ObstacleState clonedState = new ObstacleState();
-            clonedState.position = position;
-            return clonedState;
-        } catch (CloneNotSupportedException ex) {
-            throw new RuntimeException(ex);
-        }
+        ObstacleState clonedState = new ObstacleState();
+        clonedState.position = position;
+        return clonedState;
     }
 
     @Override

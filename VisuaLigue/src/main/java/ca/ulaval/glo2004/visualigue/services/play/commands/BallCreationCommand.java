@@ -2,8 +2,8 @@ package ca.ulaval.glo2004.visualigue.services.play.commands;
 
 import ca.ulaval.glo2004.visualigue.domain.play.Play;
 import ca.ulaval.glo2004.visualigue.domain.play.PlayRepository;
-import ca.ulaval.glo2004.visualigue.domain.play.actor.ballinstance.BallInstance;
-import ca.ulaval.glo2004.visualigue.domain.play.actor.playerinstance.PlayerInstance;
+import ca.ulaval.glo2004.visualigue.domain.play.actor.BallInstance;
+import ca.ulaval.glo2004.visualigue.domain.play.actor.PlayerInstance;
 import ca.ulaval.glo2004.visualigue.domain.play.actorstate.BallState;
 import ca.ulaval.glo2004.visualigue.domain.play.position.Position;
 import java.util.Optional;
