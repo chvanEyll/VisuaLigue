@@ -2,7 +2,7 @@ package ca.ulaval.glo2004.visualigue.services.play.commands;
 
 import ca.ulaval.glo2004.visualigue.domain.play.Play;
 import ca.ulaval.glo2004.visualigue.domain.play.PlayRepository;
-import ca.ulaval.glo2004.visualigue.domain.play.actor.PlayerInstance;
+import ca.ulaval.glo2004.visualigue.domain.play.actorinstance.PlayerInstance;
 import ca.ulaval.glo2004.visualigue.domain.play.actorstate.ActorState;
 import ca.ulaval.glo2004.visualigue.domain.play.actorstate.PlayerState;
 import java.util.Optional;
@@ -31,7 +31,7 @@ public class PlayerOrientationUpdateCommand implements Command {
     @Override
     public void execute() throws Exception {
         play = playRepository.get(playUUID);
-        PlayerState playerState = new PlayerState(Optional.empty(), Optional.of(orientation));
+        PlayerState playerState = new PlayerState(Optional.empty(), Optional.empty(), Optional.of(orientation));
         playerInstance = (PlayerInstance) play.getActorInstance(ownerPlayerInstanceUUID);
         oldPlayerState = play.mergeActorState(time, playerInstance, playerState);
     }

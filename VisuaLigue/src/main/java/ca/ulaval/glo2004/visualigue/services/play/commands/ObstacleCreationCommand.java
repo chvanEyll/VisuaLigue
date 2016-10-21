@@ -4,7 +4,7 @@ import ca.ulaval.glo2004.visualigue.domain.obstacle.Obstacle;
 import ca.ulaval.glo2004.visualigue.domain.obstacle.ObstacleRepository;
 import ca.ulaval.glo2004.visualigue.domain.play.Play;
 import ca.ulaval.glo2004.visualigue.domain.play.PlayRepository;
-import ca.ulaval.glo2004.visualigue.domain.play.actor.ObstacleInstance;
+import ca.ulaval.glo2004.visualigue.domain.play.actorinstance.ObstacleInstance;
 import ca.ulaval.glo2004.visualigue.domain.play.actorstate.ObstacleState;
 import ca.ulaval.glo2004.visualigue.domain.play.position.Position;
 import java.util.Optional;

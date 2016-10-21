@@ -2,15 +2,15 @@ package ca.ulaval.glo2004.visualigue.services.play.commands;
 
 import ca.ulaval.glo2004.visualigue.domain.play.Play;
 import ca.ulaval.glo2004.visualigue.domain.play.PlayRepository;
-import ca.ulaval.glo2004.visualigue.domain.play.actorinstance.BallInstance;
 import ca.ulaval.glo2004.visualigue.domain.play.actorinstance.PlayerInstance;
-import ca.ulaval.glo2004.visualigue.domain.play.actorstate.BallState;
+import ca.ulaval.glo2004.visualigue.domain.play.actorstate.ActorState;
+import ca.ulaval.glo2004.visualigue.domain.play.actorstate.PlayerState;
 import ca.ulaval.glo2004.visualigue.domain.play.position.Position;
 import java.util.Optional;
 import java.util.UUID;
 import javax.inject.Inject;
 
-public class BallCreationCommand implements Command {
+public class PlayerPositionUpdateDirectCommand implements Command {
 
     private UUID playUUID;
     private Integer time;
@@ -19,9 +19,10 @@ public class BallCreationCommand implements Command {
     @Inject private PlayRepository playRepository;
 
     private Play play;
-    private BallInstance ballInstance;
+    private PlayerInstance playerInstance;
+    private Optional<ActorState> oldPlayerState;
 
-    public BallCreationCommand(UUID playUUID, Integer time, UUID ownerPlayerInstanceUUID, Position position) {
+    public PlayerPositionUpdateDirectCommand(UUID playUUID, Integer time, UUID ownerPlayerInstanceUUID, Position position) {
         this.playUUID = playUUID;
         this.time = time;
         this.ownerPlayerInstanceUUID = ownerPlayerInstanceUUID;
@@ -31,15 +32,14 @@ public class BallCreationCommand implements Command {
     @Override
     public void execute() throws Exception {
         play = playRepository.get(playUUID);
-        PlayerInstance playerInstance = (PlayerInstance) play.getActorInstance(ownerPlayerInstanceUUID);
-        BallState ballState = new BallState(Optional.of(position), Optional.of(playerInstance));
-        ballInstance = new BallInstance();
-        play.mergeActorState(time, ballInstance, ballState);
+        PlayerState playerState = new PlayerState(Optional.of(position), Optional.empty(), Optional.empty());
+        playerInstance = (PlayerInstance) play.getActorInstance(ownerPlayerInstanceUUID);
+        oldPlayerState = play.mergeActorState(time, playerInstance, playerState);
     }
 
     @Override
     public void revert() {
-        play.unmergeActorState(time, ballInstance, Optional.empty());
+        play.unmergeActorState(time, playerInstance, oldPlayerState);
     }
 
 }

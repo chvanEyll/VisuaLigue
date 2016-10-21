@@ -1,6 +1,7 @@
 package ca.ulaval.glo2004.visualigue.domain.play.actorstate;
 
 import ca.ulaval.glo2004.visualigue.domain.play.position.Position;
+import ca.ulaval.glo2004.visualigue.domain.play.transition.Transition;
 import ca.ulaval.glo2004.visualigue.utils.math.easing.EasingFunction;
 import java.util.Optional;
 import javax.xml.bind.annotation.XmlAccessType;
@@ -12,13 +13,15 @@ import javax.xml.bind.annotation.XmlRootElement;
 public class PlayerState extends ActorState implements Cloneable {
 
     private Optional<Position> position = Optional.empty();
+    private Optional<Transition> positionTransition = Optional.empty();
     private Optional<Double> orientation = Optional.empty();
 
     private PlayerState() {
     }
 
-    public PlayerState(Optional<Position> position, Optional<Double> orientation) {
+    public PlayerState(Optional<Position> position, Optional<Transition> positionTransition, Optional<Double> orientation) {
         this.position = position;
+        this.positionTransition = positionTransition;
         this.orientation = orientation;
     }
 
@@ -28,6 +31,9 @@ public class PlayerState extends ActorState implements Cloneable {
         PlayerState newState = (PlayerState) actorState;
         if (newState.position.isPresent()) {
             position = newState.position;
+        }
+        if (newState.positionTransition.isPresent()) {
+            positionTransition = newState.positionTransition;
         }
         if (newState.orientation.isPresent()) {
             orientation = newState.orientation;
@@ -60,7 +66,7 @@ public class PlayerState extends ActorState implements Cloneable {
         PlayerState nextActorState = (PlayerState) nextState;
         PlayerState interpolatedState = this.clone();
         if (nextActorState.position.isPresent()) {
-            interpolatedState.position = Optional.of(position.get().interpolate(nextActorState.position.get(), interpolant, easingFunction));
+            interpolatedState.position = Optional.of(positionTransition.get().interpolate(position.get(), nextActorState.position.get(), interpolant, easingFunction));
         }
         if (nextActorState.orientation.isPresent()) {
             interpolatedState.orientation = Optional.of(easingFunction.ease(orientation.get(), nextActorState.orientation.get(), interpolant, 1.0));

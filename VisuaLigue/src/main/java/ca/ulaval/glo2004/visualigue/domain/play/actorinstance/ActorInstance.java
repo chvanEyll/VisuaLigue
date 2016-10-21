@@ -1,4 +1,4 @@
-package ca.ulaval.glo2004.visualigue.domain.play.actor;
+package ca.ulaval.glo2004.visualigue.domain.play.actorinstance;
 
 import ca.ulaval.glo2004.visualigue.domain.DomainObject;
 

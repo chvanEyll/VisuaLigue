@@ -1,6 +1,6 @@
 package ca.ulaval.glo2004.visualigue.domain.play.actorstate;
 
-import ca.ulaval.glo2004.visualigue.domain.play.actor.PlayerInstance;
+import ca.ulaval.glo2004.visualigue.domain.play.actorinstance.PlayerInstance;
 import ca.ulaval.glo2004.visualigue.domain.play.position.Position;
 import ca.ulaval.glo2004.visualigue.utils.math.easing.EasingFunction;
 import java.util.Optional;

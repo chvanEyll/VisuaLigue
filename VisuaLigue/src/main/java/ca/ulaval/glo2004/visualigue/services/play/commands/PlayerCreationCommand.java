@@ -3,8 +3,8 @@ package ca.ulaval.glo2004.visualigue.services.play.commands;
 import ca.ulaval.glo2004.visualigue.domain.play.Play;
 import ca.ulaval.glo2004.visualigue.domain.play.PlayNotFoundException;
 import ca.ulaval.glo2004.visualigue.domain.play.PlayRepository;
-import ca.ulaval.glo2004.visualigue.domain.play.actor.PlayerInstance;
-import ca.ulaval.glo2004.visualigue.domain.play.actor.TeamSide;
+import ca.ulaval.glo2004.visualigue.domain.play.actorinstance.PlayerInstance;
+import ca.ulaval.glo2004.visualigue.domain.play.actorinstance.TeamSide;
 import ca.ulaval.glo2004.visualigue.domain.play.actorstate.PlayerState;
 import ca.ulaval.glo2004.visualigue.domain.play.position.Position;
 import java.util.Optional;
@@ -36,7 +36,7 @@ public class PlayerCreationCommand implements Command {
     @Override
     public void execute() throws PlayNotFoundException {
         play = playRepository.get(playUUID);
-        PlayerState playerState = new PlayerState(Optional.of(position), Optional.of(orientation));
+        PlayerState playerState = new PlayerState(Optional.of(position), Optional.empty(), Optional.of(orientation));
         playerInstance = new PlayerInstance(play.getSport().getPlayerCategory(playerCategoryUUID), teamSide);
         play.mergeActorState(time, playerInstance, playerState);
     }

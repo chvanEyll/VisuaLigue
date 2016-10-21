@@ -1,7 +1,7 @@
 package ca.ulaval.glo2004.visualigue.domain.xmladapters;
 
 import ca.ulaval.glo2004.visualigue.domain.obstacle.ObstacleRepository;
-import ca.ulaval.glo2004.visualigue.domain.play.actor.ObstacleInstance;
+import ca.ulaval.glo2004.visualigue.domain.play.actorinstance.ObstacleInstance;
 import javax.inject.Inject;
 import javax.xml.bind.annotation.adapters.XmlAdapter;
 

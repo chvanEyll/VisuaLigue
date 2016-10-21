@@ -1,11 +1,12 @@
 package ca.ulaval.glo2004.visualigue.services.play;
 
 import ca.ulaval.glo2004.visualigue.domain.play.*;
-import ca.ulaval.glo2004.visualigue.domain.play.actor.ActorInstance;
-import ca.ulaval.glo2004.visualigue.domain.play.actor.TeamSide;
+import ca.ulaval.glo2004.visualigue.domain.play.actorinstance.ActorInstance;
+import ca.ulaval.glo2004.visualigue.domain.play.actorinstance.TeamSide;
 import ca.ulaval.glo2004.visualigue.domain.play.frame.Frame;
 import ca.ulaval.glo2004.visualigue.domain.play.keyframe.Keyframe;
 import ca.ulaval.glo2004.visualigue.domain.play.position.Position;
+import ca.ulaval.glo2004.visualigue.domain.play.transition.Transition;
 import ca.ulaval.glo2004.visualigue.domain.sport.Sport;
 import ca.ulaval.glo2004.visualigue.domain.sport.SportNotFoundException;
 import ca.ulaval.glo2004.visualigue.domain.sport.SportRepository;
@@ -73,8 +74,13 @@ public class PlayService {
         executeNewCommand(command);
     }
 
-    public void updatePlayerPosition(UUID playUUID, Integer time, UUID ownerPlayerInstanceUUID, Position position) throws Exception {
-        PlayerPositionUpdateCommand command = new PlayerPositionUpdateCommand(playUUID, time, ownerPlayerInstanceUUID, position);
+    public void updatePlayerPositionDirect(UUID playUUID, Integer time, UUID ownerPlayerInstanceUUID, Position position) throws Exception {
+        PlayerPositionUpdateDirectCommand command = new PlayerPositionUpdateDirectCommand(playUUID, time, ownerPlayerInstanceUUID, position);
+        executeNewCommand(command);
+    }
+
+    public void updatePlayerPositionFreeform(UUID playUUID, Integer time, UUID ownerPlayerInstanceUUID, Position position, Transition positionTransition) throws Exception {
+        PlayerPositionUpdateFreeformCommand command = new PlayerPositionUpdateFreeformCommand(playUUID, time, ownerPlayerInstanceUUID, position, positionTransition);
         executeNewCommand(command);
     }
 
