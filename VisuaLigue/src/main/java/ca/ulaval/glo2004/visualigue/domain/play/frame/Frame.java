@@ -13,7 +13,7 @@ import javax.xml.bind.annotation.XmlRootElement;
 @XmlAccessorType(XmlAccessType.FIELD)
 public class Frame extends DomainObject {
 
-    Map<ActorInstance, ActorState> actorStates = new HashMap<>();
+    Map<ActorInstance, ActorState> actorStates = new HashMap();
 
     public Frame() {
     }

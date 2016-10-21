@@ -13,8 +13,8 @@ import javafx.scene.layout.HBox;
 public class Breadcrumb extends HBox {
 
     public static final String VIEW_NAME = "/views/customcontrols/breadcrumb.fxml";
-    private final List<BreadcrumbItem> items = new ArrayList<>();
-    public EventHandler<Integer> onItemClicked = new EventHandler<>();
+    private final List<BreadcrumbItem> items = new ArrayList();
+    public EventHandler<Integer> onItemClicked = new EventHandler();
 
     public Breadcrumb() {
         try {

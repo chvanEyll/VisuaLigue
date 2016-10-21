@@ -27,7 +27,7 @@ public class SportListController extends ControllerBase {
     @Inject private SportListItemModelConverter sportListItemModelConverter;
     @FXML private TilePane tilePane;
     @FXML private Label emptyNoticeLabel;
-    public EventHandler<SportListItemModel> onSportSelected = new EventHandler<>();
+    public EventHandler<SportListItemModel> onSportSelected = new EventHandler();
 
     @Override
     public void initialize(URL url, ResourceBundle rb) {

@@ -5,7 +5,7 @@ import java.util.Stack;
 
 public class ViewFlow {
 
-    Stack<View> viewStack = new Stack<>();
+    Stack<View> viewStack = new Stack();
 
     public ViewFlow() {
     }

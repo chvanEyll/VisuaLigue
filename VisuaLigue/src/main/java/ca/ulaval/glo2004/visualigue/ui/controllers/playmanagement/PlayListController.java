@@ -31,8 +31,8 @@ public class PlayListController extends ControllerBase {
     @Inject private PlayListItemModelConverter playListItemModelConverter;
     @FXML private TilePane tilePane;
     @FXML private Label emptyNoticeLabel;
-    private List<PlayListItemModel> models = new ArrayList<>();
-    public EventHandler<PlayListItemModel> onPlaySelected = new EventHandler<>();
+    private List<PlayListItemModel> models = new ArrayList();
+    public EventHandler<PlayListItemModel> onPlaySelected = new EventHandler();
 
     @Override
     public void initialize(URL url, ResourceBundle rb) {

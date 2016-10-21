@@ -23,9 +23,9 @@ public class SportService {
     private final SportFactory sportFactory;
     private final PlayerCategoryFactory playerCategoryFactory;
 
-    public EventHandler<Sport> onSportCreated = new EventHandler<>();
-    public EventHandler<Sport> onSportUpdated = new EventHandler<>();
-    public EventHandler<Sport> onSportDeleted = new EventHandler<>();
+    public EventHandler<Sport> onSportCreated = new EventHandler();
+    public EventHandler<Sport> onSportUpdated = new EventHandler();
+    public EventHandler<Sport> onSportDeleted = new EventHandler();
 
     @Inject
     public SportService(final SportRepository sportRepository, final ImageRepository imageRepository, final SportFactory sportFactory, final PlayerCategoryFactory playerCategoryFactory) {

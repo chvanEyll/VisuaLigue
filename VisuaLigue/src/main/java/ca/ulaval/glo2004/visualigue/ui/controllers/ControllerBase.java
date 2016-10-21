@@ -10,8 +10,8 @@ import javafx.fxml.Initializable;
 
 public abstract class ControllerBase implements Initializable {
 
-    public EventHandler<Object> onViewCloseRequested = new EventHandler<>();
-    public EventHandler<View> onViewChangeRequested = new EventHandler<>();
+    public EventHandler<Object> onViewCloseRequested = new EventHandler();
+    public EventHandler<View> onViewChangeRequested = new EventHandler();
 
     @Override
     public void initialize(URL location, ResourceBundle resources) {

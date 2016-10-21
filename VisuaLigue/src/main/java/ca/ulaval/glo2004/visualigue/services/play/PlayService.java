@@ -25,12 +25,12 @@ public class PlayService {
     private final PlayFactory playFactory;
     private final SportRepository sportRepository;
 
-    private final Deque<Command> undoStack = new ArrayDeque<>();
-    private final Deque<Command> redoStack = new ArrayDeque<>();
+    private final Deque<Command> undoStack = new ArrayDeque();
+    private final Deque<Command> redoStack = new ArrayDeque();
 
-    public EventHandler<Play> onPlayCreated = new EventHandler<>();
-    public EventHandler<Play> onPlayUpdated = new EventHandler<>();
-    public EventHandler<Play> onPlayDeleted = new EventHandler<>();
+    public EventHandler<Play> onPlayCreated = new EventHandler();
+    public EventHandler<Play> onPlayUpdated = new EventHandler();
+    public EventHandler<Play> onPlayDeleted = new EventHandler();
 
     @Inject
     public PlayService(final PlayRepository playRepository, final PlayFactory playFactory, final SportRepository sportRepository) {

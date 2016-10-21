@@ -17,7 +17,7 @@ public class AlertDialogBuilder {
     private String headerText;
     private String contentText;
     private Exception exception;
-    private final Set<ButtonType> buttonTypes = new HashSet<>();
+    private final Set<ButtonType> buttonTypes = new HashSet();
 
     public AlertDialogBuilder alertType(AlertType alertType) {
         this.alertType = AlertType.WARNING;

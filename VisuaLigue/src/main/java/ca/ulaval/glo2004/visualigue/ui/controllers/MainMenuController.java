@@ -26,7 +26,7 @@ public class MainMenuController {
     @FXML private HBox obstaclesMenuItem;
     @FXML private HBox settingsMenuItem;
     private boolean isMenuPaneCollapsed = true;
-    public EventHandler<View> onMenuClicked = new EventHandler<>();
+    public EventHandler<View> onMenuClicked = new EventHandler();
 
     public void init() {
         menuPane.setPrefWidth(MENU_PANE_COLLAPSED_WIDTH);

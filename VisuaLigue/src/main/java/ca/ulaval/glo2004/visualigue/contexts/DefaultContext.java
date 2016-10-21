@@ -26,7 +26,7 @@ public class DefaultContext extends ContextBase {
     private final SportFactory sportFactory;
     private final ObstacleFactory obstacleFactory;
     private final PlayFactory playFactory;
-    private final List<Sport> sportPool = new ArrayList<>();
+    private final List<Sport> sportPool = new ArrayList();
 
     @Inject
     public DefaultContext(final SportFactory sportFactory, final SportRepository sportRepository, final ImageRepository imageRepository, final ObstacleFactory obstacleFactory,
@@ -145,7 +145,7 @@ public class DefaultContext extends ContextBase {
     }
 
     private void createObstacles() throws Exception {
-        List<Obstacle> obstaclePool = new ArrayList<>();
+        List<Obstacle> obstaclePool = new ArrayList();
         obstaclePool.add(createConeObstacle());
         persistObstacles(obstaclePool);
     }
@@ -164,7 +164,7 @@ public class DefaultContext extends ContextBase {
     }
 
     private void createPlays() throws Exception {
-        List<Play> playPool = new ArrayList<>();
+        List<Play> playPool = new ArrayList();
         playPool.add(createDefaultPlay());
         persistPlays(playPool);
     }

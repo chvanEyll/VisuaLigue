@@ -6,8 +6,8 @@ import java.util.function.BiConsumer;
 
 public class EventHandler<T> {
 
-    Set<BiConsumer<Object, T>> biConsumers = new HashSet<>();
-    Set<EventHandler> forwardHandlers = new HashSet<>();
+    Set<BiConsumer<Object, T>> biConsumers = new HashSet();
+    Set<EventHandler> forwardHandlers = new HashSet();
 
     public void addHandler(BiConsumer<Object, T> handler) {
         biConsumers.add(handler);

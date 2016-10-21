@@ -18,7 +18,7 @@ public class BreadcrumbItem extends HBox {
     @FXML private Label titleLabel;
     @FXML private HBox navigationArrow;
     @FXML private HBox item;
-    public EventHandler<Object> onClick = new EventHandler<>();
+    public EventHandler<Object> onClick = new EventHandler();
 
     public BreadcrumbItem(String title, Boolean showArrow) {
         try {

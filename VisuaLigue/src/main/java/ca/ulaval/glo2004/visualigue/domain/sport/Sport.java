@@ -19,7 +19,7 @@ public class Sport extends DomainObject {
     private String iconPathName = "/images/built-in-sport-icons/generic-icon.png";
 
     private PlayingSurface playingSurface = new PlayingSurface();
-    private Map<UUID, PlayerCategory> playerCategories = new ConcurrentHashMap<>();
+    private Map<UUID, PlayerCategory> playerCategories = new ConcurrentHashMap();
 
     public Sport() {
         //Required for JAXB instanciation.

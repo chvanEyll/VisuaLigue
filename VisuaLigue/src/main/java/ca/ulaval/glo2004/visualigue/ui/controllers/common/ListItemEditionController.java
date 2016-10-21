@@ -6,7 +6,7 @@ import ca.ulaval.glo2004.visualigue.utils.EventHandler;
 
 public abstract class ListItemEditionController extends ControllerBase {
 
-    protected EventHandler<Model> onCloseRequested = new EventHandler<>();
+    protected EventHandler<Model> onCloseRequested = new EventHandler();
 
     public abstract void init(Model model);
 

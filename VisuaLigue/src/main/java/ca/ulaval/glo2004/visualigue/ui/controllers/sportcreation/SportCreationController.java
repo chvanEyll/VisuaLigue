@@ -55,7 +55,7 @@ public class SportCreationController extends ControllerBase {
     private SportCreationModel model;
     private int currentStepIndex = -1;
     private SportCreationStepController currentStepController;
-    private List<View> stepViews = new ArrayList<>();
+    private List<View> stepViews = new ArrayList();
     @Inject private SportService sportService;
     @Inject private SportCreationModelConverter sportCreationModelConverter;
 

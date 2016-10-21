@@ -33,7 +33,7 @@ public class XmlRepositoryMarshaller<T> extends XmlMarshaller<T> {
     }
 
     public synchronized Map<UUID, T> unmarshalAll() {
-        Map<UUID, T> objects = new ConcurrentHashMap<>();
+        Map<UUID, T> objects = new ConcurrentHashMap();
         if (FileUtils.directoryExists(repositoryName)) {
             Collection<File> files = FileUtils.listFiles(new File(repositoryName), null, false);
             files.forEach(file -> {

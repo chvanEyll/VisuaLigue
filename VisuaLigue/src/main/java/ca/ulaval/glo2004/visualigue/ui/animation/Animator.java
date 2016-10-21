@@ -15,7 +15,7 @@ import javafx.scene.shape.Rectangle;
 public class Animator<T> {
 
     private static final Integer ANIMATION_PERIOD = 15;
-    private static final List<Animator> runningAnimators = Collections.synchronizedList(new ArrayList<>());
+    private static final List<Animator> runningAnimators = Collections.synchronizedList(new ArrayList());
 
     private final Consumer method;
     private T startValue;
