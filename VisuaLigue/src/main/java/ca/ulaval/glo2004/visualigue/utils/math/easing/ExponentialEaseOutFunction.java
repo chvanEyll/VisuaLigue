@@ -1,6 +1,6 @@
 package ca.ulaval.glo2004.visualigue.utils.math.easing;
 
-public class ExponentialEaseOut implements EasingFunction {
+public class ExponentialEaseOutFunction implements EasingFunction {
 
     @Override
     public double ease(double startValue, double endValue, double elapsedTime, double duration) {

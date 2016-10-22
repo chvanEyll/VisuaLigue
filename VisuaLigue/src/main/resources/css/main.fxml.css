@@ -4,13 +4,35 @@
     -fx-background: white;
 }
 
+.body {
+    -fx-min-height: 600.0;
+    -fx-min-width: 1000.0;
+    -fx-pref-height: 768.0;
+    -fx-pref-width: 1024.0;
+    -fx-background-color: #FFFFFF;
+}
+
 .view-content {
     -fx-padding: 14;
 }
 
-.section-title {
+.view-title {
     -fx-font-size: 32;
     -fx-text-fill: #4F4F4F;
+}
+
+.app-header {
+    -fx-alignment: CENTER_LEFT;
+    -fx-fill-height : true;
+    -fx-min-height: 60.0;
+    -fx-pref-height: 60.0;
+    -fx-background-color: #F3F1EF;
+}
+
+.app-header- .previous-button {
+    -fx-alignment: CENTER_LEFT;
+    -fx-pref-width: 41.0;
+    -fx-padding: 0 7 0 14;
 }
 
 /* Styles */
@@ -80,9 +102,7 @@
 }
 
 .menu-toggle {
-    -fx-alignment: CENTER;
     -fx-cursor: hand;
-    -fx-background-color: #3D3D3D;
     -fx-border-width:  0 0 1 0;
     -fx-border-style: solid;
     -fx-min-width: 58px;
@@ -90,16 +110,56 @@
     -fx-fill-height: false;
 }
 
-.menu-toggle:hover {
-    -fx-background-color: #2B2B2B;
+.menu-toggle .lines {
+    -fx-pref-width: 30;
+    -fx-spacing: 6;
 }
 
-.menu-toggle:pressed {
-    -fx-background-color: #1A1A1A;
+.menu-toggle.right-align {
+    -fx-alignment: CENTER_RIGHT;
 }
+
+.menu-toggle.right-align .lines {
+    -fx-padding: 0 14 0 0;
+}
+
+.menu-toggle.center-align {
+    -fx-alignment: CENTER;
+}
+
 
 .menu-toggle .line {
     -fx-stroke: white;
+}
+
+.menu-toggle.dark {
+    -fx-background-color: #3D3D3D;
+}
+
+.menu-toggle.dark:hover {
+    -fx-background-color: #2B2B2B;
+}
+
+.menu-toggle.dark:pressed {
+    -fx-background-color: #1A1A1A;
+}
+
+.menu-toggle.light {
+    -fx-min-height: 58;
+    -fx-pref-height: 58;
+    -fx-background-color: #F3F1EF;
+}
+
+.menu-toggle.light:hover {
+    -fx-background-color: #D9D5D3;
+}
+
+.menu-toggle.light:pressed {
+    -fx-background-color: #BFBFBF;
+}
+
+.menu-toggle.light .line {
+    -fx-stroke: #808080;
 }
 
 /* Forms & Sectionning */
@@ -239,6 +299,10 @@
 
 .button:pressed {
     -fx-background-color: #BFBFBF;
+}
+
+.button.selected {
+    -fx-background-color: #8D9EAD;
 }
 
 .button.color-red {

@@ -1,9 +1,9 @@
 package ca.ulaval.glo2004.visualigue.ui.converters;
 
 import ca.ulaval.glo2004.visualigue.domain.image.ImageRepository;
+import ca.ulaval.glo2004.visualigue.domain.sport.Sport;
 import ca.ulaval.glo2004.visualigue.domain.sport.playercategory.PlayerCategory;
 import ca.ulaval.glo2004.visualigue.domain.sport.playingsurface.PlayingSurface;
-import ca.ulaval.glo2004.visualigue.domain.sport.Sport;
 import ca.ulaval.glo2004.visualigue.ui.models.PlayerCategoryModel;
 import ca.ulaval.glo2004.visualigue.ui.models.SportCreationModel;
 import java.util.Collections;
@@ -13,10 +13,12 @@ import javax.inject.Inject;
 
 public class SportCreationModelConverter {
 
+    PlayerCategoryModelConverter playerCategoryModelConverter;
     ImageRepository imageRepository;
 
     @Inject
-    public SportCreationModelConverter(ImageRepository imageRepository) {
+    public SportCreationModelConverter(PlayerCategoryModelConverter playerCategoryModelConverter, ImageRepository imageRepository) {
+        this.playerCategoryModelConverter = playerCategoryModelConverter;
         this.imageRepository = imageRepository;
     }
 
@@ -44,14 +46,7 @@ public class SportCreationModelConverter {
 
     private void convertPlayerCategories(Map<UUID, PlayerCategory> playerCategories, SportCreationModel model) {
         playerCategories.values().forEach(playerCategory -> {
-            PlayerCategoryModel playerCategoryModel = new PlayerCategoryModel();
-            playerCategoryModel.setUUID(playerCategory.getUUID());
-            playerCategoryModel.setIsNew(false);
-            playerCategoryModel.name.set(playerCategory.getName());
-            playerCategoryModel.abbreviation.set(playerCategory.getAbbreviation());
-            playerCategoryModel.allyPlayerColor.set(playerCategory.getAllyColor());
-            playerCategoryModel.opponentPlayerColor.set(playerCategory.getOpponentColor());
-            playerCategoryModel.defaultNumberOfPlayers.set(playerCategory.getDefaultNumberOfPlayers());
+            PlayerCategoryModel playerCategoryModel = playerCategoryModelConverter.convert(playerCategory);
             model.playerCategoryModels.add(playerCategoryModel);
             Collections.sort(model.playerCategoryModels);
         });

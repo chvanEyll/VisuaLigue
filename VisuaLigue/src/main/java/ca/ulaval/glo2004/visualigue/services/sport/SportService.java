@@ -1,13 +1,15 @@
 package ca.ulaval.glo2004.visualigue.services.sport;
 
 import ca.ulaval.glo2004.visualigue.domain.image.ImageRepository;
+import ca.ulaval.glo2004.visualigue.domain.sport.*;
 import ca.ulaval.glo2004.visualigue.domain.sport.playercategory.PlayerCategory;
 import ca.ulaval.glo2004.visualigue.domain.sport.playercategory.PlayerCategoryFactory;
 import ca.ulaval.glo2004.visualigue.domain.sport.playingsurface.PlayingSurface;
 import ca.ulaval.glo2004.visualigue.domain.sport.playingsurface.PlayingSurfaceUnit;
-import ca.ulaval.glo2004.visualigue.domain.sport.*;
 import ca.ulaval.glo2004.visualigue.utils.EventHandler;
+import java.util.HashSet;
 import java.util.List;
+import java.util.Set;
 import java.util.UUID;
 import java.util.function.Function;
 import javafx.scene.paint.Color;
@@ -96,6 +98,11 @@ public class SportService {
         playerCategory.setOpponentColor(opponentColor);
         playerCategory.setDefaultNumberOfPlayers(defaultNumberOfPlayers);
         sportRepository.update(sport);
+    }
+
+    public Set<PlayerCategory> getPlayerCategories(UUID sportUUID) throws SportNotFoundException {
+        Sport sport = sportRepository.get(sportUUID);
+        return new HashSet(sport.getPlayerCategories().values());
     }
 
     public Sport getSport(UUID sportUUID) throws SportNotFoundException {

@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import ca.ulaval.glo2004.visualigue.ui.customcontrols.SvgImage?>
+<?import java.lang.String?>
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.Tooltip?>
+<?import javafx.scene.layout.VBox?>
+
+<Button xmlns="http://javafx.com/javafx/8.0.60" xmlns:fx="http://javafx.com/fxml/1" onAction="#onAction" fx:controller="ca.ulaval.glo2004.visualigue.ui.controllers.playeditor.itempane.PlayerCategoryListItemController">
+    <graphic>
+        <VBox alignment="CENTER">
+            <SvgImage fx:id="playerIcon" url="/images/player-icon.fxml" />
+            <Label fx:id="abreviationLabel" text="AGD" />
+        </VBox>
+    </graphic>
+    <styleClass>
+        <String fx:value="borderless" />
+        <String fx:value="item" />
+        <String fx:value="root-node" />
+    </styleClass>
+    <tooltip>
+        <Tooltip text="Ailier gauche" />
+    </tooltip>
+</Button>

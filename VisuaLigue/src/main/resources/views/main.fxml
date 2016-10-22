@@ -13,50 +13,40 @@
 <?import javafx.scene.shape.Line?>
 <?import ca.ulaval.glo2004.visualigue.ui.customcontrols.SvgImage?>
 
-<VBox minHeight="600.0" minWidth="1000.0" prefHeight="768.0" prefWidth="1024.0" style="-fx-background-color: #FFFFFF;" styleClass="root-node" stylesheets="@/css/main.fxml.css" xmlns="http://javafx.com/javafx/8.0.60" xmlns:fx="http://javafx.com/fxml/1" fx:controller="ca.ulaval.glo2004.visualigue.ui.controllers.MainSceneController">
+<VBox styleClass="root-node, body" stylesheets="@/css/main.fxml.css" xmlns="http://javafx.com/javafx/8.0.60" xmlns:fx="http://javafx.com/fxml/1" fx:controller="ca.ulaval.glo2004.visualigue.ui.controllers.MainSceneController">
     <children>
-        <HBox alignment="CENTER_LEFT" fillHeight="true" minHeight="60.0" prefHeight="60.0" style="-fx-background-color: #F3F1EF;">
+        <HBox styleClass="app-header">
             <children>
-                <HBox alignment="CENTER_LEFT" styleClass="menu-toggle" onMouseClicked="#onMenuToggleClicked">
+                <HBox styleClass="menu-toggle, dark, center-align" onMouseClicked="#onMenuToggleClicked">
                     <children>
-                        <VBox prefWidth="30.0" spacing="6.0">
+                        <VBox styleClass="lines">
                             <children>
-                                <Line endX="30.0" stroke="WHITE" styleClass="line" />
-                                <Line endX="30.0" stroke="WHITE" styleClass="line" />
-                                <Line endX="30.0" stroke="WHITE" styleClass="line" />
+                                <Line endX="30.0" styleClass="line" />
+                                <Line endX="30.0" styleClass="line" />
+                                <Line endX="30.0" styleClass="line" />
                             </children>
                         </VBox>
                     </children>
                 </HBox>
                 <HBox alignment="CENTER_LEFT" HBox.hgrow="ALWAYS">
                     <children>
-                        <Button fx:id="previousButton" alignment="CENTER_LEFT" prefWidth="41.0" styleClass="borderless" onAction="#onPreviousButtonAction">
+                        <Button fx:id="previousButton" styleClass="previous-button, borderless" onAction="#onPreviousButtonAction">
                             <graphic>
                                 <SvgImage url="/images/previous-arrow.fxml" />
                             </graphic>
                             <HBox.margin>
                                 <Insets />
                             </HBox.margin>
-                            <padding>
-                                <Insets left="14.0" right="7.0" />
-                            </padding>
                             <tooltip>
                                 <Tooltip text="Retour" />
                             </tooltip>
                         </Button>
                         <Pane fx:id="sectionTitleSpacer" prefWidth="14" />
-                        <Label fx:id="sectionTitleLabel" styleClass="section-title" text="Sports" />
-                        <Button fx:id="titleEditButton" alignment="CENTER_LEFT" prefWidth="41.0" styleClass="borderless">
+                        <Label fx:id="sectionTitleLabel" styleClass="view-title" text="Sports" />
+                        <Button fx:id="titleEditButton" alignment="CENTER_LEFT" styleClass="borderless, standard-size">
                             <graphic>
-                                <StackPane scaleX="0.75" scaleY="0.75" stylesheets="@/images/pen-icon.fxml.css">
-                                    <children>
-                                        <fx:include source="/images/pen-icon.fxml" />
-                                    </children>
-                                </StackPane>
+                                <SvgImage url="/images/pen-icon.fxml.css" scaleX="0.75" scaleY="0.75" />
                             </graphic>
-                            <padding>
-                                <Insets left="7.0" right="7.0" />
-                            </padding>
                             <tooltip>
                                 <Tooltip text="Modifier le titre" />
                             </tooltip>

@@ -3,7 +3,7 @@ package ca.ulaval.glo2004.visualigue.domain.play.keyframe;
 import ca.ulaval.glo2004.visualigue.domain.DomainObject;
 import ca.ulaval.glo2004.visualigue.domain.play.actorinstance.ActorInstance;
 import ca.ulaval.glo2004.visualigue.domain.play.actorstate.ActorState;
-import ca.ulaval.glo2004.visualigue.utils.math.easing.ExponentialEaseOut;
+import ca.ulaval.glo2004.visualigue.utils.math.easing.ExponentialEaseOutFunction;
 import javax.xml.bind.annotation.XmlAccessType;
 import javax.xml.bind.annotation.XmlAccessorType;
 import javax.xml.bind.annotation.XmlRootElement;
@@ -52,7 +52,7 @@ public class Keyframe extends DomainObject {
     public Keyframe interpolate(Integer interpolant, Keyframe nextKeyframe) {
         Keyframe interpolatedKeyFrame = new Keyframe();
         interpolatedKeyFrame.time = this.time + (nextKeyframe.time - this.time) * interpolant;
-        interpolatedKeyFrame.actorState = actorState.interpolate(nextKeyframe.actorState, (nextKeyframe.time - this.time) * interpolant, new ExponentialEaseOut());
+        interpolatedKeyFrame.actorState = actorState.interpolate(nextKeyframe.actorState, (nextKeyframe.time - this.time) * interpolant, new ExponentialEaseOutFunction());
         interpolatedKeyFrame.actorInstance = actorInstance;
         return interpolatedKeyFrame;
     }

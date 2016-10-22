@@ -3,8 +3,8 @@ package ca.ulaval.glo2004.visualigue.ui.controllers.obstaclemanagement;
 import ca.ulaval.glo2004.visualigue.domain.obstacle.Obstacle;
 import ca.ulaval.glo2004.visualigue.services.obstacle.ObstacleService;
 import ca.ulaval.glo2004.visualigue.ui.controllers.ControllerBase;
-import ca.ulaval.glo2004.visualigue.ui.converters.ObstacleCreationModelConverter;
-import ca.ulaval.glo2004.visualigue.ui.models.ObstacleCreationModel;
+import ca.ulaval.glo2004.visualigue.ui.converters.ObstacleModelConverter;
+import ca.ulaval.glo2004.visualigue.ui.models.ObstacleModel;
 import java.net.URL;
 import java.util.List;
 import java.util.ResourceBundle;
@@ -22,7 +22,7 @@ public class ObstacleManagementController extends ControllerBase {
     public static final String VIEW_TITLE = "Obstacles";
     @FXML private ObstacleListController obstacleListController;
     @Inject private ObstacleService obstacleService;
-    @Inject private ObstacleCreationModelConverter obstacleCreationModelConverter;
+    @Inject private ObstacleModelConverter obstacleModelConverter;
 
     @Override
     public StringProperty getTitle() {
@@ -32,11 +32,11 @@ public class ObstacleManagementController extends ControllerBase {
     @Override
     public void initialize(URL location, ResourceBundle resources) {
         List<Obstacle> obstacles = obstacleService.getObstacles(Obstacle::getName, SortOrder.ASCENDING);
-        ObservableList<ObstacleCreationModel> obstacleCreationModels = FXCollections.observableArrayList();
+        ObservableList<ObstacleModel> obstacleModels = FXCollections.observableArrayList();
         obstacles.forEach(obstacle -> {
-            ObstacleCreationModel obstacleCreationModel = obstacleCreationModelConverter.convert(obstacle);
-            obstacleCreationModels.add(obstacleCreationModel);
+            ObstacleModel obstacleModel = obstacleModelConverter.convert(obstacle);
+            obstacleModels.add(obstacleModel);
         });
-        obstacleListController.init(obstacleCreationModels, ObstacleCreationModel.class, ObstacleListItemController.VIEW_NAME, ObstacleListItemEditionController.VIEW_NAME);
+        obstacleListController.init(obstacleModels, ObstacleModel.class, ObstacleListItemController.VIEW_NAME, ObstacleListItemEditionController.VIEW_NAME);
     }
 }
