@@ -1,13 +1,13 @@
 package ca.ulaval.glo2004.visualigue.ui.controllers.playeditor.itempane;
 
 import ca.ulaval.glo2004.visualigue.domain.play.actorinstance.TeamSide;
+import ca.ulaval.glo2004.visualigue.ui.customcontrols.ExtendedButton;
 import ca.ulaval.glo2004.visualigue.ui.customcontrols.SvgImage;
 import ca.ulaval.glo2004.visualigue.ui.models.PlayerCategoryModel;
 import ca.ulaval.glo2004.visualigue.utils.EventHandler;
 import ca.ulaval.glo2004.visualigue.utils.FXUtils;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
-import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.Tooltip;
 import javafx.scene.paint.Color;
@@ -17,7 +17,7 @@ public class PlayerCategoryListItemController {
     public static final String VIEW_NAME = "/views/playeditor/itempane/player-category-list-item.fxml";
 
     public EventHandler<PlayerCategoryModel> onClick = new EventHandler();
-    @FXML private Button rootNode;
+    @FXML private ExtendedButton rootNode;
     @FXML private SvgImage playerIcon;
     @FXML private Label abbreviationLabel;
     @FXML private Tooltip tooltip;
@@ -39,11 +39,11 @@ public class PlayerCategoryListItemController {
     }
 
     public void select() {
-        rootNode.getStyleClass().add("selected");
+        rootNode.setSelected(true);
     }
 
     public void unselect() {
-        rootNode.getStyleClass().remove("selected");
+        rootNode.setSelected(false);
     }
 
     @FXML

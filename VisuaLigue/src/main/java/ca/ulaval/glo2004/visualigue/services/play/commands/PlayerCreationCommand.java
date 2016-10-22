@@ -1,7 +1,6 @@
 package ca.ulaval.glo2004.visualigue.services.play.commands;
 
 import ca.ulaval.glo2004.visualigue.domain.play.Play;
-import ca.ulaval.glo2004.visualigue.domain.play.PlayNotFoundException;
 import ca.ulaval.glo2004.visualigue.domain.play.PlayRepository;
 import ca.ulaval.glo2004.visualigue.domain.play.actorinstance.PlayerInstance;
 import ca.ulaval.glo2004.visualigue.domain.play.actorinstance.TeamSide;
@@ -13,7 +12,7 @@ import javax.inject.Inject;
 
 public class PlayerCreationCommand implements Command {
 
-    private UUID playUUID;
+    private Play play;
     private Integer time;
     private UUID playerCategoryUUID;
     private TeamSide teamSide;
@@ -21,11 +20,10 @@ public class PlayerCreationCommand implements Command {
     private Position position;
     @Inject private PlayRepository playRepository;
 
-    private Play play;
     private PlayerInstance playerInstance;
 
-    public PlayerCreationCommand(UUID playUUID, Integer time, UUID playerCategoryUUID, TeamSide teamSide, Double orientation, Position position) {
-        this.playUUID = playUUID;
+    public PlayerCreationCommand(Play play, Integer time, UUID playerCategoryUUID, TeamSide teamSide, Double orientation, Position position) {
+        this.play = play;
         this.time = time;
         this.playerCategoryUUID = playerCategoryUUID;
         this.teamSide = teamSide;
@@ -34,8 +32,7 @@ public class PlayerCreationCommand implements Command {
     }
 
     @Override
-    public void execute() throws PlayNotFoundException {
-        play = playRepository.get(playUUID);
+    public void execute() {
         PlayerState playerState = new PlayerState(Optional.of(position), Optional.empty(), Optional.of(orientation));
         playerInstance = new PlayerInstance(play.getSport().getPlayerCategory(playerCategoryUUID), teamSide);
         play.mergeActorState(time, playerInstance, playerState);

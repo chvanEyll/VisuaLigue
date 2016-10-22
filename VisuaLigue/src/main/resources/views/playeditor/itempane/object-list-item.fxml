@@ -6,8 +6,9 @@
 <?import javafx.scene.control.Label?>
 <?import javafx.scene.control.Tooltip?>
 <?import javafx.scene.layout.VBox?>
+<?import ca.ulaval.glo2004.visualigue.ui.customcontrols.ExtendedButton?>
 
-<Button fx:id="rootNode" xmlns="http://javafx.com/javafx/8.0.60" xmlns:fx="http://javafx.com/fxml/1">
+<ExtendedButton fx:id="rootNode" xmlns="http://javafx.com/javafx/8.0.60" xmlns:fx="http://javafx.com/fxml/1">
     <graphic>
         <SvgImage fx:id="objectIcon" url="/images/ball-object.fxml" />
     </graphic>
@@ -19,4 +20,4 @@
     <tooltip>
         <Tooltip fx:id="tooltip" text="Balle/Rondelle" />
     </tooltip>
-</Button>
+</ExtendedButton>

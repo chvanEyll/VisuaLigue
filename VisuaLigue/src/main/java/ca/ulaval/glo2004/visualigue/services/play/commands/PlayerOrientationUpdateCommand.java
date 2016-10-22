@@ -11,26 +11,24 @@ import javax.inject.Inject;
 
 public class PlayerOrientationUpdateCommand implements Command {
 
-    private UUID playUUID;
+    private Play play;
     private Integer time;
     private UUID ownerPlayerInstanceUUID;
     private Double orientation;
     @Inject private PlayRepository playRepository;
 
-    private Play play;
     private PlayerInstance playerInstance;
     private Optional<ActorState> oldPlayerState;
 
-    public PlayerOrientationUpdateCommand(UUID playUUID, Integer time, UUID ownerPlayerInstanceUUID, Double orientation) {
-        this.playUUID = playUUID;
+    public PlayerOrientationUpdateCommand(Play play, Integer time, UUID ownerPlayerInstanceUUID, Double orientation) {
+        this.play = play;
         this.time = time;
         this.ownerPlayerInstanceUUID = ownerPlayerInstanceUUID;
         this.orientation = orientation;
     }
 
     @Override
-    public void execute() throws Exception {
-        play = playRepository.get(playUUID);
+    public void execute() {
         PlayerState playerState = new PlayerState(Optional.empty(), Optional.empty(), Optional.of(orientation));
         playerInstance = (PlayerInstance) play.getActorInstance(ownerPlayerInstanceUUID);
         oldPlayerState = play.mergeActorState(time, playerInstance, playerState);

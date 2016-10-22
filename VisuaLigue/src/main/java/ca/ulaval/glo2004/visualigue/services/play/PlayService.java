@@ -26,12 +26,15 @@ public class PlayService {
     private final PlayFactory playFactory;
     private final SportRepository sportRepository;
 
-    private final Deque<Command> undoStack = new ArrayDeque();
-    private final Deque<Command> redoStack = new ArrayDeque();
+    private final Map<UUID, Deque<Command>> undoStackMap = new HashMap();
+    private final Map<UUID, Deque<Command>> redoStackMap = new HashMap();
 
     public EventHandler<Play> onPlayCreated = new EventHandler();
     public EventHandler<Play> onPlayUpdated = new EventHandler();
     public EventHandler<Play> onPlayDeleted = new EventHandler();
+    public EventHandler<Boolean> onUndoAvailabilityChanged = new EventHandler();
+    public EventHandler<Boolean> onRedoAvailabilityChanged = new EventHandler();
+    public EventHandler<Play> onPlayDirtyFlagChanged = new EventHandler();
 
     @Inject
     public PlayService(final PlayRepository playRepository, final PlayFactory playFactory, final SportRepository sportRepository) {
@@ -70,48 +73,61 @@ public class PlayService {
     }
 
     public void addPlayer(UUID playUUID, Integer time, UUID playerCategoryUUID, TeamSide teamSide, Double orientation, Position position) throws Exception {
-        PlayerCreationCommand command = new PlayerCreationCommand(playUUID, time, playerCategoryUUID, teamSide, orientation, position);
-        executeNewCommand(command);
+        Play play = playRepository.get(playUUID);
+        PlayerCreationCommand command = new PlayerCreationCommand(play, time, playerCategoryUUID, teamSide, orientation, position);
+        executeNewCommand(playUUID, command);
     }
 
     public void updatePlayerPositionDirect(UUID playUUID, Integer time, UUID ownerPlayerInstanceUUID, Position position) throws Exception {
-        PlayerPositionUpdateDirectCommand command = new PlayerPositionUpdateDirectCommand(playUUID, time, ownerPlayerInstanceUUID, position);
-        executeNewCommand(command);
+        Play play = playRepository.get(playUUID);
+        PlayerPositionUpdateDirectCommand command = new PlayerPositionUpdateDirectCommand(play, time, ownerPlayerInstanceUUID, position);
+        executeNewCommand(playUUID, command);
     }
 
     public void updatePlayerPositionFreeform(UUID playUUID, Integer time, UUID ownerPlayerInstanceUUID, Position position, Transition positionTransition) throws Exception {
-        PlayerPositionUpdateFreeformCommand command = new PlayerPositionUpdateFreeformCommand(playUUID, time, ownerPlayerInstanceUUID, position, positionTransition);
-        executeNewCommand(command);
+        Play play = playRepository.get(playUUID);
+        PlayerPositionUpdateFreeformCommand command = new PlayerPositionUpdateFreeformCommand(play, time, ownerPlayerInstanceUUID, position, positionTransition);
+        executeNewCommand(playUUID, command);
     }
 
     public void updatePlayerOrientation(UUID playUUID, Integer time, UUID ownerPlayerInstanceUUID, Double orientation) throws Exception {
-        PlayerOrientationUpdateCommand command = new PlayerOrientationUpdateCommand(playUUID, time, ownerPlayerInstanceUUID, orientation);
-        executeNewCommand(command);
+        Play play = playRepository.get(playUUID);
+        PlayerOrientationUpdateCommand command = new PlayerOrientationUpdateCommand(play, time, ownerPlayerInstanceUUID, orientation);
+        executeNewCommand(playUUID, command);
     }
 
     public void addObstacle(UUID playUUID, Integer time, UUID obstacleInstanceUUID, Position position) throws Exception {
-        ObstacleCreationCommand command = new ObstacleCreationCommand(playUUID, time, obstacleInstanceUUID, position);
-        executeNewCommand(command);
+        Play play = playRepository.get(playUUID);
+        ObstacleCreationCommand command = new ObstacleCreationCommand(play, time, obstacleInstanceUUID, position);
+        executeNewCommand(playUUID, command);
     }
 
     public void addBall(UUID playUUID, Integer time, UUID ownerPlayerInstanceUUID, Position position) throws Exception {
-        BallCreationCommand command = new BallCreationCommand(playUUID, time, ownerPlayerInstanceUUID, position);
-        executeNewCommand(command);
+        Play play = playRepository.get(playUUID);
+        BallCreationCommand command = new BallCreationCommand(play, time, ownerPlayerInstanceUUID, position);
+        executeNewCommand(playUUID, command);
     }
 
     public void updateBall(UUID playUUID, Integer time, UUID ballInstanceUUID, UUID ownerPlayerInstanceUUID, Position position) throws Exception {
-        BallUpdateCommand command = new BallUpdateCommand(playUUID, time, ballInstanceUUID, ownerPlayerInstanceUUID, position);
-        executeNewCommand(command);
+        Play play = playRepository.get(playUUID);
+        BallUpdateCommand command = new BallUpdateCommand(play, time, ballInstanceUUID, ownerPlayerInstanceUUID, position);
+        executeNewCommand(playUUID, command);
     }
 
-    public void savePlay(UUID playUUID) throws PlayAlreadyExistsException, PlayNotFoundException {
+    public void savePlay(UUID playUUID) throws PlayNotFoundException {
         Play play = playRepository.get(playUUID);
-        playRepository.persist(play);
+        try {
+            playRepository.persist(play);
+        } catch (PlayAlreadyExistsException ex) {
+            throw new RuntimeException(ex);
+        }
+        setDirty(playUUID, false);
     }
 
     public void discardChanges(UUID playUUID) throws PlayNotFoundException {
         Play play = playRepository.get(playUUID);
         playRepository.discard(play);
+        setDirty(playUUID, false);
     }
 
     public Frame getFrame(UUID playUUID, Integer time) throws PlayNotFoundException {
@@ -124,36 +140,65 @@ public class PlayService {
         return play.getKeyframes();
     }
 
-    public Boolean isUndoAvailable() {
-        return undoStack.size() > 0;
+    public Boolean isUndoAvailable(UUID playUUID) throws PlayNotFoundException {
+        if (undoStackMap.containsKey(playUUID)) {
+            return undoStackMap.get(playUUID).size() > 0;
+        } else {
+            return false;
+        }
     }
 
-    public Boolean isRedoAvailable() {
-        return redoStack.size() > 0;
+    public Boolean isRedoAvailable(UUID playUUID) throws PlayNotFoundException {
+        if (redoStackMap.containsKey(playUUID)) {
+            return redoStackMap.get(playUUID).size() > 0;
+        } else {
+            return false;
+        }
     }
 
-    public void undo() {
-        if (!isUndoAvailable()) {
+    public void undo(UUID playUUID) throws PlayNotFoundException {
+        if (!isUndoAvailable(playUUID)) {
             throw new IllegalStateException("Undo operation is not permitted at this time.");
         }
-        Command lastCommand = undoStack.pop();
-        redoStack.push(lastCommand);
+        Command lastCommand = undoStackMap.get(playUUID).pop();
+        redoStackMap.get(playUUID).push(lastCommand);
         lastCommand.revert();
+        setDirty(playUUID, true);
+        onUndoAvailabilityChanged.fire(this, isUndoAvailable(playUUID));
     }
 
-    public void redo() throws Exception {
-        if (!isRedoAvailable()) {
+    public void redo(UUID playUUID) throws PlayNotFoundException {
+        if (!isRedoAvailable(playUUID)) {
             throw new IllegalStateException("Redo operation is not permitted at this time.");
         }
-        Command nextCommand = redoStack.pop();
-        undoStack.push(nextCommand);
-        nextCommand.execute();
+        Command nextCommand = redoStackMap.get(playUUID).pop();
+        undoStackMap.get(playUUID).push(nextCommand);
+        try {
+            nextCommand.execute();
+        } catch (Exception ex) {
+            throw new RuntimeException(ex);
+        }
+        setDirty(playUUID, true);
+        onRedoAvailabilityChanged.fire(this, isRedoAvailable(playUUID));
     }
 
-    private void executeNewCommand(Command command) throws Exception {
+    private void executeNewCommand(UUID playUUID, Command command) throws Exception {
         command.execute();
-        redoStack.clear();
-        undoStack.push(command);
+        setDirty(playUUID, true);
+        if (!undoStackMap.containsKey(playUUID)) {
+            undoStackMap.put(playUUID, new ArrayDeque());
+        }
+        if (!redoStackMap.containsKey(playUUID)) {
+            redoStackMap.put(playUUID, new ArrayDeque());
+        }
+        redoStackMap.get(playUUID).clear();
+        undoStackMap.get(playUUID).push(command);
+    }
+
+    private void setDirty(UUID playUUID, Boolean dirty) throws PlayNotFoundException {
+        Play play = playRepository.get(playUUID);
+        play.setDirty(dirty);
+        onPlayDirtyFlagChanged.fire(this, play);
     }
 
 }

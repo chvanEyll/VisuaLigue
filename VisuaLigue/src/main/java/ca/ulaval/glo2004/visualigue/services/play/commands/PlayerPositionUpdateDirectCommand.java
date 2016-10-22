@@ -12,26 +12,24 @@ import javax.inject.Inject;
 
 public class PlayerPositionUpdateDirectCommand implements Command {
 
-    private UUID playUUID;
+    private Play play;
     private Integer time;
     private UUID ownerPlayerInstanceUUID;
     private Position position;
     @Inject private PlayRepository playRepository;
 
-    private Play play;
     private PlayerInstance playerInstance;
     private Optional<ActorState> oldPlayerState;
 
-    public PlayerPositionUpdateDirectCommand(UUID playUUID, Integer time, UUID ownerPlayerInstanceUUID, Position position) {
-        this.playUUID = playUUID;
+    public PlayerPositionUpdateDirectCommand(Play play, Integer time, UUID ownerPlayerInstanceUUID, Position position) {
+        this.play = play;
         this.time = time;
         this.ownerPlayerInstanceUUID = ownerPlayerInstanceUUID;
         this.position = position;
     }
 
     @Override
-    public void execute() throws Exception {
-        play = playRepository.get(playUUID);
+    public void execute() {
         PlayerState playerState = new PlayerState(Optional.of(position), Optional.empty(), Optional.empty());
         playerInstance = (PlayerInstance) play.getActorInstance(ownerPlayerInstanceUUID);
         oldPlayerState = play.mergeActorState(time, playerInstance, playerState);

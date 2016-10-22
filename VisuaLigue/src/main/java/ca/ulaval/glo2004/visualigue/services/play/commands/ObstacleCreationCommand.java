@@ -1,6 +1,7 @@
 package ca.ulaval.glo2004.visualigue.services.play.commands;
 
 import ca.ulaval.glo2004.visualigue.domain.obstacle.Obstacle;
+import ca.ulaval.glo2004.visualigue.domain.obstacle.ObstacleNotFoundException;
 import ca.ulaval.glo2004.visualigue.domain.obstacle.ObstacleRepository;
 import ca.ulaval.glo2004.visualigue.domain.play.Play;
 import ca.ulaval.glo2004.visualigue.domain.play.PlayRepository;
@@ -13,26 +14,23 @@ import javax.inject.Inject;
 
 public class ObstacleCreationCommand implements Command {
 
-    private UUID playUUID;
+    private Play play;
     private Integer time;
     private UUID obstacleInstanceUUID;
     private Position position;
     @Inject private PlayRepository playRepository;
     @Inject private ObstacleRepository obstacleRepository;
 
-    private Play play;
     private ObstacleInstance obstacleInstance;
 
-    public ObstacleCreationCommand(UUID playUUID, Integer time, UUID obstacleInstanceUUID, Position position) {
-        this.playUUID = playUUID;
+    public ObstacleCreationCommand(Play play, Integer time, UUID obstacleInstanceUUID, Position position) {
         this.time = time;
         this.obstacleInstanceUUID = obstacleInstanceUUID;
         this.position = position;
     }
 
     @Override
-    public void execute() throws Exception {
-        play = playRepository.get(playUUID);
+    public void execute() throws ObstacleNotFoundException {
         ObstacleState obstacleState = new ObstacleState(Optional.of(position));
         Obstacle obstacle = obstacleRepository.get(obstacleInstanceUUID);
         obstacleInstance = new ObstacleInstance(obstacle);

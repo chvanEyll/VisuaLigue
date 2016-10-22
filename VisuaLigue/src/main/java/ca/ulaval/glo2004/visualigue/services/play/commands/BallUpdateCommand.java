@@ -13,19 +13,18 @@ import javax.inject.Inject;
 
 public class BallUpdateCommand implements Command {
 
-    private UUID playUUID;
+    private Play play;
     private Integer time;
     private UUID ballInstanceUUID;
     private UUID ownerPlayerInstanceUUID;
     private Position position;
     @Inject private PlayRepository playRepository;
 
-    private Play play;
     private BallInstance ballInstance;
     private Optional<ActorState> oldBallState;
 
-    public BallUpdateCommand(UUID playUUID, Integer time, UUID ballInstanceUUID, UUID ownerPlayerInstanceUUID, Position position) {
-        this.playUUID = playUUID;
+    public BallUpdateCommand(Play play, Integer time, UUID ballInstanceUUID, UUID ownerPlayerInstanceUUID, Position position) {
+        this.play = play;
         this.time = time;
         this.ballInstanceUUID = ballInstanceUUID;
         this.ownerPlayerInstanceUUID = ownerPlayerInstanceUUID;
@@ -33,8 +32,7 @@ public class BallUpdateCommand implements Command {
     }
 
     @Override
-    public void execute() throws Exception {
-        play = playRepository.get(playUUID);
+    public void execute() {
         PlayerInstance playerInstance = (PlayerInstance) play.getActorInstance(ownerPlayerInstanceUUID);
         ballInstance = (BallInstance) play.getActorInstance(ballInstanceUUID);
         BallState ballState = new BallState(Optional.of(position), Optional.of(playerInstance));

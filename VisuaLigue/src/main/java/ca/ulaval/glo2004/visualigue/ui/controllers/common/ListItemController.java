@@ -9,7 +9,7 @@ import javafx.scene.layout.GridPane;
 
 public abstract class ListItemController extends ControllerBase {
 
-    @FXML protected GridPane rootNode;
+    @FXML private GridPane rootNode;
     protected EventHandler<Model> onEditRequested = new EventHandler();
     protected EventHandler<Model> onDeleteRequested = new EventHandler();
 

@@ -1,10 +1,10 @@
 package ca.ulaval.glo2004.visualigue.domain.play;
 
-import ca.ulaval.glo2004.visualigue.domain.play.keyframe.Keyframe;
-import ca.ulaval.glo2004.visualigue.domain.play.frame.Frame;
 import ca.ulaval.glo2004.visualigue.domain.DomainObject;
 import ca.ulaval.glo2004.visualigue.domain.play.actorinstance.ActorInstance;
 import ca.ulaval.glo2004.visualigue.domain.play.actorstate.ActorState;
+import ca.ulaval.glo2004.visualigue.domain.play.frame.Frame;
+import ca.ulaval.glo2004.visualigue.domain.play.keyframe.Keyframe;
 import ca.ulaval.glo2004.visualigue.domain.sport.Sport;
 import ca.ulaval.glo2004.visualigue.domain.xmladapters.XmlPlayAdapter;
 import java.util.Map.Entry;
@@ -129,5 +129,4 @@ public class Play extends DomainObject {
         });
         return frame;
     }
-
 }

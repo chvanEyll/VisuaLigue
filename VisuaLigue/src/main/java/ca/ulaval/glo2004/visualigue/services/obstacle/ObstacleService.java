@@ -28,9 +28,13 @@ public class ObstacleService {
         this.obstacleFactory = obstacleFactory;
     }
 
-    public UUID createObstacle(String name) throws ObstacleAlreadyExistsException {
+    public UUID createObstacle(String name) {
         Obstacle obstacle = obstacleFactory.create(name);
-        obstacleRepository.persist(obstacle);
+        try {
+            obstacleRepository.persist(obstacle);
+        } catch (ObstacleAlreadyExistsException ex) {
+            throw new RuntimeException(ex);
+        }
         onObstacleCreated.fire(this, obstacle);
         return obstacle.getUUID();
     }

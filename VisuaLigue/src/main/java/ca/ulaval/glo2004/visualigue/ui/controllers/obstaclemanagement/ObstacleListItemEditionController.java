@@ -1,7 +1,6 @@
 package ca.ulaval.glo2004.visualigue.ui.controllers.obstaclemanagement;
 
 import ca.ulaval.glo2004.visualigue.VisuaLigue;
-import ca.ulaval.glo2004.visualigue.domain.obstacle.ObstacleAlreadyExistsException;
 import ca.ulaval.glo2004.visualigue.domain.obstacle.ObstacleNotFoundException;
 import ca.ulaval.glo2004.visualigue.services.obstacle.ObstacleService;
 import ca.ulaval.glo2004.visualigue.ui.controllers.common.ListItemEditionController;
@@ -57,7 +56,7 @@ public class ObstacleListItemEditionController extends ListItemEditionController
     }
 
     @FXML
-    protected void onValidateButtonAction(ActionEvent e) throws ObstacleAlreadyExistsException, ObstacleNotFoundException {
+    protected void onValidateButtonAction(ActionEvent e) throws ObstacleNotFoundException {
         if (validate()) {
             if (model.isNew()) {
                 UUID obstacleInstanceUUID = obstacleService.createObstacle(StringUtils.trim(model.name.get()));
