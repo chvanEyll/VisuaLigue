@@ -9,6 +9,7 @@ import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
+import javafx.scene.control.Tooltip;
 import javafx.scene.paint.Color;
 
 public class PlayerCategoryListItemController {
@@ -18,9 +19,9 @@ public class PlayerCategoryListItemController {
     public EventHandler<PlayerCategoryModel> onClick = new EventHandler();
     @FXML private Button rootNode;
     @FXML private SvgImage playerIcon;
-    @FXML private Label abrbeviationLabel;
+    @FXML private Label abbreviationLabel;
+    @FXML private Tooltip tooltip;
     private PlayerCategoryModel model;
-    private Boolean selected = false;
 
     public void init(PlayerCategoryModel model, TeamSide teamSide) {
         this.model = model;
@@ -29,7 +30,8 @@ public class PlayerCategoryListItemController {
         } else {
             setPlayerIconColor(model.opponentPlayerColor.get());
         }
-        abrbeviationLabel.textProperty().bindBidirectional(model.abbreviation);
+        abbreviationLabel.textProperty().bindBidirectional(model.abbreviation);
+        tooltip.textProperty().bindBidirectional(model.name);
     }
 
     private void setPlayerIconColor(Color color) {
@@ -38,12 +40,10 @@ public class PlayerCategoryListItemController {
 
     public void select() {
         rootNode.getStyleClass().add("selected");
-        selected = true;
     }
 
     public void unselect() {
         rootNode.getStyleClass().remove("selected");
-        selected = false;
     }
 
     @FXML

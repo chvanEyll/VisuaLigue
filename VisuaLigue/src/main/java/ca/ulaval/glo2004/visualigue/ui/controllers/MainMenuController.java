@@ -35,7 +35,7 @@ public class MainMenuController {
         selectMenu(PlayManagementController.VIEW_NAME, playsMenuItem);
     }
 
-    public void toggleOpen() {
+    public void toggleExpand() {
         if (!isMenuPaneCollapsed) {
             collapseMenuPane();
         } else {

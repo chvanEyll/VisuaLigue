@@ -20,6 +20,6 @@
         <String fx:value="root-node" />
     </styleClass>
     <tooltip>
-        <Tooltip text="Ailier gauche" />
+        <Tooltip fx:id="tooltip" text="Ailier gauche" />
     </tooltip>
 </Button>

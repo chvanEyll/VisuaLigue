@@ -4,24 +4,49 @@
 <?import java.net.URL?>
 <?import javafx.scene.control.Label?>
 <?import javafx.scene.control.TextField?>
+<?import javafx.scene.control.Button?>
 <?import javafx.scene.layout.VBox?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.FlowPane?>
+<?import javafx.scene.image.Image?>
 <?import ca.ulaval.glo2004.visualigue.ui.customcontrols.ExtendedTextField?>
+<?import ca.ulaval.glo2004.visualigue.ui.customcontrols.ResizableImageView?>
 
 <VBox fx:id="rootNode" spacing="7.0" xmlns="http://javafx.com/javafx/8.0.60" xmlns:fx="http://javafx.com/fxml/1" fx:controller="ca.ulaval.glo2004.visualigue.ui.controllers.sportcreation.SportCreationStep1Controller">
     <children>
         <VBox styleClass="form-section">
             <children>
-                <VBox>
+                <VBox styleClass="form-group, vertical">
                     <children>
                         <Label text="Nom du sport" />
                         <ExtendedTextField fx:id="sportNameField" maxLength="64"/>
                         <Label fx:id="sportNameErrorLabel" styleClass="error-label" text="Error label." />
                     </children>
-                    <styleClass>
-                        <String fx:value="form-group" />
-                        <String fx:value="vertical" />
-                    </styleClass>
                 </VBox>
+            </children>
+        </VBox>
+        <VBox styleClass="form-section">
+            <children>
+                <HBox alignment="CENTER_LEFT" styleClass="section-header">
+                    <children>
+                        <Label text="Objet d'échange" />
+                    </children>
+                </HBox>
+                <VBox styleClass="form-group, vertical">
+                    <children>
+                        <Label text="Nom de l'objet d'échange" />
+                        <ExtendedTextField fx:id="ballNameField" maxLength="64"/>
+                        <Label fx:id="ballNameErrorLabel" styleClass="error-label" text="Error label." />
+                    </children>
+                </VBox>
+                <FlowPane styleClass="form-group, horizontal">
+                    <children>
+                        <Button mnemonicParsing="false" text="Sélectionner une image..." onAction="#onBrowseImageButtonAction" />
+                        <Label fx:id="imagePathLabel" />
+                    </children>
+                </FlowPane>
+                <Label fx:id="imageErrorLabel" styleClass="error-label" text="Error label." />
+                <ResizableImageView fx:id="imageView"/>
             </children>
         </VBox>
     </children>

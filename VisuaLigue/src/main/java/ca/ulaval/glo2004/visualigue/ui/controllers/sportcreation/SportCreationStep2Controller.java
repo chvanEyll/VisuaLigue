@@ -71,8 +71,8 @@ public class SportCreationStep2Controller extends SportCreationStepController {
     private void updateImage() {
         if (model.newPlayingSurfaceImagePathName.isNotEmpty().get()) {
             displayImage(FilenameUtils.getURIString(model.newPlayingSurfaceImagePathName.get()));
-        } else if (model.currentPlayingSurfacePathName.isNotEmpty().get()) {
-            displayImage(FilenameUtils.getURIString(model.currentPlayingSurfacePathName.get()));
+        } else if (model.currentPlayingSurfaceImagePathName.isNotEmpty().get()) {
+            displayImage(FilenameUtils.getURIString(model.currentPlayingSurfaceImagePathName.get()));
         } else if (model.builtInPlayingSurfaceImage.isNotEmpty().get()) {
             displayImage(model.builtInPlayingSurfaceImage.get());
         } else {

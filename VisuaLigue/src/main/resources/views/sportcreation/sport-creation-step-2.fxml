@@ -55,15 +55,11 @@
             <FlowPane styleClass="form-group, horizontal">
                 <children>
                     <Button mnemonicParsing="false" text="Sélectionner une image..." onAction="#onBrowseImageButtonAction" />
-                    <Label fx:id="imagePathLabel" text="..\images\built-in-playing-surfaces\hockey.png" />
+                    <Label fx:id="imagePathLabel" />
                 </children>
             </FlowPane>
             <Label fx:id="imageErrorLabel" styleClass="error-label" text="Error label." />
-            <ResizableImageView fx:id="imageView" style="-fx-border-color: #CCCCCC;" >
-                <image>
-                    <Image url="@/images/built-in-playing-surfaces/hockey.png" />
-                </image>
-            </ResizableImageView>
+            <ResizableImageView fx:id="imageView" />
         </children>
     </VBox>
     <styleClass>

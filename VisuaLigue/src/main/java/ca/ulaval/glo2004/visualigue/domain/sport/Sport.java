@@ -1,6 +1,7 @@
 package ca.ulaval.glo2004.visualigue.domain.sport;
 
 import ca.ulaval.glo2004.visualigue.domain.DomainObject;
+import ca.ulaval.glo2004.visualigue.domain.sport.ball.Ball;
 import ca.ulaval.glo2004.visualigue.domain.sport.playercategory.PlayerCategory;
 import ca.ulaval.glo2004.visualigue.domain.sport.playingsurface.PlayingSurface;
 import java.util.Map;
@@ -17,7 +18,7 @@ public class Sport extends DomainObject {
     private String name;
     private Boolean isBuiltIn = false;
     private String iconPathName = "/images/built-in-sport-icons/generic-icon.png";
-
+    private Ball ball = new Ball();
     private PlayingSurface playingSurface = new PlayingSurface();
     private Map<UUID, PlayerCategory> playerCategories = new ConcurrentHashMap();
 
@@ -51,6 +52,14 @@ public class Sport extends DomainObject {
 
     public void setIconPathName(String builtInIconPathName) {
         this.iconPathName = builtInIconPathName;
+    }
+
+    public Ball getBall() {
+        return ball;
+    }
+
+    public void setBall(Ball ball) {
+        this.ball = ball;
     }
 
     public PlayingSurface getPlayingSurface() {

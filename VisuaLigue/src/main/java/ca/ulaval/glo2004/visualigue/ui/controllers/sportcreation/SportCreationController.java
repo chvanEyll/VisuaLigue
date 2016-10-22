@@ -164,9 +164,17 @@ public class SportCreationController extends ControllerBase {
             sportUuid = model.getUUID();
             sportService.updateSport(sportUuid, StringUtils.trim(model.name.get()));
         }
+        applyBallChanges(sportUuid);
         applyPlayingSurfaceChanges(sportUuid);
         applyCategoryChanges(sportUuid);
         onViewCloseRequested.fire(this, null);
+    }
+
+    private void applyBallChanges(UUID sportUuid) throws Exception {
+        sportService.updateBall(sportUuid, StringUtils.trim(model.name.get()));
+        if (model.newBallImagePathName.isNotEmpty().get()) {
+            sportService.updateBallImage(sportUuid, model.newBallImagePathName.get());
+        }
     }
 
     private void applyPlayingSurfaceChanges(UUID sportUuid) throws Exception {

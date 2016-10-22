@@ -2,14 +2,15 @@ package ca.ulaval.glo2004.visualigue.services.sport;
 
 import ca.ulaval.glo2004.visualigue.domain.image.ImageRepository;
 import ca.ulaval.glo2004.visualigue.domain.sport.*;
+import ca.ulaval.glo2004.visualigue.domain.sport.ball.Ball;
 import ca.ulaval.glo2004.visualigue.domain.sport.playercategory.PlayerCategory;
 import ca.ulaval.glo2004.visualigue.domain.sport.playercategory.PlayerCategoryFactory;
 import ca.ulaval.glo2004.visualigue.domain.sport.playingsurface.PlayingSurface;
 import ca.ulaval.glo2004.visualigue.domain.sport.playingsurface.PlayingSurfaceUnit;
 import ca.ulaval.glo2004.visualigue.utils.EventHandler;
-import java.util.HashSet;
+import ca.ulaval.glo2004.visualigue.utils.ListUtils;
+import java.util.ArrayList;
 import java.util.List;
-import java.util.Set;
 import java.util.UUID;
 import java.util.function.Function;
 import javafx.scene.paint.Color;
@@ -51,25 +52,59 @@ public class SportService {
         onSportUpdated.fire(this, sport);
     }
 
-    public void updatePlayingSurface(UUID sportUUID, Double width, Double length, PlayingSurfaceUnit widthUnits, PlayingSurfaceUnit lengthUnits) throws SportNotFoundException, SportAlreadyExistsException {
+    public void updateBall(UUID sportUUID, String name) throws SportNotFoundException {
+        Sport sport = sportRepository.get(sportUUID);
+        Ball ball = sport.getBall();
+        ball.setName(name);
+        try {
+            sportRepository.update(sport);
+        } catch (SportAlreadyExistsException ex) {
+            throw new RuntimeException(ex);
+        }
+    }
+
+    public void updateBallImage(UUID sportUUID, String sourceImagePathName) throws SportNotFoundException {
+        Sport sport = sportRepository.get(sportUUID);
+        Ball ball = sport.getBall();
+        UUID imageUuid = imageRepository.persist(sourceImagePathName);
+        if (ball.hasCustomImage()) {
+            imageRepository.delete(ball.getCustomImageUUID());
+        }
+        ball.setCustomImageUUID(imageUuid);
+        try {
+            sportRepository.update(sport);
+        } catch (SportAlreadyExistsException ex) {
+            throw new RuntimeException(ex);
+        }
+    }
+
+    public void updatePlayingSurface(UUID sportUUID, Double width, Double length, PlayingSurfaceUnit widthUnits, PlayingSurfaceUnit lengthUnits) throws SportNotFoundException {
         Sport sport = sportRepository.get(sportUUID);
         PlayingSurface playingSurface = sport.getPlayingSurface();
         playingSurface.setWidth(width);
         playingSurface.setLength(length);
         playingSurface.setWidthUnits(widthUnits);
         playingSurface.setLengthUnits(lengthUnits);
-        sportRepository.update(sport);
+        try {
+            sportRepository.update(sport);
+        } catch (SportAlreadyExistsException ex) {
+            throw new RuntimeException(ex);
+        }
     }
 
-    public void updatePlayingSurfaceImage(UUID sportUUID, String sourceImagePathName) throws SportNotFoundException, SportAlreadyExistsException {
+    public void updatePlayingSurfaceImage(UUID sportUUID, String sourceImagePathName) throws SportNotFoundException {
         Sport sport = sportRepository.get(sportUUID);
-        UUID imageUuid = imageRepository.persist(sourceImagePathName);
         PlayingSurface playingSurface = sport.getPlayingSurface();
+        UUID imageUuid = imageRepository.persist(sourceImagePathName);
         if (playingSurface.hasCustomImage()) {
             imageRepository.delete(playingSurface.getCustomImageUUID());
         }
         playingSurface.setCustomImageUUID(imageUuid);
-        sportRepository.update(sport);
+        try {
+            sportRepository.update(sport);
+        } catch (SportAlreadyExistsException ex) {
+            throw new RuntimeException(ex);
+        }
     }
 
     public void deleteSport(UUID sportUUID) throws SportNotFoundException {
@@ -78,31 +113,44 @@ public class SportService {
         onSportDeleted.fire(this, sport);
     }
 
-    public void addPlayerCategory(UUID sportUUID, String name, String abbreviation, Color allyColor, Color opponentColor, Integer defaultNumberOfPlayers) throws SportAlreadyExistsException, SportNotFoundException {
+    public void addPlayerCategory(UUID sportUUID, String name, String abbreviation, Color allyColor, Color opponentColor, Integer defaultNumberOfPlayers) throws SportNotFoundException {
         Sport sport = sportRepository.get(sportUUID);
         sport.addPlayerCategory(playerCategoryFactory.create(name, abbreviation, allyColor, opponentColor, defaultNumberOfPlayers));
-        sportRepository.update(sport);
+        try {
+            sportRepository.update(sport);
+        } catch (SportAlreadyExistsException ex) {
+            throw new RuntimeException(ex);
+        }
     }
 
-    public void removePlayerCategory(UUID sportUUID, UUID playerCategoryUUID) throws SportAlreadyExistsException, SportNotFoundException {
+    public void removePlayerCategory(UUID sportUUID, UUID playerCategoryUUID) throws SportNotFoundException {
         Sport sport = sportRepository.get(sportUUID);
         sport.removeCategory(playerCategoryUUID);
-        sportRepository.update(sport);
+        try {
+            sportRepository.update(sport);
+        } catch (SportAlreadyExistsException ex) {
+            throw new RuntimeException(ex);
+        }
     }
 
-    public void updatePlayerCategory(UUID sportUUID, UUID playerCategoryUUID, String name, Color allyColor, Color opponentColor, Integer defaultNumberOfPlayers) throws SportNotFoundException, SportAlreadyExistsException {
+    public void updatePlayerCategory(UUID sportUUID, UUID playerCategoryUUID, String name, Color allyColor, Color opponentColor, Integer defaultNumberOfPlayers) throws SportNotFoundException {
         Sport sport = sportRepository.get(sportUUID);
         PlayerCategory playerCategory = sport.getPlayerCategory(playerCategoryUUID);
         playerCategory.setName(name);
         playerCategory.setAllyColor(allyColor);
         playerCategory.setOpponentColor(opponentColor);
         playerCategory.setDefaultNumberOfPlayers(defaultNumberOfPlayers);
-        sportRepository.update(sport);
+        try {
+            sportRepository.update(sport);
+        } catch (SportAlreadyExistsException ex) {
+            throw new RuntimeException(ex);
+        }
     }
 
-    public Set<PlayerCategory> getPlayerCategories(UUID sportUUID) throws SportNotFoundException {
+    public List<PlayerCategory> getPlayerCategories(UUID sportUUID, Function<PlayerCategory, Comparable> sortFunction, SortOrder sortOrder) throws SportNotFoundException {
         Sport sport = sportRepository.get(sportUUID);
-        return new HashSet(sport.getPlayerCategories().values());
+        List<PlayerCategory> playerCategories = new ArrayList(sport.getPlayerCategories().values());
+        return ListUtils.sort(playerCategories, sortFunction, sortOrder);
     }
 
     public Sport getSport(UUID sportUUID) throws SportNotFoundException {

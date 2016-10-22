@@ -1,21 +1,22 @@
 package ca.ulaval.glo2004.visualigue.contexts;
 
 import ca.ulaval.glo2004.visualigue.domain.image.ImageRepository;
-import ca.ulaval.glo2004.visualigue.domain.play.Play;
-import ca.ulaval.glo2004.visualigue.domain.play.PlayAlreadyExistsException;
-import ca.ulaval.glo2004.visualigue.domain.play.PlayFactory;
-import ca.ulaval.glo2004.visualigue.domain.play.PlayRepository;
 import ca.ulaval.glo2004.visualigue.domain.obstacle.Obstacle;
 import ca.ulaval.glo2004.visualigue.domain.obstacle.ObstacleAlreadyExistsException;
 import ca.ulaval.glo2004.visualigue.domain.obstacle.ObstacleFactory;
 import ca.ulaval.glo2004.visualigue.domain.obstacle.ObstacleRepository;
-import ca.ulaval.glo2004.visualigue.domain.sport.playercategory.PlayerCategory;
-import ca.ulaval.glo2004.visualigue.domain.sport.playingsurface.PlayingSurface;
-import ca.ulaval.glo2004.visualigue.domain.sport.playingsurface.PlayingSurfaceUnit;
+import ca.ulaval.glo2004.visualigue.domain.play.Play;
+import ca.ulaval.glo2004.visualigue.domain.play.PlayAlreadyExistsException;
+import ca.ulaval.glo2004.visualigue.domain.play.PlayFactory;
+import ca.ulaval.glo2004.visualigue.domain.play.PlayRepository;
 import ca.ulaval.glo2004.visualigue.domain.sport.Sport;
 import ca.ulaval.glo2004.visualigue.domain.sport.SportAlreadyExistsException;
 import ca.ulaval.glo2004.visualigue.domain.sport.SportFactory;
 import ca.ulaval.glo2004.visualigue.domain.sport.SportRepository;
+import ca.ulaval.glo2004.visualigue.domain.sport.ball.Ball;
+import ca.ulaval.glo2004.visualigue.domain.sport.playercategory.PlayerCategory;
+import ca.ulaval.glo2004.visualigue.domain.sport.playingsurface.PlayingSurface;
+import ca.ulaval.glo2004.visualigue.domain.sport.playingsurface.PlayingSurfaceUnit;
 import java.util.ArrayList;
 import java.util.List;
 import javafx.scene.paint.Color;
@@ -70,8 +71,11 @@ public class DefaultContext extends ContextBase {
 
     private Sport createHockeySport() throws Exception {
         Sport sport = sportFactory.create("Hockey");
-        sport.setIconPathName("/images/built-in-sport-icons/hockey-icon.png");
         sport.setIsBuiltIn(true);
+        sport.setIconPathName("/images/built-in-sport-icons/hockey-icon.png");
+        Ball ball = new Ball("Rondelle");
+        ball.setBuiltInImagePathName("/images/built-in-ball-icons/hockey-puck-icon.png");
+        sport.setBall(ball);
         PlayingSurface playingSurface = new PlayingSurface(200.0, PlayingSurfaceUnit.FOOTS, 85.0, PlayingSurfaceUnit.FOOTS);
         playingSurface.setBuiltInImagePathName("/images/built-in-playing-surfaces/hockey.png");
         sport.setPlayingSurface(playingSurface);
@@ -88,6 +92,9 @@ public class DefaultContext extends ContextBase {
         Sport sport = sportFactory.create("Soccer");
         sport.setIconPathName("/images/built-in-sport-icons/soccer-icon.png");
         sport.setIsBuiltIn(true);
+        Ball ball = new Ball("Ballon");
+        ball.setBuiltInImagePathName("/images/built-in-ball-icons/soccer-icon.png");
+        sport.setBall(ball);
         PlayingSurface playingSurface = new PlayingSurface(68.0, PlayingSurfaceUnit.METER, 100.0, PlayingSurfaceUnit.METER);
         playingSurface.setBuiltInImagePathName("/images/built-in-playing-surfaces/soccer.jpg");
         sport.setPlayingSurface(playingSurface);
@@ -117,6 +124,9 @@ public class DefaultContext extends ContextBase {
         Sport sport = sportFactory.create("Football");
         sport.setIconPathName("/images/built-in-sport-icons/football-icon.png");
         sport.setIsBuiltIn(true);
+        Ball ball = new Ball("Ballon");
+        ball.setBuiltInImagePathName("/images/built-in-ball-icons/football-icon.png");
+        sport.setBall(ball);
         PlayingSurface playingSurface = new PlayingSurface(160.0, PlayingSurfaceUnit.FOOTS, 360.0, PlayingSurfaceUnit.FOOTS);
         playingSurface.setBuiltInImagePathName("/images/built-in-playing-surfaces/football.png");
         sport.setPlayingSurface(playingSurface);

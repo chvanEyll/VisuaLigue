@@ -2,6 +2,7 @@ package ca.ulaval.glo2004.visualigue.services.obstacle;
 
 import ca.ulaval.glo2004.visualigue.domain.image.ImageRepository;
 import ca.ulaval.glo2004.visualigue.domain.obstacle.*;
+import ca.ulaval.glo2004.visualigue.utils.EventHandler;
 import java.util.List;
 import java.util.UUID;
 import java.util.function.Function;
@@ -16,6 +17,10 @@ public class ObstacleService {
     private final ObstacleFactory obstacleFactory;
     private final ImageRepository imageRepository;
 
+    public EventHandler<Obstacle> onObstacleCreated = new EventHandler();
+    public EventHandler<Obstacle> onObstacleUpdated = new EventHandler();
+    public EventHandler<Obstacle> onObstacleDeleted = new EventHandler();
+
     @Inject
     public ObstacleService(final ObstacleRepository obstacleRepository, final ImageRepository imageRepository, final ObstacleFactory obstacleFactory) {
         this.obstacleRepository = obstacleRepository;
@@ -26,6 +31,7 @@ public class ObstacleService {
     public UUID createObstacle(String name) throws ObstacleAlreadyExistsException {
         Obstacle obstacle = obstacleFactory.create(name);
         obstacleRepository.persist(obstacle);
+        onObstacleCreated.fire(this, obstacle);
         return obstacle.getUUID();
     }
 
@@ -33,6 +39,7 @@ public class ObstacleService {
         Obstacle obstacle = obstacleRepository.get(obstacleInstanceUUID);
         obstacle.setName(name);
         obstacleRepository.update(obstacle);
+        onObstacleUpdated.fire(this, obstacle);
     }
 
     public void updateObstacleImage(UUID sportUUID, String sourceImagePathName) throws ObstacleNotFoundException {
@@ -48,6 +55,7 @@ public class ObstacleService {
     public void deleteObstacle(UUID obstacleInstanceUUID) throws ObstacleNotFoundException {
         Obstacle obstacle = obstacleRepository.get(obstacleInstanceUUID);
         obstacleRepository.delete(obstacle);
+        onObstacleDeleted.fire(this, obstacle);
     }
 
     public Obstacle getObstacle(UUID obstacleInstanceUUID) throws ObstacleNotFoundException {

@@ -9,7 +9,7 @@
 
 <Button fx:id="rootNode" xmlns="http://javafx.com/javafx/8.0.60" xmlns:fx="http://javafx.com/fxml/1">
     <graphic>
-        <SvgImage url="/images/ball-object.fxml" />
+        <SvgImage fx:id="objectIcon" url="/images/ball-object.fxml" />
     </graphic>
     <styleClass>
         <String fx:value="borderless" />
@@ -17,6 +17,6 @@
         <String fx:value="root-node" />
     </styleClass>
     <tooltip>
-        <Tooltip text="Balle/Rondelle" />
+        <Tooltip fx:id="tooltip" text="Balle/Rondelle" />
     </tooltip>
 </Button>

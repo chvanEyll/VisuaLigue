@@ -9,18 +9,18 @@ import ca.ulaval.glo2004.visualigue.ui.InjectableFXMLLoader;
 import ca.ulaval.glo2004.visualigue.ui.View;
 import ca.ulaval.glo2004.visualigue.ui.controllers.ControllerBase;
 import ca.ulaval.glo2004.visualigue.ui.controllers.playeditor.scene.SceneController;
-import ca.ulaval.glo2004.visualigue.ui.controllers.sportcreation.SportCreationController;
 import ca.ulaval.glo2004.visualigue.ui.converters.PlayerCategoryModelConverter;
 import ca.ulaval.glo2004.visualigue.ui.models.PlayerCategoryModel;
-import java.net.URL;
-import java.util.*;
+import java.util.ArrayList;
+import java.util.List;
+import java.util.UUID;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javafx.application.Platform;
 import javafx.fxml.FXML;
-import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.TilePane;
 import javax.inject.Inject;
+import javax.swing.SortOrder;
 
 public class PlayerCategoryListController extends ControllerBase {
 
@@ -32,15 +32,11 @@ public class PlayerCategoryListController extends ControllerBase {
     private UUID sportUUID;
     private SceneController sceneController;
 
-    @Override
-    public void initialize(URL url, ResourceBundle rb) {
-        sportService.onSportUpdated.setHandler(this::onSportChanged);
-        fillPlayerCategoryList();
-    }
-
     public void init(UUID sportUUID, SceneController sceneController) {
         this.sportUUID = sportUUID;
         this.sceneController = sceneController;
+        sportService.onSportUpdated.setHandler(this::onSportChanged);
+        fillPlayerCategoryList();
     }
 
     private void onSportChanged(Object sender, Sport sport) {
@@ -51,7 +47,7 @@ public class PlayerCategoryListController extends ControllerBase {
         allyPlayerCategoryPane.getChildren().clear();
         opponentPlayerCategoryPane.getChildren().clear();
         try {
-            Set<PlayerCategory> playerCategories = sportService.getPlayerCategories(sportUUID);
+            List<PlayerCategory> playerCategories = sportService.getPlayerCategories(sportUUID, PlayerCategory::getName, SortOrder.ASCENDING);
             playerCategories.forEach(playerCategory -> {
                 initCategoryItem(playerCategoryModelConverter.convert(playerCategory));
             });
@@ -90,13 +86,5 @@ public class PlayerCategoryListController extends ControllerBase {
 
     private void unselectAll() {
         itemControllers.forEach(itemController -> itemController.unselect());
-    }
-
-    @FXML
-    public void onNewSportButtonClicked(MouseEvent e) {
-        View view = InjectableFXMLLoader.loadView(SportCreationController.VIEW_NAME);
-        SportCreationController controller = (SportCreationController) view.getController();
-        controller.init();
-        onViewChangeRequested.fire(this, view);
     }
 }

@@ -43,7 +43,7 @@ public class MainSceneController implements Initializable {
 
     @FXML
     public void onMenuToggleClicked(MouseEvent e) {
-        mainMenuController.toggleOpen();
+        mainMenuController.toggleExpand();
     }
 
     @FXML

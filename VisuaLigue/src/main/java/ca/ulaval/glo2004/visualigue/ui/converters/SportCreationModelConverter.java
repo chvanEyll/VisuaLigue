@@ -2,6 +2,7 @@ package ca.ulaval.glo2004.visualigue.ui.converters;
 
 import ca.ulaval.glo2004.visualigue.domain.image.ImageRepository;
 import ca.ulaval.glo2004.visualigue.domain.sport.Sport;
+import ca.ulaval.glo2004.visualigue.domain.sport.ball.Ball;
 import ca.ulaval.glo2004.visualigue.domain.sport.playercategory.PlayerCategory;
 import ca.ulaval.glo2004.visualigue.domain.sport.playingsurface.PlayingSurface;
 import ca.ulaval.glo2004.visualigue.ui.models.PlayerCategoryModel;
@@ -32,14 +33,23 @@ public class SportCreationModelConverter {
         model.playingSurfaceLength.set(sport.getPlayingSurface().getLength());
         model.playingSurfaceWidthUnits.set(sport.getPlayingSurface().getWidthUnits());
         model.playingSurfaceLengthUnits.set(sport.getPlayingSurface().getLengthUnits());
+        convertBall(sport.getBall(), model);
         convertPlayingSurfaceImage(sport.getPlayingSurface(), model);
         convertPlayerCategories(sport.getPlayerCategories(), model);
         return model;
     }
 
+    private void convertBall(Ball ball, SportCreationModel model) {
+        model.ballName.set(ball.getName());
+        if (ball.hasCustomImage()) {
+            model.currentBallImagePathName.set(imageRepository.get(ball.getCustomImageUUID()));
+        }
+        model.builtInPlayingSurfaceImage.set(ball.getBuiltInImagePathName());
+    }
+
     private void convertPlayingSurfaceImage(PlayingSurface playingSurface, SportCreationModel model) {
         if (playingSurface.hasCustomImage()) {
-            model.currentPlayingSurfacePathName.set(imageRepository.get(playingSurface.getCustomImageUUID()));
+            model.currentPlayingSurfaceImagePathName.set(imageRepository.get(playingSurface.getCustomImageUUID()));
         }
         model.builtInPlayingSurfaceImage.set(playingSurface.getBuiltInImagePathName());
     }
