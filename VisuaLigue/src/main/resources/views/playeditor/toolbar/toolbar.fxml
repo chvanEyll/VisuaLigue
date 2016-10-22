@@ -11,6 +11,7 @@
 <?import javafx.scene.layout.Pane?>
 <?import ca.ulaval.glo2004.visualigue.ui.customcontrols.SvgImage?>
 <?import ca.ulaval.glo2004.visualigue.ui.customcontrols.ExtendedButton?>
+<?import ca.ulaval.glo2004.visualigue.ui.customcontrols.ExtendedTextField?>
 
 <HBox fx:id="root-node" alignment="CENTER_LEFT" prefHeight="50.0" styleClass="root-node, toolbar" xmlns="http://javafx.com/javafx/8.0.60" xmlns:fx="http://javafx.com/fxml/1" fx:controller="ca.ulaval.glo2004.visualigue.ui.controllers.playeditor.toolbar.ToolbarController">
     <children>
@@ -96,12 +97,12 @@
                 <String fx:value="medium" />
             </styleClass>
         </Button>
-        <TextField fx:id="zoomTextField" prefWidth="85.0" text="100%"  onAction="#onZoomTextFieldAction" >
+        <ExtendedTextField fx:id="zoomTextField" prefWidth="85.0" text="100%"  onAction="#onZoomTextFieldAction" maxLength="4">
             <styleClass>
                 <String fx:value="centered-text" />
                 <String fx:value="text-field" />
             </styleClass>
-        </TextField>
+        </ExtendedTextField>
         <Button fx:id="zoomOutButton" mnemonicParsing="false" onAction="#onZoomOutButtonAction">
             <graphic>
                 <SvgImage url="/images/zoom-out-icon.fxml" />

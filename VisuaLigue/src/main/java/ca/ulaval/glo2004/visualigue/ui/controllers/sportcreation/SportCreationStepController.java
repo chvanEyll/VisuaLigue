@@ -1,8 +1,9 @@
 package ca.ulaval.glo2004.visualigue.ui.controllers.sportcreation;
 
+import ca.ulaval.glo2004.visualigue.ui.controllers.ControllerBase;
 import ca.ulaval.glo2004.visualigue.ui.models.SportCreationModel;
 
-public abstract class SportCreationStepController {
+public abstract class SportCreationStepController extends ControllerBase {
 
     protected SportCreationModel model;
 

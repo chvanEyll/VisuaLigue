@@ -10,10 +10,10 @@ import ca.ulaval.glo2004.visualigue.ui.View;
 import ca.ulaval.glo2004.visualigue.ui.controllers.ControllerBase;
 import ca.ulaval.glo2004.visualigue.ui.controllers.playeditor.scene.SceneController;
 import ca.ulaval.glo2004.visualigue.ui.converters.PlayerCategoryModelConverter;
+import ca.ulaval.glo2004.visualigue.ui.models.PlayModel;
 import ca.ulaval.glo2004.visualigue.ui.models.PlayerCategoryModel;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.UUID;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javafx.application.Platform;
@@ -29,11 +29,11 @@ public class PlayerCategoryListController extends ControllerBase {
     @FXML private TilePane allyPlayerCategoryPane;
     @FXML private TilePane opponentPlayerCategoryPane;
     private List<PlayerCategoryListItemController> itemControllers = new ArrayList();
-    private UUID sportUUID;
+    private PlayModel playModel;
     private SceneController sceneController;
 
-    public void init(UUID sportUUID, SceneController sceneController) {
-        this.sportUUID = sportUUID;
+    public void init(PlayModel playModel, SceneController sceneController) {
+        this.playModel = playModel;
         this.sceneController = sceneController;
         sportService.onSportUpdated.setHandler(this::onSportChanged);
         fillPlayerCategoryList();
@@ -47,7 +47,7 @@ public class PlayerCategoryListController extends ControllerBase {
         allyPlayerCategoryPane.getChildren().clear();
         opponentPlayerCategoryPane.getChildren().clear();
         try {
-            List<PlayerCategory> playerCategories = sportService.getPlayerCategories(sportUUID, PlayerCategory::getName, SortOrder.ASCENDING);
+            List<PlayerCategory> playerCategories = sportService.getPlayerCategories(playModel.sportUUID.get(), PlayerCategory::getName, SortOrder.ASCENDING);
             playerCategories.forEach(playerCategory -> {
                 initCategoryItem(playerCategoryModelConverter.convert(playerCategory));
             });

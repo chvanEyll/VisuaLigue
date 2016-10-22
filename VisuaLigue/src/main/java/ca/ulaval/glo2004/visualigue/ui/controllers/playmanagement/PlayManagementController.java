@@ -5,7 +5,7 @@ import ca.ulaval.glo2004.visualigue.ui.InjectableFXMLLoader;
 import ca.ulaval.glo2004.visualigue.ui.View;
 import ca.ulaval.glo2004.visualigue.ui.controllers.ControllerBase;
 import ca.ulaval.glo2004.visualigue.ui.controllers.playeditor.PlayEditorController;
-import ca.ulaval.glo2004.visualigue.ui.models.PlayListItemModel;
+import ca.ulaval.glo2004.visualigue.ui.models.PlayModel;
 import java.net.URL;
 import java.util.ResourceBundle;
 import java.util.logging.Level;
@@ -31,11 +31,11 @@ public class PlayManagementController extends ControllerBase {
         return new SimpleStringProperty(VIEW_TITLE);
     }
 
-    private void onPlaySelectedEvent(Object sender, PlayListItemModel playListItemModel) {
+    private void onPlaySelectedEvent(Object sender, PlayModel playModel) {
         View view = InjectableFXMLLoader.loadView(PlayEditorController.VIEW_NAME);
         PlayEditorController controller = (PlayEditorController) view.getController();
         try {
-            controller.init(playListItemModel.getUUID());
+            controller.init(playModel);
         } catch (PlayNotFoundException ex) {
             Logger.getLogger(PlayManagementController.class.getName()).log(Level.SEVERE, null, ex);
         }

@@ -5,36 +5,33 @@ import ca.ulaval.glo2004.visualigue.ui.animation.PredefinedAnimations;
 import ca.ulaval.glo2004.visualigue.utils.FXUtils;
 import java.net.URL;
 import java.util.ResourceBundle;
+import javafx.beans.value.ObservableValue;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
-import javafx.fxml.Initializable;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
+import javafx.scene.control.TextField;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.Pane;
-import javafx.stage.Stage;
 
-public class MainSceneController implements Initializable {
+public class MainSceneController extends ControllerBase {
 
     public static final String VIEW_NAME = "/views/main.fxml";
 
     @FXML private Pane contentPane;
     @FXML private Button previousButton;
-    @FXML private Button titleEditButton;
-    @FXML private Label sectionTitleLabel;
-    @FXML private Pane sectionTitleSpacer;
+    @FXML private Button viewTitleEditButton;
+    @FXML private Button viewTitleValidateButton;
+    @FXML private Label viewTitleLabel;
+    @FXML private TextField viewTitleTextField;
+    @FXML private Pane viewTitleSpacer;
     @FXML private MainMenuController mainMenuController;
     private ViewFlow viewFlow = new ViewFlow();
-    private Stage mainStage;
 
     @Override
     public void initialize(URL url, ResourceBundle rb) {
         mainMenuController.onMenuClicked.setHandler(this::onMainMenuClicked);
         mainMenuController.init();
-    }
-
-    public void setStage(Stage stage) {
-        this.mainStage = stage;
     }
 
     private void onMainMenuClicked(Object sender, View requestedView) {
@@ -78,15 +75,50 @@ public class MainSceneController implements Initializable {
     }
 
     private void setView(View view) {
-        ControllerBase controller = (ControllerBase) view.getController();
+        ControllerBase controller = view.getController();
         controller.onViewChangeRequested.setHandler(this::onViewChangeRequested);
         controller.onViewCloseRequested.setHandler(this::onViewCloseRequested);
         contentPane.getChildren().clear();
         contentPane.getChildren().add(view.getRoot());
-        sectionTitleLabel.textProperty().bindBidirectional(controller.getTitle());
+        viewTitleLabel.textProperty().bindBidirectional(controller.getTitle());
+        viewTitleTextField.textProperty().bindBidirectional(controller.getTitle());
         FXUtils.setDisplay(previousButton, viewFlow.count() > 1);
-        FXUtils.setDisplay(sectionTitleSpacer, viewFlow.count() <= 1);
-        FXUtils.setDisplay(titleEditButton, controller.isTitleEditable());
+        FXUtils.setDisplay(viewTitleSpacer, viewFlow.count() <= 1);
+        FXUtils.setDisplay(viewTitleEditButton, controller.isTitleEditable());
+        FXUtils.setDisplay(viewTitleValidateButton, false);
+        FXUtils.setDisplay(viewTitleTextField, false);
         PredefinedAnimations.nodeZoom(view.getRoot());
+    }
+
+    @FXML
+    protected void onViewTitleEditButtonAction(ActionEvent e) {
+        toggleViewTitleEditionMode(true);
+    }
+
+    @FXML
+    protected void onViewTitleTextFieldAction(ActionEvent e) {
+        toggleViewTitleEditionMode(false);
+    }
+
+    @FXML
+    protected void onViewTitleValidateButtonAction(ActionEvent e) {
+        toggleViewTitleEditionMode(false);
+    }
+
+    public void onViewTitleTextFieldFocuschanged(ObservableValue<? extends Boolean> arg0, Boolean oldPropertyValue, Boolean newPropertyValue) {
+        if (!newPropertyValue) {
+            toggleViewTitleEditionMode(false);
+        }
+    }
+
+    private void toggleViewTitleEditionMode(Boolean editionMode) {
+        FXUtils.setDisplay(viewTitleTextField, editionMode);
+        FXUtils.setDisplay(viewTitleValidateButton, editionMode);
+        FXUtils.setDisplay(viewTitleLabel, !editionMode);
+        FXUtils.setDisplay(viewTitleEditButton, !editionMode);
+        if (editionMode) {
+            viewTitleTextField.focusedProperty().addListener(this::onViewTitleTextFieldFocuschanged);
+            FXUtils.requestFocusDelayed(viewTitleTextField);
+        }
     }
 }

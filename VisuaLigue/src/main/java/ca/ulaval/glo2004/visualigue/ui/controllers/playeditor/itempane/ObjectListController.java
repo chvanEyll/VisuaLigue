@@ -14,9 +14,9 @@ import ca.ulaval.glo2004.visualigue.ui.converters.ObstacleModelConverter;
 import ca.ulaval.glo2004.visualigue.ui.models.BallModel;
 import ca.ulaval.glo2004.visualigue.ui.models.Model;
 import ca.ulaval.glo2004.visualigue.ui.models.ObstacleModel;
+import ca.ulaval.glo2004.visualigue.ui.models.PlayModel;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.UUID;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javafx.application.Platform;
@@ -33,11 +33,11 @@ public class ObjectListController extends ControllerBase {
     @Inject private BallModelConverter ballModelConverter;
     @FXML private TilePane tilePane;
     private List<ObjectListItemController> itemControllers = new ArrayList();
-    private UUID sportUUID;
+    private PlayModel playModel;
     private SceneController sceneController;
 
-    public void init(UUID sportUUID, SceneController sceneController) {
-        this.sportUUID = sportUUID;
+    public void init(PlayModel playModel, SceneController sceneController) {
+        this.playModel = playModel;
         this.sceneController = sceneController;
         sportService.onSportUpdated.setHandler(this::onObjectListChanged);
         obstacleService.onObstacleCreated.setHandler(this::onObjectListChanged);
@@ -58,7 +58,7 @@ public class ObjectListController extends ControllerBase {
 
     private void fillBallList() {
         try {
-            Ball ball = sportService.getSport(sportUUID).getBall();
+            Ball ball = sportService.getSport(playModel.sportUUID.get()).getBall();
             initObjectItem(ballModelConverter.convert(ball));
         } catch (SportNotFoundException ex) {
             Logger.getLogger(ObjectListController.class.getName()).log(Level.SEVERE, null, ex);

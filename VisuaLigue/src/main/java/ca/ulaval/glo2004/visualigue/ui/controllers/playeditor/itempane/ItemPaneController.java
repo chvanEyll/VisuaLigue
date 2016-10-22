@@ -1,13 +1,15 @@
 package ca.ulaval.glo2004.visualigue.ui.controllers.playeditor.itempane;
 
+import ca.ulaval.glo2004.visualigue.services.sport.SportService;
 import ca.ulaval.glo2004.visualigue.ui.animation.PredefinedAnimations;
 import ca.ulaval.glo2004.visualigue.ui.controllers.ControllerBase;
 import ca.ulaval.glo2004.visualigue.ui.controllers.playeditor.scene.SceneController;
-import java.util.UUID;
+import ca.ulaval.glo2004.visualigue.ui.models.PlayModel;
 import javafx.fxml.FXML;
 import javafx.scene.control.ScrollPane;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.VBox;
+import javax.inject.Inject;
 
 public class ItemPaneController extends ControllerBase {
 
@@ -17,11 +19,12 @@ public class ItemPaneController extends ControllerBase {
     @FXML private ScrollPane scrollPane;
     @FXML private PlayerCategoryListController playerCategoryListController;
     @FXML private ObjectListController objectListController;
+    @Inject private SportService sportService;
     private boolean isCollapsed = true;
 
-    public void init(UUID sportUUID, SceneController sceneController) {
-        playerCategoryListController.init(sportUUID, sceneController);
-        objectListController.init(sportUUID, sceneController);
+    public void init(PlayModel playModel, SceneController sceneController) {
+        playerCategoryListController.init(playModel, sceneController);
+        objectListController.init(playModel, sceneController);
     }
 
     @FXML

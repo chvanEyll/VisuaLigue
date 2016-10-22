@@ -32,7 +32,6 @@ public class VisuaLigue extends Application {
         this.stage = stage;
         View view = InjectableFXMLLoader.loadView(MainSceneController.VIEW_NAME);
         MainSceneController mainSceneController = (MainSceneController) view.getController();
-        mainSceneController.setStage(stage);
         Scene scene = new Scene((Parent) view.getRoot());
         initStage(stage, scene);
         initContext();

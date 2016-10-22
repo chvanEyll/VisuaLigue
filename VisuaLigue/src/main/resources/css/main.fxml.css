@@ -21,6 +21,11 @@
     -fx-text-fill: #4F4F4F;
 }
 
+.view-title-edit-button {
+    -fx-pref-width: 250;
+    -fx-max-width: 250;
+}
+
 .app-header {
     -fx-alignment: CENTER_LEFT;
     -fx-fill-height : true;

@@ -1,7 +1,8 @@
 package ca.ulaval.glo2004.visualigue.ui.controllers.playmanagement;
 
+import ca.ulaval.glo2004.visualigue.ui.controllers.ControllerBase;
 import ca.ulaval.glo2004.visualigue.ui.dialog.AlertDialogBuilder;
-import ca.ulaval.glo2004.visualigue.ui.models.PlayListItemModel;
+import ca.ulaval.glo2004.visualigue.ui.models.PlayModel;
 import ca.ulaval.glo2004.visualigue.utils.EventHandler;
 import java.util.Optional;
 import javafx.event.ActionEvent;
@@ -15,17 +16,17 @@ import javafx.scene.image.ImageView;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.VBox;
 
-public class PlayListItemController {
+public class PlayListItemController extends ControllerBase {
 
     public static final String VIEW_NAME = "/views/playmanagement/play-list-item.fxml";
 
     @FXML private VBox rootNode;
     @FXML private Label playTitleLabel;
-    private PlayListItemModel model;
-    public EventHandler<PlayListItemModel> onClick = new EventHandler();
-    public EventHandler<PlayListItemModel> onDeleteButtonClicked = new EventHandler();
+    private PlayModel model;
+    public EventHandler<PlayModel> onClick = new EventHandler();
+    public EventHandler<PlayModel> onDeleteButtonClicked = new EventHandler();
 
-    public void init(PlayListItemModel model) {
+    public void init(PlayModel model) {
         this.model = model;
         playTitleLabel.textProperty().bindBidirectional(model.title);
         if (model.thumbnailImagePathName.isNotEmpty().get()) {

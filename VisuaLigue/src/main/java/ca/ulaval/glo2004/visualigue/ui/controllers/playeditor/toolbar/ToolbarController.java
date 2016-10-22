@@ -8,8 +8,8 @@ import ca.ulaval.glo2004.visualigue.ui.controllers.ControllerBase;
 import ca.ulaval.glo2004.visualigue.ui.controllers.playeditor.scene.SceneController;
 import ca.ulaval.glo2004.visualigue.ui.customcontrols.ExtendedButton;
 import ca.ulaval.glo2004.visualigue.ui.models.MousePositionModel;
+import ca.ulaval.glo2004.visualigue.ui.models.PlayModel;
 import ca.ulaval.glo2004.visualigue.utils.EventHandler;
-import java.util.UUID;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
@@ -35,11 +35,11 @@ public class ToolbarController extends ControllerBase {
     @FXML private ExtendedButton labelDisplayToggleButton;
     @FXML private Label coordinateLabel;
     @Inject private PlayService playService;
-    private UUID playUUID;
+    private PlayModel playModel;
     private SceneController sceneController;
 
-    public void init(UUID playUUID, SceneController sceneController) {
-        this.playUUID = playUUID;
+    public void init(PlayModel playModel, SceneController sceneController) {
+        this.playModel = playModel;
         this.sceneController = sceneController;
         sceneController.onMousePositionChanged.addHandler(this::onSceneMousePositionChanged);
         sceneController.onZoomChanged.addHandler(this::onSceneZoomChanged);
@@ -109,7 +109,7 @@ public class ToolbarController extends ControllerBase {
     }
 
     @FXML
-    protected void onCategoryLabelDisplayToggleButtonAction(ActionEvent e) {
+    protected void onLabelDisplayToggleButtonAction(ActionEvent e) {
         sceneController.setPlayerCategoryLabelDisplayEnabled(!sceneController.isPlayerCategoryLabelDisplayEnabled());
     }
 
@@ -144,7 +144,7 @@ public class ToolbarController extends ControllerBase {
     }
 
     private void onPlayDirtyFlagChanged(Object sender, Play play) {
-        if (play.getUUID().equals(playUUID)) {
+        if (play.getUUID().equals(playModel.getUUID())) {
             saveButton.setDisable(!play.isDirty());
         }
     }

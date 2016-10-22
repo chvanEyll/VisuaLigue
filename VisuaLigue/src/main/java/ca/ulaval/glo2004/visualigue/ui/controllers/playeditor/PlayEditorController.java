@@ -1,13 +1,13 @@
 package ca.ulaval.glo2004.visualigue.ui.controllers.playeditor;
 
-import ca.ulaval.glo2004.visualigue.domain.play.Play;
 import ca.ulaval.glo2004.visualigue.domain.play.PlayNotFoundException;
 import ca.ulaval.glo2004.visualigue.services.play.PlayService;
 import ca.ulaval.glo2004.visualigue.ui.controllers.ControllerBase;
 import ca.ulaval.glo2004.visualigue.ui.controllers.playeditor.itempane.ItemPaneController;
 import ca.ulaval.glo2004.visualigue.ui.controllers.playeditor.scene.SceneController;
 import ca.ulaval.glo2004.visualigue.ui.controllers.playeditor.toolbar.ToolbarController;
-import java.util.UUID;
+import ca.ulaval.glo2004.visualigue.ui.models.PlayModel;
+import javafx.beans.property.StringProperty;
 import javafx.fxml.FXML;
 import javax.inject.Inject;
 
@@ -18,14 +18,13 @@ public class PlayEditorController extends ControllerBase {
     @FXML private ItemPaneController itemPaneController;
     @FXML private SceneController sceneController;
     @FXML private ToolbarController toolbarController;
-    @Inject private PlayService playService;
-    private UUID playUUID;
+    @Inject PlayService playService;
+    private PlayModel playModel;
 
-    public void init(UUID playUUID) throws PlayNotFoundException {
-        this.playUUID = playUUID;
-        Play play = playService.getPlay(playUUID);
-        itemPaneController.init(play.getSport().getUUID(), sceneController);
-        toolbarController.init(playUUID, sceneController);
+    public void init(PlayModel playModel) throws PlayNotFoundException {
+        this.playModel = playModel;
+        itemPaneController.init(playModel, sceneController);
+        toolbarController.init(playModel, sceneController);
         toolbarController.onSaveButtonAction.addHandler(this::onSaveToolbarButtonAction);
         toolbarController.onCloseButtonAction.addHandler(this::onCloseToolbarButtonAction);
         toolbarController.onExportButtonAction.addHandler(this::onExportToolbarButtonAction);
@@ -34,9 +33,20 @@ public class PlayEditorController extends ControllerBase {
         toolbarController.onBestFitButtonAction.addHandler(this::onBestFitToolbarButtonAction);
     }
 
+    @Override
+    public StringProperty getTitle() {
+        return playModel.title;
+    }
+
+    @Override
+    public Boolean isTitleEditable() {
+        return true;
+    }
+
     private void onSaveToolbarButtonAction(Object sender, Object eventArgs) {
         try {
-            playService.savePlay(playUUID);
+            playService.updatePlayTitle(playModel.getUUID(), playModel.title.get(), false);
+            playService.savePlay(playModel.getUUID());
         } catch (PlayNotFoundException ex) {
             throw new RuntimeException();
         }
@@ -44,7 +54,7 @@ public class PlayEditorController extends ControllerBase {
 
     private void onCloseToolbarButtonAction(Object sender, Object eventArgs) {
         try {
-            playService.discardChanges(playUUID);
+            playService.discardChanges(playModel.getUUID());
         } catch (PlayNotFoundException ex) {
             throw new RuntimeException();
         }
@@ -57,7 +67,7 @@ public class PlayEditorController extends ControllerBase {
 
     private void onUndoToolbarButtonAction(Object sender, Object eventArgs) {
         try {
-            playService.undo(playUUID);
+            playService.undo(playModel.getUUID());
         } catch (PlayNotFoundException ex) {
             throw new RuntimeException();
         }
@@ -66,7 +76,7 @@ public class PlayEditorController extends ControllerBase {
 
     private void onRedoToolbarButtonAction(Object sender, Object eventArgs) {
         try {
-            playService.redo(playUUID);
+            playService.redo(playModel.getUUID());
         } catch (PlayNotFoundException ex) {
             throw new RuntimeException();
         }

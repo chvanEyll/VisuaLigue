@@ -1,6 +1,7 @@
 package ca.ulaval.glo2004.visualigue.ui.controllers.playeditor.itempane;
 
 import ca.ulaval.glo2004.visualigue.domain.play.actorinstance.TeamSide;
+import ca.ulaval.glo2004.visualigue.ui.controllers.ControllerBase;
 import ca.ulaval.glo2004.visualigue.ui.customcontrols.ExtendedButton;
 import ca.ulaval.glo2004.visualigue.ui.customcontrols.SvgImage;
 import ca.ulaval.glo2004.visualigue.ui.models.PlayerCategoryModel;
@@ -12,7 +13,7 @@ import javafx.scene.control.Label;
 import javafx.scene.control.Tooltip;
 import javafx.scene.paint.Color;
 
-public class PlayerCategoryListItemController {
+public class PlayerCategoryListItemController extends ControllerBase {
 
     public static final String VIEW_NAME = "/views/playeditor/itempane/player-category-list-item.fxml";
 

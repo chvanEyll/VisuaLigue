@@ -1,8 +1,9 @@
 package ca.ulaval.glo2004.visualigue.ui;
 
+import ca.ulaval.glo2004.visualigue.ui.controllers.ControllerBase;
 import javafx.scene.Node;
 
-public class View<T> {
+public class View<T extends ControllerBase> {
 
     private T controller;
     private Node root;

@@ -12,6 +12,7 @@
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.shape.Line?>
 <?import ca.ulaval.glo2004.visualigue.ui.customcontrols.SvgImage?>
+<?import ca.ulaval.glo2004.visualigue.ui.customcontrols.ExtendedTextField?>
 
 <VBox styleClass="root-node, body" stylesheets="@/css/main.fxml.css" xmlns="http://javafx.com/javafx/8.0.60" xmlns:fx="http://javafx.com/fxml/1" fx:controller="ca.ulaval.glo2004.visualigue.ui.controllers.MainSceneController">
     <children>
@@ -41,14 +42,26 @@
                                 <Tooltip text="Retour" />
                             </tooltip>
                         </Button>
-                        <Pane fx:id="sectionTitleSpacer" prefWidth="14" />
-                        <Label fx:id="sectionTitleLabel" styleClass="view-title" text="Sports" />
-                        <Button fx:id="titleEditButton" alignment="CENTER_LEFT" styleClass="borderless, standard-size">
+                        <Pane fx:id="viewTitleSpacer" prefWidth="14" />
+                        <Label fx:id="viewTitleLabel" styleClass="view-title" text="Sports" />
+                        <ExtendedTextField fx:id="viewTitleTextField" styleClass="view-title-edit-button" maxLength="64" onAction="#onViewTitleTextFieldAction" />
+                        <Button fx:id="viewTitleEditButton" alignment="CENTER_LEFT" styleClass="borderless, standard-size" onAction="#onViewTitleEditButtonAction">
                             <graphic>
                                 <SvgImage url="/images/pen-icon.fxml.css" scaleX="0.75" scaleY="0.75" />
                             </graphic>
                             <tooltip>
                                 <Tooltip text="Modifier le titre" />
+                            </tooltip>
+                            <HBox.margin>
+                                <Insets left="7.0" />
+                            </HBox.margin>
+                        </Button>
+                        <Button fx:id="viewTitleValidateButton" alignment="CENTER_LEFT" styleClass="borderless, standard-size" onAction="#onViewTitleValidateButtonAction">
+                            <graphic>
+                                <SvgImage url="/images/checkmark-icon.fxml" scaleX="0.75" scaleY="0.75" />
+                            </graphic>
+                            <tooltip>
+                                <Tooltip text="Valider" />
                             </tooltip>
                             <HBox.margin>
                                 <Insets left="7.0" />

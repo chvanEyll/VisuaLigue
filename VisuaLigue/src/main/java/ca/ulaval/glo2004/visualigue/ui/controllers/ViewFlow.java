@@ -24,13 +24,17 @@ public class ViewFlow {
         }
     }
 
+    public View getCurrentView() {
+        return viewStack.peek();
+    }
+
     public View moveToPrevious() {
         clearView(viewStack.pop());
         return viewStack.peek();
     }
 
     public void clearView(View view) {
-        ControllerBase controller = (ControllerBase) view.getController();
+        ControllerBase controller = view.getController();
         controller.clearHandlers();
     }
 

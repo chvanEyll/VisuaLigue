@@ -51,10 +51,12 @@ public class PlayService {
         return play.getUUID();
     }
 
-    public void updatePlayTitle(UUID playUUID, String title) throws PlayNotFoundException {
+    public void updatePlayTitle(UUID playUUID, String title, Boolean persist) throws PlayNotFoundException {
         Play play = playRepository.get(playUUID);
         play.setTitle(title);
-        playRepository.update(play);
+        if (persist) {
+            playRepository.update(play);
+        }
         onPlayUpdated.fire(this, play);
     }
 
