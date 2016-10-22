@@ -11,8 +11,6 @@ import java.util.List;
 import java.util.Map;
 import java.util.UUID;
 import java.util.function.Function;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 import java.util.stream.Collectors;
 import javax.inject.Inject;
 import javax.inject.Singleton;
@@ -87,7 +85,7 @@ public class XmlSportRepository implements SportRepository {
             try {
                 delete(uuid);
             } catch (SportNotFoundException ex) {
-                Logger.getLogger(XmlSportRepository.class.getName()).log(Level.SEVERE, null, ex);
+                throw new RuntimeException(ex);
             }
         });
     }

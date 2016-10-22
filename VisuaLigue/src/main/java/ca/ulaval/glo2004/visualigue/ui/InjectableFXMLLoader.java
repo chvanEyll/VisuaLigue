@@ -3,8 +3,6 @@ package ca.ulaval.glo2004.visualigue.ui;
 import ca.ulaval.glo2004.visualigue.GuiceInjector;
 import ca.ulaval.glo2004.visualigue.utils.CachedClassLoader;
 import java.io.IOException;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Node;
 
@@ -30,7 +28,7 @@ public class InjectableFXMLLoader {
         try {
             fxmlLoader.load();
         } catch (IOException ex) {
-            Logger.getLogger(InjectableFXMLLoader.class.getName()).log(Level.SEVERE, null, ex);
+            throw new RuntimeException(ex);
         }
         return new View(fxmlLoader.getController(), fxmlLoader.getRoot());
     }

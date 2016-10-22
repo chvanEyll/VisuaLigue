@@ -41,4 +41,8 @@ public class ViewFlow {
     public int count() {
         return viewStack.size();
     }
+
+    public Boolean empty() {
+        return viewStack.size() > 0;
+    }
 }

@@ -15,8 +15,6 @@ import java.net.URL;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.ResourceBundle;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 import javafx.application.Platform;
 import javafx.fxml.FXML;
 import javafx.scene.control.Label;
@@ -73,7 +71,7 @@ public class PlayListController extends ControllerBase {
         try {
             playService.deletePlay(model.getUUID());
         } catch (PlayNotFoundException ex) {
-            Logger.getLogger(PlayListController.class.getName()).log(Level.SEVERE, null, ex);
+            throw new RuntimeException(ex);
         }
         int tileIndex = models.indexOf(model);
         tilePane.getChildren().remove(tileIndex);

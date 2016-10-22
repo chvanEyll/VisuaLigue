@@ -18,8 +18,6 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 import java.util.UUID;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 import javafx.beans.property.StringProperty;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
@@ -134,7 +132,7 @@ public class SportCreationController extends ControllerBase {
                 sportService.deleteSport(model.getUUID());
                 onViewCloseRequested.fire(this, null);
             } catch (SportNotFoundException ex) {
-                Logger.getLogger(SportCreationController.class.getName()).log(Level.SEVERE, null, ex);
+                throw new RuntimeException(ex);
             }
         }
     }
@@ -152,7 +150,7 @@ public class SportCreationController extends ControllerBase {
             setStep(GENERAL_STEP_INDEX);
             currentStepController.showError(ex);
         } catch (Exception ex) {
-            Logger.getLogger(SportCreationController.class.getName()).log(Level.SEVERE, null, ex);
+            throw new RuntimeException(ex);
         }
     }
 

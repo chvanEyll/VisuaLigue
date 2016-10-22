@@ -6,9 +6,15 @@ import ca.ulaval.glo2004.visualigue.ui.controllers.ControllerBase;
 import ca.ulaval.glo2004.visualigue.ui.controllers.playeditor.itempane.ItemPaneController;
 import ca.ulaval.glo2004.visualigue.ui.controllers.playeditor.scene.SceneController;
 import ca.ulaval.glo2004.visualigue.ui.controllers.playeditor.toolbar.ToolbarController;
+import ca.ulaval.glo2004.visualigue.ui.dialog.AlertDialogBuilder;
 import ca.ulaval.glo2004.visualigue.ui.models.PlayModel;
+import java.util.Optional;
 import javafx.beans.property.StringProperty;
+import javafx.beans.value.ObservableValue;
 import javafx.fxml.FXML;
+import javafx.scene.control.Alert;
+import javafx.scene.control.ButtonBar;
+import javafx.scene.control.ButtonType;
 import javax.inject.Inject;
 
 public class PlayEditorController extends ControllerBase {
@@ -31,6 +37,7 @@ public class PlayEditorController extends ControllerBase {
         toolbarController.onUndoButtonAction.addHandler(this::onUndoToolbarButtonAction);
         toolbarController.onRedoButtonAction.addHandler(this::onRedoToolbarButtonAction);
         toolbarController.onBestFitButtonAction.addHandler(this::onBestFitToolbarButtonAction);
+        playModel.title.addListener(this::onPlayTitleChanged);
     }
 
     @Override
@@ -43,22 +50,41 @@ public class PlayEditorController extends ControllerBase {
         return true;
     }
 
-    private void onSaveToolbarButtonAction(Object sender, Object eventArgs) {
+    @Override
+    public Boolean onViewClosing() {
+        return validateUnsavedChanges() != ButtonBar.ButtonData.CANCEL_CLOSE;
+    }
+
+    private void onPlayTitleChanged(final ObservableValue<? extends String> ov, final String oldValue, final String newValue) {
         try {
-            playService.updatePlayTitle(playModel.getUUID(), playModel.title.get(), false);
+            playService.updatePlayTitle(playModel.getUUID(), playModel.title.get());
+        } catch (PlayNotFoundException ex) {
+            throw new RuntimeException(ex);
+        }
+    }
+
+    private void onSaveToolbarButtonAction(Object sender, Object eventArgs) {
+        savePlay();
+    }
+
+    private void savePlay() {
+        try {
             playService.savePlay(playModel.getUUID());
         } catch (PlayNotFoundException ex) {
-            throw new RuntimeException();
+            throw new RuntimeException(ex);
         }
     }
 
     private void onCloseToolbarButtonAction(Object sender, Object eventArgs) {
+        onViewCloseRequested.fire(this, null);
+    }
+
+    private void discardChanges() {
         try {
             playService.discardChanges(playModel.getUUID());
         } catch (PlayNotFoundException ex) {
             throw new RuntimeException();
         }
-        onViewCloseRequested.fire(sender, null);
     }
 
     private void onExportToolbarButtonAction(Object sender, Object eventArgs) {
@@ -85,6 +111,21 @@ public class PlayEditorController extends ControllerBase {
 
     private void onBestFitToolbarButtonAction(Object sender, Object eventArgs) {
         sceneController.autoFit();
+    }
+
+    private ButtonBar.ButtonData validateUnsavedChanges() {
+        Optional<ButtonType> result = new AlertDialogBuilder().alertType(Alert.AlertType.WARNING).headerText("Fermeture du jeu")
+                .contentText("Voulez-vous sauvegarder le jeu avant de quitter?")
+                .buttonType(new ButtonType("Sauvegarder", ButtonBar.ButtonData.YES))
+                .buttonType(new ButtonType("Ne pas sauvegarder", ButtonBar.ButtonData.NO))
+                .buttonType(new ButtonType("Annuler", ButtonBar.ButtonData.CANCEL_CLOSE)).showAndWait();
+
+        if (result.get().getButtonData() == ButtonBar.ButtonData.YES) {
+            savePlay();
+        } else if (result.get().getButtonData() == ButtonBar.ButtonData.NO) {
+            discardChanges();
+        }
+        return result.get().getButtonData();
     }
 
 }

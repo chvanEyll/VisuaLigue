@@ -5,8 +5,6 @@ import ca.ulaval.glo2004.visualigue.services.obstacle.ObstacleService;
 import ca.ulaval.glo2004.visualigue.ui.controllers.common.EditableListController;
 import ca.ulaval.glo2004.visualigue.ui.controllers.common.ListItemController;
 import ca.ulaval.glo2004.visualigue.ui.models.Model;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 import javafx.fxml.FXML;
 import javafx.scene.input.MouseEvent;
 import javax.inject.Inject;
@@ -26,7 +24,7 @@ public class ObstacleListController extends EditableListController {
         try {
             obstacleService.deleteObstacle(model.getUUID());
         } catch (ObstacleNotFoundException ex) {
-            Logger.getLogger(ObstacleListController.class.getName()).log(Level.SEVERE, null, ex);
+            throw new RuntimeException(ex);
         }
         super.deleteItem(listItemController, model);
     }

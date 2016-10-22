@@ -8,8 +8,6 @@ import ca.ulaval.glo2004.visualigue.ui.controllers.sportcreation.SportCreationCo
 import ca.ulaval.glo2004.visualigue.ui.models.SportListItemModel;
 import java.net.URL;
 import java.util.ResourceBundle;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 import javafx.beans.property.SimpleStringProperty;
 import javafx.beans.property.StringProperty;
 import javafx.fxml.FXML;
@@ -37,7 +35,7 @@ public class SportManagementController extends ControllerBase {
         try {
             controller.init(sportListItemModel.getUUID());
         } catch (SportNotFoundException ex) {
-            Logger.getLogger(SportManagementController.class.getName()).log(Level.SEVERE, null, ex);
+            throw new RuntimeException(ex);
         }
         onViewChangeRequested.fire(this, view);
     }

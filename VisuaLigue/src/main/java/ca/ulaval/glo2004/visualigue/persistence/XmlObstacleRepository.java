@@ -11,8 +11,6 @@ import java.util.List;
 import java.util.Map;
 import java.util.UUID;
 import java.util.function.Function;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 import java.util.stream.Collectors;
 import javax.inject.Inject;
 import javax.inject.Singleton;
@@ -78,7 +76,7 @@ public class XmlObstacleRepository implements ObstacleRepository {
             try {
                 delete(uuid);
             } catch (ObstacleNotFoundException ex) {
-                Logger.getLogger(XmlObstacleRepository.class.getName()).log(Level.SEVERE, null, ex);
+                throw new RuntimeException(ex);
             }
         });
     }

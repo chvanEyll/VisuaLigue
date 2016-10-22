@@ -97,10 +97,9 @@
                 <String fx:value="medium" />
             </styleClass>
         </Button>
-        <ExtendedTextField fx:id="zoomTextField" prefWidth="85.0" text="100%"  onAction="#onZoomTextFieldAction" maxLength="4">
+        <ExtendedTextField fx:id="zoomTextField" prefWidth="85.0" text="100%" onAction="#onZoomTextFieldAction" maxLength="4">
             <styleClass>
                 <String fx:value="centered-text" />
-                <String fx:value="text-field" />
             </styleClass>
         </ExtendedTextField>
         <Button fx:id="zoomOutButton" mnemonicParsing="false" onAction="#onZoomOutButtonAction">

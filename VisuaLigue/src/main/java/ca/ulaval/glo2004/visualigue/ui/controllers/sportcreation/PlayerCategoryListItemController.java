@@ -70,10 +70,10 @@ public class PlayerCategoryListItemController extends ListItemController {
     private void displayDeleteConfirmationButton() {
         FXUtils.setDisplay(deleteConfirmButtonContainer, true);
         deleteConfirmButton.requestFocus();
-        deleteConfirmButton.focusedProperty().addListener(this::onDeleteConfirmButtonFocuschanged);
+        deleteConfirmButton.focusedProperty().addListener(this::onDeleteConfirmButtonFocusChanged);
     }
 
-    public void onDeleteConfirmButtonFocuschanged(ObservableValue<? extends Boolean> arg0, Boolean oldPropertyValue, Boolean newPropertyValue) {
+    public void onDeleteConfirmButtonFocusChanged(ObservableValue<? extends Boolean> arg0, Boolean oldPropertyValue, Boolean newPropertyValue) {
         if (!newPropertyValue) {
             FXUtils.setDisplay(deleteConfirmButtonContainer, false);
         }

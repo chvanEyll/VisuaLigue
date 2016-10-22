@@ -49,9 +49,11 @@ public class MainSceneController extends ControllerBase {
     }
 
     private void setMainView(View view) {
-        viewFlow.clear();
-        viewFlow = new ViewFlow(view);
-        setView(view);
+        if (validateCurrentViewClose()) {
+            viewFlow.clear();
+            viewFlow = new ViewFlow(view);
+            setView(view);
+        }
     }
 
     private void onViewChangeRequested(Object sender, View view) {
@@ -68,7 +70,7 @@ public class MainSceneController extends ControllerBase {
     }
 
     private void previousView() {
-        if (viewFlow.count() > 1) {
+        if (viewFlow.count() > 1 && validateCurrentViewClose()) {
             View view = viewFlow.moveToPrevious();
             setView(view);
         }
@@ -90,6 +92,15 @@ public class MainSceneController extends ControllerBase {
         PredefinedAnimations.nodeZoom(view.getRoot());
     }
 
+    private Boolean validateCurrentViewClose() {
+        if (!viewFlow.empty()) {
+            View currentView = viewFlow.getCurrentView();
+            return currentView.getController().onViewClosing();
+        } else {
+            return true;
+        }
+    }
+
     @FXML
     protected void onViewTitleEditButtonAction(ActionEvent e) {
         toggleViewTitleEditionMode(true);
@@ -105,7 +116,7 @@ public class MainSceneController extends ControllerBase {
         toggleViewTitleEditionMode(false);
     }
 
-    public void onViewTitleTextFieldFocuschanged(ObservableValue<? extends Boolean> arg0, Boolean oldPropertyValue, Boolean newPropertyValue) {
+    public void onViewTitleTextFieldFocusChanged(ObservableValue<? extends Boolean> arg0, Boolean oldPropertyValue, Boolean newPropertyValue) {
         if (!newPropertyValue) {
             toggleViewTitleEditionMode(false);
         }
@@ -117,7 +128,7 @@ public class MainSceneController extends ControllerBase {
         FXUtils.setDisplay(viewTitleLabel, !editionMode);
         FXUtils.setDisplay(viewTitleEditButton, !editionMode);
         if (editionMode) {
-            viewTitleTextField.focusedProperty().addListener(this::onViewTitleTextFieldFocuschanged);
+            viewTitleTextField.focusedProperty().addListener(this::onViewTitleTextFieldFocusChanged);
             FXUtils.requestFocusDelayed(viewTitleTextField);
         }
     }

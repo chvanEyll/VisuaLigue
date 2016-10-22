@@ -65,10 +65,10 @@ public class ObstacleListItemController extends ListItemController {
         FXUtils.setDisplay(deleteConfirmButtonContainer, true);
         PredefinedAnimations.regionRevealLeft(deleteConfirmButton);
         deleteConfirmButton.requestFocus();
-        deleteConfirmButton.focusedProperty().addListener(this::onDeleteConfirmButtonFocuschanged);
+        deleteConfirmButton.focusedProperty().addListener(this::onDeleteConfirmButtonFocusChanged);
     }
 
-    public void onDeleteConfirmButtonFocuschanged(ObservableValue<? extends Boolean> arg0, Boolean oldPropertyValue, Boolean newPropertyValue) {
+    public void onDeleteConfirmButtonFocusChanged(ObservableValue<? extends Boolean> arg0, Boolean oldPropertyValue, Boolean newPropertyValue) {
         if (!newPropertyValue) {
             FXUtils.setDisplay(deleteConfirmButtonContainer, false);
         }

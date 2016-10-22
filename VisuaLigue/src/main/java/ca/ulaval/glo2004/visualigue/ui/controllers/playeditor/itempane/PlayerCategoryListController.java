@@ -14,8 +14,6 @@ import ca.ulaval.glo2004.visualigue.ui.models.PlayModel;
 import ca.ulaval.glo2004.visualigue.ui.models.PlayerCategoryModel;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 import javafx.application.Platform;
 import javafx.fxml.FXML;
 import javafx.scene.layout.TilePane;
@@ -52,7 +50,7 @@ public class PlayerCategoryListController extends ControllerBase {
                 initCategoryItem(playerCategoryModelConverter.convert(playerCategory));
             });
         } catch (SportNotFoundException ex) {
-            Logger.getLogger(PlayerCategoryListController.class.getName()).log(Level.SEVERE, null, ex);
+            throw new RuntimeException(ex);
         }
     }
 

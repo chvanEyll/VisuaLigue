@@ -1,8 +1,6 @@
 package ca.ulaval.glo2004.visualigue.ui.customcontrols;
 
 import java.io.IOException;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Node;
 import javafx.scene.layout.StackPane;
@@ -36,7 +34,7 @@ public class SvgImage extends StackPane {
             this.getChildren().clear();
             this.getChildren().add(svgRootNode);
         } catch (IOException ex) {
-            Logger.getLogger(SvgImage.class.getName()).log(Level.SEVERE, null, ex);
+            throw new RuntimeException(ex);
         }
     }
 

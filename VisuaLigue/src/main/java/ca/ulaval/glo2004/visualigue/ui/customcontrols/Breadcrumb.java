@@ -5,8 +5,6 @@ import ca.ulaval.glo2004.visualigue.utils.EventHandler;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.layout.HBox;
 
@@ -21,7 +19,7 @@ public class Breadcrumb extends HBox {
             FXMLLoader fxmlLoader = InjectableFXMLLoader.createLoader(VIEW_NAME, this, this);
             fxmlLoader.load();
         } catch (IOException ex) {
-            Logger.getLogger(Breadcrumb.class.getName()).log(Level.SEVERE, null, ex);
+            throw new RuntimeException(ex);
         }
     }
 

@@ -30,4 +30,8 @@ public abstract class ControllerBase implements Initializable {
     public Boolean isTitleEditable() {
         return false;
     }
+
+    public Boolean onViewClosing() {
+        return true;
+    }
 }
