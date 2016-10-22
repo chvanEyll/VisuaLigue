@@ -1,7 +1,7 @@
 package ca.ulaval.glo2004.visualigue.ui.controllers.sportcreation;
 
 import ca.ulaval.glo2004.visualigue.ui.controllers.common.ListItemEditionController;
-import ca.ulaval.glo2004.visualigue.ui.models.Model;
+import ca.ulaval.glo2004.visualigue.ui.models.ModelBase;
 import ca.ulaval.glo2004.visualigue.ui.models.PlayerCategoryModel;
 import ca.ulaval.glo2004.visualigue.utils.FXUtils;
 import ca.ulaval.glo2004.visualigue.utils.StringUtils;
@@ -29,7 +29,7 @@ public class PlayerCategoryListItemEditionController extends ListItemEditionCont
     @FXML private Label nameErrorLabel;
 
     @Override
-    public void init(Model model) {
+    public void init(ModelBase model) {
         clearErrors();
         this.model = (PlayerCategoryModel) model;
         nameTextField.textProperty().set(this.model.name.get());
@@ -43,7 +43,7 @@ public class PlayerCategoryListItemEditionController extends ListItemEditionCont
     }
 
     @Override
-    public Model getModel() {
+    public ModelBase getModel() {
         return model;
     }
 

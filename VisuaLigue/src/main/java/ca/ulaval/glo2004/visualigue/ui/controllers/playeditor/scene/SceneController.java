@@ -18,6 +18,8 @@ public abstract class SceneController {
 
     public abstract void enterObstacleCreationMode(ObstacleModel obstacleModel);
 
+    public abstract void exitCreationMode();
+
     public abstract void enterFrameByFrameCreationMode();
 
     public abstract void enterRealTimeCreationMode();

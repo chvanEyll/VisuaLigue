@@ -12,7 +12,7 @@ import ca.ulaval.glo2004.visualigue.ui.controllers.playeditor.scene.SceneControl
 import ca.ulaval.glo2004.visualigue.ui.converters.BallModelConverter;
 import ca.ulaval.glo2004.visualigue.ui.converters.ObstacleModelConverter;
 import ca.ulaval.glo2004.visualigue.ui.models.BallModel;
-import ca.ulaval.glo2004.visualigue.ui.models.Model;
+import ca.ulaval.glo2004.visualigue.ui.models.ModelBase;
 import ca.ulaval.glo2004.visualigue.ui.models.ObstacleModel;
 import ca.ulaval.glo2004.visualigue.ui.models.PlayModel;
 import java.util.ArrayList;
@@ -70,7 +70,7 @@ public class ObjectListController extends ControllerBase {
         });
     }
 
-    private void initObjectItem(Model model) {
+    private void initObjectItem(ModelBase model) {
         View view = InjectableFXMLLoader.loadView(ObjectListItemController.VIEW_NAME);
         ObjectListItemController controller = (ObjectListItemController) view.getController();
         if (model instanceof ObstacleModel) {
@@ -83,13 +83,19 @@ public class ObjectListController extends ControllerBase {
         itemControllers.add(controller);
     }
 
-    private void onObjectItemClicked(Object sender, Model model) {
-        unselectAll();
-        ((ObjectListItemController) sender).select();
-        if (model instanceof ObstacleModel) {
-            sceneController.enterObstacleCreationMode((ObstacleModel) model);
-        } else if (model instanceof BallModel) {
-            sceneController.enterBallCreationMode((BallModel) model);
+    private void onObjectItemClicked(Object sender, ModelBase model) {
+        ObjectListItemController itemController = (ObjectListItemController) sender;
+        if (itemController.isSelected()) {
+            unselectAll();
+            itemController.select();
+            if (model instanceof ObstacleModel) {
+                sceneController.enterObstacleCreationMode((ObstacleModel) model);
+            } else if (model instanceof BallModel) {
+                sceneController.enterBallCreationMode((BallModel) model);
+            }
+        } else {
+            itemController.unselect();
+            sceneController.exitCreationMode();
         }
     }
 

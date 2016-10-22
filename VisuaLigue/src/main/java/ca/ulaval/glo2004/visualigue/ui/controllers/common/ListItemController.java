@@ -1,7 +1,7 @@
 package ca.ulaval.glo2004.visualigue.ui.controllers.common;
 
 import ca.ulaval.glo2004.visualigue.ui.controllers.ControllerBase;
-import ca.ulaval.glo2004.visualigue.ui.models.Model;
+import ca.ulaval.glo2004.visualigue.ui.models.ModelBase;
 import ca.ulaval.glo2004.visualigue.utils.EventHandler;
 import ca.ulaval.glo2004.visualigue.utils.FXUtils;
 import javafx.fxml.FXML;
@@ -10,10 +10,10 @@ import javafx.scene.layout.GridPane;
 public abstract class ListItemController extends ControllerBase {
 
     @FXML private GridPane rootNode;
-    protected EventHandler<Model> onEditRequested = new EventHandler();
-    protected EventHandler<Model> onDeleteRequested = new EventHandler();
+    protected EventHandler<ModelBase> onEditRequested = new EventHandler();
+    protected EventHandler<ModelBase> onDeleteRequested = new EventHandler();
 
-    public void init(Model model) {
+    public void init(ModelBase model) {
         if (model.isDeleted()) {
             hide();
         }

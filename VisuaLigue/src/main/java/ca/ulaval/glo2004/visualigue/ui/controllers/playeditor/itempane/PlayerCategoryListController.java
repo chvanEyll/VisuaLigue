@@ -77,9 +77,15 @@ public class PlayerCategoryListController extends ControllerBase {
     }
 
     private void onOpponentPlayerItemClicked(Object sender, PlayerCategoryModel model) {
-        unselectAll();
-        ((PlayerCategoryListItemController) sender).select();
-        sceneController.enterPlayerCreationMode(model, TeamSide.OPPONENTS);
+        PlayerCategoryListItemController itemController = (PlayerCategoryListItemController) sender;
+        if (!itemController.isSelected()) {
+            unselectAll();
+            itemController.select();
+            sceneController.enterPlayerCreationMode(model, TeamSide.OPPONENTS);
+        } else {
+            itemController.unselect();
+            sceneController.exitCreationMode();
+        }
     }
 
     private void unselectAll() {

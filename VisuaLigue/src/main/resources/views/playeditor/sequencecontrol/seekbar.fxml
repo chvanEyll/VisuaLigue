@@ -1,0 +1,77 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import java.lang.String?>
+<?import java.net.URL?>
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.ScrollPane?>
+<?import javafx.scene.control.Tooltip?>
+<?import javafx.scene.layout.ColumnConstraints?>
+<?import javafx.scene.layout.GridPane?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.Pane?>
+<?import javafx.scene.layout.StackPane?>
+<?import ca.ulaval.glo2004.visualigue.ui.customcontrols.SvgImage?>
+
+<HBox fx:id="rootNode" styleClass="root-node" xmlns="http://javafx.com/javafx/8.0.60" xmlns:fx="http://javafx.com/fxml/1">
+    <children>
+        <ScrollPane fitToHeight="true" fitToWidth="true" hbarPolicy="ALWAYS" pannable="true" style="-fx-background: transparent;" vbarPolicy="NEVER" HBox.hgrow="ALWAYS">
+            <content>
+                <StackPane alignment="CENTER_LEFT">
+                    <children>
+                        <GridPane>
+                            <columnConstraints>
+                                <ColumnConstraints minWidth="45.0" percentWidth="7.692" />
+                            </columnConstraints>
+                            <children>
+                                <Pane maxHeight="5.0" prefHeight="5.0" styleClass="bar" GridPane.columnSpan="14" />
+                                <StackPane GridPane.columnIndex="0">
+                                    <children>
+                                        <SvgImage url="/images/seekbar-frame.fxml" />
+                                        <Label text="1" />
+                                    </children>
+                                    <styleClass>
+                                        <String fx:value="seekbar-frame" />
+                                    </styleClass>
+                                </StackPane>
+                            </children>
+                        </GridPane>
+                        <Button>
+                            <graphic>
+                                <SvgImage url="/images/seekbar-thumb.fxml" />
+                            </graphic>
+                            <styleClass>
+                                <String fx:value="icon-button" />
+                            </styleClass>
+                        </Button>
+                    </children>
+                    <padding>
+                        <Insets bottom="10.0" top="10.0" />
+                    </padding>
+                </StackPane>
+            </content>
+            <styleClass>
+                <String fx:value="edge-to-edge" />
+                <String fx:value="seekbar" />
+            </styleClass>
+        </ScrollPane>
+        <Button>
+            <graphic>
+                <SvgImage url="/images/new-frame-icon.fxml" />
+            </graphic>
+            <styleClass>
+                <String fx:value="icon-button" />
+            </styleClass>
+            <StackPane.margin>
+                <Insets />
+            </StackPane.margin>
+            <tooltip>
+                <Tooltip text="Nouvelle image" />
+            </tooltip>
+            <HBox.margin>
+                <Insets left="14.0" top="12.0" />
+            </HBox.margin>
+        </Button>
+    </children>
+</HBox>

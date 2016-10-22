@@ -5,7 +5,7 @@ import javafx.beans.property.*;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 
-public class SportCreationModel extends Model {
+public class SportCreationModel extends ModelBase {
 
     public StringProperty name = new SimpleStringProperty("Nouveau sport");
     public StringProperty iconPathName = new SimpleStringProperty("/images/built-in-sport-icons/generic-icon.png");

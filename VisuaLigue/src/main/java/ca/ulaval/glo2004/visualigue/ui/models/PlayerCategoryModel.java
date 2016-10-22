@@ -3,7 +3,7 @@ package ca.ulaval.glo2004.visualigue.ui.models;
 import javafx.beans.property.*;
 import javafx.scene.paint.Color;
 
-public class PlayerCategoryModel extends Model implements Comparable {
+public class PlayerCategoryModel extends ModelBase implements Comparable {
 
     public StringProperty name = new SimpleStringProperty("Nouvelle catégorie");
     public StringProperty abbreviation = new SimpleStringProperty("NC");

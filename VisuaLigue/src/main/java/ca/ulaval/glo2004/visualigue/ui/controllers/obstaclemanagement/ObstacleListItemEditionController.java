@@ -4,7 +4,7 @@ import ca.ulaval.glo2004.visualigue.VisuaLigue;
 import ca.ulaval.glo2004.visualigue.domain.obstacle.ObstacleNotFoundException;
 import ca.ulaval.glo2004.visualigue.services.obstacle.ObstacleService;
 import ca.ulaval.glo2004.visualigue.ui.controllers.common.ListItemEditionController;
-import ca.ulaval.glo2004.visualigue.ui.models.Model;
+import ca.ulaval.glo2004.visualigue.ui.models.ModelBase;
 import ca.ulaval.glo2004.visualigue.ui.models.ObstacleModel;
 import ca.ulaval.glo2004.visualigue.utils.FXUtils;
 import ca.ulaval.glo2004.visualigue.utils.FilenameUtils;
@@ -39,7 +39,7 @@ public class ObstacleListItemEditionController extends ListItemEditionController
     private ObstacleModel model;
 
     @Override
-    public void init(Model model) {
+    public void init(ModelBase model) {
         this.model = (ObstacleModel) model;
         clearErrors();
         nameTextField.textProperty().set(this.model.name.get());

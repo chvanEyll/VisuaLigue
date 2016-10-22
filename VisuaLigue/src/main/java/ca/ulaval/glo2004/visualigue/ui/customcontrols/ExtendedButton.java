@@ -7,7 +7,7 @@ public class ExtendedButton extends Button {
     private static final String SELECTED_STYLE_CLASS = "selected";
     private Boolean selected = true;
 
-    public Boolean getSelected() {
+    public Boolean isSelected() {
         return selected;
     }
 

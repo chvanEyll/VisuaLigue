@@ -3,7 +3,7 @@ package ca.ulaval.glo2004.visualigue.ui.controllers.common;
 import ca.ulaval.glo2004.visualigue.ui.InjectableFXMLLoader;
 import ca.ulaval.glo2004.visualigue.ui.View;
 import ca.ulaval.glo2004.visualigue.ui.animation.PredefinedAnimations;
-import ca.ulaval.glo2004.visualigue.ui.models.Model;
+import ca.ulaval.glo2004.visualigue.ui.models.ModelBase;
 import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
 import javafx.scene.Node;
@@ -25,11 +25,11 @@ public class EditableListController {
         this.itemEditionControllerName = itemEditionControllerName;
         this.models = models;
         EditableListController.this.models.forEach(model -> {
-            insertItem((Model) model, itemCount);
+            insertItem((ModelBase) model, itemCount);
         });
     }
 
-    private void insertItem(Model model, Integer rowIndex) {
+    private void insertItem(ModelBase model, Integer rowIndex) {
         View view = InjectableFXMLLoader.loadView(itemControllerName);
         ListItemController listItemController = (ListItemController) view.getController();
         listItemController.init(model);
@@ -39,11 +39,11 @@ public class EditableListController {
         itemCount += 1;
     }
 
-    private void onItemEditRequested(Object sender, Model model) {
+    private void onItemEditRequested(Object sender, ModelBase model) {
         enterItemEditionMode(model);
     }
 
-    private void enterItemEditionMode(Model model) {
+    private void enterItemEditionMode(ModelBase model) {
         closeItemEdition();
         View view = InjectableFXMLLoader.loadView(itemEditionControllerName);
         listItemEditionController = (ListItemEditionController) view.getController();
@@ -55,7 +55,7 @@ public class EditableListController {
         gridContent.getChildren().add(rowIndex, view.getRoot());
     }
 
-    private void onItemEditionCloseRequested(Object sender, Model model) {
+    private void onItemEditionCloseRequested(Object sender, ModelBase model) {
         closeItemEdition();
     }
 
@@ -64,7 +64,7 @@ public class EditableListController {
             int rowIndex = models.indexOf(listItemEditionController.getModel());
             Node node = gridContent.getChildren().get(rowIndex);
             gridContent.getChildren().remove(rowIndex);
-            Model model = listItemEditionController.getModel();
+            ModelBase model = listItemEditionController.getModel();
             insertItem(model, rowIndex);
             model.makeDirty();
             listItemEditionController = null;
@@ -73,9 +73,9 @@ public class EditableListController {
 
     public void newItem() {
         closeItemEdition();
-        Model model = null;
+        ModelBase model = null;
         try {
-            model = (Model) modelClass.newInstance();
+            model = (ModelBase) modelClass.newInstance();
         } catch (InstantiationException | IllegalAccessException ex) {
             throw new RuntimeException(ex);
         }
@@ -84,11 +84,11 @@ public class EditableListController {
         enterItemEditionMode(model);
     }
 
-    private void onItemDeleteRequest(Object sender, Model model) {
+    private void onItemDeleteRequest(Object sender, ModelBase model) {
         deleteItem((ListItemController) sender, model);
     }
 
-    protected void deleteItem(ListItemController listItemController, Model model) {
+    protected void deleteItem(ListItemController listItemController, ModelBase model) {
         model.markAsDeleted();
         listItemController.hide();
     }

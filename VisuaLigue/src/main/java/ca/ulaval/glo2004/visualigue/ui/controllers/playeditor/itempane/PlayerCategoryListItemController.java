@@ -47,6 +47,10 @@ public class PlayerCategoryListItemController extends ControllerBase {
         rootNode.setSelected(false);
     }
 
+    public Boolean isSelected() {
+        return rootNode.isSelected();
+    }
+
     @FXML
     protected void onAction(ActionEvent e) {
         onClick.fire(this, model);

@@ -2,7 +2,7 @@ package ca.ulaval.glo2004.visualigue.ui.models;
 
 import java.util.UUID;
 
-public class Model {
+public class ModelBase {
 
     private UUID uuid;
     private Boolean isNew = true;

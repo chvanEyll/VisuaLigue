@@ -5,7 +5,7 @@ import ca.ulaval.glo2004.visualigue.domain.sport.playingsurface.PlayingSurfaceUn
 import javafx.beans.property.ObjectProperty;
 import javafx.beans.property.SimpleObjectProperty;
 
-public class MousePositionModel extends Model {
+public class MousePositionModel extends ModelBase {
 
     public ObjectProperty<PlayingSurfaceUnit> playingSurfaceUnit = new SimpleObjectProperty();
     public ObjectProperty<Position> position = new SimpleObjectProperty();

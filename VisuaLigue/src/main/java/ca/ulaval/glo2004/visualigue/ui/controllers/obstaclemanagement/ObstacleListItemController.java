@@ -2,7 +2,7 @@ package ca.ulaval.glo2004.visualigue.ui.controllers.obstaclemanagement;
 
 import ca.ulaval.glo2004.visualigue.ui.animation.PredefinedAnimations;
 import ca.ulaval.glo2004.visualigue.ui.controllers.common.ListItemController;
-import ca.ulaval.glo2004.visualigue.ui.models.Model;
+import ca.ulaval.glo2004.visualigue.ui.models.ModelBase;
 import ca.ulaval.glo2004.visualigue.ui.models.ObstacleModel;
 import ca.ulaval.glo2004.visualigue.utils.FXUtils;
 import ca.ulaval.glo2004.visualigue.utils.FilenameUtils;
@@ -26,7 +26,7 @@ public class ObstacleListItemController extends ListItemController {
     private ObstacleModel model;
 
     @Override
-    public void init(Model model) {
+    public void init(ModelBase model) {
         this.model = (ObstacleModel) model;
         updateImage();
         nameLabel.textProperty().bind(this.model.name);

@@ -39,6 +39,11 @@ public class Scene2DController extends SceneController {
     }
 
     @Override
+    public void exitCreationMode() {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    }
+
+    @Override
     public Double getZoom() {
         throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
