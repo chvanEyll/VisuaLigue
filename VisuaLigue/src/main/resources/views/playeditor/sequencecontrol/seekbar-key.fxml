@@ -6,12 +6,9 @@
 <?import javafx.scene.layout.StackPane?>
 <?import ca.ulaval.glo2004.visualigue.ui.customcontrols.SvgImage?>
 
-<StackPane fx:id="rootNode" styleClass="root-node" xmlns="http://javafx.com/javafx/8.0.60" xmlns:fx="http://javafx.com/fxml/1">
+<StackPane fx:id="rootNode" styleClass="root-node, seekbar-key" onMouseClicked="#onMouseClicked" xmlns="http://javafx.com/javafx/8.0.60" xmlns:fx="http://javafx.com/fxml/1" fx:controller="ca.ulaval.glo2004.visualigue.ui.controllers.playeditor.sequencecontrol.SeekBarKeyController">
     <children>
         <SvgImage url="/images/seekbar-frame.fxml" />
-        <Label text="1" />
+        <Label fx:id="indexLabel" text="1" />
     </children>
-    <styleClass>
-        <String fx:value="seekbar-frame" />
-    </styleClass>
 </StackPane>

@@ -36,7 +36,7 @@ public class SportListItemController extends ControllerBase {
     }
 
     @FXML
-    protected void onClick(MouseEvent e) {
+    protected void onMouseClicked(MouseEvent e) {
         onClick.fire(this, model);
     }
 

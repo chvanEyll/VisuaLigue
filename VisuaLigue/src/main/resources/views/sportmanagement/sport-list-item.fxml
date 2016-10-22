@@ -8,7 +8,7 @@
 <?import javafx.scene.layout.Pane?>
 <?import javafx.scene.layout.VBox?>
 
-<VBox fx:id="rootNode" alignment="TOP_CENTER" fillWidth="false" onMouseClicked="#onClick" xmlns="http://javafx.com/javafx/8.0.60" xmlns:fx="http://javafx.com/fxml/1" fx:controller="ca.ulaval.glo2004.visualigue.ui.controllers.sportmanagement.SportListItemController">
+<VBox fx:id="rootNode" alignment="TOP_CENTER" fillWidth="false" onMouseClicked="#onMouseClicked" xmlns="http://javafx.com/javafx/8.0.60" xmlns:fx="http://javafx.com/fxml/1" fx:controller="ca.ulaval.glo2004.visualigue.ui.controllers.sportmanagement.SportListItemController">
     <children>
         <AnchorPane VBox.vgrow="ALWAYS">
             <children>

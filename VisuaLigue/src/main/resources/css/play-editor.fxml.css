@@ -96,7 +96,19 @@
     -fx-background-color: #CCCCCC
 }
 
-.seekbar .seekbar-frame .label {
+.seekbar .seekbar-key {
+    -fx-cursor: hand;
+}
+
+.seekbar .seekbar-key:hover {
+    -fx-background-color: #D9D5D3;
+}
+
+.seekbar .seekbar-key:hover {
+    -fx-background-color: #BFBFBF;
+}
+
+.seekbar .seekbar-key .label {
     -fx-text-fill: black;
     -fx-font-size: 15;
 }

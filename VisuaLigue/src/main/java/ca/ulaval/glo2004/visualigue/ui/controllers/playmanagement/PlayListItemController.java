@@ -47,7 +47,7 @@ public class PlayListItemController extends ControllerBase {
     }
 
     @FXML
-    protected void onClick(MouseEvent e) {
+    protected void onMouseClicked(MouseEvent e) {
         onClick.fire(this, model);
     }
 
