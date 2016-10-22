@@ -110,7 +110,7 @@ public class SportCreationController extends ControllerBase {
     }
 
     @FXML
-    public void onValidateButtonAction(ActionEvent e) {
+    protected void onValidateButtonAction(ActionEvent e) {
         if (model.isNew() && currentStepIndex < NUMBER_OF_STEPS - 1) {
             if (currentStepController.validate()) {
                 setStep(currentStepIndex + 1);
@@ -123,7 +123,7 @@ public class SportCreationController extends ControllerBase {
     }
 
     @FXML
-    public void onDeleteButtonAction(ActionEvent e) {
+    protected void onDeleteButtonAction(ActionEvent e) {
         Optional<ButtonType> result = new AlertDialogBuilder().alertType(Alert.AlertType.WARNING).headerText("Suppression d'un sport")
                 .contentText(String.format("Êtes-vous sûr de vouloir supprimer '%s'?", model.name.get()))
                 .buttonType(new ButtonType("Supprimer", ButtonData.YES))
@@ -140,7 +140,7 @@ public class SportCreationController extends ControllerBase {
     }
 
     @FXML
-    public void onCancelButtonAction(ActionEvent e) {
+    protected void onCancelButtonAction(ActionEvent e) {
         onViewCloseRequested.fire(this, null);
     }
 

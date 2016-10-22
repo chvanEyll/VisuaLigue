@@ -11,9 +11,9 @@
 <?import javafx.scene.layout.Pane?>
 <?import ca.ulaval.glo2004.visualigue.ui.customcontrols.SvgImage?>
 
-<HBox fx:id="root-node" alignment="CENTER_LEFT" prefHeight="50.0" styleClass="root-node, toolbar" xmlns="http://javafx.com/javafx/8.0.60" xmlns:fx="http://javafx.com/fxml/1">
+<HBox fx:id="root-node" alignment="CENTER_LEFT" prefHeight="50.0" styleClass="root-node, toolbar" xmlns="http://javafx.com/javafx/8.0.60" xmlns:fx="http://javafx.com/fxml/1" fx:controller="ca.ulaval.glo2004.visualigue.ui.controllers.playeditor.toolbar.ToolbarController">
     <children>
-        <Button mnemonicParsing="false">
+        <Button fx:id="saveButton" mnemonicParsing="false" onAction="#onSaveButtonAction">
             <graphic>
                 <SvgImage url="/images/save-icon.fxml" />
             </graphic>
@@ -25,7 +25,7 @@
                 <String fx:value="medium" />
             </styleClass>
         </Button>
-        <Button mnemonicParsing="false">
+        <Button fx:id="closeButton" mnemonicParsing="false" onAction="#onCloseButtonAction">
             <graphic>
                 <SvgImage url="/images/cross-icon.fxml" />
             </graphic>
@@ -37,7 +37,7 @@
                 <String fx:value="medium" />
             </styleClass>
         </Button>
-        <Button mnemonicParsing="false">
+        <Button fx:id="exportButton" mnemonicParsing="false" onAction="#onExportButtonAction">
             <graphic>
                 <SvgImage url="/images/export-icon.fxml" />
             </graphic>
@@ -54,7 +54,7 @@
                 <Insets left="3.0" right="3.0" />
             </HBox.margin>
         </Pane>
-        <Button mnemonicParsing="false">
+        <Button fx:id="undoButton" mnemonicParsing="false" onAction="#onUndoButtonAction">
             <graphic>
                 <SvgImage url="/images/undo-icon.fxml" />
             </graphic>
@@ -66,7 +66,7 @@
                 <String fx:value="medium" />
             </styleClass>
         </Button>
-        <Button mnemonicParsing="false">
+        <Button fx:id="redoButton" mnemonicParsing="false" onAction="#onRedoButtonAction">
             <graphic>
                 <SvgImage url="/images/redo-icon.fxml" />
             </graphic>
@@ -83,7 +83,7 @@
                 <Insets left="3.0" right="3.0" />
             </HBox.margin>
         </Pane>
-        <Button mnemonicParsing="false">
+        <Button fx:id="zoomInButton" mnemonicParsing="false" onAction="#onZoomInButtonAction">
             <graphic>
                 <SvgImage url="/images/zoom-in-icon.fxml" />
             </graphic>
@@ -95,13 +95,13 @@
                 <String fx:value="medium" />
             </styleClass>
         </Button>
-        <TextField prefWidth="85.0" text="100%">
+        <TextField fx:id="zoomTextField" prefWidth="85.0" text="100%"  onAction="#onZoomTextFieldAction" >
             <styleClass>
                 <String fx:value="centered-text" />
                 <String fx:value="text-field" />
             </styleClass>
         </TextField>
-        <Button mnemonicParsing="false">
+        <Button fx:id="zoomOutButton" mnemonicParsing="false" onAction="#onZoomOutButtonAction">
             <graphic>
                 <SvgImage url="/images/zoom-out-icon.fxml" />
             </graphic>
@@ -113,7 +113,7 @@
                 <String fx:value="medium" />
             </styleClass>
         </Button>
-        <Button mnemonicParsing="false">
+        <Button fx:id="bestFitButton" mnemonicParsing="false" onAction="#onBestFitButtonAction">
             <graphic>
                 <SvgImage url="/images/best-fit-icon.fxml" />
             </graphic>
@@ -130,7 +130,7 @@
                 <Insets left="3.0" right="3.0" />
             </HBox.margin>
         </Pane>
-        <Button mnemonicParsing="false">
+        <Button fx:id="switch3DButton" mnemonicParsing="false" onAction="#onSwitch3DButtonAction">
             <graphic>
                 <SvgImage url="/images/3d-icon.fxml" />
             </graphic>
@@ -142,7 +142,7 @@
                 <String fx:value="medium" />
             </styleClass>
         </Button>
-        <Button mnemonicParsing="false">
+        <Button fx:id="labelDisplayToggleButton" mnemonicParsing="false" onAction="#onLabelDisplayToggleButtonAction">
             <graphic>
                 <SvgImage url="/images/show-labels-icon.fxml" />
             </graphic>
@@ -156,7 +156,7 @@
         </Button>
         <HBox alignment="CENTER_RIGHT" HBox.hgrow="ALWAYS">
             <children>
-                <Label styleClass="coordinate-label" text="(111 m, 300 m)" />
+                <Label fx:id="coordinateLabel" styleClass="coordinate-label" text="(111 m, 300 m)" />
             </children>
         </HBox>
     </children>

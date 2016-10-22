@@ -54,22 +54,22 @@ public class MainMenuController {
     }
 
     @FXML
-    public void onPlaysMenuItemClicked(MouseEvent e) {
+    protected void onPlaysMenuItemClicked(MouseEvent e) {
         selectMenu(PlayManagementController.VIEW_NAME, playsMenuItem);
     }
 
     @FXML
-    public void onSportsMenuItemClicked(MouseEvent e) {
+    protected void onSportsMenuItemClicked(MouseEvent e) {
         selectMenu(SportManagementController.VIEW_NAME, sportsMenuItem);
     }
 
     @FXML
-    public void onObstaclesMenuItemClicked(MouseEvent e) {
+    protected void onObstaclesMenuItemClicked(MouseEvent e) {
         selectMenu(ObstacleManagementController.VIEW_NAME, obstaclesMenuItem);
     }
 
     @FXML
-    public void onSettingsMenuItemClicked(MouseEvent e) {
+    protected void onSettingsMenuItemClicked(MouseEvent e) {
         selectMenu(SettingsController.VIEW_NAME, settingsMenuItem);
     }
 

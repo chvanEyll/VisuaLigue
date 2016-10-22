@@ -57,7 +57,7 @@ public class SportCreationStep2Controller extends SportCreationStepController {
     }
 
     @FXML
-    public void onBrowseImageButtonAction(ActionEvent e) {
+    protected void onBrowseImageButtonAction(ActionEvent e) {
         FileChooser fileChooser = new FileChooser();
         fileChooser.setTitle("Select Image File");
         fileChooser.getExtensionFilters().addAll(new ExtensionFilter("Image Files", "*.png", "*.jpg", "*.jpeg", "*.bmp", "*.gif", "*.tiff"));

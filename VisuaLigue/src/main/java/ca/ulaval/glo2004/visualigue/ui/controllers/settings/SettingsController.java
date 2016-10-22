@@ -35,7 +35,7 @@ public class SettingsController extends ControllerBase {
     }
 
     @FXML
-    public void onResetButtonAction(ActionEvent e) {
+    protected void onResetButtonAction(ActionEvent e) {
         Optional<ButtonType> result = new AlertDialogBuilder().alertType(Alert.AlertType.WARNING).headerText("Réinitialisation de l'application et des données")
                 .contentText("Êtes-vous sûr de vouloir supprimer réinitialiser l'application et les données (cette action est irréversible)?")
                 .buttonType(new ButtonType("Réinitialiser", ButtonBar.ButtonData.YES))

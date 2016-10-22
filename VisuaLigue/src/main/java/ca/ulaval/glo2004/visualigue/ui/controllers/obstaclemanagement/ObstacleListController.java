@@ -17,7 +17,7 @@ public class ObstacleListController extends EditableListController {
     @Inject private ObstacleService obstacleService;
 
     @FXML
-    public void onObstacleCreationLinkButtonClicked(MouseEvent e) {
+    protected void onObstacleCreationLinkButtonClicked(MouseEvent e) {
         newItem();
     }
 

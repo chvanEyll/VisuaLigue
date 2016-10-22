@@ -21,7 +21,7 @@ public class SportCreationStep3Controller extends SportCreationStepController {
     }
 
     @FXML
-    public void onCategoryCreationLinkButtonClicked(MouseEvent e) {
+    protected void onCategoryCreationLinkButtonClicked(MouseEvent e) {
         playerCategoryListController.newItem();
     }
 }

@@ -48,7 +48,7 @@ public class PlayerCategoryListItemEditionController extends ListItemEditionCont
     }
 
     @FXML
-    public void onValidateButtonAction(ActionEvent e) {
+    protected void onValidateButtonAction(ActionEvent e) {
         if (validate()) {
             model.name.set(StringUtils.trim(nameTextField.textProperty().get()));
             model.abbreviation.set(StringUtils.trim(abbreviationTextField.getText()));
@@ -61,7 +61,7 @@ public class PlayerCategoryListItemEditionController extends ListItemEditionCont
     }
 
     @FXML
-    public void onRevertButtonAction(ActionEvent e) {
+    protected void onRevertButtonAction(ActionEvent e) {
         onCloseRequested.fire(this, model);
     }
 

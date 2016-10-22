@@ -46,7 +46,7 @@ public class ObjectListItemController {
     }
 
     @FXML
-    public void onAction(ActionEvent e) {
+    protected void onAction(ActionEvent e) {
         onClick.fire(this, model);
     }
 

@@ -46,12 +46,12 @@ public class PlayListItemController {
     }
 
     @FXML
-    public void onClick(MouseEvent e) {
+    protected void onClick(MouseEvent e) {
         onClick.fire(this, model);
     }
 
     @FXML
-    public void onDeleteButtonAction(ActionEvent e) {
+    protected void onDeleteButtonAction(ActionEvent e) {
         Optional<ButtonType> result = new AlertDialogBuilder().alertType(Alert.AlertType.WARNING).headerText("Suppression d'un jeu")
                 .contentText(String.format("Êtes-vous sûr de vouloir supprimer le jeu '%s'?", model.title.get()))
                 .buttonType(new ButtonType("Supprimer", ButtonBar.ButtonData.YES))

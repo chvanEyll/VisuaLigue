@@ -42,12 +42,12 @@ public class MainSceneController implements Initializable {
     }
 
     @FXML
-    public void onMenuToggleClicked(MouseEvent e) {
+    protected void onMenuToggleClicked(MouseEvent e) {
         mainMenuController.toggleExpand();
     }
 
     @FXML
-    public void onPreviousButtonAction(ActionEvent e) {
+    protected void onPreviousButtonAction(ActionEvent e) {
         previousView();
     }
 

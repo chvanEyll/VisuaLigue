@@ -57,7 +57,7 @@ public class ObstacleListItemEditionController extends ListItemEditionController
     }
 
     @FXML
-    public void onValidateButtonAction(ActionEvent e) throws ObstacleAlreadyExistsException, ObstacleNotFoundException {
+    protected void onValidateButtonAction(ActionEvent e) throws ObstacleAlreadyExistsException, ObstacleNotFoundException {
         if (validate()) {
             if (model.isNew()) {
                 UUID obstacleInstanceUUID = obstacleService.createObstacle(StringUtils.trim(model.name.get()));
@@ -77,13 +77,13 @@ public class ObstacleListItemEditionController extends ListItemEditionController
     }
 
     @FXML
-    public void onRevertButtonAction(ActionEvent e) {
+    protected void onRevertButtonAction(ActionEvent e) {
         model.newImagePathName.set(null);
         onCloseRequested.fire(this, model);
     }
 
     @FXML
-    public void onBrowseImageButtonAction(ActionEvent e) {
+    protected void onBrowseImageButtonAction(ActionEvent e) {
         FileChooser fileChooser = new FileChooser();
         fileChooser.setTitle("Select Image File");
         fileChooser.getExtensionFilters().addAll(new FileChooser.ExtensionFilter("Image Files", "*.png", "*.jpg", "*.jpeg", "*.bmp", "*.gif", "*.tiff"));

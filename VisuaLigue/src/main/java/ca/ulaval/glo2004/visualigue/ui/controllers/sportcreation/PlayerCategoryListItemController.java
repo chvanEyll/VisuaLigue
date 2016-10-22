@@ -53,17 +53,17 @@ public class PlayerCategoryListItemController extends ListItemController {
     }
 
     @FXML
-    public void onEditButtonAction(ActionEvent e) {
+    protected void onEditButtonAction(ActionEvent e) {
         onEditRequested.fire(this, model);
     }
 
     @FXML
-    public void onSwipeLeft(SwipeEvent e) {
+    protected void onSwipeLeft(SwipeEvent e) {
         displayDeleteConfirmationButton();
     }
 
     @FXML
-    public void onDeleteButtonAction(ActionEvent e) {
+    protected void onDeleteButtonAction(ActionEvent e) {
         displayDeleteConfirmationButton();
     }
 
@@ -80,12 +80,12 @@ public class PlayerCategoryListItemController extends ListItemController {
     }
 
     @FXML
-    public void onDeleteConfirmButtonAction(ActionEvent e) {
+    protected void onDeleteConfirmButtonAction(ActionEvent e) {
         onDeleteRequested.fire(this, model);
     }
 
     @FXML
-    public void onMouseClicked(MouseEvent e) {
+    protected void onMouseClicked(MouseEvent e) {
         if (!deleteConfirmButtonContainer.isVisible()) {
             onEditRequested.fire(this, model);
         }

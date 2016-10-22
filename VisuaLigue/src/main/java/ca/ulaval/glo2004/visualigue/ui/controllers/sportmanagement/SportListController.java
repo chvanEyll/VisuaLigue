@@ -63,7 +63,7 @@ public class SportListController extends ControllerBase {
     }
 
     @FXML
-    public void onNewSportButtonClicked(MouseEvent e) {
+    protected void onNewSportButtonClicked(MouseEvent e) {
         View view = InjectableFXMLLoader.loadView(SportCreationController.VIEW_NAME);
         SportCreationController controller = (SportCreationController) view.getController();
         controller.init();

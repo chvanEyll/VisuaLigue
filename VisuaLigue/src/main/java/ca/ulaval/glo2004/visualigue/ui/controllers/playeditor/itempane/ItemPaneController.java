@@ -25,7 +25,7 @@ public class ItemPaneController extends ControllerBase {
     }
 
     @FXML
-    public void onMenuToggleClicked(MouseEvent e) {
+    protected void onMenuToggleClicked(MouseEvent e) {
         toggleExpand();
     }
 

@@ -81,7 +81,7 @@ public class PlayListController extends ControllerBase {
     }
 
     @FXML
-    public void onNewPlayButtonClicked(MouseEvent e) {
+    protected void onNewPlayButtonClicked(MouseEvent e) {
         View view = InjectableFXMLLoader.loadView(PlayCreationController.VIEW_NAME);
         onViewChangeRequested.fire(this, view);
     }
