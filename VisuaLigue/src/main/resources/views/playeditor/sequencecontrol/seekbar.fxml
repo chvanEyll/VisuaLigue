@@ -20,21 +20,13 @@
             <content>
                 <StackPane alignment="CENTER_LEFT">
                     <children>
-                        <GridPane>
+                        <GridPane fx:id="keyframeGridPane">
                             <columnConstraints>
                                 <ColumnConstraints minWidth="45.0" percentWidth="7.692" />
                             </columnConstraints>
                             <children>
                                 <Pane maxHeight="5.0" prefHeight="5.0" styleClass="bar" GridPane.columnSpan="14" />
-                                <StackPane GridPane.columnIndex="0">
-                                    <children>
-                                        <SvgImage url="/images/seekbar-frame.fxml" />
-                                        <Label text="1" />
-                                    </children>
-                                    <styleClass>
-                                        <String fx:value="seekbar-frame" />
-                                    </styleClass>
-                                </StackPane>
+
                             </children>
                         </GridPane>
                         <Button>

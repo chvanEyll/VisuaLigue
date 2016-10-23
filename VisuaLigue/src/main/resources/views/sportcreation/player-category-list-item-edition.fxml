@@ -20,8 +20,10 @@
 <HBox xmlns="http://javafx.com/javafx/8.0.60" xmlns:fx="http://javafx.com/fxml/1" fx:controller="ca.ulaval.glo2004.visualigue.ui.controllers.sportcreation.PlayerCategoryListItemEditionController">
     <VBox styleClass="form, content" GridPane.columnIndex="0" GridPane.columnSpan="6" HBox.hgrow="ALWAYS">
         <children>
-            <ExtendedTextField fx:id="nameTextField" promptText="Nom de la catégorie" maxLength="64" />
-            <Label fx:id="nameErrorLabel" styleClass="error-label" text="Error label." />
+            <FlowPane styleClass="form-group, vertical">
+                <ExtendedTextField fx:id="nameTextField" promptText="Nom de la catégorie" maxLength="64" />
+                <Label fx:id="nameErrorLabel" styleClass="error-label" text="Error label." />
+            </FlowPane>
             <FlowPane styleClass="form-group, horizontal">
                 <children>
                     <Label prefWidth="130.0" text="Abréviation:" />

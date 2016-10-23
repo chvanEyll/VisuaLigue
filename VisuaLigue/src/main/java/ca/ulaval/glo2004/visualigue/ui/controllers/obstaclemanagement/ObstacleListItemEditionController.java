@@ -17,7 +17,6 @@ import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
-import javafx.stage.FileChooser;
 import javax.inject.Inject;
 import org.apache.commons.lang3.StringUtils;
 
@@ -83,10 +82,7 @@ public class ObstacleListItemEditionController extends ListItemEditionController
 
     @FXML
     protected void onBrowseImageButtonAction(ActionEvent e) {
-        FileChooser fileChooser = new FileChooser();
-        fileChooser.setTitle("Select Image File");
-        fileChooser.getExtensionFilters().addAll(new FileChooser.ExtensionFilter("Image Files", "*.png", "*.jpg", "*.jpeg", "*.bmp", "*.gif", "*.tiff"));
-        File selectedFile = fileChooser.showOpenDialog(VisuaLigue.getMainStage());
+        File selectedFile = FXUtils.chooseImage(VisuaLigue.getMainStage());
         if (selectedFile != null) {
             this.model.newImagePathName.set(selectedFile.getPath());
             updateImage();

@@ -16,6 +16,11 @@
     <children>
         <VBox styleClass="form-section">
             <children>
+                <HBox alignment="CENTER_LEFT" styleClass="section-header">
+                    <children>
+                        <Label text="Nom et icône" />
+                    </children>
+                </HBox>
                 <VBox styleClass="form-group, vertical">
                     <children>
                         <Label text="Nom du sport" />
@@ -23,6 +28,13 @@
                         <Label fx:id="sportNameErrorLabel" styleClass="error-label" text="Error label." />
                     </children>
                 </VBox>
+                <FlowPane styleClass="form-group, horizontal">
+                    <children>
+                        <Button text="Sélectionner une image..." onAction="#onBrowseIconImageButtonAction" />
+                        <ResizableImageView fx:id="iconImageView"/>
+                        <Label fx:id="iconImageErrorLabel" styleClass="error-label" text="Error label." />
+                    </children>
+                </FlowPane>
             </children>
         </VBox>
         <VBox styleClass="form-section">
@@ -41,12 +53,11 @@
                 </VBox>
                 <FlowPane styleClass="form-group, horizontal">
                     <children>
-                        <Button mnemonicParsing="false" text="Sélectionner une image..." onAction="#onBrowseImageButtonAction" />
-                        <Label fx:id="imagePathLabel" />
+                        <Button text="Sélectionner une image..." onAction="#onBrowseBallImageButtonAction" />
+                        <ResizableImageView fx:id="ballImageView"/>
+                        <Label fx:id="ballImageErrorLabel" styleClass="error-label" text="Error label." />
                     </children>
                 </FlowPane>
-                <Label fx:id="imageErrorLabel" styleClass="error-label" text="Error label." />
-                <ResizableImageView fx:id="imageView"/>
             </children>
         </VBox>
     </children>

@@ -15,7 +15,7 @@
 
 <HBox fx:id="root-node" alignment="CENTER_LEFT" prefHeight="50.0" styleClass="root-node, toolbar" xmlns="http://javafx.com/javafx/8.0.60" xmlns:fx="http://javafx.com/fxml/1" fx:controller="ca.ulaval.glo2004.visualigue.ui.controllers.playeditor.toolbar.ToolbarController">
     <children>
-        <Button fx:id="saveButton" mnemonicParsing="false" onAction="#onSaveButtonAction">
+        <Button fx:id="saveButton" onAction="#onSaveButtonAction">
             <graphic>
                 <SvgImage url="/images/save-icon.fxml" />
             </graphic>
@@ -27,7 +27,7 @@
                 <String fx:value="medium" />
             </styleClass>
         </Button>
-        <Button fx:id="closeButton" mnemonicParsing="false" onAction="#onCloseButtonAction">
+        <Button fx:id="closeButton" onAction="#onCloseButtonAction">
             <graphic>
                 <SvgImage url="/images/cross-icon.fxml" />
             </graphic>
@@ -39,7 +39,7 @@
                 <String fx:value="medium" />
             </styleClass>
         </Button>
-        <Button fx:id="exportButton" mnemonicParsing="false" onAction="#onExportButtonAction">
+        <Button fx:id="exportButton" onAction="#onExportButtonAction">
             <graphic>
                 <SvgImage url="/images/export-icon.fxml" />
             </graphic>
@@ -56,7 +56,7 @@
                 <Insets left="3.0" right="3.0" />
             </HBox.margin>
         </Pane>
-        <Button fx:id="undoButton" mnemonicParsing="false" onAction="#onUndoButtonAction">
+        <Button fx:id="undoButton" onAction="#onUndoButtonAction">
             <graphic>
                 <SvgImage url="/images/undo-icon.fxml" />
             </graphic>
@@ -68,7 +68,7 @@
                 <String fx:value="medium" />
             </styleClass>
         </Button>
-        <Button fx:id="redoButton" mnemonicParsing="false" onAction="#onRedoButtonAction">
+        <Button fx:id="redoButton" onAction="#onRedoButtonAction">
             <graphic>
                 <SvgImage url="/images/redo-icon.fxml" />
             </graphic>
@@ -85,7 +85,7 @@
                 <Insets left="3.0" right="3.0" />
             </HBox.margin>
         </Pane>
-        <Button fx:id="zoomInButton" mnemonicParsing="false" onAction="#onZoomInButtonAction">
+        <Button fx:id="zoomInButton" onAction="#onZoomInButtonAction">
             <graphic>
                 <SvgImage url="/images/zoom-in-icon.fxml" />
             </graphic>
@@ -102,7 +102,7 @@
                 <String fx:value="centered-text" />
             </styleClass>
         </ExtendedTextField>
-        <Button fx:id="zoomOutButton" mnemonicParsing="false" onAction="#onZoomOutButtonAction">
+        <Button fx:id="zoomOutButton" onAction="#onZoomOutButtonAction">
             <graphic>
                 <SvgImage url="/images/zoom-out-icon.fxml" />
             </graphic>
@@ -114,7 +114,7 @@
                 <String fx:value="medium" />
             </styleClass>
         </Button>
-        <Button fx:id="bestFitButton" mnemonicParsing="false" onAction="#onBestFitButtonAction">
+        <Button fx:id="bestFitButton" onAction="#onBestFitButtonAction">
             <graphic>
                 <SvgImage url="/images/best-fit-icon.fxml" />
             </graphic>
@@ -131,7 +131,7 @@
                 <Insets left="3.0" right="3.0" />
             </HBox.margin>
         </Pane>
-        <Button fx:id="switch3DButton" mnemonicParsing="false" onAction="#onSwitch3DButtonAction">
+        <Button fx:id="switch3DButton" onAction="#onSwitch3DButtonAction">
             <graphic>
                 <SvgImage url="/images/3d-icon.fxml" />
             </graphic>
@@ -143,7 +143,7 @@
                 <String fx:value="medium" />
             </styleClass>
         </Button>
-        <ExtendedButton fx:id="labelDisplayToggleButton" mnemonicParsing="false" onAction="#onLabelDisplayToggleButtonAction">
+        <ExtendedButton fx:id="labelDisplayToggleButton" onAction="#onLabelDisplayToggleButtonAction">
             <graphic>
                 <SvgImage url="/images/show-labels-icon.fxml" />
             </graphic>

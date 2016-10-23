@@ -17,7 +17,8 @@ public class Sport extends DomainObject {
 
     private String name;
     private Boolean isBuiltIn = false;
-    private String iconPathName = "/images/built-in-sport-icons/generic-icon.png";
+    private UUID customIconUUID;
+    private String builtInIconPathName = "/images/built-in-sport-icons/generic-icon.png";
     private Ball ball = new Ball();
     private PlayingSurface playingSurface = new PlayingSurface();
     private Map<UUID, PlayerCategory> playerCategories = new ConcurrentHashMap();
@@ -46,12 +47,24 @@ public class Sport extends DomainObject {
         this.isBuiltIn = isBuiltIn;
     }
 
-    public String getIconPathName() {
-        return iconPathName;
+    public Boolean hasCustomIcon() {
+        return customIconUUID != null;
     }
 
-    public void setIconPathName(String builtInIconPathName) {
-        this.iconPathName = builtInIconPathName;
+    public UUID getCustomIconUUID() {
+        return customIconUUID;
+    }
+
+    public void setCustomIconUUID(UUID customIconUUID) {
+        this.customIconUUID = customIconUUID;
+    }
+
+    public String getBuiltInIconPathName() {
+        return builtInIconPathName;
+    }
+
+    public void setBuiltInIconPathName(String builtInIconPathName) {
+        this.builtInIconPathName = builtInIconPathName;
     }
 
     public Ball getBall() {

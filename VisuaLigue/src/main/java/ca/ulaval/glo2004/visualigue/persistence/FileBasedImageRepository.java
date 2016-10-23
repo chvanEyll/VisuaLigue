@@ -33,6 +33,14 @@ public class FileBasedImageRepository implements ImageRepository {
     }
 
     @Override
+    public UUID replace(UUID oldUUID, String newSourceImagePathName) {
+        if (oldUUID != null) {
+            delete(oldUUID);
+        }
+        return persist(newSourceImagePathName);
+    }
+
+    @Override
     public String get(UUID uuid) {
         return new File(getStoredFileName(uuid)).getAbsolutePath();
     }

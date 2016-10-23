@@ -72,7 +72,7 @@ public class DefaultContext extends ContextBase {
     private Sport createHockeySport() throws Exception {
         Sport sport = sportFactory.create("Hockey");
         sport.setIsBuiltIn(true);
-        sport.setIconPathName("/images/built-in-sport-icons/hockey-icon.png");
+        sport.setBuiltInIconPathName("/images/built-in-sport-icons/hockey-icon.png");
         Ball ball = new Ball("Rondelle");
         ball.setBuiltInImagePathName("/images/built-in-ball-icons/hockey-puck-icon.png");
         sport.setBall(ball);
@@ -90,7 +90,7 @@ public class DefaultContext extends ContextBase {
 
     private Sport createSoccerSport() throws Exception {
         Sport sport = sportFactory.create("Soccer");
-        sport.setIconPathName("/images/built-in-sport-icons/soccer-icon.png");
+        sport.setBuiltInIconPathName("/images/built-in-sport-icons/soccer-icon.png");
         sport.setIsBuiltIn(true);
         Ball ball = new Ball("Ballon");
         ball.setBuiltInImagePathName("/images/built-in-ball-icons/soccer-icon.png");
@@ -122,7 +122,7 @@ public class DefaultContext extends ContextBase {
 
     private Sport createFootballSport() throws Exception {
         Sport sport = sportFactory.create("Football");
-        sport.setIconPathName("/images/built-in-sport-icons/football-icon.png");
+        sport.setBuiltInIconPathName("/images/built-in-sport-icons/football-icon.png");
         sport.setIsBuiltIn(true);
         Ball ball = new Ball("Ballon");
         ball.setBuiltInImagePathName("/images/built-in-ball-icons/football-icon.png");

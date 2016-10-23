@@ -64,7 +64,7 @@
         </Button>
         <HBox fx:id="deleteConfirmButtonContainer" styleClass="delete-confirm-button-container" alignment="CENTER_RIGHT" GridPane.vgrow="ALWAYS" GridPane.columnIndex="0" GridPane.columnSpan="7"  >
             <children>
-                <Button fx:id="deleteConfirmButton" mnemonicParsing="false" text="Supprimer" onAction="#onDeleteConfirmButtonAction" >
+                <Button fx:id="deleteConfirmButton" text="Supprimer" onAction="#onDeleteConfirmButtonAction" >
                     <styleClass>
                         <String fx:value="color-red" />
                     </styleClass>

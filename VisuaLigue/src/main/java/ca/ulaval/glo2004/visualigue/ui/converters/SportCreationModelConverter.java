@@ -28,15 +28,22 @@ public class SportCreationModelConverter {
         model.setUUID(sport.getUUID());
         model.setIsNew(false);
         model.name.set(sport.getName());
-        model.iconPathName.set(sport.getIconPathName());
         model.playingSurfaceWidth.set(sport.getPlayingSurface().getWidth());
         model.playingSurfaceLength.set(sport.getPlayingSurface().getLength());
         model.playingSurfaceWidthUnits.set(sport.getPlayingSurface().getWidthUnits());
         model.playingSurfaceLengthUnits.set(sport.getPlayingSurface().getLengthUnits());
+        convertIcon(sport, model);
         convertBall(sport.getBall(), model);
         convertPlayingSurfaceImage(sport.getPlayingSurface(), model);
         convertPlayerCategories(sport.getPlayerCategories(), model);
         return model;
+    }
+
+    private void convertIcon(Sport sport, SportCreationModel model) {
+        if (sport.hasCustomIcon()) {
+            model.currentIconPathName.set(imageRepository.get(sport.getCustomIconUUID()));
+        }
+        model.builtInIconPathName.set(sport.getBuiltInIconPathName());
     }
 
     private void convertBall(Ball ball, SportCreationModel model) {
@@ -44,14 +51,14 @@ public class SportCreationModelConverter {
         if (ball.hasCustomImage()) {
             model.currentBallImagePathName.set(imageRepository.get(ball.getCustomImageUUID()));
         }
-        model.builtInPlayingSurfaceImage.set(ball.getBuiltInImagePathName());
+        model.builtInBallImagePathName.set(ball.getBuiltInImagePathName());
     }
 
     private void convertPlayingSurfaceImage(PlayingSurface playingSurface, SportCreationModel model) {
         if (playingSurface.hasCustomImage()) {
             model.currentPlayingSurfaceImagePathName.set(imageRepository.get(playingSurface.getCustomImageUUID()));
         }
-        model.builtInPlayingSurfaceImage.set(playingSurface.getBuiltInImagePathName());
+        model.builtInPlayingSurfaceImagePathName.set(playingSurface.getBuiltInImagePathName());
     }
 
     private void convertPlayerCategories(Map<UUID, PlayerCategory> playerCategories, SportCreationModel model) {

@@ -13,7 +13,7 @@ import javafx.fxml.FXML;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
 import javafx.scene.image.Image;
-import javafx.stage.FileChooser;
+import javafx.scene.image.ImageView;
 
 public class SportCreationStep1Controller extends SportCreationStepController {
 
@@ -21,48 +21,66 @@ public class SportCreationStep1Controller extends SportCreationStepController {
     @FXML private Label sportNameErrorLabel;
     @FXML private TextField ballNameField;
     @FXML private Label ballNameErrorLabel;
-    @FXML private Label imagePathLabel;
-    @FXML private ResizableImageView imageView;
-    @FXML private Label imageErrorLabel;
+    @FXML private ResizableImageView iconImageView;
+    @FXML private Label iconImageErrorLabel;
+    @FXML private ResizableImageView ballImageView;
+    @FXML private Label ballImageErrorLabel;
 
     @Override
     public void init(SportCreationModel sportCreation) {
         model = sportCreation;
         sportNameField.textProperty().bindBidirectional(sportCreation.name);
         ballNameField.textProperty().bindBidirectional(sportCreation.ballName);
-        updateImage();
+        updateBallImage();
         FXUtils.requestFocusDelayed(sportNameField);
         super.init();
     }
 
     @FXML
-    protected void onBrowseImageButtonAction(ActionEvent e) {
-        FileChooser fileChooser = new FileChooser();
-        fileChooser.setTitle("Select Image File");
-        fileChooser.getExtensionFilters().addAll(new FileChooser.ExtensionFilter("Image Files", "*.png", "*.jpg", "*.jpeg", "*.bmp", "*.gif", "*.tiff"));
-        File selectedFile = fileChooser.showOpenDialog(VisuaLigue.getMainStage());
+    protected void onBrowseBallImageButtonAction(ActionEvent e) {
+        File selectedFile = FXUtils.chooseImage(VisuaLigue.getMainStage());
         if (selectedFile != null) {
             this.model.newBallImagePathName.set(selectedFile.getPath());
-            updateImage();
+            updateBallImage();
         }
     }
 
-    private void updateImage() {
+    @FXML
+    protected void onBrowseIconImageButtonAction(ActionEvent e) {
+        File selectedFile = FXUtils.chooseImage(VisuaLigue.getMainStage());
+        if (selectedFile != null) {
+            this.model.newIconPathName.set(selectedFile.getPath());
+            updateIconImage();
+        }
+    }
+
+    private void updateBallImage() {
         if (model.newBallImagePathName.isNotEmpty().get()) {
-            displayImage(FilenameUtils.getURIString(model.newBallImagePathName.get()));
+            displayImage(ballImageView, ballImageErrorLabel, FilenameUtils.getURIString(model.newBallImagePathName.get()));
         } else if (model.currentBallImagePathName.isNotEmpty().get()) {
-            displayImage(FilenameUtils.getURIString(model.currentBallImagePathName.get()));
+            displayImage(ballImageView, ballImageErrorLabel, FilenameUtils.getURIString(model.currentBallImagePathName.get()));
         } else if (model.builtInBallImagePathName.isNotEmpty().get()) {
-            displayImage(model.builtInBallImagePathName.get());
+            displayImage(ballImageView, ballImageErrorLabel, model.builtInBallImagePathName.get());
         } else {
-            clearImage();
+            clearImage(ballImageView);
         }
     }
 
-    private void displayImage(String imageURL) {
+    private void updateIconImage() {
+        if (model.newIconPathName.isNotEmpty().get()) {
+            displayImage(iconImageView, iconImageErrorLabel, FilenameUtils.getURIString(model.newIconPathName.get()));
+        } else if (model.currentIconPathName.isNotEmpty().get()) {
+            displayImage(iconImageView, iconImageErrorLabel, FilenameUtils.getURIString(model.currentIconPathName.get()));
+        } else if (model.builtInIconPathName.isNotEmpty().get()) {
+            displayImage(iconImageView, iconImageErrorLabel, model.builtInIconPathName.get());
+        } else {
+            clearImage(iconImageView);
+        }
+    }
+
+    private void displayImage(ImageView imageView, Label imageErrorLabel, String imageURL) {
         try {
             imageView.setImage(new Image(imageURL));
-            imagePathLabel.textProperty().bind(this.model.newPlayingSurfaceImagePathName);
         } catch (Exception ex) {
             clearErrors();
             imageErrorLabel.setText("L'image sélectionnée n'a pu être chargée.");
@@ -70,10 +88,8 @@ public class SportCreationStep1Controller extends SportCreationStepController {
         }
     }
 
-    private void clearImage() {
+    private void clearImage(ImageView imageView) {
         imageView.setImage(null);
-        imagePathLabel.textProperty().unbind();
-        imagePathLabel.setText("Aucune image sélectionnée");
     }
 
     @Override
@@ -87,6 +103,8 @@ public class SportCreationStep1Controller extends SportCreationStepController {
     @Override
     public void clearErrors() {
         FXUtils.setDisplay(sportNameErrorLabel, false);
+        FXUtils.setDisplay(iconImageErrorLabel, false);
+        FXUtils.setDisplay(ballImageErrorLabel, false);
     }
 
     @Override
@@ -98,7 +116,6 @@ public class SportCreationStep1Controller extends SportCreationStepController {
         } else if (StringUtils.isBlank(ballNameField.getText())) {
             ballNameErrorLabel.setText("Le nom de l'objet d'échange doit être spécifié.");
             FXUtils.setDisplay(ballNameErrorLabel, true);
-
         } else {
             return true;
         }

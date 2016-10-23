@@ -6,6 +6,8 @@ public interface ImageRepository {
 
     UUID persist(String sourceImagePathName);
 
+    UUID replace(UUID oldUUID, String newSourceImagePathName);
+
     String get(UUID uuid);
 
     void delete(UUID uuid);

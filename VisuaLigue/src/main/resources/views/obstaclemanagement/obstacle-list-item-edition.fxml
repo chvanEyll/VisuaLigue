@@ -19,15 +19,17 @@
 <HBox xmlns="http://javafx.com/javafx/8.0.60" xmlns:fx="http://javafx.com/fxml/1" fx:controller="ca.ulaval.glo2004.visualigue.ui.controllers.obstaclemanagement.ObstacleListItemEditionController">
     <VBox styleClass="form, content" GridPane.columnIndex="0" GridPane.columnSpan="6" HBox.hgrow="ALWAYS">
         <children>
-            <ExtendedTextField fx:id="nameTextField" promptText="Nom de la catégorie" maxLength="64" />
-            <Label fx:id="nameErrorLabel" styleClass="error-label" text="Error." />
+            <FlowPane styleClass="form-group, vertical">
+                <ExtendedTextField fx:id="nameTextField" promptText="Nom de la catégorie" maxLength="64" />
+                <Label fx:id="nameErrorLabel" styleClass="error-label" text="Error." />
+            </FlowPane>
             <FlowPane styleClass="form-group, horizontal">
                 <children>
-                    <Button mnemonicParsing="false" text="Sélectionner une image..." onAction="#onBrowseImageButtonAction" />
+                    <Button text="Sélectionner une image..." onAction="#onBrowseImageButtonAction" />
                     <ImageView fx:id="imageView" preserveRatio="true" />
+                    <Label fx:id="imageErrorLabel" styleClass="error-label" text="Error." />
                 </children>
             </FlowPane>
-            <Label fx:id="imageErrorLabel" styleClass="error-label" text="Error." />
         </children>
     </VBox>
     <VBox alignment="CENTER_RIGHT" GridPane.columnIndex="5" styleClass="action-buttons">

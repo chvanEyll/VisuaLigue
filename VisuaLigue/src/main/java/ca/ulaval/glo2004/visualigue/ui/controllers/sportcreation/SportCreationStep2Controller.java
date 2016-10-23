@@ -15,8 +15,6 @@ import javafx.scene.control.Label;
 import javafx.scene.control.Spinner;
 import javafx.scene.control.SpinnerValueFactory.DoubleSpinnerValueFactory;
 import javafx.scene.image.Image;
-import javafx.stage.FileChooser;
-import javafx.stage.FileChooser.ExtensionFilter;
 
 public class SportCreationStep2Controller extends SportCreationStepController {
 
@@ -58,10 +56,7 @@ public class SportCreationStep2Controller extends SportCreationStepController {
 
     @FXML
     protected void onBrowseImageButtonAction(ActionEvent e) {
-        FileChooser fileChooser = new FileChooser();
-        fileChooser.setTitle("Select Image File");
-        fileChooser.getExtensionFilters().addAll(new ExtensionFilter("Image Files", "*.png", "*.jpg", "*.jpeg", "*.bmp", "*.gif", "*.tiff"));
-        File selectedFile = fileChooser.showOpenDialog(VisuaLigue.getMainStage());
+        File selectedFile = FXUtils.chooseImage(VisuaLigue.getMainStage());
         if (selectedFile != null) {
             this.model.newPlayingSurfaceImagePathName.set(selectedFile.getPath());
             updateImage();
@@ -73,8 +68,8 @@ public class SportCreationStep2Controller extends SportCreationStepController {
             displayImage(FilenameUtils.getURIString(model.newPlayingSurfaceImagePathName.get()));
         } else if (model.currentPlayingSurfaceImagePathName.isNotEmpty().get()) {
             displayImage(FilenameUtils.getURIString(model.currentPlayingSurfaceImagePathName.get()));
-        } else if (model.builtInPlayingSurfaceImage.isNotEmpty().get()) {
-            displayImage(model.builtInPlayingSurfaceImage.get());
+        } else if (model.builtInPlayingSurfaceImagePathName.isNotEmpty().get()) {
+            displayImage(model.builtInPlayingSurfaceImagePathName.get());
         } else {
             clearImage();
         }

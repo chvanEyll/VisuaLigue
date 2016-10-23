@@ -52,6 +52,17 @@ public class SportService {
         onSportUpdated.fire(this, sport);
     }
 
+    public void updateIcon(UUID sportUUID, String sourceImagePathName) throws SportNotFoundException {
+        Sport sport = sportRepository.get(sportUUID);
+        UUID imageUuid = imageRepository.replace(sport.getCustomIconUUID(), sourceImagePathName);
+        sport.setCustomIconUUID(imageUuid);
+        try {
+            sportRepository.update(sport);
+        } catch (SportAlreadyExistsException ex) {
+            throw new RuntimeException(ex);
+        }
+    }
+
     public void updateBall(UUID sportUUID, String name) throws SportNotFoundException {
         Sport sport = sportRepository.get(sportUUID);
         Ball ball = sport.getBall();
@@ -66,10 +77,7 @@ public class SportService {
     public void updateBallImage(UUID sportUUID, String sourceImagePathName) throws SportNotFoundException {
         Sport sport = sportRepository.get(sportUUID);
         Ball ball = sport.getBall();
-        UUID imageUuid = imageRepository.persist(sourceImagePathName);
-        if (ball.hasCustomImage()) {
-            imageRepository.delete(ball.getCustomImageUUID());
-        }
+        UUID imageUuid = imageRepository.replace(ball.getCustomImageUUID(), sourceImagePathName);
         ball.setCustomImageUUID(imageUuid);
         try {
             sportRepository.update(sport);
@@ -95,10 +103,7 @@ public class SportService {
     public void updatePlayingSurfaceImage(UUID sportUUID, String sourceImagePathName) throws SportNotFoundException {
         Sport sport = sportRepository.get(sportUUID);
         PlayingSurface playingSurface = sport.getPlayingSurface();
-        UUID imageUuid = imageRepository.persist(sourceImagePathName);
-        if (playingSurface.hasCustomImage()) {
-            imageRepository.delete(playingSurface.getCustomImageUUID());
-        }
+        UUID imageUuid = imageRepository.replace(playingSurface.getCustomImageUUID(), sourceImagePathName);
         playingSurface.setCustomImageUUID(imageUuid);
         try {
             sportRepository.update(sport);

@@ -48,10 +48,7 @@ public class ObstacleService {
 
     public void updateObstacleImage(UUID sportUUID, String sourceImagePathName) throws ObstacleNotFoundException {
         Obstacle obstacle = obstacleRepository.get(sportUUID);
-        UUID imageUuid = imageRepository.persist(sourceImagePathName);
-        if (obstacle.hasCustomImage()) {
-            imageRepository.delete(obstacle.getCustomImageUUID());
-        }
+        UUID imageUuid = imageRepository.replace(obstacle.getCustomImageUUID(), sourceImagePathName);
         obstacle.setCustomImageUUID(imageUuid);
         obstacleRepository.update(obstacle);
     }

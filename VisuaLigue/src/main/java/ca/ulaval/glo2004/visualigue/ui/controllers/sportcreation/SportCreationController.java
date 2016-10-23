@@ -34,8 +34,6 @@ import org.apache.commons.lang3.StringUtils;
 public class SportCreationController extends ControllerBase {
 
     @FXML private VBox stepContent;
-    @FXML private Button validateButton;
-    @FXML private Button cancelButton;
     @FXML private Button deleteButton;
     @FXML private Breadcrumb breadcrumb;
 
@@ -48,8 +46,6 @@ public class SportCreationController extends ControllerBase {
         "/views/sportcreation/sport-creation-step-3.fxml"
     };
     private static final int GENERAL_STEP_INDEX = 0;
-    private static final int PLAYING_SURFACE_STEP_INDEX = 1;
-    private static final int PLAYERS_STEP_INDEX = 2;
     private SportCreationModel model;
     private int currentStepIndex = -1;
     private SportCreationStepController currentStepController;
@@ -162,10 +158,17 @@ public class SportCreationController extends ControllerBase {
             sportUuid = model.getUUID();
             sportService.updateSport(sportUuid, StringUtils.trim(model.name.get()));
         }
+        applyIconChanges(sportUuid);
         applyBallChanges(sportUuid);
         applyPlayingSurfaceChanges(sportUuid);
         applyCategoryChanges(sportUuid);
         onViewCloseRequested.fire(this, null);
+    }
+
+    private void applyIconChanges(UUID sportUuid) throws Exception {
+        if (model.newIconPathName.isNotEmpty().get()) {
+            sportService.updateIcon(sportUuid, model.newIconPathName.get());
+        }
     }
 
     private void applyBallChanges(UUID sportUuid) throws Exception {
