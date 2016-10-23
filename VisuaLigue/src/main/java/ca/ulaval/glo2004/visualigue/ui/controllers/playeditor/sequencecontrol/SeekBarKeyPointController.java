@@ -6,7 +6,9 @@ import javafx.fxml.FXML;
 import javafx.scene.control.Label;
 import javafx.scene.input.MouseEvent;
 
-public class SeekBarKeyController extends ControllerBase {
+public class SeekBarKeyPointController extends ControllerBase {
+
+    public static final String VIEW_NAME = "/views/playeditor/sequencecontrol/seekbar-key-point.fxml";
 
     public EventHandler<Integer> onClick = new EventHandler();
     @FXML private Label indexLabel;

@@ -36,12 +36,12 @@ public class BallUpdateCommand implements Command {
         PlayerInstance playerInstance = (PlayerInstance) play.getActorInstance(ownerPlayerInstanceUUID);
         ballInstance = (BallInstance) play.getActorInstance(ballInstanceUUID);
         BallState ballState = new BallState(Optional.of(position), Optional.of(playerInstance));
-        oldBallState = play.mergeActorState(time, ballInstance, ballState);
+        oldBallState = play.mergeKeyframe(time, ballInstance, ballState);
     }
 
     @Override
     public void revert() {
-        play.unmergeActorState(time, ballInstance, oldBallState);
+        play.unmergeKeyframe(time, ballInstance, oldBallState);
     }
 
 }

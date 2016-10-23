@@ -30,6 +30,7 @@ public class Play extends DomainObject {
     private Sport sport;
     private final TreeMap<Pair<ActorInstance, Integer>, Keyframe> keyframes = new TreeMap();
     private final Map<UUID, ActorInstance> actorInstances = new HashMap();
+    private Integer definedLength;
 
     public Play() {
         //Required for JAXB instanciation.
@@ -88,7 +89,7 @@ public class Play extends DomainObject {
         return actorInstances.get(actorInstanceUUID);
     }
 
-    public Optional<ActorState> mergeActorState(Integer time, ActorInstance actorInstance, ActorState actorState) {
+    public Optional<ActorState> mergeKeyframe(Integer time, ActorInstance actorInstance, ActorState actorState) {
         actorInstances.put(actorInstance.getUUID(), actorInstance);
         if (keyframes.containsKey(new ImmutablePair(actorInstance, time))) {
             Keyframe keyframe = keyframes.get(new ImmutablePair(time, actorInstance));
@@ -100,7 +101,7 @@ public class Play extends DomainObject {
         }
     }
 
-    public void unmergeActorState(Integer time, ActorInstance actorInstance, Optional<ActorState> oldState) {
+    public void unmergeKeyframe(Integer time, ActorInstance actorInstance, Optional<ActorState> oldState) {
         Keyframe keyframe = keyframes.get(new ImmutablePair(actorInstance, time));
         if (oldState.isPresent()) {
             keyframe.unmergeActorState(actorInstance, oldState.get());
@@ -133,5 +134,13 @@ public class Play extends DomainObject {
             }
         });
         return frame;
+    }
+
+    public int getDefinedLength() {
+        return definedLength;
+    }
+
+    public void setDefinedLength(Integer definedLength) {
+        this.definedLength = Math.max(definedLength, getLength());
     }
 }

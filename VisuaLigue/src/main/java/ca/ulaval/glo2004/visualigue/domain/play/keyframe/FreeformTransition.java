@@ -1,11 +1,11 @@
-package ca.ulaval.glo2004.visualigue.domain.play.transition;
+package ca.ulaval.glo2004.visualigue.domain.play.keyframe;
 
 import ca.ulaval.glo2004.visualigue.domain.play.position.Position;
 import ca.ulaval.glo2004.visualigue.utils.math.easing.EasingFunction;
 import java.util.ArrayList;
 import java.util.List;
 
-public class FreeformTransition implements Transition {
+public class FreeformTransition implements KeyframeTransition {
 
     List<Position> transitionPoints = new ArrayList();
 

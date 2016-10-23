@@ -32,12 +32,12 @@ public class BallCreationCommand implements Command {
         PlayerInstance playerInstance = (PlayerInstance) play.getActorInstance(ownerPlayerInstanceUUID);
         BallState ballState = new BallState(Optional.of(position), Optional.of(playerInstance));
         ballInstance = new BallInstance();
-        play.mergeActorState(time, ballInstance, ballState);
+        play.mergeKeyframe(time, ballInstance, ballState);
     }
 
     @Override
     public void revert() {
-        play.unmergeActorState(time, ballInstance, Optional.empty());
+        play.unmergeKeyframe(time, ballInstance, Optional.empty());
     }
 
 }

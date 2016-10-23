@@ -32,12 +32,12 @@ public class PlayerPositionUpdateDirectCommand implements Command {
     public void execute() {
         PlayerState playerState = new PlayerState(Optional.of(position), Optional.empty(), Optional.empty());
         playerInstance = (PlayerInstance) play.getActorInstance(ownerPlayerInstanceUUID);
-        oldPlayerState = play.mergeActorState(time, playerInstance, playerState);
+        oldPlayerState = play.mergeKeyframe(time, playerInstance, playerState);
     }
 
     @Override
     public void revert() {
-        play.unmergeActorState(time, playerInstance, oldPlayerState);
+        play.unmergeKeyframe(time, playerInstance, oldPlayerState);
     }
 
 }

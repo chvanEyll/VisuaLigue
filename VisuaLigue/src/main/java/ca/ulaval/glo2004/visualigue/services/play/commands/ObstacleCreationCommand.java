@@ -34,12 +34,12 @@ public class ObstacleCreationCommand implements Command {
         ObstacleState obstacleState = new ObstacleState(Optional.of(position));
         Obstacle obstacle = obstacleRepository.get(obstacleInstanceUUID);
         obstacleInstance = new ObstacleInstance(obstacle);
-        play.mergeActorState(time, obstacleInstance, obstacleState);
+        play.mergeKeyframe(time, obstacleInstance, obstacleState);
     }
 
     @Override
     public void revert() {
-        play.unmergeActorState(time, obstacleInstance, Optional.empty());
+        play.unmergeKeyframe(time, obstacleInstance, Optional.empty());
     }
 
 }

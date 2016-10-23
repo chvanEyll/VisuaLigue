@@ -13,10 +13,11 @@
 <?import javafx.scene.layout.Pane?>
 <?import javafx.scene.layout.StackPane?>
 <?import ca.ulaval.glo2004.visualigue.ui.customcontrols.SvgImage?>
+<?import ca.ulaval.glo2004.visualigue.ui.customcontrols.ExtendedScrollPane?>
 
-<HBox fx:id="rootNode" styleClass="root-node" xmlns="http://javafx.com/javafx/8.0.60" xmlns:fx="http://javafx.com/fxml/1">
+<HBox fx:id="rootNode" styleClass="root-node" xmlns="http://javafx.com/javafx/8.0.60" xmlns:fx="http://javafx.com/fxml/1" fx:controller="ca.ulaval.glo2004.visualigue.ui.controllers.playeditor.sequencecontrol.SeekBarController">
     <children>
-        <ScrollPane fitToHeight="true" fitToWidth="true" hbarPolicy="ALWAYS" pannable="true" style="-fx-background: transparent;" vbarPolicy="NEVER" HBox.hgrow="ALWAYS">
+        <ExtendedScrollPane fx:id="keyframeScrollPane" fitToHeight="true" fitToWidth="true" hbarPolicy="ALWAYS" pannable="true" style="-fx-background: transparent;" vbarPolicy="NEVER" HBox.hgrow="ALWAYS">
             <content>
                 <StackPane alignment="CENTER_LEFT">
                     <children>
@@ -29,7 +30,7 @@
 
                             </children>
                         </GridPane>
-                        <Button fx:id="seekBarThumb">
+                        <Button fx:id="seekBarThumb" onMousePressed="#onMousePressed" onMouseDragged="#onMouseDragged" onMouseReleased="#onMouseReleased">
                             <graphic>
                                 <SvgImage url="/images/seekbar-thumb.fxml" />
                             </graphic>
@@ -47,8 +48,8 @@
                 <String fx:value="edge-to-edge" />
                 <String fx:value="seekbar" />
             </styleClass>
-        </ScrollPane>
-        <Button fx:id="newFrameIcon">
+        </ExtendedScrollPane>
+        <Button fx:id="newFrameButton" onAction="#onNewFrameButtonAction">
             <graphic>
                 <SvgImage url="/images/new-frame-icon.fxml" />
             </graphic>

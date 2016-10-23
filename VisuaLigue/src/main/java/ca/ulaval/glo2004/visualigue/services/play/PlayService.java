@@ -3,8 +3,8 @@ package ca.ulaval.glo2004.visualigue.services.play;
 import ca.ulaval.glo2004.visualigue.domain.play.*;
 import ca.ulaval.glo2004.visualigue.domain.play.actorinstance.TeamSide;
 import ca.ulaval.glo2004.visualigue.domain.play.frame.Frame;
+import ca.ulaval.glo2004.visualigue.domain.play.keyframe.KeyframeTransition;
 import ca.ulaval.glo2004.visualigue.domain.play.position.Position;
-import ca.ulaval.glo2004.visualigue.domain.play.transition.Transition;
 import ca.ulaval.glo2004.visualigue.domain.sport.Sport;
 import ca.ulaval.glo2004.visualigue.domain.sport.SportNotFoundException;
 import ca.ulaval.glo2004.visualigue.domain.sport.SportRepository;
@@ -81,7 +81,7 @@ public class PlayService {
         executeNewCommand(playUUID, command);
     }
 
-    public void updatePlayerPositionFreeform(UUID playUUID, Integer time, UUID ownerPlayerInstanceUUID, Position position, Transition positionTransition) throws Exception {
+    public void updatePlayerPositionFreeform(UUID playUUID, Integer time, UUID ownerPlayerInstanceUUID, Position position, KeyframeTransition positionTransition) throws Exception {
         Play play = playRepository.get(playUUID);
         PlayerPositionUpdateFreeformCommand command = new PlayerPositionUpdateFreeformCommand(play, time, ownerPlayerInstanceUUID, position, positionTransition);
         executeNewCommand(playUUID, command);
@@ -128,9 +128,14 @@ public class PlayService {
         return play.getFrame(time);
     }
 
-    public Integer getPlayLength(UUID playUUID) throws PlayNotFoundException {
+    public Integer getDefinedPlayLength(UUID playUUID) throws PlayNotFoundException {
         Play play = playRepository.get(playUUID);
-        return play.getLength();
+        return play.getDefinedLength();
+    }
+
+    public void extendPlayLength(UUID playUUID) throws PlayNotFoundException {
+        Play play = playRepository.get(playUUID);
+        play.setDefinedLength(play.getDefinedLength() + 1);
     }
 
     public Boolean isUndoAvailable(UUID playUUID) throws PlayNotFoundException {

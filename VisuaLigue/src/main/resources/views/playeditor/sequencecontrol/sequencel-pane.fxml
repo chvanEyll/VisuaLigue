@@ -10,13 +10,17 @@
 <?import javafx.scene.layout.HBox?>
 <?import javafx.scene.layout.StackPane?>
 <?import javafx.scene.layout.VBox?>
+<?import javafx.scene.control.ContextMenu?>
+<?import javafx.scene.control.MenuItem?>
 <?import ca.ulaval.glo2004.visualigue.ui.customcontrols.SvgImage?>
+<?import ca.ulaval.glo2004.visualigue.ui.customcontrols.ExtendedButton?>
+<?import ca.ulaval.glo2004.visualigue.ui.customcontrols.ExtendedMenuItem?>
 
-<VBox fx:id="rootNode" styleClass="root-node, sequence-control-pane" BorderPane.alignment="CENTER" xmlns="http://javafx.com/javafx/8.0.60" xmlns:fx="http://javafx.com/fxml/1">
+<VBox fx:id="rootNode" styleClass="root-node, sequence-control-pane" BorderPane.alignment="CENTER" xmlns="http://javafx.com/javafx/8.0.60" xmlns:fx="http://javafx.com/fxml/1" fx:controller="ca.ulaval.glo2004.visualigue.ui.controllers.playeditor.sequencecontrol.SequencePaneController">
     <children>
         <HBox alignment="CENTER" styleClass="sequence-control-buttons">
             <children>
-                <Button fx:id="realTimeButton">
+                <ExtendedButton fx:id="realTimeButton" onAction="#onRealTimeButtonAction">
                     <graphic>
                         <SvgImage url="/images/real-time-icon.fxml" />
                     </graphic>
@@ -27,19 +31,31 @@
                         <String fx:value="icon-button" />
                         <String fx:value="control-button" />
                     </styleClass>
-                </Button>
-                <Button fx:id="fixedRewingButton">
+                </ExtendedButton>
+                <Button fx:id="fixedRewindButton">
                     <graphic>
                         <StackPane>
                             <children>
                                 <SvgImage url="/images/seekbar-fixed-rewind-icon.fxml" />
-                                <Label text="5" />
+                                <Label fx:id="fixedRewindPeriodLabel" text="0.5" />
                             </children>
                         </StackPane>
                     </graphic>
                     <tooltip>
-                        <Tooltip text="Image précédente" />
+                        <Tooltip text="Recul prédéfini" />
                     </tooltip>
+                    <contextMenu>
+                        <ContextMenu>
+                            <items>
+                                <ExtendedMenuItem text="10 secondes" onAction="#onChangeFixedRewindPeriodMenuItemAction" customData="10000"/>
+                                <ExtendedMenuItem text="5 secondes" onAction="#onChangeFixedRewindPeriodMenuItemAction" customData="5000"/>
+                                <ExtendedMenuItem text="3 secondes" onAction="#onChangeFixedRewindPeriodMenuItemAction" customData="3000"/>
+                                <ExtendedMenuItem text="2 secondes" onAction="#onChangeFixedRewindPeriodMenuItemAction" customData="2000"/>
+                                <ExtendedMenuItem text="1 seconde" onAction="#onChangeFixedRewindPeriodMenuItemAction" customData="1000"/>
+                                <ExtendedMenuItem text="0.5 secondes" onAction="#onChangeFixedRewindPeriodMenuItemAction" customData="500"/>
+                            </items>
+                        </ContextMenu>
+                    </contextMenu>
                     <styleClass>
                         <String fx:value="borderless" />
                         <String fx:value="medium" />
@@ -47,7 +63,7 @@
                         <String fx:value="fixed-rewind-button" />
                     </styleClass>
                 </Button>
-                <Button fx:id="previousFrameButton">
+                <Button fx:id="previousKeyPointButton" onAction="#onPreviousKeyPointButtonAction">
                     <graphic>
                         <SvgImage url="/images/seekbar-previous-icon.fxml" />
                     </graphic>
@@ -60,7 +76,7 @@
                         <String fx:value="control-button" />
                     </styleClass>
                 </Button>
-                <Button fx:id="rewingButton">
+                <Button fx:id="rewindButton" onAction="#onRewindButtonAction">
                     <graphic>
                         <SvgImage url="/images/seekbar-rewind-icon.fxml" />
                     </graphic>
@@ -73,7 +89,7 @@
                         <String fx:value="control-button" />
                     </styleClass>
                 </Button>
-                <Button fx:id="playButton">
+                <Button fx:id="playButton" onAction="#onPlayButtonAction">
                     <graphic>
                         <SvgImage url="/images/seekbar-play-icon.fxml" />
                     </graphic>
@@ -89,7 +105,7 @@
                         <Insets left="4.0" right="4.0" />
                     </HBox.margin>
                 </Button>
-                <Button fx:id="pauseButton">
+                <Button fx:id="pauseButton" onAction="#onPauseButtonAction">
                     <graphic>
                         <SvgImage url="/images/seekbar-pause-icon.fxml" />
                     </graphic>
@@ -105,7 +121,7 @@
                         <Insets left="4.0" right="4.0" />
                     </HBox.margin>
                 </Button>
-                <Button fx:id="fastForwardButton">
+                <Button fx:id="fastForwardButton" onAction="#onFastForwardButtonAction">
                     <graphic>
                         <SvgImage url="/images/seekbar-fast-forward-icon.fxml" />
                     </graphic>
@@ -118,7 +134,7 @@
                         <String fx:value="control-button" />
                     </styleClass>
                 </Button>
-                <Button fx:id="nextFrameButton">
+                <Button fx:id="nextKeyPointButton" onAction="#onNextKeyPointButtonAction">
                     <graphic>
                         <SvgImage url="/images/seekbar-next-icon.fxml" />
                     </graphic>
@@ -131,18 +147,30 @@
                         <String fx:value="control-button" />
                     </styleClass>
                 </Button>
-                <Button fx:id="fixedForwardButton">
+                <Button fx:id="fixedForwardButton" onAction="#onFixedForwardButtonAction">
                     <graphic>
                         <StackPane>
                             <children>
                                 <SvgImage url="/images/seekbar-fixed-forward-icon.fxml" />
-                                <Label text="5" />
+                                <Label fx:id="fixedForwardPeriodLabel" text="0.5" />
                             </children>
                         </StackPane>
                     </graphic>
                     <tooltip>
-                        <Tooltip text="Image suivante" />
+                        <Tooltip text="Avancement prédéfini" />
                     </tooltip>
+                    <contextMenu>
+                        <ContextMenu>
+                            <items>
+                                <ExtendedMenuItem text="10 secondes" onAction="#onChangeFixedForwardPeriodMenuItemAction" customData="10000"/>
+                                <ExtendedMenuItem text="5 secondes" onAction="#onChangeFixedForwardPeriodMenuItemAction" customData="5000"/>
+                                <ExtendedMenuItem text="3 secondes" onAction="#onChangeFixedForwardPeriodMenuItemAction" customData="3000"/>
+                                <ExtendedMenuItem text="2 secondes" onAction="#onChangeFixedForwardPeriodMenuItemAction" customData="2000"/>
+                                <ExtendedMenuItem text="1 seconde" onAction="#onChangeFixedForwardPeriodMenuItemAction" customData="1000"/>
+                                <ExtendedMenuItem text="0.5 secondes" onAction="#onChangeFixedForwardPeriodMenuItemAction" customData="500"/>
+                            </items>
+                        </ContextMenu>
+                    </contextMenu>
                     <styleClass>
                         <String fx:value="borderless" />
                         <String fx:value="medium" />

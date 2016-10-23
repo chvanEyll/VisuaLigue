@@ -39,12 +39,12 @@ public class PlayerCreationCommand implements Command {
         PlayerState playerState = new PlayerState(Optional.of(position), Optional.empty(), Optional.of(orientation));
         PlayerCategory playerCategory = playerCategoryRepository.get(playerCategoryUUID);
         playerInstance = new PlayerInstance(playerCategory, teamSide);
-        play.mergeActorState(time, playerInstance, playerState);
+        play.mergeKeyframe(time, playerInstance, playerState);
     }
 
     @Override
     public void revert() {
-        play.unmergeActorState(time, playerInstance, Optional.empty());
+        play.unmergeKeyframe(time, playerInstance, Optional.empty());
     }
 
 }

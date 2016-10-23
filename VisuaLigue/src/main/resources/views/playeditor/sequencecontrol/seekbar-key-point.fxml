@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import java.lang.String?>
+<?import java.net.URL?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.layout.StackPane?>
+<?import ca.ulaval.glo2004.visualigue.ui.customcontrols.SvgImage?>
+
+<StackPane fx:id="rootNode" styleClass="root-node, seekbar-key-point" onMouseClicked="#onMouseClicked" xmlns="http://javafx.com/javafx/8.0.60" xmlns:fx="http://javafx.com/fxml/1" fx:controller="ca.ulaval.glo2004.visualigue.ui.controllers.playeditor.sequencecontrol.SeekBarKeyPointController">
+    <children>
+        <SvgImage url="/images/seekbar-key-point.fxml" />
+        <Label fx:id="indexLabel" text="1" />
+    </children>
+</StackPane>
