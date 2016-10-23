@@ -56,11 +56,7 @@ public class PlayEditorController extends ControllerBase {
     }
 
     private void onPlayTitleChanged(final ObservableValue<? extends String> ov, final String oldValue, final String newValue) {
-        try {
-            playService.updatePlayTitle(playModel.getUUID(), playModel.title.get());
-        } catch (PlayNotFoundException ex) {
-            throw new RuntimeException(ex);
-        }
+        playService.updatePlayTitle(playModel.getUUID(), playModel.title.get());
     }
 
     private void onSaveToolbarButtonAction(Object sender, Object eventArgs) {
@@ -68,11 +64,7 @@ public class PlayEditorController extends ControllerBase {
     }
 
     private void savePlay() {
-        try {
-            playService.savePlay(playModel.getUUID());
-        } catch (PlayNotFoundException ex) {
-            throw new RuntimeException(ex);
-        }
+        playService.savePlay(playModel.getUUID());
     }
 
     private void onCloseToolbarButtonAction(Object sender, Object eventArgs) {
@@ -80,11 +72,7 @@ public class PlayEditorController extends ControllerBase {
     }
 
     private void discardChanges() {
-        try {
-            playService.discardChanges(playModel.getUUID());
-        } catch (PlayNotFoundException ex) {
-            throw new RuntimeException();
-        }
+        playService.discardChanges(playModel.getUUID());
     }
 
     private void onExportToolbarButtonAction(Object sender, Object eventArgs) {
@@ -92,20 +80,12 @@ public class PlayEditorController extends ControllerBase {
     }
 
     private void onUndoToolbarButtonAction(Object sender, Object eventArgs) {
-        try {
-            playService.undo(playModel.getUUID());
-        } catch (PlayNotFoundException ex) {
-            throw new RuntimeException();
-        }
+        playService.undo(playModel.getUUID());
         sceneController.undo();
     }
 
     private void onRedoToolbarButtonAction(Object sender, Object eventArgs) {
-        try {
-            playService.redo(playModel.getUUID());
-        } catch (PlayNotFoundException ex) {
-            throw new RuntimeException();
-        }
+        playService.redo(playModel.getUUID());
         sceneController.redo();
     }
 

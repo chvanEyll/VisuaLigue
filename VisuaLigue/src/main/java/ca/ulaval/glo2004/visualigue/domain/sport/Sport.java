@@ -4,15 +4,19 @@ import ca.ulaval.glo2004.visualigue.domain.DomainObject;
 import ca.ulaval.glo2004.visualigue.domain.sport.ball.Ball;
 import ca.ulaval.glo2004.visualigue.domain.sport.playercategory.PlayerCategory;
 import ca.ulaval.glo2004.visualigue.domain.sport.playingsurface.PlayingSurface;
-import java.util.Map;
+import ca.ulaval.glo2004.visualigue.domain.xmladapters.XmlSportAdapter;
+import java.util.HashSet;
+import java.util.Set;
 import java.util.UUID;
-import java.util.concurrent.ConcurrentHashMap;
 import javax.xml.bind.annotation.XmlAccessType;
 import javax.xml.bind.annotation.XmlAccessorType;
 import javax.xml.bind.annotation.XmlRootElement;
+import javax.xml.bind.annotation.XmlTransient;
+import javax.xml.bind.annotation.adapters.XmlJavaTypeAdapter;
 
 @XmlRootElement(name = "sport")
 @XmlAccessorType(XmlAccessType.FIELD)
+@XmlJavaTypeAdapter(XmlSportAdapter.class)
 public class Sport extends DomainObject {
 
     private String name;
@@ -21,7 +25,9 @@ public class Sport extends DomainObject {
     private String builtInIconPathName = "/images/built-in-sport-icons/generic-icon.png";
     private Ball ball = new Ball();
     private PlayingSurface playingSurface = new PlayingSurface();
-    private Map<UUID, PlayerCategory> playerCategories = new ConcurrentHashMap();
+    private Set<UUID> playerCategoryUUIDs = new HashSet();
+    @XmlTransient
+    private Set<PlayerCategory> playerCategories = new HashSet();
 
     public Sport() {
         //Required for JAXB instanciation.
@@ -83,24 +89,27 @@ public class Sport extends DomainObject {
         this.playingSurface = playingSurface;
     }
 
-    public Map<UUID, PlayerCategory> getPlayerCategories() {
+    public void setPlayerCategoryUUIDs(Set<UUID> playerCategoryUUIDs) {
+        this.playerCategoryUUIDs = playerCategoryUUIDs;
+    }
+
+    public Set<PlayerCategory> getPlayerCategories() {
         return playerCategories;
     }
 
+    public void setPlayerCategories(Set<PlayerCategory> playerCategories) {
+        this.playerCategories = playerCategories;
+    }
+
     public void addPlayerCategory(PlayerCategory playerCategory) {
-        playerCategories.put(playerCategory.getUUID(), playerCategory);
+        playerCategories.add(playerCategory);
     }
 
-    public void removeCategory(UUID playerCategoryUUID) {
-        playerCategories.remove(playerCategoryUUID);
+    public void removeCategory(PlayerCategory playerCategory) {
+        playerCategories.remove(playerCategory);
     }
 
-    public PlayerCategory getPlayerCategory(UUID playerCategoryUUID) {
-        return playerCategories.get(playerCategoryUUID);
-    }
-
-    @Override
-    public int hashCode() {
-        return this.uuid.hashCode();
+    public Set<UUID> getPlayerCategoryUUIDs() {
+        return playerCategoryUUIDs;
     }
 }

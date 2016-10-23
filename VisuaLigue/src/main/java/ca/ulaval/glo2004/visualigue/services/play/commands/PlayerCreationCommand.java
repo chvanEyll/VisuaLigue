@@ -6,6 +6,8 @@ import ca.ulaval.glo2004.visualigue.domain.play.actorinstance.PlayerInstance;
 import ca.ulaval.glo2004.visualigue.domain.play.actorinstance.TeamSide;
 import ca.ulaval.glo2004.visualigue.domain.play.actorstate.PlayerState;
 import ca.ulaval.glo2004.visualigue.domain.play.position.Position;
+import ca.ulaval.glo2004.visualigue.domain.sport.playercategory.PlayerCategory;
+import ca.ulaval.glo2004.visualigue.domain.sport.playercategory.PlayerCategoryRepository;
 import java.util.Optional;
 import java.util.UUID;
 import javax.inject.Inject;
@@ -19,6 +21,7 @@ public class PlayerCreationCommand implements Command {
     private Double orientation;
     private Position position;
     @Inject private PlayRepository playRepository;
+    @Inject private PlayerCategoryRepository playerCategoryRepository;
 
     private PlayerInstance playerInstance;
 
@@ -34,7 +37,8 @@ public class PlayerCreationCommand implements Command {
     @Override
     public void execute() {
         PlayerState playerState = new PlayerState(Optional.of(position), Optional.empty(), Optional.of(orientation));
-        playerInstance = new PlayerInstance(play.getSport().getPlayerCategory(playerCategoryUUID), teamSide);
+        PlayerCategory playerCategory = playerCategoryRepository.get(playerCategoryUUID);
+        playerInstance = new PlayerInstance(playerCategory, teamSide);
         play.mergeActorState(time, playerInstance, playerState);
     }
 

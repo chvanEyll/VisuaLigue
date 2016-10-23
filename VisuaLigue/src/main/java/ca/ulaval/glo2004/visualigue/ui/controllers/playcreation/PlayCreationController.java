@@ -1,9 +1,6 @@
 package ca.ulaval.glo2004.visualigue.ui.controllers.playcreation;
 
 import ca.ulaval.glo2004.visualigue.domain.play.Play;
-import ca.ulaval.glo2004.visualigue.domain.play.PlayAlreadyExistsException;
-import ca.ulaval.glo2004.visualigue.domain.play.PlayNotFoundException;
-import ca.ulaval.glo2004.visualigue.domain.sport.SportNotFoundException;
 import ca.ulaval.glo2004.visualigue.services.play.PlayService;
 import ca.ulaval.glo2004.visualigue.ui.InjectableFXMLLoader;
 import ca.ulaval.glo2004.visualigue.ui.View;
@@ -40,15 +37,11 @@ public class PlayCreationController extends ControllerBase {
     }
 
     private void onSportSelectedEvent(Object sender, SportListItemModel sportListItemModel) {
-        try {
-            UUID playUUID = playService.createPlay("Nouveau jeu", sportListItemModel.getUUID());
-            Play play = playService.getPlay(playUUID);
-            View view = InjectableFXMLLoader.loadView(PlayEditorController.VIEW_NAME);
-            PlayEditorController controller = (PlayEditorController) view.getController();
-            controller.init(playModelConverter.convert(play));
-            onViewChangeRequested.fire(this, view);
-        } catch (PlayAlreadyExistsException | SportNotFoundException | PlayNotFoundException ex) {
-            throw new RuntimeException(ex);
-        }
+        UUID playUUID = playService.createPlay("Nouveau jeu", sportListItemModel.getUUID());
+        Play play = playService.getPlay(playUUID);
+        View view = InjectableFXMLLoader.loadView(PlayEditorController.VIEW_NAME);
+        PlayEditorController controller = (PlayEditorController) view.getController();
+        controller.init(playModelConverter.convert(play));
+        onViewChangeRequested.fire(this, view);
     }
 }

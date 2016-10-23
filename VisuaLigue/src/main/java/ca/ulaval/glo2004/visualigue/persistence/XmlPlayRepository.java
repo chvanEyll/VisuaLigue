@@ -79,11 +79,7 @@ public class XmlPlayRepository implements PlayRepository {
     @Override
     public void clear() {
         plays.values().stream().collect(Collectors.toList()).forEach(uuid -> {
-            try {
-                delete(uuid);
-            } catch (PlayNotFoundException ex) {
-                throw new RuntimeException(ex);
-            }
+            delete(uuid);
         });
     }
 

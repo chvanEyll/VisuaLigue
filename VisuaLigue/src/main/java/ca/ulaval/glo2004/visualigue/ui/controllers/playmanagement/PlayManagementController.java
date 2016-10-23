@@ -1,6 +1,5 @@
 package ca.ulaval.glo2004.visualigue.ui.controllers.playmanagement;
 
-import ca.ulaval.glo2004.visualigue.domain.play.PlayNotFoundException;
 import ca.ulaval.glo2004.visualigue.ui.InjectableFXMLLoader;
 import ca.ulaval.glo2004.visualigue.ui.View;
 import ca.ulaval.glo2004.visualigue.ui.controllers.ControllerBase;
@@ -32,11 +31,7 @@ public class PlayManagementController extends ControllerBase {
     private void onPlaySelectedEvent(Object sender, PlayModel playModel) {
         View view = InjectableFXMLLoader.loadView(PlayEditorController.VIEW_NAME);
         PlayEditorController controller = (PlayEditorController) view.getController();
-        try {
-            controller.init(playModel);
-        } catch (PlayNotFoundException ex) {
-            throw new RuntimeException(ex);
-        }
+        controller.init(playModel);
         onViewChangeRequested.fire(this, view);
     }
 }

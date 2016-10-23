@@ -1,14 +1,17 @@
 package ca.ulaval.glo2004.visualigue.domain.play.actorinstance;
 
 import ca.ulaval.glo2004.visualigue.domain.obstacle.Obstacle;
+import ca.ulaval.glo2004.visualigue.domain.xmladapters.XmlObstacleInstanceAdapter;
 import java.util.UUID;
 import javax.xml.bind.annotation.XmlAccessType;
 import javax.xml.bind.annotation.XmlAccessorType;
 import javax.xml.bind.annotation.XmlRootElement;
 import javax.xml.bind.annotation.XmlTransient;
+import javax.xml.bind.annotation.adapters.XmlJavaTypeAdapter;
 
 @XmlRootElement(name = "obstacleinstance")
 @XmlAccessorType(XmlAccessType.FIELD)
+@XmlJavaTypeAdapter(XmlObstacleInstanceAdapter.class)
 public class ObstacleInstance extends ActorInstance {
 
     private UUID obstacleUUID;

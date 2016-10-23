@@ -29,7 +29,7 @@
 
                             </children>
                         </GridPane>
-                        <Button>
+                        <Button fx:id="seekBarThumb">
                             <graphic>
                                 <SvgImage url="/images/seekbar-thumb.fxml" />
                             </graphic>
@@ -48,7 +48,7 @@
                 <String fx:value="seekbar" />
             </styleClass>
         </ScrollPane>
-        <Button>
+        <Button fx:id="newFrameIcon">
             <graphic>
                 <SvgImage url="/images/new-frame-icon.fxml" />
             </graphic>

@@ -1,7 +1,6 @@
 package ca.ulaval.glo2004.visualigue.ui.controllers.playeditor.itempane;
 
 import ca.ulaval.glo2004.visualigue.domain.obstacle.Obstacle;
-import ca.ulaval.glo2004.visualigue.domain.sport.SportNotFoundException;
 import ca.ulaval.glo2004.visualigue.domain.sport.ball.Ball;
 import ca.ulaval.glo2004.visualigue.services.obstacle.ObstacleService;
 import ca.ulaval.glo2004.visualigue.services.sport.SportService;
@@ -55,12 +54,8 @@ public class ObjectListController extends ControllerBase {
     }
 
     private void fillBallList() {
-        try {
-            Ball ball = sportService.getSport(playModel.sportUUID.get()).getBall();
-            initObjectItem(ballModelConverter.convert(ball));
-        } catch (SportNotFoundException ex) {
-            throw new RuntimeException(ex);
-        }
+        Ball ball = sportService.getSport(playModel.sportUUID.get()).getBall();
+        initObjectItem(ballModelConverter.convert(ball));
     }
 
     private void fillObstacleList() {

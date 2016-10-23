@@ -2,10 +2,8 @@ package ca.ulaval.glo2004.visualigue.ui.customcontrols;
 
 import ca.ulaval.glo2004.visualigue.ui.InjectableFXMLLoader;
 import ca.ulaval.glo2004.visualigue.utils.EventHandler;
-import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
-import javafx.fxml.FXMLLoader;
 import javafx.scene.layout.HBox;
 
 public class Breadcrumb extends HBox {
@@ -15,12 +13,7 @@ public class Breadcrumb extends HBox {
     public EventHandler<Integer> onItemClicked = new EventHandler();
 
     public Breadcrumb() {
-        try {
-            FXMLLoader fxmlLoader = InjectableFXMLLoader.createLoader(VIEW_NAME, this, this);
-            fxmlLoader.load();
-        } catch (IOException ex) {
-            throw new RuntimeException(ex);
-        }
+        InjectableFXMLLoader.loadView(VIEW_NAME, this, this);
     }
 
     public void addItem(String title) {

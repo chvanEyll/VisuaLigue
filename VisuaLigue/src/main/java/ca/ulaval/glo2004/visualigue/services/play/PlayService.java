@@ -1,10 +1,8 @@
 package ca.ulaval.glo2004.visualigue.services.play;
 
 import ca.ulaval.glo2004.visualigue.domain.play.*;
-import ca.ulaval.glo2004.visualigue.domain.play.actorinstance.ActorInstance;
 import ca.ulaval.glo2004.visualigue.domain.play.actorinstance.TeamSide;
 import ca.ulaval.glo2004.visualigue.domain.play.frame.Frame;
-import ca.ulaval.glo2004.visualigue.domain.play.keyframe.Keyframe;
 import ca.ulaval.glo2004.visualigue.domain.play.position.Position;
 import ca.ulaval.glo2004.visualigue.domain.play.transition.Transition;
 import ca.ulaval.glo2004.visualigue.domain.sport.Sport;
@@ -17,7 +15,6 @@ import java.util.function.Function;
 import javax.inject.Inject;
 import javax.inject.Singleton;
 import javax.swing.SortOrder;
-import org.apache.commons.lang3.tuple.Pair;
 
 @Singleton
 public class PlayService {
@@ -116,11 +113,7 @@ public class PlayService {
 
     public void savePlay(UUID playUUID) throws PlayNotFoundException {
         Play play = playRepository.get(playUUID);
-        try {
-            playRepository.persist(play);
-        } catch (PlayAlreadyExistsException ex) {
-            throw new RuntimeException(ex);
-        }
+        playRepository.persist(play);
         setDirty(playUUID, false);
     }
 
@@ -135,9 +128,9 @@ public class PlayService {
         return play.getFrame(time);
     }
 
-    public SortedMap<Pair<ActorInstance, Integer>, Keyframe> getKeyframes(UUID playUUID) throws PlayNotFoundException {
+    public Integer getPlayLength(UUID playUUID) throws PlayNotFoundException {
         Play play = playRepository.get(playUUID);
-        return play.getKeyframes();
+        return play.getLength();
     }
 
     public Boolean isUndoAvailable(UUID playUUID) throws PlayNotFoundException {
@@ -173,16 +166,12 @@ public class PlayService {
         }
         Command nextCommand = redoStackMap.get(playUUID).pop();
         undoStackMap.get(playUUID).push(nextCommand);
-        try {
-            nextCommand.execute();
-        } catch (Exception ex) {
-            throw new RuntimeException(ex);
-        }
+        nextCommand.execute();
         setDirty(playUUID, true);
         onRedoAvailabilityChanged.fire(this, isRedoAvailable(playUUID));
     }
 
-    private void executeNewCommand(UUID playUUID, Command command) throws Exception {
+    private void executeNewCommand(UUID playUUID, Command command) {
         command.execute();
         setDirty(playUUID, true);
         if (!undoStackMap.containsKey(playUUID)) {

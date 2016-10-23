@@ -1,7 +1,10 @@
 package ca.ulaval.glo2004.visualigue.services.obstacle;
 
 import ca.ulaval.glo2004.visualigue.domain.image.ImageRepository;
-import ca.ulaval.glo2004.visualigue.domain.obstacle.*;
+import ca.ulaval.glo2004.visualigue.domain.obstacle.Obstacle;
+import ca.ulaval.glo2004.visualigue.domain.obstacle.ObstacleFactory;
+import ca.ulaval.glo2004.visualigue.domain.obstacle.ObstacleNotFoundException;
+import ca.ulaval.glo2004.visualigue.domain.obstacle.ObstacleRepository;
 import ca.ulaval.glo2004.visualigue.utils.EventHandler;
 import java.util.List;
 import java.util.UUID;
@@ -30,11 +33,7 @@ public class ObstacleService {
 
     public UUID createObstacle(String name) {
         Obstacle obstacle = obstacleFactory.create(name);
-        try {
-            obstacleRepository.persist(obstacle);
-        } catch (ObstacleAlreadyExistsException ex) {
-            throw new RuntimeException(ex);
-        }
+        obstacleRepository.persist(obstacle);
         onObstacleCreated.fire(this, obstacle);
         return obstacle.getUUID();
     }

@@ -1,6 +1,5 @@
 package ca.ulaval.glo2004.visualigue.ui.controllers.obstaclemanagement;
 
-import ca.ulaval.glo2004.visualigue.domain.obstacle.ObstacleNotFoundException;
 import ca.ulaval.glo2004.visualigue.services.obstacle.ObstacleService;
 import ca.ulaval.glo2004.visualigue.ui.controllers.common.EditableListController;
 import ca.ulaval.glo2004.visualigue.ui.controllers.common.ListItemController;
@@ -21,11 +20,7 @@ public class ObstacleListController extends EditableListController {
 
     @Override
     protected void deleteItem(ListItemController listItemController, ModelBase model) {
-        try {
-            obstacleService.deleteObstacle(model.getUUID());
-        } catch (ObstacleNotFoundException ex) {
-            throw new RuntimeException(ex);
-        }
+        obstacleService.deleteObstacle(model.getUUID());
         super.deleteItem(listItemController, model);
     }
 

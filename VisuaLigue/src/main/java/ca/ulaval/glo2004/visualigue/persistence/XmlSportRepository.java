@@ -82,11 +82,7 @@ public class XmlSportRepository implements SportRepository {
     @Override
     public void clear() {
         sports.values().stream().collect(Collectors.toList()).forEach(uuid -> {
-            try {
-                delete(uuid);
-            } catch (SportNotFoundException ex) {
-                throw new RuntimeException(ex);
-            }
+            delete(uuid);
         });
     }
 

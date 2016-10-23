@@ -15,6 +15,7 @@ import ca.ulaval.glo2004.visualigue.domain.sport.SportFactory;
 import ca.ulaval.glo2004.visualigue.domain.sport.SportRepository;
 import ca.ulaval.glo2004.visualigue.domain.sport.ball.Ball;
 import ca.ulaval.glo2004.visualigue.domain.sport.playercategory.PlayerCategory;
+import ca.ulaval.glo2004.visualigue.domain.sport.playercategory.PlayerCategoryRepository;
 import ca.ulaval.glo2004.visualigue.domain.sport.playingsurface.PlayingSurface;
 import ca.ulaval.glo2004.visualigue.domain.sport.playingsurface.PlayingSurfaceUnit;
 import java.util.ArrayList;
@@ -30,9 +31,9 @@ public class DefaultContext extends ContextBase {
     private final List<Sport> sportPool = new ArrayList();
 
     @Inject
-    public DefaultContext(final SportFactory sportFactory, final SportRepository sportRepository, final ImageRepository imageRepository, final ObstacleFactory obstacleFactory,
+    public DefaultContext(final SportFactory sportFactory, final SportRepository sportRepository, final PlayerCategoryRepository playerCategoryRepository, final ImageRepository imageRepository, final ObstacleFactory obstacleFactory,
             final ObstacleRepository obstacleRepository, final PlayRepository playRepository, final PlayFactory playFactory) {
-        super(sportRepository, imageRepository, obstacleRepository, playRepository);
+        super(sportRepository, playerCategoryRepository, imageRepository, obstacleRepository, playRepository);
         this.sportFactory = sportFactory;
         this.obstacleFactory = obstacleFactory;
         this.playFactory = playFactory;
@@ -47,13 +48,6 @@ public class DefaultContext extends ContextBase {
             return;
         }
         fill();
-    }
-
-    private void clearRepositories() {
-        playRepository.clear();
-        sportRepository.clear();
-        obstacleRepository.clear();
-        imageRepository.clear();
     }
 
     private void fill() throws Exception {
@@ -79,13 +73,18 @@ public class DefaultContext extends ContextBase {
         PlayingSurface playingSurface = new PlayingSurface(200.0, PlayingSurfaceUnit.FOOTS, 85.0, PlayingSurfaceUnit.FOOTS);
         playingSurface.setBuiltInImagePathName("/images/built-in-playing-surfaces/hockey.png");
         sport.setPlayingSurface(playingSurface);
-        sport.addPlayerCategory(new PlayerCategory("Gardien", "G", Color.web("#E6994D"), Color.web("#E6994D"), 1));
-        sport.addPlayerCategory(new PlayerCategory("Défenseur", "D", Color.web("#001A80"), Color.web("#990000"), 2));
-        sport.addPlayerCategory(new PlayerCategory("Attaquant", "A", Color.web("#001A80"), Color.web("#990000"), 2));
-        sport.addPlayerCategory(new PlayerCategory("Ailier Gauche", "AG", Color.web("#001A80"), Color.web("#990000"), 1));
-        sport.addPlayerCategory(new PlayerCategory("Ailier Droit", "AD", Color.web("#001A80"), Color.web("#990000"), 1));
-        sport.addPlayerCategory(new PlayerCategory("Centre", "C", Color.web("#001A80"), Color.web("#990000"), 1));
+        addPlayerCategory(sport, new PlayerCategory("Gardien", "G", Color.web("#E6994D"), Color.web("#E6994D"), 1));
+        addPlayerCategory(sport, new PlayerCategory("Défenseur", "D", Color.web("#001A80"), Color.web("#990000"), 2));
+        addPlayerCategory(sport, new PlayerCategory("Attaquant", "A", Color.web("#001A80"), Color.web("#990000"), 2));
+        addPlayerCategory(sport, new PlayerCategory("Ailier Gauche", "AG", Color.web("#001A80"), Color.web("#990000"), 1));
+        addPlayerCategory(sport, new PlayerCategory("Ailier Droit", "AD", Color.web("#001A80"), Color.web("#990000"), 1));
+        addPlayerCategory(sport, new PlayerCategory("Centre", "C", Color.web("#001A80"), Color.web("#990000"), 1));
         return sport;
+    }
+
+    private void addPlayerCategory(Sport sport, PlayerCategory playerCategory) {
+        playerCategoryRepository.persist(playerCategory);
+        sport.addPlayerCategory(playerCategory);
     }
 
     private Sport createSoccerSport() throws Exception {
@@ -98,25 +97,25 @@ public class DefaultContext extends ContextBase {
         PlayingSurface playingSurface = new PlayingSurface(68.0, PlayingSurfaceUnit.METER, 100.0, PlayingSurfaceUnit.METER);
         playingSurface.setBuiltInImagePathName("/images/built-in-playing-surfaces/soccer.jpg");
         sport.setPlayingSurface(playingSurface);
-        sport.addPlayerCategory(new PlayerCategory("Gardien", "G", Color.web("#E6994D"), Color.web("#E6994D"), 1));
-        sport.addPlayerCategory(new PlayerCategory("Défenseur", "D", Color.web("#001A80"), Color.web("#990000"), 1));
-        sport.addPlayerCategory(new PlayerCategory("Défenseur Droit", "DD", Color.web("#001A80"), Color.web("#990000"), 1));
-        sport.addPlayerCategory(new PlayerCategory("Défenseur Gauche", "DG", Color.web("#001A80"), Color.web("#990000"), 1));
-        sport.addPlayerCategory(new PlayerCategory("Défenseur Central", "DC", Color.web("#001A80"), Color.web("#990000"), 1));
-        sport.addPlayerCategory(new PlayerCategory("Milieu", "M", Color.web("#001A80"), Color.web("#990000"), 1));
-        sport.addPlayerCategory(new PlayerCategory("Milieu Défensif Gauche", "MDG", Color.web("#001A80"), Color.web("#990000"), 1));
-        sport.addPlayerCategory(new PlayerCategory("Milieu Défensif Droit", "MDD", Color.web("#001A80"), Color.web("#990000"), 1));
-        sport.addPlayerCategory(new PlayerCategory("Milieu Défensif Central", "MDC", Color.web("#001A80"), Color.web("#990000"), 0));
-        sport.addPlayerCategory(new PlayerCategory("Milieu Gauche", "MG", Color.web("#001A80"), Color.web("#990000"), 0));
-        sport.addPlayerCategory(new PlayerCategory("Milieu Droit", "MD", Color.web("#001A80"), Color.web("#990000"), 0));
-        sport.addPlayerCategory(new PlayerCategory("Milieu Central", "MC", Color.web("#001A80"), Color.web("#990000"), 1));
-        sport.addPlayerCategory(new PlayerCategory("Milieu Offensif Gauche", "MOG", Color.web("#001A80"), Color.web("#990000"), 1));
-        sport.addPlayerCategory(new PlayerCategory("Milieu Offensif Droit", "MOD", Color.web("#001A80"), Color.web("#990000"), 1));
-        sport.addPlayerCategory(new PlayerCategory("Milieu Offensif Axial", "MOA", Color.web("#001A80"), Color.web("#990000"), 0));
-        sport.addPlayerCategory(new PlayerCategory("Attaquant", "A", Color.web("#001A80"), Color.web("#990000"), 1));
-        sport.addPlayerCategory(new PlayerCategory("Attaquant Gauche", "AG", Color.web("#001A80"), Color.web("#990000"), 1));
-        sport.addPlayerCategory(new PlayerCategory("Attaquant Droit", "AD", Color.web("#001A80"), Color.web("#990000"), 1));
-        sport.addPlayerCategory(new PlayerCategory("Attaquant Axial", "AA", Color.web("#001A80"), Color.web("#990000"), 1));
+        addPlayerCategory(sport, new PlayerCategory("Gardien", "G", Color.web("#E6994D"), Color.web("#E6994D"), 1));
+        addPlayerCategory(sport, new PlayerCategory("Défenseur", "D", Color.web("#001A80"), Color.web("#990000"), 1));
+        addPlayerCategory(sport, new PlayerCategory("Défenseur Droit", "DD", Color.web("#001A80"), Color.web("#990000"), 1));
+        addPlayerCategory(sport, new PlayerCategory("Défenseur Gauche", "DG", Color.web("#001A80"), Color.web("#990000"), 1));
+        addPlayerCategory(sport, new PlayerCategory("Défenseur Central", "DC", Color.web("#001A80"), Color.web("#990000"), 1));
+        addPlayerCategory(sport, new PlayerCategory("Milieu", "M", Color.web("#001A80"), Color.web("#990000"), 1));
+        addPlayerCategory(sport, new PlayerCategory("Milieu Défensif Gauche", "MDG", Color.web("#001A80"), Color.web("#990000"), 1));
+        addPlayerCategory(sport, new PlayerCategory("Milieu Défensif Droit", "MDD", Color.web("#001A80"), Color.web("#990000"), 1));
+        addPlayerCategory(sport, new PlayerCategory("Milieu Défensif Central", "MDC", Color.web("#001A80"), Color.web("#990000"), 0));
+        addPlayerCategory(sport, new PlayerCategory("Milieu Gauche", "MG", Color.web("#001A80"), Color.web("#990000"), 0));
+        addPlayerCategory(sport, new PlayerCategory("Milieu Droit", "MD", Color.web("#001A80"), Color.web("#990000"), 0));
+        addPlayerCategory(sport, new PlayerCategory("Milieu Central", "MC", Color.web("#001A80"), Color.web("#990000"), 1));
+        addPlayerCategory(sport, new PlayerCategory("Milieu Offensif Gauche", "MOG", Color.web("#001A80"), Color.web("#990000"), 1));
+        addPlayerCategory(sport, new PlayerCategory("Milieu Offensif Droit", "MOD", Color.web("#001A80"), Color.web("#990000"), 1));
+        addPlayerCategory(sport, new PlayerCategory("Milieu Offensif Axial", "MOA", Color.web("#001A80"), Color.web("#990000"), 0));
+        addPlayerCategory(sport, new PlayerCategory("Attaquant", "A", Color.web("#001A80"), Color.web("#990000"), 1));
+        addPlayerCategory(sport, new PlayerCategory("Attaquant Gauche", "AG", Color.web("#001A80"), Color.web("#990000"), 1));
+        addPlayerCategory(sport, new PlayerCategory("Attaquant Droit", "AD", Color.web("#001A80"), Color.web("#990000"), 1));
+        addPlayerCategory(sport, new PlayerCategory("Attaquant Axial", "AA", Color.web("#001A80"), Color.web("#990000"), 1));
         return sport;
     }
 
@@ -130,21 +129,21 @@ public class DefaultContext extends ContextBase {
         PlayingSurface playingSurface = new PlayingSurface(160.0, PlayingSurfaceUnit.FOOTS, 360.0, PlayingSurfaceUnit.FOOTS);
         playingSurface.setBuiltInImagePathName("/images/built-in-playing-surfaces/football.png");
         sport.setPlayingSurface(playingSurface);
-        sport.addPlayerCategory(new PlayerCategory("Safety", "S", Color.web("#001A80"), Color.web("#990000"), 2));
-        sport.addPlayerCategory(new PlayerCategory("Cornerback", "CB", Color.web("#001A80"), Color.web("#990000"), 2));
-        sport.addPlayerCategory(new PlayerCategory("Outside Linebacker", "OL", Color.web("#001A80"), Color.web("#990000"), 2));
-        sport.addPlayerCategory(new PlayerCategory("Middle Linebacker", "ML", Color.web("#001A80"), Color.web("#990000"), 1));
-        sport.addPlayerCategory(new PlayerCategory("Defensive End", "DE", Color.web("#001A80"), Color.web("#990000"), 2));
-        sport.addPlayerCategory(new PlayerCategory("Defensive Tackle", "DT", Color.web("#001A80"), Color.web("#990000"), 2));
-        sport.addPlayerCategory(new PlayerCategory("Wide Receiver", "WR", Color.web("#001A80"), Color.web("#990000"), 2));
-        sport.addPlayerCategory(new PlayerCategory("Offensive Tackle", "OT", Color.web("#001A80"), Color.web("#990000"), 2));
-        sport.addPlayerCategory(new PlayerCategory("Offensive Guard", "OG", Color.web("#001A80"), Color.web("#990000"), 2));
-        sport.addPlayerCategory(new PlayerCategory("Center", "C", Color.web("#001A80"), Color.web("#990000"), 1));
-        sport.addPlayerCategory(new PlayerCategory("Tight End", "TE", Color.web("#001A80"), Color.web("#990000"), 1));
-        sport.addPlayerCategory(new PlayerCategory("Quarterback", "QB", Color.web("#001A80"), Color.web("#990000"), 1));
-        sport.addPlayerCategory(new PlayerCategory("Fullback", "FB", Color.web("#001A80"), Color.web("#990000"), 1));
-        sport.addPlayerCategory(new PlayerCategory("Halfback", "HB", Color.web("#001A80"), Color.web("#990000"), 1));
-        sport.addPlayerCategory(new PlayerCategory("Running Back", "RB", Color.web("#001A80"), Color.web("#990000"), 0));
+        addPlayerCategory(sport, new PlayerCategory("Safety", "S", Color.web("#001A80"), Color.web("#990000"), 2));
+        addPlayerCategory(sport, new PlayerCategory("Cornerback", "CB", Color.web("#001A80"), Color.web("#990000"), 2));
+        addPlayerCategory(sport, new PlayerCategory("Outside Linebacker", "OL", Color.web("#001A80"), Color.web("#990000"), 2));
+        addPlayerCategory(sport, new PlayerCategory("Middle Linebacker", "ML", Color.web("#001A80"), Color.web("#990000"), 1));
+        addPlayerCategory(sport, new PlayerCategory("Defensive End", "DE", Color.web("#001A80"), Color.web("#990000"), 2));
+        addPlayerCategory(sport, new PlayerCategory("Defensive Tackle", "DT", Color.web("#001A80"), Color.web("#990000"), 2));
+        addPlayerCategory(sport, new PlayerCategory("Wide Receiver", "WR", Color.web("#001A80"), Color.web("#990000"), 2));
+        addPlayerCategory(sport, new PlayerCategory("Offensive Tackle", "OT", Color.web("#001A80"), Color.web("#990000"), 2));
+        addPlayerCategory(sport, new PlayerCategory("Offensive Guard", "OG", Color.web("#001A80"), Color.web("#990000"), 2));
+        addPlayerCategory(sport, new PlayerCategory("Center", "C", Color.web("#001A80"), Color.web("#990000"), 1));
+        addPlayerCategory(sport, new PlayerCategory("Tight End", "TE", Color.web("#001A80"), Color.web("#990000"), 1));
+        addPlayerCategory(sport, new PlayerCategory("Quarterback", "QB", Color.web("#001A80"), Color.web("#990000"), 1));
+        addPlayerCategory(sport, new PlayerCategory("Fullback", "FB", Color.web("#001A80"), Color.web("#990000"), 1));
+        addPlayerCategory(sport, new PlayerCategory("Halfback", "HB", Color.web("#001A80"), Color.web("#990000"), 1));
+        addPlayerCategory(sport, new PlayerCategory("Running Back", "RB", Color.web("#001A80"), Color.web("#990000"), 0));
         return sport;
     }
 

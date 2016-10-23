@@ -1,6 +1,6 @@
 package ca.ulaval.glo2004.visualigue.domain.obstacle;
 
-public class ObstacleNotFoundException extends Exception {
+public class ObstacleNotFoundException extends RuntimeException {
 
     private static final long serialVersionUID = 751474011098753048L;
 

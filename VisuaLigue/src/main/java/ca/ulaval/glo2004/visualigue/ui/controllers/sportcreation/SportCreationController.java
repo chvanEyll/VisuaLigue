@@ -124,12 +124,8 @@ public class SportCreationController extends ControllerBase {
                 .buttonType(new ButtonType("Annuler", ButtonData.CANCEL_CLOSE)).showAndWait();
 
         if (result.get().getButtonData() == ButtonData.YES) {
-            try {
-                sportService.deleteSport(model.getUUID());
-                onViewCloseRequested.fire(this, null);
-            } catch (SportNotFoundException ex) {
-                throw new RuntimeException(ex);
-            }
+            sportService.deleteSport(model.getUUID());
+            onViewCloseRequested.fire(this, null);
         }
     }
 
@@ -145,12 +141,10 @@ public class SportCreationController extends ControllerBase {
         } catch (SportAlreadyExistsException ex) {
             setStep(GENERAL_STEP_INDEX);
             currentStepController.showError(ex);
-        } catch (Exception ex) {
-            throw new RuntimeException(ex);
         }
     }
 
-    private void saveChanges() throws Exception {
+    private void saveChanges() throws SportAlreadyExistsException {
         UUID sportUuid;
         if (model.isNew()) {
             sportUuid = sportService.createSport(StringUtils.trim(model.name.get()));
@@ -165,27 +159,27 @@ public class SportCreationController extends ControllerBase {
         onViewCloseRequested.fire(this, null);
     }
 
-    private void applyIconChanges(UUID sportUuid) throws Exception {
+    private void applyIconChanges(UUID sportUuid) {
         if (model.newIconPathName.isNotEmpty().get()) {
             sportService.updateIcon(sportUuid, model.newIconPathName.get());
         }
     }
 
-    private void applyBallChanges(UUID sportUuid) throws Exception {
+    private void applyBallChanges(UUID sportUuid) {
         sportService.updateBall(sportUuid, StringUtils.trim(model.name.get()));
         if (model.newBallImagePathName.isNotEmpty().get()) {
             sportService.updateBallImage(sportUuid, model.newBallImagePathName.get());
         }
     }
 
-    private void applyPlayingSurfaceChanges(UUID sportUuid) throws Exception {
+    private void applyPlayingSurfaceChanges(UUID sportUuid) {
         sportService.updatePlayingSurface(sportUuid, model.playingSurfaceWidth.get(), model.playingSurfaceLength.get(), model.playingSurfaceWidthUnits.get(), model.playingSurfaceLengthUnits.get());
         if (model.newPlayingSurfaceImagePathName.isNotEmpty().get()) {
             sportService.updatePlayingSurfaceImage(sportUuid, model.newPlayingSurfaceImagePathName.get());
         }
     }
 
-    private void applyCategoryChanges(UUID sportUuid) throws Exception {
+    private void applyCategoryChanges(UUID sportUuid) {
         ObservableList<PlayerCategoryModel> playerCategoryModels = model.playerCategoryModels;
         for (PlayerCategoryModel playerCategoryModel : model.playerCategoryModels) {
             if (playerCategoryModel.isNew()) {

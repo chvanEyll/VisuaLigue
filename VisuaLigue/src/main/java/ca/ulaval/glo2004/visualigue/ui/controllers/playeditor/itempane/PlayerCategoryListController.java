@@ -2,7 +2,6 @@ package ca.ulaval.glo2004.visualigue.ui.controllers.playeditor.itempane;
 
 import ca.ulaval.glo2004.visualigue.domain.play.actorinstance.TeamSide;
 import ca.ulaval.glo2004.visualigue.domain.sport.Sport;
-import ca.ulaval.glo2004.visualigue.domain.sport.SportNotFoundException;
 import ca.ulaval.glo2004.visualigue.domain.sport.playercategory.PlayerCategory;
 import ca.ulaval.glo2004.visualigue.services.sport.SportService;
 import ca.ulaval.glo2004.visualigue.ui.InjectableFXMLLoader;
@@ -44,14 +43,10 @@ public class PlayerCategoryListController extends ControllerBase {
     private void fillPlayerCategoryList() {
         allyPlayerCategoryPane.getChildren().clear();
         opponentPlayerCategoryPane.getChildren().clear();
-        try {
-            List<PlayerCategory> playerCategories = sportService.getPlayerCategories(playModel.sportUUID.get(), PlayerCategory::getName, SortOrder.ASCENDING);
-            playerCategories.forEach(playerCategory -> {
-                initCategoryItem(playerCategoryModelConverter.convert(playerCategory));
-            });
-        } catch (SportNotFoundException ex) {
-            throw new RuntimeException(ex);
-        }
+        List<PlayerCategory> playerCategories = sportService.getPlayerCategories(playModel.sportUUID.get(), PlayerCategory::getName, SortOrder.ASCENDING);
+        playerCategories.forEach(playerCategory -> {
+            initCategoryItem(playerCategoryModelConverter.convert(playerCategory));
+        });
     }
 
     private void initCategoryItem(PlayerCategoryModel model) {

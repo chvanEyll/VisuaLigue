@@ -28,7 +28,7 @@ public class Play extends DomainObject {
     private UUID sportUUID;
     @XmlTransient
     private Sport sport;
-    private final NavigableMap<Pair<ActorInstance, Integer>, Keyframe> keyframes = new TreeMap();
+    private final TreeMap<Pair<ActorInstance, Integer>, Keyframe> keyframes = new TreeMap();
     private final Map<UUID, ActorInstance> actorInstances = new HashMap();
 
     public Play() {
@@ -109,8 +109,13 @@ public class Play extends DomainObject {
         }
     }
 
-    public SortedMap<Pair<ActorInstance, Integer>, Keyframe> getKeyframes() {
-        return keyframes;
+    public Integer getLength() {
+        Optional<Keyframe> maxKeyframe = keyframes.values().stream().max((k1, k2) -> k1.getTime().compareTo(k2.getTime()));
+        if (maxKeyframe.isPresent()) {
+            return maxKeyframe.get().getTime();
+        } else {
+            return 0;
+        }
     }
 
     public Frame getFrame(Integer time) {

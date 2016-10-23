@@ -1,6 +1,6 @@
 package ca.ulaval.glo2004.visualigue.domain.obstacle;
 
-public class ObstacleAlreadyExistsException extends Exception {
+public class ObstacleAlreadyExistsException extends RuntimeException {
 
     private static final long serialVersionUID = 6163013110930633718L;
 

@@ -73,11 +73,7 @@ public class XmlObstacleRepository implements ObstacleRepository {
     @Override
     public void clear() {
         obstacles.values().stream().collect(Collectors.toList()).forEach(uuid -> {
-            try {
-                delete(uuid);
-            } catch (ObstacleNotFoundException ex) {
-                throw new RuntimeException(ex);
-            }
+            delete(uuid);
         });
     }
 

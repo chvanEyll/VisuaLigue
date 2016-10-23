@@ -4,6 +4,8 @@ import ca.ulaval.glo2004.visualigue.ui.InjectableFXMLLoader;
 import ca.ulaval.glo2004.visualigue.ui.View;
 import ca.ulaval.glo2004.visualigue.ui.animation.PredefinedAnimations;
 import ca.ulaval.glo2004.visualigue.ui.models.ModelBase;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
 import javafx.scene.Node;
@@ -77,7 +79,7 @@ public class EditableListController {
         try {
             model = (ModelBase) modelClass.newInstance();
         } catch (InstantiationException | IllegalAccessException ex) {
-            throw new RuntimeException(ex);
+            Logger.getLogger(EditableListController.class.getName()).log(Level.SEVERE, null, ex);
         }
         models.add(0, model);
         insertItem(model, 0);

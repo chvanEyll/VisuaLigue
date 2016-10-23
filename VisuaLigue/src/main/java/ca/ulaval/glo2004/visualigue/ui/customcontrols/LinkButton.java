@@ -1,9 +1,7 @@
 package ca.ulaval.glo2004.visualigue.ui.customcontrols;
 
 import ca.ulaval.glo2004.visualigue.ui.InjectableFXMLLoader;
-import java.io.IOException;
 import javafx.fxml.FXML;
-import javafx.fxml.FXMLLoader;
 import javafx.scene.control.Label;
 import javafx.scene.layout.HBox;
 
@@ -16,12 +14,7 @@ public class LinkButton extends HBox {
     private String imageUrl;
 
     public LinkButton() {
-        try {
-            FXMLLoader fxmlLoader = InjectableFXMLLoader.createLoader(VIEW_NAME, this, this);
-            fxmlLoader.load();
-        } catch (IOException ex) {
-            throw new RuntimeException(ex);
-        }
+        InjectableFXMLLoader.loadView(VIEW_NAME, this, this);
     }
 
     public String getText() {

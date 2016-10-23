@@ -1,6 +1,6 @@
 package ca.ulaval.glo2004.visualigue.domain.image;
 
-public class ImageLoadException extends Exception {
+public class ImageLoadException extends RuntimeException {
 
     private static final long serialVersionUID = 751474011098753048L;
 

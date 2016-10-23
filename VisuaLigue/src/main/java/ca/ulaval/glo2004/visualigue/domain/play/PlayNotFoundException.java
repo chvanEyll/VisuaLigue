@@ -1,6 +1,6 @@
 package ca.ulaval.glo2004.visualigue.domain.play;
 
-public class PlayNotFoundException extends Exception {
+public class PlayNotFoundException extends RuntimeException {
 
     private static final long serialVersionUID = 751474011098753048L;
 

@@ -1,8 +1,7 @@
 package ca.ulaval.glo2004.visualigue.ui.customcontrols;
 
-import java.io.IOException;
-import javafx.fxml.FXMLLoader;
-import javafx.scene.Node;
+import ca.ulaval.glo2004.visualigue.ui.InjectableFXMLLoader;
+import ca.ulaval.glo2004.visualigue.ui.View;
 import javafx.scene.layout.StackPane;
 
 public class SvgImage extends StackPane {
@@ -27,15 +26,11 @@ public class SvgImage extends StackPane {
     }
 
     private void setVectorImage(String url) {
-        try {
-            Node svgRootNode = FXMLLoader.load(getClass().getResource(url));
-            this.getStylesheets().clear();
-            this.getStylesheets().add(url + ".css");
-            this.getChildren().clear();
-            this.getChildren().add(svgRootNode);
-        } catch (IOException ex) {
-            throw new RuntimeException(ex);
-        }
+        View view = InjectableFXMLLoader.loadView(url);
+        this.getStylesheets().clear();
+        this.getStylesheets().add(url + ".css");
+        this.getChildren().clear();
+        this.getChildren().add(view.getRoot());
     }
 
 }

@@ -1,6 +1,5 @@
 package ca.ulaval.glo2004.visualigue.ui.controllers.sportmanagement;
 
-import ca.ulaval.glo2004.visualigue.domain.sport.SportNotFoundException;
 import ca.ulaval.glo2004.visualigue.ui.InjectableFXMLLoader;
 import ca.ulaval.glo2004.visualigue.ui.View;
 import ca.ulaval.glo2004.visualigue.ui.controllers.ControllerBase;
@@ -32,11 +31,7 @@ public class SportManagementController extends ControllerBase {
     private void onSportSelectedEvent(Object sender, SportListItemModel sportListItemModel) {
         View view = InjectableFXMLLoader.loadView(SportCreationController.VIEW_NAME);
         SportCreationController controller = (SportCreationController) view.getController();
-        try {
-            controller.init(sportListItemModel.getUUID());
-        } catch (SportNotFoundException ex) {
-            throw new RuntimeException(ex);
-        }
+        controller.init(sportListItemModel.getUUID());
         onViewChangeRequested.fire(this, view);
     }
 }

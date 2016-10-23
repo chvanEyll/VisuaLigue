@@ -1,7 +1,6 @@
 package ca.ulaval.glo2004.visualigue.ui.controllers.playmanagement;
 
 import ca.ulaval.glo2004.visualigue.domain.play.Play;
-import ca.ulaval.glo2004.visualigue.domain.play.PlayNotFoundException;
 import ca.ulaval.glo2004.visualigue.services.play.PlayService;
 import ca.ulaval.glo2004.visualigue.ui.InjectableFXMLLoader;
 import ca.ulaval.glo2004.visualigue.ui.View;
@@ -68,11 +67,7 @@ public class PlayListController extends ControllerBase {
     }
 
     private void onItemDeleteButtonClicked(Object sender, PlayModel model) {
-        try {
-            playService.deletePlay(model.getUUID());
-        } catch (PlayNotFoundException ex) {
-            throw new RuntimeException(ex);
-        }
+        playService.deletePlay(model.getUUID());
         int tileIndex = models.indexOf(model);
         tilePane.getChildren().remove(tileIndex);
         models.remove(model);

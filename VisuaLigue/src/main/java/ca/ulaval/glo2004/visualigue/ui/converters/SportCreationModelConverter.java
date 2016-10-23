@@ -8,8 +8,7 @@ import ca.ulaval.glo2004.visualigue.domain.sport.playingsurface.PlayingSurface;
 import ca.ulaval.glo2004.visualigue.ui.models.PlayerCategoryModel;
 import ca.ulaval.glo2004.visualigue.ui.models.SportCreationModel;
 import java.util.Collections;
-import java.util.Map;
-import java.util.UUID;
+import java.util.Set;
 import javax.inject.Inject;
 
 public class SportCreationModelConverter {
@@ -61,8 +60,8 @@ public class SportCreationModelConverter {
         model.builtInPlayingSurfaceImagePathName.set(playingSurface.getBuiltInImagePathName());
     }
 
-    private void convertPlayerCategories(Map<UUID, PlayerCategory> playerCategories, SportCreationModel model) {
-        playerCategories.values().forEach(playerCategory -> {
+    private void convertPlayerCategories(Set<PlayerCategory> playerCategories, SportCreationModel model) {
+        playerCategories.forEach(playerCategory -> {
             PlayerCategoryModel playerCategoryModel = playerCategoryModelConverter.convert(playerCategory);
             model.playerCategoryModels.add(playerCategoryModel);
             Collections.sort(model.playerCategoryModels);
