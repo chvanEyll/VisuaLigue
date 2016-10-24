@@ -2,7 +2,6 @@ package ca.ulaval.glo2004.visualigue.ui.controllers.sportcreation;
 
 import ca.ulaval.glo2004.visualigue.VisuaLigue;
 import ca.ulaval.glo2004.visualigue.domain.sport.SportAlreadyExistsException;
-import ca.ulaval.glo2004.visualigue.ui.customcontrols.ResizableImageView;
 import ca.ulaval.glo2004.visualigue.ui.models.SportCreationModel;
 import ca.ulaval.glo2004.visualigue.utils.FXUtils;
 import ca.ulaval.glo2004.visualigue.utils.FilenameUtils;
@@ -19,11 +18,11 @@ public class SportCreationStep1Controller extends SportCreationStepController {
 
     @FXML private TextField sportNameField;
     @FXML private Label sportNameErrorLabel;
+    @FXML private ImageView iconImageView;
+    @FXML private Label iconImageErrorLabel;
     @FXML private TextField ballNameField;
     @FXML private Label ballNameErrorLabel;
-    @FXML private ResizableImageView iconImageView;
-    @FXML private Label iconImageErrorLabel;
-    @FXML private ResizableImageView ballImageView;
+    @FXML private ImageView ballImageView;
     @FXML private Label ballImageErrorLabel;
 
     @Override
@@ -31,9 +30,10 @@ public class SportCreationStep1Controller extends SportCreationStepController {
         model = sportCreation;
         sportNameField.textProperty().bindBidirectional(sportCreation.name);
         ballNameField.textProperty().bindBidirectional(sportCreation.ballName);
+        clearErrors();
+        updateIconImage();
         updateBallImage();
         FXUtils.requestFocusDelayed(sportNameField);
-        super.init();
     }
 
     @FXML
@@ -104,6 +104,7 @@ public class SportCreationStep1Controller extends SportCreationStepController {
     public void clearErrors() {
         FXUtils.setDisplay(sportNameErrorLabel, false);
         FXUtils.setDisplay(iconImageErrorLabel, false);
+        FXUtils.setDisplay(ballNameErrorLabel, false);
         FXUtils.setDisplay(ballImageErrorLabel, false);
     }
 

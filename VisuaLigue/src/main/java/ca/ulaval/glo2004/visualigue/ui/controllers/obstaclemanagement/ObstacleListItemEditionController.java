@@ -104,8 +104,6 @@ public class ObstacleListItemEditionController extends ListItemEditionController
     private void displayImage(String imageURL) {
         try {
             imageView.setImage(new Image(imageURL));
-            imageView.setFitWidth(45);
-            imageView.setFitHeight(45);
         } catch (Exception ex) {
             clearErrors();
             imageErrorLabel.setText("L'image sélectionnée n'a pu être chargée.");

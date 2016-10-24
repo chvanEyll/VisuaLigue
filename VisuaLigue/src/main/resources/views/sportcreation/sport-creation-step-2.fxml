@@ -60,8 +60,8 @@
             </FlowPane>
             <FlowPane styleClass="form-group, vertical">
                 <Label fx:id="imageErrorLabel" styleClass="error-label" text="Error label." />
-                <ResizableImageView fx:id="imageView" />
             </FlowPane>
+            <ResizableImageView fx:id="imageView" />
         </children>
     </VBox>
     <styleClass>

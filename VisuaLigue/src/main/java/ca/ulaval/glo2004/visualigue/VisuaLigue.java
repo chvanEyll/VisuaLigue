@@ -30,11 +30,10 @@ public class VisuaLigue extends Application {
     @Override
     public void start(Stage stage) throws Exception {
         this.stage = stage;
+        initContext();
         View view = InjectableFXMLLoader.loadView(MainSceneController.VIEW_NAME);
-        MainSceneController mainSceneController = (MainSceneController) view.getController();
         Scene scene = new Scene((Parent) view.getRoot());
         initStage(stage, scene);
-        initContext();
     }
 
     private void initStage(Stage stage, Scene scene) throws IOException {

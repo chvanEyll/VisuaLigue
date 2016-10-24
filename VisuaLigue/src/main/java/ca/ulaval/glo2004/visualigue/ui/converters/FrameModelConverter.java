@@ -13,11 +13,13 @@ import ca.ulaval.glo2004.visualigue.ui.models.FrameModel;
 import ca.ulaval.glo2004.visualigue.ui.models.PlayModel;
 import java.util.Map;
 import java.util.UUID;
+import javax.inject.Inject;
 
 public class FrameModelConverter {
 
     private ImageRepository imageRepository;
 
+    @Inject
     public FrameModelConverter(ImageRepository imageRepository) {
         this.imageRepository = imageRepository;
     }

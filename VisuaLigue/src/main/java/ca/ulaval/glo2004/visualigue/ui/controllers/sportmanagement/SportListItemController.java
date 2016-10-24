@@ -35,8 +35,8 @@ public class SportListItemController extends ControllerBase {
         Image image = new Image(sportImagePathName);
         imageView.setPreserveRatio(true);
         imageView.setImage(new Image(sportImagePathName));
-        imageView.setFitWidth(image.getWidth());
-        imageView.setFitHeight(image.getHeight());
+        imageView.setFitWidth(100);
+        imageView.setFitHeight(85);
         rootNode.getChildren().add(0, imageView);
     }
 

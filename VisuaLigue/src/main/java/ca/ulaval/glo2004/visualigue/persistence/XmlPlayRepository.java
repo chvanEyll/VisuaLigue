@@ -4,6 +4,7 @@ import ca.ulaval.glo2004.visualigue.domain.play.Play;
 import ca.ulaval.glo2004.visualigue.domain.play.PlayAlreadyExistsException;
 import ca.ulaval.glo2004.visualigue.domain.play.PlayNotFoundException;
 import ca.ulaval.glo2004.visualigue.domain.play.PlayRepository;
+import ca.ulaval.glo2004.visualigue.domain.xmladapters.XmlPlayAdapter;
 import ca.ulaval.glo2004.visualigue.persistence.marshalling.XmlRepositoryMarshaller;
 import ca.ulaval.glo2004.visualigue.utils.ListUtils;
 import java.util.ArrayList;
@@ -23,8 +24,9 @@ public class XmlPlayRepository implements PlayRepository {
     private final Map<UUID, Play> plays;
 
     @Inject
-    public XmlPlayRepository(XmlRepositoryMarshaller<Play> xmlRepositoryMarshaller) {
+    public XmlPlayRepository(XmlRepositoryMarshaller<Play> xmlRepositoryMarshaller, XmlPlayAdapter xmlPlayAdapter) {
         this.xmlRepositoryMarshaller = xmlRepositoryMarshaller;
+        xmlRepositoryMarshaller.setRootAdapter(xmlPlayAdapter);
         plays = xmlRepositoryMarshaller.unmarshalAll();
     }
 

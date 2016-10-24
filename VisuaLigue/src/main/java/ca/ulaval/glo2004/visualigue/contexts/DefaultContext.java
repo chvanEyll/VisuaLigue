@@ -92,7 +92,7 @@ public class DefaultContext extends ContextBase {
         sport.setBuiltInIconPathName("/images/built-in-sport-icons/soccer-icon.png");
         sport.setIsBuiltIn(true);
         Ball ball = new Ball("Ballon");
-        ball.setBuiltInImagePathName("/images/built-in-ball-icons/soccer-icon.png");
+        ball.setBuiltInImagePathName("/images/built-in-ball-icons/soccer-ball-icon.png");
         sport.setBall(ball);
         PlayingSurface playingSurface = new PlayingSurface(68.0, PlayingSurfaceUnit.METER, 100.0, PlayingSurfaceUnit.METER);
         playingSurface.setBuiltInImagePathName("/images/built-in-playing-surfaces/soccer.jpg");
@@ -124,7 +124,7 @@ public class DefaultContext extends ContextBase {
         sport.setBuiltInIconPathName("/images/built-in-sport-icons/football-icon.png");
         sport.setIsBuiltIn(true);
         Ball ball = new Ball("Ballon");
-        ball.setBuiltInImagePathName("/images/built-in-ball-icons/football-icon.png");
+        ball.setBuiltInImagePathName("/images/built-in-ball-icons/football-ball-icon.png");
         sport.setBall(ball);
         PlayingSurface playingSurface = new PlayingSurface(160.0, PlayingSurfaceUnit.FOOTS, 360.0, PlayingSurfaceUnit.FOOTS);
         playingSurface.setBuiltInImagePathName("/images/built-in-playing-surfaces/football.png");

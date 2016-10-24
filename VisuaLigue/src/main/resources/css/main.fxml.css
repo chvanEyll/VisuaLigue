@@ -34,7 +34,7 @@
     -fx-background-color: #F3F1EF;
 }
 
-.app-header- .previous-button {
+.app-header .previous-button {
     -fx-alignment: CENTER_LEFT;
     -fx-pref-width: 41.0;
     -fx-padding: 0 7 0 14;

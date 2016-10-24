@@ -5,12 +5,12 @@
 <?import javafx.scene.control.Label?>
 <?import javafx.scene.control.TextField?>
 <?import javafx.scene.control.Button?>
+<?import javafx.scene.image.ImageView?>
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.layout.HBox?>
 <?import javafx.scene.layout.FlowPane?>
 <?import javafx.scene.image.Image?>
 <?import ca.ulaval.glo2004.visualigue.ui.customcontrols.ExtendedTextField?>
-<?import ca.ulaval.glo2004.visualigue.ui.customcontrols.ResizableImageView?>
 
 <VBox fx:id="rootNode" spacing="7.0" xmlns="http://javafx.com/javafx/8.0.60" xmlns:fx="http://javafx.com/fxml/1" fx:controller="ca.ulaval.glo2004.visualigue.ui.controllers.sportcreation.SportCreationStep1Controller">
     <children>
@@ -31,7 +31,7 @@
                 <FlowPane styleClass="form-group, horizontal">
                     <children>
                         <Button text="Sélectionner une image..." onAction="#onBrowseIconImageButtonAction" />
-                        <ResizableImageView fx:id="iconImageView"/>
+                        <ImageView fx:id="iconImageView" fitWidth="45" fitHeight="45" preserveRatio="true" />
                         <Label fx:id="iconImageErrorLabel" styleClass="error-label" text="Error label." />
                     </children>
                 </FlowPane>
@@ -54,7 +54,7 @@
                 <FlowPane styleClass="form-group, horizontal">
                     <children>
                         <Button text="Sélectionner une image..." onAction="#onBrowseBallImageButtonAction" />
-                        <ResizableImageView fx:id="ballImageView"/>
+                        <ImageView fx:id="ballImageView" fitWidth="45" fitHeight="45" preserveRatio="true" />
                         <Label fx:id="ballImageErrorLabel" styleClass="error-label" text="Error label." />
                     </children>
                 </FlowPane>

@@ -31,8 +31,6 @@ public class SportCreationStep2Controller extends SportCreationStepController {
     @FXML private Label imagePathLabel;
     @FXML private ResizableImageView imageView;
     @FXML private Label imageErrorLabel;
-    @FXML private Label widthErrorLabel;
-    @FXML private Label lengthErrorLabel;
 
     public SportCreationModel getSportModel() {
         return model;
@@ -49,9 +47,9 @@ public class SportCreationStep2Controller extends SportCreationStepController {
         widthUnitComboBox.getSelectionModel().select(model.playingSurfaceWidthUnits.get());
         lengthUnitComboBox.setItems(FXCollections.observableArrayList(PlayingSurfaceUnit.values()));
         lengthUnitComboBox.getSelectionModel().select(model.playingSurfaceLengthUnits.get());
+        clearErrors();
         updateImage();
         FXUtils.requestFocusDelayed(widthSpinner);
-        super.init();
     }
 
     @FXML
