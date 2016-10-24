@@ -1,12 +1,12 @@
 package ca.ulaval.glo2004.visualigue.ui.controllers.playeditor.sequencecontrol;
 
 import ca.ulaval.glo2004.visualigue.services.play.PlayService;
+import ca.ulaval.glo2004.visualigue.services.sport.SportService;
 import ca.ulaval.glo2004.visualigue.ui.controllers.ControllerBase;
 import ca.ulaval.glo2004.visualigue.ui.controllers.playeditor.scene.SceneController;
 import ca.ulaval.glo2004.visualigue.ui.converters.FrameModelConverter;
 import ca.ulaval.glo2004.visualigue.ui.customcontrols.ExtendedButton;
 import ca.ulaval.glo2004.visualigue.ui.customcontrols.ExtendedMenuItem;
-import ca.ulaval.glo2004.visualigue.ui.models.FrameModel;
 import ca.ulaval.glo2004.visualigue.ui.models.PlayModel;
 import ca.ulaval.glo2004.visualigue.utils.FXUtils;
 import java.text.DecimalFormat;
@@ -31,6 +31,7 @@ public class SequencePaneController extends ControllerBase {
     @FXML private Label fixedForwardPeriodLabel;
     @Inject private FrameModelConverter frameModelConverter;
     @Inject private PlayService playService;
+    @Inject private SportService sportService;
     private PlayModel playModel;
     private SceneController sceneController;
     private Integer time = 0;
@@ -155,11 +156,10 @@ public class SequencePaneController extends ControllerBase {
     }
 
     private void onSeekBarTimeChanged(Object sender, Integer time) {
-        drawFrame(time);
+        updateFrame(time);
     }
 
-    private void drawFrame(Integer time) {
-        FrameModel frameModel = frameModelConverter.convert(playService.getFrame(playModel.getUUID(), time));
-        sceneController.drawFrame(frameModel);
+    private void updateFrame(Integer time) {
+        frameModelConverter.update(playModel, sceneController.getFrameModel(), playService.getFrame(playModel.getUUID(), time));
     }
 }

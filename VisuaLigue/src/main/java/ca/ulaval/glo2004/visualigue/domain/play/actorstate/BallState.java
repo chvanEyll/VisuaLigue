@@ -12,7 +12,6 @@ import javax.xml.bind.annotation.XmlRootElement;
 @XmlAccessorType(XmlAccessType.FIELD)
 public class BallState extends ActorState implements Cloneable {
 
-    private Optional<Position> position = Optional.empty();
     private Optional<PlayerInstance> owner = Optional.empty();
 
     private BallState() {
@@ -66,6 +65,10 @@ public class BallState extends ActorState implements Cloneable {
         }
         interpolatedState.owner = nextBallState.owner;
         return interpolatedState;
+    }
+
+    public PlayerInstance getOwner() {
+        return owner.get();
     }
 
 }

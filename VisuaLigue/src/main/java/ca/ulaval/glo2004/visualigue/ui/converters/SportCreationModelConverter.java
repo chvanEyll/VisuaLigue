@@ -13,8 +13,8 @@ import javax.inject.Inject;
 
 public class SportCreationModelConverter {
 
-    PlayerCategoryModelConverter playerCategoryModelConverter;
-    ImageRepository imageRepository;
+    private PlayerCategoryModelConverter playerCategoryModelConverter;
+    private ImageRepository imageRepository;
 
     @Inject
     public SportCreationModelConverter(PlayerCategoryModelConverter playerCategoryModelConverter, ImageRepository imageRepository) {

@@ -37,6 +37,7 @@ public class PlayEditorController extends ControllerBase {
         toolbarController.onUndoButtonAction.addHandler(this::onUndoToolbarButtonAction);
         toolbarController.onRedoButtonAction.addHandler(this::onRedoToolbarButtonAction);
         toolbarController.onBestFitButtonAction.addHandler(this::onBestFitToolbarButtonAction);
+        sceneController.init(playModel);
         playModel.title.addListener(this::onPlayTitleChanged);
     }
 

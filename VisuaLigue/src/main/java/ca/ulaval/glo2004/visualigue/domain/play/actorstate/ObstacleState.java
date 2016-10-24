@@ -11,8 +11,6 @@ import javax.xml.bind.annotation.XmlRootElement;
 @XmlAccessorType(XmlAccessType.FIELD)
 public class ObstacleState extends ActorState implements Cloneable {
 
-    private Optional<Position> position = Optional.empty();
-
     private ObstacleState() {
 
     }

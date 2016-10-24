@@ -40,4 +40,12 @@ public class PlayerInstance extends ActorInstance {
         this.playerCategory = playerCategory;
     }
 
+    public TeamSide getTeamSide() {
+        return teamSide;
+    }
+
+    public void setTeamSide(TeamSide teamSide) {
+        this.teamSide = teamSide;
+    }
+
 }

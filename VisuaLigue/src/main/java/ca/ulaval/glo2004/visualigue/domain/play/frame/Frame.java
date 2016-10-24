@@ -22,4 +22,8 @@ public class Frame extends DomainObject {
         actorStates.put(actorInstance, actorState);
     }
 
+    public Map<ActorInstance, ActorState> getActorStates() {
+        return actorStates;
+    }
+
 }

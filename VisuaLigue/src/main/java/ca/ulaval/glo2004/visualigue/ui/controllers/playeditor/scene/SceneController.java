@@ -1,16 +1,19 @@
 package ca.ulaval.glo2004.visualigue.ui.controllers.playeditor.scene;
 
 import ca.ulaval.glo2004.visualigue.domain.play.actorinstance.TeamSide;
+import ca.ulaval.glo2004.visualigue.ui.controllers.ControllerBase;
 import ca.ulaval.glo2004.visualigue.ui.models.*;
 import ca.ulaval.glo2004.visualigue.utils.EventHandler;
 
-public abstract class SceneController {
+public abstract class SceneController extends ControllerBase {
 
     public EventHandler<MousePositionModel> onMousePositionChanged = new EventHandler();
     public EventHandler<Double> onZoomChanged = new EventHandler();
     public EventHandler<Boolean> onPlayerCategoryLabelDisplayEnableChanged = new EventHandler();
 
-    public abstract void drawFrame(FrameModel frameModel);
+    public abstract void init(PlayModel playModel);
+
+    public abstract FrameModel getFrameModel();
 
     public abstract void enterPlayerCreationMode(PlayerCategoryModel playerCategoryModel, TeamSide teamSide);
 

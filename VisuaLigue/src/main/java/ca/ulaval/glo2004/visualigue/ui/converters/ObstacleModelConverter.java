@@ -7,7 +7,7 @@ import javax.inject.Inject;
 
 public class ObstacleModelConverter {
 
-    ImageRepository imageRepository;
+    private ImageRepository imageRepository;
 
     @Inject
     public ObstacleModelConverter(ImageRepository imageRepository) {

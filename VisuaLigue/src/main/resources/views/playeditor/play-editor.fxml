@@ -37,9 +37,9 @@
         <fx:include fx:id="itemPane" source="/views/playeditor/itempane/item-pane.fxml" />
     </right>
     <bottom>
-        <fx:include fx:id="sequenceControlPane" source="/views/playeditor/sequence-control-pane.fxml" />
+        <fx:include fx:id="sequenceControlPane" source="/views/playeditor/sequencecontrol/sequence-pane.fxml" />
     </bottom>
     <center>
-
+        <fx:include fx:id="scene" source="/views/playeditor/scene2d/scene.fxml" />
     </center>
 </BorderPane>

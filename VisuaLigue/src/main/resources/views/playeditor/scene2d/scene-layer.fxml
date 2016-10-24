@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import ca.ulaval.glo2004.visualigue.ui.customcontrols.SvgImage?>
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.Tooltip?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.layout.Pane?>
+
+<Pane fx:id="rootNode" pickOnBounds="false" styleClass="root-node" xmlns="http://javafx.com/javafx/8.0.60" xmlns:fx="http://javafx.com/fxml/1" fx:controller="ca.ulaval.glo2004.visualigue.ui.controllers.playeditor.scene.SceneLayerController">
+    <children>
+        <Button fx:id="actorButton" styleClass="icon-button">
+            <graphic>
+                <SvgImage fx:id="svgImage" />
+                <ImageView fx:id="imageView" />
+            </graphic>
+            <tooltip>
+                <Tooltip fx:id="tooltip" />
+            </tooltip>
+        </Button>
+    </children>
+</Pane>

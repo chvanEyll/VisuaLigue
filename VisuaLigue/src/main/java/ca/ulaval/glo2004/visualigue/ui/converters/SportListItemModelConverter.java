@@ -7,7 +7,7 @@ import javax.inject.Inject;
 
 public class SportListItemModelConverter {
 
-    ImageRepository imageRepository;
+    private ImageRepository imageRepository;
 
     @Inject
     public SportListItemModelConverter(ImageRepository imageRepository) {

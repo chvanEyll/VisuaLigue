@@ -7,7 +7,7 @@ import javax.inject.Inject;
 
 public class BallModelConverter {
 
-    ImageRepository imageRepository;
+    private ImageRepository imageRepository;
 
     @Inject
     public BallModelConverter(ImageRepository imageRepository) {

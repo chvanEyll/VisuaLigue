@@ -11,6 +11,9 @@ public class PlayModel extends ModelBase {
     public StringProperty title = new SimpleStringProperty();
     public StringProperty defaultThumbnailImagePathName = new SimpleStringProperty("/images/generic-play-thumbnail.png");
     public StringProperty thumbnailImagePathName = new SimpleStringProperty();
+    public StringProperty customPlayingSurfaceImagePathName = new SimpleStringProperty();
+    public StringProperty builtInPlayingSurfaceImagePathName = new SimpleStringProperty();
+    public BallModel ballModel = new BallModel();
     public ObjectProperty<UUID> sportUUID = new SimpleObjectProperty();
 
     public PlayModel(String title) {
