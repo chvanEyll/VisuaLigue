@@ -17,13 +17,13 @@ import javax.inject.Singleton;
 import javax.swing.SortOrder;
 
 @Singleton
-public class XmPlayerCategoryRepository implements PlayerCategoryRepository {
+public class XmlPlayerCategoryRepository implements PlayerCategoryRepository {
 
     private final XmlRepositoryMarshaller<PlayerCategory> xmlRepositoryMarshaller;
     private final Map<UUID, PlayerCategory> sports;
 
     @Inject
-    public XmPlayerCategoryRepository(XmlRepositoryMarshaller<PlayerCategory> xmlRepositoryMarshaller) {
+    public XmlPlayerCategoryRepository(XmlRepositoryMarshaller<PlayerCategory> xmlRepositoryMarshaller) {
         this.xmlRepositoryMarshaller = xmlRepositoryMarshaller;
         sports = xmlRepositoryMarshaller.unmarshalAll();
     }

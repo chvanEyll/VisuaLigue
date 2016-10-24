@@ -5,9 +5,7 @@ import ca.ulaval.glo2004.visualigue.utils.math.easing.EasingFunction;
 import java.util.Optional;
 import javax.xml.bind.annotation.XmlAccessType;
 import javax.xml.bind.annotation.XmlAccessorType;
-import javax.xml.bind.annotation.XmlRootElement;
 
-@XmlRootElement(name = "obstaclestate")
 @XmlAccessorType(XmlAccessType.FIELD)
 public class ObstacleState extends ActorState implements Cloneable {
 

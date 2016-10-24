@@ -15,22 +15,19 @@
 
 <VBox fx:id="menuPane" minWidth="170.0" prefWidth="170.0" xmlns="http://javafx.com/javafx/8.0.60" xmlns:fx="http://javafx.com/fxml/1" fx:controller="ca.ulaval.glo2004.visualigue.ui.controllers.MainMenuController">
     <children>
-        <HBox fx:id="playsMenuItem" alignment="CENTER_LEFT" fillHeight="false"onMouseClicked="#onPlaysMenuItemClicked">
+        <HBox fx:id="playsMenuItem" alignment="CENTER_LEFT" fillHeight="false" onMouseClicked="#onPlaysMenuItemClicked" styleClass="menu-item">
             <children>
                 <SvgImage styleClass="icon" url="/images/play-icon.fxml" />
                 <Label text="Jeux" />
             </children>
-            <styleClass>
-                <String fx:value="menu-item" />
-            </styleClass>
         </HBox>
-        <HBox fx:id="sportsMenuItem" alignment="CENTER_LEFT" fillHeight="false"onMouseClicked="#onSportsMenuItemClicked" styleClass="menu-item">
+        <HBox fx:id="sportsMenuItem" alignment="CENTER_LEFT" fillHeight="false" onMouseClicked="#onSportsMenuItemClicked" styleClass="menu-item">
             <children>
                 <SvgImage styleClass="icon" url="/images/sport-icon.fxml" />
                 <Label text="Sports" />
             </children>
         </HBox>
-        <HBox fx:id="obstaclesMenuItem" alignment="CENTER_LEFT" fillHeight="false"onMouseClicked="#onObstaclesMenuItemClicked" styleClass="menu-item">
+        <HBox fx:id="obstaclesMenuItem" alignment="CENTER_LEFT" fillHeight="false" onMouseClicked="#onObstaclesMenuItemClicked" styleClass="menu-item">
             <children>
                 <SvgImage styleClass="icon" url="/images/cone-icon-white.fxml" />
                 <Label text="Obstacles" />

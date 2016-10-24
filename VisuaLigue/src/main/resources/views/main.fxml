@@ -47,7 +47,7 @@
                         <ExtendedTextField fx:id="viewTitleTextField" styleClass="view-title-edit-button" maxLength="64" onAction="#onViewTitleTextFieldAction" />
                         <Button fx:id="viewTitleEditButton" alignment="CENTER_LEFT" styleClass="borderless, standard-size" onAction="#onViewTitleEditButtonAction">
                             <graphic>
-                                <SvgImage url="/images/pen-icon.fxml.css" scaleX="0.75" scaleY="0.75" />
+                                <SvgImage url="/images/pen-icon.fxml" scaleX="0.75" scaleY="0.75" />
                             </graphic>
                             <tooltip>
                                 <Tooltip text="Modifier le titre" />

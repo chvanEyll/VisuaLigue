@@ -17,6 +17,7 @@ import javafx.scene.shape.Rectangle;
 public class MainMenuController {
 
     public static final String VIEW_NAME = "/views/main-menu.fxml";
+    private static final String ACTIVE_CSS_STYLE_NAME = "active";
     private static final double MENU_PANE_COLLAPSED_WIDTH = 58.0;
     private static final double MENU_PANE_EXTENDED_WIDTH = 170.0;
 
@@ -74,14 +75,16 @@ public class MainMenuController {
     }
 
     private void selectMenu(String viewName, HBox menuItem) {
-        unselectAllMenus();
-        menuItem.getStyleClass().add("active");
-        onMenuClicked.fire(this, InjectableFXMLLoader.loadView(viewName));
+        if (!menuItem.getStyleClass().contains(ACTIVE_CSS_STYLE_NAME)) {
+            unselectAllMenus();
+            menuItem.getStyleClass().add(ACTIVE_CSS_STYLE_NAME);
+            onMenuClicked.fire(this, InjectableFXMLLoader.loadView(viewName));
+        }
     }
 
     private void unselectAllMenus() {
-        menuPane.getChildren().forEach(n -> {
-            n.getStyleClass().remove("active");
+        menuPane.getChildren().forEach(menuItem -> {
+            menuItem.getStyleClass().remove(ACTIVE_CSS_STYLE_NAME);
         });
     }
 }

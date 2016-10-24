@@ -34,7 +34,7 @@ public class ViewFlow {
     }
 
     public void clearView(View view) {
-        ControllerBase controller = view.getController();
+        ControllerBase controller = (ControllerBase) view.getController();
         controller.clearHandlers();
     }
 
@@ -43,6 +43,6 @@ public class ViewFlow {
     }
 
     public Boolean empty() {
-        return viewStack.size() > 0;
+        return viewStack.empty();
     }
 }

@@ -77,7 +77,7 @@ public class MainSceneController extends ControllerBase {
     }
 
     private void setView(View view) {
-        ControllerBase controller = view.getController();
+        ControllerBase controller = (ControllerBase) view.getController();
         controller.onViewChangeRequested.setHandler(this::onViewChangeRequested);
         controller.onViewCloseRequested.setHandler(this::onViewCloseRequested);
         contentPane.getChildren().clear();
@@ -94,8 +94,8 @@ public class MainSceneController extends ControllerBase {
 
     private Boolean validateCurrentViewClose() {
         if (!viewFlow.empty()) {
-            View currentView = viewFlow.getCurrentView();
-            return currentView.getController().onViewClosing();
+            ControllerBase controller = (ControllerBase) viewFlow.getCurrentView().getController();
+            return controller.onViewClosing();
         } else {
             return true;
         }

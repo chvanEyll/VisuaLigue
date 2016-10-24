@@ -5,11 +5,9 @@ import ca.ulaval.glo2004.visualigue.domain.xmladapters.XmlPlayerInstanceAdapter;
 import java.util.UUID;
 import javax.xml.bind.annotation.XmlAccessType;
 import javax.xml.bind.annotation.XmlAccessorType;
-import javax.xml.bind.annotation.XmlRootElement;
 import javax.xml.bind.annotation.XmlTransient;
 import javax.xml.bind.annotation.adapters.XmlJavaTypeAdapter;
 
-@XmlRootElement(name = "playerinstance")
 @XmlAccessorType(XmlAccessType.FIELD)
 @XmlJavaTypeAdapter(XmlPlayerInstanceAdapter.class)
 public class PlayerInstance extends ActorInstance {

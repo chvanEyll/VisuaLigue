@@ -6,9 +6,7 @@ import ca.ulaval.glo2004.visualigue.utils.math.easing.EasingFunction;
 import java.util.Optional;
 import javax.xml.bind.annotation.XmlAccessType;
 import javax.xml.bind.annotation.XmlAccessorType;
-import javax.xml.bind.annotation.XmlRootElement;
 
-@XmlRootElement(name = "ballstate")
 @XmlAccessorType(XmlAccessType.FIELD)
 public class BallState extends ActorState implements Cloneable {
 
