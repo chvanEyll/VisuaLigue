@@ -28,4 +28,9 @@ public class Rect {
         return location;
     }
 
+    @Override
+    public String toString() {
+        return String.format("Location: (%s), Size: (%s)", location, size);
+    }
+
 }

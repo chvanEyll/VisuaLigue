@@ -4,19 +4,20 @@ import ca.ulaval.glo2004.visualigue.utils.geometry.Rect;
 import ca.ulaval.glo2004.visualigue.utils.geometry.Vector2;
 import javafx.scene.Node;
 import javafx.scene.control.ScrollPane;
+import javafx.scene.layout.Region;
 
 public class ExtendedScrollPane extends ScrollPane {
 
     public Vector2 getContentSize() {
-        return new Vector2(getContent().getBoundsInLocal().getWidth(), getContent().getBoundsInLocal().getHeight());
+        return new Vector2(getContentWidth(), getContentHeight());
     }
 
     public Double getContentWidth() {
-        return getContent().getBoundsInLocal().getWidth();
+        return ((Region) getContent()).getWidth();
     }
 
     public Double getContentHeight() {
-        return getContent().getBoundsInLocal().getHeight();
+        return ((Region) getContent()).getHeight();
     }
 
     public Vector2 getViewportSize() {
@@ -74,7 +75,7 @@ public class ExtendedScrollPane extends ScrollPane {
             setHvalue(getHmax());
         } else if (value < getHmin()) {
             setHvalue(getHmin());
-        } else {
+        } else if (!value.isNaN()) {
             setHvalue(value);
         }
     }
@@ -86,7 +87,7 @@ public class ExtendedScrollPane extends ScrollPane {
             setVvalue(getVmax());
         } else if (value < getVmin()) {
             setVvalue(getVmin());
-        } else {
+        } else if (!value.isNaN()) {
             setVvalue(value);
         }
     }

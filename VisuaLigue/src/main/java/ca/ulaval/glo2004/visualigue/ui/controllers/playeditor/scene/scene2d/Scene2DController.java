@@ -7,15 +7,19 @@ import ca.ulaval.glo2004.visualigue.ui.controllers.playeditor.scene.SceneControl
 import ca.ulaval.glo2004.visualigue.ui.controllers.playeditor.scene.Zoom;
 import ca.ulaval.glo2004.visualigue.ui.customcontrols.ExtendedScrollPane;
 import ca.ulaval.glo2004.visualigue.ui.models.*;
+import ca.ulaval.glo2004.visualigue.utils.FXUtils;
 import ca.ulaval.glo2004.visualigue.utils.FilenameUtils;
 import ca.ulaval.glo2004.visualigue.utils.geometry.Vector2;
+import ca.ulaval.glo2004.visualigue.utils.math.MathUtils;
 import java.util.*;
 import javafx.collections.MapChangeListener;
 import javafx.collections.MapChangeListener.Change;
+import javafx.event.EventHandler;
 import javafx.fxml.FXML;
 import javafx.scene.Cursor;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
+import javafx.scene.input.ScrollEvent;
 import javafx.scene.layout.StackPane;
 
 public class Scene2DController extends SceneController {
@@ -45,7 +49,22 @@ public class Scene2DController extends SceneController {
         stackPane.maxWidthProperty().bind(backgroundImageView.fitWidthProperty());
         stackPane.minHeightProperty().bind(backgroundImageView.fitHeightProperty());
         stackPane.maxHeightProperty().bind(backgroundImageView.fitHeightProperty());
+        scrollPane.addEventFilter(ScrollEvent.ANY, new ZoomHandler());
         setZoom(new Zoom(1));
+    }
+
+    private class ZoomHandler implements EventHandler<ScrollEvent> {
+
+        @Override
+        public void handle(ScrollEvent scrollEvent) {
+            if (!scrollEvent.isDirect()) {
+                scrollEvent.consume();
+                Double delta = scrollEvent.getDeltaY() / 100;
+                Vector2 mp = FXUtils.getNodeMousePosition(backgroundImageView);
+                Vector2 ct = contentToRelativePoint(mp);
+                setZoom(new Zoom(getZoom().getValue() + delta));
+            }
+        }
     }
 
     private void onActorStateMapChanged(MapChangeListener.Change change) {
@@ -140,20 +159,31 @@ public class Scene2DController extends SceneController {
 
     @Override
     public void setZoom(Zoom zoom) {
+        setZoom(zoom, contentToRelativePoint(scrollPane.getVisibleContentCenter()));
+    }
+
+    public void setZoom(Zoom zoom, Vector2 centerRelativePoint) {
+        if (MathUtils.lessThan(zoom, getMinZoom())) {
+            zoom = getMinZoom();
+        } else if (MathUtils.greaterThan(zoom, getMaxZoom())) {
+            zoom = getMaxZoom();
+        }
         this.zoom = zoom;
-        Double width = getBaseSceneWidth() * zoom.getValue();
-        Double height = getBaseSceneHeight() * zoom.getValue();
-        Vector2 relativeCenter = contentToRelativePoint(scrollPane.getVisibleContentCenter());
         scrollPaneContent.widthProperty().addListener((value, oldPropertyValue, newPropertyValue) -> {
-            Vector2 newCenter = relativeToContentPoint(relativeCenter);
-            scrollPane.setVisibleContentCenterX(newCenter.getX());
+            if (oldPropertyValue != newPropertyValue) {
+                Vector2 newCenter = relativeToContentPoint(centerRelativePoint);
+                scrollPane.setVisibleContentCenterX(newCenter.getX());
+            }
+
         });
         scrollPaneContent.heightProperty().addListener((value, oldPropertyValue, newPropertyValue) -> {
-            Vector2 newCenter = relativeToContentPoint(relativeCenter);
-            scrollPane.setVisibleContentCenterY(newCenter.getY());
+            if (oldPropertyValue != newPropertyValue) {
+                Vector2 newCenter = relativeToContentPoint(centerRelativePoint);
+                scrollPane.setVisibleContentCenterY(newCenter.getY());
+            }
         });
-        backgroundImageView.setFitWidth(width);
-        backgroundImageView.setFitHeight(height);
+        backgroundImageView.setFitWidth(getBaseSceneWidth() * zoom.getValue());
+        backgroundImageView.setFitHeight(getBaseSceneHeight() * zoom.getValue());
         onZoomChanged.fire(this, zoom);
     }
 
@@ -183,10 +213,10 @@ public class Scene2DController extends SceneController {
 
     @Override
     public void autoFit() {
-        if (scrollPane.getWidth() / scrollPane.getHeight() > getBaseSceneWidth() / getBaseSceneHeight()) {
-            setZoom(new Zoom(scrollPane.getHeight() / getBaseSceneHeight()));
+        if (scrollPane.getViewportWidth() / scrollPane.getViewportHeight() > getBaseSceneWidth() / getBaseSceneHeight()) {
+            setZoom(new Zoom(scrollPane.getViewportHeight() / getBaseSceneHeight()));
         } else {
-            setZoom(new Zoom(scrollPane.getWidth() / getBaseSceneWidth()));
+            setZoom(new Zoom(scrollPane.getViewportWidth() / getBaseSceneWidth()));
         }
     }
 

@@ -2,6 +2,8 @@ package ca.ulaval.glo2004.visualigue.utils.geometry;
 
 import ca.ulaval.glo2004.visualigue.domain.DomainObject;
 import ca.ulaval.glo2004.visualigue.utils.math.easing.EasingFunction;
+import java.awt.Point;
+import javafx.geometry.Point2D;
 import javax.xml.bind.annotation.XmlAccessType;
 import javax.xml.bind.annotation.XmlAccessorType;
 
@@ -19,6 +21,16 @@ public class Vector2 extends DomainObject {
     public Vector2(double x, double y) {
         this.x = x;
         this.y = y;
+    }
+
+    public Vector2(Point point) {
+        this.x = (double) point.x;
+        this.y = (double) point.y;
+    }
+
+    public Vector2(Point2D point2d) {
+        this.x = point2d.getX();
+        this.y = point2d.getY();
     }
 
     public static Vector2 fromCenter(Double center, Double size) {
@@ -66,5 +78,10 @@ public class Vector2 extends DomainObject {
 
     public Vector2 divide(Double operand) {
         return new Vector2(this.x / operand, this.y / operand);
+    }
+
+    @Override
+    public String toString() {
+        return String.format("X: (%s), Y: (%s)", x, y);
     }
 }

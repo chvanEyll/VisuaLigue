@@ -12,6 +12,7 @@ import ca.ulaval.glo2004.visualigue.ui.models.MousePositionModel;
 import ca.ulaval.glo2004.visualigue.ui.models.PlayModel;
 import ca.ulaval.glo2004.visualigue.utils.EventHandler;
 import ca.ulaval.glo2004.visualigue.utils.geometry.Vector2;
+import ca.ulaval.glo2004.visualigue.utils.math.MathUtils;
 import javafx.application.Platform;
 import javafx.beans.value.ObservableValue;
 import javafx.collections.FXCollections;
@@ -167,8 +168,8 @@ public class ToolbarController extends ViewController {
         ignoreZoomComboBoxAction = true;
         zoomComboBox.setValue(currentZoom);
         ignoreZoomComboBoxAction = false;
-        zoomInButton.setDisable(currentZoom.compareTo(sceneController.getMaxZoom()) >= 0);
-        zoomOutButton.setDisable(currentZoom.compareTo(sceneController.getMinZoom()) <= 0);
+        zoomInButton.setDisable(MathUtils.greaterOrEqual(currentZoom, sceneController.getMaxZoom()));
+        zoomOutButton.setDisable(MathUtils.lessOrEqual(currentZoom, sceneController.getMinZoom()));
     }
 
     private void onPlayerCategoryLabelDisplayEnableChanged(Object sender, Boolean displayEnabled) {
