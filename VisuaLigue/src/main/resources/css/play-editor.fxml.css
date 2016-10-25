@@ -114,6 +114,10 @@
 
 .scene-container {
     -fx-background: #F3F1EF;
+    -fx-fit-to-height: true;
+    -fx-fit-to-width: true;
+    -fx-vbar-policy: as-needed;
+    -fx-hbar-policy: as-needed;
 }
 
 .scene-container .scene {

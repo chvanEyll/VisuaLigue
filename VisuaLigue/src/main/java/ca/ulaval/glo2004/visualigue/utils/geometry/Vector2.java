@@ -21,6 +21,10 @@ public class Vector2 extends DomainObject {
         this.y = y;
     }
 
+    public static Vector2 fromCenter(Double center, Double size) {
+        return new Vector2(center - size / 2, 0);
+    }
+
     public Double getX() {
         return x;
     }

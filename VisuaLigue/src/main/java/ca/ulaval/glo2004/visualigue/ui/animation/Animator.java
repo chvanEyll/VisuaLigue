@@ -1,12 +1,13 @@
 package ca.ulaval.glo2004.visualigue.ui.animation;
 
-import ca.ulaval.glo2004.visualigue.utils.math.easing.EasingFunction;
 import ca.ulaval.glo2004.visualigue.ui.animation.transitions.RectangleTransition;
 import ca.ulaval.glo2004.visualigue.ui.animation.transitions.SimpleValueTransition;
 import ca.ulaval.glo2004.visualigue.ui.animation.transitions.Transition;
+import ca.ulaval.glo2004.visualigue.utils.math.easing.EasingFunction;
 import java.time.Duration;
 import java.time.LocalDateTime;
 import java.util.*;
+import java.util.function.BiConsumer;
 import java.util.function.Consumer;
 import java.util.stream.Collectors;
 import javafx.application.Platform;
@@ -28,8 +29,9 @@ public class Animator<T> {
     private LocalDateTime animationStartTime;
     private Timer timer;
     private Transition transition;
+    private BiConsumer<Animator, T> consumer;
 
-    public Animator(Consumer method, T startValue, T endValue, Duration duration, EasingFunction easingFunction, Object groupKey, Boolean firstOfGroup, Boolean lastOfGroup) {
+    public Animator(Consumer method, T startValue, T endValue, Duration duration, EasingFunction easingFunction, Object groupKey, Boolean firstOfGroup, Boolean lastOfGroup, BiConsumer<Animator, T> consumer) {
         this.method = method;
         this.startValue = startValue;
         this.endValue = endValue;
@@ -38,6 +40,7 @@ public class Animator<T> {
         this.groupKey = groupKey;
         this.isFirstOfGroup = firstOfGroup;
         this.isLastOfGroup = lastOfGroup;
+        this.consumer = consumer;
     }
 
     public void animate() {
@@ -87,6 +90,9 @@ public class Animator<T> {
         }
         Platform.runLater(() -> {
             method.accept(value);
+            if (consumer != null) {
+                consumer.accept(this, value);
+            }
         });
     }
 }

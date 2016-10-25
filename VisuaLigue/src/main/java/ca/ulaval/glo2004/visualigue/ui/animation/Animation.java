@@ -2,7 +2,9 @@ package ca.ulaval.glo2004.visualigue.ui.animation;
 
 import ca.ulaval.glo2004.visualigue.utils.math.easing.EasingFunction;
 import ca.ulaval.glo2004.visualigue.utils.math.easing.ExponentialEaseOutFunction;
+import ca.ulaval.glo2004.visualigue.utils.math.easing.LinearEaseFunction;
 import java.time.Duration;
+import java.util.function.BiConsumer;
 import java.util.function.Consumer;
 import javafx.scene.shape.Rectangle;
 
@@ -16,6 +18,7 @@ public class Animation<T> {
     private Object groupKey = null;
     private Boolean isFirstOfGroup = false;
     private Boolean isLastOfGroup = false;
+    private BiConsumer<Animator, T> consumer = null;
 
     public Animation(Consumer<T> method) {
         this.method = method;
@@ -66,13 +69,22 @@ public class Animation<T> {
         return this;
     }
 
+    public Animation callFrame(BiConsumer<Animator, T> consumer) {
+        this.consumer = consumer;
+        return this;
+    }
+
     public void easeOutExp() {
         build(new ExponentialEaseOutFunction());
     }
 
+    public void linear() {
+        build(new LinearEaseFunction());
+    }
+
     private void build(EasingFunction easingFunction) {
         method.accept((T) startValue);
-        Animator animator = new Animator(method, startValue, endValue, duration, easingFunction, groupKey, isFirstOfGroup, isLastOfGroup);
+        Animator animator = new Animator(method, startValue, endValue, duration, easingFunction, groupKey, isFirstOfGroup, isLastOfGroup, consumer);
         animator.animate();
     }
 

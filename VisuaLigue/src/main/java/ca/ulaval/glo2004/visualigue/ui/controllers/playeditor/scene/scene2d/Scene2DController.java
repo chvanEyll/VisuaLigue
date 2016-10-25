@@ -3,7 +3,6 @@ package ca.ulaval.glo2004.visualigue.ui.controllers.playeditor.scene.scene2d;
 import ca.ulaval.glo2004.visualigue.domain.play.actorinstance.TeamSide;
 import ca.ulaval.glo2004.visualigue.ui.InjectableFXMLLoader;
 import ca.ulaval.glo2004.visualigue.ui.View;
-import ca.ulaval.glo2004.visualigue.ui.animation.Animation;
 import ca.ulaval.glo2004.visualigue.ui.controllers.playeditor.scene.SceneController;
 import ca.ulaval.glo2004.visualigue.ui.controllers.playeditor.scene.Zoom;
 import ca.ulaval.glo2004.visualigue.ui.customcontrols.ExtendedScrollPane;
@@ -11,7 +10,6 @@ import ca.ulaval.glo2004.visualigue.ui.models.*;
 import ca.ulaval.glo2004.visualigue.utils.FilenameUtils;
 import ca.ulaval.glo2004.visualigue.utils.geometry.Vector2;
 import java.util.*;
-import javafx.beans.property.SimpleDoubleProperty;
 import javafx.collections.MapChangeListener;
 import javafx.collections.MapChangeListener.Change;
 import javafx.fxml.FXML;
@@ -27,6 +25,7 @@ public class Scene2DController extends SceneController {
     private static final Zoom MAX_ZOOM = new Zoom(5.0);
 
     @FXML private ExtendedScrollPane scrollPane;
+    @FXML private StackPane scrollPaneContent;
     @FXML private StackPane stackPane;
     @FXML private ImageView backgroundImageView;
     private List<View> sceneLayers = new ArrayList();
@@ -144,10 +143,17 @@ public class Scene2DController extends SceneController {
         this.zoom = zoom;
         Double width = getBaseSceneWidth() * zoom.getValue();
         Double height = getBaseSceneHeight() * zoom.getValue();
-        Animation.method(backgroundImageView::setFitWidth).duration(0.5).from(backgroundImageView.getFitWidth()).to(width).group(this).first().easeOutExp();
-        Animation.method(backgroundImageView::setFitHeight).duration(0.5).from(backgroundImageView.getFitHeight()).to(height).group(this).last().easeOutExp();
-        scrollPane.vvalueProperty().bind(new SimpleDoubleProperty(0.5));
-        scrollPane.hvalueProperty().bind(new SimpleDoubleProperty(0.5));
+        Vector2 relativeCenter = contentToRelativePoint(scrollPane.getVisibleContentCenter());
+        scrollPaneContent.widthProperty().addListener((value, oldPropertyValue, newPropertyValue) -> {
+            Vector2 newCenter = relativeToContentPoint(relativeCenter);
+            scrollPane.setVisibleContentCenterX(newCenter.getX());
+        });
+        scrollPaneContent.heightProperty().addListener((value, oldPropertyValue, newPropertyValue) -> {
+            Vector2 newCenter = relativeToContentPoint(relativeCenter);
+            scrollPane.setVisibleContentCenterY(newCenter.getY());
+        });
+        backgroundImageView.setFitWidth(width);
+        backgroundImageView.setFitHeight(height);
         onZoomChanged.fire(this, zoom);
     }
 
@@ -161,7 +167,7 @@ public class Scene2DController extends SceneController {
 
     @Override
     public void zoomIn() {
-        Zoom nextZoom = PREDEFINED_ZOOMS.higher(zoom);
+        Zoom nextZoom = PREDEFINED_ZOOMS.higher(PREDEFINED_ZOOMS.ceiling(zoom));
         if (nextZoom != null) {
             setZoom(nextZoom);
         }
@@ -169,7 +175,7 @@ public class Scene2DController extends SceneController {
 
     @Override
     public void zoomOut() {
-        Zoom nextZoom = PREDEFINED_ZOOMS.lower(zoom);
+        Zoom nextZoom = PREDEFINED_ZOOMS.lower(PREDEFINED_ZOOMS.floor(zoom));
         if (nextZoom != null) {
             setZoom(nextZoom);
         }

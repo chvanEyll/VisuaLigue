@@ -39,6 +39,7 @@ public class ToolbarController extends ViewController {
     @FXML private ComboBox zoomComboBox;
     @FXML private Button zoomOutButton;
     @FXML private ExtendedButton labelDisplayToggleButton;
+    @FXML private ExtendedButton itemPaneDisplayButton;
     @FXML private Label coordinateLabel;
     @Inject private PlayService playService;
     private PlayModel playModel;
@@ -63,6 +64,7 @@ public class ToolbarController extends ViewController {
         redoButton.setDisable(true);
         zoomComboBox.setItems(FXCollections.observableArrayList(SceneController.PREDEFINED_ZOOMS));
         zoomComboBox.focusedProperty().addListener(this::onZoomComboBoxFocusedPropertyChanged);
+        itemPaneDisplayButton.setSelected(true);
         updateZoom();
     }
 
@@ -113,8 +115,10 @@ public class ToolbarController extends ViewController {
     protected void onZoomComboBoxAction(ActionEvent e) {
         if (!ignoreZoomComboBoxAction) {
             try {
+                ignoreZoomComboBoxAction = true;
                 Zoom zoom = Zoom.percentParse(zoomComboBox.getEditor().getText());
                 sceneController.setZoom(zoom);
+                ignoreZoomComboBoxAction = false;
             } catch (IllegalArgumentException ex) {
                 updateZoom();
             }
@@ -144,6 +148,7 @@ public class ToolbarController extends ViewController {
     @FXML
     protected void onItemPaneDisplayToggleButtonAction(ActionEvent e) {
         itemPaneController.toggleExpand();
+        itemPaneDisplayButton.setSelected(!itemPaneController.isCollapsed());
     }
 
     private void onSceneMousePositionChanged(Object sender, MousePositionModel mousePositionModel) {

@@ -48,4 +48,8 @@ public class ItemPaneController extends ViewController {
         isCollapsed = false;
     }
 
+    public Boolean isCollapsed() {
+        return isCollapsed;
+    }
+
 }
