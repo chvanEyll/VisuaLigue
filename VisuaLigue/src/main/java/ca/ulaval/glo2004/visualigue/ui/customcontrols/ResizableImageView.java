@@ -1,5 +1,6 @@
 package ca.ulaval.glo2004.visualigue.ui.customcontrols;
 
+import javafx.application.Platform;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 
@@ -74,5 +75,8 @@ public class ResizableImageView extends ImageView {
         resizeHeight = height;
         setFitWidth(width);
         setFitHeight(height);
+        Platform.runLater(() -> {
+            this.getParent().autosize();
+        });
     }
 }

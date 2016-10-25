@@ -6,7 +6,7 @@ import ca.ulaval.glo2004.visualigue.services.obstacle.ObstacleService;
 import ca.ulaval.glo2004.visualigue.services.sport.SportService;
 import ca.ulaval.glo2004.visualigue.ui.InjectableFXMLLoader;
 import ca.ulaval.glo2004.visualigue.ui.View;
-import ca.ulaval.glo2004.visualigue.ui.controllers.ControllerBase;
+import ca.ulaval.glo2004.visualigue.ui.controllers.ViewController;
 import ca.ulaval.glo2004.visualigue.ui.controllers.playeditor.scene.SceneController;
 import ca.ulaval.glo2004.visualigue.ui.converters.BallModelConverter;
 import ca.ulaval.glo2004.visualigue.ui.converters.ObstacleModelConverter;
@@ -22,7 +22,7 @@ import javafx.scene.layout.TilePane;
 import javax.inject.Inject;
 import javax.swing.SortOrder;
 
-public class ObjectListController extends ControllerBase {
+public class ObjectListController extends ViewController {
 
     @Inject private SportService sportService;
     @Inject private ObstacleService obstacleService;
@@ -36,6 +36,8 @@ public class ObjectListController extends ControllerBase {
     public void init(PlayModel playModel, SceneController sceneController) {
         this.playModel = playModel;
         this.sceneController = sceneController;
+        sceneController.onObstacleCreationModeExited.setHandler(this::onObstacleCreationModeExited);
+        sceneController.onBallCreationModeExited.setHandler(this::onBallCreationModeExited);
         sportService.onSportUpdated.setHandler(this::onObjectListChanged);
         obstacleService.onObstacleCreated.setHandler(this::onObjectListChanged);
         obstacleService.onObstacleUpdated.setHandler(this::onObjectListChanged);
@@ -79,19 +81,21 @@ public class ObjectListController extends ControllerBase {
     }
 
     private void onObjectItemClicked(Object sender, ModelBase model) {
-        ObjectListItemController itemController = (ObjectListItemController) sender;
-        if (itemController.isSelected()) {
-            unselectAll();
-            itemController.select();
-            if (model instanceof ObstacleModel) {
-                sceneController.enterObstacleCreationMode((ObstacleModel) model);
-            } else if (model instanceof BallModel) {
-                sceneController.enterBallCreationMode((BallModel) model);
-            }
-        } else {
-            itemController.unselect();
-            sceneController.exitCreationMode();
+        unselectAll();
+        ((ObjectListItemController) sender).select();
+        if (model instanceof ObstacleModel) {
+            sceneController.enterObstacleCreationMode((ObstacleModel) model);
+        } else if (model instanceof BallModel) {
+            sceneController.enterBallCreationMode((BallModel) model);
         }
+    }
+
+    private void onObstacleCreationModeExited(Object sender, Object param) {
+        itemControllers.stream().filter(i -> i.getModel() instanceof ObstacleModel).forEach(i -> i.unselect());
+    }
+
+    private void onBallCreationModeExited(Object sender, Object param) {
+        itemControllers.stream().filter(i -> i.getModel() instanceof BallModel).forEach(i -> i.unselect());
     }
 
     private void unselectAll() {

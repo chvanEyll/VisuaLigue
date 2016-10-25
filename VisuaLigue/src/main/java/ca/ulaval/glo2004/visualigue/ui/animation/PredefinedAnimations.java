@@ -29,15 +29,16 @@ public class PredefinedAnimations {
     }
 
     public static void regionExpand(Region region, Double extendedWidth) {
-        Animation.method(region::setPrefWidth).duration(0.4).from(region.getPrefWidth()).to(extendedWidth).group(region).first().easeOutExp();
-        Animation.method(region::setMinWidth).duration(0.4).from(region.getMinWidth()).to(extendedWidth).group(region).easeOutExp();
+        Animation.method(region::setMaxWidth).duration(0.4).from(region.getWidth()).to(extendedWidth).group(region).first().easeOutExp();
+        Animation.method(region::setMinWidth).duration(0.4).from(region.getWidth()).to(extendedWidth).group(region).easeOutExp();
         Animation.method(region::setClip).duration(0.4).from((Rectangle) region.getClip()).to(new Rectangle(extendedWidth, Integer.MAX_VALUE)).group(region).last().easeOutExp();
     }
 
     public static void regionCollapse(Region region, Double collapsedWidth) {
+        region.setClip(new Rectangle(region.getWidth(), Integer.MAX_VALUE));
         Animation.method(region::setClip).duration(0.4).from((Rectangle) region.getClip()).to(new Rectangle(collapsedWidth, Integer.MAX_VALUE)).group(region).first().easeOutExp();
-        Animation.method(region::setPrefWidth).duration(0.4).from(region.getPrefWidth()).to(collapsedWidth).group(region).easeOutExp();
-        Animation.method(region::setMinWidth).duration(0.4).from(region.getMinWidth()).to(collapsedWidth).group(region).last().easeOutExp();
+        Animation.method(region::setMaxWidth).duration(0.4).from(region.getWidth()).to(collapsedWidth).group(region).easeOutExp();
+        Animation.method(region::setMinWidth).duration(0.4).from(region.getWidth()).to(collapsedWidth).group(region).last().easeOutExp();
     }
 
 }

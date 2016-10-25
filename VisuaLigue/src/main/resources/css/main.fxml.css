@@ -21,7 +21,11 @@
     -fx-text-fill: #4F4F4F;
 }
 
-.view-title-edit-button {
+.view-title.editable {
+    -fx-cursor: text;
+}
+
+.view-title-edit-field {
     -fx-pref-width: 250;
     -fx-max-width: 250;
 }
@@ -34,10 +38,9 @@
     -fx-background-color: #F3F1EF;
 }
 
-.app-header .previous-button {
-    -fx-alignment: CENTER_LEFT;
+.app-header .button {
     -fx-pref-width: 41.0;
-    -fx-padding: 0 7 0 14;
+    -fx-padding: 0 7 0 7;
 }
 
 /* Styles */
@@ -307,7 +310,7 @@
 }
 
 .button.selected {
-    -fx-background-color: #8D9EAD;
+    -fx-background-color: #D9D5D3;
 }
 
 .button.color-red {
@@ -352,6 +355,11 @@
 .button.borderless:pressed {
     -fx-background-color: #BFBFBF;
 }
+
+.button.borderless.selected {
+    -fx-background-color: #D9D5D3;
+}
+
 .button.icon-button {
     -fx-background-color: transparent;
     -fx-border: 0;
@@ -382,6 +390,10 @@
     -fx-alignment: center;
 }
 
+.combo-box.centered-text .text-field {
+    -fx-alignment: center;
+}
+
 .combo-box {
     -fx-border-color:  #CCCCCC;
     -fx-background-color:  white;
@@ -396,6 +408,10 @@
 
 .combo-box:hover .arrow-button {
     -fx-background-color: #D9D5D3;
+}
+
+.combo-box .text-field {
+    -fx-border-width: 0;
 }
 
 .spinner .increment-arrow-button, .spinner .decrement-arrow-button {

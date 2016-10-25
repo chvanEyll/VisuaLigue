@@ -12,65 +12,93 @@
 	<children>
 		<Group
 			opacity="1.0"
-			id="XMLID_1298_"
+			id="XMLID_610_"
 			>
 			<children>
-				<Rectangle
-					x="0.5"
-					y="0.5"
-					width="6.41"
-					height="24.0"
-					opacity="1"
-					id="XMLID_37_"
+				<Group
+					opacity="1.0"
+					id="XMLID_57_"
 					>
-					<styleClass>
-						<String fx:value="st0"/>
-					</styleClass>
-					
-				</Rectangle>
-				<SVGPath
-					content="M7.41,25H0V0h7.41V25z M1,24h5.41V1H1V24z"
-					opacity="1"
-					id="XMLID_34_"
-					>
-					<styleClass>
-						<String fx:value="st1"/>
-					</styleClass>
-				</SVGPath>
+					<children>
+						<Group
+							opacity="1.0"
+							id="XMLID_58_"
+							>
+							<children>
+								<SVGPath
+									content="M0,0.74C0.27,0.5,0.53,0.25,0.79,0c3.73,3.76,7.47,7.51,11.23,11.23     C15.73,7.47,19.48,3.77,23.17,0c0.28,0.25,0.56,0.5,0.83,0.77c-3.75,3.74-7.5,7.48-11.23,11.24c3.75,3.73,7.48,7.49,11.23,11.22     c-0.27,0.25-0.54,0.51-0.8,0.77c-3.71-3.75-7.46-7.47-11.16-11.23C8.23,16.46,4.53,20.27,0.75,24c-0.25-0.26-0.49-0.52-0.74-0.77     c3.73-3.74,7.47-7.48,11.19-11.23C7.47,8.25,3.73,4.5,0,0.74z"
+									opacity="1"
+									id="XMLID_59_"
+									>
+									<styleClass>
+										<String fx:value="st0"/>
+									</styleClass>
+								</SVGPath>
+							</children>
+						</Group>
+					</children>
+				</Group>
 			</children>
 		</Group>
 		<Group
 			opacity="1.0"
-			id="XMLID_1295_"
+			id="XMLID_27_"
 			>
 			<children>
-				<Rectangle
-					x="13.91"
-					y="0.5"
-					width="6.41"
-					height="24.0"
-					opacity="1"
-					id="XMLID_32_"
-					>
-					<styleClass>
-						<String fx:value="st0"/>
-					</styleClass>
-					
-				</Rectangle>
-				<SVGPath
-					content="M20.82,25h-7.41V0h7.41V25z M14.41,24h5.41V1h-5.41V24z"
-					opacity="1"
-					id="XMLID_29_"
-					>
-					<styleClass>
-						<String fx:value="st1"/>
-					</styleClass>
-				</SVGPath>
+			</children>
+		</Group>
+		<Group
+			opacity="1.0"
+			id="XMLID_28_"
+			>
+			<children>
+			</children>
+		</Group>
+		<Group
+			opacity="1.0"
+			id="XMLID_29_"
+			>
+			<children>
+			</children>
+		</Group>
+		<Group
+			opacity="1.0"
+			id="XMLID_30_"
+			>
+			<children>
+			</children>
+		</Group>
+		<Group
+			opacity="1.0"
+			id="XMLID_31_"
+			>
+			<children>
+			</children>
+		</Group>
+		<Group
+			opacity="1.0"
+			id="XMLID_32_"
+			>
+			<children>
 			</children>
 		</Group>
 		<Group
 			opacity="1.0"
 			id="XMLID_33_"
+			>
+			<children>
+			</children>
+		</Group>
+		<Group
+			opacity="1.0"
+			id="XMLID_35_"
+			>
+			<children>
+			</children>
+		</Group>
+		<Group
+			opacity="1.0"
+			id="XMLID_37_"
 			>
 			<children>
 			</children>
@@ -113,62 +141,6 @@
 		<Group
 			opacity="1.0"
 			id="XMLID_43_"
-			>
-			<children>
-			</children>
-		</Group>
-		<Group
-			opacity="1.0"
-			id="XMLID_44_"
-			>
-			<children>
-			</children>
-		</Group>
-		<Group
-			opacity="1.0"
-			id="XMLID_45_"
-			>
-			<children>
-			</children>
-		</Group>
-		<Group
-			opacity="1.0"
-			id="XMLID_46_"
-			>
-			<children>
-			</children>
-		</Group>
-		<Group
-			opacity="1.0"
-			id="XMLID_47_"
-			>
-			<children>
-			</children>
-		</Group>
-		<Group
-			opacity="1.0"
-			id="XMLID_48_"
-			>
-			<children>
-			</children>
-		</Group>
-		<Group
-			opacity="1.0"
-			id="XMLID_49_"
-			>
-			<children>
-			</children>
-		</Group>
-		<Group
-			opacity="1.0"
-			id="XMLID_50_"
-			>
-			<children>
-			</children>
-		</Group>
-		<Group
-			opacity="1.0"
-			id="XMLID_51_"
 			>
 			<children>
 			</children>

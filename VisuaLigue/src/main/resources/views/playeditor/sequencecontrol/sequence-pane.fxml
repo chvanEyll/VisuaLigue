@@ -29,8 +29,10 @@
                     </tooltip>
                     <styleClass>
                         <String fx:value="icon-button" />
-                        <String fx:value="control-button" />
                     </styleClass>
+                    <HBox.margin>
+                        <Insets right="4.0" />
+                    </HBox.margin>
                 </ExtendedButton>
                 <Button fx:id="fixedRewindButton">
                     <graphic>
@@ -59,7 +61,6 @@
                     <styleClass>
                         <String fx:value="borderless" />
                         <String fx:value="medium" />
-                        <String fx:value="control-button" />
                         <String fx:value="fixed-rewind-button" />
                     </styleClass>
                 </Button>
@@ -73,7 +74,6 @@
                     <styleClass>
                         <String fx:value="borderless" />
                         <String fx:value="medium" />
-                        <String fx:value="control-button" />
                     </styleClass>
                 </Button>
                 <Button fx:id="rewindButton" onAction="#onRewindButtonAction">
@@ -85,8 +85,6 @@
                     </tooltip>
                     <styleClass>
                         <String fx:value="borderless" />
-                        <String fx:value="medium" />
-                        <String fx:value="control-button" />
                     </styleClass>
                 </Button>
                 <Button fx:id="playButton" onAction="#onPlayButtonAction">
@@ -99,11 +97,7 @@
                     <styleClass>
                         <String fx:value="borderless" />
                         <String fx:value="medium" />
-                        <String fx:value="control-button" />
                     </styleClass>
-                    <HBox.margin>
-                        <Insets left="4.0" right="4.0" />
-                    </HBox.margin>
                 </Button>
                 <Button fx:id="pauseButton" onAction="#onPauseButtonAction">
                     <graphic>
@@ -115,11 +109,7 @@
                     <styleClass>
                         <String fx:value="borderless" />
                         <String fx:value="medium" />
-                        <String fx:value="control-button" />
                     </styleClass>
-                    <HBox.margin>
-                        <Insets left="4.0" right="4.0" />
-                    </HBox.margin>
                 </Button>
                 <Button fx:id="fastForwardButton" onAction="#onFastForwardButtonAction">
                     <graphic>
@@ -131,7 +121,6 @@
                     <styleClass>
                         <String fx:value="borderless" />
                         <String fx:value="medium" />
-                        <String fx:value="control-button" />
                     </styleClass>
                 </Button>
                 <Button fx:id="nextKeyPointButton" onAction="#onNextKeyPointButtonAction">
@@ -144,7 +133,6 @@
                     <styleClass>
                         <String fx:value="borderless" />
                         <String fx:value="medium" />
-                        <String fx:value="control-button" />
                     </styleClass>
                 </Button>
                 <Button fx:id="fixedForwardButton" onAction="#onFixedForwardButtonAction">
@@ -174,7 +162,6 @@
                     <styleClass>
                         <String fx:value="borderless" />
                         <String fx:value="medium" />
-                        <String fx:value="control-button" />
                         <String fx:value="fixed-forward-button" />
                     </styleClass>
                 </Button>

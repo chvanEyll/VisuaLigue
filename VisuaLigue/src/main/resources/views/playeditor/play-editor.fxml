@@ -21,10 +21,9 @@
 <?import javafx.scene.shape.Line?>
 <?import ca.ulaval.glo2004.visualigue.ui.customcontrols.SvgImage?>
 
-<BorderPane AnchorPane.rightAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.topAnchor="0.0" AnchorPane.bottomAnchor="0.0" xmlns="http://javafx.com/javafx/8.0.60" xmlns:fx="http://javafx.com/fxml/1">
+<BorderPane fx:id="rootNode" styleClass="root-node" AnchorPane.rightAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.topAnchor="0.0" AnchorPane.bottomAnchor="0.0" xmlns="http://javafx.com/javafx/8.0.60" xmlns:fx="http://javafx.com/fxml/1" fx:controller="ca.ulaval.glo2004.visualigue.ui.controllers.playeditor.PlayEditorController">
     <stylesheets>
-        <URL value="@../css/main.fxml.css" />
-        <URL value="@../css/play-editor.fxml.css" />
+        <URL value="@/css/play-editor.fxml.css" />
     </stylesheets>
     <styleClass>
         <String fx:value="root-node" />
@@ -37,7 +36,7 @@
         <fx:include fx:id="itemPane" source="/views/playeditor/itempane/item-pane.fxml" />
     </right>
     <bottom>
-        <fx:include fx:id="sequenceControlPane" source="/views/playeditor/sequencecontrol/sequence-pane.fxml" />
+        <fx:include fx:id="sequencePane" source="/views/playeditor/sequencecontrol/sequence-pane.fxml" />
     </bottom>
     <center>
         <fx:include fx:id="scene" source="/views/playeditor/scene2d/scene.fxml" />

@@ -32,11 +32,11 @@ public class PlayerCategoryListItemController extends ListItemController {
         this.model = (PlayerCategoryModel) model;
         nameLabel.textProperty().bind(this.model.name);
         abbreviationLabel.textProperty().bind(this.model.abbreviation);
-        this.model.allyPlayerColor.addListener((observable, oldValue, newValue) -> {
+        this.model.allyPlayerColor.addListener((observable, oldPropertyValue, newPropertyValue) -> {
             updateAllyColorBackground();
         });
         updateAllyColorBackground();
-        this.model.opponentPlayerColor.addListener((observable, oldValue, newValue) -> {
+        this.model.opponentPlayerColor.addListener((observable, oldPropertyValue, newPropertyValue) -> {
             updateOpponentColorBackground();
         });
         updateOpponentColorBackground();
@@ -73,7 +73,7 @@ public class PlayerCategoryListItemController extends ListItemController {
         deleteConfirmButton.focusedProperty().addListener(this::onDeleteConfirmButtonFocusChanged);
     }
 
-    public void onDeleteConfirmButtonFocusChanged(ObservableValue<? extends Boolean> arg0, Boolean oldPropertyValue, Boolean newPropertyValue) {
+    public void onDeleteConfirmButtonFocusChanged(ObservableValue<? extends Boolean> value, Boolean oldPropertyValue, Boolean newPropertyValue) {
         if (!newPropertyValue) {
             FXUtils.setDisplay(deleteConfirmButtonContainer, false);
         }

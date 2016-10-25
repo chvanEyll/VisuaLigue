@@ -5,7 +5,7 @@ import ca.ulaval.glo2004.visualigue.domain.play.PlayRepository;
 import ca.ulaval.glo2004.visualigue.domain.play.actorinstance.PlayerInstance;
 import ca.ulaval.glo2004.visualigue.domain.play.actorinstance.TeamSide;
 import ca.ulaval.glo2004.visualigue.domain.play.actorstate.PlayerState;
-import ca.ulaval.glo2004.visualigue.domain.play.position.Position;
+import ca.ulaval.glo2004.visualigue.utils.geometry.Vector2;
 import ca.ulaval.glo2004.visualigue.domain.sport.playercategory.PlayerCategory;
 import ca.ulaval.glo2004.visualigue.domain.sport.playercategory.PlayerCategoryRepository;
 import java.util.Optional;
@@ -19,13 +19,13 @@ public class PlayerCreationCommand implements Command {
     private UUID playerCategoryUUID;
     private TeamSide teamSide;
     private Double orientation;
-    private Position position;
+    private Vector2 position;
     @Inject private PlayRepository playRepository;
     @Inject private PlayerCategoryRepository playerCategoryRepository;
 
     private PlayerInstance playerInstance;
 
-    public PlayerCreationCommand(Play play, Integer time, UUID playerCategoryUUID, TeamSide teamSide, Double orientation, Position position) {
+    public PlayerCreationCommand(Play play, Integer time, UUID playerCategoryUUID, TeamSide teamSide, Double orientation, Vector2 position) {
         this.play = play;
         this.time = time;
         this.playerCategoryUUID = playerCategoryUUID;

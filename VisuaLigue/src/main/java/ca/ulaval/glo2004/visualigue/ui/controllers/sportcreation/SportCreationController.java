@@ -7,7 +7,7 @@ import ca.ulaval.glo2004.visualigue.services.sport.SportService;
 import ca.ulaval.glo2004.visualigue.ui.InjectableFXMLLoader;
 import ca.ulaval.glo2004.visualigue.ui.View;
 import ca.ulaval.glo2004.visualigue.ui.animation.PredefinedAnimations;
-import ca.ulaval.glo2004.visualigue.ui.controllers.ControllerBase;
+import ca.ulaval.glo2004.visualigue.ui.controllers.ViewController;
 import ca.ulaval.glo2004.visualigue.ui.converters.SportCreationModelConverter;
 import ca.ulaval.glo2004.visualigue.ui.customcontrols.Breadcrumb;
 import ca.ulaval.glo2004.visualigue.ui.dialog.AlertDialogBuilder;
@@ -31,7 +31,7 @@ import javafx.scene.layout.VBox;
 import javax.inject.Inject;
 import org.apache.commons.lang3.StringUtils;
 
-public class SportCreationController extends ControllerBase {
+public class SportCreationController extends ViewController {
 
     @FXML private VBox stepContent;
     @FXML private Button deleteButton;
@@ -125,13 +125,13 @@ public class SportCreationController extends ControllerBase {
 
         if (result.get().getButtonData() == ButtonData.YES) {
             sportService.deleteSport(model.getUUID());
-            onViewCloseRequested.fire(this, null);
+            onViewCloseRequested.fire(this, true);
         }
     }
 
     @FXML
     protected void onCancelButtonAction(ActionEvent e) {
-        onViewCloseRequested.fire(this, null);
+        onViewCloseRequested.fire(this, true);
     }
 
     private void trySaveChanges() {
@@ -156,7 +156,7 @@ public class SportCreationController extends ControllerBase {
         applyBallChanges(sportUuid);
         applyPlayingSurfaceChanges(sportUuid);
         applyCategoryChanges(sportUuid);
-        onViewCloseRequested.fire(this, null);
+        onViewCloseRequested.fire(this, true);
     }
 
     private void applyIconChanges(UUID sportUuid) {

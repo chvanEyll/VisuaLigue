@@ -12,31 +12,13 @@
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.shape.Line?>
 
-<VBox fx:id="rootNode" styleClass="root-node, item-pane" xmlns="http://javafx.com/javafx/8.0.60" xmlns:fx="http://javafx.com/fxml/1" fx:controller="ca.ulaval.glo2004.visualigue.ui.controllers.playeditor.itempane.ItemPaneController">
-    <children>
-        <HBox styleClass="menu-toggle, light, right-align" onMouseClicked="#onMenuToggleClicked">
+<ScrollPane fx:id="rootNode" styleClass="root-node, item-pane, edge-to-edge" xmlns="http://javafx.com/javafx/8.0.60" xmlns:fx="http://javafx.com/fxml/1" fx:controller="ca.ulaval.glo2004.visualigue.ui.controllers.playeditor.itempane.ItemPaneController">
+    <content>
+        <VBox styleClass="content">
             <children>
-                <VBox styleClass="lines">
-                    <children>
-                        <Line endX="30.0" styleClass="line" />
-                        <Line endX="30.0" styleClass="line" />
-                        <Line endX="30.0" styleClass="line" />
-                    </children>
-                </VBox>
+                <fx:include fx:id="playerCategoryList" source="/views/playeditor/itempane/player-category-list.fxml" />
+                <fx:include fx:id="objectList" source="/views/playeditor/itempane/object-list.fxml" />
             </children>
-        </HBox>
-        <ScrollPane fx:id="scrollPane" styleClass="scroll-container, edge-to-edge" VBox.vgrow="ALWAYS">
-            <content>
-                <VBox styleClass="content">
-                    <children>
-                        <fx:include fx:id="playerCategoryList" source="/views/playeditor/itempane/player-category-list.fxml" />
-                        <fx:include fx:id="objectList" source="/views/playeditor/itempane/object-list.fxml" />
-                    </children>
-                </VBox>
-            </content>
-        </ScrollPane>
-    </children>
-    <styleClass>
-        <String fx:value="item-pane" />
-    </styleClass>
-</VBox>
+        </VBox>
+    </content>
+</ScrollPane>

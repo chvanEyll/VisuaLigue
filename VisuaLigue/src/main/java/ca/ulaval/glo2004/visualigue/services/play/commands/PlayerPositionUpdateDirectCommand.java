@@ -5,7 +5,7 @@ import ca.ulaval.glo2004.visualigue.domain.play.PlayRepository;
 import ca.ulaval.glo2004.visualigue.domain.play.actorinstance.PlayerInstance;
 import ca.ulaval.glo2004.visualigue.domain.play.actorstate.ActorState;
 import ca.ulaval.glo2004.visualigue.domain.play.actorstate.PlayerState;
-import ca.ulaval.glo2004.visualigue.domain.play.position.Position;
+import ca.ulaval.glo2004.visualigue.utils.geometry.Vector2;
 import java.util.Optional;
 import java.util.UUID;
 import javax.inject.Inject;
@@ -15,13 +15,13 @@ public class PlayerPositionUpdateDirectCommand implements Command {
     private Play play;
     private Integer time;
     private UUID ownerPlayerInstanceUUID;
-    private Position position;
+    private Vector2 position;
     @Inject private PlayRepository playRepository;
 
     private PlayerInstance playerInstance;
     private Optional<ActorState> oldPlayerState;
 
-    public PlayerPositionUpdateDirectCommand(Play play, Integer time, UUID ownerPlayerInstanceUUID, Position position) {
+    public PlayerPositionUpdateDirectCommand(Play play, Integer time, UUID ownerPlayerInstanceUUID, Vector2 position) {
         this.play = play;
         this.time = time;
         this.ownerPlayerInstanceUUID = ownerPlayerInstanceUUID;

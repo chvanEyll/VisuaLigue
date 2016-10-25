@@ -20,7 +20,7 @@ public class ViewFlow {
 
     public void clear() {
         while (!viewStack.empty()) {
-            clearView(viewStack.pop());
+            viewStack.pop();
         }
     }
 
@@ -29,13 +29,8 @@ public class ViewFlow {
     }
 
     public View moveToPrevious() {
-        clearView(viewStack.pop());
+        viewStack.pop();
         return viewStack.peek();
-    }
-
-    public void clearView(View view) {
-        ControllerBase controller = (ControllerBase) view.getController();
-        controller.clearHandlers();
     }
 
     public int count() {

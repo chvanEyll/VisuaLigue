@@ -1,15 +1,15 @@
 package ca.ulaval.glo2004.visualigue.domain.play.actorstate;
 
 import ca.ulaval.glo2004.visualigue.domain.DomainObject;
-import ca.ulaval.glo2004.visualigue.domain.play.position.Position;
+import ca.ulaval.glo2004.visualigue.utils.geometry.Vector2;
 import ca.ulaval.glo2004.visualigue.utils.math.easing.EasingFunction;
 import java.util.Optional;
 
 public abstract class ActorState extends DomainObject {
 
-    protected Optional<Position> position = Optional.empty();
+    protected Optional<Vector2> position = Optional.empty();
 
-    public Position getPosition() {
+    public Vector2 getPosition() {
         return position.get();
     }
 

@@ -1,6 +1,7 @@
-package ca.ulaval.glo2004.visualigue.ui.controllers.playeditor.scene;
+package ca.ulaval.glo2004.visualigue.ui.controllers.playeditor.scene.scene2d;
 
-import ca.ulaval.glo2004.visualigue.ui.controllers.ControllerBase;
+import ca.ulaval.glo2004.visualigue.ui.controllers.ViewController;
+import ca.ulaval.glo2004.visualigue.ui.controllers.playeditor.scene.Zoom;
 import ca.ulaval.glo2004.visualigue.ui.customcontrols.SvgImage;
 import ca.ulaval.glo2004.visualigue.ui.models.ActorModel;
 import ca.ulaval.glo2004.visualigue.utils.FilenameUtils;
@@ -10,7 +11,7 @@ import javafx.scene.control.Tooltip;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 
-public class SceneLayerController extends ControllerBase {
+public class SceneLayerController extends ViewController {
 
     public static final String VIEW_NAME = "/views/playeditor/scene2d/scene-layer.fxml";
     @FXML private Button actorButton;
@@ -33,12 +34,11 @@ public class SceneLayerController extends ControllerBase {
             imageView.setImage(new Image(actorModel.builtInImagePathName.get()));
         }
         tooltip.textProperty().bind(actorModel.hoverText);
-        setZoom(1.0);
     }
 
-    public void setZoom(Double zoom) {
-        actorButton.setLayoutX(actorModel.x.get() * baseLayerWidth * zoom);
-        actorButton.setLayoutY(actorModel.y.get() * baseLayerHeight * zoom);
+    public void setZoom(Zoom zoom) {
+        actorButton.setLayoutX(actorModel.x.get() * baseLayerWidth * zoom.getValue());
+        actorButton.setLayoutY(actorModel.y.get() * baseLayerHeight * zoom.getValue());
     }
 
     public void setPlayerCategoryLabelDisplayEnabled(Boolean enabled) {

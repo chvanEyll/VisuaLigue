@@ -30,7 +30,7 @@ public class MainMenuController {
     public EventHandler<View> onMenuClicked = new EventHandler();
 
     public void init() {
-        menuPane.setPrefWidth(MENU_PANE_COLLAPSED_WIDTH);
+        menuPane.setMaxWidth(MENU_PANE_COLLAPSED_WIDTH);
         menuPane.setMinWidth(MENU_PANE_COLLAPSED_WIDTH);
         menuPane.setClip(new Rectangle(MENU_PANE_COLLAPSED_WIDTH, Integer.MAX_VALUE));
         selectMenu(PlayManagementController.VIEW_NAME, playsMenuItem);

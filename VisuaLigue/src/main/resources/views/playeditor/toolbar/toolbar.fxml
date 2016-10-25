@@ -7,11 +7,11 @@
 <?import javafx.scene.control.TextField?>
 <?import javafx.scene.control.Tooltip?>
 <?import javafx.scene.control.Label?>
+<?import javafx.scene.control.ComboBox?>
 <?import javafx.scene.layout.HBox?>
 <?import javafx.scene.layout.Pane?>
 <?import ca.ulaval.glo2004.visualigue.ui.customcontrols.SvgImage?>
 <?import ca.ulaval.glo2004.visualigue.ui.customcontrols.ExtendedButton?>
-<?import ca.ulaval.glo2004.visualigue.ui.customcontrols.ExtendedTextField?>
 
 <HBox fx:id="rootNode" alignment="CENTER_LEFT" prefHeight="50.0" styleClass="root-node, toolbar" xmlns="http://javafx.com/javafx/8.0.60" xmlns:fx="http://javafx.com/fxml/1" fx:controller="ca.ulaval.glo2004.visualigue.ui.controllers.playeditor.toolbar.ToolbarController">
     <children>
@@ -29,7 +29,7 @@
         </Button>
         <Button fx:id="closeButton" onAction="#onCloseButtonAction">
             <graphic>
-                <SvgImage url="/images/cross-icon.fxml" />
+                <SvgImage url="/images/cross-icon-thin.fxml" />
             </graphic>
             <tooltip>
                 <Tooltip text="Fermer" />
@@ -85,29 +85,37 @@
                 <Insets left="3.0" right="3.0" />
             </HBox.margin>
         </Pane>
-        <Button fx:id="zoomInButton" onAction="#onZoomInButtonAction">
+        <ExtendedButton fx:id="panButton" onAction="#onPanButtonAction">
             <graphic>
-                <SvgImage url="/images/zoom-in-icon.fxml" />
+                <SvgImage url="/images/hand-icon.fxml" />
             </graphic>
             <tooltip>
-                <Tooltip text="Zoom avant" />
+                <Tooltip text="Déplacer la vue" />
             </tooltip>
             <styleClass>
                 <String fx:value="borderless" />
                 <String fx:value="medium" />
             </styleClass>
-        </Button>
-        <ExtendedTextField fx:id="zoomTextField" prefWidth="85.0" text="100%" onAction="#onZoomTextFieldAction" maxLength="4">
-            <styleClass>
-                <String fx:value="centered-text" />
-            </styleClass>
-        </ExtendedTextField>
+        </ExtendedButton>
         <Button fx:id="zoomOutButton" onAction="#onZoomOutButtonAction">
             <graphic>
                 <SvgImage url="/images/zoom-out-icon.fxml" />
             </graphic>
             <tooltip>
                 <Tooltip text="Zoom arrière" />
+            </tooltip>
+            <styleClass>
+                <String fx:value="borderless" />
+                <String fx:value="medium" />
+            </styleClass>
+        </Button>
+        <ComboBox fx:id="zoomComboBox" styleClass="centered-text" prefWidth="125.0" editable="true" onAction="#onZoomComboBoxAction"/>
+        <Button fx:id="zoomInButton" onAction="#onZoomInButtonAction">
+            <graphic>
+                <SvgImage url="/images/zoom-in-icon.fxml" />
+            </graphic>
+            <tooltip>
+                <Tooltip text="Zoom avant" />
             </tooltip>
             <styleClass>
                 <String fx:value="borderless" />
@@ -158,10 +166,21 @@
         <HBox alignment="CENTER_RIGHT" HBox.hgrow="ALWAYS">
             <children>
                 <Label fx:id="coordinateLabel" styleClass="coordinate-label"/>
+                <ExtendedButton fx:id="itemPaneDisplayButton" onAction="#onItemPaneDisplayToggleButtonAction" prefWidth="60">
+                    <graphic>
+                        <SvgImage url="/images/item-pane-display-toggle-icon.fxml" />
+                    </graphic>
+                    <tooltip>
+                        <Tooltip text="Afficher/masquer le panneau des joueurs et objets" />
+                    </tooltip>
+                    <styleClass>
+                        <String fx:value="borderless" />
+                    </styleClass>
+                </ExtendedButton>
             </children>
         </HBox>
     </children>
     <padding>
-        <Insets left="5.0" right="10.0" />
+        <Insets left="5.0" />
     </padding>
 </HBox>

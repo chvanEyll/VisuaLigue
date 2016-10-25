@@ -8,11 +8,11 @@
 <?import javafx.scene.layout.VBox?>
 <?import ca.ulaval.glo2004.visualigue.ui.customcontrols.ExtendedButton?>
 
-<ExtendedButton xmlns="http://javafx.com/javafx/8.0.60" xmlns:fx="http://javafx.com/fxml/1" onAction="#onAction" fx:controller="ca.ulaval.glo2004.visualigue.ui.controllers.playeditor.itempane.PlayerCategoryListItemController">
+<ExtendedButton fx:id="rootNode" xmlns="http://javafx.com/javafx/8.0.60" xmlns:fx="http://javafx.com/fxml/1" onAction="#onAction" fx:controller="ca.ulaval.glo2004.visualigue.ui.controllers.playeditor.itempane.PlayerCategoryListItemController">
     <graphic>
-        <VBox alignment="CENTER">
+        <VBox styleClass="item-content">
             <SvgImage fx:id="playerIcon" url="/images/player-icon.fxml" />
-            <Label fx:id="abreviationLabel" text="AGD" />
+            <Label fx:id="abbreviationLabel" text="AGD" />
         </VBox>
     </graphic>
     <styleClass>
@@ -21,6 +21,6 @@
         <String fx:value="root-node" />
     </styleClass>
     <tooltip>
-        <Tooltip fx:id="tooltip" text="Ailier gauche" />
+        <Tooltip fx:id="tooltip" />
     </tooltip>
 </ExtendedButton>

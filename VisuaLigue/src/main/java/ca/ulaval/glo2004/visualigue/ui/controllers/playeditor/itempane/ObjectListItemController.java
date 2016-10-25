@@ -1,8 +1,7 @@
 package ca.ulaval.glo2004.visualigue.ui.controllers.playeditor.itempane;
 
-import ca.ulaval.glo2004.visualigue.ui.controllers.ControllerBase;
+import ca.ulaval.glo2004.visualigue.ui.controllers.ViewController;
 import ca.ulaval.glo2004.visualigue.ui.customcontrols.ExtendedButton;
-import ca.ulaval.glo2004.visualigue.ui.customcontrols.SvgImage;
 import ca.ulaval.glo2004.visualigue.ui.models.BallModel;
 import ca.ulaval.glo2004.visualigue.ui.models.ModelBase;
 import ca.ulaval.glo2004.visualigue.ui.models.ObstacleModel;
@@ -11,31 +10,46 @@ import ca.ulaval.glo2004.visualigue.utils.FilenameUtils;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.control.Tooltip;
+import javafx.scene.image.Image;
+import javafx.scene.image.ImageView;
 
-public class ObjectListItemController extends ControllerBase {
+public class ObjectListItemController extends ViewController {
 
     public static final String VIEW_NAME = "/views/playeditor/itempane/object-list-item.fxml";
 
     public EventHandler<ModelBase> onClick = new EventHandler();
     @FXML private ExtendedButton rootNode;
-    @FXML private SvgImage objectIcon;
+    @FXML private ImageView imageView;
     @FXML private Tooltip tooltip;
     private ModelBase model;
 
     public void init(BallModel model) {
         this.model = model;
-        objectIcon.setUrl(model.builtInImagePathName.get());
+        if (model.imagePathName.isNotEmpty().get()) {
+            setImage(FilenameUtils.getURIString(model.imagePathName.get()));
+        } else {
+            setImage(model.builtInImagePathName.get());
+        }
         tooltip.textProperty().bindBidirectional(model.name);
+    }
+
+    public ModelBase getModel() {
+        return model;
     }
 
     public void init(ObstacleModel model) {
         this.model = model;
         if (model.currentImagePathName.isNotEmpty().get()) {
-            objectIcon.setUrl(FilenameUtils.getURIString(model.currentImagePathName.get()));
+            setImage(FilenameUtils.getURIString(model.currentImagePathName.get()));
         } else {
-            objectIcon.setUrl(model.builtInImagePathName.get());
+            setImage(model.builtInImagePathName.get());
         }
         tooltip.textProperty().bindBidirectional(model.name);
+    }
+
+    private void setImage(String url) {
+        Image image = new Image(url);
+        imageView.setImage(image);
     }
 
     public void select() {

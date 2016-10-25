@@ -4,7 +4,7 @@ import ca.ulaval.glo2004.visualigue.domain.play.*;
 import ca.ulaval.glo2004.visualigue.domain.play.actorinstance.TeamSide;
 import ca.ulaval.glo2004.visualigue.domain.play.frame.Frame;
 import ca.ulaval.glo2004.visualigue.domain.play.keyframe.KeyframeTransition;
-import ca.ulaval.glo2004.visualigue.domain.play.position.Position;
+import ca.ulaval.glo2004.visualigue.utils.geometry.Vector2;
 import ca.ulaval.glo2004.visualigue.domain.sport.Sport;
 import ca.ulaval.glo2004.visualigue.domain.sport.SportNotFoundException;
 import ca.ulaval.glo2004.visualigue.domain.sport.SportRepository;
@@ -69,19 +69,19 @@ public class PlayService {
         return playRepository.getAll(sortFunction, sortOrder);
     }
 
-    public void addPlayer(UUID playUUID, Integer time, UUID playerCategoryUUID, TeamSide teamSide, Double orientation, Position position) throws Exception {
+    public void addPlayer(UUID playUUID, Integer time, UUID playerCategoryUUID, TeamSide teamSide, Double orientation, Vector2 position) throws Exception {
         Play play = playRepository.get(playUUID);
         PlayerCreationCommand command = new PlayerCreationCommand(play, time, playerCategoryUUID, teamSide, orientation, position);
         executeNewCommand(playUUID, command);
     }
 
-    public void updatePlayerPositionDirect(UUID playUUID, Integer time, UUID ownerPlayerInstanceUUID, Position position) throws Exception {
+    public void updatePlayerPositionDirect(UUID playUUID, Integer time, UUID ownerPlayerInstanceUUID, Vector2 position) throws Exception {
         Play play = playRepository.get(playUUID);
         PlayerPositionUpdateDirectCommand command = new PlayerPositionUpdateDirectCommand(play, time, ownerPlayerInstanceUUID, position);
         executeNewCommand(playUUID, command);
     }
 
-    public void updatePlayerPositionFreeform(UUID playUUID, Integer time, UUID ownerPlayerInstanceUUID, Position position, KeyframeTransition positionTransition) throws Exception {
+    public void updatePlayerPositionFreeform(UUID playUUID, Integer time, UUID ownerPlayerInstanceUUID, Vector2 position, KeyframeTransition positionTransition) throws Exception {
         Play play = playRepository.get(playUUID);
         PlayerPositionUpdateFreeformCommand command = new PlayerPositionUpdateFreeformCommand(play, time, ownerPlayerInstanceUUID, position, positionTransition);
         executeNewCommand(playUUID, command);
@@ -93,19 +93,19 @@ public class PlayService {
         executeNewCommand(playUUID, command);
     }
 
-    public void addObstacle(UUID playUUID, Integer time, UUID obstacleInstanceUUID, Position position) throws Exception {
+    public void addObstacle(UUID playUUID, Integer time, UUID obstacleInstanceUUID, Vector2 position) throws Exception {
         Play play = playRepository.get(playUUID);
         ObstacleCreationCommand command = new ObstacleCreationCommand(play, time, obstacleInstanceUUID, position);
         executeNewCommand(playUUID, command);
     }
 
-    public void addBall(UUID playUUID, Integer time, UUID ownerPlayerInstanceUUID, Position position) throws Exception {
+    public void addBall(UUID playUUID, Integer time, UUID ownerPlayerInstanceUUID, Vector2 position) throws Exception {
         Play play = playRepository.get(playUUID);
         BallCreationCommand command = new BallCreationCommand(play, time, ownerPlayerInstanceUUID, position);
         executeNewCommand(playUUID, command);
     }
 
-    public void updateBall(UUID playUUID, Integer time, UUID ballInstanceUUID, UUID ownerPlayerInstanceUUID, Position position) throws Exception {
+    public void updateBall(UUID playUUID, Integer time, UUID ballInstanceUUID, UUID ownerPlayerInstanceUUID, Vector2 position) throws Exception {
         Play play = playRepository.get(playUUID);
         BallUpdateCommand command = new BallUpdateCommand(play, time, ballInstanceUUID, ownerPlayerInstanceUUID, position);
         executeNewCommand(playUUID, command);

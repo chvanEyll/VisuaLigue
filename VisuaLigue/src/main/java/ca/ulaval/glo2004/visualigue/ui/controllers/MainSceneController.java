@@ -14,10 +14,10 @@ import javafx.scene.control.TextField;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.Pane;
 
-public class MainSceneController extends ControllerBase {
+public class MainSceneController extends ViewController {
 
     public static final String VIEW_NAME = "/views/main.fxml";
-
+    private static final String EDITABLE_TITLE_CSS_STYLE_NAME = "editable";
     @FXML private Pane contentPane;
     @FXML private Button previousButton;
     @FXML private Button viewTitleEditButton;
@@ -45,7 +45,7 @@ public class MainSceneController extends ControllerBase {
 
     @FXML
     protected void onPreviousButtonAction(ActionEvent e) {
-        previousView();
+        previousView(true);
     }
 
     private void setMainView(View view) {
@@ -60,8 +60,8 @@ public class MainSceneController extends ControllerBase {
         nextView(view);
     }
 
-    private void onViewCloseRequested(Object sender, Object eventArgs) {
-        previousView();
+    private void onViewCloseRequested(Object sender, Boolean showPrevious) {
+        previousView(showPrevious);
     }
 
     private void nextView(View view) {
@@ -69,15 +69,17 @@ public class MainSceneController extends ControllerBase {
         setView(view);
     }
 
-    private void previousView() {
+    private void previousView(Boolean showPrevious) {
         if (viewFlow.count() > 1 && validateCurrentViewClose()) {
             View view = viewFlow.moveToPrevious();
-            setView(view);
+            if (showPrevious) {
+                setView(view);
+            }
         }
     }
 
     private void setView(View view) {
-        ControllerBase controller = (ControllerBase) view.getController();
+        ViewController controller = (ViewController) view.getController();
         controller.onViewChangeRequested.setHandler(this::onViewChangeRequested);
         controller.onViewCloseRequested.setHandler(this::onViewCloseRequested);
         contentPane.getChildren().clear();
@@ -87,18 +89,33 @@ public class MainSceneController extends ControllerBase {
         FXUtils.setDisplay(previousButton, viewFlow.count() > 1);
         FXUtils.setDisplay(viewTitleSpacer, viewFlow.count() <= 1);
         FXUtils.setDisplay(viewTitleEditButton, controller.isTitleEditable());
+        if (controller.isTitleEditable()) {
+            viewTitleLabel.getStyleClass().add(EDITABLE_TITLE_CSS_STYLE_NAME);
+        } else {
+            viewTitleLabel.getStyleClass().remove(EDITABLE_TITLE_CSS_STYLE_NAME);
+        }
         FXUtils.setDisplay(viewTitleValidateButton, false);
         FXUtils.setDisplay(viewTitleTextField, false);
         PredefinedAnimations.nodeZoom(view.getRoot());
     }
 
+    @Override
+    public Boolean onViewClosing() {
+        return validateCurrentViewClose();
+    }
+
     private Boolean validateCurrentViewClose() {
         if (!viewFlow.empty()) {
-            ControllerBase controller = (ControllerBase) viewFlow.getCurrentView().getController();
+            ViewController controller = (ViewController) viewFlow.getCurrentView().getController();
             return controller.onViewClosing();
         } else {
             return true;
         }
+    }
+
+    @FXML
+    protected void onViewTitleLabelMouseClicked(MouseEvent e) {
+        toggleViewTitleEditionMode(true);
     }
 
     @FXML
@@ -116,7 +133,7 @@ public class MainSceneController extends ControllerBase {
         toggleViewTitleEditionMode(false);
     }
 
-    public void onViewTitleTextFieldFocusChanged(ObservableValue<? extends Boolean> arg0, Boolean oldPropertyValue, Boolean newPropertyValue) {
+    public void onViewTitleTextFieldFocusChanged(ObservableValue<? extends Boolean> value, Boolean oldPropertyValue, Boolean newPropertyValue) {
         if (!newPropertyValue) {
             toggleViewTitleEditionMode(false);
         }

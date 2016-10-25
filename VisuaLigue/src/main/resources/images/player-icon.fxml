@@ -20,7 +20,7 @@
 					centerX="12.5"
 					centerY="12.5"
 					opacity="1"
-					id="XMLID_47_"
+					id="innerCircle"
 					>
 					<styleClass>
 						<String fx:value="st0"/>
@@ -46,7 +46,7 @@
 				<Polygon
 					points="19.43,12.6,5.72,16.8,5.43,8.69,"
 					opacity="1"
-					id="XMLID_39_"
+					id="triangle"
 				>
 				<styleClass>
 					<String fx:value="st2"/>

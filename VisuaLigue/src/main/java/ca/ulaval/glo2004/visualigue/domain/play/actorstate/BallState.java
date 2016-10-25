@@ -1,7 +1,7 @@
 package ca.ulaval.glo2004.visualigue.domain.play.actorstate;
 
 import ca.ulaval.glo2004.visualigue.domain.play.actorinstance.PlayerInstance;
-import ca.ulaval.glo2004.visualigue.domain.play.position.Position;
+import ca.ulaval.glo2004.visualigue.utils.geometry.Vector2;
 import ca.ulaval.glo2004.visualigue.utils.math.easing.EasingFunction;
 import java.util.Optional;
 import javax.xml.bind.annotation.XmlAccessType;
@@ -16,7 +16,7 @@ public class BallState extends ActorState implements Cloneable {
 
     }
 
-    public BallState(Optional<Position> position, Optional<PlayerInstance> owner) {
+    public BallState(Optional<Vector2> position, Optional<PlayerInstance> owner) {
         this.position = position;
         this.owner = owner;
     }

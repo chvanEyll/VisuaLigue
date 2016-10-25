@@ -65,10 +65,10 @@ public class PlayerCategoryListItemEditionController extends ListItemEditionCont
         onCloseRequested.fire(this, model);
     }
 
-    private void onCategoryNameTextChanged(final ObservableValue<? extends String> ov, final String oldValue, final String newValue) {
-        String oldAutoAbbreviation = StringUtils.getFirstLetterOfEachWord(oldValue);
+    private void onCategoryNameTextChanged(final ObservableValue<? extends String> value, final String oldPropertyValue, final String newPropertyValue) {
+        String oldAutoAbbreviation = StringUtils.getFirstLetterOfEachWord(oldPropertyValue);
         if (oldAutoAbbreviation.compareTo(model.abbreviation.get()) == 0) {
-            model.abbreviation.set(StringUtils.getFirstLetterOfEachWord(newValue));
+            model.abbreviation.set(StringUtils.getFirstLetterOfEachWord(newPropertyValue));
         }
     }
 

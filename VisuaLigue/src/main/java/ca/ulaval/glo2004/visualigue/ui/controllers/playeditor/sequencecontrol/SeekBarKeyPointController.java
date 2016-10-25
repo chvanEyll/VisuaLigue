@@ -1,12 +1,12 @@
 package ca.ulaval.glo2004.visualigue.ui.controllers.playeditor.sequencecontrol;
 
-import ca.ulaval.glo2004.visualigue.ui.controllers.ControllerBase;
+import ca.ulaval.glo2004.visualigue.ui.controllers.ViewController;
 import ca.ulaval.glo2004.visualigue.utils.EventHandler;
 import javafx.fxml.FXML;
 import javafx.scene.control.Label;
 import javafx.scene.input.MouseEvent;
 
-public class SeekBarKeyPointController extends ControllerBase {
+public class SeekBarKeyPointController extends ViewController {
 
     public static final String VIEW_NAME = "/views/playeditor/sequencecontrol/seekbar-key-point.fxml";
 

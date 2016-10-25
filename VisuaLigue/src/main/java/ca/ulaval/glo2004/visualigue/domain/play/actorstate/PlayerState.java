@@ -1,7 +1,7 @@
 package ca.ulaval.glo2004.visualigue.domain.play.actorstate;
 
 import ca.ulaval.glo2004.visualigue.domain.play.keyframe.KeyframeTransition;
-import ca.ulaval.glo2004.visualigue.domain.play.position.Position;
+import ca.ulaval.glo2004.visualigue.utils.geometry.Vector2;
 import ca.ulaval.glo2004.visualigue.utils.math.easing.EasingFunction;
 import java.util.Optional;
 import javax.xml.bind.annotation.XmlAccessType;
@@ -16,7 +16,7 @@ public class PlayerState extends ActorState implements Cloneable {
     private PlayerState() {
     }
 
-    public PlayerState(Optional<Position> position, Optional<KeyframeTransition> positionTransition, Optional<Double> orientation) {
+    public PlayerState(Optional<Vector2> position, Optional<KeyframeTransition> positionTransition, Optional<Double> orientation) {
         this.position = position;
         this.positionTransition = positionTransition;
         this.orientation = orientation;

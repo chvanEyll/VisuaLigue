@@ -19,7 +19,7 @@ public class FXUtils {
     }
 
     public static String colorToHex(Color color) {
-        return "#" + Integer.toHexString(color.hashCode());
+        return "#" + Integer.toHexString(color.hashCode()).substring(0, 6).toUpperCase();
     }
 
     public static File chooseImage(Stage stage) {

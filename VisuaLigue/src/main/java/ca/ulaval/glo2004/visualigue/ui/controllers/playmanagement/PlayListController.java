@@ -4,7 +4,7 @@ import ca.ulaval.glo2004.visualigue.domain.play.Play;
 import ca.ulaval.glo2004.visualigue.services.play.PlayService;
 import ca.ulaval.glo2004.visualigue.ui.InjectableFXMLLoader;
 import ca.ulaval.glo2004.visualigue.ui.View;
-import ca.ulaval.glo2004.visualigue.ui.controllers.ControllerBase;
+import ca.ulaval.glo2004.visualigue.ui.controllers.ViewController;
 import ca.ulaval.glo2004.visualigue.ui.controllers.playcreation.PlayCreationController;
 import ca.ulaval.glo2004.visualigue.ui.converters.PlayModelConverter;
 import ca.ulaval.glo2004.visualigue.ui.models.PlayModel;
@@ -22,7 +22,7 @@ import javafx.scene.layout.TilePane;
 import javax.inject.Inject;
 import javax.swing.SortOrder;
 
-public class PlayListController extends ControllerBase {
+public class PlayListController extends ViewController {
 
     @Inject private PlayService playService;
     @Inject private PlayModelConverter playModelConverter;

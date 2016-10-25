@@ -6,7 +6,7 @@ import ca.ulaval.glo2004.visualigue.domain.play.actorinstance.BallInstance;
 import ca.ulaval.glo2004.visualigue.domain.play.actorinstance.PlayerInstance;
 import ca.ulaval.glo2004.visualigue.domain.play.actorstate.ActorState;
 import ca.ulaval.glo2004.visualigue.domain.play.actorstate.BallState;
-import ca.ulaval.glo2004.visualigue.domain.play.position.Position;
+import ca.ulaval.glo2004.visualigue.utils.geometry.Vector2;
 import java.util.Optional;
 import java.util.UUID;
 import javax.inject.Inject;
@@ -17,13 +17,13 @@ public class BallUpdateCommand implements Command {
     private Integer time;
     private UUID ballInstanceUUID;
     private UUID ownerPlayerInstanceUUID;
-    private Position position;
+    private Vector2 position;
     @Inject private PlayRepository playRepository;
 
     private BallInstance ballInstance;
     private Optional<ActorState> oldBallState;
 
-    public BallUpdateCommand(Play play, Integer time, UUID ballInstanceUUID, UUID ownerPlayerInstanceUUID, Position position) {
+    public BallUpdateCommand(Play play, Integer time, UUID ballInstanceUUID, UUID ownerPlayerInstanceUUID, Vector2 position) {
         this.play = play;
         this.time = time;
         this.ballInstanceUUID = ballInstanceUUID;

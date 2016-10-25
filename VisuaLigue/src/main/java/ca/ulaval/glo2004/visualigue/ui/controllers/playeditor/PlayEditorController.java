@@ -2,9 +2,10 @@ package ca.ulaval.glo2004.visualigue.ui.controllers.playeditor;
 
 import ca.ulaval.glo2004.visualigue.domain.play.PlayNotFoundException;
 import ca.ulaval.glo2004.visualigue.services.play.PlayService;
-import ca.ulaval.glo2004.visualigue.ui.controllers.ControllerBase;
+import ca.ulaval.glo2004.visualigue.ui.controllers.ViewController;
 import ca.ulaval.glo2004.visualigue.ui.controllers.playeditor.itempane.ItemPaneController;
 import ca.ulaval.glo2004.visualigue.ui.controllers.playeditor.scene.SceneController;
+import ca.ulaval.glo2004.visualigue.ui.controllers.playeditor.sequencecontrol.SequencePaneController;
 import ca.ulaval.glo2004.visualigue.ui.controllers.playeditor.toolbar.ToolbarController;
 import ca.ulaval.glo2004.visualigue.ui.dialog.AlertDialogBuilder;
 import ca.ulaval.glo2004.visualigue.ui.models.PlayModel;
@@ -17,27 +18,30 @@ import javafx.scene.control.ButtonBar;
 import javafx.scene.control.ButtonType;
 import javax.inject.Inject;
 
-public class PlayEditorController extends ControllerBase {
+public class PlayEditorController extends ViewController {
 
     public static final String VIEW_NAME = "/views/playeditor/play-editor.fxml";
 
     @FXML private ItemPaneController itemPaneController;
     @FXML private SceneController sceneController;
     @FXML private ToolbarController toolbarController;
+    @FXML private SequencePaneController sequencePaneController;
     @Inject PlayService playService;
     private PlayModel playModel;
 
     public void init(PlayModel playModel) throws PlayNotFoundException {
         this.playModel = playModel;
+        sceneController.init(playModel);
         itemPaneController.init(playModel, sceneController);
-        toolbarController.init(playModel, sceneController);
+        toolbarController.init(playModel, sceneController, itemPaneController);
         toolbarController.onSaveButtonAction.addHandler(this::onSaveToolbarButtonAction);
         toolbarController.onCloseButtonAction.addHandler(this::onCloseToolbarButtonAction);
         toolbarController.onExportButtonAction.addHandler(this::onExportToolbarButtonAction);
         toolbarController.onUndoButtonAction.addHandler(this::onUndoToolbarButtonAction);
         toolbarController.onRedoButtonAction.addHandler(this::onRedoToolbarButtonAction);
         toolbarController.onBestFitButtonAction.addHandler(this::onBestFitToolbarButtonAction);
-        sceneController.init(playModel);
+        sequencePaneController.init(playModel, sceneController);
+        sceneController.enterNavigationMode();
         playModel.title.addListener(this::onPlayTitleChanged);
     }
 
@@ -56,7 +60,7 @@ public class PlayEditorController extends ControllerBase {
         return validateUnsavedChanges() != ButtonBar.ButtonData.CANCEL_CLOSE;
     }
 
-    private void onPlayTitleChanged(final ObservableValue<? extends String> ov, final String oldValue, final String newValue) {
+    private void onPlayTitleChanged(final ObservableValue<? extends String> value, final String oldPropertyValue, final String newPropertyValue) {
         playService.updatePlayTitle(playModel.getUUID(), playModel.title.get());
     }
 
@@ -69,7 +73,7 @@ public class PlayEditorController extends ControllerBase {
     }
 
     private void onCloseToolbarButtonAction(Object sender, Object eventArgs) {
-        onViewCloseRequested.fire(this, null);
+        onViewCloseRequested.fire(this, true);
     }
 
     private void discardChanges() {

@@ -1,7 +1,7 @@
 package ca.ulaval.glo2004.visualigue.ui.controllers.playeditor.itempane;
 
 import ca.ulaval.glo2004.visualigue.domain.play.actorinstance.TeamSide;
-import ca.ulaval.glo2004.visualigue.ui.controllers.ControllerBase;
+import ca.ulaval.glo2004.visualigue.ui.controllers.ViewController;
 import ca.ulaval.glo2004.visualigue.ui.customcontrols.ExtendedButton;
 import ca.ulaval.glo2004.visualigue.ui.customcontrols.SvgImage;
 import ca.ulaval.glo2004.visualigue.ui.models.PlayerCategoryModel;
@@ -13,7 +13,7 @@ import javafx.scene.control.Label;
 import javafx.scene.control.Tooltip;
 import javafx.scene.paint.Color;
 
-public class PlayerCategoryListItemController extends ControllerBase {
+public class PlayerCategoryListItemController extends ViewController {
 
     public static final String VIEW_NAME = "/views/playeditor/itempane/player-category-list-item.fxml";
 
@@ -36,7 +36,7 @@ public class PlayerCategoryListItemController extends ControllerBase {
     }
 
     private void setPlayerIconColor(Color color) {
-        playerIcon.setStyle(String.format("-fx-fill: %s", FXUtils.colorToHex(color)));
+        playerIcon.lookup("#innerCircle").setStyle(String.format("-fx-fill: %s", FXUtils.colorToHex(color)));
     }
 
     public void select() {

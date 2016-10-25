@@ -2,7 +2,7 @@ package ca.ulaval.glo2004.visualigue.ui.controllers.settings;
 
 import ca.ulaval.glo2004.visualigue.VisuaLigue;
 import ca.ulaval.glo2004.visualigue.services.settings.SettingsService;
-import ca.ulaval.glo2004.visualigue.ui.controllers.ControllerBase;
+import ca.ulaval.glo2004.visualigue.ui.controllers.ViewController;
 import ca.ulaval.glo2004.visualigue.ui.dialog.AlertDialogBuilder;
 import java.net.URL;
 import java.util.Optional;
@@ -17,7 +17,7 @@ import javafx.scene.control.ButtonType;
 import javafx.scene.control.Label;
 import javax.inject.Inject;
 
-public class SettingsController extends ControllerBase {
+public class SettingsController extends ViewController {
 
     public static final String VIEW_NAME = "/views/settings/settings.fxml";
     public static final String VIEW_TITLE = "Paramètres";
@@ -37,7 +37,7 @@ public class SettingsController extends ControllerBase {
     @FXML
     protected void onResetButtonAction(ActionEvent e) {
         Optional<ButtonType> result = new AlertDialogBuilder().alertType(Alert.AlertType.WARNING).headerText("Réinitialisation de l'application et des données")
-                .contentText("Êtes-vous sûr de vouloir supprimer réinitialiser l'application et les données (cette action est irréversible)?")
+                .contentText("Êtes-vous sûr de vouloir réinitialiser l'application et les données (cette action est irréversible)?")
                 .buttonType(new ButtonType("Réinitialiser", ButtonBar.ButtonData.YES))
                 .buttonType(new ButtonType("Annuler", ButtonBar.ButtonData.CANCEL_CLOSE)).showAndWait();
 

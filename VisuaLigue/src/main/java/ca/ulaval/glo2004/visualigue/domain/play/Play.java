@@ -30,7 +30,7 @@ public class Play extends DomainObject {
     private Sport sport;
     private final TreeMap<Pair<ActorInstance, Integer>, Keyframe> keyframes = new TreeMap();
     private final Map<UUID, ActorInstance> actorInstances = new HashMap();
-    private Integer definedLength;
+    private Integer definedLength = 0;
 
     public Play() {
         //Required for JAXB instanciation.

@@ -28,7 +28,7 @@ public class ExtendedTextField extends TextField {
         this.maxLength = maxLength;
     }
 
-    private void onTextFieldChanged(final ObservableValue<? extends String> ov, final String oldValue, final String newValue) {
+    private void onTextFieldChanged(final ObservableValue<? extends String> value, final String oldPropertyValue, final String newPropertyValue) {
         checkLength();
         checkCase();
     }

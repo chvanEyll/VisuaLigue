@@ -79,7 +79,7 @@ public class SportCreationStep2Controller extends SportCreationStepController {
             imagePathLabel.textProperty().bind(this.model.newPlayingSurfaceImagePathName);
         } catch (Exception ex) {
             clearErrors();
-            imageErrorLabel.setText("L'image sélectionnée n'a pu être chargée.");
+            imageErrorLabel.setText("L'image spécifiée n'a pu être chargée.");
             FXUtils.setDisplay(imageErrorLabel, true);
         }
     }

@@ -31,20 +31,17 @@
                 </HBox>
                 <HBox alignment="CENTER_LEFT" HBox.hgrow="ALWAYS">
                     <children>
-                        <Button fx:id="previousButton" styleClass="previous-button, borderless" onAction="#onPreviousButtonAction">
+                        <Button fx:id="previousButton" styleClass="borderless" onAction="#onPreviousButtonAction">
                             <graphic>
                                 <SvgImage url="/images/previous-arrow.fxml" />
                             </graphic>
-                            <HBox.margin>
-                                <Insets />
-                            </HBox.margin>
                             <tooltip>
                                 <Tooltip text="Retour" />
                             </tooltip>
                         </Button>
                         <Pane fx:id="viewTitleSpacer" prefWidth="14" />
-                        <Label fx:id="viewTitleLabel" styleClass="view-title" text="Sports" />
-                        <ExtendedTextField fx:id="viewTitleTextField" styleClass="view-title-edit-button" maxLength="64" onAction="#onViewTitleTextFieldAction" />
+                        <Label fx:id="viewTitleLabel" styleClass="view-title" text="Sports" onMouseClicked="#onViewTitleLabelMouseClicked"  />
+                        <ExtendedTextField fx:id="viewTitleTextField" styleClass="view-title-edit-field" maxLength="64" onAction="#onViewTitleTextFieldAction" />
                         <Button fx:id="viewTitleEditButton" alignment="CENTER_LEFT" styleClass="borderless, standard-size" onAction="#onViewTitleEditButtonAction">
                             <graphic>
                                 <SvgImage url="/images/pen-icon.fxml" scaleX="0.75" scaleY="0.75" />

@@ -5,12 +5,14 @@ import ca.ulaval.glo2004.visualigue.contexts.DefaultContext;
 import ca.ulaval.glo2004.visualigue.ui.InjectableFXMLLoader;
 import ca.ulaval.glo2004.visualigue.ui.View;
 import ca.ulaval.glo2004.visualigue.ui.controllers.MainSceneController;
+import ca.ulaval.glo2004.visualigue.ui.controllers.ViewController;
 import java.io.IOException;
 import javafx.application.Application;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.image.Image;
 import javafx.stage.Stage;
+import javafx.stage.WindowEvent;
 
 public class VisuaLigue extends Application {
 
@@ -33,16 +35,21 @@ public class VisuaLigue extends Application {
         initContext();
         View view = InjectableFXMLLoader.loadView(MainSceneController.VIEW_NAME);
         Scene scene = new Scene((Parent) view.getRoot());
-        initStage(stage, scene);
+        initStage(stage, scene, (ViewController) view.getController());
     }
 
-    private void initStage(Stage stage, Scene scene) throws IOException {
+    private void initStage(Stage stage, Scene scene, ViewController viewController) throws IOException {
         setStageIcons(stage);
         stage.setScene(scene);
         stage.setTitle(APP_NAME);
         stage.setMinWidth(MIN_STAGE_WIDTH);
         stage.setMinHeight(MIN_STAGE_HEIGHT);
         stage.show();
+        stage.setOnCloseRequest((WindowEvent ev) -> {
+            if (!viewController.onViewClosing()) {
+                ev.consume();
+            }
+        });
     }
 
     private void setStageIcons(Stage stage) {

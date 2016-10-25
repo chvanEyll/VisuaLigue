@@ -2,7 +2,7 @@ package ca.ulaval.glo2004.visualigue.ui.controllers.playeditor.sequencecontrol;
 
 import ca.ulaval.glo2004.visualigue.services.play.PlayService;
 import ca.ulaval.glo2004.visualigue.services.sport.SportService;
-import ca.ulaval.glo2004.visualigue.ui.controllers.ControllerBase;
+import ca.ulaval.glo2004.visualigue.ui.controllers.ViewController;
 import ca.ulaval.glo2004.visualigue.ui.controllers.playeditor.scene.SceneController;
 import ca.ulaval.glo2004.visualigue.ui.converters.FrameModelConverter;
 import ca.ulaval.glo2004.visualigue.ui.customcontrols.ExtendedButton;
@@ -18,9 +18,10 @@ import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javax.inject.Inject;
 
-public class SequencePaneController extends ControllerBase {
+public class SequencePaneController extends ViewController {
 
     private static final Integer AUTO_ADVANCE_PERIOD = 15;
+    private static final Integer DEFAULT_FIXED_ADVANCE_PERIOD = 500;
     @FXML private ExtendedButton realTimeButton;
     @FXML private Button playButton;
     @FXML private Button pauseButton;
@@ -38,25 +39,28 @@ public class SequencePaneController extends ControllerBase {
     private Integer playLength;
     private PlaySpeed playSpeed = PlaySpeed.STILL_SPEED;
     private PlayDirection playDirection = PlayDirection.NONE;
-    private Integer fixedForwardPeriod = 2000;
-    private Integer fixedRewindPeriod = 2000;
+    private Integer fixedForwardPeriod;
+    private Integer fixedRewindPeriod;
     private final Timer timer = new Timer();
-    private final DecimalFormat fixedAdvancePeriodDecimalFormat = new DecimalFormat("0.##");
+    private final DecimalFormat fixedAdvancePeriodDecimalFormat = new DecimalFormat(".#");
 
     public void init(PlayModel playModel, SceneController sceneController) {
         this.playModel = playModel;
         this.sceneController = sceneController;
         seekBarController.init(playModel);
         seekBarController.onTimeChanged.addHandler(this::onSeekBarTimeChanged);
+        setFixedForwardPeriod(DEFAULT_FIXED_ADVANCE_PERIOD);
+        setFixedRewindPeriod(DEFAULT_FIXED_ADVANCE_PERIOD);
+        stop();
     }
 
     @FXML
     protected void onRealTimeButtonAction(ActionEvent e) {
         realTimeButton.setSelected(!realTimeButton.isSelected());
         if (realTimeButton.isSelected()) {
-            sceneController.enterRealTimeCreationMode();
+            sceneController.enterRealTimeMode();
         } else {
-            sceneController.enterFrameByFrameCreationMode();
+            sceneController.enterFrameByFrameMode();
         }
     }
 
@@ -111,15 +115,23 @@ public class SequencePaneController extends ControllerBase {
     @FXML
     protected void onChangeFixedForwardPeriodMenuItemAction(ActionEvent e) {
         ExtendedMenuItem menuItem = (ExtendedMenuItem) e.getSource();
-        fixedForwardPeriod = (Integer) menuItem.getCustomData();
-        fixedForwardPeriodLabel.setText(fixedAdvancePeriodDecimalFormat.format(fixedForwardPeriod / 1000.0));
+        setFixedForwardPeriod(Integer.parseInt((String) menuItem.getCustomData()));
+    }
+
+    private void setFixedForwardPeriod(Integer fixedForwardPeriod) {
+        this.fixedForwardPeriod = fixedForwardPeriod;
+        fixedForwardPeriodLabel.setText(fixedAdvancePeriodDecimalFormat.format(this.fixedForwardPeriod / 1000.0));
     }
 
     @FXML
     protected void onChangeFixedRewindPeriodMenuItemAction(ActionEvent e) {
         ExtendedMenuItem menuItem = (ExtendedMenuItem) e.getSource();
-        fixedRewindPeriod = (Integer) menuItem.getCustomData();
-        fixedRewindPeriodLabel.setText(fixedAdvancePeriodDecimalFormat.format(fixedRewindPeriod / 1000.0));
+        setFixedRewindPeriod(Integer.parseInt((String) menuItem.getCustomData()));
+    }
+
+    private void setFixedRewindPeriod(Integer fixedRewindPeriod) {
+        this.fixedRewindPeriod = fixedRewindPeriod;
+        fixedRewindPeriodLabel.setText(fixedAdvancePeriodDecimalFormat.format(this.fixedRewindPeriod / 1000.0));
     }
 
     private void autoAdvance(PlayDirection playDirection, PlaySpeed playSpeed) {
@@ -151,8 +163,8 @@ public class SequencePaneController extends ControllerBase {
         timer.cancel();
         playDirection = PlayDirection.NONE;
         playSpeed = PlaySpeed.STILL_SPEED;
-        FXUtils.setDisplay(playButton, false);
-        FXUtils.setDisplay(pauseButton, true);
+        FXUtils.setDisplay(playButton, true);
+        FXUtils.setDisplay(pauseButton, false);
     }
 
     private void onSeekBarTimeChanged(Object sender, Integer time) {

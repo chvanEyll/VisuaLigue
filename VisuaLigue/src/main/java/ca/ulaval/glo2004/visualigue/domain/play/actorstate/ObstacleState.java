@@ -1,6 +1,6 @@
 package ca.ulaval.glo2004.visualigue.domain.play.actorstate;
 
-import ca.ulaval.glo2004.visualigue.domain.play.position.Position;
+import ca.ulaval.glo2004.visualigue.utils.geometry.Vector2;
 import ca.ulaval.glo2004.visualigue.utils.math.easing.EasingFunction;
 import java.util.Optional;
 import javax.xml.bind.annotation.XmlAccessType;
@@ -13,7 +13,7 @@ public class ObstacleState extends ActorState implements Cloneable {
 
     }
 
-    public ObstacleState(Optional<Position> position) {
+    public ObstacleState(Optional<Vector2> position) {
         this.position = position;
     }
 

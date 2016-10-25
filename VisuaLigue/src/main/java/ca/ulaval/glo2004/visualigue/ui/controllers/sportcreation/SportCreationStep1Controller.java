@@ -83,7 +83,7 @@ public class SportCreationStep1Controller extends SportCreationStepController {
             imageView.setImage(new Image(imageURL));
         } catch (Exception ex) {
             clearErrors();
-            imageErrorLabel.setText("L'image sélectionnée n'a pu être chargée.");
+            imageErrorLabel.setText("L'image spécifiée n'a pu être chargée.");
             FXUtils.setDisplay(imageErrorLabel, true);
         }
     }
