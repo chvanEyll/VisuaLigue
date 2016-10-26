@@ -32,6 +32,7 @@ public class MainSceneController extends ViewController {
     public void initialize(URL url, ResourceBundle rb) {
         mainMenuController.onMenuClicked.setHandler(this::onMainMenuClicked);
         mainMenuController.init();
+        viewTitleTextField.focusedProperty().addListener(this::onViewTitleTextFieldFocusChanged);
     }
 
     private void onMainMenuClicked(Object sender, View requestedView) {
@@ -145,7 +146,6 @@ public class MainSceneController extends ViewController {
         FXUtils.setDisplay(viewTitleLabel, !editionMode);
         FXUtils.setDisplay(viewTitleEditButton, !editionMode);
         if (editionMode) {
-            viewTitleTextField.focusedProperty().addListener(this::onViewTitleTextFieldFocusChanged);
             FXUtils.requestFocusDelayed(viewTitleTextField);
         }
     }

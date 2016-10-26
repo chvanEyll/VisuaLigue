@@ -1,5 +1,6 @@
 package ca.ulaval.glo2004.visualigue.ui.controllers.common;
 
+import ca.ulaval.glo2004.visualigue.utils.FXUtils;
 import ca.ulaval.glo2004.visualigue.utils.geometry.Rect;
 import ca.ulaval.glo2004.visualigue.utils.geometry.Vector2;
 import javafx.scene.Node;
@@ -20,6 +21,10 @@ public class ExtendedScrollPane extends ScrollPane {
         return ((Region) getContent()).getHeight();
     }
 
+    public Vector2 getViewportCenter() {
+        return getViewportSize().divide(2.0);
+    }
+
     public Vector2 getViewportSize() {
         return new Vector2(getViewportBounds().getWidth(), getViewportBounds().getHeight());
     }
@@ -32,64 +37,17 @@ public class ExtendedScrollPane extends ScrollPane {
         return getViewportBounds().getHeight();
     }
 
-    public Vector2 getValue() {
-        return new Vector2(this.getHvalue(), this.getVvalue());
-    }
-
-    public void setValue(Vector2 value) {
-        this.setHvalue(value.getX());
-        this.setVvalue(value.getY());
+    public Rect getViewportRect() {
+        return new Rect(new Vector2(), getViewportSize());
     }
 
     public Vector2 getVisibleContentCenter() {
         return getVisibleContentBounds().center();
     }
 
-    public void setVisibleContentCenter(Vector2 center) {
-        setVisibleContentBounds(Rect.fromCenter(center, getViewportSize()));
-    }
-
-    public void setVisibleContentCenterX(Double centerX) {
-        setVisibleContentX(centerX - getViewportWidth() / 2);
-    }
-
-    public void setVisibleContentCenterY(Double centerY) {
-        setVisibleContentY(centerY - getViewportHeight() / 2);
-    }
-
     public Rect getVisibleContentBounds() {
         Vector2 scrollableSize = getScrollableSize();
         return new Rect(scrollableSize.multiply(getValue()), getViewportSize());
-    }
-
-    public void setVisibleContentBounds(Rect contentBounds) {
-        Vector2 scrollableSize = getScrollableSize();
-        Vector2 value = contentBounds.getLocation().divide(scrollableSize);
-        setValue(value);
-    }
-
-    public void setVisibleContentX(Double minX) {
-        Double scrollableWidth = getScrollableX();
-        Double value = minX / scrollableWidth;
-        if (value > getHmax()) {
-            setHvalue(getHmax());
-        } else if (value < getHmin()) {
-            setHvalue(getHmin());
-        } else if (!value.isNaN()) {
-            setHvalue(value);
-        }
-    }
-
-    public void setVisibleContentY(Double minY) {
-        Double scrollableHeight = getScrollableY();
-        Double value = minY / scrollableHeight;
-        if (value > getVmax()) {
-            setVvalue(getVmax());
-        } else if (value < getVmin()) {
-            setVvalue(getVmin());
-        } else if (!value.isNaN()) {
-            setVvalue(value);
-        }
     }
 
     public Vector2 getScrollableSize() {
@@ -102,6 +60,97 @@ public class ExtendedScrollPane extends ScrollPane {
 
     public Double getScrollableY() {
         return getContentHeight() - getViewportHeight();
+    }
+
+    public Vector2 getValue() {
+        return new Vector2(this.getHvalue(), this.getVvalue());
+    }
+
+    public void setValueSafe(Vector2 value) {
+        this.setHvalueSafe(value.getX());
+        this.setVvalueSafe(value.getY());
+    }
+
+    public void setHvalueSafe(Double value) {
+        if (value > getHmax()) {
+            setHvalue(getHmax());
+        } else if (value < getHmin()) {
+            setHvalue(getHmin());
+        } else if (!value.isNaN()) {
+            setHvalue(value);
+        }
+    }
+
+    public void setVvalueSafe(Double value) {
+        if (value > getVmax()) {
+            setVvalue(getVmax());
+        } else if (value < getVmin()) {
+            setVvalue(getVmin());
+        } else if (!value.isNaN()) {
+            setVvalue(value);
+        }
+    }
+
+    public void alignToViewportLeft(Double contentX) {
+        setHvalueSafe(contentX / getScrollableX());
+    }
+
+    public void alignToViewportTop(Double contentY) {
+        setVvalueSafe(contentY / getScrollableY());
+    }
+
+    public void alignToViewportCenterX(Double contentX) {
+        alignToViewportLeft(contentX - getViewportWidth() / 2);
+    }
+
+    public void alignToViewportCenterY(Double contentY) {
+        alignToViewportTop(contentY - getViewportHeight() / 2);
+    }
+
+    public void alignX(Double contentX, Double viewPortX) {
+        alignToViewportLeft(contentX - viewPortX);
+    }
+
+    public void alignY(Double contentY, Double viewPortY) {
+        alignToViewportTop(contentY - viewPortY);
+    }
+
+    public Vector2 mouseToViewportPoint() {
+        Vector2 viewportPoint = FXUtils.mouseToNodePoint(this);
+        if (viewportPoint != null && getViewportRect().contains(viewportPoint)) {
+            return viewportPoint;
+        } else {
+            return null;
+        }
+    }
+
+    public Vector2 mouseToContentPoint() {
+        return FXUtils.mouseToNodePoint(getContent());
+    }
+
+    public Vector2 mouseToRelativeContentPoint() {
+        Vector2 contentPoint = mouseToContentPoint();
+        if (contentPoint != null) {
+            return contentToRelativePoint(mouseToContentPoint());
+        } else {
+            return null;
+        }
+    }
+
+    public Vector2 contentToRelativePoint(Vector2 contentPoint) {
+        return contentPoint.divide(getContentSize());
+    }
+
+    public Double relativeToContentX(Double x) {
+        return x * getContentWidth();
+    }
+
+    public Double relativeToContentY(Double y) {
+        return y * getContentHeight();
+    }
+
+    public Vector2 relativeToContentPoint(Vector2 relativePoint) {
+        return relativePoint.multiply(getContentSize());
     }
 
     public void ensureVisible(Node node) {

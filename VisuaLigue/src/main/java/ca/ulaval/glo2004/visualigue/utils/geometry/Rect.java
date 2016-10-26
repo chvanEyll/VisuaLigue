@@ -28,6 +28,11 @@ public class Rect {
         return location;
     }
 
+    public Boolean contains(Vector2 point) {
+        return point.getX() >= location.getX() && point.getY() >= location.getY()
+                && point.getX() <= location.getX() + size.getX() && point.getY() <= location.getY() + size.getY();
+    }
+
     @Override
     public String toString() {
         return String.format("Location: (%s), Size: (%s)", location, size);

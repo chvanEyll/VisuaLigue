@@ -5,6 +5,7 @@ import java.awt.MouseInfo;
 import java.awt.Point;
 import java.io.File;
 import javafx.application.Platform;
+import javafx.geometry.Point2D;
 import javafx.scene.Node;
 import javafx.scene.paint.Color;
 import javafx.stage.FileChooser;
@@ -32,9 +33,14 @@ public class FXUtils {
         return fileChooser.showOpenDialog(stage);
     }
 
-    public static Vector2 getNodeMousePosition(Node node) {
+    public static Vector2 mouseToNodePoint(Node node) {
         Point location = MouseInfo.getPointerInfo().getLocation();
-        return new Vector2(node.screenToLocal(location.x, location.y));
+        Point2D localLocation = node.screenToLocal(location.x, location.y);
+        if (localLocation != null) {
+            return new Vector2(localLocation);
+        } else {
+            return null;
+        }
     }
 
 }

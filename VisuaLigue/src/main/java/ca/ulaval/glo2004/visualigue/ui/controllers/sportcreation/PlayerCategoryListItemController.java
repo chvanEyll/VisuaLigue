@@ -40,6 +40,7 @@ public class PlayerCategoryListItemController extends ListItemController {
             updateOpponentColorBackground();
         });
         updateOpponentColorBackground();
+        deleteConfirmButton.focusedProperty().addListener(this::onDeleteConfirmButtonFocusChanged);
         FXUtils.setDisplay(deleteConfirmButtonContainer, false);
         super.init(model);
     }
@@ -70,7 +71,6 @@ public class PlayerCategoryListItemController extends ListItemController {
     private void displayDeleteConfirmationButton() {
         FXUtils.setDisplay(deleteConfirmButtonContainer, true);
         deleteConfirmButton.requestFocus();
-        deleteConfirmButton.focusedProperty().addListener(this::onDeleteConfirmButtonFocusChanged);
     }
 
     public void onDeleteConfirmButtonFocusChanged(ObservableValue<? extends Boolean> value, Boolean oldPropertyValue, Boolean newPropertyValue) {

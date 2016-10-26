@@ -30,6 +30,7 @@ public class ObstacleListItemController extends ListItemController {
         this.model = (ObstacleModel) model;
         updateImage();
         nameLabel.textProperty().bind(this.model.name);
+        deleteConfirmButton.focusedProperty().addListener(this::onDeleteConfirmButtonFocusChanged);
         FXUtils.setDisplay(deleteConfirmButtonContainer, false);
         super.init(model);
     }
@@ -65,7 +66,6 @@ public class ObstacleListItemController extends ListItemController {
         FXUtils.setDisplay(deleteConfirmButtonContainer, true);
         PredefinedAnimations.regionRevealLeft(deleteConfirmButton);
         deleteConfirmButton.requestFocus();
-        deleteConfirmButton.focusedProperty().addListener(this::onDeleteConfirmButtonFocusChanged);
     }
 
     public void onDeleteConfirmButtonFocusChanged(ObservableValue<? extends Boolean> value, Boolean oldPropertyValue, Boolean newPropertyValue) {

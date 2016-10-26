@@ -8,7 +8,7 @@ import javax.xml.bind.annotation.XmlAccessType;
 import javax.xml.bind.annotation.XmlAccessorType;
 
 @XmlAccessorType(XmlAccessType.FIELD)
-public class Vector2 extends DomainObject {
+public class Vector2 extends DomainObject implements Cloneable {
 
     private Double x;
     private Double y;
@@ -54,10 +54,9 @@ public class Vector2 extends DomainObject {
     }
 
     public Vector2 interpolate(Vector2 nextPosition, Integer interpolant, EasingFunction easingFunction) {
-        Vector2 interpolatedPosition = new Vector2();
-        interpolatedPosition.x = easingFunction.ease(x, nextPosition.x, interpolant, 1.0);
-        interpolatedPosition.y = easingFunction.ease(y, nextPosition.y, interpolant, 1.0);
-        return interpolatedPosition;
+        Double interpolatedX = easingFunction.ease(x, nextPosition.x, interpolant, 1.0);
+        Double interpolatedY = easingFunction.ease(y, nextPosition.y, interpolant, 1.0);
+        return new Vector2(interpolatedX, interpolatedY);
     }
 
     public Vector2 add(Vector2 operand) {
@@ -80,8 +79,17 @@ public class Vector2 extends DomainObject {
         return new Vector2(this.x / operand, this.y / operand);
     }
 
+    public Boolean lessThanOrEqual(Vector2 operand) {
+        return x <= operand.getX() && y <= operand.getY();
+    }
+
     @Override
     public String toString() {
         return String.format("X: (%s), Y: (%s)", x, y);
+    }
+
+    @Override
+    public Vector2 clone() {
+        return new Vector2(x, y);
     }
 }

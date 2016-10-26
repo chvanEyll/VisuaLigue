@@ -3,15 +3,15 @@ package ca.ulaval.glo2004.visualigue.ui.controllers.playeditor.scene.scene2d;
 import ca.ulaval.glo2004.visualigue.domain.play.actorinstance.TeamSide;
 import ca.ulaval.glo2004.visualigue.ui.InjectableFXMLLoader;
 import ca.ulaval.glo2004.visualigue.ui.View;
+import ca.ulaval.glo2004.visualigue.ui.controllers.common.ExtendedScrollPane;
 import ca.ulaval.glo2004.visualigue.ui.controllers.playeditor.scene.SceneController;
 import ca.ulaval.glo2004.visualigue.ui.controllers.playeditor.scene.Zoom;
-import ca.ulaval.glo2004.visualigue.ui.controllers.common.ExtendedScrollPane;
 import ca.ulaval.glo2004.visualigue.ui.models.*;
-import ca.ulaval.glo2004.visualigue.utils.FXUtils;
 import ca.ulaval.glo2004.visualigue.utils.FilenameUtils;
 import ca.ulaval.glo2004.visualigue.utils.geometry.Vector2;
 import ca.ulaval.glo2004.visualigue.utils.math.MathUtils;
 import java.util.*;
+import javafx.beans.value.ObservableValue;
 import javafx.collections.MapChangeListener;
 import javafx.collections.MapChangeListener.Change;
 import javafx.event.EventHandler;
@@ -39,6 +39,8 @@ public class Scene2DController extends SceneController {
     private Image backgroundImage;
     private Zoom zoom;
     private Boolean playerCategoryLabelDisplayEnabled = false;
+    private Vector2 contentAlignPoint;
+    private Vector2 viewportAlignPoint;
 
     @Override
     public void init(PlayModel playModel) {
@@ -50,6 +52,8 @@ public class Scene2DController extends SceneController {
         stackPane.minHeightProperty().bind(backgroundImageView.fitHeightProperty());
         stackPane.maxHeightProperty().bind(backgroundImageView.fitHeightProperty());
         scrollPane.addEventFilter(ScrollEvent.ANY, new ZoomHandler());
+        scrollPaneContent.widthProperty().addListener(this::scrollPaneContentWidthChangedListener);
+        scrollPaneContent.heightProperty().addListener(this::scrollPaneContentHeightChangedListener);
         setZoom(new Zoom(1));
     }
 
@@ -60,8 +64,6 @@ public class Scene2DController extends SceneController {
             if (!scrollEvent.isDirect()) {
                 scrollEvent.consume();
                 Double delta = scrollEvent.getDeltaY() / 100;
-                Vector2 mp = FXUtils.getNodeMousePosition(backgroundImageView);
-                Vector2 ct = contentToRelativePoint(mp);
                 setZoom(new Zoom(getZoom().getValue() + delta));
             }
         }
@@ -159,40 +161,31 @@ public class Scene2DController extends SceneController {
 
     @Override
     public void setZoom(Zoom zoom) {
-        setZoom(zoom, contentToRelativePoint(scrollPane.getVisibleContentCenter()));
-    }
-
-    public void setZoom(Zoom zoom, Vector2 centerRelativePoint) {
         if (MathUtils.lessThan(zoom, getMinZoom())) {
             zoom = getMinZoom();
         } else if (MathUtils.greaterThan(zoom, getMaxZoom())) {
             zoom = getMaxZoom();
         }
         this.zoom = zoom;
-        scrollPaneContent.widthProperty().addListener((value, oldPropertyValue, newPropertyValue) -> {
-            if (oldPropertyValue != newPropertyValue) {
-                Vector2 newCenter = relativeToContentPoint(centerRelativePoint);
-                scrollPane.setVisibleContentCenterX(newCenter.getX());
-            }
-
-        });
-        scrollPaneContent.heightProperty().addListener((value, oldPropertyValue, newPropertyValue) -> {
-            if (oldPropertyValue != newPropertyValue) {
-                Vector2 newCenter = relativeToContentPoint(centerRelativePoint);
-                scrollPane.setVisibleContentCenterY(newCenter.getY());
-            }
-        });
+        contentAlignPoint = scrollPane.mouseToRelativeContentPoint();
+        viewportAlignPoint = scrollPane.mouseToViewportPoint();
+        if (contentAlignPoint == null || viewportAlignPoint == null) {
+            contentAlignPoint = scrollPane.contentToRelativePoint(scrollPane.getVisibleContentCenter());
+            viewportAlignPoint = scrollPane.getViewportCenter();
+        }
         backgroundImageView.setFitWidth(getBaseSceneWidth() * zoom.getValue());
         backgroundImageView.setFitHeight(getBaseSceneHeight() * zoom.getValue());
         onZoomChanged.fire(this, zoom);
     }
 
-    private Vector2 contentToRelativePoint(Vector2 contentPoint) {
-        return contentPoint.divide(scrollPane.getContentSize());
+    public void scrollPaneContentWidthChangedListener(ObservableValue<? extends Number> value, Number oldPropertyValue, Number newPropertyValue) {
+        Vector2 newContentAlignPoint = scrollPane.relativeToContentPoint(contentAlignPoint);
+        scrollPane.alignX(newContentAlignPoint.getX(), viewportAlignPoint.getX());
     }
 
-    private Vector2 relativeToContentPoint(Vector2 relativePoint) {
-        return relativePoint.multiply(scrollPane.getContentSize());
+    public void scrollPaneContentHeightChangedListener(ObservableValue<? extends Number> value, Number oldPropertyValue, Number newPropertyValue) {
+        Vector2 newContentAlignPoint = scrollPane.relativeToContentPoint(contentAlignPoint);
+        scrollPane.alignY(newContentAlignPoint.getY(), viewportAlignPoint.getY());
     }
 
     @Override
@@ -213,10 +206,10 @@ public class Scene2DController extends SceneController {
 
     @Override
     public void autoFit() {
-        if (scrollPane.getViewportWidth() / scrollPane.getViewportHeight() > getBaseSceneWidth() / getBaseSceneHeight()) {
-            setZoom(new Zoom(scrollPane.getViewportHeight() / getBaseSceneHeight()));
+        if (scrollPane.getWidth() / scrollPane.getHeight() > getBaseSceneWidth() / getBaseSceneHeight()) {
+            setZoom(new Zoom(scrollPane.getHeight() / getBaseSceneHeight()));
         } else {
-            setZoom(new Zoom(scrollPane.getViewportWidth() / getBaseSceneWidth()));
+            setZoom(new Zoom(scrollPane.getWidth() / getBaseSceneWidth()));
         }
     }
 
