@@ -19,7 +19,7 @@
 <?import javafx.scene.layout.TilePane?>
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.shape.Line?>
-<?import ca.ulaval.glo2004.visualigue.ui.customcontrols.SvgImage?>
+<?import ca.ulaval.glo2004.visualigue.ui.controllers.common.SvgImage?>
 
 <BorderPane fx:id="rootNode" styleClass="root-node" AnchorPane.rightAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.topAnchor="0.0" AnchorPane.bottomAnchor="0.0" xmlns="http://javafx.com/javafx/8.0.60" xmlns:fx="http://javafx.com/fxml/1" fx:controller="ca.ulaval.glo2004.visualigue.ui.controllers.playeditor.PlayEditorController">
     <stylesheets>

@@ -5,7 +5,7 @@ import ca.ulaval.glo2004.visualigue.ui.InjectableFXMLLoader;
 import ca.ulaval.glo2004.visualigue.ui.View;
 import ca.ulaval.glo2004.visualigue.ui.controllers.playeditor.scene.SceneController;
 import ca.ulaval.glo2004.visualigue.ui.controllers.playeditor.scene.Zoom;
-import ca.ulaval.glo2004.visualigue.ui.customcontrols.ExtendedScrollPane;
+import ca.ulaval.glo2004.visualigue.ui.controllers.common.ExtendedScrollPane;
 import ca.ulaval.glo2004.visualigue.ui.models.*;
 import ca.ulaval.glo2004.visualigue.utils.FXUtils;
 import ca.ulaval.glo2004.visualigue.utils.FilenameUtils;

@@ -2,7 +2,7 @@ package ca.ulaval.glo2004.visualigue.ui.controllers.sportcreation;
 
 import ca.ulaval.glo2004.visualigue.VisuaLigue;
 import ca.ulaval.glo2004.visualigue.domain.sport.playingsurface.PlayingSurfaceUnit;
-import ca.ulaval.glo2004.visualigue.ui.customcontrols.ResizableImageView;
+import ca.ulaval.glo2004.visualigue.ui.controllers.common.ResizableImageView;
 import ca.ulaval.glo2004.visualigue.ui.models.SportCreationModel;
 import ca.ulaval.glo2004.visualigue.utils.FXUtils;
 import ca.ulaval.glo2004.visualigue.utils.FilenameUtils;

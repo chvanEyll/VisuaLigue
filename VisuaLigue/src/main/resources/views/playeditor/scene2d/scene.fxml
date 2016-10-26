@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<?import ca.ulaval.glo2004.visualigue.ui.customcontrols.SvgImage?>
-<?import ca.ulaval.glo2004.visualigue.ui.customcontrols.ExtendedScrollPane?>
+<?import ca.ulaval.glo2004.visualigue.ui.controllers.common.SvgImage?>
+<?import ca.ulaval.glo2004.visualigue.ui.controllers.common.ExtendedScrollPane?>
 <?import javafx.scene.control.Button?>
 <?import javafx.scene.control.ScrollPane?>
 <?import javafx.scene.image.Image?>

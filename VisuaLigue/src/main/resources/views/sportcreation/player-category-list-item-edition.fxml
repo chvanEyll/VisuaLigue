@@ -14,8 +14,8 @@
 <?import javafx.scene.layout.HBox?>
 <?import javafx.scene.layout.StackPane?>
 <?import javafx.scene.layout.VBox?>
-<?import ca.ulaval.glo2004.visualigue.ui.customcontrols.ExtendedTextField?>
-<?import ca.ulaval.glo2004.visualigue.ui.customcontrols.SvgImage?>
+<?import ca.ulaval.glo2004.visualigue.ui.controllers.common.ExtendedTextField?>
+<?import ca.ulaval.glo2004.visualigue.ui.controllers.common.SvgImage?>
 
 <HBox xmlns="http://javafx.com/javafx/8.0.60" xmlns:fx="http://javafx.com/fxml/1" fx:controller="ca.ulaval.glo2004.visualigue.ui.controllers.sportcreation.PlayerCategoryListItemEditionController">
     <VBox styleClass="form, content" GridPane.columnIndex="0" GridPane.columnSpan="6" HBox.hgrow="ALWAYS">

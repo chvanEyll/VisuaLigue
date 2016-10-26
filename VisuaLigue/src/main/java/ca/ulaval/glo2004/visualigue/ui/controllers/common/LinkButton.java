@@ -1,4 +1,4 @@
-package ca.ulaval.glo2004.visualigue.ui.customcontrols;
+package ca.ulaval.glo2004.visualigue.ui.controllers.common;
 
 import ca.ulaval.glo2004.visualigue.ui.InjectableFXMLLoader;
 import javafx.fxml.FXML;
@@ -7,7 +7,7 @@ import javafx.scene.layout.HBox;
 
 public class LinkButton extends HBox {
 
-    public static final String VIEW_NAME = "/views/customcontrols/link-button.fxml";
+    public static final String VIEW_NAME = "/views/common/link-button.fxml";
     @FXML private SvgImage svgImage;
     @FXML private Label textLabel;
     private String text;

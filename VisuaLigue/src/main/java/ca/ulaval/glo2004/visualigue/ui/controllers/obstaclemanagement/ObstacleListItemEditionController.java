@@ -3,7 +3,7 @@ package ca.ulaval.glo2004.visualigue.ui.controllers.obstaclemanagement;
 import ca.ulaval.glo2004.visualigue.VisuaLigue;
 import ca.ulaval.glo2004.visualigue.domain.obstacle.ObstacleNotFoundException;
 import ca.ulaval.glo2004.visualigue.services.obstacle.ObstacleService;
-import ca.ulaval.glo2004.visualigue.ui.controllers.common.ListItemEditionController;
+import ca.ulaval.glo2004.visualigue.ui.controllers.common.editablelist.ListItemEditionController;
 import ca.ulaval.glo2004.visualigue.ui.models.ModelBase;
 import ca.ulaval.glo2004.visualigue.ui.models.ObstacleModel;
 import ca.ulaval.glo2004.visualigue.utils.FXUtils;

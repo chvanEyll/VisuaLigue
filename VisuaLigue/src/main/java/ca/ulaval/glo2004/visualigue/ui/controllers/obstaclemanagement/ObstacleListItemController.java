@@ -1,7 +1,7 @@
 package ca.ulaval.glo2004.visualigue.ui.controllers.obstaclemanagement;
 
 import ca.ulaval.glo2004.visualigue.ui.animation.PredefinedAnimations;
-import ca.ulaval.glo2004.visualigue.ui.controllers.common.ListItemController;
+import ca.ulaval.glo2004.visualigue.ui.controllers.common.editablelist.ListItemController;
 import ca.ulaval.glo2004.visualigue.ui.models.ModelBase;
 import ca.ulaval.glo2004.visualigue.ui.models.ObstacleModel;
 import ca.ulaval.glo2004.visualigue.utils.FXUtils;

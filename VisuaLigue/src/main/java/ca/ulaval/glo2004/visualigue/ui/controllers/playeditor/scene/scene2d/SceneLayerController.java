@@ -2,7 +2,7 @@ package ca.ulaval.glo2004.visualigue.ui.controllers.playeditor.scene.scene2d;
 
 import ca.ulaval.glo2004.visualigue.ui.controllers.ViewController;
 import ca.ulaval.glo2004.visualigue.ui.controllers.playeditor.scene.Zoom;
-import ca.ulaval.glo2004.visualigue.ui.customcontrols.SvgImage;
+import ca.ulaval.glo2004.visualigue.ui.controllers.common.SvgImage;
 import ca.ulaval.glo2004.visualigue.ui.models.ActorModel;
 import ca.ulaval.glo2004.visualigue.utils.FilenameUtils;
 import javafx.fxml.FXML;

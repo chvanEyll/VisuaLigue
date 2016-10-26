@@ -10,7 +10,7 @@
 <?import javafx.scene.layout.TilePane?>
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
-<?import ca.ulaval.glo2004.visualigue.ui.customcontrols.LinkButton?>
+<?import ca.ulaval.glo2004.visualigue.ui.controllers.common.LinkButton?>
 
 <VBox fx:id="rootNode" fillWidth="true" spacing="14"  alignment="TOP_CENTER" HBox.hgrow="ALWAYS" xmlns="http://javafx.com/javafx/8.0.60" xmlns:fx="http://javafx.com/fxml/1" fx:controller="ca.ulaval.glo2004.visualigue.ui.controllers.sportmanagement.SportListController">
     <Pane>

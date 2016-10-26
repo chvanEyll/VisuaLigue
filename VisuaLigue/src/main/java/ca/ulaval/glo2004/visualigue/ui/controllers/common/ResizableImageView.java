@@ -1,4 +1,4 @@
-package ca.ulaval.glo2004.visualigue.ui.customcontrols;
+package ca.ulaval.glo2004.visualigue.ui.controllers.common;
 
 import javafx.application.Platform;
 import javafx.scene.image.Image;

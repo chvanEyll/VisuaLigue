@@ -1,8 +1,8 @@
 package ca.ulaval.glo2004.visualigue.ui.controllers.obstaclemanagement;
 
 import ca.ulaval.glo2004.visualigue.services.obstacle.ObstacleService;
-import ca.ulaval.glo2004.visualigue.ui.controllers.common.EditableListController;
-import ca.ulaval.glo2004.visualigue.ui.controllers.common.ListItemController;
+import ca.ulaval.glo2004.visualigue.ui.controllers.common.editablelist.EditableListController;
+import ca.ulaval.glo2004.visualigue.ui.controllers.common.editablelist.ListItemController;
 import ca.ulaval.glo2004.visualigue.ui.models.ModelBase;
 import javafx.fxml.FXML;
 import javafx.scene.input.MouseEvent;

@@ -1,6 +1,6 @@
 package ca.ulaval.glo2004.visualigue.ui.controllers.sportcreation;
 
-import ca.ulaval.glo2004.visualigue.ui.controllers.common.EditableListController;
+import ca.ulaval.glo2004.visualigue.ui.controllers.common.editablelist.EditableListController;
 import ca.ulaval.glo2004.visualigue.ui.models.PlayerCategoryModel;
 import ca.ulaval.glo2004.visualigue.ui.models.SportCreationModel;
 import javafx.fxml.FXML;

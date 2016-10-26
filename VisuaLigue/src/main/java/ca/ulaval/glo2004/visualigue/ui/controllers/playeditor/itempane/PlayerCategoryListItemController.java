@@ -2,8 +2,8 @@ package ca.ulaval.glo2004.visualigue.ui.controllers.playeditor.itempane;
 
 import ca.ulaval.glo2004.visualigue.domain.play.actorinstance.TeamSide;
 import ca.ulaval.glo2004.visualigue.ui.controllers.ViewController;
-import ca.ulaval.glo2004.visualigue.ui.customcontrols.ExtendedButton;
-import ca.ulaval.glo2004.visualigue.ui.customcontrols.SvgImage;
+import ca.ulaval.glo2004.visualigue.ui.controllers.common.ExtendedButton;
+import ca.ulaval.glo2004.visualigue.ui.controllers.common.SvgImage;
 import ca.ulaval.glo2004.visualigue.ui.models.PlayerCategoryModel;
 import ca.ulaval.glo2004.visualigue.utils.EventHandler;
 import ca.ulaval.glo2004.visualigue.utils.FXUtils;

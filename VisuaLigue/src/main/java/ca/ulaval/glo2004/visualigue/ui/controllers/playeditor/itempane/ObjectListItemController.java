@@ -1,7 +1,7 @@
 package ca.ulaval.glo2004.visualigue.ui.controllers.playeditor.itempane;
 
 import ca.ulaval.glo2004.visualigue.ui.controllers.ViewController;
-import ca.ulaval.glo2004.visualigue.ui.customcontrols.ExtendedButton;
+import ca.ulaval.glo2004.visualigue.ui.controllers.common.ExtendedButton;
 import ca.ulaval.glo2004.visualigue.ui.models.BallModel;
 import ca.ulaval.glo2004.visualigue.ui.models.ModelBase;
 import ca.ulaval.glo2004.visualigue.ui.models.ObstacleModel;

@@ -9,7 +9,7 @@ import ca.ulaval.glo2004.visualigue.ui.View;
 import ca.ulaval.glo2004.visualigue.ui.animation.PredefinedAnimations;
 import ca.ulaval.glo2004.visualigue.ui.controllers.ViewController;
 import ca.ulaval.glo2004.visualigue.ui.converters.SportCreationModelConverter;
-import ca.ulaval.glo2004.visualigue.ui.customcontrols.Breadcrumb;
+import ca.ulaval.glo2004.visualigue.ui.controllers.common.Breadcrumb;
 import ca.ulaval.glo2004.visualigue.ui.dialog.AlertDialogBuilder;
 import ca.ulaval.glo2004.visualigue.ui.models.PlayerCategoryModel;
 import ca.ulaval.glo2004.visualigue.ui.models.SportCreationModel;

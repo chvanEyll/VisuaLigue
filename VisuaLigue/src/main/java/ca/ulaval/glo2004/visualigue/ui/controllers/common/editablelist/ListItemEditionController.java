@@ -1,4 +1,4 @@
-package ca.ulaval.glo2004.visualigue.ui.controllers.common;
+package ca.ulaval.glo2004.visualigue.ui.controllers.common.editablelist;
 
 import ca.ulaval.glo2004.visualigue.ui.controllers.ViewController;
 import ca.ulaval.glo2004.visualigue.ui.models.ModelBase;

@@ -7,7 +7,7 @@ import ca.ulaval.glo2004.visualigue.ui.controllers.ViewController;
 import ca.ulaval.glo2004.visualigue.ui.controllers.playeditor.itempane.ItemPaneController;
 import ca.ulaval.glo2004.visualigue.ui.controllers.playeditor.scene.SceneController;
 import ca.ulaval.glo2004.visualigue.ui.controllers.playeditor.scene.Zoom;
-import ca.ulaval.glo2004.visualigue.ui.customcontrols.ExtendedButton;
+import ca.ulaval.glo2004.visualigue.ui.controllers.common.ExtendedButton;
 import ca.ulaval.glo2004.visualigue.ui.models.MousePositionModel;
 import ca.ulaval.glo2004.visualigue.ui.models.PlayModel;
 import ca.ulaval.glo2004.visualigue.utils.EventHandler;

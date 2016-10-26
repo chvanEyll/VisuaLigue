@@ -1,4 +1,4 @@
-package ca.ulaval.glo2004.visualigue.ui.customcontrols;
+package ca.ulaval.glo2004.visualigue.ui.controllers.common;
 
 import ca.ulaval.glo2004.visualigue.ui.InjectableFXMLLoader;
 import ca.ulaval.glo2004.visualigue.utils.EventHandler;
@@ -10,7 +10,7 @@ import javafx.scene.layout.HBox;
 
 public class BreadcrumbItem extends HBox {
 
-    public static final String VIEW_NAME = "/views/customcontrols/breadcrumb-item.fxml";
+    public static final String VIEW_NAME = "/views/common/breadcrumb-item.fxml";
     @FXML private Label titleLabel;
     @FXML private HBox navigationArrow;
     @FXML private HBox item;
