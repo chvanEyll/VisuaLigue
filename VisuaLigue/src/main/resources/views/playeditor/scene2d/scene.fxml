@@ -9,7 +9,7 @@
 <?import javafx.scene.layout.Pane?>
 <?import javafx.scene.layout.StackPane?>
 
-<ExtendedScrollPane fx:id="scrollPane" styleClass="root-node, edge-to-edge, scene-container" xmlns="http://javafx.com/javafx/8.0.60" xmlns:fx="http://javafx.com/fxml/1" fx:controller="ca.ulaval.glo2004.visualigue.ui.controllers.playeditor.scene.scene2d.Scene2DController" onZoom="#onScrollPaneZoom" onZoomStarted="#onScrollPaneZoomStarted" onZoomFinished="#onScrollPaneZoomFinished">
+<ExtendedScrollPane fx:id="scrollPane" styleClass="root-node, edge-to-edge, scene-container" xmlns="http://javafx.com/javafx/8.0.60" xmlns:fx="http://javafx.com/fxml/1" fx:controller="ca.ulaval.glo2004.visualigue.ui.controllers.playeditor.scene.scene2d.Scene2DController" onZoom="#onScrollPaneZoom" onZoomStarted="#onScrollPaneZoomStarted" onZoomFinished="#onScrollPaneZoomFinished" onTouchMoved="#onScrollPaneTouchMoved" onTouchPressed="#onScrollPaneTouchPressed">
     <content>
         <StackPane fx:id="scrollPaneContent">
             <children>

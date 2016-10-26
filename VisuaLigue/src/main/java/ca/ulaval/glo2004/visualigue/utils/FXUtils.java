@@ -44,6 +44,10 @@ public class FXUtils {
         }
     }
 
+    public static Vector2 sceneToNodePoint(Node node, Vector2 scenePoint) {
+        return new Vector2(node.sceneToLocal(scenePoint.toPoint2D()));
+    }
+
     public static Vector2 getMouseLocation() {
         return new Vector2(MouseInfo.getPointerInfo().getLocation());
     }

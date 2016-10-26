@@ -134,6 +134,14 @@ public class ExtendedScrollPane extends ScrollPane {
         }
     }
 
+    public Vector2 sceneToViewportPoint(Vector2 scenePoint) {
+        return FXUtils.sceneToNodePoint(this, scenePoint);
+    }
+
+    public Vector2 sceneToContentPoint(Vector2 scenePoint) {
+        return FXUtils.sceneToNodePoint(getContent(), scenePoint);
+    }
+
     public Vector2 mouseToContentPoint() {
         return FXUtils.mouseToNodePoint(getContent());
     }

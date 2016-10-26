@@ -37,6 +37,10 @@ public class Vector2 extends DomainObject implements Cloneable {
         return new Vector2(center - size / 2, 0);
     }
 
+    public Point2D toPoint2D() {
+        return new Point2D(x, y);
+    }
+
     public Double getX() {
         return x;
     }
@@ -81,6 +85,10 @@ public class Vector2 extends DomainObject implements Cloneable {
 
     public Boolean lessThanOrEqual(Vector2 operand) {
         return x <= operand.getX() && y <= operand.getY();
+    }
+
+    public Vector2 average(Vector2 operand) {
+        return new Vector2((x + operand.x) / 2, (y + operand.y) / 2);
     }
 
     @Override

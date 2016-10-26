@@ -22,6 +22,7 @@ import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.input.ScrollEvent;
+import javafx.scene.input.TouchEvent;
 import javafx.scene.input.ZoomEvent;
 import javafx.scene.layout.StackPane;
 
@@ -46,6 +47,12 @@ public class Scene2DController extends SceneController {
     private Vector2 viewportAlignPoint;
     private Boolean isMousePressed = false;
     private Boolean isZoomStarted = false;
+    private Vector2 startTouchPoint1;
+    private Vector2 startTouchPoint2;
+    private Vector2 startContentPoint1;
+    private Vector2 startContentPoint2;
+    private Vector2 movedTouchPoint1;
+    private Vector2 movedTouchPoint2;
     private Vector2 mousePressContentLocation;
 
     @Override
@@ -174,8 +181,10 @@ public class Scene2DController extends SceneController {
             zoom = getMaxZoom();
         }
         this.zoom = zoom;
-        contentAlignPoint = scrollPane.mouseToRelativeContentPoint();
-        viewportAlignPoint = scrollPane.mouseToViewportPoint();
+        if (!isZoomStarted) {
+            contentAlignPoint = scrollPane.mouseToRelativeContentPoint();
+            viewportAlignPoint = scrollPane.mouseToViewportPoint();
+        }
         if (contentAlignPoint == null || viewportAlignPoint == null) {
             contentAlignPoint = scrollPane.contentToRelativePoint(scrollPane.getVisibleContentCenter());
             viewportAlignPoint = scrollPane.getViewportCenter();
@@ -186,13 +195,17 @@ public class Scene2DController extends SceneController {
     }
 
     public void scrollPaneContentWidthChangedListener(ObservableValue<? extends Number> value, Number oldPropertyValue, Number newPropertyValue) {
-        Vector2 newContentAlignPoint = scrollPane.relativeToContentPoint(contentAlignPoint);
-        scrollPane.alignX(newContentAlignPoint.getX(), viewportAlignPoint.getX());
+        if (contentAlignPoint != null && viewportAlignPoint != null) {
+            Vector2 newContentAlignPoint = scrollPane.relativeToContentPoint(contentAlignPoint);
+            scrollPane.alignX(newContentAlignPoint.getX(), viewportAlignPoint.getX());
+        }
     }
 
     public void scrollPaneContentHeightChangedListener(ObservableValue<? extends Number> value, Number oldPropertyValue, Number newPropertyValue) {
-        Vector2 newContentAlignPoint = scrollPane.relativeToContentPoint(contentAlignPoint);
-        scrollPane.alignY(newContentAlignPoint.getY(), viewportAlignPoint.getY());
+        if (contentAlignPoint != null && viewportAlignPoint != null) {
+            Vector2 newContentAlignPoint = scrollPane.relativeToContentPoint(contentAlignPoint);
+            scrollPane.alignY(newContentAlignPoint.getY(), viewportAlignPoint.getY());
+        }
     }
 
     @Override
@@ -270,17 +283,43 @@ public class Scene2DController extends SceneController {
     }
 
     @FXML
-    protected void onScrollPaneZoomStarted() {
+    protected void onScrollPaneTouchPressed(TouchEvent e) {
+        if (e.getTouchPoints().size() == 2) {
+            startTouchPoint1 = new Vector2(e.getTouchPoints().get(0).getSceneX(), e.getTouchPoints().get(0).getSceneY());
+            startTouchPoint2 = new Vector2(e.getTouchPoints().get(1).getSceneX(), e.getTouchPoints().get(1).getSceneY());
+            startContentPoint1 = scrollPane.sceneToContentPoint(startTouchPoint1);
+            startContentPoint2 = scrollPane.sceneToContentPoint(startTouchPoint2);
+            contentAlignPoint = scrollPane.contentToRelativePoint(startContentPoint1.average(startContentPoint2));
+        }
+    }
+
+    @FXML
+    protected void onScrollPaneZoomStarted(ZoomEvent e) {
         isZoomStarted = true;
     }
 
     @FXML
-    protected void onScrollPaneZoomFinished() {
+    protected void onScrollPaneZoomFinished(ZoomEvent e) {
         isZoomStarted = false;
+        movedTouchPoint1 = null;
+        movedTouchPoint2 = null;
+    }
+
+    @FXML
+    protected void onScrollPaneTouchMoved(TouchEvent e) {
+        if (isZoomStarted) {
+            movedTouchPoint1 = scrollPane.sceneToViewportPoint(new Vector2(e.getTouchPoints().get(0).getSceneX(), e.getTouchPoints().get(0).getSceneY()));
+            movedTouchPoint2 = scrollPane.sceneToViewportPoint(new Vector2(e.getTouchPoints().get(1).getSceneX(), e.getTouchPoints().get(1).getSceneY()));
+        }
     }
 
     @FXML
     protected void onScrollPaneZoom(ZoomEvent e) {
-        setZoom(new Zoom(getZoom().getValue() * e.getZoomFactor()));
+        if (movedTouchPoint1 != null && movedTouchPoint2 != null) {
+            viewportAlignPoint = movedTouchPoint1.average(movedTouchPoint2);
+            System.out.println(contentAlignPoint);
+            System.out.println("\t" + viewportAlignPoint);
+            setZoom(new Zoom(getZoom().getValue() * e.getZoomFactor()));
+        }
     }
 }
