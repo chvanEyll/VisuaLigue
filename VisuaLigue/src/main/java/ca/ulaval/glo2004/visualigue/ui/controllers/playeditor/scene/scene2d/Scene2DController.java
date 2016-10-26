@@ -45,15 +45,10 @@ public class Scene2DController extends SceneController {
     private Boolean playerCategoryLabelDisplayEnabled = false;
     private Vector2 contentAlignPoint;
     private Vector2 viewportAlignPoint;
-    private Boolean isMousePressed = false;
-    private Boolean isZoomStarted = false;
-    private Vector2 startTouchPoint1;
-    private Vector2 startTouchPoint2;
-    private Vector2 startContentPoint1;
-    private Vector2 startContentPoint2;
-    private Vector2 movedTouchPoint1;
-    private Vector2 movedTouchPoint2;
-    private Vector2 mousePressContentLocation;
+    private Boolean touchZooming = false;
+    private Vector2 touchMovePoint1;
+    private Vector2 touchMovePoint2;
+    private Vector2 mousePressContentPoint;
 
     @Override
     public void init(PlayModel playModel) {
@@ -64,22 +59,10 @@ public class Scene2DController extends SceneController {
         stackPane.maxWidthProperty().bind(backgroundImageView.fitWidthProperty());
         stackPane.minHeightProperty().bind(backgroundImageView.fitHeightProperty());
         stackPane.maxHeightProperty().bind(backgroundImageView.fitHeightProperty());
-        scrollPane.addEventFilter(ScrollEvent.ANY, new ScrollHandler());
+        scrollPane.addEventFilter(ScrollEvent.ANY, new ScrollPaneScrollHandler());
         scrollPaneContent.widthProperty().addListener(this::scrollPaneContentWidthChangedListener);
         scrollPaneContent.heightProperty().addListener(this::scrollPaneContentHeightChangedListener);
         setZoom(new Zoom(1));
-    }
-
-    private class ScrollHandler implements EventHandler<ScrollEvent> {
-
-        @Override
-        public void handle(ScrollEvent scrollEvent) {
-            scrollEvent.consume();
-            if (!scrollEvent.isDirect()) {
-                Double delta = scrollEvent.getDeltaY() / 100;
-                setZoom(new Zoom(getZoom().getValue() + delta));
-            }
-        }
     }
 
     private void onActorStateMapChanged(MapChangeListener.Change change) {
@@ -181,7 +164,7 @@ public class Scene2DController extends SceneController {
             zoom = getMaxZoom();
         }
         this.zoom = zoom;
-        if (!isZoomStarted) {
+        if (!touchZooming) {
             contentAlignPoint = scrollPane.mouseToRelativeContentPoint();
             viewportAlignPoint = scrollPane.mouseToViewportPoint();
         }
@@ -266,60 +249,67 @@ public class Scene2DController extends SceneController {
 
     @FXML
     protected void onBackgroundMousePressed(MouseEvent e) {
-        isMousePressed = true;
-        mousePressContentLocation = scrollPane.mouseToContentPoint();
+        mousePressContentPoint = scrollPane.mouseToContentPoint();
     }
 
     @FXML
     protected void onBackgroundMouseDragged(MouseEvent e) {
-        if (scrollPane.mouseToViewportPoint() != null && !isZoomStarted) {
-            scrollPane.align(mousePressContentLocation, scrollPane.mouseToViewportPoint());
+        if (!touchZooming && scrollPane.mouseToViewportPoint() != null && mousePressContentPoint != null) {
+            scrollPane.align(mousePressContentPoint, scrollPane.mouseToViewportPoint());
         }
     }
 
     @FXML
     protected void onBackgroundMouseReleased(MouseEvent e) {
-        isMousePressed = false;
+        mousePressContentPoint = null;
+    }
+
+    private class ScrollPaneScrollHandler implements EventHandler<ScrollEvent> {
+
+        @Override
+        public void handle(ScrollEvent scrollEvent) {
+            scrollEvent.consume();
+            if (!scrollEvent.isDirect()) {
+                Double delta = scrollEvent.getDeltaY() / 100;
+                setZoom(new Zoom(getZoom().getValue() + delta));
+            }
+        }
     }
 
     @FXML
     protected void onScrollPaneTouchPressed(TouchEvent e) {
         if (e.getTouchPoints().size() == 2) {
-            startTouchPoint1 = new Vector2(e.getTouchPoints().get(0).getSceneX(), e.getTouchPoints().get(0).getSceneY());
-            startTouchPoint2 = new Vector2(e.getTouchPoints().get(1).getSceneX(), e.getTouchPoints().get(1).getSceneY());
-            startContentPoint1 = scrollPane.sceneToContentPoint(startTouchPoint1);
-            startContentPoint2 = scrollPane.sceneToContentPoint(startTouchPoint2);
-            contentAlignPoint = scrollPane.contentToRelativePoint(startContentPoint1.average(startContentPoint2));
+            Vector2 contentPoint1 = scrollPane.sceneToContentPoint(new Vector2(e.getTouchPoints().get(0).getSceneX(), e.getTouchPoints().get(0).getSceneY()));
+            Vector2 contentPoint2 = scrollPane.sceneToContentPoint(new Vector2(e.getTouchPoints().get(1).getSceneX(), e.getTouchPoints().get(1).getSceneY()));
+            contentAlignPoint = scrollPane.contentToRelativePoint(contentPoint1.average(contentPoint2));
+        }
+    }
+
+    @FXML
+    protected void onScrollPaneTouchMoved(TouchEvent e) {
+        if (touchZooming && e.getTouchPoints().size() == 2) {
+            touchMovePoint1 = scrollPane.sceneToViewportPoint(new Vector2(e.getTouchPoints().get(0).getSceneX(), e.getTouchPoints().get(0).getSceneY()));
+            touchMovePoint2 = scrollPane.sceneToViewportPoint(new Vector2(e.getTouchPoints().get(1).getSceneX(), e.getTouchPoints().get(1).getSceneY()));
         }
     }
 
     @FXML
     protected void onScrollPaneZoomStarted(ZoomEvent e) {
-        isZoomStarted = true;
-    }
-
-    @FXML
-    protected void onScrollPaneZoomFinished(ZoomEvent e) {
-        isZoomStarted = false;
-        movedTouchPoint1 = null;
-        movedTouchPoint2 = null;
-    }
-
-    @FXML
-    protected void onScrollPaneTouchMoved(TouchEvent e) {
-        if (isZoomStarted) {
-            movedTouchPoint1 = scrollPane.sceneToViewportPoint(new Vector2(e.getTouchPoints().get(0).getSceneX(), e.getTouchPoints().get(0).getSceneY()));
-            movedTouchPoint2 = scrollPane.sceneToViewportPoint(new Vector2(e.getTouchPoints().get(1).getSceneX(), e.getTouchPoints().get(1).getSceneY()));
-        }
+        touchZooming = true;
     }
 
     @FXML
     protected void onScrollPaneZoom(ZoomEvent e) {
-        if (movedTouchPoint1 != null && movedTouchPoint2 != null) {
-            viewportAlignPoint = movedTouchPoint1.average(movedTouchPoint2);
-            System.out.println(contentAlignPoint);
-            System.out.println("\t" + viewportAlignPoint);
+        if (touchMovePoint1 != null && touchMovePoint2 != null) {
+            viewportAlignPoint = touchMovePoint1.average(touchMovePoint2);
             setZoom(new Zoom(getZoom().getValue() * e.getZoomFactor()));
         }
+    }
+
+    @FXML
+    protected void onScrollPaneZoomFinished(ZoomEvent e) {
+        touchZooming = false;
+        touchMovePoint1 = null;
+        touchMovePoint2 = null;
     }
 }
