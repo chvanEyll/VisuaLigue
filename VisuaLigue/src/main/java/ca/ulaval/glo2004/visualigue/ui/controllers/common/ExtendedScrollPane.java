@@ -91,6 +91,11 @@ public class ExtendedScrollPane extends ScrollPane {
         }
     }
 
+    public void scrollContent(Vector2 delta) {
+        Vector2 scrollSize = getScrollableSize();
+        setValueSafe(getValue().add(delta.divide(scrollSize)));
+    }
+
     public void alignToViewportLeft(Double contentX) {
         setHvalueSafe(contentX / getScrollableX());
     }
@@ -105,6 +110,11 @@ public class ExtendedScrollPane extends ScrollPane {
 
     public void alignToViewportCenterY(Double contentY) {
         alignToViewportTop(contentY - getViewportHeight() / 2);
+    }
+
+    public void align(Vector2 contentPoint, Vector2 viewPortPoint) {
+        alignX(contentPoint.getX(), viewPortPoint.getX());
+        alignY(contentPoint.getY(), viewPortPoint.getY());
     }
 
     public void alignX(Double contentX, Double viewPortX) {

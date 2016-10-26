@@ -7,6 +7,7 @@ import ca.ulaval.glo2004.visualigue.ui.controllers.common.ExtendedScrollPane;
 import ca.ulaval.glo2004.visualigue.ui.controllers.playeditor.scene.SceneController;
 import ca.ulaval.glo2004.visualigue.ui.controllers.playeditor.scene.Zoom;
 import ca.ulaval.glo2004.visualigue.ui.models.*;
+import ca.ulaval.glo2004.visualigue.utils.FXUtils;
 import ca.ulaval.glo2004.visualigue.utils.FilenameUtils;
 import ca.ulaval.glo2004.visualigue.utils.geometry.Vector2;
 import ca.ulaval.glo2004.visualigue.utils.math.MathUtils;
@@ -16,10 +17,12 @@ import javafx.collections.MapChangeListener;
 import javafx.collections.MapChangeListener.Change;
 import javafx.event.EventHandler;
 import javafx.fxml.FXML;
-import javafx.scene.Cursor;
+import javafx.scene.ImageCursor;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
+import javafx.scene.input.MouseEvent;
 import javafx.scene.input.ScrollEvent;
+import javafx.scene.input.ZoomEvent;
 import javafx.scene.layout.StackPane;
 
 public class Scene2DController extends SceneController {
@@ -41,6 +44,9 @@ public class Scene2DController extends SceneController {
     private Boolean playerCategoryLabelDisplayEnabled = false;
     private Vector2 contentAlignPoint;
     private Vector2 viewportAlignPoint;
+    private Boolean isMousePressed = false;
+    private Boolean isZoomStarted = false;
+    private Vector2 mousePressContentLocation;
 
     @Override
     public void init(PlayModel playModel) {
@@ -51,18 +57,18 @@ public class Scene2DController extends SceneController {
         stackPane.maxWidthProperty().bind(backgroundImageView.fitWidthProperty());
         stackPane.minHeightProperty().bind(backgroundImageView.fitHeightProperty());
         stackPane.maxHeightProperty().bind(backgroundImageView.fitHeightProperty());
-        scrollPane.addEventFilter(ScrollEvent.ANY, new ZoomHandler());
+        scrollPane.addEventFilter(ScrollEvent.ANY, new ScrollHandler());
         scrollPaneContent.widthProperty().addListener(this::scrollPaneContentWidthChangedListener);
         scrollPaneContent.heightProperty().addListener(this::scrollPaneContentHeightChangedListener);
         setZoom(new Zoom(1));
     }
 
-    private class ZoomHandler implements EventHandler<ScrollEvent> {
+    private class ScrollHandler implements EventHandler<ScrollEvent> {
 
         @Override
         public void handle(ScrollEvent scrollEvent) {
+            scrollEvent.consume();
             if (!scrollEvent.isDirect()) {
-                scrollEvent.consume();
                 Double delta = scrollEvent.getDeltaY() / 100;
                 setZoom(new Zoom(getZoom().getValue() + delta));
             }
@@ -143,7 +149,8 @@ public class Scene2DController extends SceneController {
         onObstacleCreationModeExited.fire(this, null);
         onBallCreationModeExited.fire(this, null);
         onNavigationModeEntered.fire(this, null);
-        backgroundImageView.setCursor(Cursor.HAND);
+        ImageCursor imageCursor = FXUtils.chooseBestCursor("/images/cursors/pan-%1$sx%1$s.png", new int[]{32, 48, 96, 128}, 16, 16);
+        backgroundImageView.setCursor(imageCursor);
     }
 
     @Override
@@ -244,4 +251,36 @@ public class Scene2DController extends SceneController {
 
     }
 
+    @FXML
+    protected void onBackgroundMousePressed(MouseEvent e) {
+        isMousePressed = true;
+        mousePressContentLocation = scrollPane.mouseToContentPoint();
+    }
+
+    @FXML
+    protected void onBackgroundMouseDragged(MouseEvent e) {
+        if (scrollPane.mouseToViewportPoint() != null && !isZoomStarted) {
+            scrollPane.align(mousePressContentLocation, scrollPane.mouseToViewportPoint());
+        }
+    }
+
+    @FXML
+    protected void onBackgroundMouseReleased(MouseEvent e) {
+        isMousePressed = false;
+    }
+
+    @FXML
+    protected void onScrollPaneZoomStarted() {
+        isZoomStarted = true;
+    }
+
+    @FXML
+    protected void onScrollPaneZoomFinished() {
+        isZoomStarted = false;
+    }
+
+    @FXML
+    protected void onScrollPaneZoom(ZoomEvent e) {
+        setZoom(new Zoom(getZoom().getValue() * e.getZoomFactor()));
+    }
 }

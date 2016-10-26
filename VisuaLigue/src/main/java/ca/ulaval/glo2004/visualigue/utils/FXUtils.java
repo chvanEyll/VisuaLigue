@@ -2,11 +2,12 @@ package ca.ulaval.glo2004.visualigue.utils;
 
 import ca.ulaval.glo2004.visualigue.utils.geometry.Vector2;
 import java.awt.MouseInfo;
-import java.awt.Point;
 import java.io.File;
 import javafx.application.Platform;
 import javafx.geometry.Point2D;
+import javafx.scene.ImageCursor;
 import javafx.scene.Node;
+import javafx.scene.image.Image;
 import javafx.scene.paint.Color;
 import javafx.stage.FileChooser;
 import javafx.stage.Stage;
@@ -34,13 +35,25 @@ public class FXUtils {
     }
 
     public static Vector2 mouseToNodePoint(Node node) {
-        Point location = MouseInfo.getPointerInfo().getLocation();
-        Point2D localLocation = node.screenToLocal(location.x, location.y);
+        Vector2 location = getMouseLocation();
+        Point2D localLocation = node.screenToLocal(location.getX(), location.getY());
         if (localLocation != null) {
             return new Vector2(localLocation);
         } else {
             return null;
         }
+    }
+
+    public static Vector2 getMouseLocation() {
+        return new Vector2(MouseInfo.getPointerInfo().getLocation());
+    }
+
+    public static ImageCursor chooseBestCursor(String pathNameFormatString, int[] availableSizes, int hotspotX, int hotspotY) {
+        Image[] images = new Image[availableSizes.length];
+        for (int i = 0; i < availableSizes.length; i++) {
+            images[i] = new Image(FXUtils.class.getResourceAsStream(String.format(pathNameFormatString, availableSizes[i])));
+        }
+        return ImageCursor.chooseBestCursor(images, hotspotX, hotspotY);
     }
 
 }
