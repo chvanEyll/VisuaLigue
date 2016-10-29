@@ -19,7 +19,7 @@
 <?import javafx.scene.layout.Pane?>
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.Group?>
-<?import ca.ulaval.glo2004.visualigue.ui.controllers.common.ResizableImageView?>
+<?import ca.ulaval.glo2004.visualigue.ui.controllers.common.ExtendedImageView?>
 
 <VBox fx:id="rootNode" spacing="14.0" xmlns="http://javafx.com/javafx/8.0.60" xmlns:fx="http://javafx.com/fxml/1" fx:controller="ca.ulaval.glo2004.visualigue.ui.controllers.sportcreation.SportCreationStep2Controller">
     <VBox styleClass="form-section">
@@ -52,15 +52,15 @@
                     <Label text="Image du terrain" />
                 </children>
             </HBox>
-            <FlowPane styleClass="form-group, horizontal">
+            <FlowPane styleClass="form-group, vertical">
                 <children>
                     <Button text="Sélectionner une image..." onAction="#onBrowseImageButtonAction" />
+                    <Label fx:id="imageErrorLabel" styleClass="error-label" text="Error label." />
                 </children>
             </FlowPane>
-            <FlowPane styleClass="form-group, vertical">
-                <Label fx:id="imageErrorLabel" styleClass="error-label" text="Error label." />
-            </FlowPane>
-            <ResizableImageView fx:id="imageView" />
+            <VBox style="-fx-border-color: #D9D5D3">
+                <ExtendedImageView fx:id="imageView" autoResize="true"/>
+            </VBox>
         </children>
     </VBox>
     <styleClass>

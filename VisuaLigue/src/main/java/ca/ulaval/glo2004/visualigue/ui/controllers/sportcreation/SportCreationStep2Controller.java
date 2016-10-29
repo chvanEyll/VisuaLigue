@@ -2,7 +2,7 @@ package ca.ulaval.glo2004.visualigue.ui.controllers.sportcreation;
 
 import ca.ulaval.glo2004.visualigue.VisuaLigue;
 import ca.ulaval.glo2004.visualigue.domain.sport.playingsurface.PlayingSurfaceUnit;
-import ca.ulaval.glo2004.visualigue.ui.controllers.common.ResizableImageView;
+import ca.ulaval.glo2004.visualigue.ui.controllers.common.ExtendedImageView;
 import ca.ulaval.glo2004.visualigue.ui.models.SportCreationModel;
 import ca.ulaval.glo2004.visualigue.utils.FilenameUtils;
 import ca.ulaval.glo2004.visualigue.utils.javafx.BindingUtils;
@@ -29,7 +29,7 @@ public class SportCreationStep2Controller extends SportCreationStepController {
     @FXML private Spinner lengthSpinner;
     @FXML private ComboBox widthUnitComboBox;
     @FXML private ComboBox lengthUnitComboBox;
-    @FXML private ResizableImageView imageView;
+    @FXML private ExtendedImageView imageView;
     @FXML private Label imageErrorLabel;
 
     public SportCreationModel getSportModel() {
@@ -47,8 +47,10 @@ public class SportCreationStep2Controller extends SportCreationStepController {
         widthUnitComboBox.getSelectionModel().select(model.playingSurfaceWidthUnits.get());
         lengthUnitComboBox.setItems(FXCollections.observableArrayList(PlayingSurfaceUnit.values()));
         lengthUnitComboBox.getSelectionModel().select(model.playingSurfaceLengthUnits.get());
+        imageView.enableAutoResize();
         clearErrors();
         updateImage();
+
         FXUtils.requestFocusDelayed(widthSpinner);
     }
 

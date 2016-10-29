@@ -16,7 +16,7 @@
                 <Label text="Objets" />
             </children>
         </HBox>
-        <ExtendedTilePane fx:id="tilePane" styleClass="tile-pane" prefColumns="3">
+        <ExtendedTilePane fx:id="tilePane" styleClass="tile-pane" prefColumns="3" prefTileWidth="58">
             <children>
 
             </children>

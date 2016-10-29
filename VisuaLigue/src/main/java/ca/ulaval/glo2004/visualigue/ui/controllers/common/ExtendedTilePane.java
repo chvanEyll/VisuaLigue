@@ -1,17 +1,16 @@
 package ca.ulaval.glo2004.visualigue.ui.controllers.common;
 
-import javafx.application.Platform;
+import javafx.beans.value.ObservableValue;
 import javafx.scene.layout.TilePane;
 
 public class ExtendedTilePane extends TilePane {
 
-    @Override
-    public void resize(double width, double height) {
-        this.setPrefTileWidth(Math.floor(width / this.getPrefColumns()));
-        super.resize(width, height);
-        Platform.runLater(() -> {
-            this.getParent().autosize();
-        });
+    public ExtendedTilePane() {
+        this.widthProperty().addListener(this::widthChangedListener);
+    }
+
+    public void widthChangedListener(ObservableValue<? extends Number> value, Number oldPropertyValue, Number newPropertyValue) {
+        this.setPrefTileWidth(Math.floor(newPropertyValue.doubleValue() / this.getPrefColumns()));
     }
 
 }

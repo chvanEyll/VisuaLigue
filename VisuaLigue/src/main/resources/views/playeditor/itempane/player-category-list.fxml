@@ -23,7 +23,7 @@
                         <Label text="Alliés" />
                     </children>
                 </HBox>
-                <ExtendedTilePane fx:id="allyPlayerCategoryPane" styleClass="tile-pane" prefColumns="3">
+                <ExtendedTilePane fx:id="allyPlayerCategoryPane" styleClass="tile-pane" prefColumns="3" prefTileWidth="58">
                     <children>
 
                     </children>
@@ -37,7 +37,7 @@
                         <Label text="Adverses" />
                     </children>
                 </HBox>
-                <ExtendedTilePane fx:id="opponentPlayerCategoryPane" styleClass="tile-pane" prefColumns="3">
+                <ExtendedTilePane fx:id="opponentPlayerCategoryPane" styleClass="tile-pane" prefColumns="3" prefTileWidth="58">
                     <children>
 
                     </children>
