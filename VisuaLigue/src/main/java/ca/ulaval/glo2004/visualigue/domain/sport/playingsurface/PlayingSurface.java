@@ -13,7 +13,7 @@ public class PlayingSurface extends DomainObject {
     private PlayingSurfaceUnit widthUnits = PlayingSurfaceUnit.METER;
     private PlayingSurfaceUnit lengthUnits = PlayingSurfaceUnit.METER;
     private UUID customImageUUID;
-    private String builtInImagePathName;
+    private String builtInImagePathName = "/images/built-in-playing-surfaces/generic-playing-surface.png";
 
     public PlayingSurface() {
         //Required for JAXB instanciation.

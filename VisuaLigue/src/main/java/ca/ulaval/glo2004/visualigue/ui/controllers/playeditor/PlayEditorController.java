@@ -2,7 +2,7 @@ package ca.ulaval.glo2004.visualigue.ui.controllers.playeditor;
 
 import ca.ulaval.glo2004.visualigue.domain.play.PlayNotFoundException;
 import ca.ulaval.glo2004.visualigue.services.play.PlayService;
-import ca.ulaval.glo2004.visualigue.ui.controllers.ViewController;
+import ca.ulaval.glo2004.visualigue.ui.controllers.ControllerBase;
 import ca.ulaval.glo2004.visualigue.ui.controllers.ViewFlowRequestEventArgs;
 import ca.ulaval.glo2004.visualigue.ui.controllers.playeditor.itempane.ItemPaneController;
 import ca.ulaval.glo2004.visualigue.ui.controllers.playeditor.scene.SceneController;
@@ -19,7 +19,7 @@ import javafx.scene.control.ButtonBar;
 import javafx.scene.control.ButtonType;
 import javax.inject.Inject;
 
-public class PlayEditorController extends ViewController {
+public class PlayEditorController extends ControllerBase {
 
     public static final String VIEW_NAME = "/views/playeditor/play-editor.fxml";
 

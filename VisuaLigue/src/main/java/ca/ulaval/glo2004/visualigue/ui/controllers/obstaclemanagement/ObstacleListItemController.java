@@ -4,7 +4,7 @@ import ca.ulaval.glo2004.visualigue.ui.animation.PredefinedAnimations;
 import ca.ulaval.glo2004.visualigue.ui.controllers.common.editablelist.ListItemController;
 import ca.ulaval.glo2004.visualigue.ui.models.ModelBase;
 import ca.ulaval.glo2004.visualigue.ui.models.ObstacleModel;
-import ca.ulaval.glo2004.visualigue.utils.FXUtils;
+import ca.ulaval.glo2004.visualigue.utils.javafx.FXUtils;
 import ca.ulaval.glo2004.visualigue.utils.FilenameUtils;
 import javafx.beans.value.ObservableValue;
 import javafx.event.ActionEvent;

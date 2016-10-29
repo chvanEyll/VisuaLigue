@@ -1,6 +1,6 @@
 package ca.ulaval.glo2004.visualigue.ui.controllers.playeditor.itempane;
 
-import ca.ulaval.glo2004.visualigue.ui.controllers.ViewController;
+import ca.ulaval.glo2004.visualigue.ui.controllers.ControllerBase;
 import ca.ulaval.glo2004.visualigue.ui.controllers.common.ExtendedButton;
 import ca.ulaval.glo2004.visualigue.ui.models.BallModel;
 import ca.ulaval.glo2004.visualigue.ui.models.ModelBase;
@@ -13,7 +13,7 @@ import javafx.scene.control.Tooltip;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 
-public class ObjectListItemController extends ViewController {
+public class ObjectListItemController extends ControllerBase {
 
     public static final String VIEW_NAME = "/views/playeditor/itempane/object-list-item.fxml";
 

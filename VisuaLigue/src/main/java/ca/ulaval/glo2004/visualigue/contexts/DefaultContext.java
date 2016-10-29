@@ -60,6 +60,9 @@ public class DefaultContext extends ContextBase {
         sportPool.add(createHockeySport());
         sportPool.add(createSoccerSport());
         sportPool.add(createFootballSport());
+        sportPool.add(createBaseballSport());
+        sportPool.add(createBasketballSport());
+        sportPool.add(createVolleyballSport());
         persistSports(sportPool);
     }
 
@@ -71,7 +74,7 @@ public class DefaultContext extends ContextBase {
         ball.setBuiltInImagePathName("/images/built-in-ball-icons/hockey-puck-icon.png");
         sport.setBall(ball);
         PlayingSurface playingSurface = new PlayingSurface(200.0, PlayingSurfaceUnit.FOOTS, 85.0, PlayingSurfaceUnit.FOOTS);
-        playingSurface.setBuiltInImagePathName("/images/built-in-playing-surfaces/hockey.png");
+        playingSurface.setBuiltInImagePathName("/images/built-in-playing-surfaces/hockey-rink.png");
         sport.setPlayingSurface(playingSurface);
         addPlayerCategory(sport, new PlayerCategory("Gardien", "G", Color.web("#E6994D"), Color.web("#E6994D"), 1));
         addPlayerCategory(sport, new PlayerCategory("Défenseur", "D", Color.web("#001A80"), Color.web("#990000"), 2));
@@ -82,11 +85,6 @@ public class DefaultContext extends ContextBase {
         return sport;
     }
 
-    private void addPlayerCategory(Sport sport, PlayerCategory playerCategory) {
-        playerCategoryRepository.persist(playerCategory);
-        sport.addPlayerCategory(playerCategory);
-    }
-
     private Sport createSoccerSport() throws Exception {
         Sport sport = sportFactory.create("Soccer");
         sport.setBuiltInIconPathName("/images/built-in-sport-icons/soccer-icon.png");
@@ -95,7 +93,7 @@ public class DefaultContext extends ContextBase {
         ball.setBuiltInImagePathName("/images/built-in-ball-icons/soccer-ball-icon.png");
         sport.setBall(ball);
         PlayingSurface playingSurface = new PlayingSurface(68.0, PlayingSurfaceUnit.METER, 100.0, PlayingSurfaceUnit.METER);
-        playingSurface.setBuiltInImagePathName("/images/built-in-playing-surfaces/soccer.jpg");
+        playingSurface.setBuiltInImagePathName("/images/built-in-playing-surfaces/soccer-field.jpg");
         sport.setPlayingSurface(playingSurface);
         addPlayerCategory(sport, new PlayerCategory("Gardien", "G", Color.web("#E6994D"), Color.web("#E6994D"), 1));
         addPlayerCategory(sport, new PlayerCategory("Défenseur", "D", Color.web("#001A80"), Color.web("#990000"), 1));
@@ -127,7 +125,7 @@ public class DefaultContext extends ContextBase {
         ball.setBuiltInImagePathName("/images/built-in-ball-icons/football-ball-icon.png");
         sport.setBall(ball);
         PlayingSurface playingSurface = new PlayingSurface(160.0, PlayingSurfaceUnit.FOOTS, 360.0, PlayingSurfaceUnit.FOOTS);
-        playingSurface.setBuiltInImagePathName("/images/built-in-playing-surfaces/football.png");
+        playingSurface.setBuiltInImagePathName("/images/built-in-playing-surfaces/football-field.png");
         sport.setPlayingSurface(playingSurface);
         addPlayerCategory(sport, new PlayerCategory("Safety", "S", Color.web("#001A80"), Color.web("#990000"), 2));
         addPlayerCategory(sport, new PlayerCategory("Cornerback", "CB", Color.web("#001A80"), Color.web("#990000"), 2));
@@ -145,6 +143,70 @@ public class DefaultContext extends ContextBase {
         addPlayerCategory(sport, new PlayerCategory("Halfback", "HB", Color.web("#001A80"), Color.web("#990000"), 1));
         addPlayerCategory(sport, new PlayerCategory("Running Back", "RB", Color.web("#001A80"), Color.web("#990000"), 0));
         return sport;
+    }
+
+    private Sport createBaseballSport() throws Exception {
+        Sport sport = sportFactory.create("Baseball");
+        sport.setBuiltInIconPathName("/images/built-in-sport-icons/baseball-icon.png");
+        sport.setIsBuiltIn(true);
+        Ball ball = new Ball("Balle");
+        ball.setBuiltInImagePathName("/images/built-in-ball-icons/baseball-ball-icon.png");
+        sport.setBall(ball);
+        PlayingSurface playingSurface = new PlayingSurface(190.0, PlayingSurfaceUnit.FOOTS, 155.0, PlayingSurfaceUnit.FOOTS);
+        playingSurface.setBuiltInImagePathName("/images/built-in-playing-surfaces/baseball-field.png");
+        sport.setPlayingSurface(playingSurface);
+        addPlayerCategory(sport, new PlayerCategory("Lanceur", "L", Color.web("#001A80"), Color.web("#990000"), 1));
+        addPlayerCategory(sport, new PlayerCategory("Receveur", "R", Color.web("#001A80"), Color.web("#990000"), 1));
+        addPlayerCategory(sport, new PlayerCategory("Premier but", "1B", Color.web("#001A80"), Color.web("#990000"), 1));
+        addPlayerCategory(sport, new PlayerCategory("Deuxième but", "2B", Color.web("#001A80"), Color.web("#990000"), 1));
+        addPlayerCategory(sport, new PlayerCategory("Trosième but", "3B", Color.web("#001A80"), Color.web("#990000"), 1));
+        addPlayerCategory(sport, new PlayerCategory("Arrêt-court", "AC", Color.web("#001A80"), Color.web("#990000"), 1));
+        addPlayerCategory(sport, new PlayerCategory("Voltige gauche", "VG", Color.web("#001A80"), Color.web("#990000"), 1));
+        addPlayerCategory(sport, new PlayerCategory("Voltige centre", "VC", Color.web("#001A80"), Color.web("#990000"), 1));
+        addPlayerCategory(sport, new PlayerCategory("Voltige droit", "VD", Color.web("#001A80"), Color.web("#990000"), 1));
+        return sport;
+    }
+
+    private Sport createBasketballSport() throws Exception {
+        Sport sport = sportFactory.create("Basketball");
+        sport.setBuiltInIconPathName("/images/built-in-sport-icons/basketball-icon.png");
+        sport.setIsBuiltIn(true);
+        Ball ball = new Ball("Ballon");
+        ball.setBuiltInImagePathName("/images/built-in-ball-icons/basketball-ball-icon.png");
+        sport.setBall(ball);
+        PlayingSurface playingSurface = new PlayingSurface(50.0, PlayingSurfaceUnit.FOOTS, 94.0, PlayingSurfaceUnit.FOOTS);
+        playingSurface.setBuiltInImagePathName("/images/built-in-playing-surfaces/basketball-court.png");
+        sport.setPlayingSurface(playingSurface);
+        addPlayerCategory(sport, new PlayerCategory("Meneur", "M", Color.web("#001A80"), Color.web("#990000"), 1));
+        addPlayerCategory(sport, new PlayerCategory("Arrière", "AR", Color.web("#001A80"), Color.web("#990000"), 1));
+        addPlayerCategory(sport, new PlayerCategory("Ailier", "A", Color.web("#001A80"), Color.web("#990000"), 1));
+        addPlayerCategory(sport, new PlayerCategory("Ailier fort", "AD", Color.web("#001A80"), Color.web("#990000"), 1));
+        addPlayerCategory(sport, new PlayerCategory("Pivot", "C", Color.web("#001A80"), Color.web("#990000"), 1));
+        return sport;
+    }
+
+    private Sport createVolleyballSport() throws Exception {
+        Sport sport = sportFactory.create("Volleyball");
+        sport.setBuiltInIconPathName("/images/built-in-sport-icons/volleyball-icon.png");
+        sport.setIsBuiltIn(true);
+        Ball ball = new Ball("Ballon");
+        ball.setBuiltInImagePathName("/images/built-in-ball-icons/volleyball-ball-icon.png");
+        sport.setBall(ball);
+        PlayingSurface playingSurface = new PlayingSurface(9.0, PlayingSurfaceUnit.METER, 18.0, PlayingSurfaceUnit.METER);
+        playingSurface.setBuiltInImagePathName("/images/built-in-playing-surfaces/volleyball-court.png");
+        sport.setPlayingSurface(playingSurface);
+        addPlayerCategory(sport, new PlayerCategory("1 (Arrière droit)", "1AD", Color.web("#001A80"), Color.web("#990000"), 1));
+        addPlayerCategory(sport, new PlayerCategory("2 (Avant droit)", "2AD", Color.web("#001A80"), Color.web("#990000"), 1));
+        addPlayerCategory(sport, new PlayerCategory("3 (Avant centre)", "3AC", Color.web("#001A80"), Color.web("#990000"), 1));
+        addPlayerCategory(sport, new PlayerCategory("4 (Avant gauche)", "4AG", Color.web("#001A80"), Color.web("#990000"), 1));
+        addPlayerCategory(sport, new PlayerCategory("5 (Arrière gauche)", "5AG", Color.web("#001A80"), Color.web("#990000"), 1));
+        addPlayerCategory(sport, new PlayerCategory("6 (Arrière centre)", "6AC", Color.web("#001A80"), Color.web("#990000"), 1));
+        return sport;
+    }
+
+    private void addPlayerCategory(Sport sport, PlayerCategory playerCategory) {
+        playerCategoryRepository.persist(playerCategory);
+        sport.addPlayerCategory(playerCategory);
     }
 
     private void persistSports(List<Sport> sportPool) throws SportAlreadyExistsException {

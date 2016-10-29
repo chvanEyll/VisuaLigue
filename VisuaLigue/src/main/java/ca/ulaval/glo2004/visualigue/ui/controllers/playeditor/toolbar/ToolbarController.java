@@ -3,7 +3,7 @@ package ca.ulaval.glo2004.visualigue.ui.controllers.playeditor.toolbar;
 import ca.ulaval.glo2004.visualigue.domain.play.Play;
 import ca.ulaval.glo2004.visualigue.domain.sport.playingsurface.PlayingSurfaceUnit;
 import ca.ulaval.glo2004.visualigue.services.play.PlayService;
-import ca.ulaval.glo2004.visualigue.ui.controllers.ViewController;
+import ca.ulaval.glo2004.visualigue.ui.controllers.ControllerBase;
 import ca.ulaval.glo2004.visualigue.ui.controllers.common.ExtendedButton;
 import ca.ulaval.glo2004.visualigue.ui.controllers.playeditor.itempane.ItemPaneController;
 import ca.ulaval.glo2004.visualigue.ui.controllers.playeditor.scene.SceneController;
@@ -23,7 +23,7 @@ import javafx.scene.control.ComboBox;
 import javafx.scene.control.Label;
 import javax.inject.Inject;
 
-public class ToolbarController extends ViewController {
+public class ToolbarController extends ControllerBase {
 
     public EventHandler onSaveButtonAction = new EventHandler();
     public EventHandler onCloseButtonAction = new EventHandler();

@@ -4,7 +4,7 @@ import ca.ulaval.glo2004.visualigue.VisuaLigue;
 import ca.ulaval.glo2004.visualigue.domain.sport.playingsurface.PlayingSurfaceUnit;
 import ca.ulaval.glo2004.visualigue.ui.controllers.common.ResizableImageView;
 import ca.ulaval.glo2004.visualigue.ui.models.SportCreationModel;
-import ca.ulaval.glo2004.visualigue.utils.FXUtils;
+import ca.ulaval.glo2004.visualigue.utils.javafx.FXUtils;
 import ca.ulaval.glo2004.visualigue.utils.FilenameUtils;
 import java.io.File;
 import javafx.collections.FXCollections;
@@ -28,7 +28,6 @@ public class SportCreationStep2Controller extends SportCreationStepController {
     @FXML private Spinner lengthSpinner;
     @FXML private ComboBox widthUnitComboBox;
     @FXML private ComboBox lengthUnitComboBox;
-    @FXML private Label imagePathLabel;
     @FXML private ResizableImageView imageView;
     @FXML private Label imageErrorLabel;
 
@@ -76,7 +75,6 @@ public class SportCreationStep2Controller extends SportCreationStepController {
     private void displayImage(String imageURL) {
         try {
             imageView.setImage(new Image(imageURL));
-            imagePathLabel.textProperty().bind(this.model.newPlayingSurfaceImagePathName);
         } catch (Exception ex) {
             clearErrors();
             imageErrorLabel.setText("L'image spécifiée n'a pu être chargée.");
@@ -86,8 +84,6 @@ public class SportCreationStep2Controller extends SportCreationStepController {
 
     private void clearImage() {
         imageView.setImage(null);
-        imagePathLabel.textProperty().unbind();
-        imagePathLabel.setText("Aucune image sélectionnée");
     }
 
     @Override

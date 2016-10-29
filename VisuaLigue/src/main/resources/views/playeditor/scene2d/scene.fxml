@@ -15,7 +15,7 @@
             <children>
                 <StackPane styleClass="scene" fx:id="stackPane" alignment="TOP_LEFT">
                     <children>
-                        <ImageView fx:id="backgroundImageView" fitHeight="372.0" fitWidth="800.0" pickOnBounds="true" preserveRatio="true" onMousePressed="#onBackgroundMousePressed" onMouseDragged="#onBackgroundMouseDragged" onMouseReleased="#onBackgroundMouseReleased"/>
+                        <ImageView fx:id="backgroundImageView" fitHeight="372.0" fitWidth="800.0" pickOnBounds="true" onMousePressed="#onBackgroundMousePressed" onMouseDragged="#onBackgroundMouseDragged" onMouseReleased="#onBackgroundMouseReleased"/>
                     </children>
                 </StackPane>
             </children>

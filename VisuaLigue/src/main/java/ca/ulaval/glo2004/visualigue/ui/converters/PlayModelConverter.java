@@ -29,11 +29,15 @@ public class PlayModelConverter {
         model.defaultThumbnailImagePathName.set(play.getDefaultThumbnailImage());
         model.ballModel = ballModelConverter.convert(play.getSport().getBall());
         model.sportUUID.set(play.getSport().getUUID());
-        convertPlayingSurfaceImage(play.getSport().getPlayingSurface(), model);
+        convertPlayingSurface(play.getSport().getPlayingSurface(), model);
         return model;
     }
 
-    private void convertPlayingSurfaceImage(PlayingSurface playingSurface, PlayModel model) {
+    private void convertPlayingSurface(PlayingSurface playingSurface, PlayModel model) {
+        model.playingSurfaceWidth.set(playingSurface.getWidth());
+        model.playingSurfaceLength.set(playingSurface.getLength());
+        model.playingSurfaceWidthUnits.set(playingSurface.getWidthUnits());
+        model.playingSurfaceLengthUnits.set(playingSurface.getLengthUnits());
         if (playingSurface.hasCustomImage()) {
             model.customPlayingSurfaceImagePathName.set(imageRepository.get(playingSurface.getCustomImageUUID()));
         }

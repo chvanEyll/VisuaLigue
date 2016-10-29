@@ -1,4 +1,4 @@
-package ca.ulaval.glo2004.visualigue.utils;
+package ca.ulaval.glo2004.visualigue.utils.javafx;
 
 import ca.ulaval.glo2004.visualigue.utils.geometry.Vector2;
 import java.awt.MouseInfo;

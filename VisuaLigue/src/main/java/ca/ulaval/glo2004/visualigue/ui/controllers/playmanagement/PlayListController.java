@@ -4,13 +4,13 @@ import ca.ulaval.glo2004.visualigue.domain.play.Play;
 import ca.ulaval.glo2004.visualigue.services.play.PlayService;
 import ca.ulaval.glo2004.visualigue.ui.InjectableFXMLLoader;
 import ca.ulaval.glo2004.visualigue.ui.View;
-import ca.ulaval.glo2004.visualigue.ui.controllers.ViewController;
+import ca.ulaval.glo2004.visualigue.ui.controllers.ControllerBase;
 import ca.ulaval.glo2004.visualigue.ui.controllers.ViewFlowRequestEventArgs;
 import ca.ulaval.glo2004.visualigue.ui.controllers.playcreation.PlayCreationController;
 import ca.ulaval.glo2004.visualigue.ui.converters.PlayModelConverter;
 import ca.ulaval.glo2004.visualigue.ui.models.PlayModel;
 import ca.ulaval.glo2004.visualigue.utils.EventHandler;
-import ca.ulaval.glo2004.visualigue.utils.FXUtils;
+import ca.ulaval.glo2004.visualigue.utils.javafx.FXUtils;
 import java.net.URL;
 import java.util.ArrayList;
 import java.util.List;
@@ -23,7 +23,7 @@ import javafx.scene.layout.TilePane;
 import javax.inject.Inject;
 import javax.swing.SortOrder;
 
-public class PlayListController extends ViewController {
+public class PlayListController extends ControllerBase {
 
     @Inject private PlayService playService;
     @Inject private PlayModelConverter playModelConverter;

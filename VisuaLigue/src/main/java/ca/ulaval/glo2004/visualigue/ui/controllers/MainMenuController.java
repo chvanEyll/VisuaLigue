@@ -13,7 +13,7 @@ import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
 import javafx.scene.shape.Rectangle;
 
-public class MainMenuController extends ViewController {
+public class MainMenuController extends ControllerBase {
 
     public static final String VIEW_NAME = "/views/main-menu.fxml";
     private static final String ACTIVE_CSS_STYLE_NAME = "active";

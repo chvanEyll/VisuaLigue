@@ -1,19 +1,19 @@
 package ca.ulaval.glo2004.visualigue.ui.controllers.playeditor.itempane;
 
 import ca.ulaval.glo2004.visualigue.domain.play.actorinstance.TeamSide;
-import ca.ulaval.glo2004.visualigue.ui.controllers.ViewController;
+import ca.ulaval.glo2004.visualigue.ui.controllers.ControllerBase;
 import ca.ulaval.glo2004.visualigue.ui.controllers.common.ExtendedButton;
 import ca.ulaval.glo2004.visualigue.ui.controllers.common.SvgImage;
 import ca.ulaval.glo2004.visualigue.ui.models.PlayerCategoryModel;
 import ca.ulaval.glo2004.visualigue.utils.EventHandler;
-import ca.ulaval.glo2004.visualigue.utils.FXUtils;
+import ca.ulaval.glo2004.visualigue.utils.javafx.FXUtils;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.control.Label;
 import javafx.scene.control.Tooltip;
 import javafx.scene.paint.Color;
 
-public class PlayerCategoryListItemController extends ViewController {
+public class PlayerCategoryListItemController extends ControllerBase {
 
     public static final String VIEW_NAME = "/views/playeditor/itempane/player-category-list-item.fxml";
 

@@ -6,7 +6,7 @@ import ca.ulaval.glo2004.visualigue.services.obstacle.ObstacleService;
 import ca.ulaval.glo2004.visualigue.services.sport.SportService;
 import ca.ulaval.glo2004.visualigue.ui.InjectableFXMLLoader;
 import ca.ulaval.glo2004.visualigue.ui.View;
-import ca.ulaval.glo2004.visualigue.ui.controllers.ViewController;
+import ca.ulaval.glo2004.visualigue.ui.controllers.ControllerBase;
 import ca.ulaval.glo2004.visualigue.ui.controllers.playeditor.scene.SceneController;
 import ca.ulaval.glo2004.visualigue.ui.converters.BallModelConverter;
 import ca.ulaval.glo2004.visualigue.ui.converters.ObstacleModelConverter;
@@ -22,7 +22,7 @@ import javafx.scene.layout.TilePane;
 import javax.inject.Inject;
 import javax.swing.SortOrder;
 
-public class ObjectListController extends ViewController {
+public class ObjectListController extends ControllerBase {
 
     @Inject private SportService sportService;
     @Inject private ObstacleService obstacleService;

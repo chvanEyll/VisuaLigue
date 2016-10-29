@@ -1,6 +1,6 @@
 package ca.ulaval.glo2004.visualigue.ui.controllers.playmanagement;
 
-import ca.ulaval.glo2004.visualigue.ui.controllers.ViewController;
+import ca.ulaval.glo2004.visualigue.ui.controllers.ControllerBase;
 import ca.ulaval.glo2004.visualigue.ui.dialog.AlertDialogBuilder;
 import ca.ulaval.glo2004.visualigue.ui.models.PlayModel;
 import ca.ulaval.glo2004.visualigue.utils.EventHandler;
@@ -16,7 +16,7 @@ import javafx.scene.image.ImageView;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.VBox;
 
-public class PlayListItemController extends ViewController {
+public class PlayListItemController extends ControllerBase {
 
     public static final String VIEW_NAME = "/views/playmanagement/play-list-item.fxml";
 

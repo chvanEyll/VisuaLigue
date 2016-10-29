@@ -38,7 +38,7 @@ public class ViewFlow {
     }
 
     private Boolean validateViewClose(View currentView) {
-        ViewController controller = (ViewController) currentView.getController();
+        ControllerBase controller = (ControllerBase) currentView.getController();
         return controller.onViewClosing();
     }
 

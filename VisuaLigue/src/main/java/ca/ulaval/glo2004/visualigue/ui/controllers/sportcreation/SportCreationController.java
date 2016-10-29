@@ -7,14 +7,14 @@ import ca.ulaval.glo2004.visualigue.services.sport.SportService;
 import ca.ulaval.glo2004.visualigue.ui.InjectableFXMLLoader;
 import ca.ulaval.glo2004.visualigue.ui.View;
 import ca.ulaval.glo2004.visualigue.ui.animation.PredefinedAnimations;
-import ca.ulaval.glo2004.visualigue.ui.controllers.ViewController;
+import ca.ulaval.glo2004.visualigue.ui.controllers.ControllerBase;
 import ca.ulaval.glo2004.visualigue.ui.controllers.ViewFlowRequestEventArgs;
 import ca.ulaval.glo2004.visualigue.ui.controllers.common.Breadcrumb;
 import ca.ulaval.glo2004.visualigue.ui.converters.SportCreationModelConverter;
 import ca.ulaval.glo2004.visualigue.ui.dialog.AlertDialogBuilder;
 import ca.ulaval.glo2004.visualigue.ui.models.PlayerCategoryModel;
 import ca.ulaval.glo2004.visualigue.ui.models.SportCreationModel;
-import ca.ulaval.glo2004.visualigue.utils.FXUtils;
+import ca.ulaval.glo2004.visualigue.utils.javafx.FXUtils;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
@@ -32,7 +32,7 @@ import javafx.scene.layout.VBox;
 import javax.inject.Inject;
 import org.apache.commons.lang3.StringUtils;
 
-public class SportCreationController extends ViewController {
+public class SportCreationController extends ControllerBase {
 
     @FXML private VBox stepContent;
     @FXML private Button deleteButton;

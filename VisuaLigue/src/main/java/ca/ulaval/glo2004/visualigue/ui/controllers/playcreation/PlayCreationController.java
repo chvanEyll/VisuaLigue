@@ -4,7 +4,7 @@ import ca.ulaval.glo2004.visualigue.domain.play.Play;
 import ca.ulaval.glo2004.visualigue.services.play.PlayService;
 import ca.ulaval.glo2004.visualigue.ui.InjectableFXMLLoader;
 import ca.ulaval.glo2004.visualigue.ui.View;
-import ca.ulaval.glo2004.visualigue.ui.controllers.ViewController;
+import ca.ulaval.glo2004.visualigue.ui.controllers.ControllerBase;
 import ca.ulaval.glo2004.visualigue.ui.controllers.ViewFlowRequestEventArgs;
 import ca.ulaval.glo2004.visualigue.ui.controllers.playeditor.PlayEditorController;
 import ca.ulaval.glo2004.visualigue.ui.controllers.sportmanagement.SportListController;
@@ -18,7 +18,7 @@ import javafx.beans.property.StringProperty;
 import javafx.fxml.FXML;
 import javax.inject.Inject;
 
-public class PlayCreationController extends ViewController {
+public class PlayCreationController extends ControllerBase {
 
     public static final String VIEW_TITLE = "Création d'un jeu";
     public static final String VIEW_NAME = "/views/playcreation/play-creation.fxml";

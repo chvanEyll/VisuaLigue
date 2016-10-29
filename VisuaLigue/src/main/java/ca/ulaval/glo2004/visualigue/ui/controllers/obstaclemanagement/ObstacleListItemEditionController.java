@@ -6,7 +6,7 @@ import ca.ulaval.glo2004.visualigue.services.obstacle.ObstacleService;
 import ca.ulaval.glo2004.visualigue.ui.controllers.common.editablelist.ListItemEditionController;
 import ca.ulaval.glo2004.visualigue.ui.models.ModelBase;
 import ca.ulaval.glo2004.visualigue.ui.models.ObstacleModel;
-import ca.ulaval.glo2004.visualigue.utils.FXUtils;
+import ca.ulaval.glo2004.visualigue.utils.javafx.FXUtils;
 import ca.ulaval.glo2004.visualigue.utils.FilenameUtils;
 import java.io.File;
 import java.util.UUID;

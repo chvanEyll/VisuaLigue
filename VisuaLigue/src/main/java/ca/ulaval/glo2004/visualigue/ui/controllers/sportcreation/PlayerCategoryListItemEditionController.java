@@ -3,7 +3,7 @@ package ca.ulaval.glo2004.visualigue.ui.controllers.sportcreation;
 import ca.ulaval.glo2004.visualigue.ui.controllers.common.editablelist.ListItemEditionController;
 import ca.ulaval.glo2004.visualigue.ui.models.ModelBase;
 import ca.ulaval.glo2004.visualigue.ui.models.PlayerCategoryModel;
-import ca.ulaval.glo2004.visualigue.utils.FXUtils;
+import ca.ulaval.glo2004.visualigue.utils.javafx.FXUtils;
 import ca.ulaval.glo2004.visualigue.utils.StringUtils;
 import javafx.beans.value.ObservableValue;
 import javafx.event.ActionEvent;

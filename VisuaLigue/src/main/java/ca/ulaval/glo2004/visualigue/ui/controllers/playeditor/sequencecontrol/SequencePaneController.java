@@ -2,13 +2,13 @@ package ca.ulaval.glo2004.visualigue.ui.controllers.playeditor.sequencecontrol;
 
 import ca.ulaval.glo2004.visualigue.services.play.PlayService;
 import ca.ulaval.glo2004.visualigue.services.sport.SportService;
-import ca.ulaval.glo2004.visualigue.ui.controllers.ViewController;
+import ca.ulaval.glo2004.visualigue.ui.controllers.ControllerBase;
 import ca.ulaval.glo2004.visualigue.ui.controllers.playeditor.scene.SceneController;
 import ca.ulaval.glo2004.visualigue.ui.converters.FrameModelConverter;
 import ca.ulaval.glo2004.visualigue.ui.controllers.common.ExtendedButton;
 import ca.ulaval.glo2004.visualigue.ui.controllers.common.ExtendedMenuItem;
 import ca.ulaval.glo2004.visualigue.ui.models.PlayModel;
-import ca.ulaval.glo2004.visualigue.utils.FXUtils;
+import ca.ulaval.glo2004.visualigue.utils.javafx.FXUtils;
 import java.text.DecimalFormat;
 import java.util.Timer;
 import java.util.TimerTask;
@@ -18,7 +18,7 @@ import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javax.inject.Inject;
 
-public class SequencePaneController extends ViewController {
+public class SequencePaneController extends ControllerBase {
 
     private static final Integer AUTO_ADVANCE_PERIOD = 15;
     private static final Integer DEFAULT_FIXED_ADVANCE_PERIOD = 500;

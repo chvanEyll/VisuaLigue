@@ -3,7 +3,7 @@ package ca.ulaval.glo2004.visualigue.ui.controllers.playeditor.sequencecontrol;
 import ca.ulaval.glo2004.visualigue.services.play.PlayService;
 import ca.ulaval.glo2004.visualigue.ui.InjectableFXMLLoader;
 import ca.ulaval.glo2004.visualigue.ui.View;
-import ca.ulaval.glo2004.visualigue.ui.controllers.ViewController;
+import ca.ulaval.glo2004.visualigue.ui.controllers.ControllerBase;
 import ca.ulaval.glo2004.visualigue.ui.controllers.common.ExtendedScrollPane;
 import ca.ulaval.glo2004.visualigue.ui.models.PlayModel;
 import ca.ulaval.glo2004.visualigue.utils.EventHandler;
@@ -16,7 +16,7 @@ import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.GridPane;
 import javax.inject.Inject;
 
-public class SeekBarController extends ViewController {
+public class SeekBarController extends ControllerBase {
 
     private static final Integer KEY_POINT_INTERVAL = 1000;
     public EventHandler<Integer> onTimeChanged = new EventHandler();

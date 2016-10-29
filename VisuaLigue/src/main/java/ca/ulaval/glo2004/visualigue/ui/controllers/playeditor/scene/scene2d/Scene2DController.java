@@ -7,7 +7,7 @@ import ca.ulaval.glo2004.visualigue.ui.controllers.common.ExtendedScrollPane;
 import ca.ulaval.glo2004.visualigue.ui.controllers.playeditor.scene.SceneController;
 import ca.ulaval.glo2004.visualigue.ui.controllers.playeditor.scene.Zoom;
 import ca.ulaval.glo2004.visualigue.ui.models.*;
-import ca.ulaval.glo2004.visualigue.utils.FXUtils;
+import ca.ulaval.glo2004.visualigue.utils.javafx.FXUtils;
 import ca.ulaval.glo2004.visualigue.utils.FilenameUtils;
 import ca.ulaval.glo2004.visualigue.utils.geometry.Vector2;
 import ca.ulaval.glo2004.visualigue.utils.math.MathUtils;
@@ -153,7 +153,7 @@ public class Scene2DController extends SceneController {
     }
 
     private Double getBaseSceneHeight() {
-        return ZOOM_WIDTH_BASE / (backgroundImage.getWidth() / backgroundImage.getHeight());
+        return ZOOM_WIDTH_BASE / (playModel.playingSurfaceWidth.get() / playModel.playingSurfaceLength.get());
     }
 
     @Override

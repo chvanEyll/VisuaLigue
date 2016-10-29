@@ -19,7 +19,7 @@ public class SportCreationModel extends ModelBase {
     public DoubleProperty playingSurfaceLength = new SimpleDoubleProperty(200.0);
     public StringProperty newPlayingSurfaceImagePathName = new SimpleStringProperty();
     public StringProperty currentPlayingSurfaceImagePathName = new SimpleStringProperty();
-    public StringProperty builtInPlayingSurfaceImagePathName = new SimpleStringProperty();
+    public StringProperty builtInPlayingSurfaceImagePathName = new SimpleStringProperty("/images/built-in-playing-surfaces/generic-playing-surface.png");
     public ObjectProperty<PlayingSurfaceUnit> playingSurfaceWidthUnits = new SimpleObjectProperty<>(PlayingSurfaceUnit.METER);
     public ObjectProperty<PlayingSurfaceUnit> playingSurfaceLengthUnits = new SimpleObjectProperty<>(PlayingSurfaceUnit.METER);
     public ObservableList<PlayerCategoryModel> playerCategoryModels = FXCollections.observableArrayList();

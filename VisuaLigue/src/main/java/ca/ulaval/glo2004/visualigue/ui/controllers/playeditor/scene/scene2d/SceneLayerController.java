@@ -1,6 +1,6 @@
 package ca.ulaval.glo2004.visualigue.ui.controllers.playeditor.scene.scene2d;
 
-import ca.ulaval.glo2004.visualigue.ui.controllers.ViewController;
+import ca.ulaval.glo2004.visualigue.ui.controllers.ControllerBase;
 import ca.ulaval.glo2004.visualigue.ui.controllers.playeditor.scene.Zoom;
 import ca.ulaval.glo2004.visualigue.ui.controllers.common.SvgImage;
 import ca.ulaval.glo2004.visualigue.ui.models.ActorModel;
@@ -11,7 +11,7 @@ import javafx.scene.control.Tooltip;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 
-public class SceneLayerController extends ViewController {
+public class SceneLayerController extends ControllerBase {
 
     public static final String VIEW_NAME = "/views/playeditor/scene2d/scene-layer.fxml";
     @FXML private Button actorButton;

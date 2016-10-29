@@ -3,7 +3,7 @@ package ca.ulaval.glo2004.visualigue.ui.controllers.sportcreation;
 import ca.ulaval.glo2004.visualigue.VisuaLigue;
 import ca.ulaval.glo2004.visualigue.domain.sport.SportAlreadyExistsException;
 import ca.ulaval.glo2004.visualigue.ui.models.SportCreationModel;
-import ca.ulaval.glo2004.visualigue.utils.FXUtils;
+import ca.ulaval.glo2004.visualigue.utils.javafx.FXUtils;
 import ca.ulaval.glo2004.visualigue.utils.FilenameUtils;
 import ca.ulaval.glo2004.visualigue.utils.StringUtils;
 import java.io.File;

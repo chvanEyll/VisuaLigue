@@ -2,7 +2,7 @@ package ca.ulaval.glo2004.visualigue.ui.controllers;
 
 import ca.ulaval.glo2004.visualigue.ui.View;
 import ca.ulaval.glo2004.visualigue.ui.animation.PredefinedAnimations;
-import ca.ulaval.glo2004.visualigue.utils.FXUtils;
+import ca.ulaval.glo2004.visualigue.utils.javafx.FXUtils;
 import java.net.URL;
 import java.util.ResourceBundle;
 import javafx.beans.value.ObservableValue;
@@ -14,7 +14,7 @@ import javafx.scene.control.TextField;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.Pane;
 
-public class MainSceneController extends ViewController {
+public class MainSceneController extends ControllerBase {
 
     public static final String VIEW_NAME = "/views/main.fxml";
     private static final String EDITABLE_TITLE_CSS_STYLE_NAME = "editable";
@@ -75,6 +75,7 @@ public class MainSceneController extends ViewController {
     private Boolean changeView(View view) {
         try {
             viewFlow.popView();
+            viewFlow.appendView(view);
             setView(view);
             return true;
         } catch (ViewFlowException ex) {
@@ -104,7 +105,7 @@ public class MainSceneController extends ViewController {
     }
 
     private void setView(View view) {
-        ViewController controller = (ViewController) view.getController();
+        ControllerBase controller = (ControllerBase) view.getController();
         controller.onViewAppendRequested.setHandler(this::onViewAppendRequested);
         controller.onViewChangeRequested.setHandler(this::onViewChangeRequested);
         controller.onViewCloseRequested.setHandler(this::onViewCloseRequested);

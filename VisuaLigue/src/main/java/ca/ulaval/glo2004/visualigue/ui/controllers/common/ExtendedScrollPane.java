@@ -1,6 +1,6 @@
 package ca.ulaval.glo2004.visualigue.ui.controllers.common;
 
-import ca.ulaval.glo2004.visualigue.utils.FXUtils;
+import ca.ulaval.glo2004.visualigue.utils.javafx.FXUtils;
 import ca.ulaval.glo2004.visualigue.utils.geometry.Rect;
 import ca.ulaval.glo2004.visualigue.utils.geometry.Vector2;
 import javafx.scene.Node;

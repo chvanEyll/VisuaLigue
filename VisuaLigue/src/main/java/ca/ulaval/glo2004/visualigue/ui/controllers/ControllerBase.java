@@ -7,7 +7,7 @@ import javafx.beans.property.SimpleStringProperty;
 import javafx.beans.property.StringProperty;
 import javafx.fxml.Initializable;
 
-public abstract class ViewController implements Initializable {
+public abstract class ControllerBase implements Initializable {
 
     public EventHandler<ViewFlowRequestEventArgs> onViewCloseRequested = new EventHandler();
     public EventHandler<ViewFlowRequestEventArgs> onViewChangeRequested = new EventHandler();
@@ -29,5 +29,9 @@ public abstract class ViewController implements Initializable {
 
     public Boolean onViewClosing() {
         return true;
+    }
+
+    public void clean() {
+
     }
 }

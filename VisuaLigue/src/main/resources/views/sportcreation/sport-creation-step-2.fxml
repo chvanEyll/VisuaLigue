@@ -55,7 +55,6 @@
             <FlowPane styleClass="form-group, horizontal">
                 <children>
                     <Button text="Sélectionner une image..." onAction="#onBrowseImageButtonAction" />
-                    <Label fx:id="imagePathLabel" />
                 </children>
             </FlowPane>
             <FlowPane styleClass="form-group, vertical">

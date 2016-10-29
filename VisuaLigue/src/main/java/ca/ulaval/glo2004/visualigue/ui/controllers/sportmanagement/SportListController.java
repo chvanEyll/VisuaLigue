@@ -4,13 +4,13 @@ import ca.ulaval.glo2004.visualigue.domain.sport.Sport;
 import ca.ulaval.glo2004.visualigue.services.sport.SportService;
 import ca.ulaval.glo2004.visualigue.ui.InjectableFXMLLoader;
 import ca.ulaval.glo2004.visualigue.ui.View;
-import ca.ulaval.glo2004.visualigue.ui.controllers.ViewController;
+import ca.ulaval.glo2004.visualigue.ui.controllers.ControllerBase;
 import ca.ulaval.glo2004.visualigue.ui.controllers.ViewFlowRequestEventArgs;
 import ca.ulaval.glo2004.visualigue.ui.controllers.sportcreation.SportCreationController;
 import ca.ulaval.glo2004.visualigue.ui.converters.SportListItemModelConverter;
 import ca.ulaval.glo2004.visualigue.ui.models.SportListItemModel;
 import ca.ulaval.glo2004.visualigue.utils.EventHandler;
-import ca.ulaval.glo2004.visualigue.utils.FXUtils;
+import ca.ulaval.glo2004.visualigue.utils.javafx.FXUtils;
 import java.net.URL;
 import java.util.List;
 import java.util.ResourceBundle;
@@ -22,7 +22,7 @@ import javafx.scene.layout.TilePane;
 import javax.inject.Inject;
 import javax.swing.SortOrder;
 
-public class SportListController extends ViewController {
+public class SportListController extends ControllerBase {
 
     @Inject private SportService sportService;
     @Inject private SportListItemModelConverter sportListItemModelConverter;

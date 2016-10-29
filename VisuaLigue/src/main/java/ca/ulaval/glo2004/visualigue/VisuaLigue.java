@@ -5,7 +5,7 @@ import ca.ulaval.glo2004.visualigue.contexts.DefaultContext;
 import ca.ulaval.glo2004.visualigue.ui.InjectableFXMLLoader;
 import ca.ulaval.glo2004.visualigue.ui.View;
 import ca.ulaval.glo2004.visualigue.ui.controllers.MainSceneController;
-import ca.ulaval.glo2004.visualigue.ui.controllers.ViewController;
+import ca.ulaval.glo2004.visualigue.ui.controllers.ControllerBase;
 import ca.ulaval.glo2004.visualigue.utils.EnvironmentUtils;
 import java.io.IOException;
 import javafx.application.Application;
@@ -35,10 +35,10 @@ public class VisuaLigue extends Application {
         initContext();
         View view = InjectableFXMLLoader.loadView(MainSceneController.VIEW_NAME);
         Scene scene = new Scene((Parent) view.getRoot());
-        initStage(stage, scene, (ViewController) view.getController());
+        initStage(stage, scene, (ControllerBase) view.getController());
     }
 
-    private void initStage(Stage stage, Scene scene, ViewController viewController) throws IOException {
+    private void initStage(Stage stage, Scene scene, ControllerBase viewController) throws IOException {
         setStageIcons(stage);
         stage.setScene(scene);
         stage.setTitle(APP_NAME);
