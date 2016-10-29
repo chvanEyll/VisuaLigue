@@ -22,6 +22,7 @@ public class SportManagementController extends ControllerBase {
     public void initialize(URL url, ResourceBundle rb) {
         sportListController.onSportSelected.setHandler(this::onSportSelectedEvent);
         sportListController.onViewAppendRequested.forward(this.onViewAppendRequested);
+        super.addChild(sportListController);
     }
 
     @Override

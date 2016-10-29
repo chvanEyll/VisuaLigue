@@ -33,6 +33,7 @@ public class ViewFlow {
         if (!validateViewClose(currentView)) {
             throw new ViewFlowException("The controller has declined the close operation.");
         } else {
+            cleanController(currentView);
             return viewStack.pop();
         }
     }
@@ -40,6 +41,11 @@ public class ViewFlow {
     private Boolean validateViewClose(View currentView) {
         ControllerBase controller = (ControllerBase) currentView.getController();
         return controller.onViewClosing();
+    }
+
+    private void cleanController(View currentView) {
+        ControllerBase controller = (ControllerBase) currentView.getController();
+        controller.clean();
     }
 
     public int count() {

@@ -3,9 +3,10 @@ package ca.ulaval.glo2004.visualigue.ui.controllers.sportcreation;
 import ca.ulaval.glo2004.visualigue.VisuaLigue;
 import ca.ulaval.glo2004.visualigue.domain.sport.SportAlreadyExistsException;
 import ca.ulaval.glo2004.visualigue.ui.models.SportCreationModel;
-import ca.ulaval.glo2004.visualigue.utils.javafx.FXUtils;
 import ca.ulaval.glo2004.visualigue.utils.FilenameUtils;
 import ca.ulaval.glo2004.visualigue.utils.StringUtils;
+import ca.ulaval.glo2004.visualigue.utils.javafx.BindingUtils;
+import ca.ulaval.glo2004.visualigue.utils.javafx.FXUtils;
 import java.io.File;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
@@ -28,8 +29,8 @@ public class SportCreationStep1Controller extends SportCreationStepController {
     @Override
     public void init(SportCreationModel sportCreation) {
         model = sportCreation;
-        sportNameField.textProperty().bindBidirectional(sportCreation.name);
-        ballNameField.textProperty().bindBidirectional(sportCreation.ballName);
+        BindingUtils.cleanBindBidirectional(sportNameField.textProperty(), sportCreation.name);
+        BindingUtils.cleanBindBidirectional(ballNameField.textProperty(), sportCreation.ballName);
         clearErrors();
         updateIconImage();
         updateBallImage();

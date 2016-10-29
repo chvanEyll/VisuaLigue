@@ -57,8 +57,4 @@ public abstract class SceneController extends ControllerBase {
 
     public abstract void setPlayerCategoryLabelDisplayEnabled(Boolean enabled);
 
-    public abstract void undo();
-
-    public abstract void redo();
-
 }

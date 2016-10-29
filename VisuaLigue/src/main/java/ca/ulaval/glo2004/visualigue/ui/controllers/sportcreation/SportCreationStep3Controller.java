@@ -16,6 +16,7 @@ public class SportCreationStep3Controller extends SportCreationStepController {
         this.model = sportCreationModel;
         playerCategoryListController.init(model.playerCategoryModels, PlayerCategoryModel.class,
                 PlayerCategoryListItemController.VIEW_NAME, PlayerCategoryListItemEditionController.VIEW_NAME);
+        super.addChild(playerCategoryListController);
         clearErrors();
     }
 }

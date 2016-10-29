@@ -2,6 +2,7 @@ package ca.ulaval.glo2004.visualigue.ui.controllers;
 
 import ca.ulaval.glo2004.visualigue.ui.View;
 import ca.ulaval.glo2004.visualigue.ui.animation.PredefinedAnimations;
+import ca.ulaval.glo2004.visualigue.utils.javafx.BindingUtils;
 import ca.ulaval.glo2004.visualigue.utils.javafx.FXUtils;
 import java.net.URL;
 import java.util.ResourceBundle;
@@ -33,6 +34,7 @@ public class MainSceneController extends ControllerBase {
         mainMenuController.onViewFlowResetRequested.setHandler(this::onViewFlowResetRequested);
         mainMenuController.init();
         viewTitleTextField.focusedProperty().addListener(this::onViewTitleTextFieldFocusChanged);
+        super.addChild(mainMenuController);
     }
 
     @FXML
@@ -111,8 +113,8 @@ public class MainSceneController extends ControllerBase {
         controller.onViewCloseRequested.setHandler(this::onViewCloseRequested);
         contentPane.getChildren().clear();
         contentPane.getChildren().add(view.getRoot());
-        viewTitleLabel.textProperty().bindBidirectional(controller.getTitle());
-        viewTitleTextField.textProperty().bindBidirectional(controller.getTitle());
+        BindingUtils.cleanBindBidirectional(viewTitleLabel.textProperty(), controller.getTitle());
+        BindingUtils.cleanBindBidirectional(viewTitleTextField.textProperty(), controller.getTitle());
         FXUtils.setDisplay(previousButton, viewFlow.count() > 1);
         FXUtils.setDisplay(viewTitleSpacer, viewFlow.count() <= 1);
         FXUtils.setDisplay(viewTitleEditButton, controller.isTitleEditable());

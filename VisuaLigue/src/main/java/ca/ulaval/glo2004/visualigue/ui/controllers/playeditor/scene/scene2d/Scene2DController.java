@@ -7,15 +7,15 @@ import ca.ulaval.glo2004.visualigue.ui.controllers.common.ExtendedScrollPane;
 import ca.ulaval.glo2004.visualigue.ui.controllers.playeditor.scene.SceneController;
 import ca.ulaval.glo2004.visualigue.ui.controllers.playeditor.scene.Zoom;
 import ca.ulaval.glo2004.visualigue.ui.models.*;
-import ca.ulaval.glo2004.visualigue.utils.javafx.FXUtils;
 import ca.ulaval.glo2004.visualigue.utils.FilenameUtils;
 import ca.ulaval.glo2004.visualigue.utils.geometry.Vector2;
+import ca.ulaval.glo2004.visualigue.utils.javafx.BindingUtils;
+import ca.ulaval.glo2004.visualigue.utils.javafx.FXUtils;
 import ca.ulaval.glo2004.visualigue.utils.math.MathUtils;
 import java.util.*;
 import javafx.beans.value.ObservableValue;
 import javafx.collections.MapChangeListener;
 import javafx.collections.MapChangeListener.Change;
-import javafx.event.EventHandler;
 import javafx.fxml.FXML;
 import javafx.scene.ImageCursor;
 import javafx.scene.image.Image;
@@ -55,11 +55,11 @@ public class Scene2DController extends SceneController {
         this.playModel = playModel;
         initPlayingSurfaceBackground();
         frameModel.actorStates.addListener(this::onActorStateMapChanged);
-        stackPane.minWidthProperty().bind(backgroundImageView.fitWidthProperty());
-        stackPane.maxWidthProperty().bind(backgroundImageView.fitWidthProperty());
-        stackPane.minHeightProperty().bind(backgroundImageView.fitHeightProperty());
-        stackPane.maxHeightProperty().bind(backgroundImageView.fitHeightProperty());
-        scrollPane.addEventFilter(ScrollEvent.ANY, new ScrollPaneScrollHandler());
+        BindingUtils.cleanBind(stackPane.minWidthProperty(), backgroundImageView.fitWidthProperty());
+        BindingUtils.cleanBind(stackPane.maxWidthProperty(), backgroundImageView.fitWidthProperty());
+        BindingUtils.cleanBind(stackPane.minHeightProperty(), backgroundImageView.fitHeightProperty());
+        BindingUtils.cleanBind(stackPane.maxHeightProperty(), backgroundImageView.fitHeightProperty());
+        scrollPane.addEventFilter(ScrollEvent.ANY, this::scrollPaneEventFilter);
         scrollPaneContent.widthProperty().addListener(this::scrollPaneContentWidthChangedListener);
         scrollPaneContent.heightProperty().addListener(this::scrollPaneContentHeightChangedListener);
         setZoom(new Zoom(1));
@@ -84,6 +84,7 @@ public class Scene2DController extends SceneController {
             SceneLayerController controller = (SceneLayerController) view.getController();
             ActorModel addedModel = change.getValueAdded();
             controller.init(addedModel, getBaseSceneWidth(), getBaseSceneHeight());
+            super.addChild(controller);
             sceneLayers.add(view);
             sceneLayerMap.put(change.getValueAdded(), view);
             stackPane.getChildren().add(view.getRoot());
@@ -237,16 +238,6 @@ public class Scene2DController extends SceneController {
         sceneLayers.forEach(view -> ((SceneLayerController) view.getController()).setPlayerCategoryLabelDisplayEnabled(enabled));
     }
 
-    @Override
-    public void undo() {
-
-    }
-
-    @Override
-    public void redo() {
-
-    }
-
     @FXML
     protected void onBackgroundMousePressed(MouseEvent e) {
         mousePressContentPoint = scrollPane.mouseToContentPoint();
@@ -264,15 +255,11 @@ public class Scene2DController extends SceneController {
         mousePressContentPoint = null;
     }
 
-    private class ScrollPaneScrollHandler implements EventHandler<ScrollEvent> {
-
-        @Override
-        public void handle(ScrollEvent scrollEvent) {
-            scrollEvent.consume();
-            if (!scrollEvent.isDirect()) {
-                Double delta = scrollEvent.getDeltaY() / 100;
-                setZoom(new Zoom(getZoom().getValue() + delta));
-            }
+    private void scrollPaneEventFilter(ScrollEvent scrollEvent) {
+        scrollEvent.consume();
+        if (!scrollEvent.isDirect()) {
+            Double delta = scrollEvent.getDeltaY() / 100;
+            setZoom(new Zoom(getZoom().getValue() + delta));
         }
     }
 

@@ -38,11 +38,19 @@ public class ObjectListController extends ControllerBase {
         this.sceneController = sceneController;
         sceneController.onObstacleCreationModeExited.setHandler(this::onObstacleCreationModeExited);
         sceneController.onBallCreationModeExited.setHandler(this::onBallCreationModeExited);
-        sportService.onSportUpdated.setHandler(this::onObjectListChanged);
-        obstacleService.onObstacleCreated.setHandler(this::onObjectListChanged);
-        obstacleService.onObstacleUpdated.setHandler(this::onObjectListChanged);
-        obstacleService.onObstacleDeleted.setHandler(this::onObjectListChanged);
+        sportService.onSportUpdated.addHandler(this::onObjectListChanged);
+        obstacleService.onObstacleCreated.addHandler(this::onObjectListChanged);
+        obstacleService.onObstacleUpdated.addHandler(this::onObjectListChanged);
+        obstacleService.onObstacleDeleted.addHandler(this::onObjectListChanged);
         fillObjectList();
+    }
+
+    @Override
+    public void clean() {
+        sportService.onSportUpdated.removeHandler(this::onObjectListChanged);
+        obstacleService.onObstacleCreated.removeHandler(this::onObjectListChanged);
+        obstacleService.onObstacleUpdated.removeHandler(this::onObjectListChanged);
+        obstacleService.onObstacleDeleted.removeHandler(this::onObjectListChanged);
     }
 
     private void onObjectListChanged(Object sender, Object model) {

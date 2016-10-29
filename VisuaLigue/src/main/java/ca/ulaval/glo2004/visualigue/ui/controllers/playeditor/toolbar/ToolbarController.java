@@ -52,11 +52,11 @@ public class ToolbarController extends ControllerBase {
         this.playModel = playModel;
         this.sceneController = sceneController;
         this.itemPaneController = itemPaneController;
-        sceneController.onMousePositionChanged.addHandler(this::onSceneMousePositionChanged);
-        sceneController.onZoomChanged.addHandler(this::onSceneZoomChanged);
-        sceneController.onPlayerCategoryLabelDisplayEnableChanged.addHandler(this::onPlayerCategoryLabelDisplayEnableChanged);
-        sceneController.onNavigationModeEntered.addHandler(this::onNavigationModeEntered);
-        sceneController.onNavigationModeExited.addHandler(this::onNavigationModeExited);
+        sceneController.onMousePositionChanged.setHandler(this::onSceneMousePositionChanged);
+        sceneController.onZoomChanged.setHandler(this::onSceneZoomChanged);
+        sceneController.onPlayerCategoryLabelDisplayEnableChanged.setHandler(this::onPlayerCategoryLabelDisplayEnableChanged);
+        sceneController.onNavigationModeEntered.setHandler(this::onNavigationModeEntered);
+        sceneController.onNavigationModeExited.setHandler(this::onNavigationModeExited);
         playService.onUndoAvailabilityChanged.addHandler(this::onUndoAvailabilityChanged);
         playService.onRedoAvailabilityChanged.addHandler(this::onRedoAvailabilityChanged);
         playService.onPlayDirtyFlagChanged.addHandler(this::onPlayDirtyFlagChanged);
@@ -67,6 +67,13 @@ public class ToolbarController extends ControllerBase {
         zoomComboBox.focusedProperty().addListener(this::onZoomComboBoxFocusedPropertyChanged);
         itemPaneDisplayButton.setSelected(true);
         updateZoom();
+    }
+
+    @Override
+    public void clean() {
+        playService.onUndoAvailabilityChanged.removeHandler(this::onUndoAvailabilityChanged);
+        playService.onRedoAvailabilityChanged.removeHandler(this::onRedoAvailabilityChanged);
+        playService.onPlayDirtyFlagChanged.removeHandler(this::onPlayDirtyFlagChanged);
     }
 
     private void onZoomComboBoxFocusedPropertyChanged(ObservableValue<? extends Boolean> value, Boolean oldPropertyValue, Boolean newPropertyValue) {

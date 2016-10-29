@@ -29,6 +29,14 @@ public class EventHandler<T> {
         consumers.add(handler);
     }
 
+    public void removeHandler(BiConsumer<Object, T> handler) {
+        biConsumers.remove(handler);
+    }
+
+    public void removeHandler(Consumer<Object> handler) {
+        consumers.remove(handler);
+    }
+
     public void forward(EventHandler<T> handler) {
         forwardHandlers.add(handler);
     }

@@ -33,8 +33,13 @@ public class PlayerCategoryListController extends ControllerBase {
         this.playModel = playModel;
         this.sceneController = sceneController;
         sceneController.onPlayerCreationModeExited.setHandler(this::onPlayerCreationModeExited);
-        sportService.onSportUpdated.setHandler(this::onSportChanged);
+        sportService.onSportUpdated.addHandler(this::onSportChanged);
         fillPlayerCategoryList();
+    }
+
+    @Override
+    public void clean() {
+        sportService.onSportUpdated.removeHandler(this::onSportChanged);
     }
 
     private void onSportChanged(Object sender, Sport sport) {

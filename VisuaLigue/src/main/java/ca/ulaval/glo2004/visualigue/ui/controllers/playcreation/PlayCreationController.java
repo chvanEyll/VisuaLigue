@@ -30,6 +30,7 @@ public class PlayCreationController extends ControllerBase {
     public void initialize(URL url, ResourceBundle rb) {
         sportListController.onSportSelected.setHandler(this::onSportSelectedEvent);
         sportListController.onViewAppendRequested.forward(onViewAppendRequested);
+        super.addChild(sportListController);
     }
 
     @Override

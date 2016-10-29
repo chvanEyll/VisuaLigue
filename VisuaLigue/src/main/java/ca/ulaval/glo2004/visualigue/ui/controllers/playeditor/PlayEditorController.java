@@ -35,15 +35,19 @@ public class PlayEditorController extends ControllerBase {
         sceneController.init(playModel);
         itemPaneController.init(playModel, sceneController);
         toolbarController.init(playModel, sceneController, itemPaneController);
-        toolbarController.onSaveButtonAction.addHandler(this::onSaveToolbarButtonAction);
-        toolbarController.onCloseButtonAction.addHandler(this::onCloseToolbarButtonAction);
-        toolbarController.onExportButtonAction.addHandler(this::onExportToolbarButtonAction);
-        toolbarController.onUndoButtonAction.addHandler(this::onUndoToolbarButtonAction);
-        toolbarController.onRedoButtonAction.addHandler(this::onRedoToolbarButtonAction);
-        toolbarController.onBestFitButtonAction.addHandler(this::onBestFitToolbarButtonAction);
+        toolbarController.onSaveButtonAction.setHandler(this::onSaveToolbarButtonAction);
+        toolbarController.onCloseButtonAction.setHandler(this::onCloseToolbarButtonAction);
+        toolbarController.onExportButtonAction.setHandler(this::onExportToolbarButtonAction);
+        toolbarController.onUndoButtonAction.setHandler(this::onUndoToolbarButtonAction);
+        toolbarController.onRedoButtonAction.setHandler(this::onRedoToolbarButtonAction);
+        toolbarController.onBestFitButtonAction.setHandler(this::onBestFitToolbarButtonAction);
         sequencePaneController.init(playModel, sceneController);
         sceneController.enterNavigationMode();
         playModel.title.addListener(this::onPlayTitleChanged);
+        super.addChild(sceneController);
+        super.addChild(itemPaneController);
+        super.addChild(toolbarController);
+        super.addChild(sequencePaneController);
     }
 
     @Override
@@ -87,12 +91,10 @@ public class PlayEditorController extends ControllerBase {
 
     private void onUndoToolbarButtonAction(Object sender, Object eventArgs) {
         playService.undo(playModel.getUUID());
-        sceneController.undo();
     }
 
     private void onRedoToolbarButtonAction(Object sender, Object eventArgs) {
         playService.redo(playModel.getUUID());
-        sceneController.redo();
     }
 
     private void onBestFitToolbarButtonAction(Object sender, Object eventArgs) {

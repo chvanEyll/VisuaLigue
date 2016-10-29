@@ -49,7 +49,7 @@ public class SportCreationController extends ControllerBase {
     private static final int GENERAL_STEP_INDEX = 0;
     private SportCreationModel model;
     private int currentStepIndex = -1;
-    private SportCreationStepController currentStepController;
+    private SportCreationStepController stepController;
     private List<View> stepViews = new ArrayList();
     @Inject private SportService sportService;
     @Inject private SportCreationModelConverter sportCreationModelConverter;
@@ -86,8 +86,9 @@ public class SportCreationController extends ControllerBase {
     private void loadSteps() {
         for (Integer stepIndex = 0; stepIndex < NUMBER_OF_STEPS; stepIndex++) {
             View view = InjectableFXMLLoader.loadView(STEPS_VIEW_NAMES[stepIndex]);
-            currentStepController = (SportCreationStepController) view.getController();
-            currentStepController.init(model);
+            stepController = (SportCreationStepController) view.getController();
+            stepController.init(model);
+            super.addChild(stepController);
             stepViews.add(view);
         }
     }
@@ -107,7 +108,7 @@ public class SportCreationController extends ControllerBase {
     @FXML
     protected void onValidateButtonAction(ActionEvent e) {
         if (model.isNew() && currentStepIndex < NUMBER_OF_STEPS - 1) {
-            if (currentStepController.validate()) {
+            if (stepController.validate()) {
                 setStep(currentStepIndex + 1);
             }
         } else if (model.isNew() && currentStepIndex == NUMBER_OF_STEPS - 1) {
@@ -136,12 +137,12 @@ public class SportCreationController extends ControllerBase {
     }
 
     private void trySaveChanges() {
-        currentStepController.clearErrors();
+        stepController.clearErrors();
         try {
             saveChanges();
         } catch (SportAlreadyExistsException ex) {
             setStep(GENERAL_STEP_INDEX);
-            currentStepController.showError(ex);
+            stepController.showError(ex);
         }
     }
 

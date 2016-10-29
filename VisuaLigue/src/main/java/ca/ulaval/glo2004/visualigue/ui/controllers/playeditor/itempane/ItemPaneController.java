@@ -1,6 +1,5 @@
 package ca.ulaval.glo2004.visualigue.ui.controllers.playeditor.itempane;
 
-import ca.ulaval.glo2004.visualigue.services.sport.SportService;
 import ca.ulaval.glo2004.visualigue.ui.animation.PredefinedAnimations;
 import ca.ulaval.glo2004.visualigue.ui.controllers.ControllerBase;
 import ca.ulaval.glo2004.visualigue.ui.controllers.playeditor.scene.SceneController;
@@ -8,7 +7,6 @@ import ca.ulaval.glo2004.visualigue.ui.models.PlayModel;
 import javafx.fxml.FXML;
 import javafx.scene.control.ScrollPane;
 import javafx.scene.layout.Region;
-import javax.inject.Inject;
 
 public class ItemPaneController extends ControllerBase {
 
@@ -17,14 +15,14 @@ public class ItemPaneController extends ControllerBase {
     @FXML private ScrollPane rootNode;
     @FXML private PlayerCategoryListController playerCategoryListController;
     @FXML private ObjectListController objectListController;
-    @Inject private SportService sportService;
     private boolean isCollapsed = false;
     private Double expandedWidth;
-    private Double contentWidth;
 
     public void init(PlayModel playModel, SceneController sceneController) {
         playerCategoryListController.init(playModel, sceneController);
         objectListController.init(playModel, sceneController);
+        super.addChild(playerCategoryListController);
+        super.addChild(objectListController);
     }
 
     public void toggleExpand() {

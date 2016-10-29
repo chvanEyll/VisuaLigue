@@ -32,10 +32,18 @@ public class SportListController extends ControllerBase {
 
     @Override
     public void initialize(URL url, ResourceBundle rb) {
-        sportService.onSportCreated.setHandler(this::onSportChanged);
-        sportService.onSportUpdated.setHandler(this::onSportChanged);
-        sportService.onSportDeleted.setHandler(this::onSportChanged);
+        sportService.onSportCreated.addHandler(this::onSportChanged);
+        sportService.onSportUpdated.addHandler(this::onSportChanged);
+        sportService.onSportDeleted.addHandler(this::onSportChanged);
         fillSportList();
+    }
+
+    @Override
+    public void clean() {
+        sportService.onSportCreated.removeHandler(this::onSportChanged);
+        sportService.onSportUpdated.removeHandler(this::onSportChanged);
+        sportService.onSportDeleted.removeHandler(this::onSportChanged);
+        super.clean();
     }
 
     private void onSportChanged(Object sender, Sport sport) {

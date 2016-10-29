@@ -22,6 +22,7 @@ public class PlayManagementController extends ControllerBase {
     public void initialize(URL url, ResourceBundle rb) {
         playListController.onPlaySelected.setHandler(this::onPlaySelectedEvent);
         playListController.onViewAppendRequested.forward(onViewAppendRequested);
+        super.addChild(playListController);
     }
 
     @Override

@@ -3,6 +3,7 @@ package ca.ulaval.glo2004.visualigue.ui.controllers.common.editablelist;
 import ca.ulaval.glo2004.visualigue.ui.InjectableFXMLLoader;
 import ca.ulaval.glo2004.visualigue.ui.View;
 import ca.ulaval.glo2004.visualigue.ui.animation.PredefinedAnimations;
+import ca.ulaval.glo2004.visualigue.ui.controllers.ControllerBase;
 import ca.ulaval.glo2004.visualigue.ui.models.ModelBase;
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -12,7 +13,7 @@ import javafx.scene.Node;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.VBox;
 
-public class EditableListController {
+public class EditableListController extends ControllerBase {
 
     @FXML private VBox gridContent;
     private ObservableList models;
@@ -38,6 +39,7 @@ public class EditableListController {
         listItemController.init(model);
         listItemController.onEditRequested.setHandler(this::onItemEditRequested);
         listItemController.onDeleteRequested.setHandler(this::onItemDeleteRequest);
+        super.addChild(listItemController);
         gridContent.getChildren().add(rowIndex, view.getRoot());
         itemCount += 1;
     }
@@ -52,6 +54,7 @@ public class EditableListController {
         listItemEditionController = (ListItemEditionController) view.getController();
         listItemEditionController.init(model);
         listItemEditionController.onCloseRequested.setHandler(this::onItemEditionCloseRequested);
+        super.addChild(listItemEditionController);
         int rowIndex = models.indexOf(model);
         gridContent.getChildren().remove(rowIndex);
         PredefinedAnimations.nodeSplit(view.getRoot());
