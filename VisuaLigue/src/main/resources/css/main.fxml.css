@@ -181,7 +181,7 @@
 }
 
 .form-section .section-header {
-    -fx-background-color: #F7931E;
+    -fx-background-color: #A9C1D6;
     -fx-pref-height: 38;
     -fx-alignment: CENTER_LEFT;
     -fx-padding: 0 0 0 10;
@@ -237,7 +237,7 @@
     -fx-background-color: #F3F1EF;
     -fx-padding: 0 7 0 3;
     -fx-border-width: 0 0 0 4;
-    -fx-border-color: #F7931E;
+    -fx-border-color: #A9C1D6;
 }
 
 .grid-list .header {
