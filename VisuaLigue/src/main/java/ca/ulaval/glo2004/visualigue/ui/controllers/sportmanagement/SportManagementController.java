@@ -3,6 +3,7 @@ package ca.ulaval.glo2004.visualigue.ui.controllers.sportmanagement;
 import ca.ulaval.glo2004.visualigue.ui.InjectableFXMLLoader;
 import ca.ulaval.glo2004.visualigue.ui.View;
 import ca.ulaval.glo2004.visualigue.ui.controllers.ViewController;
+import ca.ulaval.glo2004.visualigue.ui.controllers.ViewFlowRequestEventArgs;
 import ca.ulaval.glo2004.visualigue.ui.controllers.sportcreation.SportCreationController;
 import ca.ulaval.glo2004.visualigue.ui.models.SportListItemModel;
 import java.net.URL;
@@ -20,7 +21,7 @@ public class SportManagementController extends ViewController {
     @Override
     public void initialize(URL url, ResourceBundle rb) {
         sportListController.onSportSelected.setHandler(this::onSportSelectedEvent);
-        sportListController.onViewChangeRequested.forward(this.onViewChangeRequested);
+        sportListController.onViewAppendRequested.forward(this.onViewAppendRequested);
     }
 
     @Override
@@ -32,6 +33,6 @@ public class SportManagementController extends ViewController {
         View view = InjectableFXMLLoader.loadView(SportCreationController.VIEW_NAME);
         SportCreationController controller = (SportCreationController) view.getController();
         controller.init(sportListItemModel.getUUID());
-        onViewChangeRequested.fire(this, view);
+        onViewAppendRequested.fire(this, new ViewFlowRequestEventArgs(view));
     }
 }

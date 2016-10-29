@@ -14,13 +14,13 @@ public class ViewFlow {
         viewStack.push(initialView);
     }
 
-    public void addView(View view) {
+    public void appendView(View view) {
         viewStack.push(view);
     }
 
     public void clear() {
         while (!viewStack.empty()) {
-            viewStack.pop();
+            popView();
         }
     }
 
@@ -28,9 +28,18 @@ public class ViewFlow {
         return viewStack.peek();
     }
 
-    public View moveToPrevious() {
-        viewStack.pop();
-        return viewStack.peek();
+    public View popView() {
+        View currentView = viewStack.peek();
+        if (!validateViewClose(currentView)) {
+            throw new ViewFlowException("The controller has declined the close operation.");
+        } else {
+            return viewStack.pop();
+        }
+    }
+
+    private Boolean validateViewClose(View currentView) {
+        ViewController controller = (ViewController) currentView.getController();
+        return controller.onViewClosing();
     }
 
     public int count() {

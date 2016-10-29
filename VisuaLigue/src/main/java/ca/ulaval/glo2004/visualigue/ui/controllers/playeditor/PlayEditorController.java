@@ -3,6 +3,7 @@ package ca.ulaval.glo2004.visualigue.ui.controllers.playeditor;
 import ca.ulaval.glo2004.visualigue.domain.play.PlayNotFoundException;
 import ca.ulaval.glo2004.visualigue.services.play.PlayService;
 import ca.ulaval.glo2004.visualigue.ui.controllers.ViewController;
+import ca.ulaval.glo2004.visualigue.ui.controllers.ViewFlowRequestEventArgs;
 import ca.ulaval.glo2004.visualigue.ui.controllers.playeditor.itempane.ItemPaneController;
 import ca.ulaval.glo2004.visualigue.ui.controllers.playeditor.scene.SceneController;
 import ca.ulaval.glo2004.visualigue.ui.controllers.playeditor.sequencecontrol.SequencePaneController;
@@ -73,7 +74,7 @@ public class PlayEditorController extends ViewController {
     }
 
     private void onCloseToolbarButtonAction(Object sender, Object eventArgs) {
-        onViewCloseRequested.fire(this, true);
+        onViewCloseRequested.fire(this, new ViewFlowRequestEventArgs());
     }
 
     private void discardChanges() {

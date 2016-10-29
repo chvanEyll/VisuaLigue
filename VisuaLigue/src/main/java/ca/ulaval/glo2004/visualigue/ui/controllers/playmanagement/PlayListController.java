@@ -5,6 +5,7 @@ import ca.ulaval.glo2004.visualigue.services.play.PlayService;
 import ca.ulaval.glo2004.visualigue.ui.InjectableFXMLLoader;
 import ca.ulaval.glo2004.visualigue.ui.View;
 import ca.ulaval.glo2004.visualigue.ui.controllers.ViewController;
+import ca.ulaval.glo2004.visualigue.ui.controllers.ViewFlowRequestEventArgs;
 import ca.ulaval.glo2004.visualigue.ui.controllers.playcreation.PlayCreationController;
 import ca.ulaval.glo2004.visualigue.ui.converters.PlayModelConverter;
 import ca.ulaval.glo2004.visualigue.ui.models.PlayModel;
@@ -76,6 +77,6 @@ public class PlayListController extends ViewController {
     @FXML
     protected void onNewPlayButtonClicked(MouseEvent e) {
         View view = InjectableFXMLLoader.loadView(PlayCreationController.VIEW_NAME);
-        onViewChangeRequested.fire(this, view);
+        onViewAppendRequested.fire(this, new ViewFlowRequestEventArgs(view));
     }
 }

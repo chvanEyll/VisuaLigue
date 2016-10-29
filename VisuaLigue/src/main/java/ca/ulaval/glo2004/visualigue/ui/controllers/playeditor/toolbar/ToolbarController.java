@@ -4,10 +4,10 @@ import ca.ulaval.glo2004.visualigue.domain.play.Play;
 import ca.ulaval.glo2004.visualigue.domain.sport.playingsurface.PlayingSurfaceUnit;
 import ca.ulaval.glo2004.visualigue.services.play.PlayService;
 import ca.ulaval.glo2004.visualigue.ui.controllers.ViewController;
+import ca.ulaval.glo2004.visualigue.ui.controllers.common.ExtendedButton;
 import ca.ulaval.glo2004.visualigue.ui.controllers.playeditor.itempane.ItemPaneController;
 import ca.ulaval.glo2004.visualigue.ui.controllers.playeditor.scene.SceneController;
 import ca.ulaval.glo2004.visualigue.ui.controllers.playeditor.scene.Zoom;
-import ca.ulaval.glo2004.visualigue.ui.controllers.common.ExtendedButton;
 import ca.ulaval.glo2004.visualigue.ui.models.MousePositionModel;
 import ca.ulaval.glo2004.visualigue.ui.models.PlayModel;
 import ca.ulaval.glo2004.visualigue.utils.EventHandler;
@@ -25,13 +25,13 @@ import javax.inject.Inject;
 
 public class ToolbarController extends ViewController {
 
-    public EventHandler<Object> onSaveButtonAction = new EventHandler();
-    public EventHandler<Object> onCloseButtonAction = new EventHandler();
-    public EventHandler<Object> onExportButtonAction = new EventHandler();
-    public EventHandler<Object> onUndoButtonAction = new EventHandler();
-    public EventHandler<Object> onRedoButtonAction = new EventHandler();
-    public EventHandler<Object> onBestFitButtonAction = new EventHandler();
-    public EventHandler<Object> onSwitch3DButtonAction = new EventHandler();
+    public EventHandler onSaveButtonAction = new EventHandler();
+    public EventHandler onCloseButtonAction = new EventHandler();
+    public EventHandler onExportButtonAction = new EventHandler();
+    public EventHandler onUndoButtonAction = new EventHandler();
+    public EventHandler onRedoButtonAction = new EventHandler();
+    public EventHandler onBestFitButtonAction = new EventHandler();
+    public EventHandler onSwitch3DButtonAction = new EventHandler();
     @FXML private Button saveButton;
     @FXML private Button undoButton;
     @FXML private Button redoButton;
@@ -79,27 +79,27 @@ public class ToolbarController extends ViewController {
 
     @FXML
     protected void onSaveButtonAction(ActionEvent e) {
-        onSaveButtonAction.fire(this, null);
+        onSaveButtonAction.fire(this);
     }
 
     @FXML
     protected void onCloseButtonAction(ActionEvent e) {
-        onCloseButtonAction.fire(this, null);
+        onCloseButtonAction.fire(this);
     }
 
     @FXML
     protected void onExportButtonAction(ActionEvent e) {
-        onExportButtonAction.fire(this, null);
+        onExportButtonAction.fire(this);
     }
 
     @FXML
     protected void onUndoButtonAction(ActionEvent e) {
-        onUndoButtonAction.fire(this, null);
+        onUndoButtonAction.fire(this);
     }
 
     @FXML
     protected void onRedoButtonAction(ActionEvent e) {
-        onRedoButtonAction.fire(this, null);
+        onRedoButtonAction.fire(this);
     }
 
     @FXML
@@ -138,7 +138,7 @@ public class ToolbarController extends ViewController {
 
     @FXML
     protected void onSwitch3DButtonAction(ActionEvent e) {
-        onSwitch3DButtonAction.fire(this, null);
+        onSwitch3DButtonAction.fire(this);
     }
 
     @FXML

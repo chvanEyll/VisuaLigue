@@ -25,7 +25,7 @@
     <children>
         <Pane>
             <children>
-                <LinkButton imageUrl="/images/plus-icon-blue.fxml" text="Nouvel obstacle" onMouseClicked="#onObstacleCreationLinkButtonClicked" />
+                <LinkButton imageUrl="/images/plus-icon-blue.fxml" text="Nouvel obstacle" onMouseClicked="#onNewItemLinkButtonClicked" />
             </children>
         </Pane>
         <GridPane styleClass="header" >

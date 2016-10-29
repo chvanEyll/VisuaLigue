@@ -14,7 +14,7 @@ public class BreadcrumbItem extends HBox {
     @FXML private Label titleLabel;
     @FXML private HBox navigationArrow;
     @FXML private HBox item;
-    public EventHandler<Object> onClick = new EventHandler();
+    public EventHandler onClick = new EventHandler();
 
     public BreadcrumbItem(String title, Boolean showArrow) {
         InjectableFXMLLoader.loadView(VIEW_NAME, this, this);
@@ -32,7 +32,7 @@ public class BreadcrumbItem extends HBox {
 
     @FXML
     protected void onMouseClicked(MouseEvent e) {
-        onClick.fire(this, null);
+        onClick.fire(this);
     }
 
 }

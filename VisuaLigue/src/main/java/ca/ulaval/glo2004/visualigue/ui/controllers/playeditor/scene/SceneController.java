@@ -17,11 +17,11 @@ public abstract class SceneController extends ViewController {
     public EventHandler<MousePositionModel> onMousePositionChanged = new EventHandler();
     public EventHandler<Zoom> onZoomChanged = new EventHandler();
     public EventHandler<Boolean> onPlayerCategoryLabelDisplayEnableChanged = new EventHandler();
-    public EventHandler<Object> onPlayerCreationModeExited = new EventHandler();
-    public EventHandler<Object> onObstacleCreationModeExited = new EventHandler();
-    public EventHandler<Object> onBallCreationModeExited = new EventHandler();
-    public EventHandler<Object> onNavigationModeEntered = new EventHandler();
-    public EventHandler<Object> onNavigationModeExited = new EventHandler();
+    public EventHandler onPlayerCreationModeExited = new EventHandler();
+    public EventHandler onObstacleCreationModeExited = new EventHandler();
+    public EventHandler onBallCreationModeExited = new EventHandler();
+    public EventHandler onNavigationModeEntered = new EventHandler();
+    public EventHandler onNavigationModeExited = new EventHandler();
 
     public abstract void init(PlayModel playModel);
 

@@ -9,6 +9,7 @@ import java.util.logging.Logger;
 import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
 import javafx.scene.Node;
+import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.VBox;
 
 public class EditableListController {
@@ -71,6 +72,11 @@ public class EditableListController {
             model.makeDirty();
             listItemEditionController = null;
         }
+    }
+
+    @FXML
+    protected void onNewItemLinkButtonClicked(MouseEvent e) {
+        newItem();
     }
 
     public void newItem() {

@@ -7,14 +7,13 @@ import ca.ulaval.glo2004.visualigue.ui.controllers.obstaclemanagement.ObstacleMa
 import ca.ulaval.glo2004.visualigue.ui.controllers.playmanagement.PlayManagementController;
 import ca.ulaval.glo2004.visualigue.ui.controllers.settings.SettingsController;
 import ca.ulaval.glo2004.visualigue.ui.controllers.sportmanagement.SportManagementController;
-import ca.ulaval.glo2004.visualigue.utils.EventHandler;
 import javafx.fxml.FXML;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
 import javafx.scene.shape.Rectangle;
 
-public class MainMenuController {
+public class MainMenuController extends ViewController {
 
     public static final String VIEW_NAME = "/views/main-menu.fxml";
     private static final String ACTIVE_CSS_STYLE_NAME = "active";
@@ -27,7 +26,6 @@ public class MainMenuController {
     @FXML private HBox obstaclesMenuItem;
     @FXML private HBox settingsMenuItem;
     private boolean isMenuPaneCollapsed = true;
-    public EventHandler<View> onMenuClicked = new EventHandler();
 
     public void init() {
         menuPane.setMaxWidth(MENU_PANE_COLLAPSED_WIDTH);
@@ -76,9 +74,13 @@ public class MainMenuController {
 
     private void selectMenu(String viewName, HBox menuItem) {
         if (!menuItem.getStyleClass().contains(ACTIVE_CSS_STYLE_NAME)) {
-            unselectAllMenus();
-            menuItem.getStyleClass().add(ACTIVE_CSS_STYLE_NAME);
-            onMenuClicked.fire(this, InjectableFXMLLoader.loadView(viewName));
+            View view = InjectableFXMLLoader.loadView(viewName);
+            ViewFlowRequestEventArgs viewFlowRequestEventArgs = new ViewFlowRequestEventArgs(view);
+            onViewFlowResetRequested.fire(this, viewFlowRequestEventArgs);
+            if (!viewFlowRequestEventArgs.isCancelled()) {
+                unselectAllMenus();
+                menuItem.getStyleClass().add(ACTIVE_CSS_STYLE_NAME);
+            }
         }
     }
 

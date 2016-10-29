@@ -3,6 +3,7 @@ package ca.ulaval.glo2004.visualigue.ui.controllers.playmanagement;
 import ca.ulaval.glo2004.visualigue.ui.InjectableFXMLLoader;
 import ca.ulaval.glo2004.visualigue.ui.View;
 import ca.ulaval.glo2004.visualigue.ui.controllers.ViewController;
+import ca.ulaval.glo2004.visualigue.ui.controllers.ViewFlowRequestEventArgs;
 import ca.ulaval.glo2004.visualigue.ui.controllers.playeditor.PlayEditorController;
 import ca.ulaval.glo2004.visualigue.ui.models.PlayModel;
 import java.net.URL;
@@ -20,7 +21,7 @@ public class PlayManagementController extends ViewController {
     @Override
     public void initialize(URL url, ResourceBundle rb) {
         playListController.onPlaySelected.setHandler(this::onPlaySelectedEvent);
-        playListController.onViewChangeRequested.forward(onViewChangeRequested);
+        playListController.onViewAppendRequested.forward(onViewAppendRequested);
     }
 
     @Override
@@ -32,6 +33,6 @@ public class PlayManagementController extends ViewController {
         View view = InjectableFXMLLoader.loadView(PlayEditorController.VIEW_NAME);
         PlayEditorController controller = (PlayEditorController) view.getController();
         controller.init(playModel);
-        onViewChangeRequested.fire(this, view);
+        onViewAppendRequested.fire(this, new ViewFlowRequestEventArgs(view));
     }
 }

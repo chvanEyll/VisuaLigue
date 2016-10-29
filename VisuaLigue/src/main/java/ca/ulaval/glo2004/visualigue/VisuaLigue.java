@@ -6,6 +6,7 @@ import ca.ulaval.glo2004.visualigue.ui.InjectableFXMLLoader;
 import ca.ulaval.glo2004.visualigue.ui.View;
 import ca.ulaval.glo2004.visualigue.ui.controllers.MainSceneController;
 import ca.ulaval.glo2004.visualigue.ui.controllers.ViewController;
+import ca.ulaval.glo2004.visualigue.utils.EnvironmentUtils;
 import java.io.IOException;
 import javafx.application.Application;
 import javafx.scene.Parent;
@@ -19,8 +20,7 @@ public class VisuaLigue extends Application {
     private static final int MIN_STAGE_WIDTH = 500;
     private static final int MIN_STAGE_HEIGHT = 500;
     private static final String APP_NAME = "VisuaLigue";
-    private static final String DATA_DIRECTORY = "data";
-    private static final String REPOSITORY_DIRECTORTY = "/repository";
+    private static final String REPOSITORY_DIRECTORY = "/repository";
     private static final String MAIN_STYLE_SHEET = "css/main.fxml.css";
     private static ContextBase defaultContext;
     private static Stage stage;
@@ -65,11 +65,11 @@ public class VisuaLigue extends Application {
     }
 
     public static String getAppDataDirectory() {
-        return DATA_DIRECTORY;
+        return EnvironmentUtils.getAppDataDirectory() + "/" + APP_NAME;
     }
 
     public static String getRepositoryDirectory() {
-        return getAppDataDirectory() + REPOSITORY_DIRECTORTY;
+        return getAppDataDirectory() + REPOSITORY_DIRECTORY;
     }
 
     public static Stage getMainStage() {

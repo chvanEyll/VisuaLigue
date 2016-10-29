@@ -26,17 +26,13 @@ public class MainSceneController extends ViewController {
     @FXML private TextField viewTitleTextField;
     @FXML private Pane viewTitleSpacer;
     @FXML private MainMenuController mainMenuController;
-    private ViewFlow viewFlow = new ViewFlow();
+    private final ViewFlow viewFlow = new ViewFlow();
 
     @Override
     public void initialize(URL url, ResourceBundle rb) {
-        mainMenuController.onMenuClicked.setHandler(this::onMainMenuClicked);
+        mainMenuController.onViewFlowResetRequested.setHandler(this::onViewFlowResetRequested);
         mainMenuController.init();
         viewTitleTextField.focusedProperty().addListener(this::onViewTitleTextFieldFocusChanged);
-    }
-
-    private void onMainMenuClicked(Object sender, View requestedView) {
-        setMainView(requestedView);
     }
 
     @FXML
@@ -46,41 +42,70 @@ public class MainSceneController extends ViewController {
 
     @FXML
     protected void onPreviousButtonAction(ActionEvent e) {
-        previousView(true);
+        previousView();
     }
 
-    private void setMainView(View view) {
-        if (validateCurrentViewClose()) {
-            viewFlow.clear();
-            viewFlow = new ViewFlow(view);
-            setView(view);
+    private void onViewCloseRequested(Object sender, ViewFlowRequestEventArgs e) {
+        if (!previousView()) {
+            e.cancel();
         }
     }
 
-    private void onViewChangeRequested(Object sender, View view) {
-        nextView(view);
+    private void onViewChangeRequested(Object sender, ViewFlowRequestEventArgs e) {
+        if (!changeView(e.getView())) {
+            e.cancel();
+        }
     }
 
-    private void onViewCloseRequested(Object sender, Boolean showPrevious) {
-        previousView(showPrevious);
+    private void onViewAppendRequested(Object sender, ViewFlowRequestEventArgs e) {
+        appendView(e.getView());
     }
 
-    private void nextView(View view) {
-        viewFlow.addView(view);
+    private void onViewFlowResetRequested(Object sender, ViewFlowRequestEventArgs e) {
+        if (!resetViewFlow(e.getView())) {
+            e.cancel();
+        }
+    }
+
+    private void appendView(View view) {
+        viewFlow.appendView(view);
         setView(view);
     }
 
-    private void previousView(Boolean showPrevious) {
-        if (viewFlow.count() > 1 && validateCurrentViewClose()) {
-            View view = viewFlow.moveToPrevious();
-            if (showPrevious) {
-                setView(view);
-            }
+    private Boolean changeView(View view) {
+        try {
+            viewFlow.popView();
+            setView(view);
+            return true;
+        } catch (ViewFlowException ex) {
+            return false;
+        }
+    }
+
+    private Boolean previousView() {
+        try {
+            viewFlow.popView();
+            setView(viewFlow.getCurrentView());
+            return true;
+        } catch (ViewFlowException ex) {
+            return false;
+        }
+    }
+
+    private Boolean resetViewFlow(View view) {
+        try {
+            viewFlow.clear();
+            viewFlow.appendView(view);
+            setView(view);
+            return true;
+        } catch (ViewFlowException ex) {
+            return false;
         }
     }
 
     private void setView(View view) {
         ViewController controller = (ViewController) view.getController();
+        controller.onViewAppendRequested.setHandler(this::onViewAppendRequested);
         controller.onViewChangeRequested.setHandler(this::onViewChangeRequested);
         controller.onViewCloseRequested.setHandler(this::onViewCloseRequested);
         contentPane.getChildren().clear();
@@ -102,15 +127,11 @@ public class MainSceneController extends ViewController {
 
     @Override
     public Boolean onViewClosing() {
-        return validateCurrentViewClose();
-    }
-
-    private Boolean validateCurrentViewClose() {
-        if (!viewFlow.empty()) {
-            ViewController controller = (ViewController) viewFlow.getCurrentView().getController();
-            return controller.onViewClosing();
-        } else {
+        try {
+            viewFlow.clear();
             return true;
+        } catch (ViewFlowException ex) {
+            return false;
         }
     }
 

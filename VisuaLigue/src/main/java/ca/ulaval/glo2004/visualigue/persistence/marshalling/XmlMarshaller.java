@@ -35,8 +35,8 @@ public class XmlMarshaller<T> {
     private JAXBContext initializeJAXBContext() {
         try {
             return JAXBContext.newInstance(type);
-        } catch (JAXBException e) {
-            throw new MarshallingException("JAXB context initialization failed.", e);
+        } catch (JAXBException ex) {
+            throw new MarshallingException("JAXB context initialization failed.", ex);
         }
     }
 
@@ -44,24 +44,24 @@ public class XmlMarshaller<T> {
         try {
             marshaller = jaxbContext.createMarshaller();
             marshaller.setProperty(Marshaller.JAXB_FORMATTED_OUTPUT, Boolean.TRUE);
-        } catch (JAXBException e) {
-            throw new MarshallingException("Marshaller initialization failed.", e);
+        } catch (JAXBException ex) {
+            throw new MarshallingException("Marshaller initialization failed.", ex);
         }
     }
 
     private void initDefaultUnmarshaller(JAXBContext jaxbContext) {
         try {
             unmarshaller = jaxbContext.createUnmarshaller();
-        } catch (JAXBException e) {
-            throw new MarshallingException("Unmarshaller initialization failed.", e);
+        } catch (JAXBException ex) {
+            throw new MarshallingException("Unmarshaller initialization failed.", ex);
         }
     }
 
     public void marshal(T element, OutputStream outputStream) {
         try {
             marshaller.marshal(element, outputStream);
-        } catch (JAXBException e) {
-            throw new MarshallingException("Failed to marshall objects to the specified output stream.", e);
+        } catch (JAXBException ex) {
+            throw new MarshallingException("Failed to marshall objects to the specified output stream.", ex);
         }
     }
 
@@ -69,8 +69,8 @@ public class XmlMarshaller<T> {
     public T unmarshal(InputStream inputStream) {
         try {
             return (T) unmarshaller.unmarshal(inputStream);
-        } catch (JAXBException e) {
-            throw new MarshallingException("Failed to unmarshall objects from the specified input stream.", e);
+        } catch (JAXBException ex) {
+            throw new MarshallingException("Failed to unmarshall objects from the specified input stream.", ex);
         }
     }
 

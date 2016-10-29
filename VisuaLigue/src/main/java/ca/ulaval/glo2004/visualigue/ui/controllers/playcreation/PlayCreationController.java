@@ -5,6 +5,7 @@ import ca.ulaval.glo2004.visualigue.services.play.PlayService;
 import ca.ulaval.glo2004.visualigue.ui.InjectableFXMLLoader;
 import ca.ulaval.glo2004.visualigue.ui.View;
 import ca.ulaval.glo2004.visualigue.ui.controllers.ViewController;
+import ca.ulaval.glo2004.visualigue.ui.controllers.ViewFlowRequestEventArgs;
 import ca.ulaval.glo2004.visualigue.ui.controllers.playeditor.PlayEditorController;
 import ca.ulaval.glo2004.visualigue.ui.controllers.sportmanagement.SportListController;
 import ca.ulaval.glo2004.visualigue.ui.converters.PlayModelConverter;
@@ -28,7 +29,7 @@ public class PlayCreationController extends ViewController {
     @Override
     public void initialize(URL url, ResourceBundle rb) {
         sportListController.onSportSelected.setHandler(this::onSportSelectedEvent);
-        sportListController.onViewChangeRequested.forward(onViewChangeRequested);
+        sportListController.onViewAppendRequested.forward(onViewAppendRequested);
     }
 
     @Override
@@ -42,7 +43,6 @@ public class PlayCreationController extends ViewController {
         View view = InjectableFXMLLoader.loadView(PlayEditorController.VIEW_NAME);
         PlayEditorController controller = (PlayEditorController) view.getController();
         controller.init(playModelConverter.convert(play));
-        onViewCloseRequested.fire(this, false);
-        onViewChangeRequested.fire(this, view);
+        onViewChangeRequested.fire(this, new ViewFlowRequestEventArgs(view));
     }
 }

@@ -5,6 +5,7 @@ import ca.ulaval.glo2004.visualigue.services.sport.SportService;
 import ca.ulaval.glo2004.visualigue.ui.InjectableFXMLLoader;
 import ca.ulaval.glo2004.visualigue.ui.View;
 import ca.ulaval.glo2004.visualigue.ui.controllers.ViewController;
+import ca.ulaval.glo2004.visualigue.ui.controllers.ViewFlowRequestEventArgs;
 import ca.ulaval.glo2004.visualigue.ui.controllers.sportcreation.SportCreationController;
 import ca.ulaval.glo2004.visualigue.ui.converters.SportListItemModelConverter;
 import ca.ulaval.glo2004.visualigue.ui.models.SportListItemModel;
@@ -67,6 +68,6 @@ public class SportListController extends ViewController {
         View view = InjectableFXMLLoader.loadView(SportCreationController.VIEW_NAME);
         SportCreationController controller = (SportCreationController) view.getController();
         controller.init();
-        onViewChangeRequested.fire(this, view);
+        onViewAppendRequested.fire(this, new ViewFlowRequestEventArgs(view));
     }
 }

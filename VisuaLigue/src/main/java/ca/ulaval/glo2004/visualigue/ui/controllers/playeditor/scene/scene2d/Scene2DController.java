@@ -104,23 +104,23 @@ public class Scene2DController extends SceneController {
 
     @Override
     public void enterPlayerCreationMode(PlayerCategoryModel playerCategoryModel, TeamSide teamSide) {
-        onObstacleCreationModeExited.fire(this, null);
-        onBallCreationModeExited.fire(this, null);
-        onNavigationModeExited.fire(this, null);
+        onObstacleCreationModeExited.fire(this);
+        onBallCreationModeExited.fire(this);
+        onNavigationModeExited.fire(this);
     }
 
     @Override
     public void enterBallCreationMode(BallModel ballModel) {
-        onObstacleCreationModeExited.fire(this, null);
-        onPlayerCreationModeExited.fire(this, null);
-        onNavigationModeExited.fire(this, null);
+        onObstacleCreationModeExited.fire(this);
+        onPlayerCreationModeExited.fire(this);
+        onNavigationModeExited.fire(this);
     }
 
     @Override
     public void enterObstacleCreationMode(ObstacleModel obstacleModel) {
-        onPlayerCreationModeExited.fire(this, null);
-        onBallCreationModeExited.fire(this, null);
-        onNavigationModeExited.fire(this, null);
+        onPlayerCreationModeExited.fire(this);
+        onBallCreationModeExited.fire(this);
+        onNavigationModeExited.fire(this);
     }
 
     @Override
@@ -135,10 +135,10 @@ public class Scene2DController extends SceneController {
 
     @Override
     public void enterNavigationMode() {
-        onPlayerCreationModeExited.fire(this, null);
-        onObstacleCreationModeExited.fire(this, null);
-        onBallCreationModeExited.fire(this, null);
-        onNavigationModeEntered.fire(this, null);
+        onPlayerCreationModeExited.fire(this);
+        onObstacleCreationModeExited.fire(this);
+        onBallCreationModeExited.fire(this);
+        onNavigationModeEntered.fire(this);
         ImageCursor imageCursor = FXUtils.chooseBestCursor("/images/cursors/pan-%1$sx%1$s.png", new int[]{32, 48, 96, 128}, 16, 16);
         backgroundImageView.setCursor(imageCursor);
     }
