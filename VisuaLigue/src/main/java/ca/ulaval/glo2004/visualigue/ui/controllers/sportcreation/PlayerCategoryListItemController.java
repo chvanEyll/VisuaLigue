@@ -3,7 +3,6 @@ package ca.ulaval.glo2004.visualigue.ui.controllers.sportcreation;
 import ca.ulaval.glo2004.visualigue.ui.controllers.common.editablelist.ListItemController;
 import ca.ulaval.glo2004.visualigue.ui.models.ModelBase;
 import ca.ulaval.glo2004.visualigue.ui.models.PlayerCategoryModel;
-import ca.ulaval.glo2004.visualigue.utils.javafx.BindingUtils;
 import ca.ulaval.glo2004.visualigue.utils.javafx.FXUtils;
 import javafx.beans.value.ObservableValue;
 import javafx.event.ActionEvent;
@@ -31,8 +30,8 @@ public class PlayerCategoryListItemController extends ListItemController {
     @Override
     public void init(ModelBase model) {
         this.model = (PlayerCategoryModel) model;
-        BindingUtils.cleanBind(nameLabel.textProperty(), this.model.name);
-        BindingUtils.cleanBind(abbreviationLabel.textProperty(), this.model.abbreviation);
+        nameLabel.textProperty().bind(this.model.name);
+        abbreviationLabel.textProperty().bind(this.model.abbreviation);
         this.model.allyPlayerColor.addListener(this::allyPlayerColorChanged);
         this.model.opponentPlayerColor.addListener(this::opponentPlayerColorChanged);
         updateAllyColorBackground();

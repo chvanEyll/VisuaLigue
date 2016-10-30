@@ -7,7 +7,6 @@ import ca.ulaval.glo2004.visualigue.ui.models.ModelBase;
 import ca.ulaval.glo2004.visualigue.ui.models.ObstacleModel;
 import ca.ulaval.glo2004.visualigue.utils.EventHandler;
 import ca.ulaval.glo2004.visualigue.utils.FilenameUtils;
-import ca.ulaval.glo2004.visualigue.utils.javafx.BindingUtils;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.control.Tooltip;
@@ -31,7 +30,7 @@ public class ObjectListItemController extends ControllerBase {
         } else {
             setImage(model.builtInImagePathName.get());
         }
-        BindingUtils.cleanBind(tooltip.textProperty(), model.name);
+        tooltip.textProperty().bind(model.name);
     }
 
     public void init(ObstacleModel model) {
@@ -41,7 +40,7 @@ public class ObjectListItemController extends ControllerBase {
         } else {
             setImage(model.builtInImagePathName.get());
         }
-        BindingUtils.cleanBind(tooltip.textProperty(), model.name);
+        tooltip.textProperty().bind(model.name);
     }
 
     public ModelBase getModel() {

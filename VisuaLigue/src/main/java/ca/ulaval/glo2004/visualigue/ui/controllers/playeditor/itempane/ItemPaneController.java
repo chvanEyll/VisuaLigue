@@ -4,6 +4,7 @@ import ca.ulaval.glo2004.visualigue.ui.animation.PredefinedAnimations;
 import ca.ulaval.glo2004.visualigue.ui.controllers.ControllerBase;
 import ca.ulaval.glo2004.visualigue.ui.controllers.playeditor.scene.SceneController;
 import ca.ulaval.glo2004.visualigue.ui.models.PlayModel;
+import ca.ulaval.glo2004.visualigue.utils.javafx.ClippingUtils;
 import javafx.fxml.FXML;
 import javafx.scene.layout.VBox;
 
@@ -21,6 +22,12 @@ public class ItemPaneController extends ControllerBase {
         objectListController.init(playModel, sceneController);
         super.addChild(playerCategoryListController);
         super.addChild(objectListController);
+        ClippingUtils.clipToSize(rootNode);
+    }
+
+    @Override
+    public void clean() {
+        ClippingUtils.unclip(rootNode);
     }
 
     public void toggleExpand() {

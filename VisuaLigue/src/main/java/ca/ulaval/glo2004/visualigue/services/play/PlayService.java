@@ -4,12 +4,12 @@ import ca.ulaval.glo2004.visualigue.domain.play.*;
 import ca.ulaval.glo2004.visualigue.domain.play.actorinstance.TeamSide;
 import ca.ulaval.glo2004.visualigue.domain.play.frame.Frame;
 import ca.ulaval.glo2004.visualigue.domain.play.keyframe.KeyframeTransition;
-import ca.ulaval.glo2004.visualigue.utils.geometry.Vector2;
 import ca.ulaval.glo2004.visualigue.domain.sport.Sport;
 import ca.ulaval.glo2004.visualigue.domain.sport.SportNotFoundException;
 import ca.ulaval.glo2004.visualigue.domain.sport.SportRepository;
 import ca.ulaval.glo2004.visualigue.services.play.commands.*;
 import ca.ulaval.glo2004.visualigue.utils.EventHandler;
+import ca.ulaval.glo2004.visualigue.utils.geometry.Vector2;
 import java.util.*;
 import java.util.function.Function;
 import javax.inject.Inject;
@@ -113,7 +113,7 @@ public class PlayService {
 
     public void savePlay(UUID playUUID) throws PlayNotFoundException {
         Play play = playRepository.get(playUUID);
-        playRepository.persist(play);
+        playRepository.update(play);
         setDirty(playUUID, false);
     }
 

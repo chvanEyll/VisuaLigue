@@ -1,6 +1,5 @@
 package ca.ulaval.glo2004.visualigue.ui.animation;
 
-import ca.ulaval.glo2004.visualigue.utils.javafx.ClippingUtils;
 import javafx.geometry.Insets;
 import javafx.scene.Node;
 import javafx.scene.layout.Region;
@@ -25,14 +24,12 @@ public class PredefinedAnimations {
     }
 
     public static void hideRight(Region region, Double targetWidth) {
-        ClippingUtils.clipToSize(region);
         Insets startInsets = new Insets(0);
         Insets endInsets = new Insets(0, targetWidth - region.getWidth(), 0, 0);
         Animation.method(region::setPadding).duration(0.4).from(startInsets).to(endInsets).group(region).first().easeOutExp();
     }
 
     public static void revealRight(Region region) {
-        ClippingUtils.clipToSize(region);
         Insets startInsets = region.getInsets();
         Insets endInsets = new Insets(0);
         Animation.method(region::setPadding).duration(0.4).from(startInsets).to(endInsets).group(region).first().easeOutExp();

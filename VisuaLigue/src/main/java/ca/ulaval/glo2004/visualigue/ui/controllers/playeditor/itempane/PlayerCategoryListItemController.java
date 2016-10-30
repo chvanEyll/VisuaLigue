@@ -6,7 +6,6 @@ import ca.ulaval.glo2004.visualigue.ui.controllers.common.ExtendedButton;
 import ca.ulaval.glo2004.visualigue.ui.controllers.common.SvgImage;
 import ca.ulaval.glo2004.visualigue.ui.models.PlayerCategoryModel;
 import ca.ulaval.glo2004.visualigue.utils.EventHandler;
-import ca.ulaval.glo2004.visualigue.utils.javafx.BindingUtils;
 import ca.ulaval.glo2004.visualigue.utils.javafx.FXUtils;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
@@ -32,8 +31,8 @@ public class PlayerCategoryListItemController extends ControllerBase {
         } else {
             setPlayerIconColor(model.opponentPlayerColor.get());
         }
-        BindingUtils.cleanBind(abbreviationLabel.textProperty(), model.abbreviation);
-        BindingUtils.cleanBind(tooltip.textProperty(), model.name);
+        abbreviationLabel.textProperty().bind(model.abbreviation);
+        tooltip.textProperty().bind(model.name);
     }
 
     private void setPlayerIconColor(Color color) {

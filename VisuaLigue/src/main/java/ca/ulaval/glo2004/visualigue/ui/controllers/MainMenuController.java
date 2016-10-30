@@ -7,6 +7,7 @@ import ca.ulaval.glo2004.visualigue.ui.controllers.obstaclemanagement.ObstacleMa
 import ca.ulaval.glo2004.visualigue.ui.controllers.playmanagement.PlayManagementController;
 import ca.ulaval.glo2004.visualigue.ui.controllers.settings.SettingsController;
 import ca.ulaval.glo2004.visualigue.ui.controllers.sportmanagement.SportManagementController;
+import ca.ulaval.glo2004.visualigue.utils.javafx.ClippingUtils;
 import javafx.application.Platform;
 import javafx.fxml.FXML;
 import javafx.scene.input.MouseEvent;
@@ -27,10 +28,16 @@ public class MainMenuController extends ControllerBase {
     private boolean isMenuPaneCollapsed = true;
 
     public void init() {
+        ClippingUtils.clipToSize(menuPane);
         Platform.runLater(() -> {
             collapseMenuPane();
         });
         selectMenu(PlayManagementController.VIEW_NAME, playsMenuItem);
+    }
+
+    @Override
+    public void clean() {
+        ClippingUtils.unclip(menuPane);
     }
 
     public void toggleExpand() {

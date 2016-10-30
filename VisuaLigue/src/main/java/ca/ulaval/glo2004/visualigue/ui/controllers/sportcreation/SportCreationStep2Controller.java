@@ -5,7 +5,6 @@ import ca.ulaval.glo2004.visualigue.domain.sport.playingsurface.PlayingSurfaceUn
 import ca.ulaval.glo2004.visualigue.ui.controllers.common.ExtendedImageView;
 import ca.ulaval.glo2004.visualigue.ui.models.SportCreationModel;
 import ca.ulaval.glo2004.visualigue.utils.FilenameUtils;
-import ca.ulaval.glo2004.visualigue.utils.javafx.BindingUtils;
 import ca.ulaval.glo2004.visualigue.utils.javafx.FXUtils;
 import java.io.File;
 import javafx.collections.FXCollections;
@@ -40,9 +39,9 @@ public class SportCreationStep2Controller extends SportCreationStepController {
     public void init(SportCreationModel sportCreationModel) {
         model = sportCreationModel;
         widthSpinner.setValueFactory(new DoubleSpinnerValueFactory(MIN_SIZE_VALUE, MAX_SIZE_VALUE, INITIAL_WIDTH_VALUE, STEP_SIZE_VALUE));
-        BindingUtils.cleanBindBidirectional(widthSpinner.getValueFactory().valueProperty(), model.playingSurfaceWidth);
+        widthSpinner.getValueFactory().valueProperty().bindBidirectional(model.playingSurfaceWidth);
         lengthSpinner.setValueFactory(new DoubleSpinnerValueFactory(MIN_SIZE_VALUE, MAX_SIZE_VALUE, INITIAL_LENGTH_VALUE, STEP_SIZE_VALUE));
-        BindingUtils.cleanBindBidirectional(lengthSpinner.getValueFactory().valueProperty(), model.playingSurfaceLength);
+        lengthSpinner.getValueFactory().valueProperty().bindBidirectional(model.playingSurfaceLength);
         widthUnitComboBox.setItems(FXCollections.observableArrayList(PlayingSurfaceUnit.values()));
         widthUnitComboBox.getSelectionModel().select(model.playingSurfaceWidthUnits.get());
         lengthUnitComboBox.setItems(FXCollections.observableArrayList(PlayingSurfaceUnit.values()));

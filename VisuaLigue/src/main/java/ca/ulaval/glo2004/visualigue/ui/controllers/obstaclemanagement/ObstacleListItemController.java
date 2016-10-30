@@ -4,7 +4,6 @@ import ca.ulaval.glo2004.visualigue.ui.controllers.common.editablelist.ListItemC
 import ca.ulaval.glo2004.visualigue.ui.models.ModelBase;
 import ca.ulaval.glo2004.visualigue.ui.models.ObstacleModel;
 import ca.ulaval.glo2004.visualigue.utils.FilenameUtils;
-import ca.ulaval.glo2004.visualigue.utils.javafx.BindingUtils;
 import ca.ulaval.glo2004.visualigue.utils.javafx.FXUtils;
 import javafx.beans.value.ObservableValue;
 import javafx.event.ActionEvent;
@@ -29,7 +28,7 @@ public class ObstacleListItemController extends ListItemController {
     public void init(ModelBase model) {
         this.model = (ObstacleModel) model;
         updateImage();
-        BindingUtils.cleanBind(nameLabel.textProperty(), this.model.name);
+        nameLabel.textProperty().bind(this.model.name);
         deleteConfirmButton.focusedProperty().addListener(this::onDeleteConfirmButtonFocusChanged);
         FXUtils.setDisplay(deleteConfirmButtonContainer, false);
         super.init(model);

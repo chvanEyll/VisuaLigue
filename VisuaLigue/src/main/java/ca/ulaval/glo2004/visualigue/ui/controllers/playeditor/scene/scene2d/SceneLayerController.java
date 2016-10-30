@@ -5,7 +5,6 @@ import ca.ulaval.glo2004.visualigue.ui.controllers.common.SvgImage;
 import ca.ulaval.glo2004.visualigue.ui.controllers.playeditor.scene.Zoom;
 import ca.ulaval.glo2004.visualigue.ui.models.ActorModel;
 import ca.ulaval.glo2004.visualigue.utils.FilenameUtils;
-import ca.ulaval.glo2004.visualigue.utils.javafx.BindingUtils;
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
 import javafx.scene.control.Tooltip;
@@ -34,7 +33,7 @@ public class SceneLayerController extends ControllerBase {
         } else {
             imageView.setImage(new Image(actorModel.builtInImagePathName.get()));
         }
-        BindingUtils.cleanBind(tooltip.textProperty(), actorModel.hoverText);
+        tooltip.textProperty().bind(actorModel.hoverText);
     }
 
     public void setZoom(Zoom zoom) {

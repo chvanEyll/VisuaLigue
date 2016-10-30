@@ -37,6 +37,12 @@ public class MainSceneController extends ControllerBase {
         super.addChild(mainMenuController);
     }
 
+    @Override
+    public void clean() {
+        BindingUtils.clearBindings(viewTitleLabel.textProperty());
+        BindingUtils.clearBindings(viewTitleTextField.textProperty());
+    }
+
     @FXML
     protected void onMenuToggleClicked(MouseEvent e) {
         mainMenuController.toggleExpand();

@@ -4,7 +4,6 @@ import ca.ulaval.glo2004.visualigue.ui.controllers.ControllerBase;
 import ca.ulaval.glo2004.visualigue.ui.dialog.AlertDialogBuilder;
 import ca.ulaval.glo2004.visualigue.ui.models.PlayModel;
 import ca.ulaval.glo2004.visualigue.utils.EventHandler;
-import ca.ulaval.glo2004.visualigue.utils.javafx.BindingUtils;
 import java.util.Optional;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
@@ -29,7 +28,7 @@ public class PlayListItemController extends ControllerBase {
 
     public void init(PlayModel model) {
         this.model = model;
-        BindingUtils.cleanBind(playTitleLabel.textProperty(), model.title);
+        playTitleLabel.textProperty().bind(model.title);
         if (model.thumbnailImagePathName.isNotEmpty().get()) {
             setPlayImage(model.thumbnailImagePathName.get());
         } else {
