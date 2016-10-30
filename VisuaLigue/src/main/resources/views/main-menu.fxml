@@ -13,7 +13,7 @@
 <?import javafx.scene.shape.Line?>
 <?import ca.ulaval.glo2004.visualigue.ui.controllers.common.SvgImage?>
 
-<VBox fx:id="menuPane" minWidth="170.0" prefWidth="170.0" xmlns="http://javafx.com/javafx/8.0.60" xmlns:fx="http://javafx.com/fxml/1" fx:controller="ca.ulaval.glo2004.visualigue.ui.controllers.MainMenuController">
+<VBox fx:id="menuPane" xmlns="http://javafx.com/javafx/8.0.60" xmlns:fx="http://javafx.com/fxml/1" fx:controller="ca.ulaval.glo2004.visualigue.ui.controllers.MainMenuController">
     <children>
         <HBox fx:id="playsMenuItem" alignment="CENTER_LEFT" fillHeight="false" onMouseClicked="#onPlaysMenuItemClicked" styleClass="menu-item">
             <children>

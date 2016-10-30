@@ -61,7 +61,7 @@ public class PlayEditorController extends ControllerBase {
     }
 
     @Override
-    public Boolean onViewClosing() {
+    public Boolean onClose() {
         return validateUnsavedChanges() != ButtonBar.ButtonData.CANCEL_CLOSE;
     }
 

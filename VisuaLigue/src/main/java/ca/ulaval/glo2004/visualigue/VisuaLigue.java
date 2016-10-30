@@ -46,7 +46,7 @@ public class VisuaLigue extends Application {
         stage.setMinHeight(MIN_STAGE_HEIGHT);
         stage.show();
         stage.setOnCloseRequest((WindowEvent ev) -> {
-            if (!viewController.onViewClosing()) {
+            if (!viewController.onClose()) {
                 ev.consume();
             }
         });

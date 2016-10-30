@@ -30,7 +30,7 @@ public abstract class ControllerBase implements Initializable {
         return false;
     }
 
-    public Boolean onViewClosing() {
+    public Boolean onClose() {
         return true;
     }
 

@@ -6,6 +6,7 @@ import ca.ulaval.glo2004.visualigue.utils.math.easing.LinearEaseFunction;
 import java.time.Duration;
 import java.util.function.BiConsumer;
 import java.util.function.Consumer;
+import javafx.geometry.Insets;
 import javafx.scene.shape.Rectangle;
 
 public class Animation<T> {
@@ -44,6 +45,16 @@ public class Animation<T> {
     }
 
     public Animation to(Rectangle value) {
+        this.endValue = value;
+        return this;
+    }
+
+    public Animation from(Insets value) {
+        this.startValue = value;
+        return this;
+    }
+
+    public Animation to(Insets value) {
         this.endValue = value;
         return this;
     }

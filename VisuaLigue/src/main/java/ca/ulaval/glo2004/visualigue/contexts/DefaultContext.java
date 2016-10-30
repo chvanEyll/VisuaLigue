@@ -73,7 +73,7 @@ public class DefaultContext extends ContextBase {
         Ball ball = new Ball("Rondelle");
         ball.setBuiltInImagePathName("/images/built-in-ball-icons/hockey-puck-icon.png");
         sport.setBall(ball);
-        PlayingSurface playingSurface = new PlayingSurface(200.0, PlayingSurfaceUnit.FOOTS, 85.0, PlayingSurfaceUnit.FOOTS);
+        PlayingSurface playingSurface = new PlayingSurface(85.0, PlayingSurfaceUnit.FOOTS, 200.0, PlayingSurfaceUnit.FOOTS);
         playingSurface.setBuiltInImagePathName("/images/built-in-playing-surfaces/hockey-rink.png");
         sport.setPlayingSurface(playingSurface);
         addPlayerCategory(sport, new PlayerCategory("Gardien", "G", Color.web("#E6994D"), Color.web("#E6994D"), 1));

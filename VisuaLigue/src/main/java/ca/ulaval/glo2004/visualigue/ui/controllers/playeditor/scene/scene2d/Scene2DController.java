@@ -154,7 +154,7 @@ public class Scene2DController extends SceneController {
     }
 
     private Double getBaseSceneHeight() {
-        return ZOOM_WIDTH_BASE / (playModel.playingSurfaceWidth.get() / playModel.playingSurfaceLength.get());
+        return ZOOM_WIDTH_BASE / (backgroundImage.getWidth() / backgroundImage.getHeight());
     }
 
     @Override

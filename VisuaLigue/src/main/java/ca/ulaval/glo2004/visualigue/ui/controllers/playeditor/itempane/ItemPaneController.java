@@ -5,18 +5,16 @@ import ca.ulaval.glo2004.visualigue.ui.controllers.ControllerBase;
 import ca.ulaval.glo2004.visualigue.ui.controllers.playeditor.scene.SceneController;
 import ca.ulaval.glo2004.visualigue.ui.models.PlayModel;
 import javafx.fxml.FXML;
-import javafx.scene.control.ScrollPane;
-import javafx.scene.layout.Region;
+import javafx.scene.layout.VBox;
 
 public class ItemPaneController extends ControllerBase {
 
     private static final double ITEM_PANE_COLLAPSED_WIDTH = 0;
 
-    @FXML private ScrollPane rootNode;
+    @FXML private VBox rootNode;
     @FXML private PlayerCategoryListController playerCategoryListController;
     @FXML private ObjectListController objectListController;
     private boolean isCollapsed = false;
-    private Double expandedWidth;
 
     public void init(PlayModel playModel, SceneController sceneController) {
         playerCategoryListController.init(playModel, sceneController);
@@ -34,15 +32,12 @@ public class ItemPaneController extends ControllerBase {
     }
 
     private void collapse() {
-        ((Region) rootNode.getContent()).setMinWidth(((Region) rootNode.getContent()).getWidth());
-        expandedWidth = rootNode.getWidth();
-        PredefinedAnimations.regionCollapse(rootNode, ITEM_PANE_COLLAPSED_WIDTH);
+        PredefinedAnimations.hideRight(rootNode, ITEM_PANE_COLLAPSED_WIDTH);
         isCollapsed = true;
     }
 
     private void expand() {
-        ((Region) rootNode.getContent()).setMinWidth(-1);
-        PredefinedAnimations.regionExpand(rootNode, expandedWidth);
+        PredefinedAnimations.revealRight(rootNode);
         isCollapsed = false;
     }
 

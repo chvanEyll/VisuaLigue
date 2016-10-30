@@ -57,7 +57,7 @@ public class EditableListController extends ControllerBase {
         super.addChild(listItemEditionController);
         int rowIndex = models.indexOf(model);
         gridContent.getChildren().remove(rowIndex);
-        PredefinedAnimations.nodeSplit(view.getRoot());
+        PredefinedAnimations.split(view.getRoot());
         gridContent.getChildren().add(rowIndex, view.getRoot());
     }
 

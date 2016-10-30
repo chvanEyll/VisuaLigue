@@ -97,7 +97,7 @@ public class SportCreationController extends ControllerBase {
         if (currentStepIndex != stepIndex) {
             stepContent.getChildren().clear();
             Node root = stepViews.get(stepIndex).getRoot();
-            PredefinedAnimations.nodePan(root);
+            PredefinedAnimations.pan(root);
             stepContent.getChildren().add(root);
             FXUtils.setDisplay(deleteButton, stepIndex == 0 && !model.isNew());
             breadcrumb.setActiveItem(stepIndex);

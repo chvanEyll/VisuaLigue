@@ -1,6 +1,8 @@
 package ca.ulaval.glo2004.visualigue.ui.controllers.common;
 
+import javafx.application.Platform;
 import javafx.beans.value.ObservableValue;
+import javafx.scene.Parent;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.Region;
@@ -8,6 +10,11 @@ import javafx.scene.layout.Region;
 public class ExtendedImageView extends ImageView {
 
     private Boolean autoResize = false;
+    private Boolean initialAutoSizeDone = false;
+
+    public ExtendedImageView() {
+        this.parentProperty().addListener(this::parentChangedListener);
+    }
 
     public Boolean getAutoResize() {
         return autoResize;
@@ -17,14 +24,25 @@ public class ExtendedImageView extends ImageView {
         this.autoResize = autoResize;
     }
 
-    public void enableAutoResize() {
+    public void parentChangedListener(ObservableValue<? extends Parent> value, Parent oldPropertyValue, Parent newPropertyValue) {
         Region parentRegion = (Region) this.getParent();
-        parentRegion.widthProperty().addListener(this::parentWidthChangedListener);
-        this.imageProperty().addListener(this::imageChangedListener);
+        if (parentRegion != null) {
+            parentRegion.widthProperty().addListener(this::parentWidthChangedListener);
+            this.imageProperty().addListener(this::imageChangedListener);
+        }
     }
 
     public void parentWidthChangedListener(ObservableValue<? extends Number> value, Number oldPropertyValue, Number newPropertyValue) {
-        setFitSize(newPropertyValue.doubleValue());
+        if (newPropertyValue.doubleValue() != 0) {
+            setFitSize(newPropertyValue.doubleValue());
+            if (!initialAutoSizeDone) {
+                initialAutoSizeDone = true;
+                Platform.runLater(() -> {
+                    Region parentRegion = (Region) this.getParent();
+                    parentRegion.autosize();
+                });
+            }
+        }
     }
 
     public void imageChangedListener(ObservableValue<? extends Image> value, Image oldPropertyValue, Image newPropertyValue) {

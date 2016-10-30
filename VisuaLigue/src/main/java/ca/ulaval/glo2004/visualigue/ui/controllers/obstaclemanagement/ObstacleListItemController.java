@@ -1,6 +1,5 @@
 package ca.ulaval.glo2004.visualigue.ui.controllers.obstaclemanagement;
 
-import ca.ulaval.glo2004.visualigue.ui.animation.PredefinedAnimations;
 import ca.ulaval.glo2004.visualigue.ui.controllers.common.editablelist.ListItemController;
 import ca.ulaval.glo2004.visualigue.ui.models.ModelBase;
 import ca.ulaval.glo2004.visualigue.ui.models.ObstacleModel;
@@ -65,7 +64,6 @@ public class ObstacleListItemController extends ListItemController {
 
     private void displayDeleteConfirmationButton() {
         FXUtils.setDisplay(deleteConfirmButtonContainer, true);
-        PredefinedAnimations.regionRevealLeft(deleteConfirmButton);
         deleteConfirmButton.requestFocus();
     }
 

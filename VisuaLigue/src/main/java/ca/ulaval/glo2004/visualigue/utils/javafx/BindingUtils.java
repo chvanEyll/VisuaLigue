@@ -41,6 +41,7 @@ public class BindingUtils {
     public static void cleanBindBidirectional(Property property, Property otherProperty) {
         clearBindings(property);
         bindBidirectional(property, otherProperty);
+
     }
 
     public static void clearBindings(Property property) {

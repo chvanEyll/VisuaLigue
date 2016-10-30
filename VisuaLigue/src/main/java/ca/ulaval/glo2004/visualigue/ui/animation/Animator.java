@@ -1,5 +1,6 @@
 package ca.ulaval.glo2004.visualigue.ui.animation;
 
+import ca.ulaval.glo2004.visualigue.ui.animation.transitions.InsetsTransition;
 import ca.ulaval.glo2004.visualigue.ui.animation.transitions.RectangleTransition;
 import ca.ulaval.glo2004.visualigue.ui.animation.transitions.SimpleValueTransition;
 import ca.ulaval.glo2004.visualigue.ui.animation.transitions.Transition;
@@ -11,12 +12,14 @@ import java.util.function.BiConsumer;
 import java.util.function.Consumer;
 import java.util.stream.Collectors;
 import javafx.application.Platform;
+import javafx.geometry.Insets;
 import javafx.scene.shape.Rectangle;
 
 public class Animator<T> {
 
     private static final Integer ANIMATION_PERIOD = 15;
     private static final List<Animator> runningAnimators = Collections.synchronizedList(new ArrayList());
+    private static final Object ANIMATION_SYNCHRONIZE_LOCK = new Object();
 
     private final Consumer method;
     private T startValue;
@@ -48,6 +51,8 @@ public class Animator<T> {
             transition = new SimpleValueTransition(easingFunction);
         } else if (endValue instanceof Rectangle) {
             transition = new RectangleTransition(easingFunction);
+        } else if (endValue instanceof Insets) {
+            transition = new InsetsTransition(easingFunction);
         } else {
             return;
         }
@@ -62,20 +67,28 @@ public class Animator<T> {
         if (groupKey != null && isFirstOfGroup) {
             stopAnimationsOfGroup(groupKey);
         }
-        runningAnimators.add(this);
+        synchronized (ANIMATION_SYNCHRONIZE_LOCK) {
+            runningAnimators.add(this);
+        }
         timer.schedule(timerTask, ANIMATION_PERIOD, ANIMATION_PERIOD);
     }
 
-    private static synchronized void stopAnimationsOfGroup(Object groupKey) {
-        runningAnimators.stream().filter(a -> a.groupKey == groupKey).collect(Collectors.toList()).forEach(animator -> {
+    private static void stopAnimationsOfGroup(Object groupKey) {
+        List<Animator> animatorList;
+        synchronized (ANIMATION_SYNCHRONIZE_LOCK) {
+            animatorList = runningAnimators.stream().filter(a -> a.groupKey == groupKey).collect(Collectors.toList());
+        }
+        animatorList.forEach(animator -> {
             animator.cancel();
         });
     }
 
     private void cancel() {
         if (timer != null) {
-            timer.cancel();
-            runningAnimators.remove(this);
+            synchronized (ANIMATION_SYNCHRONIZE_LOCK) {
+                timer.cancel();
+                runningAnimators.remove(this);
+            }
         }
     }
 

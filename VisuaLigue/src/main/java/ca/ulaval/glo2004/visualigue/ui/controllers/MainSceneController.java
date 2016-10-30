@@ -125,11 +125,11 @@ public class MainSceneController extends ControllerBase {
         }
         FXUtils.setDisplay(viewTitleValidateButton, false);
         FXUtils.setDisplay(viewTitleTextField, false);
-        PredefinedAnimations.nodeZoom(view.getRoot());
+        PredefinedAnimations.zoom(view.getRoot());
     }
 
     @Override
-    public Boolean onViewClosing() {
+    public Boolean onClose() {
         try {
             viewFlow.clear();
             return true;

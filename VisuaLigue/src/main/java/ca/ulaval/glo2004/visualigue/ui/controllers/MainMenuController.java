@@ -7,18 +7,17 @@ import ca.ulaval.glo2004.visualigue.ui.controllers.obstaclemanagement.ObstacleMa
 import ca.ulaval.glo2004.visualigue.ui.controllers.playmanagement.PlayManagementController;
 import ca.ulaval.glo2004.visualigue.ui.controllers.settings.SettingsController;
 import ca.ulaval.glo2004.visualigue.ui.controllers.sportmanagement.SportManagementController;
+import javafx.application.Platform;
 import javafx.fxml.FXML;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
-import javafx.scene.shape.Rectangle;
 
 public class MainMenuController extends ControllerBase {
 
     public static final String VIEW_NAME = "/views/main-menu.fxml";
     private static final String ACTIVE_CSS_STYLE_NAME = "active";
     private static final double MENU_PANE_COLLAPSED_WIDTH = 58.0;
-    private static final double MENU_PANE_EXTENDED_WIDTH = 170.0;
 
     @FXML private VBox menuPane;
     @FXML private HBox playsMenuItem;
@@ -28,9 +27,9 @@ public class MainMenuController extends ControllerBase {
     private boolean isMenuPaneCollapsed = true;
 
     public void init() {
-        menuPane.setMaxWidth(MENU_PANE_COLLAPSED_WIDTH);
-        menuPane.setMinWidth(MENU_PANE_COLLAPSED_WIDTH);
-        menuPane.setClip(new Rectangle(MENU_PANE_COLLAPSED_WIDTH, Integer.MAX_VALUE));
+        Platform.runLater(() -> {
+            collapseMenuPane();
+        });
         selectMenu(PlayManagementController.VIEW_NAME, playsMenuItem);
     }
 
@@ -43,12 +42,12 @@ public class MainMenuController extends ControllerBase {
     }
 
     private void collapseMenuPane() {
-        PredefinedAnimations.regionCollapse(menuPane, MENU_PANE_COLLAPSED_WIDTH);
+        PredefinedAnimations.hideRight(menuPane, MENU_PANE_COLLAPSED_WIDTH);
         isMenuPaneCollapsed = true;
     }
 
     private void expandMenuPane() {
-        PredefinedAnimations.regionExpand(menuPane, MENU_PANE_EXTENDED_WIDTH);
+        PredefinedAnimations.revealRight(menuPane);
         isMenuPaneCollapsed = false;
     }
 

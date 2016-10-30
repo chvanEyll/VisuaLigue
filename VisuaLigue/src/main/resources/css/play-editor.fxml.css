@@ -17,6 +17,9 @@
     -fx-border-color: #B3B3B3;
     -fx-border-width: 0 0 0 1;
     -fx-border-style: solid;
+}
+
+.item-pane .scroll-pane {
     -fx-fit-to-width: true;
     -fx-hbar-policy: NEVER;
     -fx-pannable: true;
@@ -25,7 +28,7 @@
 
 .item-pane .section-header {
     -fx-pref-height: 50;
-    -fx-background-color: #3D3D3D;
+    -fx-background-color: #A9C1D6;
     -fx-fill-height: false;
     -fx-alignment: CENTER_LEFT;
 }
@@ -40,7 +43,7 @@
 }
 
 .item-pane .player-team-side-section {
-    -fx-background-color: #8D9EAD;
+    -fx-background-color: #F3F1EF;
     -fx-alignment: CENTER_LEFT;
     -fx-padding: 0 0 0 14;
     -fx-pref-height: 30;
