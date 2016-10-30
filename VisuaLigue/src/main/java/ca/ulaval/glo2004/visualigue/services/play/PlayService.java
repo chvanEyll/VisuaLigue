@@ -44,6 +44,7 @@ public class PlayService {
         Sport sport = sportRepository.get(sportUUID);
         Play play = playFactory.create(name, sport);
         playRepository.persist(play);
+        setDirty(play.getUUID(), false);
         onPlayCreated.fire(this, play);
         return play.getUUID();
     }
@@ -193,6 +194,11 @@ public class PlayService {
         Play play = playRepository.get(playUUID);
         play.setDirty(dirty);
         onPlayDirtyFlagChanged.fire(this, play);
+    }
+
+    public Boolean isPlayDirty(UUID playUUID) throws PlayNotFoundException {
+        Play play = playRepository.get(playUUID);
+        return play.isDirty();
     }
 
 }

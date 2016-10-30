@@ -62,7 +62,7 @@ public class PlayEditorController extends ControllerBase {
 
     @Override
     public Boolean onClose() {
-        return validateUnsavedChanges() != ButtonBar.ButtonData.CANCEL_CLOSE;
+        return validateUnsavedChanges();
     }
 
     private void onPlayTitleChanged(final ObservableValue<? extends String> value, final String oldPropertyValue, final String newPropertyValue) {
@@ -101,7 +101,10 @@ public class PlayEditorController extends ControllerBase {
         sceneController.autoFit();
     }
 
-    private ButtonBar.ButtonData validateUnsavedChanges() {
+    private Boolean validateUnsavedChanges() {
+        if (!playService.isPlayDirty(playModel.getUUID())) {
+            return true;
+        }
         Optional<ButtonType> result = new AlertDialogBuilder().alertType(Alert.AlertType.WARNING).headerText("Fermeture du jeu")
                 .contentText("Voulez-vous sauvegarder le jeu avant de quitter?")
                 .buttonType(new ButtonType("Sauvegarder", ButtonBar.ButtonData.YES))
@@ -113,7 +116,7 @@ public class PlayEditorController extends ControllerBase {
         } else if (result.get().getButtonData() == ButtonBar.ButtonData.NO) {
             discardChanges();
         }
-        return result.get().getButtonData();
+        return result.get().getButtonData() != ButtonBar.ButtonData.CANCEL_CLOSE;
     }
 
 }
