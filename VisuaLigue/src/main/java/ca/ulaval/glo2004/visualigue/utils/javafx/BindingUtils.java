@@ -10,25 +10,16 @@ public class BindingUtils {
 
     public static Map<Property, Set<Property>> propertyBindingMap = new HashMap();
 
-    public static void bind(Property property, Property otherProperty) {
+    public static void cleanBind(Property property, Property otherProperty) {
+        clearBindings(property);
         addBindingToMap(property, otherProperty);
         property.bind(otherProperty);
     }
 
-    public static void cleanBind(Property property, Property otherProperty) {
-        clearBindings(property);
-        bind(property, otherProperty);
-    }
-
-    public static void bindBidirectional(Property property, Property otherProperty) {
-        addBindingToMap(property, otherProperty);
-        property.bindBidirectional(otherProperty);
-    }
-
     public static void cleanBindBidirectional(Property property, Property otherProperty) {
         clearBindings(property);
-        bindBidirectional(property, otherProperty);
-
+        addBindingToMap(property, otherProperty);
+        property.bindBidirectional(otherProperty);
     }
 
     public static void clearBindings(Property property) {
