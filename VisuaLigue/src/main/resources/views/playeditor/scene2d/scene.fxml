@@ -9,13 +9,13 @@
 <?import javafx.scene.layout.Pane?>
 <?import javafx.scene.layout.StackPane?>
 
-<ExtendedScrollPane fx:id="scrollPane" styleClass="root-node, edge-to-edge, scene-container" xmlns="http://javafx.com/javafx/8.0.60" xmlns:fx="http://javafx.com/fxml/1" fx:controller="ca.ulaval.glo2004.visualigue.ui.controllers.playeditor.scene.scene2d.Scene2DController" onZoom="#onScrollPaneZoom" onZoomStarted="#onScrollPaneZoomStarted" onZoomFinished="#onScrollPaneZoomFinished" onTouchMoved="#onScrollPaneTouchMoved" onTouchPressed="#onScrollPaneTouchPressed">
+<ExtendedScrollPane fx:id="scrollPane" styleClass="root-node, edge-to-edge, scene-container" xmlns="http://javafx.com/javafx/8.0.60" xmlns:fx="http://javafx.com/fxml/1" fx:controller="ca.ulaval.glo2004.visualigue.ui.controllers.playeditor.scene.scene2d.Scene2DController" onZoom="#onScrollPaneZoom" onZoomStarted="#onScrollPaneZoomStarted" onZoomFinished="#onScrollPaneZoomFinished" onTouchMoved="#onScrollPaneTouchMoved" onTouchPressed="#onScrollPaneTouchPressed" onMouseMoved="#onScrollPaneMouseMoved">
     <content>
         <StackPane fx:id="scrollPaneContent">
             <children>
                 <StackPane styleClass="scene" fx:id="stackPane" alignment="TOP_LEFT">
                     <children>
-                        <ImageView fx:id="backgroundImageView" fitHeight="372.0" fitWidth="800.0" pickOnBounds="true" onMousePressed="#onBackgroundMousePressed" onMouseDragged="#onBackgroundMouseDragged" onMouseReleased="#onBackgroundMouseReleased"/>
+                        <ImageView fx:id="playingSurface" fitHeight="372.0" fitWidth="800.0" pickOnBounds="true" onMousePressed="#onBackgroundMousePressed" onMouseDragged="#onBackgroundMouseDragged" onMouseReleased="#onBackgroundMouseReleased"/>
                     </children>
                 </StackPane>
             </children>

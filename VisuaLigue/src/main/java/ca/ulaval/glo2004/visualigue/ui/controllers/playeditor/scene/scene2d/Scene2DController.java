@@ -34,7 +34,7 @@ public class Scene2DController extends SceneController {
     @FXML private ExtendedScrollPane scrollPane;
     @FXML private StackPane scrollPaneContent;
     @FXML private StackPane stackPane;
-    @FXML private ImageView backgroundImageView;
+    @FXML private ImageView playingSurface;
     private List<View> sceneLayers = new ArrayList();
     private Map<ActorModel, View> sceneLayerMap = new HashMap();
     private FrameModel frameModel = new FrameModel();
@@ -54,10 +54,10 @@ public class Scene2DController extends SceneController {
         this.playModel = playModel;
         initPlayingSurfaceBackground();
         frameModel.actorStates.addListener(this::onActorStateMapChanged);
-        stackPane.minWidthProperty().bind(backgroundImageView.fitWidthProperty());
-        stackPane.maxWidthProperty().bind(backgroundImageView.fitWidthProperty());
-        stackPane.minHeightProperty().bind(backgroundImageView.fitHeightProperty());
-        stackPane.maxHeightProperty().bind(backgroundImageView.fitHeightProperty());
+        stackPane.minWidthProperty().bind(playingSurface.fitWidthProperty());
+        stackPane.maxWidthProperty().bind(playingSurface.fitWidthProperty());
+        stackPane.minHeightProperty().bind(playingSurface.fitHeightProperty());
+        stackPane.maxHeightProperty().bind(playingSurface.fitHeightProperty());
         scrollPane.addEventFilter(ScrollEvent.ANY, this::scrollPaneEventFilter);
         scrollPaneContent.widthProperty().addListener(this::scrollPaneContentWidthChangedListener);
         scrollPaneContent.heightProperty().addListener(this::scrollPaneContentHeightChangedListener);
@@ -74,7 +74,7 @@ public class Scene2DController extends SceneController {
         } else if (playModel.builtInPlayingSurfaceImagePathName.isNotEmpty().get()) {
             backgroundImage = new Image(playModel.builtInPlayingSurfaceImagePathName.get());
         }
-        backgroundImageView.setImage(backgroundImage);
+        playingSurface.setImage(backgroundImage);
     }
 
     private void onActorStateChanged(Change<UUID, ActorModel> change) {
@@ -82,7 +82,7 @@ public class Scene2DController extends SceneController {
             View view = InjectableFXMLLoader.loadView(SceneLayerController.VIEW_NAME);
             SceneLayerController controller = (SceneLayerController) view.getController();
             ActorModel addedModel = change.getValueAdded();
-            controller.init(addedModel, getBaseSceneWidth(), getBaseSceneHeight());
+            controller.init(addedModel, getBaseSurfaceSize());
             super.addChild(controller);
             sceneLayers.add(view);
             sceneLayerMap.put(change.getValueAdded(), view);
@@ -140,7 +140,7 @@ public class Scene2DController extends SceneController {
         onBallCreationModeExited.fire(this);
         onNavigationModeEntered.fire(this);
         ImageCursor imageCursor = FXUtils.chooseBestCursor("/images/cursors/pan-%1$sx%1$s.png", new int[]{32, 48, 96, 128}, 16, 16);
-        backgroundImageView.setCursor(imageCursor);
+        playingSurface.setCursor(imageCursor);
     }
 
     @Override
@@ -148,12 +148,12 @@ public class Scene2DController extends SceneController {
         return zoom;
     }
 
-    private Double getBaseSceneWidth() {
-        return ZOOM_WIDTH_BASE;
+    private Vector2 getBaseSurfaceSize() {
+        return new Vector2(ZOOM_WIDTH_BASE, ZOOM_WIDTH_BASE / (backgroundImage.getWidth() / backgroundImage.getHeight()));
     }
 
-    private Double getBaseSceneHeight() {
-        return ZOOM_WIDTH_BASE / (backgroundImage.getWidth() / backgroundImage.getHeight());
+    private Vector2 getSurfaceSize() {
+        return getBaseSurfaceSize().multiply(zoom.getValue());
     }
 
     @Override
@@ -172,8 +172,8 @@ public class Scene2DController extends SceneController {
             contentAlignPoint = scrollPane.contentToRelativePoint(scrollPane.getVisibleContentCenter());
             viewportAlignPoint = scrollPane.getViewportCenter();
         }
-        backgroundImageView.setFitWidth(getBaseSceneWidth() * zoom.getValue());
-        backgroundImageView.setFitHeight(getBaseSceneHeight() * zoom.getValue());
+        playingSurface.setFitWidth(getSurfaceSize().getX());
+        playingSurface.setFitHeight(getSurfaceSize().getY());
         onZoomChanged.fire(this, zoom);
     }
 
@@ -209,10 +209,11 @@ public class Scene2DController extends SceneController {
 
     @Override
     public void autoFit() {
-        if (scrollPane.getWidth() / scrollPane.getHeight() > getBaseSceneWidth() / getBaseSceneHeight()) {
-            setZoom(new Zoom(scrollPane.getHeight() / getBaseSceneHeight()));
+        Vector2 baseSceneSize = getBaseSurfaceSize();
+        if (scrollPane.getWidth() / scrollPane.getHeight() > baseSceneSize.getX() / baseSceneSize.getY()) {
+            setZoom(new Zoom(scrollPane.getHeight() / baseSceneSize.getY()));
         } else {
-            setZoom(new Zoom(scrollPane.getWidth() / getBaseSceneWidth()));
+            setZoom(new Zoom(scrollPane.getWidth() / baseSceneSize.getX()));
         }
     }
 
@@ -297,5 +298,15 @@ public class Scene2DController extends SceneController {
         touchZooming = false;
         touchMovePoint1 = null;
         touchMovePoint2 = null;
+    }
+
+    @FXML
+    protected void onScrollPaneMouseMoved(MouseEvent e) {
+        Vector2 mousePosition = FXUtils.mouseToNodePoint(playingSurface);
+        if (mousePosition != null) {
+            Vector2 relativeMousePosition = mousePosition.divide(getSurfaceSize());
+            Vector2 surfacePosition = relativeMousePosition.multiply(new Vector2(playModel.playingSurfaceWidth.get(), playModel.playingSurfaceLength.get()));
+            onMousePositionChanged.fire(this, surfacePosition);
+        }
     }
 }

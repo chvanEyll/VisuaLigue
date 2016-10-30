@@ -75,6 +75,10 @@ public class Vector2 extends DomainObject implements Cloneable {
         return new Vector2(this.x * operand.x, this.y * operand.y);
     }
 
+    public Vector2 multiply(Double operand) {
+        return new Vector2(this.x * operand, this.y * operand);
+    }
+
     public Vector2 divide(Vector2 operand) {
         return new Vector2(this.x / operand.x, this.y / operand.y);
     }

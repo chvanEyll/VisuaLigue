@@ -9,6 +9,10 @@
     -fx-pref-width: 1;
 }
 
+.toolbar .right-group {
+    -fx-spacing: 7;
+}
+
 .coordinate-label {
     -fx-text-fill: #999999;
 }

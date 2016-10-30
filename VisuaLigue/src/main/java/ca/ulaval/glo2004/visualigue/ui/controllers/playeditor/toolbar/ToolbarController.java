@@ -1,14 +1,12 @@
 package ca.ulaval.glo2004.visualigue.ui.controllers.playeditor.toolbar;
 
 import ca.ulaval.glo2004.visualigue.domain.play.Play;
-import ca.ulaval.glo2004.visualigue.domain.sport.playingsurface.PlayingSurfaceUnit;
 import ca.ulaval.glo2004.visualigue.services.play.PlayService;
 import ca.ulaval.glo2004.visualigue.ui.controllers.ControllerBase;
 import ca.ulaval.glo2004.visualigue.ui.controllers.common.ExtendedButton;
 import ca.ulaval.glo2004.visualigue.ui.controllers.playeditor.itempane.ItemPaneController;
 import ca.ulaval.glo2004.visualigue.ui.controllers.playeditor.scene.SceneController;
 import ca.ulaval.glo2004.visualigue.ui.controllers.playeditor.scene.Zoom;
-import ca.ulaval.glo2004.visualigue.ui.models.MousePositionModel;
 import ca.ulaval.glo2004.visualigue.ui.models.PlayModel;
 import ca.ulaval.glo2004.visualigue.utils.EventHandler;
 import ca.ulaval.glo2004.visualigue.utils.geometry.Vector2;
@@ -159,11 +157,11 @@ public class ToolbarController extends ControllerBase {
         itemPaneDisplayButton.setSelected(!itemPaneController.isCollapsed());
     }
 
-    private void onSceneMousePositionChanged(Object sender, MousePositionModel mousePositionModel) {
-        Vector2 mousePosition = mousePositionModel.position.get();
-        PlayingSurfaceUnit playingSurfaceUnit = mousePositionModel.playingSurfaceUnit.get();
-        coordinateLabel.setText(String.format("(%.2f %s, %.2f %s)", mousePosition.getX(), playingSurfaceUnit.getAbbreviation(),
-                mousePosition.getY(), playingSurfaceUnit.getAbbreviation()));
+    private void onSceneMousePositionChanged(Object sender, Vector2 mousePosition) {
+        coordinateLabel.setText(String.format("(%.1f %s, %.1f %s)", mousePosition.getX(),
+                playModel.playingSurfaceWidthUnits.get().getAbbreviation(),
+                mousePosition.getY(),
+                playModel.playingSurfaceLengthUnits.get().getAbbreviation()));
     }
 
     private void onSceneZoomChanged(Object sender, Zoom zoom) {

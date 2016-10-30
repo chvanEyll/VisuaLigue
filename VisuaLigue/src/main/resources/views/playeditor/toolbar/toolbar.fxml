@@ -163,7 +163,7 @@
                 <String fx:value="medium" />
             </styleClass>
         </ExtendedButton>
-        <HBox alignment="CENTER_RIGHT" HBox.hgrow="ALWAYS">
+        <HBox alignment="CENTER_RIGHT" HBox.hgrow="ALWAYS" styleClass="right-group">
             <children>
                 <Label fx:id="coordinateLabel" styleClass="coordinate-label"/>
                 <ExtendedButton fx:id="itemPaneDisplayButton" onAction="#onItemPaneDisplayToggleButtonAction" prefWidth="60">
