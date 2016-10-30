@@ -1,21 +1,20 @@
 package ca.ulaval.glo2004.visualigue.ui.controllers;
 
 import ca.ulaval.glo2004.visualigue.ui.View;
+import ca.ulaval.glo2004.visualigue.ui.animation.PredefinedAnimations;
 import java.util.Stack;
+import javafx.fxml.FXML;
+import javafx.scene.layout.StackPane;
 
-public class ViewFlow {
+public class ViewFlowController {
 
-    Stack<View> viewStack = new Stack();
-
-    public ViewFlow() {
-    }
-
-    public ViewFlow(View initialView) {
-        viewStack.push(initialView);
-    }
+    private Stack<View> viewStack = new Stack();
+    @FXML private StackPane rootNode;
 
     public void appendView(View view) {
         viewStack.push(view);
+        rootNode.getChildren().add(view.getRoot());
+        PredefinedAnimations.zoom(view.getRoot());
     }
 
     public void clear() {
@@ -33,6 +32,7 @@ public class ViewFlow {
         if (!validateViewClose(currentView)) {
             throw new ViewFlowException("The controller has declined the close operation.");
         } else {
+            rootNode.getChildren().remove(currentView.getRoot());
             cleanController(currentView);
             return viewStack.pop();
         }

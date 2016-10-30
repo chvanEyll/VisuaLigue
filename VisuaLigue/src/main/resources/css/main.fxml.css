@@ -1,6 +1,7 @@
 .root-node {
     -fx-font-family: 'Source Sans Pro Light' ;
     -fx-font-size: 19;
+    -fx-background-color: white;
     -fx-background: white;
 }
 
@@ -9,7 +10,7 @@
     -fx-min-width: 1000.0;
     -fx-pref-height: 768.0;
     -fx-pref-width: 1024.0;
-    -fx-background-color: #FFFFFF;
+    -fx-background-color: white;
 }
 
 .view-content {

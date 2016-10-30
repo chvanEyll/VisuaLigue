@@ -74,7 +74,7 @@
         <HBox VBox.vgrow="ALWAYS">
             <children>
                 <fx:include fx:id="mainMenu" source="/views/main-menu.fxml" />
-                <AnchorPane fx:id="contentPane" HBox.hgrow="ALWAYS"/>
+                <fx:include fx:id="viewFlow" source="/views/view-flow.fxml" />
             </children>
         </HBox>
     </children>

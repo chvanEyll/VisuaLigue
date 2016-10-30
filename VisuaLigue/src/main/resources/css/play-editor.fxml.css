@@ -49,6 +49,10 @@
     -fx-pref-height: 30;
 }
 
+.item-pane .player-team-side-section .label {
+    -fx-text-fill: black;
+}
+
 .item-pane .item {
     -fx-cursor: hand;
     -fx-alignment: CENTER;

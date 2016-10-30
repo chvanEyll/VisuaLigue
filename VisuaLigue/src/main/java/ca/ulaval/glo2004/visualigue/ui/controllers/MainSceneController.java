@@ -1,7 +1,6 @@
 package ca.ulaval.glo2004.visualigue.ui.controllers;
 
 import ca.ulaval.glo2004.visualigue.ui.View;
-import ca.ulaval.glo2004.visualigue.ui.animation.PredefinedAnimations;
 import ca.ulaval.glo2004.visualigue.utils.javafx.BindingUtils;
 import ca.ulaval.glo2004.visualigue.utils.javafx.FXUtils;
 import java.net.URL;
@@ -19,7 +18,6 @@ public class MainSceneController extends ControllerBase {
 
     public static final String VIEW_NAME = "/views/main.fxml";
     private static final String EDITABLE_TITLE_CSS_STYLE_NAME = "editable";
-    @FXML private Pane contentPane;
     @FXML private Button previousButton;
     @FXML private Button viewTitleEditButton;
     @FXML private Button viewTitleValidateButton;
@@ -27,7 +25,7 @@ public class MainSceneController extends ControllerBase {
     @FXML private TextField viewTitleTextField;
     @FXML private Pane viewTitleSpacer;
     @FXML private MainMenuController mainMenuController;
-    private final ViewFlow viewFlow = new ViewFlow();
+    @FXML private ViewFlowController viewFlowController;
 
     @Override
     public void initialize(URL url, ResourceBundle rb) {
@@ -76,15 +74,15 @@ public class MainSceneController extends ControllerBase {
     }
 
     private void appendView(View view) {
-        viewFlow.appendView(view);
-        setView(view);
+        viewFlowController.appendView(view);
+        initView(view);
     }
 
     private Boolean changeView(View view) {
         try {
-            viewFlow.popView();
-            viewFlow.appendView(view);
-            setView(view);
+            viewFlowController.popView();
+            viewFlowController.appendView(view);
+            initView(view);
             return true;
         } catch (ViewFlowException ex) {
             return false;
@@ -93,8 +91,8 @@ public class MainSceneController extends ControllerBase {
 
     private Boolean previousView() {
         try {
-            viewFlow.popView();
-            setView(viewFlow.getCurrentView());
+            viewFlowController.popView();
+            initView(viewFlowController.getCurrentView());
             return true;
         } catch (ViewFlowException ex) {
             return false;
@@ -103,26 +101,24 @@ public class MainSceneController extends ControllerBase {
 
     private Boolean resetViewFlow(View view) {
         try {
-            viewFlow.clear();
-            viewFlow.appendView(view);
-            setView(view);
+            viewFlowController.clear();
+            viewFlowController.appendView(view);
+            initView(view);
             return true;
         } catch (ViewFlowException ex) {
             return false;
         }
     }
 
-    private void setView(View view) {
+    private void initView(View view) {
         ControllerBase controller = (ControllerBase) view.getController();
         controller.onViewAppendRequested.setHandler(this::onViewAppendRequested);
         controller.onViewChangeRequested.setHandler(this::onViewChangeRequested);
         controller.onViewCloseRequested.setHandler(this::onViewCloseRequested);
-        contentPane.getChildren().clear();
-        contentPane.getChildren().add(view.getRoot());
         BindingUtils.cleanBindBidirectional(viewTitleLabel.textProperty(), controller.getTitle());
         BindingUtils.cleanBindBidirectional(viewTitleTextField.textProperty(), controller.getTitle());
-        FXUtils.setDisplay(previousButton, viewFlow.count() > 1);
-        FXUtils.setDisplay(viewTitleSpacer, viewFlow.count() <= 1);
+        FXUtils.setDisplay(previousButton, viewFlowController.count() > 1);
+        FXUtils.setDisplay(viewTitleSpacer, viewFlowController.count() <= 1);
         FXUtils.setDisplay(viewTitleEditButton, controller.isTitleEditable());
         if (controller.isTitleEditable()) {
             viewTitleLabel.getStyleClass().add(EDITABLE_TITLE_CSS_STYLE_NAME);
@@ -131,13 +127,12 @@ public class MainSceneController extends ControllerBase {
         }
         FXUtils.setDisplay(viewTitleValidateButton, false);
         FXUtils.setDisplay(viewTitleTextField, false);
-        PredefinedAnimations.zoom(view.getRoot());
     }
 
     @Override
     public Boolean onClose() {
         try {
-            viewFlow.clear();
+            viewFlowController.clear();
             return true;
         } catch (ViewFlowException ex) {
             return false;
