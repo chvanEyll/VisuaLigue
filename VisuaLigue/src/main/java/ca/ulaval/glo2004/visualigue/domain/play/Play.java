@@ -5,17 +5,17 @@ import ca.ulaval.glo2004.visualigue.domain.play.actorinstance.ActorInstance;
 import ca.ulaval.glo2004.visualigue.domain.play.actorstate.ActorState;
 import ca.ulaval.glo2004.visualigue.domain.play.frame.Frame;
 import ca.ulaval.glo2004.visualigue.domain.play.keyframe.Keyframe;
+import ca.ulaval.glo2004.visualigue.domain.play.timeline.Timeline;
 import ca.ulaval.glo2004.visualigue.domain.sport.Sport;
 import ca.ulaval.glo2004.visualigue.domain.xmladapters.XmlPlayAdapter;
-import java.util.Map.Entry;
-import java.util.*;
+import java.util.Optional;
+import java.util.TreeMap;
+import java.util.UUID;
 import javax.xml.bind.annotation.XmlAccessType;
 import javax.xml.bind.annotation.XmlAccessorType;
 import javax.xml.bind.annotation.XmlRootElement;
 import javax.xml.bind.annotation.XmlTransient;
 import javax.xml.bind.annotation.adapters.XmlJavaTypeAdapter;
-import org.apache.commons.lang3.tuple.ImmutablePair;
-import org.apache.commons.lang3.tuple.Pair;
 
 @XmlRootElement(name = "play")
 @XmlAccessorType(XmlAccessType.FIELD)
@@ -28,8 +28,7 @@ public class Play extends DomainObject {
     private UUID sportUUID;
     @XmlTransient
     private Sport sport;
-    private final TreeMap<Pair<ActorInstance, Integer>, Keyframe> keyframes = new TreeMap();
-    private final Map<UUID, ActorInstance> actorInstances = new HashMap();
+    private final TreeMap<ActorInstance, Timeline> timelines = new TreeMap();
     private Integer definedLength = 0;
 
     public Play() {
@@ -86,34 +85,33 @@ public class Play extends DomainObject {
     }
 
     public ActorInstance getActorInstance(UUID actorInstanceUUID) {
-        return actorInstances.get(actorInstanceUUID);
+        return timelines.keySet().stream().filter(a -> a.getUUID() == actorInstanceUUID).findFirst().get();
     }
 
     public ActorState mergeKeyframe(Integer time, ActorInstance actorInstance, ActorState actorState) {
-        actorInstances.put(actorInstance.getUUID(), actorInstance);
-        if (keyframes.containsKey(new ImmutablePair(actorInstance, time))) {
-            Keyframe keyframe = keyframes.get(new ImmutablePair(actorInstance, time));
-            return keyframe.mergeActorState(actorState);
+        if (timelines.containsKey(actorInstance)) {
+            Timeline timeline = timelines.get(actorInstance);
+            return timeline.mergeKeyframe(time, actorInstance, actorState);
         } else {
-            Keyframe keyframe = new Keyframe(time, actorInstance, actorState);
-            keyframes.put(new ImmutablePair(actorInstance, time), keyframe);
+            Timeline timeline = new Timeline();
+            timelines.put(actorInstance, timeline);
             return null;
         }
     }
 
     public void unmergeKeyframe(Integer time, ActorInstance actorInstance, ActorState oldState) {
-        Keyframe keyframe = keyframes.get(new ImmutablePair(actorInstance, time));
+        Timeline timeline = timelines.get(actorInstance);
         if (oldState != null) {
-            keyframe.unmergeActorState(actorInstance, oldState);
+            timeline.unmergeKeyframe(time, actorInstance, oldState);
         } else {
-            keyframes.remove(new ImmutablePair(actorInstance, time));
+            timelines.remove(actorInstance);
         }
     }
 
     public Integer getLength() {
-        Optional<Keyframe> maxKeyframe = keyframes.values().stream().max((k1, k2) -> k1.getTime().compareTo(k2.getTime()));
-        if (maxKeyframe.isPresent()) {
-            return maxKeyframe.get().getTime();
+        Optional<Timeline> longestTimeline = timelines.values().stream().max((t1, t2) -> t1.getLength().compareTo(t2.getLength()));
+        if (longestTimeline.isPresent()) {
+            return longestTimeline.get().getLength();
         } else {
             return 0;
         }
@@ -121,16 +119,11 @@ public class Play extends DomainObject {
 
     public Frame getFrame(Integer time) {
         Frame frame = new Frame();
-        actorInstances.values().forEach(actorInstance -> {
-            Entry<Pair<ActorInstance, Integer>, Keyframe> floorKeyframeEntry = keyframes.ceilingEntry(new ImmutablePair(actorInstance, time));
-            Entry<Pair<ActorInstance, Integer>, Keyframe> ceilingKeyframeEntry = keyframes.ceilingEntry(new ImmutablePair(actorInstance, time));
-            if (floorKeyframeEntry != null && ceilingKeyframeEntry == null) {
-                frame.addActorState(floorKeyframeEntry.getKey().getLeft(), floorKeyframeEntry.getValue().getActorState());
-            } else if (floorKeyframeEntry != null) {
-                Keyframe floorKeyframe = floorKeyframeEntry.getValue();
-                Keyframe ceilingKeyframe = ceilingKeyframeEntry.getValue();
-                Keyframe interpolatedKeyframe = floorKeyframe.interpolate((time - floorKeyframe.getTime()) / (ceilingKeyframe.getTime() - time), ceilingKeyframe);
-                frame.addActorState(interpolatedKeyframe.getActorInstance(), interpolatedKeyframe.getActorState());
+        timelines.entrySet().stream().forEach(e -> {
+            Timeline timeline = e.getValue();
+            Keyframe keyframe = timeline.getKeyframe(time);
+            if (keyframe != null) {
+                frame.addActorState(keyframe.getActorInstance(), keyframe.getActorState());
             }
         });
         return frame;

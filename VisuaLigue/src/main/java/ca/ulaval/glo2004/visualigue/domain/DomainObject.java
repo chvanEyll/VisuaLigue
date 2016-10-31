@@ -3,7 +3,7 @@ package ca.ulaval.glo2004.visualigue.domain;
 import java.util.Objects;
 import java.util.UUID;
 
-public class DomainObject {
+public class DomainObject implements Comparable<DomainObject> {
 
     protected UUID uuid;
     protected Boolean isDirty = false;
@@ -51,5 +51,13 @@ public class DomainObject {
         }
         final DomainObject other = (DomainObject) obj;
         return Objects.equals(this.uuid, other.uuid);
+    }
+
+    @Override
+    public int compareTo(DomainObject domainObject) {
+        if (domainObject == this) {
+            return 0;
+        }
+        return uuid.compareTo(domainObject.uuid);
     }
 }
