@@ -2,7 +2,6 @@ package ca.ulaval.glo2004.visualigue.domain.play.actorstate;
 
 import ca.ulaval.glo2004.visualigue.utils.geometry.Vector2;
 import ca.ulaval.glo2004.visualigue.utils.math.easing.EasingFunction;
-import java.util.Optional;
 import javax.xml.bind.annotation.XmlAccessType;
 import javax.xml.bind.annotation.XmlAccessorType;
 
@@ -13,7 +12,7 @@ public class ObstacleState extends ActorState implements Cloneable {
 
     }
 
-    public ObstacleState(Optional<Vector2> position) {
+    public ObstacleState(Vector2 position) {
         this.position = position;
     }
 
@@ -21,7 +20,7 @@ public class ObstacleState extends ActorState implements Cloneable {
     public ObstacleState merge(ActorState actorState) {
         ObstacleState oldState = this.clone();
         ObstacleState newState = (ObstacleState) actorState;
-        if (newState.position.isPresent()) {
+        if (newState.position != null) {
             position = newState.position;
         }
         return oldState;
@@ -35,7 +34,7 @@ public class ObstacleState extends ActorState implements Cloneable {
 
     @Override
     public Boolean isBlank() {
-        return !position.isPresent();
+        return position == null;
     }
 
     @Override
@@ -49,8 +48,8 @@ public class ObstacleState extends ActorState implements Cloneable {
     public ObstacleState interpolate(ActorState nextState, Integer interpolant, EasingFunction easingFunction) {
         ObstacleState nextObstacleState = (ObstacleState) nextState;
         ObstacleState interpolatedState = this.clone();
-        if (nextObstacleState.position.isPresent()) {
-            interpolatedState.position = Optional.of(position.get().interpolate(nextObstacleState.position.get(), interpolant, easingFunction));
+        if (nextObstacleState.position != null) {
+            interpolatedState.position = position.interpolate(nextObstacleState.position, interpolant, easingFunction);
         }
         return interpolatedState;
     }

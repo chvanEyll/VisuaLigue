@@ -3,20 +3,19 @@ package ca.ulaval.glo2004.visualigue.domain.play.actorstate;
 import ca.ulaval.glo2004.visualigue.domain.play.keyframe.KeyframeTransition;
 import ca.ulaval.glo2004.visualigue.utils.geometry.Vector2;
 import ca.ulaval.glo2004.visualigue.utils.math.easing.EasingFunction;
-import java.util.Optional;
 import javax.xml.bind.annotation.XmlAccessType;
 import javax.xml.bind.annotation.XmlAccessorType;
 
 @XmlAccessorType(XmlAccessType.FIELD)
 public class PlayerState extends ActorState implements Cloneable {
 
-    private Optional<KeyframeTransition> positionTransition = Optional.empty();
-    private Optional<Double> orientation = Optional.empty();
+    private KeyframeTransition positionTransition;
+    private Double orientation;
 
     private PlayerState() {
     }
 
-    public PlayerState(Optional<Vector2> position, Optional<KeyframeTransition> positionTransition, Optional<Double> orientation) {
+    public PlayerState(Vector2 position, KeyframeTransition positionTransition, Double orientation) {
         this.position = position;
         this.positionTransition = positionTransition;
         this.orientation = orientation;
@@ -26,13 +25,13 @@ public class PlayerState extends ActorState implements Cloneable {
     public PlayerState merge(ActorState actorState) {
         PlayerState oldState = this.clone();
         PlayerState newState = (PlayerState) actorState;
-        if (newState.position.isPresent()) {
+        if (newState.position != null) {
             position = newState.position;
         }
-        if (newState.positionTransition.isPresent()) {
+        if (newState.positionTransition != null) {
             positionTransition = newState.positionTransition;
         }
-        if (newState.orientation.isPresent()) {
+        if (newState.orientation != null) {
             orientation = newState.orientation;
         }
         return oldState;
@@ -47,7 +46,7 @@ public class PlayerState extends ActorState implements Cloneable {
 
     @Override
     public Boolean isBlank() {
-        return !position.isPresent() && !orientation.isPresent();
+        return position == null && orientation == null;
     }
 
     @Override
@@ -62,17 +61,17 @@ public class PlayerState extends ActorState implements Cloneable {
     public PlayerState interpolate(ActorState nextState, Integer interpolant, EasingFunction easingFunction) {
         PlayerState nextActorState = (PlayerState) nextState;
         PlayerState interpolatedState = this.clone();
-        if (nextActorState.position.isPresent()) {
-            interpolatedState.position = Optional.of(positionTransition.get().interpolate(position.get(), nextActorState.position.get(), interpolant, easingFunction));
+        if (nextActorState.position != null) {
+            interpolatedState.position = positionTransition.interpolate(position, nextActorState.position, interpolant, easingFunction);
         }
-        if (nextActorState.orientation.isPresent()) {
-            interpolatedState.orientation = Optional.of(easingFunction.ease(orientation.get(), nextActorState.orientation.get(), interpolant, 1.0));
+        if (nextActorState.orientation != null) {
+            interpolatedState.orientation = easingFunction.ease(orientation, nextActorState.orientation, interpolant, 1.0);
         }
         return interpolatedState;
     }
 
     public Double getOrientation() {
-        return orientation.get();
+        return orientation;
     }
 
 }

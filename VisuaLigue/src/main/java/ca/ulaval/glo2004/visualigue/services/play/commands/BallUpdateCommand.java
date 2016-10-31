@@ -7,7 +7,6 @@ import ca.ulaval.glo2004.visualigue.domain.play.actorinstance.PlayerInstance;
 import ca.ulaval.glo2004.visualigue.domain.play.actorstate.ActorState;
 import ca.ulaval.glo2004.visualigue.domain.play.actorstate.BallState;
 import ca.ulaval.glo2004.visualigue.utils.geometry.Vector2;
-import java.util.Optional;
 import java.util.UUID;
 import javax.inject.Inject;
 
@@ -21,7 +20,7 @@ public class BallUpdateCommand implements Command {
     @Inject private PlayRepository playRepository;
 
     private BallInstance ballInstance;
-    private Optional<ActorState> oldBallState;
+    private ActorState oldBallState;
 
     public BallUpdateCommand(Play play, Integer time, UUID ballInstanceUUID, UUID ownerPlayerInstanceUUID, Vector2 position) {
         this.play = play;
@@ -35,7 +34,7 @@ public class BallUpdateCommand implements Command {
     public void execute() {
         PlayerInstance playerInstance = (PlayerInstance) play.getActorInstance(ownerPlayerInstanceUUID);
         ballInstance = (BallInstance) play.getActorInstance(ballInstanceUUID);
-        BallState ballState = new BallState(Optional.of(position), Optional.of(playerInstance));
+        BallState ballState = new BallState(position, playerInstance);
         oldBallState = play.mergeKeyframe(time, ballInstance, ballState);
     }
 

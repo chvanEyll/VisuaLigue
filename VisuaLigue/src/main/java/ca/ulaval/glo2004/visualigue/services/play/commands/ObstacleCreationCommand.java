@@ -8,7 +8,6 @@ import ca.ulaval.glo2004.visualigue.domain.play.PlayRepository;
 import ca.ulaval.glo2004.visualigue.domain.play.actorinstance.ObstacleInstance;
 import ca.ulaval.glo2004.visualigue.domain.play.actorstate.ObstacleState;
 import ca.ulaval.glo2004.visualigue.utils.geometry.Vector2;
-import java.util.Optional;
 import java.util.UUID;
 import javax.inject.Inject;
 
@@ -31,7 +30,7 @@ public class ObstacleCreationCommand implements Command {
 
     @Override
     public void execute() throws ObstacleNotFoundException {
-        ObstacleState obstacleState = new ObstacleState(Optional.of(position));
+        ObstacleState obstacleState = new ObstacleState(position);
         Obstacle obstacle = obstacleRepository.get(obstacleInstanceUUID);
         obstacleInstance = new ObstacleInstance(obstacle);
         play.mergeKeyframe(time, obstacleInstance, obstacleState);
@@ -39,7 +38,7 @@ public class ObstacleCreationCommand implements Command {
 
     @Override
     public void revert() {
-        play.unmergeKeyframe(time, obstacleInstance, Optional.empty());
+        play.unmergeKeyframe(time, obstacleInstance, null);
     }
 
 }

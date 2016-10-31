@@ -3,14 +3,19 @@ package ca.ulaval.glo2004.visualigue.domain.play.actorstate;
 import ca.ulaval.glo2004.visualigue.domain.DomainObject;
 import ca.ulaval.glo2004.visualigue.utils.geometry.Vector2;
 import ca.ulaval.glo2004.visualigue.utils.math.easing.EasingFunction;
-import java.util.Optional;
+import javax.xml.bind.annotation.XmlSeeAlso;
 
+@XmlSeeAlso({BallState.class, ObstacleState.class, PlayerState.class})
 public abstract class ActorState extends DomainObject {
 
-    protected Optional<Vector2> position = Optional.empty();
+    protected Vector2 position;
 
     public Vector2 getPosition() {
-        return position.get();
+        return position;
+    }
+
+    public void setPosition(Vector2 position) {
+        this.position = position;
     }
 
     public abstract ActorState merge(ActorState actorState);

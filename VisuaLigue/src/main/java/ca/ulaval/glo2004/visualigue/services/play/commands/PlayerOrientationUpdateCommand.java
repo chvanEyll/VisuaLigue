@@ -5,7 +5,6 @@ import ca.ulaval.glo2004.visualigue.domain.play.PlayRepository;
 import ca.ulaval.glo2004.visualigue.domain.play.actorinstance.PlayerInstance;
 import ca.ulaval.glo2004.visualigue.domain.play.actorstate.ActorState;
 import ca.ulaval.glo2004.visualigue.domain.play.actorstate.PlayerState;
-import java.util.Optional;
 import java.util.UUID;
 import javax.inject.Inject;
 
@@ -18,7 +17,7 @@ public class PlayerOrientationUpdateCommand implements Command {
     @Inject private PlayRepository playRepository;
 
     private PlayerInstance playerInstance;
-    private Optional<ActorState> oldPlayerState;
+    private ActorState oldPlayerState;
 
     public PlayerOrientationUpdateCommand(Play play, Integer time, UUID ownerPlayerInstanceUUID, Double orientation) {
         this.play = play;
@@ -29,7 +28,7 @@ public class PlayerOrientationUpdateCommand implements Command {
 
     @Override
     public void execute() {
-        PlayerState playerState = new PlayerState(Optional.empty(), Optional.empty(), Optional.of(orientation));
+        PlayerState playerState = new PlayerState(null, null, orientation);
         playerInstance = (PlayerInstance) play.getActorInstance(ownerPlayerInstanceUUID);
         oldPlayerState = play.mergeKeyframe(time, playerInstance, playerState);
     }

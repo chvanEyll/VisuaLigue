@@ -89,22 +89,22 @@ public class Play extends DomainObject {
         return actorInstances.get(actorInstanceUUID);
     }
 
-    public Optional<ActorState> mergeKeyframe(Integer time, ActorInstance actorInstance, ActorState actorState) {
+    public ActorState mergeKeyframe(Integer time, ActorInstance actorInstance, ActorState actorState) {
         actorInstances.put(actorInstance.getUUID(), actorInstance);
         if (keyframes.containsKey(new ImmutablePair(actorInstance, time))) {
-            Keyframe keyframe = keyframes.get(new ImmutablePair(time, actorInstance));
-            return Optional.of(keyframe.mergeActorState(actorState));
+            Keyframe keyframe = keyframes.get(new ImmutablePair(actorInstance, time));
+            return keyframe.mergeActorState(actorState);
         } else {
             Keyframe keyframe = new Keyframe(time, actorInstance, actorState);
             keyframes.put(new ImmutablePair(actorInstance, time), keyframe);
-            return Optional.empty();
+            return null;
         }
     }
 
-    public void unmergeKeyframe(Integer time, ActorInstance actorInstance, Optional<ActorState> oldState) {
+    public void unmergeKeyframe(Integer time, ActorInstance actorInstance, ActorState oldState) {
         Keyframe keyframe = keyframes.get(new ImmutablePair(actorInstance, time));
-        if (oldState.isPresent()) {
-            keyframe.unmergeActorState(actorInstance, oldState.get());
+        if (oldState != null) {
+            keyframe.unmergeActorState(actorInstance, oldState);
         } else {
             keyframes.remove(new ImmutablePair(actorInstance, time));
         }

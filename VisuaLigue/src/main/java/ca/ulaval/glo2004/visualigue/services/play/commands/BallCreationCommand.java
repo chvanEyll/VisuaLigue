@@ -6,7 +6,6 @@ import ca.ulaval.glo2004.visualigue.domain.play.actorinstance.BallInstance;
 import ca.ulaval.glo2004.visualigue.domain.play.actorinstance.PlayerInstance;
 import ca.ulaval.glo2004.visualigue.domain.play.actorstate.BallState;
 import ca.ulaval.glo2004.visualigue.utils.geometry.Vector2;
-import java.util.Optional;
 import java.util.UUID;
 import javax.inject.Inject;
 
@@ -30,14 +29,14 @@ public class BallCreationCommand implements Command {
     @Override
     public void execute() {
         PlayerInstance playerInstance = (PlayerInstance) play.getActorInstance(ownerPlayerInstanceUUID);
-        BallState ballState = new BallState(Optional.of(position), Optional.of(playerInstance));
+        BallState ballState = new BallState(position, playerInstance);
         ballInstance = new BallInstance();
         play.mergeKeyframe(time, ballInstance, ballState);
     }
 
     @Override
     public void revert() {
-        play.unmergeKeyframe(time, ballInstance, Optional.empty());
+        play.unmergeKeyframe(time, ballInstance, null);
     }
 
 }

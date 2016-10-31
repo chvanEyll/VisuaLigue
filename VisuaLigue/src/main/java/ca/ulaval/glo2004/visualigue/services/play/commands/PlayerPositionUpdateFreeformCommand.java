@@ -5,11 +5,10 @@ import ca.ulaval.glo2004.visualigue.domain.play.PlayRepository;
 import ca.ulaval.glo2004.visualigue.domain.play.actorinstance.PlayerInstance;
 import ca.ulaval.glo2004.visualigue.domain.play.actorstate.ActorState;
 import ca.ulaval.glo2004.visualigue.domain.play.actorstate.PlayerState;
+import ca.ulaval.glo2004.visualigue.domain.play.keyframe.KeyframeTransition;
 import ca.ulaval.glo2004.visualigue.utils.geometry.Vector2;
-import java.util.Optional;
 import java.util.UUID;
 import javax.inject.Inject;
-import ca.ulaval.glo2004.visualigue.domain.play.keyframe.KeyframeTransition;
 
 public class PlayerPositionUpdateFreeformCommand implements Command {
 
@@ -21,7 +20,7 @@ public class PlayerPositionUpdateFreeformCommand implements Command {
     @Inject private PlayRepository playRepository;
 
     private PlayerInstance playerInstance;
-    private Optional<ActorState> oldPlayerState;
+    private ActorState oldPlayerState;
 
     public PlayerPositionUpdateFreeformCommand(Play play, Integer time, UUID ownerPlayerInstanceUUID, Vector2 position, KeyframeTransition positionTransition) {
         this.time = time;
@@ -32,7 +31,7 @@ public class PlayerPositionUpdateFreeformCommand implements Command {
 
     @Override
     public void execute() {
-        PlayerState playerState = new PlayerState(Optional.of(position), Optional.of(positionTransition), Optional.empty());
+        PlayerState playerState = new PlayerState(position, positionTransition, null);
         playerInstance = (PlayerInstance) play.getActorInstance(ownerPlayerInstanceUUID);
         oldPlayerState = play.mergeKeyframe(time, playerInstance, playerState);
     }

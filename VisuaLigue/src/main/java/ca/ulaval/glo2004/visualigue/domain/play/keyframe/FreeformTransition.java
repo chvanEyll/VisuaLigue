@@ -8,7 +8,7 @@ import javax.xml.bind.annotation.XmlAccessType;
 import javax.xml.bind.annotation.XmlAccessorType;
 
 @XmlAccessorType(XmlAccessType.FIELD)
-public class FreeformTransition implements KeyframeTransition {
+public class FreeformTransition extends KeyframeTransition {
 
     List<Vector2> transitionPoints = new ArrayList();
 

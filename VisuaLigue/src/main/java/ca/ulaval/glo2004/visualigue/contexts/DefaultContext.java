@@ -9,6 +9,10 @@ import ca.ulaval.glo2004.visualigue.domain.play.Play;
 import ca.ulaval.glo2004.visualigue.domain.play.PlayAlreadyExistsException;
 import ca.ulaval.glo2004.visualigue.domain.play.PlayFactory;
 import ca.ulaval.glo2004.visualigue.domain.play.PlayRepository;
+import ca.ulaval.glo2004.visualigue.domain.play.actorinstance.PlayerInstance;
+import ca.ulaval.glo2004.visualigue.domain.play.actorinstance.TeamSide;
+import ca.ulaval.glo2004.visualigue.domain.play.actorstate.PlayerState;
+import ca.ulaval.glo2004.visualigue.domain.play.keyframe.LinearKeyframeTransition;
 import ca.ulaval.glo2004.visualigue.domain.sport.Sport;
 import ca.ulaval.glo2004.visualigue.domain.sport.SportAlreadyExistsException;
 import ca.ulaval.glo2004.visualigue.domain.sport.SportFactory;
@@ -18,6 +22,7 @@ import ca.ulaval.glo2004.visualigue.domain.sport.playercategory.PlayerCategory;
 import ca.ulaval.glo2004.visualigue.domain.sport.playercategory.PlayerCategoryRepository;
 import ca.ulaval.glo2004.visualigue.domain.sport.playingsurface.PlayingSurface;
 import ca.ulaval.glo2004.visualigue.domain.sport.playingsurface.PlayingSurfaceUnit;
+import ca.ulaval.glo2004.visualigue.utils.geometry.Vector2;
 import java.util.ArrayList;
 import java.util.List;
 import javafx.scene.paint.Color;
@@ -29,6 +34,7 @@ public class DefaultContext extends ContextBase {
     private final ObstacleFactory obstacleFactory;
     private final PlayFactory playFactory;
     private final List<Sport> sportPool = new ArrayList();
+    private Sport hockeySport;
 
     @Inject
     public DefaultContext(final SportFactory sportFactory, final SportRepository sportRepository, final PlayerCategoryRepository playerCategoryRepository, final ImageRepository imageRepository, final ObstacleFactory obstacleFactory,
@@ -57,7 +63,8 @@ public class DefaultContext extends ContextBase {
     }
 
     private void createSports() throws Exception {
-        sportPool.add(createHockeySport());
+        hockeySport = createHockeySport();
+        sportPool.add(hockeySport);
         sportPool.add(createSoccerSport());
         sportPool.add(createFootballSport());
         sportPool.add(createBaseballSport());
@@ -242,6 +249,12 @@ public class DefaultContext extends ContextBase {
 
     private Play createDefaultPlay() {
         Play play = playFactory.create("Test", sportPool.get(0));
+        List<PlayerCategory> playerCategories = new ArrayList(hockeySport.getPlayerCategories());
+        PlayerInstance playerInstance1 = new PlayerInstance(playerCategories.get(0), TeamSide.ALLIES);
+        PlayerState playerState1 = new PlayerState(new Vector2(0.25, 0.25), new LinearKeyframeTransition(), 0.0);
+        play.mergeKeyframe(0, playerInstance1, playerState1);
+        PlayerState playerState2 = new PlayerState(new Vector2(0.75, 0.75), new LinearKeyframeTransition(), 0.0);
+        play.mergeKeyframe(2000, playerInstance1, playerState2);
         return play;
     }
 

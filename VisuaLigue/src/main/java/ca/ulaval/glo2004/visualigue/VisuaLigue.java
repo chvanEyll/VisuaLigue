@@ -2,10 +2,12 @@ package ca.ulaval.glo2004.visualigue;
 
 import ca.ulaval.glo2004.visualigue.contexts.ContextBase;
 import ca.ulaval.glo2004.visualigue.contexts.DefaultContext;
+import ca.ulaval.glo2004.visualigue.persistence.marshalling.XmlMarshaller;
+import ca.ulaval.glo2004.visualigue.test.Group;
 import ca.ulaval.glo2004.visualigue.ui.InjectableFXMLLoader;
 import ca.ulaval.glo2004.visualigue.ui.View;
-import ca.ulaval.glo2004.visualigue.ui.controllers.MainSceneController;
 import ca.ulaval.glo2004.visualigue.ui.controllers.ControllerBase;
+import ca.ulaval.glo2004.visualigue.ui.controllers.MainSceneController;
 import ca.ulaval.glo2004.visualigue.utils.EnvironmentUtils;
 import java.io.IOException;
 import javafx.application.Application;
@@ -26,7 +28,13 @@ public class VisuaLigue extends Application {
     private static Stage stage;
 
     public static void main(String[] args) {
+        test();
         launch(args);
+    }
+
+    private static void test() {
+        XmlMarshaller marshaller = new XmlMarshaller(Group.class);
+
     }
 
     @Override
