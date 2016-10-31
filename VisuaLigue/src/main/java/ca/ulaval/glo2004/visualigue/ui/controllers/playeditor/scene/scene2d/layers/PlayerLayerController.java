@@ -1,8 +1,8 @@
-package ca.ulaval.glo2004.visualigue.ui.controllers.playeditor.scene.scene2d;
+package ca.ulaval.glo2004.visualigue.ui.controllers.playeditor.scene.scene2d.layers;
 
-import ca.ulaval.glo2004.visualigue.ui.controllers.ControllerBase;
 import ca.ulaval.glo2004.visualigue.ui.controllers.common.SvgImage;
 import ca.ulaval.glo2004.visualigue.ui.controllers.playeditor.scene.Zoom;
+import ca.ulaval.glo2004.visualigue.ui.controllers.playeditor.scene.scene2d.PlayingSurfaceController;
 import ca.ulaval.glo2004.visualigue.ui.models.ActorModel;
 import ca.ulaval.glo2004.visualigue.utils.FilenameUtils;
 import ca.ulaval.glo2004.visualigue.utils.geometry.Vector2;
@@ -12,19 +12,17 @@ import javafx.scene.control.Tooltip;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 
-public class SceneLayerController extends ControllerBase {
+public class PlayerLayerController extends SceneLayerController {
 
-    public static final String VIEW_NAME = "/views/playeditor/scene2d/scene-layer.fxml";
+    public static final String VIEW_NAME = "/views/playeditor/scene2d/layers/player-layer.fxml";
     @FXML private Button actorButton;
     @FXML private SvgImage svgImage;
     @FXML private ImageView imageView;
     @FXML private Tooltip tooltip;
-    private ActorModel actorModel;
     private Vector2 baseLayerSize;
 
-    public void init(ActorModel actorModel, Vector2 baseLayerSize) {
-        this.actorModel = actorModel;
-        this.baseLayerSize = baseLayerSize;
+    public void init(ActorModel actorModel, PlayingSurfaceController playingSurfaceController) {
+        super.init(actorModel, playingSurfaceController);
         if (actorModel.svgImagePathName.isNotEmpty().get()) {
             svgImage.setUrl(actorModel.svgImagePathName.get());
         } else if (actorModel.imagePathName.isNotEmpty().get()) {
@@ -35,11 +33,13 @@ public class SceneLayerController extends ControllerBase {
         tooltip.textProperty().bind(actorModel.hoverText);
     }
 
+    @Override
     public void setZoom(Zoom zoom) {
         actorButton.setLayoutX(actorModel.x.get() * baseLayerSize.getX() * zoom.getValue());
         actorButton.setLayoutY(actorModel.y.get() * baseLayerSize.getY() * zoom.getValue());
     }
 
+    @Override
     public void setPlayerCategoryLabelDisplayEnabled(Boolean enabled) {
 
     }

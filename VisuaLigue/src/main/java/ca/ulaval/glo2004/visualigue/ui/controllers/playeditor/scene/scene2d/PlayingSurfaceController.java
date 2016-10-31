@@ -8,9 +8,11 @@ import ca.ulaval.glo2004.visualigue.utils.FilenameUtils;
 import ca.ulaval.glo2004.visualigue.utils.geometry.Vector2;
 import ca.ulaval.glo2004.visualigue.utils.javafx.FXUtils;
 import javafx.fxml.FXML;
+import javafx.scene.ImageCursor;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.input.MouseEvent;
+import javafx.scene.layout.StackPane;
 
 public class PlayingSurfaceController extends ControllerBase {
 
@@ -19,12 +21,24 @@ public class PlayingSurfaceController extends ControllerBase {
     public EventHandler<MouseEvent> onMousePressed = new EventHandler();
     public EventHandler<MouseEvent> onMouseDragged = new EventHandler();
     public EventHandler<MouseEvent> onMouseReleased = new EventHandler();
+    @FXML private ImageView rootNode;
     private Image image;
     private PlayModel playModel;
-    @FXML private ImageView rootNode;
 
-    public void init(PlayModel playModel) {
+    public void init(PlayModel playModel, StackPane stackPane) {
         this.playModel = playModel;
+        initSizeBindings(stackPane);
+        initImage();
+    }
+
+    private void initSizeBindings(StackPane stackPane) {
+        stackPane.minWidthProperty().bind(rootNode.fitWidthProperty());
+        stackPane.maxWidthProperty().bind(rootNode.fitWidthProperty());
+        stackPane.minHeightProperty().bind(rootNode.fitHeightProperty());
+        stackPane.maxHeightProperty().bind(rootNode.fitHeightProperty());
+    }
+
+    private void initImage() {
         if (playModel.customPlayingSurfaceImagePathName.isNotEmpty().get()) {
             image = new Image(FilenameUtils.getURIString(playModel.customPlayingSurfaceImagePathName.get()));
         } else if (playModel.builtInPlayingSurfaceImagePathName.isNotEmpty().get()) {
@@ -71,6 +85,10 @@ public class PlayingSurfaceController extends ControllerBase {
         Vector2 relativeMousePosition = mousePosition.divide(getSurfaceSize());
         Vector2 surfacePosition = relativeMousePosition.multiply(new Vector2(playModel.playingSurfaceWidth.get(), playModel.playingSurfaceLength.get()));
         return surfacePosition;
+    }
+
+    public void setCursor(ImageCursor imageCursor) {
+        rootNode.setCursor(imageCursor);
     }
 
 }

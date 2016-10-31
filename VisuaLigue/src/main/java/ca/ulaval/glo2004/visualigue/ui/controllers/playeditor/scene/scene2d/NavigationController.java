@@ -7,8 +7,10 @@ import ca.ulaval.glo2004.visualigue.ui.controllers.playeditor.scene.Zoom;
 import ca.ulaval.glo2004.visualigue.ui.models.PlayModel;
 import ca.ulaval.glo2004.visualigue.utils.EventHandler;
 import ca.ulaval.glo2004.visualigue.utils.geometry.Vector2;
+import ca.ulaval.glo2004.visualigue.utils.javafx.FXUtils;
 import ca.ulaval.glo2004.visualigue.utils.math.MathUtils;
 import javafx.beans.value.ObservableValue;
+import javafx.scene.ImageCursor;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.input.ScrollEvent;
 import javafx.scene.input.TouchEvent;
@@ -98,6 +100,11 @@ public class NavigationController extends ControllerBase {
         } else {
             setZoom(new Zoom(scrollPane.getWidth() / baseSceneSize.getX()));
         }
+    }
+
+    public void enterNavigationMode() {
+        ImageCursor imageCursor = FXUtils.chooseBestCursor("/images/cursors/pan-%1$sx%1$s.png", new int[]{32, 48, 96, 128}, 16, 16);
+        playingSurfaceController.setCursor(imageCursor);
     }
 
     public void scrollPaneContentWidthChangedListener(ObservableValue<? extends Number> value, Number oldPropertyValue, Number newPropertyValue) {

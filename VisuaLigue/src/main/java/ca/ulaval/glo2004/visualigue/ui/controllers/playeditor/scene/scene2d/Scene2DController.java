@@ -1,13 +1,13 @@
 package ca.ulaval.glo2004.visualigue.ui.controllers.playeditor.scene.scene2d;
 
 import ca.ulaval.glo2004.visualigue.domain.play.actorinstance.TeamSide;
-import ca.ulaval.glo2004.visualigue.ui.InjectableFXMLLoader;
 import ca.ulaval.glo2004.visualigue.ui.View;
 import ca.ulaval.glo2004.visualigue.ui.controllers.common.ExtendedScrollPane;
 import ca.ulaval.glo2004.visualigue.ui.controllers.playeditor.scene.SceneController;
 import ca.ulaval.glo2004.visualigue.ui.controllers.playeditor.scene.Zoom;
+import ca.ulaval.glo2004.visualigue.ui.controllers.playeditor.scene.scene2d.layers.LayerViewFactory;
+import ca.ulaval.glo2004.visualigue.ui.controllers.playeditor.scene.scene2d.layers.SceneLayerController;
 import ca.ulaval.glo2004.visualigue.ui.models.*;
-import ca.ulaval.glo2004.visualigue.utils.javafx.FXUtils;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -15,20 +15,19 @@ import java.util.Map;
 import javafx.collections.MapChangeListener;
 import javafx.collections.MapChangeListener.Change;
 import javafx.fxml.FXML;
-import javafx.scene.ImageCursor;
-import javafx.scene.image.ImageView;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.input.TouchEvent;
 import javafx.scene.input.ZoomEvent;
 import javafx.scene.layout.StackPane;
+import javax.inject.Inject;
 
 public class Scene2DController extends SceneController {
 
     @FXML private ExtendedScrollPane scrollPane;
     @FXML private StackPane scrollPaneContent;
     @FXML private StackPane stackPane;
-    @FXML private ImageView playingSurface;
     @FXML private PlayingSurfaceController playingSurfaceController;
+    @Inject LayerViewFactory layerViewFactory;
     private NavigationController navigationController;
     private List<View> sceneLayers = new ArrayList();
     private Map<ActorModel, View> sceneLayerMap = new HashMap();
@@ -39,12 +38,8 @@ public class Scene2DController extends SceneController {
     @Override
     public void init(PlayModel playModel) {
         this.playModel = playModel;
-        playingSurfaceController.init(playModel);
+        playingSurfaceController.init(playModel, stackPane);
         frameModel.actorStates.addListener(this::onActorStateMapChanged);
-        stackPane.minWidthProperty().bind(playingSurface.fitWidthProperty());
-        stackPane.maxWidthProperty().bind(playingSurface.fitWidthProperty());
-        stackPane.minHeightProperty().bind(playingSurface.fitHeightProperty());
-        stackPane.maxHeightProperty().bind(playingSurface.fitHeightProperty());
         navigationController = new NavigationController(scrollPane, scrollPaneContent, playingSurfaceController, playModel);
         navigationController.onMousePositionChanged.forward(onMousePositionChanged);
         navigationController.onZoomChanged.forward(onZoomChanged);
@@ -57,22 +52,28 @@ public class Scene2DController extends SceneController {
 
     private void onActorStateChanged(Change<String, ActorModel> change) {
         if (change.wasAdded()) {
-            View view = InjectableFXMLLoader.loadView(SceneLayerController.VIEW_NAME);
-            SceneLayerController controller = (SceneLayerController) view.getController();
-            ActorModel addedModel = change.getValueAdded();
-            controller.init(addedModel, playingSurfaceController.getBaseSurfaceSize());
-            super.addChild(controller);
-            sceneLayers.add(view);
-            sceneLayerMap.put(change.getValueAdded(), view);
-            stackPane.getChildren().add(view.getRoot());
+            addActorLayer(change.getValueAdded());
         }
         if (change.wasRemoved()) {
-            ActorModel removedActorModel = change.getValueRemoved();
-            View view = sceneLayerMap.get(removedActorModel);
-            stackPane.getChildren().remove(sceneLayers.indexOf(view));
-            sceneLayers.remove(view);
-            sceneLayerMap.remove(removedActorModel);
+            removeActorLayer(change.getValueRemoved());
         }
+    }
+
+    private void addActorLayer(ActorModel actorModel) {
+        View view = layerViewFactory.create(actorModel);
+        SceneLayerController controller = (SceneLayerController) view.getController();
+        controller.init(actorModel, playingSurfaceController);
+        super.addChild(controller);
+        sceneLayers.add(view);
+        sceneLayerMap.put(actorModel, view);
+        stackPane.getChildren().add(view.getRoot());
+    }
+
+    private void removeActorLayer(ActorModel actorModel) {
+        View view = sceneLayerMap.get(actorModel);
+        stackPane.getChildren().remove(sceneLayers.indexOf(view));
+        sceneLayers.remove(view);
+        sceneLayerMap.remove(actorModel);
     }
 
     @Override
@@ -117,8 +118,7 @@ public class Scene2DController extends SceneController {
         onObstacleCreationModeExited.fire(this);
         onBallCreationModeExited.fire(this);
         onNavigationModeEntered.fire(this);
-        ImageCursor imageCursor = FXUtils.chooseBestCursor("/images/cursors/pan-%1$sx%1$s.png", new int[]{32, 48, 96, 128}, 16, 16);
-        playingSurface.setCursor(imageCursor);
+        navigationController.enterNavigationMode();
     }
 
     @Override
