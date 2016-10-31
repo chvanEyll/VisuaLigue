@@ -9,7 +9,8 @@ public class PlayerState extends ActorState implements Cloneable {
     private KeyframeTransition positionTransition;
     private Double orientation;
 
-    private PlayerState() {
+    public PlayerState() {
+        //Required for JAXB instanciation.
     }
 
     public PlayerState(Vector2 position, KeyframeTransition positionTransition, Double orientation) {

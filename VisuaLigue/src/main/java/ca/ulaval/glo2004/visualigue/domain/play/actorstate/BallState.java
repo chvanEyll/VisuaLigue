@@ -3,13 +3,15 @@ package ca.ulaval.glo2004.visualigue.domain.play.actorstate;
 import ca.ulaval.glo2004.visualigue.domain.play.actorinstance.PlayerInstance;
 import ca.ulaval.glo2004.visualigue.utils.geometry.Vector2;
 import ca.ulaval.glo2004.visualigue.utils.math.easing.EasingFunction;
+import javax.xml.bind.annotation.XmlIDREF;
 
 public class BallState extends ActorState implements Cloneable {
 
+    @XmlIDREF
     private PlayerInstance owner;
 
-    private BallState() {
-
+    public BallState() {
+        //Required for JAXB instanciation.
     }
 
     public BallState(Vector2 position, PlayerInstance owner) {

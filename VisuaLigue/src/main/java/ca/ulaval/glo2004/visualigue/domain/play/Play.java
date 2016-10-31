@@ -81,7 +81,7 @@ public class Play extends DomainObject {
     }
 
     public ActorInstance getActorInstance(String actorInstanceUUID) {
-        return timelines.keySet().stream().filter(a -> a.getUUID() == actorInstanceUUID).findFirst().get();
+        return timelines.keySet().stream().filter(a -> a.getUUID().equals(actorInstanceUUID)).findFirst().get();
     }
 
     public ActorState mergeKeyframe(Integer time, ActorInstance actorInstance, ActorState actorState) {
@@ -89,7 +89,7 @@ public class Play extends DomainObject {
             Timeline timeline = timelines.get(actorInstance);
             return timeline.mergeKeyframe(time, actorInstance, actorState);
         } else {
-            Timeline timeline = new Timeline();
+            Timeline timeline = new Timeline(actorInstance);
             timelines.put(actorInstance, timeline);
             return null;
         }

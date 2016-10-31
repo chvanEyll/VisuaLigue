@@ -13,6 +13,10 @@ public class PlayerInstance extends ActorInstance {
     private PlayerCategory playerCategory;
     private TeamSide teamSide = TeamSide.ALLIES;
 
+    public PlayerInstance() {
+        //Required for JAXB instanciation.
+    }
+
     public PlayerInstance(PlayerCategory playerCategory, TeamSide teamSide) {
         this.playerCategory = playerCategory;
         this.teamSide = teamSide;

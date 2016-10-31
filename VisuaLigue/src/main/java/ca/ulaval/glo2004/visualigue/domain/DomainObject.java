@@ -4,10 +4,12 @@ import java.util.Objects;
 import java.util.UUID;
 import javax.xml.bind.annotation.XmlAccessType;
 import javax.xml.bind.annotation.XmlAccessorType;
+import javax.xml.bind.annotation.XmlID;
 
 @XmlAccessorType(XmlAccessType.FIELD)
 public class DomainObject implements Comparable<DomainObject> {
 
+    @XmlID
     protected String uuid;
     protected Boolean isDirty = false;
 

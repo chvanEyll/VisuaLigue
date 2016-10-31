@@ -4,14 +4,17 @@ import ca.ulaval.glo2004.visualigue.domain.DomainObject;
 import ca.ulaval.glo2004.visualigue.domain.play.actorinstance.ActorInstance;
 import ca.ulaval.glo2004.visualigue.domain.play.actorstate.ActorState;
 import ca.ulaval.glo2004.visualigue.utils.math.easing.ExponentialEaseOutFunction;
+import javax.xml.bind.annotation.XmlIDREF;
 
 public class Keyframe extends DomainObject {
 
     private Integer time;
+    @XmlIDREF
     private ActorInstance actorInstance;
     private ActorState actorState;
 
-    private Keyframe() {
+    public Keyframe() {
+        //Required for JAXB instanciation.
     }
 
     public Keyframe(Integer time, ActorInstance actor, ActorState actorState) {

@@ -12,6 +12,10 @@ public class ObstacleInstance extends ActorInstance {
     @XmlTransient
     private Obstacle obstacle;
 
+    public ObstacleInstance() {
+        //Required for JAXB instanciation.
+    }
+
     public ObstacleInstance(Obstacle obstacle) {
         this.obstacle = obstacle;
     }
