@@ -1,12 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<?import ca.ulaval.glo2004.visualigue.ui.controllers.common.SvgImage?>
 <?import ca.ulaval.glo2004.visualigue.ui.controllers.common.ExtendedScrollPane?>
-<?import javafx.scene.control.Button?>
 <?import javafx.scene.control.ScrollPane?>
-<?import javafx.scene.image.Image?>
-<?import javafx.scene.image.ImageView?>
-<?import javafx.scene.layout.Pane?>
 <?import javafx.scene.layout.StackPane?>
 
 <ExtendedScrollPane fx:id="scrollPane" styleClass="root-node, edge-to-edge, scene-container" xmlns="http://javafx.com/javafx/8.0.60" xmlns:fx="http://javafx.com/fxml/1" fx:controller="ca.ulaval.glo2004.visualigue.ui.controllers.playeditor.scene.scene2d.Scene2DController" onZoom="#onScrollPaneZoom" onZoomStarted="#onScrollPaneZoomStarted" onZoomFinished="#onScrollPaneZoomFinished" onTouchMoved="#onScrollPaneTouchMoved" onTouchPressed="#onScrollPaneTouchPressed" onMouseMoved="#onScrollPaneMouseMoved">
@@ -15,7 +10,7 @@
             <children>
                 <StackPane styleClass="scene" fx:id="stackPane" alignment="TOP_LEFT">
                     <children>
-                        <ImageView fx:id="playingSurface" fitHeight="372.0" fitWidth="800.0" pickOnBounds="true" onMousePressed="#onBackgroundMousePressed" onMouseDragged="#onBackgroundMouseDragged" onMouseReleased="#onBackgroundMouseReleased"/>
+                        <fx:include fx:id="playingSurface" source="/views/playeditor/scene2d/playing-surface.fxml" />
                     </children>
                 </StackPane>
             </children>

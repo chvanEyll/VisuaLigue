@@ -1,4 +1,4 @@
-package ca.ulaval.glo2004.visualigue.domain.play.timeline;
+package ca.ulaval.glo2004.visualigue.domain.play.actortimeline;
 
 import ca.ulaval.glo2004.visualigue.domain.DomainObject;
 import ca.ulaval.glo2004.visualigue.domain.play.actorinstance.ActorInstance;
@@ -9,17 +9,17 @@ import java.util.Optional;
 import java.util.TreeMap;
 import javax.xml.bind.annotation.XmlIDREF;
 
-public class Timeline extends DomainObject {
+public class ActorTimeline extends DomainObject {
 
     @XmlIDREF
     private ActorInstance actorInstance;
     private final TreeMap<Integer, Keyframe> keyframes = new TreeMap();
 
-    public Timeline() {
+    public ActorTimeline() {
         //Required for JAXB instanciation.
     }
 
-    public Timeline(ActorInstance actorInstance) {
+    public ActorTimeline(ActorInstance actorInstance) {
         this.actorInstance = actorInstance;
     }
 
