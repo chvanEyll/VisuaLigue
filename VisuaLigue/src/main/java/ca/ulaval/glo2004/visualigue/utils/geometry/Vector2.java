@@ -1,14 +1,10 @@
 package ca.ulaval.glo2004.visualigue.utils.geometry;
 
-import ca.ulaval.glo2004.visualigue.domain.DomainObject;
 import ca.ulaval.glo2004.visualigue.utils.math.easing.EasingFunction;
 import java.awt.Point;
 import javafx.geometry.Point2D;
-import javax.xml.bind.annotation.XmlAccessType;
-import javax.xml.bind.annotation.XmlAccessorType;
 
-@XmlAccessorType(XmlAccessType.FIELD)
-public class Vector2 extends DomainObject implements Cloneable {
+public class Vector2 implements Cloneable {
 
     private Double x;
     private Double y;

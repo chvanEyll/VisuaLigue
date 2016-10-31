@@ -8,14 +8,11 @@ import ca.ulaval.glo2004.visualigue.domain.xmladapters.XmlSportAdapter;
 import java.util.HashSet;
 import java.util.Set;
 import java.util.UUID;
-import javax.xml.bind.annotation.XmlAccessType;
-import javax.xml.bind.annotation.XmlAccessorType;
 import javax.xml.bind.annotation.XmlRootElement;
 import javax.xml.bind.annotation.XmlTransient;
 import javax.xml.bind.annotation.adapters.XmlJavaTypeAdapter;
 
 @XmlRootElement(name = "sport")
-@XmlAccessorType(XmlAccessType.FIELD)
 @XmlJavaTypeAdapter(XmlSportAdapter.class)
 public class Sport extends DomainObject {
 

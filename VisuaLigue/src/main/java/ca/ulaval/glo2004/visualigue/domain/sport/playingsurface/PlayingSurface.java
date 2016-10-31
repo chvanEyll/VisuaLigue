@@ -2,10 +2,7 @@ package ca.ulaval.glo2004.visualigue.domain.sport.playingsurface;
 
 import ca.ulaval.glo2004.visualigue.domain.DomainObject;
 import java.util.UUID;
-import javax.xml.bind.annotation.XmlAccessType;
-import javax.xml.bind.annotation.XmlAccessorType;
 
-@XmlAccessorType(XmlAccessType.FIELD)
 public class PlayingSurface extends DomainObject {
 
     private Double width = 100.0;

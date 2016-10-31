@@ -4,10 +4,7 @@ import ca.ulaval.glo2004.visualigue.domain.DomainObject;
 import ca.ulaval.glo2004.visualigue.domain.play.actorinstance.ActorInstance;
 import ca.ulaval.glo2004.visualigue.domain.play.actorstate.ActorState;
 import ca.ulaval.glo2004.visualigue.utils.math.easing.ExponentialEaseOutFunction;
-import javax.xml.bind.annotation.XmlAccessType;
-import javax.xml.bind.annotation.XmlAccessorType;
 
-@XmlAccessorType(XmlAccessType.FIELD)
 public class Keyframe extends DomainObject {
 
     private Integer time;

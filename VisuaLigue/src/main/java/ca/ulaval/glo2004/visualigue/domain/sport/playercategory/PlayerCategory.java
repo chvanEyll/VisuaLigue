@@ -3,13 +3,10 @@ package ca.ulaval.glo2004.visualigue.domain.sport.playercategory;
 import ca.ulaval.glo2004.visualigue.domain.DomainObject;
 import ca.ulaval.glo2004.visualigue.domain.xmladapters.XmlColorAdapter;
 import javafx.scene.paint.Color;
-import javax.xml.bind.annotation.XmlAccessType;
-import javax.xml.bind.annotation.XmlAccessorType;
 import javax.xml.bind.annotation.XmlRootElement;
 import javax.xml.bind.annotation.adapters.XmlJavaTypeAdapter;
 
 @XmlRootElement(name = "playerCategory")
-@XmlAccessorType(XmlAccessType.FIELD)
 public class PlayerCategory extends DomainObject {
 
     private String name;

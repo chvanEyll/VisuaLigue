@@ -3,12 +3,9 @@ package ca.ulaval.glo2004.visualigue.domain.play.actorinstance;
 import ca.ulaval.glo2004.visualigue.domain.sport.playercategory.PlayerCategory;
 import ca.ulaval.glo2004.visualigue.domain.xmladapters.XmlPlayerInstanceAdapter;
 import java.util.UUID;
-import javax.xml.bind.annotation.XmlAccessType;
-import javax.xml.bind.annotation.XmlAccessorType;
 import javax.xml.bind.annotation.XmlTransient;
 import javax.xml.bind.annotation.adapters.XmlJavaTypeAdapter;
 
-@XmlAccessorType(XmlAccessType.FIELD)
 @XmlJavaTypeAdapter(XmlPlayerInstanceAdapter.class)
 public class PlayerInstance extends ActorInstance {
 

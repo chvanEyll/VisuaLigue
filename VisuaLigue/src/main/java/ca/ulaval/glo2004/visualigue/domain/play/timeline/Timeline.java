@@ -1,16 +1,14 @@
 package ca.ulaval.glo2004.visualigue.domain.play.timeline;
 
+import ca.ulaval.glo2004.visualigue.domain.DomainObject;
 import ca.ulaval.glo2004.visualigue.domain.play.actorinstance.ActorInstance;
 import ca.ulaval.glo2004.visualigue.domain.play.actorstate.ActorState;
 import ca.ulaval.glo2004.visualigue.domain.play.keyframe.Keyframe;
 import java.util.Map;
 import java.util.Optional;
 import java.util.TreeMap;
-import javax.xml.bind.annotation.XmlAccessType;
-import javax.xml.bind.annotation.XmlAccessorType;
 
-@XmlAccessorType(XmlAccessType.FIELD)
-public class Timeline {
+public class Timeline extends DomainObject {
 
     private final TreeMap<Integer, Keyframe> keyframes = new TreeMap();
 

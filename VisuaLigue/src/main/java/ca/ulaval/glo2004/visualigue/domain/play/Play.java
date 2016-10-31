@@ -11,14 +11,11 @@ import ca.ulaval.glo2004.visualigue.domain.xmladapters.XmlPlayAdapter;
 import java.util.Optional;
 import java.util.TreeMap;
 import java.util.UUID;
-import javax.xml.bind.annotation.XmlAccessType;
-import javax.xml.bind.annotation.XmlAccessorType;
 import javax.xml.bind.annotation.XmlRootElement;
 import javax.xml.bind.annotation.XmlTransient;
 import javax.xml.bind.annotation.adapters.XmlJavaTypeAdapter;
 
 @XmlRootElement(name = "play")
-@XmlAccessorType(XmlAccessType.FIELD)
 @XmlJavaTypeAdapter(XmlPlayAdapter.class)
 public class Play extends DomainObject {
 
