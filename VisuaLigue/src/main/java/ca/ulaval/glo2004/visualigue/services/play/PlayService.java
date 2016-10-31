@@ -129,14 +129,9 @@ public class PlayService {
         return play.getFrame(time);
     }
 
-    public Integer getDefinedPlayLength(String playUUID) throws PlayNotFoundException {
+    public Integer getPlayLength(String playUUID) throws PlayNotFoundException {
         Play play = playRepository.get(playUUID);
-        return play.getDefinedLength();
-    }
-
-    public void extendPlayLength(String playUUID) throws PlayNotFoundException {
-        Play play = playRepository.get(playUUID);
-        play.setDefinedLength(play.getDefinedLength() + 1);
+        return play.getLength();
     }
 
     public Boolean isUndoAvailable(String playUUID) throws PlayNotFoundException {

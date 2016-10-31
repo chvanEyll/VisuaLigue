@@ -13,7 +13,7 @@ import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
 import javafx.scene.input.MouseEvent;
-import javafx.scene.layout.GridPane;
+import javafx.scene.layout.HBox;
 import javax.inject.Inject;
 
 public class SeekBarController extends ControllerBase {
@@ -21,7 +21,7 @@ public class SeekBarController extends ControllerBase {
     private static final Integer KEY_POINT_INTERVAL = 1000;
     public EventHandler<Integer> onTimeChanged = new EventHandler();
 
-    @FXML private GridPane keyframeGridPane;
+    @FXML private HBox keyframeHBox;
     @FXML private ExtendedScrollPane keyframeScrollPane;
     @FXML private Button seekBarThumb;
     @Inject private PlayService playService;
@@ -29,53 +29,54 @@ public class SeekBarController extends ControllerBase {
     private PlayModel playModel;
     private List<View> keyPoints = new ArrayList();
     private Integer time = 0;
-    private Integer playLength;
     private Double dragStartX;
 
     public void init(PlayModel playModel) {
         this.playModel = playModel;
         updateKeyPoints();
+        setTime(0, false);
     }
 
     @FXML
     protected void onNewFrameButtonAction(ActionEvent e) {
-        playService.extendPlayLength(playModel.getUUID());
         updateKeyPoints();
-        changeTime(time + KEY_POINT_INTERVAL, true);
+        setTime(time + KEY_POINT_INTERVAL, true);
     }
 
     private void updateKeyPoints() {
-        playLength = playService.getDefinedPlayLength(playModel.getUUID());
-        Integer numberOfKeyPoints = (int) Math.ceil(playLength / KEY_POINT_INTERVAL);
+        Integer numberOfKeyPoints = (int) Math.ceil(getPlayLength() / KEY_POINT_INTERVAL);
         if (numberOfKeyPoints > keyPoints.size()) {
-            for (Integer index = numberOfKeyPoints; index <= numberOfKeyPoints; index++) {
+            for (Integer i = keyPoints.size(); i <= numberOfKeyPoints; i++) {
                 addKeyPoint();
             }
         } else if (numberOfKeyPoints < keyPoints.size()) {
-            for (Integer index = keyPoints.size(); index > numberOfKeyPoints; index--) {
+            for (Integer i = keyPoints.size(); i > numberOfKeyPoints; i--) {
                 removeKeyPoint();
             }
         }
     }
 
+    private Integer getPlayLength() {
+        return playService.getPlayLength(playModel.getUUID());
+    }
+
     private void addKeyPoint() {
         View view = InjectableFXMLLoader.loadView(SeekBarKeyPointController.VIEW_NAME);
         SeekBarKeyPointController controller = (SeekBarKeyPointController) view.getController();
-        controller.init(keyPoints.size());
+        controller.init(keyPoints.size(), keyframeHBox);
         controller.onClick.setHandler(this::onKeyPointClicked);
-        keyframeGridPane.getChildren().add(view.getRoot());
-        GridPane.setColumnIndex(keyframeGridPane, keyPoints.size());
+        keyframeHBox.getChildren().add(view.getRoot());
         keyPoints.add(view);
     }
 
     private void removeKeyPoint() {
         View lastkeyPoint = keyPoints.get(keyPoints.size() - 1);
-        keyframeGridPane.getChildren().remove(lastkeyPoint.getRoot());
+        keyframeHBox.getChildren().remove(lastkeyPoint.getRoot());
         keyPoints.remove(lastkeyPoint);
     }
 
     private void onKeyPointClicked(Object sender, Integer index) {
-        changeTime(index * KEY_POINT_INTERVAL, true);
+        setTime(index * KEY_POINT_INTERVAL, true);
     }
 
     public Integer getTime() {
@@ -84,23 +85,23 @@ public class SeekBarController extends ControllerBase {
 
     public void goToNextKeyPoint() {
         Integer nextKeyPointTime = (int) Math.ceil(time / (double) KEY_POINT_INTERVAL) * KEY_POINT_INTERVAL;
-        if (nextKeyPointTime <= playLength) {
-            changeTime(nextKeyPointTime, false);
+        if (nextKeyPointTime <= getPlayLength()) {
+            setTime(nextKeyPointTime, false);
         }
     }
 
     public void goToPreviousKeyPoint() {
         Integer previousKeyPointTime = (int) Math.floor(time / (double) KEY_POINT_INTERVAL) * KEY_POINT_INTERVAL;
         if (previousKeyPointTime > 0) {
-            changeTime(previousKeyPointTime, false);
+            setTime(previousKeyPointTime, false);
         }
     }
 
-    public void changeTime(Integer time, Boolean snapToKeyPoint) {
+    public void setTime(Integer time, Boolean snapToKeyPoint) {
         if (snapToKeyPoint) {
             time = getNearestKeyPointTime(time);
         }
-        setTime(time);
+        setPointerLocation(time);
         onTimeChanged.fire(this, time);
     }
 
@@ -108,18 +109,18 @@ public class SeekBarController extends ControllerBase {
         return (int) Math.round(time / (double) KEY_POINT_INTERVAL) * KEY_POINT_INTERVAL;
     }
 
-    public void setTime(Integer time) {
+    public void setPointerLocation(Integer time) {
         this.time = time;
         seekBarThumb.setTranslateX(getPointerLocationFromTime());
         keyframeScrollPane.ensureVisible(seekBarThumb);
     }
 
     private Double getPointerLocationFromTime() {
-        return (time / playService.getDefinedPlayLength(playModel.getUUID())) * keyframeGridPane.getWidth() - seekBarThumb.getWidth() / 2;
+        return ((time / getPlayLength()) * keyframeHBox.getWidth()) - (seekBarThumb.getWidth() / 2);
     }
 
     private Integer getTimeFromPointerLocation() {
-        return (int) ((playService.getDefinedPlayLength(playModel.getUUID()) * (seekBarThumb.getTranslateX() + seekBarThumb.getWidth() / 2)) / keyframeGridPane.getWidth());
+        return (int) ((getPlayLength() * (seekBarThumb.getTranslateX() + seekBarThumb.getWidth() / 2)) / keyframeHBox.getWidth());
     }
 
     @FXML
@@ -131,12 +132,12 @@ public class SeekBarController extends ControllerBase {
     protected void onMouseDragged(MouseEvent e) {
         seekBarThumb.setTranslateX(seekBarThumb.getTranslateX() + e.getSceneX() - dragStartX);
         dragStartX = e.getSceneX();
-        changeTime(getTimeFromPointerLocation(), false);
+        setTime(getTimeFromPointerLocation(), false);
     }
 
     @FXML
     protected void onMouseReleased(MouseEvent e) {
-        changeTime(getTimeFromPointerLocation(), true);
+        setTime(getTimeFromPointerLocation(), true);
     }
 
 }

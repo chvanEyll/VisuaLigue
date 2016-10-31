@@ -150,14 +150,14 @@ public class SequencePaneController extends ControllerBase {
     }
 
     private void advanceTime(Integer period) {
-        playLength = playService.getDefinedPlayLength(playModel.getUUID());
+        playLength = playService.getPlayLength(playModel.getUUID());
         if (time + period >= 0 && time + period <= playLength) {
             time = time + period;
         } else if ((time + period > playLength && playDirection == PlayDirection.FORWARD) || (time + period < 0 && playDirection == PlayDirection.REVERSE)) {
             time = playLength;
             stop();
         }
-        seekBarController.changeTime(time, false);
+        seekBarController.setTime(time, false);
     }
 
     private void stop() {

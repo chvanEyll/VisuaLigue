@@ -25,7 +25,6 @@ public class Play extends DomainObject {
     @XmlTransient
     private Sport sport;
     private final TreeMap<ActorInstance, ActorTimeline> actorTimelines = new TreeMap();
-    private Integer definedLength = 0;
 
     public Play() {
         //Required for JAXB instanciation.
@@ -123,13 +122,5 @@ public class Play extends DomainObject {
             }
         });
         return frame;
-    }
-
-    public int getDefinedLength() {
-        return definedLength;
-    }
-
-    public void setDefinedLength(Integer definedLength) {
-        this.definedLength = Math.max(definedLength, getLength());
     }
 }

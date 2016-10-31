@@ -30,9 +30,6 @@
                     <styleClass>
                         <String fx:value="icon-button" />
                     </styleClass>
-                    <HBox.margin>
-                        <Insets right="4.0" />
-                    </HBox.margin>
                 </ExtendedButton>
                 <Button fx:id="fixedRewindButton">
                     <graphic>
@@ -59,8 +56,7 @@
                         </ContextMenu>
                     </contextMenu>
                     <styleClass>
-                        <String fx:value="borderless" />
-                        <String fx:value="medium" />
+                        <String fx:value="icon-button" />
                         <String fx:value="fixed-rewind-button" />
                     </styleClass>
                 </Button>
@@ -72,8 +68,7 @@
                         <Tooltip text="Image précédente" />
                     </tooltip>
                     <styleClass>
-                        <String fx:value="borderless" />
-                        <String fx:value="medium" />
+                        <String fx:value="icon-button" />
                     </styleClass>
                 </Button>
                 <Button fx:id="rewindButton" onAction="#onRewindButtonAction">
@@ -84,7 +79,7 @@
                         <Tooltip text="Reculer" />
                     </tooltip>
                     <styleClass>
-                        <String fx:value="borderless" />
+                        <String fx:value="icon-button" />
                     </styleClass>
                 </Button>
                 <Button fx:id="playButton" onAction="#onPlayButtonAction">
@@ -95,8 +90,7 @@
                         <Tooltip text="Débuter" />
                     </tooltip>
                     <styleClass>
-                        <String fx:value="borderless" />
-                        <String fx:value="medium" />
+                        <String fx:value="icon-button" />
                     </styleClass>
                 </Button>
                 <Button fx:id="pauseButton" onAction="#onPauseButtonAction">
@@ -107,8 +101,7 @@
                         <Tooltip text="Pause" />
                     </tooltip>
                     <styleClass>
-                        <String fx:value="borderless" />
-                        <String fx:value="medium" />
+                        <String fx:value="icon-button" />
                     </styleClass>
                 </Button>
                 <Button fx:id="fastForwardButton" onAction="#onFastForwardButtonAction">
@@ -119,8 +112,7 @@
                         <Tooltip text="Avancer" />
                     </tooltip>
                     <styleClass>
-                        <String fx:value="borderless" />
-                        <String fx:value="medium" />
+                        <String fx:value="icon-button" />
                     </styleClass>
                 </Button>
                 <Button fx:id="nextKeyPointButton" onAction="#onNextKeyPointButtonAction">
@@ -131,8 +123,7 @@
                         <Tooltip text="Image suivante" />
                     </tooltip>
                     <styleClass>
-                        <String fx:value="borderless" />
-                        <String fx:value="medium" />
+                        <String fx:value="icon-button" />
                     </styleClass>
                 </Button>
                 <Button fx:id="fixedForwardButton" onAction="#onFixedForwardButtonAction">
@@ -160,8 +151,7 @@
                         </ContextMenu>
                     </contextMenu>
                     <styleClass>
-                        <String fx:value="borderless" />
-                        <String fx:value="medium" />
+                        <String fx:value="icon-button" />
                         <String fx:value="fixed-forward-button" />
                     </styleClass>
                 </Button>

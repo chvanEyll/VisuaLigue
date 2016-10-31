@@ -1,7 +1,7 @@
 package ca.ulaval.glo2004.visualigue;
 
 import com.google.inject.Guice;
-import javax.inject.Injector;
+import com.google.inject.Injector;
 import javax.inject.Singleton;
 
 @Singleton

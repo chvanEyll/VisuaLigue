@@ -17,27 +17,24 @@
 
 <HBox fx:id="rootNode" styleClass="root-node" xmlns="http://javafx.com/javafx/8.0.60" xmlns:fx="http://javafx.com/fxml/1" fx:controller="ca.ulaval.glo2004.visualigue.ui.controllers.playeditor.sequencecontrol.SeekBarController">
     <children>
-        <ExtendedScrollPane fx:id="keyframeScrollPane" fitToHeight="true" fitToWidth="true" hbarPolicy="ALWAYS" pannable="true" style="-fx-background: transparent;" vbarPolicy="NEVER" HBox.hgrow="ALWAYS">
+        <ExtendedScrollPane fx:id="keyframeScrollPane" fitToHeight="true" fitToWidth="true" hbarPolicy="AS_NEEDED" pannable="true" style="-fx-background: transparent;" vbarPolicy="NEVER" HBox.hgrow="ALWAYS">
             <content>
                 <StackPane alignment="CENTER_LEFT">
                     <children>
-                        <GridPane fx:id="keyframeGridPane">
-                            <columnConstraints>
-                                <ColumnConstraints minWidth="45.0" percentWidth="7.692" />
-                            </columnConstraints>
-                            <children>
-                                <Pane maxHeight="5.0" prefHeight="5.0" styleClass="bar" GridPane.columnSpan="14" />
-
-                            </children>
-                        </GridPane>
-                        <Button fx:id="seekBarThumb" onMousePressed="#onMousePressed" onMouseDragged="#onMouseDragged" onMouseReleased="#onMouseReleased">
-                            <graphic>
-                                <SvgImage url="/images/seekbar-thumb.fxml" />
-                            </graphic>
-                            <styleClass>
-                                <String fx:value="icon-button" />
-                            </styleClass>
-                        </Button>
+                        <Pane maxHeight="5.0" prefHeight="5.0" styleClass="bar"/>
+                        <HBox alignment="CENTER_LEFT">
+                            <StackPane alignment="CENTER_LEFT">
+                                <HBox fx:id="keyframeHBox" spacing="20" alignment="CENTER_LEFT"/>
+                                <Button fx:id="seekBarThumb" onMousePressed="#onMousePressed" onMouseDragged="#onMouseDragged" onMouseReleased="#onMouseReleased">
+                                    <graphic>
+                                        <SvgImage url="/images/seekbar-thumb.fxml" />
+                                    </graphic>
+                                    <styleClass>
+                                        <String fx:value="icon-button" />
+                                    </styleClass>
+                                </Button>
+                            </StackPane>
+                        </HBox>
                     </children>
                     <padding>
                         <Insets bottom="10.0" top="10.0" />
@@ -56,9 +53,6 @@
             <styleClass>
                 <String fx:value="icon-button" />
             </styleClass>
-            <StackPane.margin>
-                <Insets />
-            </StackPane.margin>
             <tooltip>
                 <Tooltip text="Nouvelle image" />
             </tooltip>

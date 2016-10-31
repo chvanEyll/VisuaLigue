@@ -84,7 +84,7 @@
 }
 
 .sequence-control-buttons {
-    -fx-spacing: 5;
+    -fx-spacing: 14;
 }
 
 .sequence-control-buttons .fixed-rewind-button .label {
@@ -101,16 +101,12 @@
     -fx-background-color: #CCCCCC
 }
 
-.seekbar .seekbar-key-point {
-    -fx-cursor: hand;
+.seekbar .seekbar-key-point:hover .sto {
+    -fx-fill: #D9D5D3;
 }
 
-.seekbar .seekbar-key-point:hover {
-    -fx-background-color: #D9D5D3;
-}
-
-.seekbar .seekbar-key-point:hover {
-    -fx-background-color: #BFBFBF;
+.seekbar .seekbar-key-point:hover .sto {
+    -fx-fill: #BFBFBF;
 }
 
 .seekbar .seekbar-key-point .label {
