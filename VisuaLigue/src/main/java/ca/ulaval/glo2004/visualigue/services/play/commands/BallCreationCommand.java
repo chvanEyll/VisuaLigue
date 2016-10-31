@@ -6,20 +6,19 @@ import ca.ulaval.glo2004.visualigue.domain.play.actorinstance.BallInstance;
 import ca.ulaval.glo2004.visualigue.domain.play.actorinstance.PlayerInstance;
 import ca.ulaval.glo2004.visualigue.domain.play.actorstate.BallState;
 import ca.ulaval.glo2004.visualigue.utils.geometry.Vector2;
-import java.util.UUID;
 import javax.inject.Inject;
 
 public class BallCreationCommand implements Command {
 
     private Play play;
     private Integer time;
-    private UUID ownerPlayerInstanceUUID;
+    private String ownerPlayerInstanceUUID;
     private Vector2 position;
     @Inject private PlayRepository playRepository;
 
     private BallInstance ballInstance;
 
-    public BallCreationCommand(Play play, Integer time, UUID ownerPlayerInstanceUUID, Vector2 position) {
+    public BallCreationCommand(Play play, Integer time, String ownerPlayerInstanceUUID, Vector2 position) {
         this.play = play;
         this.time = time;
         this.ownerPlayerInstanceUUID = ownerPlayerInstanceUUID;

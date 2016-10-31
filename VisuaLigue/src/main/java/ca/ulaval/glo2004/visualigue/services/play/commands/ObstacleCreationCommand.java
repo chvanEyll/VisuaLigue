@@ -8,21 +8,20 @@ import ca.ulaval.glo2004.visualigue.domain.play.PlayRepository;
 import ca.ulaval.glo2004.visualigue.domain.play.actorinstance.ObstacleInstance;
 import ca.ulaval.glo2004.visualigue.domain.play.actorstate.ObstacleState;
 import ca.ulaval.glo2004.visualigue.utils.geometry.Vector2;
-import java.util.UUID;
 import javax.inject.Inject;
 
 public class ObstacleCreationCommand implements Command {
 
     private Play play;
     private Integer time;
-    private UUID obstacleInstanceUUID;
+    private String obstacleInstanceUUID;
     private Vector2 position;
     @Inject private PlayRepository playRepository;
     @Inject private ObstacleRepository obstacleRepository;
 
     private ObstacleInstance obstacleInstance;
 
-    public ObstacleCreationCommand(Play play, Integer time, UUID obstacleInstanceUUID, Vector2 position) {
+    public ObstacleCreationCommand(Play play, Integer time, String obstacleInstanceUUID, Vector2 position) {
         this.time = time;
         this.obstacleInstanceUUID = obstacleInstanceUUID;
         this.position = position;

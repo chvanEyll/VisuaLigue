@@ -20,9 +20,10 @@ public class PlayModelConverter {
     }
 
     public PlayModel convert(Play play) {
-        PlayModel model = new PlayModel(play.getTitle());
+        PlayModel model = new PlayModel();
         model.setUUID(play.getUUID());
         model.setIsNew(false);
+        model.title.set(play.getTitle());
         if (play.hasThumbnail()) {
             model.thumbnailImagePathName.set(imageRepository.get(play.getThumbnailImageUUID()));
         }

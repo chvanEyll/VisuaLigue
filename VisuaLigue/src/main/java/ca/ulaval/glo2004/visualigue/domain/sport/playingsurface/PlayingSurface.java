@@ -1,7 +1,6 @@
 package ca.ulaval.glo2004.visualigue.domain.sport.playingsurface;
 
 import ca.ulaval.glo2004.visualigue.domain.DomainObject;
-import java.util.UUID;
 
 public class PlayingSurface extends DomainObject {
 
@@ -9,7 +8,7 @@ public class PlayingSurface extends DomainObject {
     private Double length = 200.0;
     private PlayingSurfaceUnit widthUnits = PlayingSurfaceUnit.METER;
     private PlayingSurfaceUnit lengthUnits = PlayingSurfaceUnit.METER;
-    private UUID customImageUUID;
+    private String customImageUUID;
     private String builtInImagePathName = "/images/built-in-playing-surfaces/generic-playing-surface.png";
 
     public PlayingSurface() {
@@ -55,11 +54,11 @@ public class PlayingSurface extends DomainObject {
         this.lengthUnits = lengthUnits;
     }
 
-    public UUID getCustomImageUUID() {
+    public String getCustomImageUUID() {
         return customImageUUID;
     }
 
-    public void setCustomImageUUID(UUID customImageUUID) {
+    public void setCustomImageUUID(String customImageUUID) {
         this.customImageUUID = customImageUUID;
     }
 

@@ -18,7 +18,6 @@ import ca.ulaval.glo2004.visualigue.utils.javafx.FXUtils;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
-import java.util.UUID;
 import javafx.beans.property.StringProperty;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
@@ -64,7 +63,7 @@ public class SportCreationController extends ControllerBase {
         initView();
     }
 
-    public void init(UUID sportUUID) throws SportNotFoundException {
+    public void init(String sportUUID) throws SportNotFoundException {
         Sport sport = sportService.getSport(sportUUID);
         model = sportCreationModelConverter.convert(sport);
         initView();
@@ -147,7 +146,7 @@ public class SportCreationController extends ControllerBase {
     }
 
     private void saveChanges() throws SportAlreadyExistsException {
-        UUID sportUuid;
+        String sportUuid;
         if (model.isNew()) {
             sportUuid = sportService.createSport(StringUtils.trim(model.name.get()));
         } else {
@@ -161,27 +160,27 @@ public class SportCreationController extends ControllerBase {
         onViewCloseRequested.fire(this, new ViewFlowRequestEventArgs());
     }
 
-    private void applyIconChanges(UUID sportUuid) {
+    private void applyIconChanges(String sportUuid) {
         if (model.newIconPathName.isNotEmpty().get()) {
             sportService.updateIcon(sportUuid, model.newIconPathName.get());
         }
     }
 
-    private void applyBallChanges(UUID sportUuid) {
+    private void applyBallChanges(String sportUuid) {
         sportService.updateBall(sportUuid, StringUtils.trim(model.name.get()));
         if (model.newBallImagePathName.isNotEmpty().get()) {
             sportService.updateBallImage(sportUuid, model.newBallImagePathName.get());
         }
     }
 
-    private void applyPlayingSurfaceChanges(UUID sportUuid) {
+    private void applyPlayingSurfaceChanges(String sportUuid) {
         sportService.updatePlayingSurface(sportUuid, model.playingSurfaceWidth.get(), model.playingSurfaceLength.get(), model.playingSurfaceWidthUnits.get(), model.playingSurfaceLengthUnits.get());
         if (model.newPlayingSurfaceImagePathName.isNotEmpty().get()) {
             sportService.updatePlayingSurfaceImage(sportUuid, model.newPlayingSurfaceImagePathName.get());
         }
     }
 
-    private void applyCategoryChanges(UUID sportUuid) {
+    private void applyCategoryChanges(String sportUuid) {
         ObservableList<PlayerCategoryModel> playerCategoryModels = model.playerCategoryModels;
         for (PlayerCategoryModel playerCategoryModel : model.playerCategoryModels) {
             if (playerCategoryModel.isNew()) {

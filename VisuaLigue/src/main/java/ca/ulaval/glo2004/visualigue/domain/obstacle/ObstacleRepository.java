@@ -1,17 +1,16 @@
 package ca.ulaval.glo2004.visualigue.domain.obstacle;
 
 import java.util.List;
-import java.util.UUID;
 import java.util.function.Function;
 import javax.swing.SortOrder;
 
 public interface ObstacleRepository {
 
-    UUID persist(Obstacle obstacle) throws ObstacleAlreadyExistsException;
+    String persist(Obstacle obstacle) throws ObstacleAlreadyExistsException;
 
     void update(Obstacle obstacle);
 
-    Obstacle get(UUID uuid) throws ObstacleNotFoundException;
+    Obstacle get(String uuid) throws ObstacleNotFoundException;
 
     void delete(Obstacle obstacle) throws ObstacleNotFoundException;
 

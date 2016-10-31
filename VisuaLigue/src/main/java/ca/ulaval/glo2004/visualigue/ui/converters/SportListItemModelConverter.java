@@ -15,9 +15,10 @@ public class SportListItemModelConverter {
     }
 
     public SportListItemModel convert(Sport sport) {
-        SportListItemModel model = new SportListItemModel(sport.getName());
+        SportListItemModel model = new SportListItemModel();
         model.setUUID(sport.getUUID());
         model.setIsNew(false);
+        model.name.set(sport.getName());
         if (sport.hasCustomIcon()) {
             model.customIconPathName.set(imageRepository.get(sport.getCustomIconUUID()));
         }

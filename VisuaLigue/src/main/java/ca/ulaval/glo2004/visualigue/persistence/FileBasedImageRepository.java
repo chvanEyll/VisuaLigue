@@ -21,8 +21,8 @@ public class FileBasedImageRepository implements ImageRepository {
     }
 
     @Override
-    public UUID persist(String sourceImagePathName) {
-        UUID uuid = UUID.randomUUID();
+    public String persist(String sourceImagePathName) {
+        String uuid = UUID.randomUUID().toString();
         String storedFileName = getStoredFileName(uuid);
         try {
             FileUtils.copyFile(new File(sourceImagePathName), new File(storedFileName));
@@ -33,7 +33,7 @@ public class FileBasedImageRepository implements ImageRepository {
     }
 
     @Override
-    public UUID replace(UUID oldUUID, String newSourceImagePathName) {
+    public String replace(String oldUUID, String newSourceImagePathName) {
         if (oldUUID != null) {
             delete(oldUUID);
         }
@@ -41,12 +41,12 @@ public class FileBasedImageRepository implements ImageRepository {
     }
 
     @Override
-    public String get(UUID uuid) {
+    public String get(String uuid) {
         return new File(getStoredFileName(uuid)).getAbsolutePath();
     }
 
     @Override
-    public void delete(UUID uuid) {
+    public void delete(String uuid) {
         FileUtils.deleteQuietly(new File(getStoredFileName(uuid)));
     }
 
@@ -58,7 +58,7 @@ public class FileBasedImageRepository implements ImageRepository {
         });
     }
 
-    private String getStoredFileName(UUID uuid) {
+    private String getStoredFileName(String uuid) {
         return String.format("%s/%s.%s", REPOSITORY_NAME, uuid, IMAGE_FORMAT);
     }
 }

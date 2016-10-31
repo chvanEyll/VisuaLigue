@@ -1,19 +1,17 @@
 package ca.ulaval.glo2004.visualigue.ui.models;
 
-import java.util.UUID;
-
 public class ModelBase {
 
-    private UUID uuid;
+    private String uuid;
     private Boolean isNew = true;
     private Boolean isDirty = false;
     private Boolean isDeleted = false;
 
-    public UUID getUUID() {
+    public String getUUID() {
         return uuid;
     }
 
-    public void setUUID(UUID uuid) {
+    public void setUUID(String uuid) {
         this.uuid = uuid;
     }
 

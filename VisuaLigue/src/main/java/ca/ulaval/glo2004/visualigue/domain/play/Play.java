@@ -10,7 +10,6 @@ import ca.ulaval.glo2004.visualigue.domain.sport.Sport;
 import ca.ulaval.glo2004.visualigue.domain.xmladapters.XmlPlayAdapter;
 import java.util.Optional;
 import java.util.TreeMap;
-import java.util.UUID;
 import javax.xml.bind.annotation.XmlRootElement;
 import javax.xml.bind.annotation.XmlTransient;
 import javax.xml.bind.annotation.adapters.XmlJavaTypeAdapter;
@@ -21,8 +20,8 @@ public class Play extends DomainObject {
 
     private String title;
     private String defaultThumbnailImage = "/images/generic-play-thumbnail.png";
-    private UUID thumbnailImageUUID;
-    private UUID sportUUID;
+    private String thumbnailImageUUID;
+    private String sportUUID;
     @XmlTransient
     private Sport sport;
     private final TreeMap<ActorInstance, Timeline> timelines = new TreeMap();
@@ -45,11 +44,11 @@ public class Play extends DomainObject {
         this.title = title;
     }
 
-    public UUID getThumbnailImageUUID() {
+    public String getThumbnailImageUUID() {
         return thumbnailImageUUID;
     }
 
-    public void setThumbnailImageUUID(UUID thumbnailImageUUID) {
+    public void setThumbnailImageUUID(String thumbnailImageUUID) {
         this.thumbnailImageUUID = thumbnailImageUUID;
     }
 
@@ -65,11 +64,11 @@ public class Play extends DomainObject {
         this.defaultThumbnailImage = defaultThumbnailImage;
     }
 
-    public UUID getSportUUID() {
+    public String getSportUUID() {
         return sportUUID;
     }
 
-    public void setSportUUID(UUID sportUUID) {
+    public void setSportUUID(String sportUUID) {
         this.sportUUID = sportUUID;
     }
 
@@ -81,7 +80,7 @@ public class Play extends DomainObject {
         this.sport = sport;
     }
 
-    public ActorInstance getActorInstance(UUID actorInstanceUUID) {
+    public ActorInstance getActorInstance(String actorInstanceUUID) {
         return timelines.keySet().stream().filter(a -> a.getUUID() == actorInstanceUUID).findFirst().get();
     }
 

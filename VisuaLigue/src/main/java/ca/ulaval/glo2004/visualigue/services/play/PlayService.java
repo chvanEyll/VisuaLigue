@@ -23,8 +23,8 @@ public class PlayService {
     private final PlayFactory playFactory;
     private final SportRepository sportRepository;
 
-    private final Map<UUID, Deque<Command>> undoStackMap = new HashMap();
-    private final Map<UUID, Deque<Command>> redoStackMap = new HashMap();
+    private final Map<String, Deque<Command>> undoStackMap = new HashMap();
+    private final Map<String, Deque<Command>> redoStackMap = new HashMap();
 
     public EventHandler<Play> onPlayCreated = new EventHandler();
     public EventHandler<Play> onPlayUpdated = new EventHandler();
@@ -40,7 +40,7 @@ public class PlayService {
         this.sportRepository = sportRepository;
     }
 
-    public UUID createPlay(String name, UUID sportUUID) throws PlayAlreadyExistsException, SportNotFoundException {
+    public String createPlay(String name, String sportUUID) throws PlayAlreadyExistsException, SportNotFoundException {
         Sport sport = sportRepository.get(sportUUID);
         Play play = playFactory.create(name, sport);
         playRepository.persist(play);
@@ -49,20 +49,20 @@ public class PlayService {
         return play.getUUID();
     }
 
-    public void updatePlayTitle(UUID playUUID, String title) throws PlayNotFoundException {
+    public void updatePlayTitle(String playUUID, String title) throws PlayNotFoundException {
         Play play = playRepository.get(playUUID);
         play.setTitle(title);
         setDirty(playUUID, true);
         onPlayUpdated.fire(this, play);
     }
 
-    public void deletePlay(UUID playUUID) throws PlayNotFoundException {
+    public void deletePlay(String playUUID) throws PlayNotFoundException {
         Play play = playRepository.get(playUUID);
         playRepository.delete(play);
         onPlayDeleted.fire(this, play);
     }
 
-    public Play getPlay(UUID playUUID) throws PlayNotFoundException {
+    public Play getPlay(String playUUID) throws PlayNotFoundException {
         return playRepository.get(playUUID);
     }
 
@@ -70,76 +70,76 @@ public class PlayService {
         return playRepository.getAll(sortFunction, sortOrder);
     }
 
-    public void addPlayer(UUID playUUID, Integer time, UUID playerCategoryUUID, TeamSide teamSide, Double orientation, Vector2 position) throws Exception {
+    public void addPlayer(String playUUID, Integer time, String playerCategoryUUID, TeamSide teamSide, Double orientation, Vector2 position) throws Exception {
         Play play = playRepository.get(playUUID);
         PlayerCreationCommand command = new PlayerCreationCommand(play, time, playerCategoryUUID, teamSide, orientation, position);
         executeNewCommand(playUUID, command);
     }
 
-    public void updatePlayerPositionDirect(UUID playUUID, Integer time, UUID ownerPlayerInstanceUUID, Vector2 position) throws Exception {
+    public void updatePlayerPositionDirect(String playUUID, Integer time, String ownerPlayerInstanceUUID, Vector2 position) throws Exception {
         Play play = playRepository.get(playUUID);
         PlayerPositionUpdateDirectCommand command = new PlayerPositionUpdateDirectCommand(play, time, ownerPlayerInstanceUUID, position);
         executeNewCommand(playUUID, command);
     }
 
-    public void updatePlayerPositionFreeform(UUID playUUID, Integer time, UUID ownerPlayerInstanceUUID, Vector2 position, KeyframeTransition positionTransition) throws Exception {
+    public void updatePlayerPositionFreeform(String playUUID, Integer time, String ownerPlayerInstanceUUID, Vector2 position, KeyframeTransition positionTransition) throws Exception {
         Play play = playRepository.get(playUUID);
         PlayerPositionUpdateFreeformCommand command = new PlayerPositionUpdateFreeformCommand(play, time, ownerPlayerInstanceUUID, position, positionTransition);
         executeNewCommand(playUUID, command);
     }
 
-    public void updatePlayerOrientation(UUID playUUID, Integer time, UUID ownerPlayerInstanceUUID, Double orientation) throws Exception {
+    public void updatePlayerOrientation(String playUUID, Integer time, String ownerPlayerInstanceUUID, Double orientation) throws Exception {
         Play play = playRepository.get(playUUID);
         PlayerOrientationUpdateCommand command = new PlayerOrientationUpdateCommand(play, time, ownerPlayerInstanceUUID, orientation);
         executeNewCommand(playUUID, command);
     }
 
-    public void addObstacle(UUID playUUID, Integer time, UUID obstacleInstanceUUID, Vector2 position) throws Exception {
+    public void addObstacle(String playUUID, Integer time, String obstacleInstanceUUID, Vector2 position) throws Exception {
         Play play = playRepository.get(playUUID);
         ObstacleCreationCommand command = new ObstacleCreationCommand(play, time, obstacleInstanceUUID, position);
         executeNewCommand(playUUID, command);
     }
 
-    public void addBall(UUID playUUID, Integer time, UUID ownerPlayerInstanceUUID, Vector2 position) throws Exception {
+    public void addBall(String playUUID, Integer time, String ownerPlayerInstanceUUID, Vector2 position) throws Exception {
         Play play = playRepository.get(playUUID);
         BallCreationCommand command = new BallCreationCommand(play, time, ownerPlayerInstanceUUID, position);
         executeNewCommand(playUUID, command);
     }
 
-    public void updateBall(UUID playUUID, Integer time, UUID ballInstanceUUID, UUID ownerPlayerInstanceUUID, Vector2 position) throws Exception {
+    public void updateBall(String playUUID, Integer time, String ballInstanceUUID, String ownerPlayerInstanceUUID, Vector2 position) throws Exception {
         Play play = playRepository.get(playUUID);
         BallUpdateCommand command = new BallUpdateCommand(play, time, ballInstanceUUID, ownerPlayerInstanceUUID, position);
         executeNewCommand(playUUID, command);
     }
 
-    public void savePlay(UUID playUUID) throws PlayNotFoundException {
+    public void savePlay(String playUUID) throws PlayNotFoundException {
         Play play = playRepository.get(playUUID);
         playRepository.update(play);
         setDirty(playUUID, false);
     }
 
-    public void discardChanges(UUID playUUID) throws PlayNotFoundException {
+    public void discardChanges(String playUUID) throws PlayNotFoundException {
         Play play = playRepository.get(playUUID);
         playRepository.discard(play);
         setDirty(playUUID, false);
     }
 
-    public Frame getFrame(UUID playUUID, Integer time) throws PlayNotFoundException {
+    public Frame getFrame(String playUUID, Integer time) throws PlayNotFoundException {
         Play play = playRepository.get(playUUID);
         return play.getFrame(time);
     }
 
-    public Integer getDefinedPlayLength(UUID playUUID) throws PlayNotFoundException {
+    public Integer getDefinedPlayLength(String playUUID) throws PlayNotFoundException {
         Play play = playRepository.get(playUUID);
         return play.getDefinedLength();
     }
 
-    public void extendPlayLength(UUID playUUID) throws PlayNotFoundException {
+    public void extendPlayLength(String playUUID) throws PlayNotFoundException {
         Play play = playRepository.get(playUUID);
         play.setDefinedLength(play.getDefinedLength() + 1);
     }
 
-    public Boolean isUndoAvailable(UUID playUUID) throws PlayNotFoundException {
+    public Boolean isUndoAvailable(String playUUID) throws PlayNotFoundException {
         if (undoStackMap.containsKey(playUUID)) {
             return undoStackMap.get(playUUID).size() > 0;
         } else {
@@ -147,7 +147,7 @@ public class PlayService {
         }
     }
 
-    public Boolean isRedoAvailable(UUID playUUID) throws PlayNotFoundException {
+    public Boolean isRedoAvailable(String playUUID) throws PlayNotFoundException {
         if (redoStackMap.containsKey(playUUID)) {
             return redoStackMap.get(playUUID).size() > 0;
         } else {
@@ -155,7 +155,7 @@ public class PlayService {
         }
     }
 
-    public void undo(UUID playUUID) throws PlayNotFoundException {
+    public void undo(String playUUID) throws PlayNotFoundException {
         if (!isUndoAvailable(playUUID)) {
             throw new IllegalStateException("Undo operation is not permitted at this time.");
         }
@@ -166,7 +166,7 @@ public class PlayService {
         onUndoAvailabilityChanged.fire(this, isUndoAvailable(playUUID));
     }
 
-    public void redo(UUID playUUID) throws PlayNotFoundException {
+    public void redo(String playUUID) throws PlayNotFoundException {
         if (!isRedoAvailable(playUUID)) {
             throw new IllegalStateException("Redo operation is not permitted at this time.");
         }
@@ -177,7 +177,7 @@ public class PlayService {
         onRedoAvailabilityChanged.fire(this, isRedoAvailable(playUUID));
     }
 
-    private void executeNewCommand(UUID playUUID, Command command) {
+    private void executeNewCommand(String playUUID, Command command) {
         command.execute();
         setDirty(playUUID, true);
         if (!undoStackMap.containsKey(playUUID)) {
@@ -190,13 +190,13 @@ public class PlayService {
         undoStackMap.get(playUUID).push(command);
     }
 
-    private void setDirty(UUID playUUID, Boolean dirty) throws PlayNotFoundException {
+    private void setDirty(String playUUID, Boolean dirty) throws PlayNotFoundException {
         Play play = playRepository.get(playUUID);
         play.setDirty(dirty);
         onPlayDirtyFlagChanged.fire(this, play);
     }
 
-    public Boolean isPlayDirty(UUID playUUID) throws PlayNotFoundException {
+    public Boolean isPlayDirty(String playUUID) throws PlayNotFoundException {
         Play play = playRepository.get(playUUID);
         return play.isDirty();
     }

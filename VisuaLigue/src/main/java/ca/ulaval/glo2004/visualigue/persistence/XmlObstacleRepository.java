@@ -9,7 +9,6 @@ import ca.ulaval.glo2004.visualigue.utils.ListUtils;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
-import java.util.UUID;
 import java.util.function.Function;
 import java.util.stream.Collectors;
 import javax.inject.Inject;
@@ -20,7 +19,7 @@ import javax.swing.SortOrder;
 public class XmlObstacleRepository implements ObstacleRepository {
 
     private final XmlRepositoryMarshaller<Obstacle> xmlRepositoryMarshaller;
-    private final Map<UUID, Obstacle> obstacles;
+    private final Map<String, Obstacle> obstacles;
 
     @Inject
     public XmlObstacleRepository(XmlRepositoryMarshaller<Obstacle> xmlRepositoryMarshaller) {
@@ -29,7 +28,7 @@ public class XmlObstacleRepository implements ObstacleRepository {
     }
 
     @Override
-    public UUID persist(Obstacle obstacle) throws ObstacleAlreadyExistsException {
+    public String persist(Obstacle obstacle) throws ObstacleAlreadyExistsException {
         if (obstacles.containsValue(obstacle)) {
             throw new ObstacleAlreadyExistsException(String.format("An obstacle with UUID '%s' already exists.", obstacle.getUUID()));
         }
@@ -56,7 +55,7 @@ public class XmlObstacleRepository implements ObstacleRepository {
     }
 
     @Override
-    public Obstacle get(UUID uuid) throws ObstacleNotFoundException {
+    public Obstacle get(String uuid) throws ObstacleNotFoundException {
         Obstacle obstacle = obstacles.get(uuid);
         if (obstacle == null) {
             throw new ObstacleNotFoundException(String.format("Cannot find obstacle with UUID '%s'.", uuid));

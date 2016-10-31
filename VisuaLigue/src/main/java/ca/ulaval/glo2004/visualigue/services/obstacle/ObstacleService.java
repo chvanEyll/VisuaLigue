@@ -7,7 +7,6 @@ import ca.ulaval.glo2004.visualigue.domain.obstacle.ObstacleNotFoundException;
 import ca.ulaval.glo2004.visualigue.domain.obstacle.ObstacleRepository;
 import ca.ulaval.glo2004.visualigue.utils.EventHandler;
 import java.util.List;
-import java.util.UUID;
 import java.util.function.Function;
 import javax.inject.Inject;
 import javax.inject.Singleton;
@@ -31,34 +30,34 @@ public class ObstacleService {
         this.obstacleFactory = obstacleFactory;
     }
 
-    public UUID createObstacle(String name) {
+    public String createObstacle(String name) {
         Obstacle obstacle = obstacleFactory.create(name);
         obstacleRepository.persist(obstacle);
         onObstacleCreated.fire(this, obstacle);
         return obstacle.getUUID();
     }
 
-    public void updateObstacle(UUID obstacleInstanceUUID, String name) throws ObstacleNotFoundException {
+    public void updateObstacle(String obstacleInstanceUUID, String name) throws ObstacleNotFoundException {
         Obstacle obstacle = obstacleRepository.get(obstacleInstanceUUID);
         obstacle.setName(name);
         obstacleRepository.update(obstacle);
         onObstacleUpdated.fire(this, obstacle);
     }
 
-    public void updateObstacleImage(UUID sportUUID, String sourceImagePathName) throws ObstacleNotFoundException {
+    public void updateObstacleImage(String sportUUID, String sourceImagePathName) throws ObstacleNotFoundException {
         Obstacle obstacle = obstacleRepository.get(sportUUID);
-        UUID imageUuid = imageRepository.replace(obstacle.getCustomImageUUID(), sourceImagePathName);
+        String imageUuid = imageRepository.replace(obstacle.getCustomImageUUID(), sourceImagePathName);
         obstacle.setCustomImageUUID(imageUuid);
         obstacleRepository.update(obstacle);
     }
 
-    public void deleteObstacle(UUID obstacleInstanceUUID) throws ObstacleNotFoundException {
+    public void deleteObstacle(String obstacleInstanceUUID) throws ObstacleNotFoundException {
         Obstacle obstacle = obstacleRepository.get(obstacleInstanceUUID);
         obstacleRepository.delete(obstacle);
         onObstacleDeleted.fire(this, obstacle);
     }
 
-    public Obstacle getObstacle(UUID obstacleInstanceUUID) throws ObstacleNotFoundException {
+    public Obstacle getObstacle(String obstacleInstanceUUID) throws ObstacleNotFoundException {
         return obstacleRepository.get(obstacleInstanceUUID);
     }
 

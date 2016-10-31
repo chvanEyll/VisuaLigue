@@ -6,7 +6,6 @@ import java.io.InputStream;
 import java.io.OutputStream;
 import java.util.Collection;
 import java.util.Map;
-import java.util.UUID;
 import java.util.concurrent.ConcurrentHashMap;
 import javax.inject.Inject;
 import javax.xml.bind.Marshaller;
@@ -41,19 +40,19 @@ public class XmlRepositoryMarshaller<T> extends XmlMarshaller<T> {
         this.rootXmlAdapter = rootXmlAdapter;
     }
 
-    public synchronized Map<UUID, T> unmarshalAll() {
-        Map<UUID, T> objects = new ConcurrentHashMap();
+    public synchronized Map<String, T> unmarshalAll() {
+        Map<String, T> objects = new ConcurrentHashMap();
         if (FileUtils.directoryExists(repositoryName)) {
             Collection<File> files = FileUtils.listFiles(new File(repositoryName), null, false);
             files.forEach(file -> {
-                UUID uuid = UUID.fromString(FilenameUtils.removeExtension(file.getName()));
+                String uuid = FilenameUtils.removeExtension(file.getName());
                 objects.put(uuid, unmarshal(uuid));
             });
         }
         return objects;
     }
 
-    public synchronized T unmarshal(UUID uuid) {
+    public synchronized T unmarshal(String uuid) {
         InputStream inputStream = null;
         try {
             File file = new File(getFileName(uuid));
@@ -71,7 +70,7 @@ public class XmlRepositoryMarshaller<T> extends XmlMarshaller<T> {
         }
     }
 
-    public synchronized void marshal(T object, UUID uuid) {
+    public synchronized void marshal(T object, String uuid) {
         OutputStream outputStream = null;
         try {
             File file = FileUtils.createFile(getFileName(uuid));
@@ -87,12 +86,12 @@ public class XmlRepositoryMarshaller<T> extends XmlMarshaller<T> {
         }
     }
 
-    public synchronized void remove(UUID uuid) {
+    public synchronized void remove(String uuid) {
         File file = new File(getFileName(uuid));
         file.delete();
     }
 
-    private String getFileName(UUID uuid) {
+    private String getFileName(String uuid) {
         return String.format("%s/%s.xml", repositoryName, uuid);
     }
 }

@@ -2,14 +2,13 @@ package ca.ulaval.glo2004.visualigue.domain.play.actorinstance;
 
 import ca.ulaval.glo2004.visualigue.domain.obstacle.Obstacle;
 import ca.ulaval.glo2004.visualigue.domain.xmladapters.XmlObstacleInstanceAdapter;
-import java.util.UUID;
 import javax.xml.bind.annotation.XmlTransient;
 import javax.xml.bind.annotation.adapters.XmlJavaTypeAdapter;
 
 @XmlJavaTypeAdapter(XmlObstacleInstanceAdapter.class)
 public class ObstacleInstance extends ActorInstance {
 
-    private UUID obstacleUUID;
+    private String obstacleUUID;
     @XmlTransient
     private Obstacle obstacle;
 
@@ -17,11 +16,11 @@ public class ObstacleInstance extends ActorInstance {
         this.obstacle = obstacle;
     }
 
-    public UUID getObstacleUUID() {
+    public String getObstacleUUID() {
         return obstacleUUID;
     }
 
-    public void setObstacleUUID(UUID obstacleUUID) {
+    public void setObstacleUUID(String obstacleUUID) {
         this.obstacleUUID = obstacleUUID;
     }
 

@@ -9,7 +9,6 @@ import ca.ulaval.glo2004.visualigue.ui.models.ObstacleModel;
 import ca.ulaval.glo2004.visualigue.utils.javafx.FXUtils;
 import ca.ulaval.glo2004.visualigue.utils.FilenameUtils;
 import java.io.File;
-import java.util.UUID;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
@@ -58,7 +57,7 @@ public class ObstacleListItemEditionController extends ListItemEditionController
     protected void onValidateButtonAction(ActionEvent e) throws ObstacleNotFoundException {
         if (validate()) {
             if (model.isNew()) {
-                UUID obstacleInstanceUUID = obstacleService.createObstacle(StringUtils.trim(model.name.get()));
+                String obstacleInstanceUUID = obstacleService.createObstacle(StringUtils.trim(model.name.get()));
                 model.setUUID(obstacleInstanceUUID);
                 model.setIsNew(false);
             } else {

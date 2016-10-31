@@ -1,12 +1,11 @@
 package ca.ulaval.glo2004.visualigue.domain.sport.ball;
 
 import ca.ulaval.glo2004.visualigue.domain.DomainObject;
-import java.util.UUID;
 
 public class Ball extends DomainObject {
 
     private String name = "Ballon";
-    private UUID customImageUUID;
+    private String customImageUUID;
     private String builtInImagePathName = "/images/built-in-ball-icons/generic-ball-icon.fxml";
 
     public Ball() {
@@ -25,11 +24,11 @@ public class Ball extends DomainObject {
         this.name = name;
     }
 
-    public UUID getCustomImageUUID() {
+    public String getCustomImageUUID() {
         return customImageUUID;
     }
 
-    public void setCustomImageUUID(UUID customImageUUID) {
+    public void setCustomImageUUID(String customImageUUID) {
         this.customImageUUID = customImageUUID;
     }
 

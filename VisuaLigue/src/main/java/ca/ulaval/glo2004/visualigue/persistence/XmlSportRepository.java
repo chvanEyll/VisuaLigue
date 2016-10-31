@@ -10,7 +10,6 @@ import ca.ulaval.glo2004.visualigue.utils.ListUtils;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
-import java.util.UUID;
 import java.util.function.Function;
 import java.util.stream.Collectors;
 import javax.inject.Inject;
@@ -21,7 +20,7 @@ import javax.swing.SortOrder;
 public class XmlSportRepository implements SportRepository {
 
     private final XmlRepositoryMarshaller<Sport> xmlRepositoryMarshaller;
-    private final Map<UUID, Sport> sports;
+    private final Map<String, Sport> sports;
 
     @Inject
     public XmlSportRepository(XmlRepositoryMarshaller<Sport> xmlRepositoryMarshaller, XmlSportAdapter xmlSportAdapter) {
@@ -31,7 +30,7 @@ public class XmlSportRepository implements SportRepository {
     }
 
     @Override
-    public UUID persist(Sport sport) throws SportAlreadyExistsException {
+    public String persist(Sport sport) throws SportAlreadyExistsException {
         if (sports.containsValue(sport)) {
             throw new SportAlreadyExistsException(String.format("A sport with UUID '%s' already exists.", sport.getUUID()));
         } else if (sports.values().stream().anyMatch(s -> s.getName().equals(sport.getName()))) {
@@ -62,7 +61,7 @@ public class XmlSportRepository implements SportRepository {
     }
 
     @Override
-    public Sport get(UUID uuid) throws SportNotFoundException {
+    public Sport get(String uuid) throws SportNotFoundException {
         Sport sport = sports.get(uuid);
         if (sport == null) {
             throw new SportNotFoundException(String.format("Cannot find sport with UUID '%s'.", uuid));

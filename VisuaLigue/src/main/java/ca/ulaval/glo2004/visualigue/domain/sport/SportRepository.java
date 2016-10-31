@@ -1,17 +1,16 @@
 package ca.ulaval.glo2004.visualigue.domain.sport;
 
 import java.util.List;
-import java.util.UUID;
 import java.util.function.Function;
 import javax.swing.SortOrder;
 
 public interface SportRepository {
 
-    UUID persist(Sport sport) throws SportAlreadyExistsException;
+    String persist(Sport sport) throws SportAlreadyExistsException;
 
     void update(Sport sport) throws SportAlreadyExistsException;
 
-    Sport get(UUID uuid) throws SportNotFoundException;
+    Sport get(String uuid) throws SportNotFoundException;
 
     void delete(Sport sport) throws SportNotFoundException;
 

@@ -8,18 +8,18 @@ import javax.xml.bind.annotation.XmlAccessorType;
 @XmlAccessorType(XmlAccessType.FIELD)
 public class DomainObject implements Comparable<DomainObject> {
 
-    protected UUID uuid;
+    protected String uuid;
     protected Boolean isDirty = false;
 
     public DomainObject() {
-        this.uuid = UUID.randomUUID();
+        this.uuid = UUID.randomUUID().toString();
     }
 
-    public UUID getUUID() {
+    public String getUUID() {
         return uuid;
     }
 
-    public void setUUID(UUID uuid) {
+    public void setUUID(String uuid) {
         this.uuid = uuid;
     }
 

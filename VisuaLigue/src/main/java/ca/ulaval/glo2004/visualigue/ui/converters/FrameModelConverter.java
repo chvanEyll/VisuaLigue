@@ -12,7 +12,6 @@ import ca.ulaval.glo2004.visualigue.ui.models.ActorModel;
 import ca.ulaval.glo2004.visualigue.ui.models.FrameModel;
 import ca.ulaval.glo2004.visualigue.ui.models.PlayModel;
 import java.util.Map;
-import java.util.UUID;
 import javax.inject.Inject;
 
 public class FrameModelConverter {
@@ -48,7 +47,7 @@ public class FrameModelConverter {
         }
     }
 
-    private void removeActorInstance(FrameModel model, UUID actorInstanceUUID) {
+    private void removeActorInstance(FrameModel model, String actorInstanceUUID) {
         model.actorStates.remove(actorInstanceUUID);
     }
 

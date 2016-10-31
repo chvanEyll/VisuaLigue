@@ -10,7 +10,6 @@ import ca.ulaval.glo2004.visualigue.utils.ListUtils;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
-import java.util.UUID;
 import java.util.function.Function;
 import java.util.stream.Collectors;
 import javax.inject.Inject;
@@ -21,7 +20,7 @@ import javax.swing.SortOrder;
 public class XmlPlayRepository implements PlayRepository {
 
     private final XmlRepositoryMarshaller<Play> xmlRepositoryMarshaller;
-    private final Map<UUID, Play> plays;
+    private final Map<String, Play> plays;
 
     @Inject
     public XmlPlayRepository(XmlRepositoryMarshaller<Play> xmlRepositoryMarshaller, XmlPlayAdapter xmlPlayAdapter) {
@@ -31,7 +30,7 @@ public class XmlPlayRepository implements PlayRepository {
     }
 
     @Override
-    public UUID persist(Play play) throws PlayAlreadyExistsException {
+    public String persist(Play play) throws PlayAlreadyExistsException {
         if (plays.containsValue(play)) {
             throw new PlayAlreadyExistsException(String.format("An play with UUID '%s' already exists.", play.getUUID()));
         }
@@ -64,7 +63,7 @@ public class XmlPlayRepository implements PlayRepository {
     }
 
     @Override
-    public Play get(UUID uuid) throws PlayNotFoundException {
+    public Play get(String uuid) throws PlayNotFoundException {
         Play play = plays.get(uuid);
         if (play == null) {
             throw new PlayNotFoundException(String.format("Cannot find play with UUID '%s'.", uuid));

@@ -9,7 +9,6 @@ import ca.ulaval.glo2004.visualigue.utils.ListUtils;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
-import java.util.UUID;
 import java.util.function.Function;
 import java.util.stream.Collectors;
 import javax.inject.Inject;
@@ -20,7 +19,7 @@ import javax.swing.SortOrder;
 public class XmlPlayerCategoryRepository implements PlayerCategoryRepository {
 
     private final XmlRepositoryMarshaller<PlayerCategory> xmlRepositoryMarshaller;
-    private final Map<UUID, PlayerCategory> sports;
+    private final Map<String, PlayerCategory> sports;
 
     @Inject
     public XmlPlayerCategoryRepository(XmlRepositoryMarshaller<PlayerCategory> xmlRepositoryMarshaller) {
@@ -29,7 +28,7 @@ public class XmlPlayerCategoryRepository implements PlayerCategoryRepository {
     }
 
     @Override
-    public UUID persist(PlayerCategory sport) throws PlayerCategoryAlreadyExistsException {
+    public String persist(PlayerCategory sport) throws PlayerCategoryAlreadyExistsException {
         if (sports.containsValue(sport)) {
             throw new PlayerCategoryAlreadyExistsException(String.format("A player category with UUID '%s' already exists.", sport.getUUID()));
         }
@@ -56,7 +55,7 @@ public class XmlPlayerCategoryRepository implements PlayerCategoryRepository {
     }
 
     @Override
-    public PlayerCategory get(UUID uuid) throws PlayerCategoryNotFoundException {
+    public PlayerCategory get(String uuid) throws PlayerCategoryNotFoundException {
         PlayerCategory sport = sports.get(uuid);
         if (sport == null) {
             throw new PlayerCategoryNotFoundException(String.format("Cannot find player category with UUID '%s'.", uuid));

@@ -7,14 +7,13 @@ import ca.ulaval.glo2004.visualigue.domain.play.actorstate.ActorState;
 import ca.ulaval.glo2004.visualigue.domain.play.actorstate.PlayerState;
 import ca.ulaval.glo2004.visualigue.domain.play.keyframe.KeyframeTransition;
 import ca.ulaval.glo2004.visualigue.utils.geometry.Vector2;
-import java.util.UUID;
 import javax.inject.Inject;
 
 public class PlayerPositionUpdateFreeformCommand implements Command {
 
     private Play play;
     private Integer time;
-    private UUID ownerPlayerInstanceUUID;
+    private String ownerPlayerInstanceUUID;
     private Vector2 position;
     private KeyframeTransition positionTransition;
     @Inject private PlayRepository playRepository;
@@ -22,7 +21,7 @@ public class PlayerPositionUpdateFreeformCommand implements Command {
     private PlayerInstance playerInstance;
     private ActorState oldPlayerState;
 
-    public PlayerPositionUpdateFreeformCommand(Play play, Integer time, UUID ownerPlayerInstanceUUID, Vector2 position, KeyframeTransition positionTransition) {
+    public PlayerPositionUpdateFreeformCommand(Play play, Integer time, String ownerPlayerInstanceUUID, Vector2 position, KeyframeTransition positionTransition) {
         this.time = time;
         this.ownerPlayerInstanceUUID = ownerPlayerInstanceUUID;
         this.position = position;

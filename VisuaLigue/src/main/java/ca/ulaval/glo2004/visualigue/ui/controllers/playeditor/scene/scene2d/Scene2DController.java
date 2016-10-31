@@ -11,7 +11,10 @@ import ca.ulaval.glo2004.visualigue.utils.FilenameUtils;
 import ca.ulaval.glo2004.visualigue.utils.geometry.Vector2;
 import ca.ulaval.glo2004.visualigue.utils.javafx.FXUtils;
 import ca.ulaval.glo2004.visualigue.utils.math.MathUtils;
-import java.util.*;
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
 import javafx.beans.value.ObservableValue;
 import javafx.collections.MapChangeListener;
 import javafx.collections.MapChangeListener.Change;
@@ -77,7 +80,7 @@ public class Scene2DController extends SceneController {
         playingSurface.setImage(backgroundImage);
     }
 
-    private void onActorStateChanged(Change<UUID, ActorModel> change) {
+    private void onActorStateChanged(Change<String, ActorModel> change) {
         if (change.wasAdded()) {
             View view = InjectableFXMLLoader.loadView(SceneLayerController.VIEW_NAME);
             SceneLayerController controller = (SceneLayerController) view.getController();

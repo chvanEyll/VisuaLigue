@@ -9,7 +9,4 @@ public class SportListItemModel extends ModelBase {
     public StringProperty customIconPathName = new SimpleStringProperty();
     public StringProperty builtInIconPathName = new SimpleStringProperty();
 
-    public SportListItemModel(String name) {
-        this.name.set(name);
-    }
 }

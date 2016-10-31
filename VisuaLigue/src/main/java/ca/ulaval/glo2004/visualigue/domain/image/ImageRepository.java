@@ -1,16 +1,14 @@
 package ca.ulaval.glo2004.visualigue.domain.image;
 
-import java.util.UUID;
-
 public interface ImageRepository {
 
-    UUID persist(String sourceImagePathName);
+    String persist(String sourceImagePathName);
 
-    UUID replace(UUID oldUUID, String newSourceImagePathName);
+    String replace(String oldUUID, String newSourceImagePathName);
 
-    String get(UUID uuid);
+    String get(String uuid);
 
-    void delete(UUID uuid);
+    void delete(String uuid);
 
     void clear();
 }

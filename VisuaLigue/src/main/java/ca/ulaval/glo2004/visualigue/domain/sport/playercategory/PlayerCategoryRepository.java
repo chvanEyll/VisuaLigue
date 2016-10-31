@@ -1,17 +1,16 @@
 package ca.ulaval.glo2004.visualigue.domain.sport.playercategory;
 
 import java.util.List;
-import java.util.UUID;
 import java.util.function.Function;
 import javax.swing.SortOrder;
 
 public interface PlayerCategoryRepository {
 
-    UUID persist(PlayerCategory playerCategory) throws PlayerCategoryAlreadyExistsException;
+    String persist(PlayerCategory playerCategory) throws PlayerCategoryAlreadyExistsException;
 
     void update(PlayerCategory playerCategory);
 
-    PlayerCategory get(UUID uuid) throws PlayerCategoryNotFoundException;
+    PlayerCategory get(String uuid) throws PlayerCategoryNotFoundException;
 
     void delete(PlayerCategory playerCategory) throws PlayerCategoryNotFoundException;
 

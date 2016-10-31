@@ -7,7 +7,6 @@ import ca.ulaval.glo2004.visualigue.domain.sport.playingsurface.PlayingSurface;
 import ca.ulaval.glo2004.visualigue.domain.xmladapters.XmlSportAdapter;
 import java.util.HashSet;
 import java.util.Set;
-import java.util.UUID;
 import javax.xml.bind.annotation.XmlRootElement;
 import javax.xml.bind.annotation.XmlTransient;
 import javax.xml.bind.annotation.adapters.XmlJavaTypeAdapter;
@@ -18,11 +17,11 @@ public class Sport extends DomainObject {
 
     private String name;
     private Boolean isBuiltIn = false;
-    private UUID customIconUUID;
+    private String customIconUUID;
     private String builtInIconPathName = "/images/built-in-sport-icons/generic-icon.png";
     private Ball ball = new Ball();
     private PlayingSurface playingSurface = new PlayingSurface();
-    private Set<UUID> playerCategoryUUIDs = new HashSet();
+    private Set<String> playerCategoryUUIDs = new HashSet();
     @XmlTransient
     private Set<PlayerCategory> playerCategories = new HashSet();
 
@@ -54,11 +53,11 @@ public class Sport extends DomainObject {
         return customIconUUID != null;
     }
 
-    public UUID getCustomIconUUID() {
+    public String getCustomIconUUID() {
         return customIconUUID;
     }
 
-    public void setCustomIconUUID(UUID customIconUUID) {
+    public void setCustomIconUUID(String customIconUUID) {
         this.customIconUUID = customIconUUID;
     }
 
@@ -86,7 +85,7 @@ public class Sport extends DomainObject {
         this.playingSurface = playingSurface;
     }
 
-    public void setPlayerCategoryUUIDs(Set<UUID> playerCategoryUUIDs) {
+    public void setPlayerCategoryUUIDs(Set<String> playerCategoryUUIDs) {
         this.playerCategoryUUIDs = playerCategoryUUIDs;
     }
 
@@ -106,7 +105,7 @@ public class Sport extends DomainObject {
         playerCategories.remove(playerCategory);
     }
 
-    public Set<UUID> getPlayerCategoryUUIDs() {
+    public Set<String> getPlayerCategoryUUIDs() {
         return playerCategoryUUIDs;
     }
 }
