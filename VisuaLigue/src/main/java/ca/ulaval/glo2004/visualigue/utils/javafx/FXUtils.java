@@ -15,8 +15,10 @@ import javafx.stage.Stage;
 public class FXUtils {
 
     public static void setDisplay(Node node, Boolean display) {
-        node.setVisible(display);
-        node.setManaged(display);
+        if (node.isVisible() != display || node.isManaged() != display) {
+            node.setVisible(display);
+            node.setManaged(display);
+        }
     }
 
     public static void requestFocusDelayed(Node node) {

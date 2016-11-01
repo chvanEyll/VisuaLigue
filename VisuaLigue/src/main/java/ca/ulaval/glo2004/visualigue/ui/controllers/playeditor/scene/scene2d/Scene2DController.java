@@ -33,7 +33,7 @@ public class Scene2DController extends SceneController {
     @Inject ActorLayerViewFactory actorLayerViewFactory;
     private NavigationController navigationController;
     private List<ControllerBase> sceneLayers = new ArrayList();
-    private Map<ActorModel, View> sceneLayerMap = new HashMap();
+    private Map<ActorModel, ControllerBase> sceneLayerMap = new HashMap();
     private final FrameModel frameModel = new FrameModel();
     private PlayModel playModel;
     private Boolean playerCategoryLabelDisplayEnabled = false;
@@ -69,14 +69,14 @@ public class Scene2DController extends SceneController {
         controller.init(actorModel, playingSurfaceLayerController);
         super.addChild(controller);
         sceneLayers.add(controller);
-        sceneLayerMap.put(actorModel, view);
+        sceneLayerMap.put(actorModel, controller);
         layerStackPane.getChildren().add(view.getRoot());
     }
 
     private void removeActorLayer(ActorModel actorModel) {
-        View view = sceneLayerMap.get(actorModel);
-        layerStackPane.getChildren().remove(sceneLayers.indexOf(view));
-        sceneLayers.remove(view);
+        ControllerBase controller = sceneLayerMap.get(actorModel);
+        layerStackPane.getChildren().remove(sceneLayers.indexOf(controller));
+        sceneLayers.remove(controller);
         sceneLayerMap.remove(actorModel);
     }
 
@@ -169,6 +169,7 @@ public class Scene2DController extends SceneController {
     public void setPlayerCategoryLabelDisplayEnabled(Boolean enabled) {
         playerCategoryLabelDisplayEnabled = enabled;
         getActorLayers().forEach(controller -> controller.setPlayerCategoryLabelDisplayEnabled(enabled));
+        onPlayerCategoryLabelDisplayEnableChanged.fire(this, enabled);
     }
 
     private List<ActorLayerController> getActorLayers() {
@@ -206,10 +207,7 @@ public class Scene2DController extends SceneController {
     }
 
     private void onZoomChanged(Object sender, Zoom zoom) {
-        sceneLayerMap.values().stream().forEach(view -> {
-            ActorLayerController controller = (ActorLayerController) view.getController();
-            controller.update();
-        });
+        getActorLayers().forEach(controller -> controller.updateZoom(zoom));
         onZoomChanged.fire(sender, zoom);
     }
 

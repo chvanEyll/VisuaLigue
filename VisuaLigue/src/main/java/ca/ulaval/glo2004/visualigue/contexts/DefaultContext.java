@@ -253,8 +253,10 @@ public class DefaultContext extends ContextBase {
         PlayerInstance playerInstance1 = new PlayerInstance(playerCategories.get(0), TeamSide.ALLIES);
         PlayerState playerState1 = new PlayerState(new Vector2(0.25, 0.25), new LinearKeyframeTransition(), 0.0);
         play.mergeKeyframe(0, playerInstance1, playerState1);
-        PlayerState playerState2 = new PlayerState(new Vector2(0.75, 0.75), new LinearKeyframeTransition(), 0.0);
+        PlayerState playerState2 = new PlayerState(new Vector2(0.75, 0.75), new LinearKeyframeTransition(), 90.0);
         play.mergeKeyframe(2000, playerInstance1, playerState2);
+        PlayerState playerState3 = new PlayerState(new Vector2(0.5, 0.2), new LinearKeyframeTransition(), 180.0);
+        play.mergeKeyframe(4000, playerInstance1, playerState3);
         return play;
     }
 

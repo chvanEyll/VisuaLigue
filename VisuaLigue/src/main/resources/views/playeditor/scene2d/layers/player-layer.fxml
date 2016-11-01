@@ -3,7 +3,9 @@
 <?import ca.ulaval.glo2004.visualigue.ui.controllers.common.SvgImage?>
 <?import javafx.scene.control.Button?>
 <?import javafx.scene.control.Tooltip?>
+<?import javafx.scene.control.Label?>
 <?import javafx.scene.image.ImageView?>
+<?import javafx.scene.effect.DropShadow?>
 <?import javafx.scene.layout.Pane?>
 
 <Pane fx:id="rootNode" pickOnBounds="false" styleClass="root-node, actor-layer" xmlns="http://javafx.com/javafx/8.0.60" xmlns:fx="http://javafx.com/fxml/1" fx:controller="ca.ulaval.glo2004.visualigue.ui.controllers.playeditor.scene.scene2d.layers.PlayerLayerController">
@@ -16,5 +18,10 @@
                 <Tooltip fx:id="tooltip" />
             </tooltip>
         </Button>
+        <Label fx:id="categoryLabel" mouseTransparent="true">
+            <effect>
+                <DropShadow color="WHITE" height="20.0" radius="9.5" spread="2" width="20.0" />
+            </effect>
+        </Label>
     </children>
 </Pane>

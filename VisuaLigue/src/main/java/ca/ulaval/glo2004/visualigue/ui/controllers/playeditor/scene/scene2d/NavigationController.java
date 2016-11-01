@@ -84,16 +84,18 @@ public class NavigationController extends ControllerBase {
 
     public void zoomIn() {
         Zoom nextZoom = PREDEFINED_ZOOMS.higher(PREDEFINED_ZOOMS.ceiling(zoom));
-        if (nextZoom != null) {
-            setZoom(nextZoom);
+        if (nextZoom == null) {
+            nextZoom = PREDEFINED_ZOOMS.last();
         }
+        setZoom(nextZoom);
     }
 
     public void zoomOut() {
         Zoom nextZoom = PREDEFINED_ZOOMS.lower(PREDEFINED_ZOOMS.floor(zoom));
-        if (nextZoom != null) {
-            setZoom(nextZoom);
+        if (nextZoom == null) {
+            nextZoom = PREDEFINED_ZOOMS.first();
         }
+        setZoom(nextZoom);
     }
 
     public void autoFit() {
@@ -114,6 +116,7 @@ public class NavigationController extends ControllerBase {
         if (contentAlignPoint != null && viewportAlignPoint != null) {
             Vector2 newContentAlignPoint = scrollPane.relativeToContentPoint(contentAlignPoint);
             scrollPane.alignX(newContentAlignPoint.getX(), viewportAlignPoint.getX());
+
         }
     }
 
@@ -121,6 +124,7 @@ public class NavigationController extends ControllerBase {
         if (contentAlignPoint != null && viewportAlignPoint != null) {
             Vector2 newContentAlignPoint = scrollPane.relativeToContentPoint(contentAlignPoint);
             scrollPane.alignY(newContentAlignPoint.getY(), viewportAlignPoint.getY());
+
         }
     }
 
