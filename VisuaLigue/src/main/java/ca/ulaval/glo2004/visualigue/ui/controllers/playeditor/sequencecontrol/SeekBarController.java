@@ -36,6 +36,7 @@ public class SeekBarController extends ControllerBase {
     private List<View> keyPoints = new ArrayList();
     private Integer time = 0;
     private Double dragStartX;
+    private Double dragStartThumbLocationX;
     private Animator animator;
 
     public void init(PlayModel playModel) {
@@ -143,18 +144,15 @@ public class SeekBarController extends ControllerBase {
         return MathUtils.roundUp(time - (int) (KEY_POINT_INTERVAL * 1.1), KEY_POINT_INTERVAL);
     }
 
+    private Integer getTimeFromSeekThumbLocation() {
+        return (int) (getPlayLength() * (getSeekThumbLocation() / (keyframeHBox.getWidth() - seekBarThumb.getWidth())));
+    }
+
     public void setSeekThumbLocationFromTime(Integer time) {
         this.time = time;
-        setSeekThumbLocationFromMargin(getSeekThumbLocationFromTime());
+        Double margin = (time / (double) getPlayLength()) * (keyframeHBox.getWidth() - seekBarThumb.getWidth());
+        setSeekThumbLocationFromMargin(margin);
         keyframeScrollPane.ensureVisible(seekBarThumb);
-    }
-
-    private Double getSeekThumbLocationFromTime() {
-        return (time / (double) getPlayLength()) * (keyframeHBox.getWidth() - seekBarThumb.getWidth());
-    }
-
-    private Integer getTimeFromSeekThumbLocation() {
-        return (int) (getPlayLength() * (getSeekThumbMargin() / (keyframeHBox.getWidth() - seekBarThumb.getWidth())));
     }
 
     private void setSeekThumbLocationFromMargin(Double margin) {
@@ -166,7 +164,7 @@ public class SeekBarController extends ControllerBase {
         StackPane.setMargin(seekBarThumb, new Insets(0, 0, 0, margin));
     }
 
-    private Double getSeekThumbMargin() {
+    private Double getSeekThumbLocation() {
         return StackPane.getMargin(seekBarThumb).getLeft();
     }
 
@@ -180,13 +178,13 @@ public class SeekBarController extends ControllerBase {
     protected void onMousePressed(MouseEvent e) {
         cancelAnimation();
         dragStartX = e.getSceneX();
+        dragStartThumbLocationX = getSeekThumbLocation();
         onSeekThumbPressed.fire(this);
     }
 
     @FXML
     protected void onMouseDragged(MouseEvent e) {
-        setSeekThumbLocationFromMargin(keyframeScrollPane.mouseToContentPoint().getX());
-        dragStartX = e.getSceneX();
+        setSeekThumbLocationFromMargin(dragStartThumbLocationX + e.getSceneX() - dragStartX);
         move(getTimeFromSeekThumbLocation());
     }
 

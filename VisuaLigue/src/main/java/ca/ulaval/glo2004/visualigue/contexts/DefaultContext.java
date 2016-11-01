@@ -9,8 +9,10 @@ import ca.ulaval.glo2004.visualigue.domain.play.Play;
 import ca.ulaval.glo2004.visualigue.domain.play.PlayAlreadyExistsException;
 import ca.ulaval.glo2004.visualigue.domain.play.PlayFactory;
 import ca.ulaval.glo2004.visualigue.domain.play.PlayRepository;
+import ca.ulaval.glo2004.visualigue.domain.play.actorinstance.ObstacleInstance;
 import ca.ulaval.glo2004.visualigue.domain.play.actorinstance.PlayerInstance;
 import ca.ulaval.glo2004.visualigue.domain.play.actorinstance.TeamSide;
+import ca.ulaval.glo2004.visualigue.domain.play.actorstate.ObstacleState;
 import ca.ulaval.glo2004.visualigue.domain.play.actorstate.PlayerState;
 import ca.ulaval.glo2004.visualigue.domain.play.keyframe.LinearKeyframeTransition;
 import ca.ulaval.glo2004.visualigue.domain.sport.Sport;
@@ -35,6 +37,7 @@ public class DefaultContext extends ContextBase {
     private final PlayFactory playFactory;
     private final List<Sport> sportPool = new ArrayList();
     private Sport hockeySport;
+    private Obstacle coneObstacle;
 
     @Inject
     public DefaultContext(final SportFactory sportFactory, final SportRepository sportRepository, final PlayerCategoryRepository playerCategoryRepository, final ImageRepository imageRepository, final ObstacleFactory obstacleFactory,
@@ -224,7 +227,8 @@ public class DefaultContext extends ContextBase {
 
     private void createObstacles() throws Exception {
         List<Obstacle> obstaclePool = new ArrayList();
-        obstaclePool.add(createConeObstacle());
+        coneObstacle = createConeObstacle();
+        obstaclePool.add(coneObstacle);
         persistObstacles(obstaclePool);
     }
 
@@ -257,6 +261,9 @@ public class DefaultContext extends ContextBase {
         play.mergeKeyframe(2000, playerInstance1, playerState2);
         PlayerState playerState3 = new PlayerState(new Vector2(0.5, 0.2), new LinearKeyframeTransition(), 180.0);
         play.mergeKeyframe(4000, playerInstance1, playerState3);
+        ObstacleInstance obstacleInstance1 = new ObstacleInstance(coneObstacle);
+        ObstacleState obstacleState = new ObstacleState(new Vector2(0.5, 0.4));
+        play.mergeKeyframe(0, obstacleInstance1, obstacleState);
         return play;
     }
 

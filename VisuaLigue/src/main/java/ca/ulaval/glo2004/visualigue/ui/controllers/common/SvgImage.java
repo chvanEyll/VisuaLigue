@@ -13,8 +13,10 @@ public class SvgImage extends StackPane {
     }
 
     public void setUrl(String url) {
-        this.url = url;
-        updateSvgImage();
+        if (this.url == null || !this.url.equals(url)) {
+            this.url = url;
+            updateSvgImage();
+        }
     }
 
     private void updateSvgImage() {

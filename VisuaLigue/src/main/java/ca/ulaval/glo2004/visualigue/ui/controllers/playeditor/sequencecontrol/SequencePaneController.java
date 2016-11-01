@@ -139,7 +139,6 @@ public class SequencePaneController extends ControllerBase {
     }
 
     private void autoAdvance(PlaySpeed playSpeed) {
-        timer.cancel();
         TimerTask timerTask = new TimerTask() {
             @Override
             public void run() {
@@ -148,6 +147,7 @@ public class SequencePaneController extends ControllerBase {
         };
         this.playSpeed = playSpeed;
         updateControlButtonStates();
+        timer.cancel();
         timer = new Timer();
         timer.schedule(timerTask, 0, AUTO_ADVANCE_PERIOD / SequencePaneController.this.playSpeed.getMultiplierAbs());
     }

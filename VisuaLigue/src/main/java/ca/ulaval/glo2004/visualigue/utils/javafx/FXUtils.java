@@ -8,6 +8,7 @@ import javafx.geometry.Point2D;
 import javafx.scene.ImageCursor;
 import javafx.scene.Node;
 import javafx.scene.image.Image;
+import javafx.scene.layout.Region;
 import javafx.scene.paint.Color;
 import javafx.stage.FileChooser;
 import javafx.stage.Stage;
@@ -60,6 +61,14 @@ public class FXUtils {
             images[i] = new Image(FXUtils.class.getResourceAsStream(String.format(pathNameFormatString, availableSizes[i])));
         }
         return ImageCursor.chooseBestCursor(images, hotspotX, hotspotY);
+    }
+
+    public static Double getFullRegionWidth(Region region) {
+        return region.getWidth() + region.getBorder().getOutsets().getLeft() + region.getBorder().getOutsets().getRight();
+    }
+
+    public static Double getFullRegionHeight(Region region) {
+        return region.getHeight() + region.getBorder().getOutsets().getTop() + region.getBorder().getOutsets().getBottom();
     }
 
 }

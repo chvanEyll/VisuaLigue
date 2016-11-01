@@ -37,7 +37,7 @@ public class ToolbarController extends ControllerBase {
     @FXML private Button zoomInButton;
     @FXML private ComboBox zoomComboBox;
     @FXML private Button zoomOutButton;
-    @FXML private ExtendedButton labelDisplayToggleButton;
+    @FXML private ExtendedButton actorLabelDisplayToggleButton;
     @FXML private ExtendedButton itemPaneDisplayButton;
     @FXML private Label coordinateLabel;
     @Inject private PlayService playService;
@@ -52,7 +52,7 @@ public class ToolbarController extends ControllerBase {
         this.itemPaneController = itemPaneController;
         sceneController.onMousePositionChanged.setHandler(this::onSceneMousePositionChanged);
         sceneController.onZoomChanged.setHandler(this::onSceneZoomChanged);
-        sceneController.onPlayerCategoryLabelDisplayEnableChanged.setHandler(this::onPlayerCategoryLabelDisplayEnableChanged);
+        sceneController.onActorLabelDisplayEnableChanged.setHandler(this::onActorLabelDisplayEnableChanged);
         sceneController.onNavigationModeEntered.setHandler(this::onNavigationModeEntered);
         sceneController.onNavigationModeExited.setHandler(this::onNavigationModeExited);
         playService.onUndoAvailabilityChanged.addHandler(this::onUndoAvailabilityChanged);
@@ -147,8 +147,8 @@ public class ToolbarController extends ControllerBase {
     }
 
     @FXML
-    protected void onLabelDisplayToggleButtonAction(ActionEvent e) {
-        sceneController.setPlayerCategoryLabelDisplayEnabled(!sceneController.isPlayerCategoryLabelDisplayEnabled());
+    protected void onActorLabelDisplayToggleButtonAction(ActionEvent e) {
+        sceneController.setActorLabelDisplay(!sceneController.isActorLabelDisplayEnabled());
     }
 
     @FXML
@@ -177,8 +177,8 @@ public class ToolbarController extends ControllerBase {
         zoomOutButton.setDisable(MathUtils.lessOrEqual(currentZoom, sceneController.getMinZoom()));
     }
 
-    private void onPlayerCategoryLabelDisplayEnableChanged(Object sender, Boolean displayEnabled) {
-        labelDisplayToggleButton.setSelected(displayEnabled);
+    private void onActorLabelDisplayEnableChanged(Object sender, Boolean displayEnabled) {
+        actorLabelDisplayToggleButton.setSelected(displayEnabled);
     }
 
     private void onUndoAvailabilityChanged(Object sender, Boolean undoAvailable) {

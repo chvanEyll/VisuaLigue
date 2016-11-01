@@ -8,20 +8,15 @@
 <?import javafx.scene.effect.DropShadow?>
 <?import javafx.scene.layout.Pane?>
 
-<Pane fx:id="rootNode" pickOnBounds="false" styleClass="root-node, actor-layer" xmlns="http://javafx.com/javafx/8.0.60" xmlns:fx="http://javafx.com/fxml/1" fx:controller="ca.ulaval.glo2004.visualigue.ui.controllers.playeditor.scene.scene2d.layers.PlayerLayerController">
+<Pane fx:id="rootNode" pickOnBounds="false" styleClass="root-node, actor-layer" xmlns="http://javafx.com/javafx/8.0.60" xmlns:fx="http://javafx.com/fxml/1" fx:controller="ca.ulaval.glo2004.visualigue.ui.controllers.playeditor.scene.scene2d.layers.ObstacleLayerController">
     <children>
         <Button fx:id="actorButton" styleClass="icon-button">
             <graphic>
-                <SvgImage fx:id="svgImage" />
+                <ImageView fx:id="imageView" fitWidth="45" fitHeight="45" />
             </graphic>
             <tooltip>
                 <Tooltip fx:id="tooltip" />
             </tooltip>
         </Button>
-        <Label fx:id="label" mouseTransparent="true">
-            <effect>
-                <DropShadow color="WHITE" height="20.0" radius="9.5" spread="2" width="20.0" />
-            </effect>
-        </Label>
     </children>
 </Pane>

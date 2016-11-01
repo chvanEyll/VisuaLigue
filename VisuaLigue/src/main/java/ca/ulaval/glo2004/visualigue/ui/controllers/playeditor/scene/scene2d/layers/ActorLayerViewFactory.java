@@ -9,6 +9,8 @@ public class ActorLayerViewFactory {
     public View create(ActorModel actorModel) {
         if (actorModel.type.get() == ActorModel.Type.PLAYER) {
             return InjectableFXMLLoader.loadView(PlayerLayerController.VIEW_NAME);
+        } else if (actorModel.type.get() == ActorModel.Type.OBSTACLE) {
+            return InjectableFXMLLoader.loadView(ObstacleLayerController.VIEW_NAME);
         }
         throw new RuntimeException("Unsupported ActorModel subclass.");
     }

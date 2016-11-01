@@ -151,12 +151,12 @@
                 <String fx:value="medium" />
             </styleClass>
         </Button>
-        <ExtendedButton fx:id="labelDisplayToggleButton" onAction="#onLabelDisplayToggleButtonAction">
+        <ExtendedButton fx:id="actorLabelDisplayToggleButton" onAction="#onActorLabelDisplayToggleButtonAction">
             <graphic>
                 <SvgImage url="/images/show-labels-icon.fxml" />
             </graphic>
             <tooltip>
-                <Tooltip text="Afficher/masquer les catégories des joueurs" />
+                <Tooltip text="Afficher/masquer les étiquettes de joueurs" />
             </tooltip>
             <styleClass>
                 <String fx:value="borderless" />

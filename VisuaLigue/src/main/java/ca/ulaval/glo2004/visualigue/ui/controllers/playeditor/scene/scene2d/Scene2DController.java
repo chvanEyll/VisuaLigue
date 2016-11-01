@@ -36,7 +36,7 @@ public class Scene2DController extends SceneController {
     private Map<ActorModel, ControllerBase> sceneLayerMap = new HashMap();
     private final FrameModel frameModel = new FrameModel();
     private PlayModel playModel;
-    private Boolean playerCategoryLabelDisplayEnabled = false;
+    private Boolean showActorLabels = false;
 
     @Override
     public void init(PlayModel playModel) {
@@ -161,15 +161,15 @@ public class Scene2DController extends SceneController {
     }
 
     @Override
-    public Boolean isPlayerCategoryLabelDisplayEnabled() {
-        return playerCategoryLabelDisplayEnabled;
+    public Boolean isActorLabelDisplayEnabled() {
+        return showActorLabels;
     }
 
     @Override
-    public void setPlayerCategoryLabelDisplayEnabled(Boolean enabled) {
-        playerCategoryLabelDisplayEnabled = enabled;
-        getActorLayers().forEach(controller -> controller.setPlayerCategoryLabelDisplayEnabled(enabled));
-        onPlayerCategoryLabelDisplayEnableChanged.fire(this, enabled);
+    public void setActorLabelDisplay(Boolean showActorLabels) {
+        this.showActorLabels = showActorLabels;
+        getActorLayers().forEach(controller -> controller.setActorLabelDisplayEnabled(showActorLabels));
+        onActorLabelDisplayEnableChanged.fire(this, showActorLabels);
     }
 
     private List<ActorLayerController> getActorLayers() {
