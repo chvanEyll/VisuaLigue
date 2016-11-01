@@ -2,7 +2,6 @@ package ca.ulaval.glo2004.visualigue.domain.play.actorstate;
 
 import ca.ulaval.glo2004.visualigue.domain.play.actorinstance.PlayerInstance;
 import ca.ulaval.glo2004.visualigue.utils.geometry.Vector2;
-import ca.ulaval.glo2004.visualigue.utils.math.easing.EasingFunction;
 import javax.xml.bind.annotation.XmlIDREF;
 
 public class BallState extends ActorState implements Cloneable {
@@ -53,11 +52,11 @@ public class BallState extends ActorState implements Cloneable {
     }
 
     @Override
-    public BallState interpolate(ActorState nextState, Integer interpolant, EasingFunction easingFunction) {
+    public BallState interpolate(ActorState nextState, Double interpolant) {
         BallState nextBallState = (BallState) nextState;
         BallState interpolatedState = this.clone();
         if (position != null && nextBallState.position != null) {
-            interpolatedState.position = position.interpolate(nextBallState.position, interpolant, easingFunction);
+            interpolatedState.position = position.interpolate(nextBallState.position, interpolant);
         }
         interpolatedState.owner = nextBallState.owner;
         return interpolatedState;

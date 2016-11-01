@@ -56,16 +56,16 @@ public class ActorTimeline extends DomainObject {
     }
 
     public Keyframe getKeyframe(Integer time) {
-        Map.Entry<Integer, Keyframe> floorKeyframeEntry = keyframes.ceilingEntry(time);
+        Map.Entry<Integer, Keyframe> floorKeyframeEntry = keyframes.floorEntry(time);
         Map.Entry<Integer, Keyframe> ceilingKeyframeEntry = keyframes.ceilingEntry(time);
         if (floorKeyframeEntry != null && ceilingKeyframeEntry == null) {
             return floorKeyframeEntry.getValue();
-        } else if (floorKeyframeEntry != null && (floorKeyframeEntry == ceilingKeyframeEntry)) {
+        } else if (floorKeyframeEntry != null && (floorKeyframeEntry.getValue() == ceilingKeyframeEntry.getValue())) {
             return floorKeyframeEntry.getValue();
-        } else if (floorKeyframeEntry != null && (floorKeyframeEntry != ceilingKeyframeEntry)) {
+        } else if (floorKeyframeEntry != null && (floorKeyframeEntry.getValue() != ceilingKeyframeEntry.getValue())) {
             Keyframe floorKeyframe = floorKeyframeEntry.getValue();
             Keyframe ceilingKeyframe = ceilingKeyframeEntry.getValue();
-            return floorKeyframe.interpolate((time - floorKeyframe.getTime()) / (ceilingKeyframe.getTime() - floorKeyframe.getTime()), ceilingKeyframe);
+            return floorKeyframe.interpolate((time - floorKeyframe.getTime()) / (double) (ceilingKeyframe.getTime() - floorKeyframe.getTime()), ceilingKeyframe);
         } else {
             return null;
         }

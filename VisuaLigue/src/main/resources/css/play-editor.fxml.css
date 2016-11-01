@@ -128,3 +128,7 @@
     -fx-border-color: #B3B3B3;
     -fx-background-color: white;
 }
+
+.scene .actor-layer {
+    -fx-background-color: null;
+}

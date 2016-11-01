@@ -1,7 +1,6 @@
 package ca.ulaval.glo2004.visualigue.domain.play.keyframe;
 
 import ca.ulaval.glo2004.visualigue.utils.geometry.Vector2;
-import ca.ulaval.glo2004.visualigue.utils.math.easing.EasingFunction;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -14,8 +13,8 @@ public class FreeformTransition extends KeyframeTransition {
     }
 
     @Override
-    public Vector2 interpolate(Vector2 startPosition, Vector2 nextPosition, Integer interpolant, EasingFunction easingFunction) {
-        Integer index = (transitionPoints.size() + 1) * interpolant;
+    public Vector2 interpolate(Vector2 startPosition, Vector2 nextPosition, Double interpolant) {
+        Integer index = (int) ((transitionPoints.size() + 1) * interpolant);
         if (index == 0) {
             return startPosition;
         } else {

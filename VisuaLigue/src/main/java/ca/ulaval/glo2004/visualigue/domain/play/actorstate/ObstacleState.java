@@ -1,7 +1,6 @@
 package ca.ulaval.glo2004.visualigue.domain.play.actorstate;
 
 import ca.ulaval.glo2004.visualigue.utils.geometry.Vector2;
-import ca.ulaval.glo2004.visualigue.utils.math.easing.EasingFunction;
 
 public class ObstacleState extends ActorState implements Cloneable {
 
@@ -42,11 +41,11 @@ public class ObstacleState extends ActorState implements Cloneable {
     }
 
     @Override
-    public ObstacleState interpolate(ActorState nextState, Integer interpolant, EasingFunction easingFunction) {
+    public ObstacleState interpolate(ActorState nextState, Double interpolant) {
         ObstacleState nextObstacleState = (ObstacleState) nextState;
         ObstacleState interpolatedState = this.clone();
         if (nextObstacleState.position != null) {
-            interpolatedState.position = position.interpolate(nextObstacleState.position, interpolant, easingFunction);
+            interpolatedState.position = position.interpolate(nextObstacleState.position, interpolant);
         }
         return interpolatedState;
     }

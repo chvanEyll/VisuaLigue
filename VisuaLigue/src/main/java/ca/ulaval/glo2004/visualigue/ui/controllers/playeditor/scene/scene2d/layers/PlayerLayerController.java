@@ -3,6 +3,7 @@ package ca.ulaval.glo2004.visualigue.ui.controllers.playeditor.scene.scene2d.lay
 import ca.ulaval.glo2004.visualigue.ui.controllers.common.SvgImage;
 import ca.ulaval.glo2004.visualigue.ui.models.ActorModel;
 import ca.ulaval.glo2004.visualigue.utils.geometry.Vector2;
+import javafx.beans.value.ObservableValue;
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
 import javafx.scene.control.Tooltip;
@@ -19,6 +20,14 @@ public class PlayerLayerController extends ActorLayerController {
         super.init(actorModel, playingLayerSurfaceController);
         svgImage.setUrl(actorModel.svgImagePathName.get());
         tooltip.textProperty().bind(actorModel.hoverText);
+        actorModel.x.addListener(this::onActorPositionChanged);
+        actorModel.y.addListener(this::onActorPositionChanged);
+        actorModel.orientation.addListener(this::onActorPositionChanged);
+        update();
+    }
+
+    private void onActorPositionChanged(final ObservableValue<? extends Number> value, final Number oldPropertyValue, final Number newPropertyValue) {
+        update();
     }
 
     @Override

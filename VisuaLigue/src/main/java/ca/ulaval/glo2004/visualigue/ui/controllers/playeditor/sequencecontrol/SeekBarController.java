@@ -7,13 +7,16 @@ import ca.ulaval.glo2004.visualigue.ui.controllers.ControllerBase;
 import ca.ulaval.glo2004.visualigue.ui.controllers.common.ExtendedScrollPane;
 import ca.ulaval.glo2004.visualigue.ui.models.PlayModel;
 import ca.ulaval.glo2004.visualigue.utils.EventHandler;
+import ca.ulaval.glo2004.visualigue.utils.math.MathUtils;
 import java.util.ArrayList;
 import java.util.List;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
+import javafx.geometry.Insets;
 import javafx.scene.control.Button;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.HBox;
+import javafx.scene.layout.StackPane;
 import javax.inject.Inject;
 
 public class SeekBarController extends ControllerBase {
@@ -92,15 +95,15 @@ public class SeekBarController extends ControllerBase {
     }
 
     public void goToNextKeyPoint() {
-        Integer nextKeyPointTime = (int) Math.ceil(time / (double) KEY_POINT_INTERVAL) * KEY_POINT_INTERVAL;
+        Integer nextKeyPointTime = MathUtils.roundUp(time + KEY_POINT_INTERVAL, KEY_POINT_INTERVAL);
         if (nextKeyPointTime <= getPlayLength()) {
             setTime(nextKeyPointTime, false);
         }
     }
 
     public void goToPreviousKeyPoint() {
-        Integer previousKeyPointTime = (int) Math.floor(time / (double) KEY_POINT_INTERVAL) * KEY_POINT_INTERVAL;
-        if (previousKeyPointTime > 0) {
+        Integer previousKeyPointTime = MathUtils.roundUp(time - KEY_POINT_INTERVAL, KEY_POINT_INTERVAL);
+        if (previousKeyPointTime >= 0) {
             setTime(previousKeyPointTime, false);
         }
     }
@@ -111,16 +114,17 @@ public class SeekBarController extends ControllerBase {
 
     public void setPointerLocation(Integer time) {
         this.time = time;
-        seekBarThumb.setTranslateX(getPointerLocationFromTime());
+        StackPane.setMargin(seekBarThumb, new Insets(0, 0, 0, getPointerLocationFromTime()));
         keyframeScrollPane.ensureVisible(seekBarThumb);
     }
 
     private Double getPointerLocationFromTime() {
-        return ((time / getPlayLength()) * keyframeHBox.getWidth()) - (seekBarThumb.getWidth() / 2);
+        System.out.println(String.format("%s, %s, %s", time / (double) getPlayLength(), keyframeHBox.getWidth(), (seekBarThumb.getWidth() / 2)));
+        return (time / (double) getPlayLength()) * (keyframeHBox.getWidth() - seekBarThumb.getWidth());
     }
 
     private Integer getTimeFromPointerLocation() {
-        return (int) ((getPlayLength() * (seekBarThumb.getTranslateX() + seekBarThumb.getWidth() / 2)) / keyframeHBox.getWidth());
+        return (int) (getPlayLength() * (StackPane.getMargin(seekBarThumb).getLeft() / (keyframeHBox.getWidth() - seekBarThumb.getWidth())));
     }
 
     @FXML

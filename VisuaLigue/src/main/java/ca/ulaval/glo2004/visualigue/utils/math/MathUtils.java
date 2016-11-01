@@ -21,4 +21,16 @@ public class MathUtils {
     public static <T extends Comparable> Boolean lessThan(T value, T maxValue) {
         return value.compareTo(maxValue) < 0;
     }
+
+    public static Integer roundDown(Integer value, Integer factor) {
+        return (int) (Math.floor(value / (double) factor) * factor);
+    }
+
+    public static Integer roundUp(Integer value, Integer factor) {
+        return (int) (Math.ceil(value / (double) factor) * factor);
+    }
+
+    public static Double interpolate(Double startValue, Double finalValue, Double interpolant) {
+        return startValue + (finalValue - startValue) * interpolant;
+    }
 }

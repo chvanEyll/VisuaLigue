@@ -23,32 +23,41 @@ public class FrameModelConverter {
         this.imageRepository = imageRepository;
     }
 
-    public FrameModel update(PlayModel playModel, FrameModel model, Frame frame) {
-        model.setUUID(frame.getUUID());
-        model.setIsNew(false);
-        Map<ActorInstance, ActorState> actorStates = frame.getActorStates();
-        actorStates.entrySet().forEach(e -> {
-            updateActorInstance(model, e.getKey(), e.getValue(), playModel);
-        });
-        model.actorStates.keySet().forEach(actorModelUUID -> {
-            if (!actorStates.keySet().stream().anyMatch(actorInstance -> actorInstance.getUUID() == actorModelUUID)) {
-                removeActorInstance(model, actorModelUUID);
-            }
-        });
-        return model;
+    public FrameModel update(PlayModel playModel, FrameModel frameModel, Frame frame) {
+        frameModel.setUUID(frame.getUUID());
+        frameModel.setIsNew(false);
+        updateExistingActorInstances(frameModel, frame.getActorStates(), playModel);
+        removeOldActorInstances(frameModel, frame.getActorStates());
+        return frameModel;
     }
 
-    private void updateActorInstance(FrameModel model, ActorInstance actorInstance, ActorState actorState, PlayModel playModel) {
-        if (model.actorStates.containsKey(actorInstance.getUUID())) {
-            updateActorModel(model.actorStates.get(actorInstance.getUUID()), actorInstance, actorState, playModel);
+    private void updateExistingActorInstances(FrameModel frameModel, Map<ActorInstance, ActorState> actorStates, PlayModel playModel) {
+        actorStates.entrySet().forEach(e -> {
+            updateActorInstance(frameModel, e.getKey(), e.getValue(), playModel);
+        });
+    }
+
+    private void removeOldActorInstances(FrameModel frameModel, Map<ActorInstance, ActorState> actorStates) {
+        frameModel.actorStates.keySet().forEach(actorModelUUID -> {
+            if (!actorStates.keySet().stream().anyMatch(actorInstance -> actorInstance.getUUID().equals(actorModelUUID))) {
+                removeActorInstance(frameModel, actorModelUUID);
+            }
+        });
+    }
+
+    private void updateActorInstance(FrameModel frameModel, ActorInstance actorInstance, ActorState actorState, PlayModel playModel) {
+        if (frameModel.actorStates.containsKey(actorInstance.getUUID())) {
+            ActorModel actorModel = frameModel.actorStates.get(actorInstance.getUUID());
+            updateActorModel(actorModel, actorInstance, actorState, playModel);
         } else {
             ActorModel actorModel = new ActorModel();
             updateActorModel(actorModel, actorInstance, actorState, playModel);
+            frameModel.actorStates.put(actorInstance.getUUID(), actorModel);
         }
     }
 
-    private void removeActorInstance(FrameModel model, String actorInstanceUUID) {
-        model.actorStates.remove(actorInstanceUUID);
+    private void removeActorInstance(FrameModel frameModel, String actorInstanceUUID) {
+        frameModel.actorStates.remove(actorInstanceUUID);
     }
 
     private void updateActorModel(ActorModel actorModel, ActorInstance actorInstance, ActorState actorState, PlayModel playModel) {
