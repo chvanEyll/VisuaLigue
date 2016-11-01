@@ -8,9 +8,9 @@
     <content>
         <StackPane fx:id="scrollPaneContent">
             <children>
-                <StackPane styleClass="scene" fx:id="stackPane" alignment="TOP_LEFT">
+                <StackPane styleClass="scene" fx:id="layerStackPane" alignment="TOP_LEFT">
                     <children>
-                        <fx:include fx:id="playingSurface" source="/views/playeditor/scene2d/playing-surface.fxml" />
+                        <fx:include fx:id="playingSurfaceLayer" source="/views/playeditor/scene2d/layers/playing-surface-layer.fxml" />
                     </children>
                 </StackPane>
             </children>

@@ -11,7 +11,6 @@
         <Button fx:id="actorButton" styleClass="icon-button">
             <graphic>
                 <SvgImage fx:id="svgImage" />
-                <ImageView fx:id="imageView" />
             </graphic>
             <tooltip>
                 <Tooltip fx:id="tooltip" />

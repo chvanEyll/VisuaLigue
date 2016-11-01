@@ -1,4 +1,4 @@
-package ca.ulaval.glo2004.visualigue.ui.controllers.playeditor.scene.scene2d;
+package ca.ulaval.glo2004.visualigue.ui.controllers.playeditor.scene.scene2d.layers;
 
 import ca.ulaval.glo2004.visualigue.ui.controllers.ControllerBase;
 import ca.ulaval.glo2004.visualigue.ui.controllers.playeditor.scene.Zoom;
@@ -14,7 +14,7 @@ import javafx.scene.image.ImageView;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.StackPane;
 
-public class PlayingSurfaceController extends ControllerBase {
+public class PlayingSurfaceLayerController extends ControllerBase {
 
     private static final Double ZOOM_WIDTH_BASE = 1000.0;
 
@@ -89,6 +89,10 @@ public class PlayingSurfaceController extends ControllerBase {
 
     public void setCursor(ImageCursor imageCursor) {
         rootNode.setCursor(imageCursor);
+    }
+
+    public Vector2 relativeToSurfacePoint(Vector2 relativePoint) {
+        return relativePoint.multiply(getSurfaceSize());
     }
 
 }

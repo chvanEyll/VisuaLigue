@@ -1,7 +1,6 @@
 package ca.ulaval.glo2004.visualigue.ui.controllers.playeditor.sequencecontrol;
 
 import ca.ulaval.glo2004.visualigue.services.play.PlayService;
-import ca.ulaval.glo2004.visualigue.services.sport.SportService;
 import ca.ulaval.glo2004.visualigue.ui.controllers.ControllerBase;
 import ca.ulaval.glo2004.visualigue.ui.controllers.common.ExtendedButton;
 import ca.ulaval.glo2004.visualigue.ui.controllers.common.ExtendedMenuItem;
@@ -25,14 +24,11 @@ public class SequencePaneController extends ControllerBase {
     @FXML private ExtendedButton realTimeButton;
     @FXML private Button playButton;
     @FXML private Button pauseButton;
-    @FXML private Button previousKeyPointButton;
-    @FXML private Button nextKeyPointButton;
     @FXML private SeekBarController seekBarController;
     @FXML private Label fixedRewindPeriodLabel;
     @FXML private Label fixedForwardPeriodLabel;
     @Inject private FrameModelConverter frameModelConverter;
     @Inject private PlayService playService;
-    @Inject private SportService sportService;
     private PlayModel playModel;
     private SceneController sceneController;
     private Integer time = 0;
@@ -47,8 +43,8 @@ public class SequencePaneController extends ControllerBase {
     public void init(PlayModel playModel, SceneController sceneController) {
         this.playModel = playModel;
         this.sceneController = sceneController;
-        seekBarController.init(playModel);
         seekBarController.onTimeChanged.setHandler(this::onSeekBarTimeChanged);
+        seekBarController.init(playModel);
         super.addChild(seekBarController);
         setFixedForwardPeriod(DEFAULT_FIXED_ADVANCE_PERIOD);
         setFixedRewindPeriod(DEFAULT_FIXED_ADVANCE_PERIOD);

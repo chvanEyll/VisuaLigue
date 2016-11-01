@@ -1,15 +1,12 @@
 package ca.ulaval.glo2004.visualigue.domain.play.actorinstance;
 
 import ca.ulaval.glo2004.visualigue.domain.sport.playercategory.PlayerCategory;
-import ca.ulaval.glo2004.visualigue.domain.xmladapters.XmlPlayerInstanceAdapter;
-import javax.xml.bind.annotation.XmlTransient;
+import ca.ulaval.glo2004.visualigue.domain.xmladapters.XmlPlayerCategoryRefAdapter;
 import javax.xml.bind.annotation.adapters.XmlJavaTypeAdapter;
 
-@XmlJavaTypeAdapter(XmlPlayerInstanceAdapter.class)
 public class PlayerInstance extends ActorInstance {
 
-    private String playerCategoryUUID;
-    @XmlTransient
+    @XmlJavaTypeAdapter(XmlPlayerCategoryRefAdapter.class)
     private PlayerCategory playerCategory;
     private TeamSide teamSide = TeamSide.ALLIES;
 
@@ -20,14 +17,6 @@ public class PlayerInstance extends ActorInstance {
     public PlayerInstance(PlayerCategory playerCategory, TeamSide teamSide) {
         this.playerCategory = playerCategory;
         this.teamSide = teamSide;
-    }
-
-    public String getPlayerCategoryUUID() {
-        return playerCategoryUUID;
-    }
-
-    public void setPlayerCategoryUUID(String playerCategoryUUID) {
-        this.playerCategoryUUID = playerCategoryUUID;
     }
 
     public PlayerCategory getPlayerCategory() {

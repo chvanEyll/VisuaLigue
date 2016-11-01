@@ -4,6 +4,7 @@ import ca.ulaval.glo2004.visualigue.ui.controllers.ControllerBase;
 import ca.ulaval.glo2004.visualigue.ui.controllers.common.ExtendedScrollPane;
 import static ca.ulaval.glo2004.visualigue.ui.controllers.playeditor.scene.SceneController.PREDEFINED_ZOOMS;
 import ca.ulaval.glo2004.visualigue.ui.controllers.playeditor.scene.Zoom;
+import ca.ulaval.glo2004.visualigue.ui.controllers.playeditor.scene.scene2d.layers.PlayingSurfaceLayerController;
 import ca.ulaval.glo2004.visualigue.ui.models.PlayModel;
 import ca.ulaval.glo2004.visualigue.utils.EventHandler;
 import ca.ulaval.glo2004.visualigue.utils.geometry.Vector2;
@@ -31,19 +32,17 @@ public class NavigationController extends ControllerBase {
     private Vector2 touchPoint2;
     private Vector2 mousePressContentPoint;
     private ExtendedScrollPane scrollPane;
-    private StackPane scrollPaneContent;
-    private PlayingSurfaceController playingSurfaceController;
+    private PlayingSurfaceLayerController playingSurfaceLayerController;
     private PlayModel playModel;
 
-    public NavigationController(ExtendedScrollPane scrollPane, StackPane scrollPaneContent, PlayingSurfaceController playingSurfaceController, PlayModel playModel) {
+    public NavigationController(ExtendedScrollPane scrollPane, StackPane scrollPaneContent, PlayingSurfaceLayerController playingSurfaceLayerController, PlayModel playModel) {
         this.scrollPane = scrollPane;
-        this.scrollPaneContent = scrollPaneContent;
         scrollPaneContent.widthProperty().addListener(this::scrollPaneContentWidthChangedListener);
         scrollPaneContent.heightProperty().addListener(this::scrollPaneContentHeightChangedListener);
-        this.playingSurfaceController = playingSurfaceController;
-        playingSurfaceController.onMouseDragged.addHandler(this::onPlayingSurfaceMouseDragged);
-        playingSurfaceController.onMousePressed.addHandler(this::onPlayingSurfaceMousePressed);
-        playingSurfaceController.onMouseReleased.addHandler(this::onPlayingSurfaceMouseReleased);
+        this.playingSurfaceLayerController = playingSurfaceLayerController;
+        playingSurfaceLayerController.onMouseDragged.addHandler(this::onPlayingSurfaceMouseDragged);
+        playingSurfaceLayerController.onMousePressed.addHandler(this::onPlayingSurfaceMousePressed);
+        playingSurfaceLayerController.onMouseReleased.addHandler(this::onPlayingSurfaceMouseReleased);
         this.playModel = playModel;
         scrollPane.addEventFilter(ScrollEvent.ANY, this::scrollPaneEventFilter);
     }
@@ -75,7 +74,7 @@ public class NavigationController extends ControllerBase {
             contentAlignPoint = scrollPane.contentToRelativePoint(scrollPane.getVisibleContentCenter());
             viewportAlignPoint = scrollPane.getViewportCenter();
         }
-        playingSurfaceController.setZoom(zoom);
+        playingSurfaceLayerController.setZoom(zoom);
         onZoomChanged.fire(this, zoom);
     }
 
@@ -94,7 +93,7 @@ public class NavigationController extends ControllerBase {
     }
 
     public void autoFit() {
-        Vector2 baseSceneSize = playingSurfaceController.getBaseSurfaceSize();
+        Vector2 baseSceneSize = playingSurfaceLayerController.getBaseSurfaceSize();
         if (scrollPane.getWidth() / scrollPane.getHeight() > baseSceneSize.getX() / baseSceneSize.getY()) {
             setZoom(new Zoom(scrollPane.getHeight() / baseSceneSize.getY()));
         } else {
@@ -104,7 +103,7 @@ public class NavigationController extends ControllerBase {
 
     public void enterNavigationMode() {
         ImageCursor imageCursor = FXUtils.chooseBestCursor("/images/cursors/pan-%1$sx%1$s.png", new int[]{32, 48, 96, 128}, 16, 16);
-        playingSurfaceController.setCursor(imageCursor);
+        playingSurfaceLayerController.setCursor(imageCursor);
     }
 
     public void scrollPaneContentWidthChangedListener(ObservableValue<? extends Number> value, Number oldPropertyValue, Number newPropertyValue) {
@@ -176,7 +175,7 @@ public class NavigationController extends ControllerBase {
     }
 
     public void onScrollPaneMouseMoved(MouseEvent e) {
-        Vector2 surfacePosition = playingSurfaceController.getMousePosition();
+        Vector2 surfacePosition = playingSurfaceLayerController.getMousePosition();
         onMousePositionChanged.fire(this, surfacePosition);
     }
 }

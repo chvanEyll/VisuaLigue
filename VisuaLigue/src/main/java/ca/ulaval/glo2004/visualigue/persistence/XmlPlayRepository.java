@@ -4,7 +4,9 @@ import ca.ulaval.glo2004.visualigue.domain.play.Play;
 import ca.ulaval.glo2004.visualigue.domain.play.PlayAlreadyExistsException;
 import ca.ulaval.glo2004.visualigue.domain.play.PlayNotFoundException;
 import ca.ulaval.glo2004.visualigue.domain.play.PlayRepository;
-import ca.ulaval.glo2004.visualigue.domain.xmladapters.XmlPlayAdapter;
+import ca.ulaval.glo2004.visualigue.domain.xmladapters.XmlObstacleRefAdapter;
+import ca.ulaval.glo2004.visualigue.domain.xmladapters.XmlPlayerCategoryRefAdapter;
+import ca.ulaval.glo2004.visualigue.domain.xmladapters.XmlSportRefAdapter;
 import ca.ulaval.glo2004.visualigue.persistence.marshalling.XmlRepositoryMarshaller;
 import ca.ulaval.glo2004.visualigue.utils.ListUtils;
 import java.util.ArrayList;
@@ -23,9 +25,11 @@ public class XmlPlayRepository implements PlayRepository {
     private final Map<String, Play> plays;
 
     @Inject
-    public XmlPlayRepository(XmlRepositoryMarshaller<Play> xmlRepositoryMarshaller, XmlPlayAdapter xmlPlayAdapter) {
+    public XmlPlayRepository(XmlRepositoryMarshaller<Play> xmlRepositoryMarshaller, XmlObstacleRefAdapter xmlObstacleRefAdapter, XmlPlayerCategoryRefAdapter xmlPlayerCategoryRefAdapter, XmlSportRefAdapter xmlSportRefAdapter) {
         this.xmlRepositoryMarshaller = xmlRepositoryMarshaller;
-        xmlRepositoryMarshaller.setRootAdapter(xmlPlayAdapter);
+        xmlRepositoryMarshaller.setMarshallingAdapters(xmlObstacleRefAdapter);
+        xmlRepositoryMarshaller.setMarshallingAdapters(xmlPlayerCategoryRefAdapter);
+        xmlRepositoryMarshaller.setMarshallingAdapters(xmlSportRefAdapter);
         plays = xmlRepositoryMarshaller.unmarshalAll();
     }
 

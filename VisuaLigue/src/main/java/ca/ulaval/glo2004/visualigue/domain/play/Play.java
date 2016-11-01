@@ -7,22 +7,19 @@ import ca.ulaval.glo2004.visualigue.domain.play.actortimeline.ActorTimeline;
 import ca.ulaval.glo2004.visualigue.domain.play.frame.Frame;
 import ca.ulaval.glo2004.visualigue.domain.play.keyframe.Keyframe;
 import ca.ulaval.glo2004.visualigue.domain.sport.Sport;
-import ca.ulaval.glo2004.visualigue.domain.xmladapters.XmlPlayAdapter;
+import ca.ulaval.glo2004.visualigue.domain.xmladapters.XmlSportRefAdapter;
 import java.util.Optional;
 import java.util.TreeMap;
 import javax.xml.bind.annotation.XmlRootElement;
-import javax.xml.bind.annotation.XmlTransient;
 import javax.xml.bind.annotation.adapters.XmlJavaTypeAdapter;
 
 @XmlRootElement(name = "play")
-@XmlJavaTypeAdapter(XmlPlayAdapter.class)
 public class Play extends DomainObject {
 
     private String title;
     private String defaultThumbnailImage = "/images/generic-play-thumbnail.png";
     private String thumbnailImageUUID;
-    private String sportUUID;
-    @XmlTransient
+    @XmlJavaTypeAdapter(XmlSportRefAdapter.class)
     private Sport sport;
     private final TreeMap<ActorInstance, ActorTimeline> actorTimelines = new TreeMap();
 
@@ -63,14 +60,6 @@ public class Play extends DomainObject {
         this.defaultThumbnailImage = defaultThumbnailImage;
     }
 
-    public String getSportUUID() {
-        return sportUUID;
-    }
-
-    public void setSportUUID(String sportUUID) {
-        this.sportUUID = sportUUID;
-    }
-
     public Sport getSport() {
         return sport;
     }
@@ -84,14 +73,14 @@ public class Play extends DomainObject {
     }
 
     public ActorState mergeKeyframe(Integer time, ActorInstance actorInstance, ActorState actorState) {
+        ActorTimeline timeline;
         if (actorTimelines.containsKey(actorInstance)) {
-            ActorTimeline timeline = actorTimelines.get(actorInstance);
-            return timeline.mergeKeyframe(time, actorInstance, actorState);
+            timeline = actorTimelines.get(actorInstance);
         } else {
-            ActorTimeline timeline = new ActorTimeline(actorInstance);
+            timeline = new ActorTimeline(actorInstance);
             actorTimelines.put(actorInstance, timeline);
-            return null;
         }
+        return timeline.mergeKeyframe(time, actorInstance, actorState);
     }
 
     public void unmergeKeyframe(Integer time, ActorInstance actorInstance, ActorState oldState) {

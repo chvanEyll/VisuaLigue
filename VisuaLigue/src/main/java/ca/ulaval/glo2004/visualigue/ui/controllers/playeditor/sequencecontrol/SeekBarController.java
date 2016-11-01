@@ -83,6 +83,14 @@ public class SeekBarController extends ControllerBase {
         return time;
     }
 
+    public void setTime(Integer time, Boolean snapToKeyPoint) {
+        if (snapToKeyPoint) {
+            time = getNearestKeyPointTime(time);
+        }
+        setPointerLocation(time);
+        onTimeChanged.fire(this, time);
+    }
+
     public void goToNextKeyPoint() {
         Integer nextKeyPointTime = (int) Math.ceil(time / (double) KEY_POINT_INTERVAL) * KEY_POINT_INTERVAL;
         if (nextKeyPointTime <= getPlayLength()) {
@@ -95,14 +103,6 @@ public class SeekBarController extends ControllerBase {
         if (previousKeyPointTime > 0) {
             setTime(previousKeyPointTime, false);
         }
-    }
-
-    public void setTime(Integer time, Boolean snapToKeyPoint) {
-        if (snapToKeyPoint) {
-            time = getNearestKeyPointTime(time);
-        }
-        setPointerLocation(time);
-        onTimeChanged.fire(this, time);
     }
 
     private Integer getNearestKeyPointTime(Integer time) {

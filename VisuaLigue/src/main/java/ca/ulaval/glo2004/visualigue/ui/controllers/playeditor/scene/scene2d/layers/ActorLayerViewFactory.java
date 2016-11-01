@@ -4,7 +4,7 @@ import ca.ulaval.glo2004.visualigue.ui.InjectableFXMLLoader;
 import ca.ulaval.glo2004.visualigue.ui.View;
 import ca.ulaval.glo2004.visualigue.ui.models.ActorModel;
 
-public class LayerViewFactory {
+public class ActorLayerViewFactory {
 
     public View create(ActorModel actorModel) {
         if (actorModel.type.get() == ActorModel.Type.PLAYER) {

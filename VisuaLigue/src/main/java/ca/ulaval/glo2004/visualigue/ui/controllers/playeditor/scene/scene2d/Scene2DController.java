@@ -5,8 +5,9 @@ import ca.ulaval.glo2004.visualigue.ui.View;
 import ca.ulaval.glo2004.visualigue.ui.controllers.common.ExtendedScrollPane;
 import ca.ulaval.glo2004.visualigue.ui.controllers.playeditor.scene.SceneController;
 import ca.ulaval.glo2004.visualigue.ui.controllers.playeditor.scene.Zoom;
-import ca.ulaval.glo2004.visualigue.ui.controllers.playeditor.scene.scene2d.layers.LayerViewFactory;
-import ca.ulaval.glo2004.visualigue.ui.controllers.playeditor.scene.scene2d.layers.SceneLayerController;
+import ca.ulaval.glo2004.visualigue.ui.controllers.playeditor.scene.scene2d.layers.ActorLayerController;
+import ca.ulaval.glo2004.visualigue.ui.controllers.playeditor.scene.scene2d.layers.ActorLayerViewFactory;
+import ca.ulaval.glo2004.visualigue.ui.controllers.playeditor.scene.scene2d.layers.PlayingSurfaceLayerController;
 import ca.ulaval.glo2004.visualigue.ui.models.*;
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -25,24 +26,24 @@ public class Scene2DController extends SceneController {
 
     @FXML private ExtendedScrollPane scrollPane;
     @FXML private StackPane scrollPaneContent;
-    @FXML private StackPane stackPane;
-    @FXML private PlayingSurfaceController playingSurfaceController;
-    @Inject LayerViewFactory layerViewFactory;
+    @FXML private StackPane layerStackPane;
+    @FXML private PlayingSurfaceLayerController playingSurfaceLayerController;
+    @Inject ActorLayerViewFactory actorLayerViewFactory;
     private NavigationController navigationController;
     private List<View> sceneLayers = new ArrayList();
     private Map<ActorModel, View> sceneLayerMap = new HashMap();
-    private FrameModel frameModel = new FrameModel();
+    private final FrameModel frameModel = new FrameModel();
     private PlayModel playModel;
     private Boolean playerCategoryLabelDisplayEnabled = false;
 
     @Override
     public void init(PlayModel playModel) {
         this.playModel = playModel;
-        playingSurfaceController.init(playModel, stackPane);
+        playingSurfaceLayerController.init(playModel, layerStackPane);
         frameModel.actorStates.addListener(this::onActorStateMapChanged);
-        navigationController = new NavigationController(scrollPane, scrollPaneContent, playingSurfaceController, playModel);
+        navigationController = new NavigationController(scrollPane, scrollPaneContent, playingSurfaceLayerController, playModel);
         navigationController.onMousePositionChanged.forward(onMousePositionChanged);
-        navigationController.onZoomChanged.forward(onZoomChanged);
+        navigationController.onZoomChanged.setHandler(this::onZoomChanged);
         navigationController.setZoom(new Zoom(1));
     }
 
@@ -60,18 +61,18 @@ public class Scene2DController extends SceneController {
     }
 
     private void addActorLayer(ActorModel actorModel) {
-        View view = layerViewFactory.create(actorModel);
-        SceneLayerController controller = (SceneLayerController) view.getController();
-        controller.init(actorModel, playingSurfaceController);
+        View view = actorLayerViewFactory.create(actorModel);
+        ActorLayerController controller = (ActorLayerController) view.getController();
+        controller.init(actorModel, playingSurfaceLayerController);
         super.addChild(controller);
         sceneLayers.add(view);
         sceneLayerMap.put(actorModel, view);
-        stackPane.getChildren().add(view.getRoot());
+        layerStackPane.getChildren().add(view.getRoot());
     }
 
     private void removeActorLayer(ActorModel actorModel) {
         View view = sceneLayerMap.get(actorModel);
-        stackPane.getChildren().remove(sceneLayers.indexOf(view));
+        layerStackPane.getChildren().remove(sceneLayers.indexOf(view));
         sceneLayers.remove(view);
         sceneLayerMap.remove(actorModel);
     }
@@ -164,7 +165,7 @@ public class Scene2DController extends SceneController {
     @Override
     public void setPlayerCategoryLabelDisplayEnabled(Boolean enabled) {
         playerCategoryLabelDisplayEnabled = enabled;
-        sceneLayers.forEach(view -> ((SceneLayerController) view.getController()).setPlayerCategoryLabelDisplayEnabled(enabled));
+        sceneLayers.forEach(view -> ((ActorLayerController) view.getController()).setPlayerCategoryLabelDisplayEnabled(enabled));
     }
 
     @FXML
@@ -195,6 +196,14 @@ public class Scene2DController extends SceneController {
     @FXML
     protected void onScrollPaneMouseMoved(MouseEvent e) {
         navigationController.onScrollPaneMouseMoved(e);
+    }
+
+    private void onZoomChanged(Object sender, Zoom zoom) {
+        sceneLayerMap.values().stream().forEach(view -> {
+            ActorLayerController controller = (ActorLayerController) view.getController();
+            controller.update();
+        });
+        onZoomChanged.fire(sender, zoom);
     }
 
 }

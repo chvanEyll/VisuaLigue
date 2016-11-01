@@ -24,14 +24,15 @@ public class ActorTimeline extends DomainObject {
     }
 
     public ActorState mergeKeyframe(Integer time, ActorInstance actorInstance, ActorState actorState) {
+        Keyframe keyframe;
         if (keyframes.containsKey(time)) {
-            Keyframe keyframe = keyframes.get(time);
-            return keyframe.mergeActorState(actorState);
+            keyframe = keyframes.get(time);
+
         } else {
-            Keyframe keyframe = new Keyframe(time, actorInstance, actorState);
+            keyframe = new Keyframe(time, actorInstance, actorState);
             keyframes.put(time, keyframe);
-            return null;
         }
+        return keyframe.mergeActorState(actorState);
     }
 
     public void unmergeKeyframe(Integer time, ActorInstance actorInstance, ActorState oldState) {
@@ -59,10 +60,12 @@ public class ActorTimeline extends DomainObject {
         Map.Entry<Integer, Keyframe> ceilingKeyframeEntry = keyframes.ceilingEntry(time);
         if (floorKeyframeEntry != null && ceilingKeyframeEntry == null) {
             return floorKeyframeEntry.getValue();
-        } else if (floorKeyframeEntry != null) {
+        } else if (floorKeyframeEntry != null && (floorKeyframeEntry == ceilingKeyframeEntry)) {
+            return floorKeyframeEntry.getValue();
+        } else if (floorKeyframeEntry != null && (floorKeyframeEntry != ceilingKeyframeEntry)) {
             Keyframe floorKeyframe = floorKeyframeEntry.getValue();
             Keyframe ceilingKeyframe = ceilingKeyframeEntry.getValue();
-            return floorKeyframe.interpolate((time - floorKeyframe.getTime()) / (ceilingKeyframe.getTime() - time), ceilingKeyframe);
+            return floorKeyframe.interpolate((time - floorKeyframe.getTime()) / (ceilingKeyframe.getTime() - floorKeyframe.getTime()), ceilingKeyframe);
         } else {
             return null;
         }

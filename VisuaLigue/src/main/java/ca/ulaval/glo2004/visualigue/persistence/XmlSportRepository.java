@@ -4,7 +4,7 @@ import ca.ulaval.glo2004.visualigue.domain.sport.Sport;
 import ca.ulaval.glo2004.visualigue.domain.sport.SportAlreadyExistsException;
 import ca.ulaval.glo2004.visualigue.domain.sport.SportNotFoundException;
 import ca.ulaval.glo2004.visualigue.domain.sport.SportRepository;
-import ca.ulaval.glo2004.visualigue.domain.xmladapters.XmlSportAdapter;
+import ca.ulaval.glo2004.visualigue.domain.xmladapters.XmlPlayerCategoryRefAdapter;
 import ca.ulaval.glo2004.visualigue.persistence.marshalling.XmlRepositoryMarshaller;
 import ca.ulaval.glo2004.visualigue.utils.ListUtils;
 import java.util.ArrayList;
@@ -23,9 +23,9 @@ public class XmlSportRepository implements SportRepository {
     private final Map<String, Sport> sports;
 
     @Inject
-    public XmlSportRepository(XmlRepositoryMarshaller<Sport> xmlRepositoryMarshaller, XmlSportAdapter xmlSportAdapter) {
+    public XmlSportRepository(XmlRepositoryMarshaller<Sport> xmlRepositoryMarshaller, XmlPlayerCategoryRefAdapter xmlPlayerCategoryRefAdapter) {
         this.xmlRepositoryMarshaller = xmlRepositoryMarshaller;
-        xmlRepositoryMarshaller.setRootAdapter(xmlSportAdapter);
+        xmlRepositoryMarshaller.setMarshallingAdapters(xmlPlayerCategoryRefAdapter);
         sports = xmlRepositoryMarshaller.unmarshalAll();
     }
 
