@@ -10,6 +10,7 @@ import ca.ulaval.glo2004.visualigue.utils.EventHandler;
 import ca.ulaval.glo2004.visualigue.utils.geometry.Vector2;
 import ca.ulaval.glo2004.visualigue.utils.javafx.FXUtils;
 import ca.ulaval.glo2004.visualigue.utils.math.MathUtils;
+import javafx.application.Platform;
 import javafx.beans.value.ObservableValue;
 import javafx.scene.ImageCursor;
 import javafx.scene.input.MouseEvent;
@@ -45,6 +46,9 @@ public class NavigationController extends ControllerBase {
         playingSurfaceLayerController.onMouseReleased.addHandler(this::onPlayingSurfaceMouseReleased);
         this.playModel = playModel;
         scrollPane.addEventFilter(ScrollEvent.ANY, this::scrollPaneEventFilter);
+        Platform.runLater(() -> {
+            autoFit();
+        });
     }
 
     public Zoom getMinZoom() {

@@ -87,15 +87,21 @@ public class SeekBarController extends ControllerBase {
     }
 
     public void setTime(Integer time, Boolean snapToKeyPoint) {
+        Integer playLength = playService.getPlayLength(playModel.getUUID());
+        if (time > playLength) {
+            time = playLength;
+        } else if (time < 0) {
+            time = 0;
+        }
         if (snapToKeyPoint) {
             time = getNearestKeyPointTime(time);
         }
-        setPointerLocation(time);
+        setSeekThumbLocation(time);
         onTimeChanged.fire(this, time);
     }
 
     public void goToNextKeyPoint() {
-        Integer nextKeyPointTime = MathUtils.roundUp(time + KEY_POINT_INTERVAL, KEY_POINT_INTERVAL);
+        Integer nextKeyPointTime = MathUtils.roundDown(time + KEY_POINT_INTERVAL, KEY_POINT_INTERVAL);
         if (nextKeyPointTime <= getPlayLength()) {
             setTime(nextKeyPointTime, false);
         }
@@ -112,19 +118,31 @@ public class SeekBarController extends ControllerBase {
         return (int) Math.round(time / (double) KEY_POINT_INTERVAL) * KEY_POINT_INTERVAL;
     }
 
-    public void setPointerLocation(Integer time) {
+    public void setSeekThumbLocation(Integer time) {
         this.time = time;
-        StackPane.setMargin(seekBarThumb, new Insets(0, 0, 0, getPointerLocationFromTime()));
+        setSeekThumbMargin(getSeekThumbLocationFromTime());
         keyframeScrollPane.ensureVisible(seekBarThumb);
     }
 
-    private Double getPointerLocationFromTime() {
-        System.out.println(String.format("%s, %s, %s", time / (double) getPlayLength(), keyframeHBox.getWidth(), (seekBarThumb.getWidth() / 2)));
+    private Double getSeekThumbLocationFromTime() {
         return (time / (double) getPlayLength()) * (keyframeHBox.getWidth() - seekBarThumb.getWidth());
     }
 
-    private Integer getTimeFromPointerLocation() {
-        return (int) (getPlayLength() * (StackPane.getMargin(seekBarThumb).getLeft() / (keyframeHBox.getWidth() - seekBarThumb.getWidth())));
+    private Integer getTimeFromSeekThumbLocation() {
+        return (int) (getPlayLength() * (getSeekThumbMargin() / (keyframeHBox.getWidth() - seekBarThumb.getWidth())));
+    }
+
+    private void setSeekThumbMargin(Double margin) {
+        if (margin < 0) {
+            margin = 0.0;
+        } else if (margin > keyframeHBox.getWidth() - seekBarThumb.getWidth()) {
+            margin = keyframeHBox.getWidth() - seekBarThumb.getWidth();
+        }
+        StackPane.setMargin(seekBarThumb, new Insets(0, 0, 0, margin));
+    }
+
+    private Double getSeekThumbMargin() {
+        return StackPane.getMargin(seekBarThumb).getLeft();
     }
 
     @FXML
@@ -134,14 +152,14 @@ public class SeekBarController extends ControllerBase {
 
     @FXML
     protected void onMouseDragged(MouseEvent e) {
-        seekBarThumb.setTranslateX(seekBarThumb.getTranslateX() + e.getSceneX() - dragStartX);
+        setSeekThumbMargin(getSeekThumbMargin() + e.getSceneX() - dragStartX);
         dragStartX = e.getSceneX();
-        setTime(getTimeFromPointerLocation(), false);
+        setTime(getTimeFromSeekThumbLocation(), false);
     }
 
     @FXML
     protected void onMouseReleased(MouseEvent e) {
-        setTime(getTimeFromPointerLocation(), true);
+        setTime(getTimeFromSeekThumbLocation(), false);
     }
 
 }

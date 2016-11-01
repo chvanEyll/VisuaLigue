@@ -3,6 +3,7 @@ package ca.ulaval.glo2004.visualigue.ui.controllers.playeditor.scene.scene2d.lay
 import ca.ulaval.glo2004.visualigue.ui.controllers.common.SvgImage;
 import ca.ulaval.glo2004.visualigue.ui.models.ActorModel;
 import ca.ulaval.glo2004.visualigue.utils.geometry.Vector2;
+import javafx.application.Platform;
 import javafx.beans.value.ObservableValue;
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
@@ -34,8 +35,10 @@ public class PlayerLayerController extends ActorLayerController {
     public void update() {
         Vector2 actorLocation = new Vector2(actorModel.x.get(), actorModel.y.get());
         Vector2 surfacePoint = playingSurfaceLayerController.relativeToSurfacePoint(actorLocation);
-        actorButton.setLayoutX(surfacePoint.getX());
-        actorButton.setLayoutY(surfacePoint.getY());
+        Platform.runLater(() -> {
+            actorButton.setLayoutX(surfacePoint.getX());
+            actorButton.setLayoutY(surfacePoint.getY());
+        });
     }
 
     @Override

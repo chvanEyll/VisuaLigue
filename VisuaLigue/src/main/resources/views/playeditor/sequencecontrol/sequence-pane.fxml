@@ -31,7 +31,7 @@
                         <String fx:value="icon-button" />
                     </styleClass>
                 </ExtendedButton>
-                <Button fx:id="fixedRewindButton">
+                <Button fx:id="fixedRewindButton" onAction="#onFixedRewindButtonAction">
                     <graphic>
                         <StackPane>
                             <children>
