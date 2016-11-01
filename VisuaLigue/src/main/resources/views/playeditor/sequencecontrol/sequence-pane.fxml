@@ -31,7 +31,7 @@
                         <String fx:value="icon-button" />
                     </styleClass>
                 </ExtendedButton>
-                <Button fx:id="fixedRewindButton" onAction="#onFixedRewindButtonAction">
+                <ExtendedButton fx:id="fixedRewindButton" onAction="#onFixedRewindButtonAction">
                     <graphic>
                         <StackPane>
                             <children>
@@ -59,8 +59,8 @@
                         <String fx:value="icon-button" />
                         <String fx:value="fixed-rewind-button" />
                     </styleClass>
-                </Button>
-                <Button fx:id="previousKeyPointButton" onAction="#onPreviousKeyPointButtonAction">
+                </ExtendedButton>
+                <ExtendedButton fx:id="previousKeyPointButton" onAction="#onPreviousKeyPointButtonAction">
                     <graphic>
                         <SvgImage url="/images/seekbar-previous-icon.fxml" />
                     </graphic>
@@ -70,8 +70,8 @@
                     <styleClass>
                         <String fx:value="icon-button" />
                     </styleClass>
-                </Button>
-                <Button fx:id="rewindButton" onAction="#onRewindButtonAction">
+                </ExtendedButton>
+                <ExtendedButton fx:id="rewindButton" onAction="#onRewindButtonAction">
                     <graphic>
                         <SvgImage url="/images/seekbar-rewind-icon.fxml" />
                     </graphic>
@@ -81,8 +81,8 @@
                     <styleClass>
                         <String fx:value="icon-button" />
                     </styleClass>
-                </Button>
-                <Button fx:id="playButton" onAction="#onPlayButtonAction">
+                </ExtendedButton>
+                <ExtendedButton fx:id="playButton" onAction="#onPlayButtonAction">
                     <graphic>
                         <SvgImage url="/images/seekbar-play-icon.fxml" />
                     </graphic>
@@ -92,8 +92,8 @@
                     <styleClass>
                         <String fx:value="icon-button" />
                     </styleClass>
-                </Button>
-                <Button fx:id="pauseButton" onAction="#onPauseButtonAction">
+                </ExtendedButton>
+                <ExtendedButton fx:id="pauseButton" onAction="#onPauseButtonAction">
                     <graphic>
                         <SvgImage url="/images/seekbar-pause-icon.fxml" />
                     </graphic>
@@ -103,8 +103,8 @@
                     <styleClass>
                         <String fx:value="icon-button" />
                     </styleClass>
-                </Button>
-                <Button fx:id="fastForwardButton" onAction="#onFastForwardButtonAction">
+                </ExtendedButton>
+                <ExtendedButton fx:id="fastForwardButton" onAction="#onFastForwardButtonAction">
                     <graphic>
                         <SvgImage url="/images/seekbar-fast-forward-icon.fxml" />
                     </graphic>
@@ -114,8 +114,8 @@
                     <styleClass>
                         <String fx:value="icon-button" />
                     </styleClass>
-                </Button>
-                <Button fx:id="nextKeyPointButton" onAction="#onNextKeyPointButtonAction">
+                </ExtendedButton>
+                <ExtendedButton fx:id="nextKeyPointButton" onAction="#onNextKeyPointButtonAction">
                     <graphic>
                         <SvgImage url="/images/seekbar-next-icon.fxml" />
                     </graphic>
@@ -125,8 +125,8 @@
                     <styleClass>
                         <String fx:value="icon-button" />
                     </styleClass>
-                </Button>
-                <Button fx:id="fixedForwardButton" onAction="#onFixedForwardButtonAction">
+                </ExtendedButton>
+                <ExtendedButton fx:id="fixedForwardButton" onAction="#onFixedForwardButtonAction">
                     <graphic>
                         <StackPane>
                             <children>
@@ -154,7 +154,7 @@
                         <String fx:value="icon-button" />
                         <String fx:value="fixed-forward-button" />
                     </styleClass>
-                </Button>
+                </ExtendedButton>
             </children>
         </HBox>
         <fx:include fx:id="seekBar" source="/views/playeditor/sequencecontrol/seekbar.fxml" />

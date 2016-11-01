@@ -378,6 +378,10 @@
     -fx-fill: #BFBFBF;
 }
 
+.button.icon-button.selected .st0 {
+    -fx-fill: #BFBFBF;
+}
+
 .button-group {
     -fx-spacing: 14;
 }

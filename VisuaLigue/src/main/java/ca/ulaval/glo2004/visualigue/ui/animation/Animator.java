@@ -1,9 +1,6 @@
 package ca.ulaval.glo2004.visualigue.ui.animation;
 
-import ca.ulaval.glo2004.visualigue.ui.animation.transitions.InsetsTransition;
-import ca.ulaval.glo2004.visualigue.ui.animation.transitions.RectangleTransition;
-import ca.ulaval.glo2004.visualigue.ui.animation.transitions.SimpleValueTransition;
-import ca.ulaval.glo2004.visualigue.ui.animation.transitions.Transition;
+import ca.ulaval.glo2004.visualigue.ui.animation.transitions.*;
 import ca.ulaval.glo2004.visualigue.utils.math.easing.EasingFunction;
 import java.time.Duration;
 import java.time.LocalDateTime;
@@ -32,9 +29,9 @@ public class Animator<T> {
     private LocalDateTime animationStartTime;
     private Timer timer;
     private Transition transition;
-    private BiConsumer<Animator, T> consumer;
+    private BiConsumer<Animator, T> onFrameConsumer;
 
-    public Animator(Consumer method, T startValue, T endValue, Duration duration, EasingFunction easingFunction, Object groupKey, Boolean firstOfGroup, Boolean lastOfGroup, BiConsumer<Animator, T> consumer) {
+    public Animator(Consumer method, T startValue, T endValue, Duration duration, EasingFunction easingFunction, Object groupKey, Boolean firstOfGroup, Boolean lastOfGroup, BiConsumer<Animator, T> onFrameConsumer) {
         this.method = method;
         this.startValue = startValue;
         this.endValue = endValue;
@@ -43,12 +40,14 @@ public class Animator<T> {
         this.groupKey = groupKey;
         this.isFirstOfGroup = firstOfGroup;
         this.isLastOfGroup = lastOfGroup;
-        this.consumer = consumer;
+        this.onFrameConsumer = onFrameConsumer;
     }
 
     public void animate() {
-        if (endValue instanceof Double) {
-            transition = new SimpleValueTransition(easingFunction);
+        if (endValue instanceof Integer) {
+            transition = new IntegerValueTransition(easingFunction);
+        } else if (endValue instanceof Double) {
+            transition = new DoubleValueTransition(easingFunction);
         } else if (endValue instanceof Rectangle) {
             transition = new RectangleTransition(easingFunction);
         } else if (endValue instanceof Insets) {
@@ -83,7 +82,7 @@ public class Animator<T> {
         });
     }
 
-    private void cancel() {
+    public void cancel() {
         if (timer != null) {
             synchronized (ANIMATION_SYNCHRONIZE_LOCK) {
                 timer.cancel();
@@ -103,8 +102,8 @@ public class Animator<T> {
         }
         Platform.runLater(() -> {
             method.accept(value);
-            if (consumer != null) {
-                consumer.accept(this, value);
+            if (onFrameConsumer != null) {
+                onFrameConsumer.accept(this, value);
             }
         });
     }

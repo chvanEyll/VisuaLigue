@@ -3,6 +3,8 @@ package ca.ulaval.glo2004.visualigue.ui.controllers.playeditor.sequencecontrol;
 import ca.ulaval.glo2004.visualigue.services.play.PlayService;
 import ca.ulaval.glo2004.visualigue.ui.InjectableFXMLLoader;
 import ca.ulaval.glo2004.visualigue.ui.View;
+import ca.ulaval.glo2004.visualigue.ui.animation.Animation;
+import ca.ulaval.glo2004.visualigue.ui.animation.Animator;
 import ca.ulaval.glo2004.visualigue.ui.controllers.ControllerBase;
 import ca.ulaval.glo2004.visualigue.ui.controllers.common.ExtendedScrollPane;
 import ca.ulaval.glo2004.visualigue.ui.models.PlayModel;
@@ -23,6 +25,7 @@ public class SeekBarController extends ControllerBase {
 
     private static final Integer KEY_POINT_INTERVAL = 1000;
     public EventHandler<Integer> onTimeChanged = new EventHandler();
+    public EventHandler onSeekThumbPressed = new EventHandler();
 
     @FXML private HBox keyframeHBox;
     @FXML private ExtendedScrollPane keyframeScrollPane;
@@ -33,17 +36,18 @@ public class SeekBarController extends ControllerBase {
     private List<View> keyPoints = new ArrayList();
     private Integer time = 0;
     private Double dragStartX;
+    private Animator animator;
 
     public void init(PlayModel playModel) {
         this.playModel = playModel;
         updateKeyPoints();
-        setTime(0, false);
+        move(0);
     }
 
     @FXML
     protected void onNewFrameButtonAction(ActionEvent e) {
         updateKeyPoints();
-        setTime(time + KEY_POINT_INTERVAL, true);
+        move(time + KEY_POINT_INTERVAL);
     }
 
     private void updateKeyPoints() {
@@ -79,48 +83,69 @@ public class SeekBarController extends ControllerBase {
     }
 
     private void onKeyPointClicked(Object sender, Integer index) {
-        setTime(index * KEY_POINT_INTERVAL, true);
+        move(index * KEY_POINT_INTERVAL);
     }
 
     public Integer getTime() {
         return time;
     }
 
-    public void setTime(Integer time, Boolean snapToKeyPoint) {
+    public void move(Integer time) {
+        move(time, false, false, 0.0);
+    }
+
+    public void move(Integer time, Boolean snapToKeyPoint, Boolean smooth, Double smoothingDuration) {
+        cancelAnimation();
+        if (snapToKeyPoint) {
+            time = getClosestKeyPointTime(time);
+        }
+        if (smooth && !time.equals(this.time)) {
+            animator = Animation.method(this::setTime).from(getTime()).to(time).duration(smoothingDuration).group(this).first().easeOutExp();
+        } else {
+            setTime(time);
+        }
+    }
+
+    private void setTime(Integer time) {
         Integer playLength = playService.getPlayLength(playModel.getUUID());
         if (time > playLength) {
             time = playLength;
         } else if (time < 0) {
             time = 0;
         }
-        if (snapToKeyPoint) {
-            time = getNearestKeyPointTime(time);
-        }
-        setSeekThumbLocation(time);
+        setSeekThumbLocationFromTime(time);
         onTimeChanged.fire(this, time);
     }
 
-    public void goToNextKeyPoint() {
-        Integer nextKeyPointTime = MathUtils.roundDown(time + KEY_POINT_INTERVAL, KEY_POINT_INTERVAL);
-        if (nextKeyPointTime <= getPlayLength()) {
-            setTime(nextKeyPointTime, false);
-        }
-    }
-
-    public void goToPreviousKeyPoint() {
-        Integer previousKeyPointTime = MathUtils.roundUp(time - KEY_POINT_INTERVAL, KEY_POINT_INTERVAL);
-        if (previousKeyPointTime >= 0) {
-            setTime(previousKeyPointTime, false);
-        }
-    }
-
-    private Integer getNearestKeyPointTime(Integer time) {
+    public Integer getClosestKeyPointTime(Integer time) {
         return (int) Math.round(time / (double) KEY_POINT_INTERVAL) * KEY_POINT_INTERVAL;
     }
 
-    public void setSeekThumbLocation(Integer time) {
+    public void goToNextKeyPoint(Boolean smooth, Double smoothingDuration) {
+        Integer nextKeyPointTime = getNextKeyPointTime();
+        if (nextKeyPointTime <= getPlayLength()) {
+            move(nextKeyPointTime, false, smooth, smoothingDuration);
+        }
+    }
+
+    public Integer getNextKeyPointTime() {
+        return MathUtils.roundDown(time + (int) (KEY_POINT_INTERVAL * 1.1), KEY_POINT_INTERVAL);
+    }
+
+    public void goToPreviousKeyPoint(Boolean smooth, Double smoothingDuration) {
+        Integer previousKeyPointTime = getPreviousKeyPointTime();
+        if (previousKeyPointTime >= 0) {
+            move(previousKeyPointTime, false, smooth, smoothingDuration);
+        }
+    }
+
+    public Integer getPreviousKeyPointTime() {
+        return MathUtils.roundUp(time - (int) (KEY_POINT_INTERVAL * 1.1), KEY_POINT_INTERVAL);
+    }
+
+    public void setSeekThumbLocationFromTime(Integer time) {
         this.time = time;
-        setSeekThumbMargin(getSeekThumbLocationFromTime());
+        setSeekThumbLocationFromMargin(getSeekThumbLocationFromTime());
         keyframeScrollPane.ensureVisible(seekBarThumb);
     }
 
@@ -132,7 +157,7 @@ public class SeekBarController extends ControllerBase {
         return (int) (getPlayLength() * (getSeekThumbMargin() / (keyframeHBox.getWidth() - seekBarThumb.getWidth())));
     }
 
-    private void setSeekThumbMargin(Double margin) {
+    private void setSeekThumbLocationFromMargin(Double margin) {
         if (margin < 0) {
             margin = 0.0;
         } else if (margin > keyframeHBox.getWidth() - seekBarThumb.getWidth()) {
@@ -145,21 +170,29 @@ public class SeekBarController extends ControllerBase {
         return StackPane.getMargin(seekBarThumb).getLeft();
     }
 
+    private void cancelAnimation() {
+        if (animator != null) {
+            animator.cancel();
+        }
+    }
+
     @FXML
     protected void onMousePressed(MouseEvent e) {
+        cancelAnimation();
         dragStartX = e.getSceneX();
+        onSeekThumbPressed.fire(this);
     }
 
     @FXML
     protected void onMouseDragged(MouseEvent e) {
-        setSeekThumbMargin(getSeekThumbMargin() + e.getSceneX() - dragStartX);
+        setSeekThumbLocationFromMargin(keyframeScrollPane.mouseToContentPoint().getX());
         dragStartX = e.getSceneX();
-        setTime(getTimeFromSeekThumbLocation(), false);
+        move(getTimeFromSeekThumbLocation());
     }
 
     @FXML
     protected void onMouseReleased(MouseEvent e) {
-        setTime(getTimeFromSeekThumbLocation(), false);
+        move(getTimeFromSeekThumbLocation());
     }
 
 }

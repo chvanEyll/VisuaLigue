@@ -12,6 +12,9 @@ public class ExtendedButton extends Button {
     }
 
     public void setSelected(Boolean selected) {
+        if (this.selected.equals(selected)) {
+            return;
+        }
         if (selected) {
             this.getStyleClass().add(SELECTED_STYLE_CLASS);
         } else {

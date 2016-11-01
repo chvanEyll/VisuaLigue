@@ -171,7 +171,7 @@
                         <SvgImage url="/images/item-pane-display-toggle-icon.fxml" />
                     </graphic>
                     <tooltip>
-                        <Tooltip text="Afficher/masquer le panneau des joueurs et objets" />
+                        <Tooltip text="Afficher/masquer le panneau des items" />
                     </tooltip>
                     <styleClass>
                         <String fx:value="borderless" />

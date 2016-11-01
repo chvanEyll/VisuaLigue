@@ -19,7 +19,7 @@ public class Animation<T> {
     private Object groupKey = null;
     private Boolean isFirstOfGroup = false;
     private Boolean isLastOfGroup = false;
-    private BiConsumer<Animator, T> consumer = null;
+    private BiConsumer<Animator, T> onFrameConsumer = null;
 
     public Animation(Consumer<T> method) {
         this.method = method;
@@ -29,8 +29,18 @@ public class Animation<T> {
         return new Animation(method);
     }
 
+    public Animation from(Integer value) {
+        this.startValue = value;
+        return this;
+    }
+
     public Animation from(Double value) {
         this.startValue = value;
+        return this;
+    }
+
+    public Animation to(Integer value) {
+        this.endValue = value;
         return this;
     }
 
@@ -59,6 +69,10 @@ public class Animation<T> {
         return this;
     }
 
+    public Animation duration(Integer durationSeconds) {
+        return duration((double) durationSeconds);
+    }
+
     public Animation duration(Double durationSeconds) {
         Double durationMillis = durationSeconds * 1000;
         this.duration = Duration.ofMillis(durationMillis.longValue());
@@ -81,22 +95,23 @@ public class Animation<T> {
     }
 
     public Animation callFrame(BiConsumer<Animator, T> consumer) {
-        this.consumer = consumer;
+        this.onFrameConsumer = consumer;
         return this;
     }
 
-    public void easeOutExp() {
-        build(new ExponentialEaseOutFunction());
+    public Animator easeOutExp() {
+        return build(new ExponentialEaseOutFunction());
     }
 
-    public void linear() {
-        build(new LinearEaseFunction());
+    public Animator linear() {
+        return build(new LinearEaseFunction());
     }
 
-    private void build(EasingFunction easingFunction) {
+    private Animator build(EasingFunction easingFunction) {
         method.accept((T) startValue);
-        Animator animator = new Animator(method, startValue, endValue, duration, easingFunction, groupKey, isFirstOfGroup, isLastOfGroup, consumer);
+        Animator animator = new Animator(method, startValue, endValue, duration, easingFunction, groupKey, isFirstOfGroup, isLastOfGroup, onFrameConsumer);
         animator.animate();
+        return animator;
     }
 
 }
