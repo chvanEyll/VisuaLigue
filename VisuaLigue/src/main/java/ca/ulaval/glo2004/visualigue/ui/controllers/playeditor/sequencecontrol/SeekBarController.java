@@ -92,10 +92,10 @@ public class SeekBarController extends ControllerBase {
     }
 
     public void move(Integer time) {
-        move(time, false, false, 0.0);
+        move(time, false, false, 0);
     }
 
-    public void move(Integer time, Boolean snapToKeyPoint, Boolean smooth, Double smoothingDuration) {
+    public void move(Integer time, Boolean snapToKeyPoint, Boolean smooth, Integer smoothingDuration) {
         cancelAnimation();
         if (snapToKeyPoint) {
             time = getClosestKeyPointTime(time);
@@ -122,7 +122,7 @@ public class SeekBarController extends ControllerBase {
         return (int) Math.round(time / (double) KEY_POINT_INTERVAL) * KEY_POINT_INTERVAL;
     }
 
-    public void goToNextKeyPoint(Boolean smooth, Double smoothingDuration) {
+    public void goToNextKeyPoint(Boolean smooth, Integer smoothingDuration) {
         Integer nextKeyPointTime = getNextKeyPointTime();
         if (nextKeyPointTime <= getPlayLength()) {
             move(nextKeyPointTime, false, smooth, smoothingDuration);
@@ -133,7 +133,7 @@ public class SeekBarController extends ControllerBase {
         return MathUtils.roundDown(time + (int) (KEY_POINT_INTERVAL * 1.1), KEY_POINT_INTERVAL);
     }
 
-    public void goToPreviousKeyPoint(Boolean smooth, Double smoothingDuration) {
+    public void goToPreviousKeyPoint(Boolean smooth, Integer smoothingDuration) {
         Integer previousKeyPointTime = getPreviousKeyPointTime();
         if (previousKeyPointTime >= 0) {
             move(previousKeyPointTime, false, smooth, smoothingDuration);

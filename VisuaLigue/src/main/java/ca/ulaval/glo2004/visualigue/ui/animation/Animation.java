@@ -69,13 +69,8 @@ public class Animation<T> {
         return this;
     }
 
-    public Animation duration(Integer durationSeconds) {
-        return duration((double) durationSeconds);
-    }
-
-    public Animation duration(Double durationSeconds) {
-        Double durationMillis = durationSeconds * 1000;
-        this.duration = Duration.ofMillis(durationMillis.longValue());
+    public Animation duration(Integer duration) {
+        this.duration = Duration.ofMillis(duration);
         return this;
     }
 

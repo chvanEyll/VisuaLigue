@@ -77,13 +77,13 @@ public class SequencePaneController extends ControllerBase {
     @FXML
     protected void onNextKeyPointButtonAction(ActionEvent e) {
         stop();
-        seekBarController.goToNextKeyPoint(false, 0.0);
+        seekBarController.goToNextKeyPoint(false, 0);
     }
 
     @FXML
     protected void onPreviousKeyPointButtonAction(ActionEvent e) {
         stop();
-        seekBarController.goToPreviousKeyPoint(false, 0.0);
+        seekBarController.goToPreviousKeyPoint(false, 0);
     }
 
     @FXML
@@ -159,7 +159,7 @@ public class SequencePaneController extends ControllerBase {
         } else {
             time = seekBarController.getPreviousKeyPointTime();
         }
-        seekBarController.move(time, true, true, AUTO_ADVANCE_PERIOD / SequencePaneController.this.playSpeed.getMultiplierAbs() / 1000.0);
+        seekBarController.move(time, true, true, AUTO_ADVANCE_PERIOD / SequencePaneController.this.playSpeed.getMultiplierAbs());
     }
 
     private void stop() {
