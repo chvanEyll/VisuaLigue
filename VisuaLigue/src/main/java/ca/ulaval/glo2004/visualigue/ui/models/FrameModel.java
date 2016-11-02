@@ -5,6 +5,6 @@ import javafx.collections.ObservableMap;
 
 public class FrameModel extends ModelBase {
 
-    public ObservableMap<String, ActorModel> actorStates = FXCollections.observableHashMap();
+    public ObservableMap<String, ActorModel> actorModels = FXCollections.observableHashMap();
 
 }

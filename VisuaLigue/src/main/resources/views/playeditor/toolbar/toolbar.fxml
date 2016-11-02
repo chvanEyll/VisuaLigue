@@ -156,7 +156,7 @@
                 <SvgImage url="/images/show-labels-icon.fxml" />
             </graphic>
             <tooltip>
-                <Tooltip text="Afficher/masquer les étiquettes de joueurs" />
+                <Tooltip text="Afficher/masquer les étiquettes des joueurs" />
             </tooltip>
             <styleClass>
                 <String fx:value="borderless" />

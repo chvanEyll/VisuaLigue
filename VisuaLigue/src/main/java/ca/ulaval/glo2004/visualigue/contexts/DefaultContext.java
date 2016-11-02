@@ -260,15 +260,17 @@ public class DefaultContext extends ContextBase {
         PlayerState playerState = new PlayerState(new Vector2(0.25, 0.25), new ExponentialEaseOutTransition(), 0.0, new ExponentialEaseOutTransition());
         play.mergeKeyframe(0, playerInstance1, playerState);
         playerState = new PlayerState(new Vector2(0.75, 0.75), new ExponentialEaseOutTransition(), 90.0, new ExponentialEaseOutTransition());
-        play.mergeKeyframe(2000, playerInstance1, playerState);
+        play.mergeKeyframe(1000, playerInstance1, playerState);
         playerState = new PlayerState(new Vector2(0.5, 0.2), new ExponentialEaseOutTransition(), 180.0, new ExponentialEaseOutTransition());
-        play.mergeKeyframe(4000, playerInstance1, playerState);
+        play.mergeKeyframe(2000, playerInstance1, playerState);
 
         PlayerInstance playerInstance2 = new PlayerInstance(playerCategories.get(1), TeamSide.OPPONENTS);
         playerState = new PlayerState(new Vector2(0.8, 0.3), new ExponentialEaseOutTransition(), 180.0, new ExponentialEaseOutTransition());
         play.mergeKeyframe(0, playerInstance2, playerState);
         playerState = new PlayerState(new Vector2(0.1, 0.9), new ExponentialEaseOutTransition(), 0.0, new ExponentialEaseOutTransition());
-        play.mergeKeyframe(4000, playerInstance2, playerState);
+        play.mergeKeyframe(1000, playerInstance2, playerState);
+        playerState = new PlayerState(new Vector2(0.3, 0.45), new ExponentialEaseOutTransition(), 0.0, new ExponentialEaseOutTransition());
+        play.mergeKeyframe(2000, playerInstance2, playerState);
 
         ObstacleInstance obstacleInstance1 = new ObstacleInstance(coneObstacle);
         ObstacleState obstacleState = new ObstacleState(new Vector2(0.5, 0.4));
@@ -278,9 +280,9 @@ public class DefaultContext extends ContextBase {
         BallState ballState = new BallState(new Vector2(0.4, 0.8), new ExponentialEaseOutTransition(), null);
         play.mergeKeyframe(0, ballInstance1, ballState);
         ballState = new BallState(new Vector2(0.7, 0.25), new ExponentialEaseOutTransition(), null);
-        play.mergeKeyframe(2000, ballInstance1, ballState);
+        play.mergeKeyframe(1000, ballInstance1, ballState);
         ballState = new BallState(new Vector2(0.1, 0.1), new ExponentialEaseOutTransition(), null);
-        play.mergeKeyframe(4000, ballInstance1, ballState);
+        play.mergeKeyframe(2000, ballInstance1, ballState);
 
         return play;
     }

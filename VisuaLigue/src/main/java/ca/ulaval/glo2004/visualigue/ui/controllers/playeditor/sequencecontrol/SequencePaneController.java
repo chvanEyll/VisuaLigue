@@ -180,7 +180,7 @@ public class SequencePaneController extends ControllerBase {
     }
 
     private void updateFrame(Integer time) {
-        frameModelConverter.update(playModel, sceneController.getFrameModel(), playService.getFrame(playModel.getUUID(), time));
+        frameModelConverter.update(playService.getFrame(playModel.getUUID(), time), sceneController.getFrameModel(), playModel);
     }
 
     private void updateControlButtonStates() {

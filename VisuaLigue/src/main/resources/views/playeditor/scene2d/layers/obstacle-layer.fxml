@@ -10,7 +10,7 @@
     <children>
         <Button fx:id="actorButton" styleClass="icon-button, shadowed">
             <graphic>
-                <ImageView fx:id="imageView" fitWidth="45" fitHeight="45" preserveRatio="true"  />
+                <ImageView fx:id="imageView" fitWidth="30" fitHeight="30" preserveRatio="true"  />
             </graphic>
             <tooltip>
                 <Tooltip fx:id="tooltip" />

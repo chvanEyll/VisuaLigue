@@ -104,10 +104,17 @@ public class Play extends DomainObject {
     public Frame getFrame(Integer time) {
         Frame frame = new Frame();
         actorTimelines.entrySet().stream().forEach(e -> {
+            ActorInstance actorInstance = e.getKey();
             ActorTimeline timeline = e.getValue();
             Keyframe keyframe = timeline.getKeyframe(time);
             if (keyframe != null) {
-                frame.addActorState(keyframe.getActorInstance(), keyframe.getActorState());
+                frame.setCurrentActorState(actorInstance, keyframe.getActorState());
+            }
+            Keyframe nextKeyframe = timeline.getNextKeyframe(time);
+            if (nextKeyframe != null) {
+                frame.setNextActorState(actorInstance, nextKeyframe.getActorState());
+            } else {
+                frame.removeNextActorState(actorInstance);
             }
         });
         return frame;

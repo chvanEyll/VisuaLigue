@@ -23,59 +23,64 @@ public class FrameModelConverter {
         this.imageRepository = imageRepository;
     }
 
-    public FrameModel update(PlayModel playModel, FrameModel frameModel, Frame frame) {
+    public FrameModel update(Frame frame, FrameModel frameModel, PlayModel playModel) {
         frameModel.setUUID(frame.getUUID());
         frameModel.setIsNew(false);
-        updateExistingActorInstances(frameModel, frame.getActorStates(), playModel);
-        removeOldActorInstances(frameModel, frame.getActorStates());
+        updateExistingActorInstances(frame, frameModel, playModel, frame.getCurrentActorStates());
+        removeOldActorInstances(frameModel, frame.getCurrentActorStates());
         return frameModel;
     }
 
-    private void updateExistingActorInstances(FrameModel frameModel, Map<ActorInstance, ActorState> actorStates, PlayModel playModel) {
+    private void updateExistingActorInstances(Frame frame, FrameModel frameModel, PlayModel playModel, Map<ActorInstance, ActorState> actorStates) {
         actorStates.entrySet().forEach(e -> {
-            updateActorInstance(frameModel, e.getKey(), e.getValue(), playModel);
+            updateActorInstance(frame, frameModel, playModel, e.getKey(), e.getValue());
         });
     }
 
     private void removeOldActorInstances(FrameModel frameModel, Map<ActorInstance, ActorState> actorStates) {
-        frameModel.actorStates.keySet().forEach(actorModelUUID -> {
+        frameModel.actorModels.keySet().forEach(actorModelUUID -> {
             if (!actorStates.keySet().stream().anyMatch(actorInstance -> actorInstance.getUUID().equals(actorModelUUID))) {
                 removeActorInstance(frameModel, actorModelUUID);
             }
         });
     }
 
-    private void updateActorInstance(FrameModel frameModel, ActorInstance actorInstance, ActorState actorState, PlayModel playModel) {
-        if (frameModel.actorStates.containsKey(actorInstance.getUUID())) {
-            ActorModel actorModel = frameModel.actorStates.get(actorInstance.getUUID());
-            updateActorModel(actorModel, actorInstance, actorState, playModel);
+    private void updateActorInstance(Frame frame, FrameModel frameModel, PlayModel playModel, ActorInstance actorInstance, ActorState actorState) {
+        if (frameModel.actorModels.containsKey(actorInstance.getUUID())) {
+            ActorModel actorModel = frameModel.actorModels.get(actorInstance.getUUID());
+            updateActorModel(frame, actorModel, playModel, actorInstance, actorState);
         } else {
             ActorModel actorModel = new ActorModel();
-            updateActorModel(actorModel, actorInstance, actorState, playModel);
-            frameModel.actorStates.put(actorInstance.getUUID(), actorModel);
+            updateActorModel(frame, actorModel, playModel, actorInstance, actorState);
+            frameModel.actorModels.put(actorInstance.getUUID(), actorModel);
         }
     }
 
     private void removeActorInstance(FrameModel frameModel, String actorInstanceUUID) {
-        frameModel.actorStates.remove(actorInstanceUUID);
+        frameModel.actorModels.remove(actorInstanceUUID);
     }
 
-    private void updateActorModel(ActorModel actorModel, ActorInstance actorInstance, ActorState actorState, PlayModel playModel) {
+    private void updateActorModel(Frame frame, ActorModel actorModel, PlayModel playModel, ActorInstance actorInstance, ActorState actorState) {
         if (actorInstance instanceof PlayerInstance) {
-            updatePlayerModel(actorModel, actorInstance, actorState);
+            updatePlayerModel(frame, actorModel, actorInstance, actorState);
         } else if (actorInstance instanceof BallInstance) {
-            updateBallModel(actorModel, actorInstance, actorState, playModel);
+            updateBallModel(actorModel, playModel, actorState);
         } else if (actorInstance instanceof ObstacleInstance) {
             updateObstacleModel(actorModel, actorInstance, actorState);
         }
     }
 
-    private void updatePlayerModel(ActorModel actorModel, ActorInstance actorInstance, ActorState actorState) {
+    private void updatePlayerModel(Frame frame, ActorModel actorModel, ActorInstance actorInstance, ActorState actorState) {
         PlayerState playerState = (PlayerState) actorState;
         PlayerInstance playerInstance = (PlayerInstance) actorInstance;
         actorModel.type.set(ActorModel.Type.PLAYER);
-        actorModel.x.set(playerState.getPosition().getX());
-        actorModel.y.set(playerState.getPosition().getY());
+        actorModel.position.set(playerState.getPosition());
+        ActorState nextActorState = frame.getNextActorState(actorInstance);
+        if (nextActorState != null) {
+            actorModel.nextPosition.set(nextActorState.getPosition());
+        } else {
+            actorModel.nextPosition.set(null);
+        }
         if (playerInstance.getTeamSide() == TeamSide.ALLIES) {
             actorModel.color.set(playerInstance.getPlayerCategory().getAllyColor());
         } else {
@@ -86,11 +91,10 @@ public class FrameModelConverter {
         actorModel.hoverText.set(playerInstance.getPlayerCategory().getName());
     }
 
-    private void updateBallModel(ActorModel actorModel, ActorInstance actorInstance, ActorState actorState, PlayModel playModel) {
+    private void updateBallModel(ActorModel actorModel, PlayModel playModel, ActorState actorState) {
         BallState ballState = (BallState) actorState;
         actorModel.type.set(ActorModel.Type.BALL);
-        actorModel.x.set(ballState.getPosition().getX());
-        actorModel.y.set(ballState.getPosition().getY());
+        actorModel.position.set(ballState.getPosition());
         actorModel.hoverText.set(playModel.ballModel.name.get());
         if (playModel.ballModel.imagePathName.isNotEmpty().get()) {
             actorModel.imagePathName.set(playModel.ballModel.imagePathName.get());
@@ -103,8 +107,7 @@ public class FrameModelConverter {
         ObstacleState obstacleState = (ObstacleState) actorState;
         ObstacleInstance obstacleInstance = (ObstacleInstance) actorInstance;
         actorModel.type.set(ActorModel.Type.OBSTACLE);
-        actorModel.x.set(obstacleState.getPosition().getX());
-        actorModel.y.set(obstacleState.getPosition().getY());
+        actorModel.position.set(obstacleState.getPosition());
         actorModel.hoverText.set(obstacleInstance.getObstacle().getName());
         Obstacle obstacle = obstacleInstance.getObstacle();
         if (obstacle.hasCustomImage()) {

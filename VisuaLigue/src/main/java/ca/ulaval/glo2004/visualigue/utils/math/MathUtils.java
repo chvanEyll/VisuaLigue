@@ -33,4 +33,12 @@ public class MathUtils {
     public static Double interpolate(Double startValue, Double finalValue, Double interpolant) {
         return startValue + (finalValue - startValue) * interpolant;
     }
+
+    public static Double wrap(Double value, Double min, Double max) {
+        return (((value - min) % (max - min)) + (max - min)) % (max - min) + min;
+    }
+
+    public static Double wrapAngle(Double angleDeg) {
+        return MathUtils.wrap(angleDeg, 0.0, 360.0);
+    }
 }

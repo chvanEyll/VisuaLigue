@@ -70,4 +70,13 @@ public class ActorTimeline extends DomainObject {
             return null;
         }
     }
+
+    public Keyframe getNextKeyframe(Integer time) {
+        Map.Entry<Integer, Keyframe> ceilingKeyframeEntry = keyframes.higherEntry(time);
+        if (ceilingKeyframeEntry == null) {
+            return null;
+        } else {
+            return ceilingKeyframeEntry.getValue();
+        }
+    }
 }

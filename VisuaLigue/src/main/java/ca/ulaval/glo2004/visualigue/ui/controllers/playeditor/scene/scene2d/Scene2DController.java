@@ -42,7 +42,7 @@ public class Scene2DController extends SceneController {
     public void init(PlayModel playModel) {
         this.playModel = playModel;
         playingSurfaceLayerController.init(playModel, layerStackPane);
-        frameModel.actorStates.addListener(this::onActorStateMapChanged);
+        frameModel.actorModels.addListener(this::onActorStateMapChanged);
         navigationController = new NavigationController(scrollPane, scrollPaneContent, playingSurfaceLayerController, playModel);
         navigationController.onMousePositionChanged.forward(onMousePositionChanged);
         navigationController.onZoomChanged.setHandler(this::onZoomChanged);

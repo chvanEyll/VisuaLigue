@@ -23,33 +23,27 @@ public class BallLayerController extends ActorLayerController {
         } else if (actorModel.builtInImagePathName.isNotEmpty().get()) {
             imageView.setImage(new Image(actorModel.builtInImagePathName.get()));
         }
-        actorModel.x.addListener(this::onActorPositionChanged);
-        actorModel.y.addListener(this::onActorPositionChanged);
+        actorModel.position.addListener(this::onActorPositionChanged);
         update();
     }
 
-    private void onActorPositionChanged(final ObservableValue<? extends Number> value, final Number oldPropertyValue, final Number newPropertyValue) {
-        update();
-    }
-
-    private void onActorDescriptionChanged(final ObservableValue<? extends String> value, final String oldPropertyValue, final String newPropertyValue) {
+    private void onActorPositionChanged(final ObservableValue<? extends Vector2> value, final Vector2 oldPropertyValue, final Vector2 newPropertyValue) {
         update();
     }
 
     @Override
     public void update() {
-        Vector2 actorLocation = new Vector2(actorModel.x.get(), actorModel.y.get());
-        Vector2 surfacePoint = playingSurfaceLayerController.relativeToSurfacePoint(actorLocation);
+        Vector2 actorPosition = playingSurfaceLayerController.relativeToSurfacePoint(actorModel.position.get());
         Platform.runLater(() -> {
-            updateActor(surfacePoint);
+            updateActor(actorPosition);
         });
     }
 
-    private void updateActor(Vector2 surfacePoint) {
+    private void updateActor(Vector2 actorPosition) {
         actorButton.setScaleX(getScaledValue(1.0));
         actorButton.setScaleY(getScaledValue(1.0));
-        actorButton.setLayoutX(surfacePoint.getX() - actorButton.getWidth() / 2);
-        actorButton.setLayoutY(surfacePoint.getY() - actorButton.getHeight() / 2);
+        actorButton.setLayoutX(actorPosition.getX() - actorButton.getWidth() / 2);
+        actorButton.setLayoutY(actorPosition.getY() - actorButton.getHeight() / 2);
     }
 
     @Override

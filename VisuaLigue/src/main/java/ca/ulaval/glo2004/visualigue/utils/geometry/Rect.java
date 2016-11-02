@@ -5,7 +5,7 @@ public class Rect {
     Vector2 location;
     Vector2 size;
 
-    public Rect(double x, double y, double width, double height) {
+    public Rect(Double x, Double y, Double width, Double height) {
         this.location = new Vector2(x, y);
         this.size = new Vector2(width, height);
     }

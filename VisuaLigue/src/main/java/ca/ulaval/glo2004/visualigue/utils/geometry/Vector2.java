@@ -53,6 +53,18 @@ public class Vector2 implements Cloneable {
         this.y = y;
     }
 
+    public Double getWidth() {
+        return this.x;
+    }
+
+    public Double getHeight() {
+        return this.y;
+    }
+
+    public Double magnitude() {
+        return Math.sqrt(x * x + y * y);
+    }
+
     public Vector2 interpolate(Vector2 nextVector, Double interpolant) {
         return this.add(nextVector.substract(this).multiply(interpolant));
     }
@@ -93,6 +105,28 @@ public class Vector2 implements Cloneable {
 
     public Vector2 average(Vector2 operand) {
         return new Vector2((x + operand.x) / 2, (y + operand.y) / 2);
+    }
+
+    public Vector2 offset(Vector2 offset) {
+        return new Vector2(this.x + offset.getX(), this.y + offset.getY());
+    }
+
+    public Vector2 negate() {
+        return new Vector2(-this.x, -this.y);
+    }
+
+    public Vector2 rotateCenter(Vector2 center, Double angle) {
+        Vector2 point = this.offset(center.negate());
+        point = point.rotateOrigin(angle);
+        point = point.offset(center);
+        return point;
+    }
+
+    public Vector2 rotateOrigin(Double angle) {
+        Double angleRadians = Math.toRadians(angle);
+        Double newX = x * Math.cos(angleRadians) + y * Math.sin(angleRadians);
+        Double newY = -x * Math.sin(angleRadians) + y * Math.cos(angleRadians);
+        return new Vector2(newX, newY);
     }
 
     @Override
