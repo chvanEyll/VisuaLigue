@@ -3,8 +3,6 @@ package ca.ulaval.glo2004.visualigue.ui.controllers.playeditor.sequencecontrol;
 import ca.ulaval.glo2004.visualigue.services.play.PlayService;
 import ca.ulaval.glo2004.visualigue.ui.InjectableFXMLLoader;
 import ca.ulaval.glo2004.visualigue.ui.View;
-import ca.ulaval.glo2004.visualigue.ui.animation.Animation;
-import ca.ulaval.glo2004.visualigue.ui.animation.Animator;
 import ca.ulaval.glo2004.visualigue.ui.controllers.ControllerBase;
 import ca.ulaval.glo2004.visualigue.ui.controllers.common.ExtendedScrollPane;
 import ca.ulaval.glo2004.visualigue.ui.models.PlayModel;
@@ -37,18 +35,17 @@ public class SeekBarController extends ControllerBase {
     private Integer time = 0;
     private Double dragStartX;
     private Double dragStartThumbLocationX;
-    private Animator animator;
 
     public void init(PlayModel playModel) {
         this.playModel = playModel;
         updateKeyPoints();
-        move(0);
+        move(0, false);
     }
 
     @FXML
     protected void onNewFrameButtonAction(ActionEvent e) {
         updateKeyPoints();
-        move(time + KEY_POINT_INTERVAL);
+        move(time + KEY_POINT_INTERVAL, false);
     }
 
     private void updateKeyPoints() {
@@ -84,27 +81,18 @@ public class SeekBarController extends ControllerBase {
     }
 
     private void onKeyPointClicked(Object sender, Integer index) {
-        move(index * KEY_POINT_INTERVAL);
+        move(index * KEY_POINT_INTERVAL, false);
     }
 
     public Integer getTime() {
         return time;
     }
 
-    public void move(Integer time) {
-        move(time, false, false, 0.0);
-    }
-
-    public void move(Integer time, Boolean snapToKeyPoint, Boolean smooth, Double smoothingDuration) {
-        cancelAnimation();
+    public void move(Integer time, Boolean snapToKeyPoint) {
         if (snapToKeyPoint) {
             time = getClosestKeyPointTime(time);
         }
-        if (smooth && !time.equals(this.time)) {
-            animator = Animation.method(this::setTime).from(getTime()).to(time).duration(smoothingDuration).group(this).first().easeOutExp();
-        } else {
-            setTime(time);
-        }
+        setTime(time);
     }
 
     private void setTime(Integer time) {
@@ -125,7 +113,7 @@ public class SeekBarController extends ControllerBase {
     public void goToNextKeyPoint(Boolean smooth, Double smoothingDuration) {
         Integer nextKeyPointTime = getNextKeyPointTime();
         if (nextKeyPointTime <= getPlayLength()) {
-            move(nextKeyPointTime, false, smooth, smoothingDuration);
+            move(nextKeyPointTime, false);
         }
     }
 
@@ -136,7 +124,7 @@ public class SeekBarController extends ControllerBase {
     public void goToPreviousKeyPoint(Boolean smooth, Double smoothingDuration) {
         Integer previousKeyPointTime = getPreviousKeyPointTime();
         if (previousKeyPointTime >= 0) {
-            move(previousKeyPointTime, false, smooth, smoothingDuration);
+            move(previousKeyPointTime, false);
         }
     }
 
@@ -168,15 +156,8 @@ public class SeekBarController extends ControllerBase {
         return StackPane.getMargin(seekBarThumb).getLeft();
     }
 
-    private void cancelAnimation() {
-        if (animator != null) {
-            animator.cancel();
-        }
-    }
-
     @FXML
     protected void onMousePressed(MouseEvent e) {
-        cancelAnimation();
         dragStartX = e.getSceneX();
         dragStartThumbLocationX = getSeekThumbLocation();
         onSeekThumbPressed.fire(this);
@@ -185,12 +166,12 @@ public class SeekBarController extends ControllerBase {
     @FXML
     protected void onMouseDragged(MouseEvent e) {
         setSeekThumbLocationFromMargin(dragStartThumbLocationX + e.getSceneX() - dragStartX);
-        move(getTimeFromSeekThumbLocation());
+        move(getTimeFromSeekThumbLocation(), false);
     }
 
     @FXML
     protected void onMouseReleased(MouseEvent e) {
-        move(getTimeFromSeekThumbLocation());
+        move(getTimeFromSeekThumbLocation(), false);
     }
 
 }

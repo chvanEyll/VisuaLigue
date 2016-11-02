@@ -3,7 +3,7 @@ package ca.ulaval.glo2004.visualigue.services.play;
 import ca.ulaval.glo2004.visualigue.domain.play.*;
 import ca.ulaval.glo2004.visualigue.domain.play.actorinstance.TeamSide;
 import ca.ulaval.glo2004.visualigue.domain.play.frame.Frame;
-import ca.ulaval.glo2004.visualigue.domain.play.keyframe.KeyframeTransition;
+import ca.ulaval.glo2004.visualigue.domain.play.actorstate.transition.StateTransition;
 import ca.ulaval.glo2004.visualigue.domain.sport.Sport;
 import ca.ulaval.glo2004.visualigue.domain.sport.SportNotFoundException;
 import ca.ulaval.glo2004.visualigue.domain.sport.SportRepository;
@@ -82,7 +82,7 @@ public class PlayService {
         executeNewCommand(playUUID, command);
     }
 
-    public void updatePlayerPositionFreeform(String playUUID, Integer time, String ownerPlayerInstanceUUID, Vector2 position, KeyframeTransition positionTransition) throws Exception {
+    public void updatePlayerPositionFreeform(String playUUID, Integer time, String ownerPlayerInstanceUUID, Vector2 position, StateTransition positionTransition) throws Exception {
         Play play = playRepository.get(playUUID);
         PlayerPositionUpdateFreeformCommand command = new PlayerPositionUpdateFreeformCommand(play, time, ownerPlayerInstanceUUID, position, positionTransition);
         executeNewCommand(playUUID, command);

@@ -1,6 +1,7 @@
 package ca.ulaval.glo2004.visualigue.domain.play.actorstate;
 
 import ca.ulaval.glo2004.visualigue.domain.play.actorinstance.PlayerInstance;
+import ca.ulaval.glo2004.visualigue.domain.play.actorstate.transition.StateTransition;
 import ca.ulaval.glo2004.visualigue.utils.geometry.Vector2;
 import javax.xml.bind.annotation.XmlIDREF;
 
@@ -13,8 +14,9 @@ public class BallState extends ActorState implements Cloneable {
         //Required for JAXB instanciation.
     }
 
-    public BallState(Vector2 position, PlayerInstance owner) {
+    public BallState(Vector2 position, StateTransition positionTransition, PlayerInstance owner) {
         this.position = position;
+        this.positionTransition = positionTransition;
         this.owner = owner;
     }
 
@@ -24,6 +26,9 @@ public class BallState extends ActorState implements Cloneable {
         BallState newState = (BallState) actorState;
         if (newState.position != null) {
             position = newState.position;
+        }
+        if (newState.positionTransition != null) {
+            positionTransition = newState.positionTransition;
         }
         if (newState.owner != null) {
             owner = newState.owner;
@@ -47,6 +52,7 @@ public class BallState extends ActorState implements Cloneable {
     public BallState clone() {
         BallState clonedState = new BallState();
         clonedState.position = position;
+        clonedState.positionTransition = positionTransition;
         clonedState.owner = owner;
         return clonedState;
     }
@@ -56,7 +62,7 @@ public class BallState extends ActorState implements Cloneable {
         BallState nextBallState = (BallState) nextState;
         BallState interpolatedState = this.clone();
         if (position != null && nextBallState.position != null) {
-            interpolatedState.position = position.interpolate(nextBallState.position, interpolant);
+            interpolatedState.position = positionTransition.interpolate(position, nextBallState.position, interpolant);
         }
         interpolatedState.owner = nextBallState.owner;
         return interpolatedState;

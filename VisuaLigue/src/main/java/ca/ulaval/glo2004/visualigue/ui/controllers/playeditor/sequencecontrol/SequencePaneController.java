@@ -18,7 +18,7 @@ import javax.inject.Inject;
 
 public class SequencePaneController extends ControllerBase {
 
-    private static final Integer AUTO_ADVANCE_PERIOD = 1000;
+    private static final Integer AUTO_ADVANCE_PERIOD = 15;
     private static final Integer DEFAULT_FIXED_ADVANCE_PERIOD = 500;
     @FXML private ExtendedButton realTimeButton;
     @FXML private ExtendedButton playButton;
@@ -107,13 +107,13 @@ public class SequencePaneController extends ControllerBase {
     @FXML
     protected void onFixedForwardButtonAction(ActionEvent e) {
         stop();
-        seekBarController.move(seekBarController.getTime() + fixedRewindPeriod);
+        seekBarController.move(seekBarController.getTime() + fixedRewindPeriod, false);
     }
 
     @FXML
     protected void onFixedRewindButtonAction(ActionEvent e) {
         stop();
-        seekBarController.move(seekBarController.getTime() - fixedRewindPeriod);
+        seekBarController.move(seekBarController.getTime() - fixedRewindPeriod, false);
     }
 
     @FXML
@@ -142,24 +142,20 @@ public class SequencePaneController extends ControllerBase {
         TimerTask timerTask = new TimerTask() {
             @Override
             public void run() {
-                autoAdvanceToClosestPoint();
+                autoAdvanceNext(AUTO_ADVANCE_PERIOD * SequencePaneController.this.playSpeed.getMultiplier());
             }
         };
         this.playSpeed = playSpeed;
         updateControlButtonStates();
         timer.cancel();
         timer = new Timer();
-        timer.schedule(timerTask, 0, AUTO_ADVANCE_PERIOD / SequencePaneController.this.playSpeed.getMultiplierAbs());
+        timer.schedule(timerTask, 0, AUTO_ADVANCE_PERIOD);
     }
 
-    private void autoAdvanceToClosestPoint() {
-        Integer time;
-        if (playSpeed.isForward()) {
-            time = seekBarController.getNextKeyPointTime();
-        } else {
-            time = seekBarController.getPreviousKeyPointTime();
-        }
-        seekBarController.move(time, true, true, AUTO_ADVANCE_PERIOD / SequencePaneController.this.playSpeed.getMultiplierAbs() / 1000.0);
+    private void autoAdvanceNext(Integer period) {
+        Integer time = seekBarController.getTime();
+        time += period;
+        seekBarController.move(time, false);
     }
 
     private void stop() {

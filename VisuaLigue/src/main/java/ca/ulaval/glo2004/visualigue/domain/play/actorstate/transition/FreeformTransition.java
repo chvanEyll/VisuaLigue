@@ -1,10 +1,10 @@
-package ca.ulaval.glo2004.visualigue.domain.play.keyframe;
+package ca.ulaval.glo2004.visualigue.domain.play.actorstate.transition;
 
 import ca.ulaval.glo2004.visualigue.utils.geometry.Vector2;
 import java.util.ArrayList;
 import java.util.List;
 
-public class FreeformTransition extends KeyframeTransition {
+public class FreeformTransition extends StateTransition {
 
     List<Vector2> transitionPoints = new ArrayList();
 
@@ -20,6 +20,11 @@ public class FreeformTransition extends KeyframeTransition {
         } else {
             return transitionPoints.get(index);
         }
+    }
+
+    @Override
+    public Double interpolate(Double startPosition, Double nextPosition, Double interpolant) {
+        throw new UnsupportedOperationException("Not supported yet.");
     }
 
 }

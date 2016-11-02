@@ -1,12 +1,11 @@
 package ca.ulaval.glo2004.visualigue.services.play.commands;
 
 import ca.ulaval.glo2004.visualigue.domain.play.Play;
-import ca.ulaval.glo2004.visualigue.domain.play.PlayRepository;
 import ca.ulaval.glo2004.visualigue.domain.play.actorinstance.BallInstance;
 import ca.ulaval.glo2004.visualigue.domain.play.actorinstance.PlayerInstance;
 import ca.ulaval.glo2004.visualigue.domain.play.actorstate.BallState;
+import ca.ulaval.glo2004.visualigue.domain.play.actorstate.transition.ExponentialEaseOutTransition;
 import ca.ulaval.glo2004.visualigue.utils.geometry.Vector2;
-import javax.inject.Inject;
 
 public class BallCreationCommand implements Command {
 
@@ -14,7 +13,6 @@ public class BallCreationCommand implements Command {
     private Integer time;
     private String ownerPlayerInstanceUUID;
     private Vector2 position;
-    @Inject private PlayRepository playRepository;
 
     private BallInstance ballInstance;
 
@@ -28,7 +26,7 @@ public class BallCreationCommand implements Command {
     @Override
     public void execute() {
         PlayerInstance playerInstance = (PlayerInstance) play.getActorInstance(ownerPlayerInstanceUUID);
-        BallState ballState = new BallState(position, playerInstance);
+        BallState ballState = new BallState(position, new ExponentialEaseOutTransition(), playerInstance);
         ballInstance = new BallInstance();
         play.mergeKeyframe(time, ballInstance, ballState);
     }

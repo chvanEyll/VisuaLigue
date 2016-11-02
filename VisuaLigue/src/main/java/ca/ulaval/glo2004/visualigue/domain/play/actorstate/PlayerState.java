@@ -1,22 +1,22 @@
 package ca.ulaval.glo2004.visualigue.domain.play.actorstate;
 
-import ca.ulaval.glo2004.visualigue.domain.play.keyframe.KeyframeTransition;
+import ca.ulaval.glo2004.visualigue.domain.play.actorstate.transition.StateTransition;
 import ca.ulaval.glo2004.visualigue.utils.geometry.Vector2;
-import ca.ulaval.glo2004.visualigue.utils.math.MathUtils;
 
 public class PlayerState extends ActorState implements Cloneable {
 
-    private KeyframeTransition positionTransition;
     private Double orientation;
+    private StateTransition orientationTransition;
 
     public PlayerState() {
         //Required for JAXB instanciation.
     }
 
-    public PlayerState(Vector2 position, KeyframeTransition positionTransition, Double orientation) {
+    public PlayerState(Vector2 position, StateTransition positionTransition, Double orientation, StateTransition orientationTransition) {
         this.position = position;
         this.positionTransition = positionTransition;
         this.orientation = orientation;
+        this.orientationTransition = orientationTransition;
     }
 
     @Override
@@ -31,6 +31,9 @@ public class PlayerState extends ActorState implements Cloneable {
         }
         if (newState.orientation != null) {
             orientation = newState.orientation;
+        }
+        if (newState.orientationTransition != null) {
+            orientationTransition = newState.orientationTransition;
         }
         return oldState;
     }
@@ -51,7 +54,9 @@ public class PlayerState extends ActorState implements Cloneable {
     public PlayerState clone() {
         PlayerState clonedState = new PlayerState();
         clonedState.position = position;
+        clonedState.positionTransition = positionTransition;
         clonedState.orientation = orientation;
+        clonedState.orientationTransition = orientationTransition;
         return clonedState;
     }
 
@@ -63,7 +68,7 @@ public class PlayerState extends ActorState implements Cloneable {
             interpolatedState.position = positionTransition.interpolate(position, nextActorState.position, interpolant);
         }
         if (nextActorState.orientation != null) {
-            interpolatedState.orientation = MathUtils.interpolate(orientation, nextActorState.orientation, interpolant);
+            interpolatedState.orientation = orientationTransition.interpolate(orientation, nextActorState.orientation, interpolant);
         }
         return interpolatedState;
     }

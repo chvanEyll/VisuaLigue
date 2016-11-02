@@ -1,5 +1,6 @@
 package ca.ulaval.glo2004.visualigue.utils.geometry;
 
+import ca.ulaval.glo2004.visualigue.utils.math.easing.EasingFunction;
 import java.awt.Point;
 import javafx.geometry.Point2D;
 
@@ -52,8 +53,14 @@ public class Vector2 implements Cloneable {
         this.y = y;
     }
 
-    public Vector2 interpolate(Vector2 nextPosition, Double interpolant) {
-        return this.add(nextPosition.substract(this).multiply(interpolant));
+    public Vector2 interpolate(Vector2 nextVector, Double interpolant) {
+        return this.add(nextVector.substract(this).multiply(interpolant));
+    }
+
+    public Vector2 interpolate(Vector2 nextVector, Double interpolant, EasingFunction easing) {
+        Double interpolatedX = easing.ease(x, nextVector.x, interpolant, 1.0);
+        Double interpolatedY = easing.ease(y, nextVector.y, interpolant, 1.0);
+        return new Vector2(interpolatedX, interpolatedY);
     }
 
     public Vector2 add(Vector2 operand) {

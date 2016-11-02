@@ -5,6 +5,7 @@ import ca.ulaval.glo2004.visualigue.domain.play.PlayRepository;
 import ca.ulaval.glo2004.visualigue.domain.play.actorinstance.PlayerInstance;
 import ca.ulaval.glo2004.visualigue.domain.play.actorstate.ActorState;
 import ca.ulaval.glo2004.visualigue.domain.play.actorstate.PlayerState;
+import ca.ulaval.glo2004.visualigue.domain.play.actorstate.transition.ExponentialEaseOutTransition;
 import ca.ulaval.glo2004.visualigue.utils.geometry.Vector2;
 import javax.inject.Inject;
 
@@ -28,7 +29,7 @@ public class PlayerPositionUpdateDirectCommand implements Command {
 
     @Override
     public void execute() {
-        PlayerState playerState = new PlayerState(position, null, null);
+        PlayerState playerState = new PlayerState(position, new ExponentialEaseOutTransition(), null, null);
         playerInstance = (PlayerInstance) play.getActorInstance(ownerPlayerInstanceUUID);
         oldPlayerState = play.mergeKeyframe(time, playerInstance, playerState);
     }

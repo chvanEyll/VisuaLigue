@@ -4,7 +4,6 @@ import ca.ulaval.glo2004.visualigue.domain.obstacle.Obstacle;
 import ca.ulaval.glo2004.visualigue.domain.obstacle.ObstacleNotFoundException;
 import ca.ulaval.glo2004.visualigue.domain.obstacle.ObstacleRepository;
 import ca.ulaval.glo2004.visualigue.domain.play.Play;
-import ca.ulaval.glo2004.visualigue.domain.play.PlayRepository;
 import ca.ulaval.glo2004.visualigue.domain.play.actorinstance.ObstacleInstance;
 import ca.ulaval.glo2004.visualigue.domain.play.actorstate.ObstacleState;
 import ca.ulaval.glo2004.visualigue.utils.geometry.Vector2;
@@ -16,7 +15,6 @@ public class ObstacleCreationCommand implements Command {
     private Integer time;
     private String obstacleInstanceUUID;
     private Vector2 position;
-    @Inject private PlayRepository playRepository;
     @Inject private ObstacleRepository obstacleRepository;
 
     private ObstacleInstance obstacleInstance;
