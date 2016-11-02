@@ -1,6 +1,6 @@
 package ca.ulaval.glo2004.visualigue.ui.controllers.playeditor.scene.scene2d.layers;
 
-import ca.ulaval.glo2004.visualigue.ui.controllers.common.SvgImage;
+import ca.ulaval.glo2004.visualigue.ui.controllers.common.PlayerIcon;
 import ca.ulaval.glo2004.visualigue.ui.controllers.playeditor.scene.Zoom;
 import ca.ulaval.glo2004.visualigue.ui.models.ActorModel;
 import ca.ulaval.glo2004.visualigue.utils.geometry.Vector2;
@@ -14,14 +14,13 @@ public class PlayerLayerController extends ActorLayerController {
     private static final Double LABEL_OFFSET_Y = 15.0;
     public static final String VIEW_NAME = "/views/playeditor/scene2d/layers/player-layer.fxml";
     public static final Double BASE_BUTTON_SCALING = 1.5;
-    @FXML private SvgImage svgImage;
+    @FXML private PlayerIcon playerIcon;
     @FXML protected Label label;
     protected Boolean showLabel = false;
 
     @Override
     public void init(ActorModel actorModel, PlayingSurfaceLayerController playingLayerSurfaceController) {
         super.init(actorModel, playingLayerSurfaceController);
-        svgImage.setUrl(actorModel.svgImagePathName.get());
         label.textProperty().bind(actorModel.label);
         actorModel.x.addListener(this::onActorPositionChanged);
         actorModel.y.addListener(this::onActorPositionChanged);
@@ -40,9 +39,9 @@ public class PlayerLayerController extends ActorLayerController {
 
     @Override
     public void update() {
+        Vector2 actorLocation = new Vector2(actorModel.x.get(), actorModel.y.get());
+        Vector2 surfacePoint = playingSurfaceLayerController.relativeToSurfacePoint(actorLocation);
         Platform.runLater(() -> {
-            Vector2 actorLocation = new Vector2(actorModel.x.get(), actorModel.y.get());
-            Vector2 surfacePoint = playingSurfaceLayerController.relativeToSurfacePoint(actorLocation);
             updateActor(surfacePoint);
             updateLabel(surfacePoint);
         });
@@ -54,6 +53,7 @@ public class PlayerLayerController extends ActorLayerController {
         actorButton.setLayoutX(surfacePoint.getX() - actorButton.getWidth() / 2);
         actorButton.setLayoutY(surfacePoint.getY() - actorButton.getHeight() / 2);
         actorButton.setRotate(actorModel.orientation.get());
+        playerIcon.setColor(actorModel.color.get());
     }
 
     private void updateLabel(Vector2 surfacePoint) {

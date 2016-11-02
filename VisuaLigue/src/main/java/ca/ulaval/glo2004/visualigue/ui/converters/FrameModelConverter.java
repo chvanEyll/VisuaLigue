@@ -84,7 +84,6 @@ public class FrameModelConverter {
         actorModel.orientation.set(playerState.getOrientation());
         actorModel.label.set(playerInstance.getPlayerCategory().getAbbreviation());
         actorModel.hoverText.set(playerInstance.getPlayerCategory().getName());
-        actorModel.svgImagePathName.set("/images/player-icon.fxml");
     }
 
     private void updateBallModel(ActorModel actorModel, ActorInstance actorInstance, ActorState actorState, PlayModel playModel) {

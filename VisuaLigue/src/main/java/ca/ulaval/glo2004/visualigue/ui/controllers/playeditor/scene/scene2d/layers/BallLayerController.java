@@ -10,9 +10,9 @@ import javafx.fxml.FXML;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 
-public class ObstacleLayerController extends ActorLayerController {
+public class BallLayerController extends ActorLayerController {
 
-    public static final String VIEW_NAME = "/views/playeditor/scene2d/layers/obstacle-layer.fxml";
+    public static final String VIEW_NAME = "/views/playeditor/scene2d/layers/ball-layer.fxml";
     @FXML private ImageView imageView;
 
     @Override

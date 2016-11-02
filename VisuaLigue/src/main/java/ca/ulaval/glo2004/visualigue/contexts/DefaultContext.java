@@ -9,9 +9,11 @@ import ca.ulaval.glo2004.visualigue.domain.play.Play;
 import ca.ulaval.glo2004.visualigue.domain.play.PlayAlreadyExistsException;
 import ca.ulaval.glo2004.visualigue.domain.play.PlayFactory;
 import ca.ulaval.glo2004.visualigue.domain.play.PlayRepository;
+import ca.ulaval.glo2004.visualigue.domain.play.actorinstance.BallInstance;
 import ca.ulaval.glo2004.visualigue.domain.play.actorinstance.ObstacleInstance;
 import ca.ulaval.glo2004.visualigue.domain.play.actorinstance.PlayerInstance;
 import ca.ulaval.glo2004.visualigue.domain.play.actorinstance.TeamSide;
+import ca.ulaval.glo2004.visualigue.domain.play.actorstate.BallState;
 import ca.ulaval.glo2004.visualigue.domain.play.actorstate.ObstacleState;
 import ca.ulaval.glo2004.visualigue.domain.play.actorstate.PlayerState;
 import ca.ulaval.glo2004.visualigue.domain.play.keyframe.LinearKeyframeTransition;
@@ -255,15 +257,31 @@ public class DefaultContext extends ContextBase {
         Play play = playFactory.create("Test", sportPool.get(0));
         List<PlayerCategory> playerCategories = new ArrayList(hockeySport.getPlayerCategories());
         PlayerInstance playerInstance1 = new PlayerInstance(playerCategories.get(0), TeamSide.ALLIES);
-        PlayerState playerState1 = new PlayerState(new Vector2(0.25, 0.25), new LinearKeyframeTransition(), 0.0);
-        play.mergeKeyframe(0, playerInstance1, playerState1);
-        PlayerState playerState2 = new PlayerState(new Vector2(0.75, 0.75), new LinearKeyframeTransition(), 90.0);
-        play.mergeKeyframe(2000, playerInstance1, playerState2);
-        PlayerState playerState3 = new PlayerState(new Vector2(0.5, 0.2), new LinearKeyframeTransition(), 180.0);
-        play.mergeKeyframe(4000, playerInstance1, playerState3);
+        PlayerState playerState = new PlayerState(new Vector2(0.25, 0.25), new LinearKeyframeTransition(), 0.0);
+        play.mergeKeyframe(0, playerInstance1, playerState);
+        playerState = new PlayerState(new Vector2(0.75, 0.75), new LinearKeyframeTransition(), 90.0);
+        play.mergeKeyframe(2000, playerInstance1, playerState);
+        playerState = new PlayerState(new Vector2(0.5, 0.2), new LinearKeyframeTransition(), 180.0);
+        play.mergeKeyframe(4000, playerInstance1, playerState);
+
+        PlayerInstance playerInstance2 = new PlayerInstance(playerCategories.get(1), TeamSide.OPPONENTS);
+        playerState = new PlayerState(new Vector2(0.8, 0.3), new LinearKeyframeTransition(), 180.0);
+        play.mergeKeyframe(0, playerInstance2, playerState);
+        playerState = new PlayerState(new Vector2(0.1, 0.9), new LinearKeyframeTransition(), 0.0);
+        play.mergeKeyframe(4000, playerInstance2, playerState);
+
         ObstacleInstance obstacleInstance1 = new ObstacleInstance(coneObstacle);
         ObstacleState obstacleState = new ObstacleState(new Vector2(0.5, 0.4));
         play.mergeKeyframe(0, obstacleInstance1, obstacleState);
+
+        BallInstance ballInstance1 = new BallInstance();
+        BallState ballState = new BallState(new Vector2(0.4, 0.8), null);
+        play.mergeKeyframe(0, ballInstance1, ballState);
+        ballState = new BallState(new Vector2(0.7, 0.25), null);
+        play.mergeKeyframe(2000, ballInstance1, ballState);
+        ballState = new BallState(new Vector2(0.1, 0.1), null);
+        play.mergeKeyframe(4000, ballInstance1, ballState);
+
         return play;
     }
 

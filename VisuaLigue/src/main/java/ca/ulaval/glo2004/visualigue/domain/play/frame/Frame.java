@@ -8,17 +8,18 @@ import java.util.Map;
 
 public class Frame extends DomainObject {
 
-    Map<ActorInstance, ActorState> actorStates = new HashMap();
+    Map<ActorInstance, ActorState> currentActorStates = new HashMap();
+    Map<ActorInstance, ActorState> nextActorStates = new HashMap();
 
     public Frame() {
     }
 
     public void addActorState(ActorInstance actorInstance, ActorState actorState) {
-        actorStates.put(actorInstance, actorState);
+        currentActorStates.put(actorInstance, actorState);
     }
 
     public Map<ActorInstance, ActorState> getActorStates() {
-        return actorStates;
+        return currentActorStates;
     }
 
 }
