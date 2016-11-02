@@ -16,6 +16,7 @@ import javax.xml.bind.annotation.adapters.XmlJavaTypeAdapter;
 @XmlRootElement(name = "play")
 public class Play extends DomainObject {
 
+    private static final Integer NEXT_KEYFRAME_LOOKAHEAD_TIME = 100;
     private String title;
     private String defaultThumbnailImage = "/images/generic-play-thumbnail.png";
     private String thumbnailImageUUID;
@@ -110,7 +111,7 @@ public class Play extends DomainObject {
             if (keyframe != null) {
                 frame.setCurrentActorState(actorInstance, keyframe.getActorState());
             }
-            Keyframe nextKeyframe = timeline.getNextKeyframe(time);
+            Keyframe nextKeyframe = timeline.getNextKeyframe(time + NEXT_KEYFRAME_LOOKAHEAD_TIME);
             if (nextKeyframe != null) {
                 frame.setNextActorState(actorInstance, nextKeyframe.getActorState());
             } else {

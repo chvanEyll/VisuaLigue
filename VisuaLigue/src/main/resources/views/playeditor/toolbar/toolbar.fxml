@@ -9,164 +9,169 @@
 <?import javafx.scene.control.Label?>
 <?import javafx.scene.control.ComboBox?>
 <?import javafx.scene.layout.HBox?>
+<?import javafx.scene.control.ScrollPane?>
 <?import javafx.scene.layout.Pane?>
 <?import ca.ulaval.glo2004.visualigue.ui.controllers.common.SvgImage?>
 <?import ca.ulaval.glo2004.visualigue.ui.controllers.common.ExtendedButton?>
 
 <HBox fx:id="rootNode" alignment="CENTER_LEFT" prefHeight="50.0" styleClass="root-node, toolbar" xmlns="http://javafx.com/javafx/8.0.60" xmlns:fx="http://javafx.com/fxml/1" fx:controller="ca.ulaval.glo2004.visualigue.ui.controllers.playeditor.toolbar.ToolbarController">
     <children>
-        <Button fx:id="saveButton" onAction="#onSaveButtonAction">
-            <graphic>
-                <SvgImage url="/images/save-icon.fxml" />
-            </graphic>
-            <tooltip>
-                <Tooltip text="Sauvegarder" />
-            </tooltip>
-            <styleClass>
-                <String fx:value="borderless" />
-                <String fx:value="medium" />
-            </styleClass>
-        </Button>
-        <Button fx:id="closeButton" onAction="#onCloseButtonAction">
-            <graphic>
-                <SvgImage url="/images/cross-icon-thin.fxml" />
-            </graphic>
-            <tooltip>
-                <Tooltip text="Fermer" />
-            </tooltip>
-            <styleClass>
-                <String fx:value="borderless" />
-                <String fx:value="medium" />
-            </styleClass>
-        </Button>
-        <Button fx:id="exportButton" onAction="#onExportButtonAction">
-            <graphic>
-                <SvgImage url="/images/export-icon.fxml" />
-            </graphic>
-            <tooltip>
-                <Tooltip text="Exporter" />
-            </tooltip>
-            <styleClass>
-                <String fx:value="borderless" />
-                <String fx:value="medium" />
-            </styleClass>
-        </Button>
-        <Pane prefWidth="1.0" styleClass="separator">
-            <HBox.margin>
-                <Insets left="3.0" right="3.0" />
-            </HBox.margin>
-        </Pane>
-        <Button fx:id="undoButton" onAction="#onUndoButtonAction">
-            <graphic>
-                <SvgImage url="/images/undo-icon.fxml" />
-            </graphic>
-            <tooltip>
-                <Tooltip text="Annuler" />
-            </tooltip>
-            <styleClass>
-                <String fx:value="borderless" />
-                <String fx:value="medium" />
-            </styleClass>
-        </Button>
-        <Button fx:id="redoButton" onAction="#onRedoButtonAction">
-            <graphic>
-                <SvgImage url="/images/redo-icon.fxml" />
-            </graphic>
-            <tooltip>
-                <Tooltip text="Rétablir" />
-            </tooltip>
-            <styleClass>
-                <String fx:value="borderless" />
-                <String fx:value="medium" />
-            </styleClass>
-        </Button>
-        <Pane prefWidth="1.0" styleClass="separator">
-            <HBox.margin>
-                <Insets left="3.0" right="3.0" />
-            </HBox.margin>
-        </Pane>
-        <ExtendedButton fx:id="panButton" onAction="#onPanButtonAction">
-            <graphic>
-                <SvgImage url="/images/hand-icon.fxml" />
-            </graphic>
-            <tooltip>
-                <Tooltip text="Déplacer la vue" />
-            </tooltip>
-            <styleClass>
-                <String fx:value="borderless" />
-                <String fx:value="medium" />
-            </styleClass>
-        </ExtendedButton>
-        <Button fx:id="zoomOutButton" onAction="#onZoomOutButtonAction">
-            <graphic>
-                <SvgImage url="/images/zoom-out-icon.fxml" />
-            </graphic>
-            <tooltip>
-                <Tooltip text="Zoom arrière" />
-            </tooltip>
-            <styleClass>
-                <String fx:value="borderless" />
-                <String fx:value="medium" />
-            </styleClass>
-        </Button>
-        <ComboBox fx:id="zoomComboBox" styleClass="centered-text" prefWidth="125.0" editable="true" onAction="#onZoomComboBoxAction"/>
-        <Button fx:id="zoomInButton" onAction="#onZoomInButtonAction">
-            <graphic>
-                <SvgImage url="/images/zoom-in-icon.fxml" />
-            </graphic>
-            <tooltip>
-                <Tooltip text="Zoom avant" />
-            </tooltip>
-            <styleClass>
-                <String fx:value="borderless" />
-                <String fx:value="medium" />
-            </styleClass>
-        </Button>
-        <Button fx:id="bestFitButton" onAction="#onBestFitButtonAction">
-            <graphic>
-                <SvgImage url="/images/best-fit-icon.fxml" />
-            </graphic>
-            <tooltip>
-                <Tooltip text="Meilleur ajustement" />
-            </tooltip>
-            <styleClass>
-                <String fx:value="borderless" />
-                <String fx:value="medium" />
-            </styleClass>
-        </Button>
-        <Pane prefWidth="1.0" styleClass="separator">
-            <HBox.margin>
-                <Insets left="3.0" right="3.0" />
-            </HBox.margin>
-        </Pane>
-        <Button fx:id="switch3DButton" onAction="#onSwitch3DButtonAction">
-            <graphic>
-                <SvgImage url="/images/3d-icon.fxml" />
-            </graphic>
-            <tooltip>
-                <Tooltip text="Vue 3D" />
-            </tooltip>
-            <styleClass>
-                <String fx:value="borderless" />
-                <String fx:value="medium" />
-            </styleClass>
-        </Button>
-        <ExtendedButton fx:id="actorLabelDisplayToggleButton" onAction="#onActorLabelDisplayToggleButtonAction">
-            <graphic>
-                <SvgImage url="/images/show-labels-icon.fxml" />
-            </graphic>
-            <tooltip>
-                <Tooltip text="Afficher/masquer les étiquettes des joueurs" />
-            </tooltip>
-            <styleClass>
-                <String fx:value="borderless" />
-                <String fx:value="medium" />
-            </styleClass>
-        </ExtendedButton>
-        <HBox alignment="CENTER_RIGHT" HBox.hgrow="ALWAYS" styleClass="right-group">
+        <ScrollPane styleClass="edge-to-edge, left-group" HBox.hgrow="ALWAYS">
+            <HBox alignment="CENTER_LEFT">
+                <Button fx:id="saveButton" onAction="#onSaveButtonAction">
+                    <graphic>
+                        <SvgImage url="/images/save-icon.fxml" />
+                    </graphic>
+                    <tooltip>
+                        <Tooltip text="Sauvegarder" />
+                    </tooltip>
+                    <styleClass>
+                        <String fx:value="borderless" />
+                        <String fx:value="medium" />
+                    </styleClass>
+                </Button>
+                <Button fx:id="closeButton" onAction="#onCloseButtonAction">
+                    <graphic>
+                        <SvgImage url="/images/cross-icon-thin.fxml" />
+                    </graphic>
+                    <tooltip>
+                        <Tooltip text="Fermer" />
+                    </tooltip>
+                    <styleClass>
+                        <String fx:value="borderless" />
+                        <String fx:value="medium" />
+                    </styleClass>
+                </Button>
+                <Button fx:id="exportButton" onAction="#onExportButtonAction">
+                    <graphic>
+                        <SvgImage url="/images/export-icon.fxml" />
+                    </graphic>
+                    <tooltip>
+                        <Tooltip text="Exporter" />
+                    </tooltip>
+                    <styleClass>
+                        <String fx:value="borderless" />
+                        <String fx:value="medium" />
+                    </styleClass>
+                </Button>
+                <Pane prefWidth="1.0" styleClass="separator">
+                    <HBox.margin>
+                        <Insets left="3.0" right="3.0" />
+                    </HBox.margin>
+                </Pane>
+                <Button fx:id="undoButton" onAction="#onUndoButtonAction">
+                    <graphic>
+                        <SvgImage url="/images/undo-icon.fxml" />
+                    </graphic>
+                    <tooltip>
+                        <Tooltip text="Annuler" />
+                    </tooltip>
+                    <styleClass>
+                        <String fx:value="borderless" />
+                        <String fx:value="medium" />
+                    </styleClass>
+                </Button>
+                <Button fx:id="redoButton" onAction="#onRedoButtonAction">
+                    <graphic>
+                        <SvgImage url="/images/redo-icon.fxml" />
+                    </graphic>
+                    <tooltip>
+                        <Tooltip text="Rétablir" />
+                    </tooltip>
+                    <styleClass>
+                        <String fx:value="borderless" />
+                        <String fx:value="medium" />
+                    </styleClass>
+                </Button>
+                <Pane prefWidth="1.0" styleClass="separator">
+                    <HBox.margin>
+                        <Insets left="3.0" right="3.0" />
+                    </HBox.margin>
+                </Pane>
+                <ExtendedButton fx:id="panButton" onAction="#onPanButtonAction">
+                    <graphic>
+                        <SvgImage url="/images/hand-icon.fxml" />
+                    </graphic>
+                    <tooltip>
+                        <Tooltip text="Déplacer la vue" />
+                    </tooltip>
+                    <styleClass>
+                        <String fx:value="borderless" />
+                        <String fx:value="medium" />
+                    </styleClass>
+                </ExtendedButton>
+                <Button fx:id="zoomOutButton" onAction="#onZoomOutButtonAction">
+                    <graphic>
+                        <SvgImage url="/images/zoom-out-icon.fxml" />
+                    </graphic>
+                    <tooltip>
+                        <Tooltip text="Zoom arrière" />
+                    </tooltip>
+                    <styleClass>
+                        <String fx:value="borderless" />
+                        <String fx:value="medium" />
+                    </styleClass>
+                </Button>
+                <ComboBox fx:id="zoomComboBox" styleClass="centered-text" prefWidth="125.0" editable="true" onAction="#onZoomComboBoxAction"/>
+                <Button fx:id="zoomInButton" onAction="#onZoomInButtonAction">
+                    <graphic>
+                        <SvgImage url="/images/zoom-in-icon.fxml" />
+                    </graphic>
+                    <tooltip>
+                        <Tooltip text="Zoom avant" />
+                    </tooltip>
+                    <styleClass>
+                        <String fx:value="borderless" />
+                        <String fx:value="medium" />
+                    </styleClass>
+                </Button>
+                <Button fx:id="bestFitButton" onAction="#onBestFitButtonAction">
+                    <graphic>
+                        <SvgImage url="/images/best-fit-icon.fxml" />
+                    </graphic>
+                    <tooltip>
+                        <Tooltip text="Meilleur ajustement" />
+                    </tooltip>
+                    <styleClass>
+                        <String fx:value="borderless" />
+                        <String fx:value="medium" />
+                    </styleClass>
+                </Button>
+                <Pane prefWidth="1.0" styleClass="separator">
+                    <HBox.margin>
+                        <Insets left="3.0" right="3.0" />
+                    </HBox.margin>
+                </Pane>
+                <Button fx:id="switch3DButton" onAction="#onSwitch3DButtonAction">
+                    <graphic>
+                        <SvgImage url="/images/3d-icon.fxml" />
+                    </graphic>
+                    <tooltip>
+                        <Tooltip text="Vue 3D" />
+                    </tooltip>
+                    <styleClass>
+                        <String fx:value="borderless" />
+                        <String fx:value="medium" />
+                    </styleClass>
+                </Button>
+                <ExtendedButton fx:id="actorLabelDisplayToggleButton" onAction="#onActorLabelDisplayToggleButtonAction">
+                    <graphic>
+                        <SvgImage url="/images/show-labels-icon.fxml" />
+                    </graphic>
+                    <tooltip>
+                        <Tooltip text="Afficher/masquer les étiquettes des joueurs" />
+                    </tooltip>
+                    <styleClass>
+                        <String fx:value="borderless" />
+                        <String fx:value="medium" />
+                    </styleClass>
+                </ExtendedButton>
+            </HBox>
+        </ScrollPane>
+        <HBox alignment="CENTER_RIGHT" styleClass="right-group">
             <children>
                 <Label fx:id="coordinateLabel" styleClass="coordinate-label"/>
-                <ExtendedButton fx:id="itemPaneDisplayButton" onAction="#onItemPaneDisplayToggleButtonAction" prefWidth="60">
+                <ExtendedButton fx:id="itemPaneDisplayButton" styleClass="item-pane-display-button" onAction="#onItemPaneDisplayToggleButtonAction">
                     <graphic>
                         <SvgImage url="/images/item-pane-display-toggle-icon.fxml" />
                     </graphic>

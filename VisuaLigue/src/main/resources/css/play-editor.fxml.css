@@ -9,12 +9,26 @@
     -fx-pref-width: 1;
 }
 
+.toolbar .left-group {
+    -fx-background: transparent;
+    -fx-vbar-policy: NEVER;
+    -fx-hbar-policy: NEVER;
+    -fx-fit-to-height: true;
+    -fx-pannable: true;
+}
+
 .toolbar .right-group {
     -fx-spacing: 7;
 }
 
 .coordinate-label {
     -fx-text-fill: #999999;
+    -fx-text-overrun: clip;
+}
+
+.item-pane-display-button {
+    -fx-min-width: 60;
+    -fx-pref-width: 60;
 }
 
 .item-pane {
