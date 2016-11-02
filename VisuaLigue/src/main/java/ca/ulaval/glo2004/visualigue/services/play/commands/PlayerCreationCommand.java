@@ -4,7 +4,7 @@ import ca.ulaval.glo2004.visualigue.domain.play.Play;
 import ca.ulaval.glo2004.visualigue.domain.play.actorinstance.PlayerInstance;
 import ca.ulaval.glo2004.visualigue.domain.play.actorinstance.TeamSide;
 import ca.ulaval.glo2004.visualigue.domain.play.actorstate.PlayerState;
-import ca.ulaval.glo2004.visualigue.domain.play.actorstate.transition.ExponentialEaseOutTransition;
+import ca.ulaval.glo2004.visualigue.domain.play.actorstate.transition.LinearTransition;
 import ca.ulaval.glo2004.visualigue.domain.sport.playercategory.PlayerCategory;
 import ca.ulaval.glo2004.visualigue.domain.sport.playercategory.PlayerCategoryRepository;
 import ca.ulaval.glo2004.visualigue.utils.geometry.Vector2;
@@ -33,7 +33,7 @@ public class PlayerCreationCommand implements Command {
 
     @Override
     public void execute() {
-        PlayerState playerState = new PlayerState(position, new ExponentialEaseOutTransition(), orientation, new ExponentialEaseOutTransition());
+        PlayerState playerState = new PlayerState(position, new LinearTransition(), orientation, new LinearTransition());
         PlayerCategory playerCategory = playerCategoryRepository.get(playerCategoryUUID);
         playerInstance = new PlayerInstance(playerCategory, teamSide);
         play.mergeKeyframe(time, playerInstance, playerState);

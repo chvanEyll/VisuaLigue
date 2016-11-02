@@ -4,7 +4,7 @@ import ca.ulaval.glo2004.visualigue.domain.play.Play;
 import ca.ulaval.glo2004.visualigue.domain.play.actorinstance.PlayerInstance;
 import ca.ulaval.glo2004.visualigue.domain.play.actorstate.ActorState;
 import ca.ulaval.glo2004.visualigue.domain.play.actorstate.PlayerState;
-import ca.ulaval.glo2004.visualigue.domain.play.actorstate.transition.ExponentialEaseOutTransition;
+import ca.ulaval.glo2004.visualigue.domain.play.actorstate.transition.LinearTransition;
 
 public class PlayerOrientationUpdateCommand implements Command {
 
@@ -25,7 +25,7 @@ public class PlayerOrientationUpdateCommand implements Command {
 
     @Override
     public void execute() {
-        PlayerState playerState = new PlayerState(null, null, orientation, new ExponentialEaseOutTransition());
+        PlayerState playerState = new PlayerState(null, null, orientation, new LinearTransition());
         playerInstance = (PlayerInstance) play.getActorInstance(ownerPlayerInstanceUUID);
         oldPlayerState = play.mergeKeyframe(time, playerInstance, playerState);
     }
