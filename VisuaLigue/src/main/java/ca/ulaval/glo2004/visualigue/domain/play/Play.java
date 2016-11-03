@@ -16,7 +16,7 @@ import javax.xml.bind.annotation.adapters.XmlJavaTypeAdapter;
 @XmlRootElement(name = "play")
 public class Play extends DomainObject {
 
-    private static final Integer NEXT_KEYFRAME_LOOKAHEAD_TIME = 100;
+    private static final Integer NEXT_KEYFRAME_LOOKAHEAD_TIME = 50;
     private String title;
     private String defaultThumbnailImage = "/images/generic-play-thumbnail.png";
     private String thumbnailImageUUID;

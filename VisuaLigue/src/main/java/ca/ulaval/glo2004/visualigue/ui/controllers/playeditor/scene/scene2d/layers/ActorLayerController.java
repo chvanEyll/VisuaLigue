@@ -14,22 +14,44 @@ public abstract class ActorLayerController extends ControllerBase {
     protected PlayingSurfaceLayerController playingSurfaceLayerController;
     protected ActorModel actorModel;
     protected Zoom zoom;
+    protected Boolean showActorLabels = false;
+    protected Boolean showMovementArrows = false;
+    protected Boolean resizeActorsOnZoom = true;
 
-    public void init(ActorModel actorModel, PlayingSurfaceLayerController playingSurfaceController) {
+    public void init(ActorModel actorModel, PlayingSurfaceLayerController playingSurfaceController, Boolean showActorLabels, Boolean showMovementArrows, Boolean resizeActorsOnZoom) {
         this.actorModel = actorModel;
         this.playingSurfaceLayerController = playingSurfaceController;
+        this.showActorLabels = showActorLabels;
+        this.showMovementArrows = showMovementArrows;
+        this.resizeActorsOnZoom = resizeActorsOnZoom;
         tooltip.textProperty().bind(actorModel.hoverText);
     }
 
     protected Double getScaledValue(Double value) {
-        return value * zoom.getValue();
+        if (resizeActorsOnZoom) {
+            return value * zoom.getValue();
+        } else {
+            return value;
+        }
     }
 
     public abstract void update();
 
     public abstract void updateZoom(Zoom zoom);
 
-    public void setActorLabelDisplayEnabled(Boolean enabled) {
+    public void setActorLabelDisplay(Boolean showActorLabels) {
+        this.showActorLabels = showActorLabels;
+        update();
+    }
+
+    public void setMovementArrowDisplay(Boolean showMovementArrows) {
+        this.showMovementArrows = showMovementArrows;
+        update();
+    }
+
+    public void setResizeActorOnZoom(Boolean resizeActorsOnZoom) {
+        this.resizeActorsOnZoom = resizeActorsOnZoom;
+        update();
     }
 
 }

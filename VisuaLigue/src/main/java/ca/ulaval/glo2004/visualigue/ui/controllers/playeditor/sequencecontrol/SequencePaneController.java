@@ -1,6 +1,7 @@
 package ca.ulaval.glo2004.visualigue.ui.controllers.playeditor.sequencecontrol;
 
 import ca.ulaval.glo2004.visualigue.services.play.PlayService;
+import ca.ulaval.glo2004.visualigue.services.settings.SettingsService;
 import ca.ulaval.glo2004.visualigue.ui.controllers.ControllerBase;
 import ca.ulaval.glo2004.visualigue.ui.controllers.common.ExtendedButton;
 import ca.ulaval.glo2004.visualigue.ui.controllers.common.ExtendedMenuItem;
@@ -18,7 +19,8 @@ import javax.inject.Inject;
 
 public class SequencePaneController extends ControllerBase {
 
-    private static final Integer AUTO_ADVANCE_PERIOD = 1000;
+    private static final Integer LINEAR_AUTO_ADVANCE_PERIOD = 15;
+    private static final Integer SMOOTH_AUTO_ADVANCE_PERIOD = 1000;
     private static final Integer DEFAULT_FIXED_ADVANCE_PERIOD = 500;
     @FXML private ExtendedButton realTimeButton;
     @FXML private ExtendedButton playButton;
@@ -34,6 +36,7 @@ public class SequencePaneController extends ControllerBase {
     @FXML private Label fixedForwardPeriodLabel;
     @Inject private FrameModelConverter frameModelConverter;
     @Inject private PlayService playService;
+    @Inject private SettingsService settingsService;
     private PlayModel playModel;
     private SceneController sceneController;
     private PlaySpeed playSpeed = PlaySpeed.STILL_SPEED;
@@ -41,6 +44,7 @@ public class SequencePaneController extends ControllerBase {
     private Integer fixedRewindPeriod;
     private Timer timer = new Timer();
     private final DecimalFormat fixedAdvancePeriodDecimalFormat = new DecimalFormat(".#");
+    private Boolean smoothMovements = true;
 
     public void init(PlayModel playModel, SceneController sceneController) {
         this.playModel = playModel;
@@ -48,10 +52,20 @@ public class SequencePaneController extends ControllerBase {
         seekBarController.onTimeChanged.setHandler(this::onSeekBarTimeChanged);
         seekBarController.onSeekThumbPressed.setHandler(this::onSeekBarThumbPressed);
         seekBarController.init(playModel);
+        smoothMovements = settingsService.getEnableSmoothMovements();
         super.addChild(seekBarController);
         setFixedForwardPeriod(DEFAULT_FIXED_ADVANCE_PERIOD);
         setFixedRewindPeriod(DEFAULT_FIXED_ADVANCE_PERIOD);
         stop();
+    }
+
+    public Boolean isSmoothMovementEnabled() {
+        return this.smoothMovements;
+    }
+
+    public void setSmoothMovementEnabled(Boolean smoothMovements) {
+        this.smoothMovements = smoothMovements;
+        settingsService.setEnableSmoothMovements(smoothMovements);
     }
 
     @FXML
@@ -139,28 +153,37 @@ public class SequencePaneController extends ControllerBase {
     }
 
     private void autoAdvance(PlaySpeed playSpeed) {
-        TimerTask timerTask = new TimerTask() {
-            @Override
-            public void run() {
-                autoAdvanceSmoothed();
-            }
-        };
+        timer.cancel();
         this.playSpeed = playSpeed;
         updateControlButtonStates();
-        timer.cancel();
         timer = new Timer();
-        timer.schedule(timerTask, 0, AUTO_ADVANCE_PERIOD / SequencePaneController.this.playSpeed.getMultiplierAbs());
+        if (smoothMovements) {
+            timer.schedule(smoothAutoAdvanceTask, 0, SMOOTH_AUTO_ADVANCE_PERIOD / SequencePaneController.this.playSpeed.getMultiplierAbs());
+        } else {
+            timer.schedule(linearAutoAdvanceTask, 0, LINEAR_AUTO_ADVANCE_PERIOD);
+        }
     }
 
-    private void autoAdvanceSmoothed() {
-        Integer time;
-        if (playSpeed.isForward()) {
-            time = seekBarController.getNextKeyPointTime();
-        } else {
-            time = seekBarController.getPreviousKeyPointTime();
+    TimerTask smoothAutoAdvanceTask = new TimerTask() {
+        @Override
+        public void run() {
+            Integer time;
+            if (playSpeed.isForward()) {
+                time = seekBarController.getNextKeyPointTime();
+            } else {
+                time = seekBarController.getPreviousKeyPointTime();
+            }
+            seekBarController.move(time, true, true, SMOOTH_AUTO_ADVANCE_PERIOD / SequencePaneController.this.playSpeed.getMultiplierAbs());
         }
-        seekBarController.move(time, true, true, AUTO_ADVANCE_PERIOD / SequencePaneController.this.playSpeed.getMultiplierAbs());
-    }
+    };
+
+    TimerTask linearAutoAdvanceTask = new TimerTask() {
+        @Override
+        public void run() {
+            Integer time = seekBarController.getTime() + LINEAR_AUTO_ADVANCE_PERIOD * SequencePaneController.this.playSpeed.getMultiplier();
+            seekBarController.move(time, false, false, 0);
+        }
+    };
 
     private void stop() {
         timer.cancel();

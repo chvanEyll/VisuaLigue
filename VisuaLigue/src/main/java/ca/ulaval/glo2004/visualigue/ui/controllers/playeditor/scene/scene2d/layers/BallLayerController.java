@@ -16,8 +16,8 @@ public class BallLayerController extends ActorLayerController {
     @FXML private ImageView imageView;
 
     @Override
-    public void init(ActorModel actorModel, PlayingSurfaceLayerController playingLayerSurfaceController) {
-        super.init(actorModel, playingLayerSurfaceController);
+    public void init(ActorModel actorModel, PlayingSurfaceLayerController playingLayerSurfaceController, Boolean showActorLabels, Boolean showMovementArrows, Boolean resizeActorsOnZoom) {
+        super.init(actorModel, playingLayerSurfaceController, showActorLabels, showMovementArrows, resizeActorsOnZoom);
         if (actorModel.imagePathName.isNotEmpty().get()) {
             imageView.setImage(new Image(FilenameUtils.getURIString(actorModel.imagePathName.get())));
         } else if (actorModel.builtInImagePathName.isNotEmpty().get()) {

@@ -8,15 +8,17 @@
 <?import javafx.scene.control.Tooltip?>
 <?import javafx.scene.control.Label?>
 <?import javafx.scene.control.ComboBox?>
-<?import javafx.scene.layout.HBox?>
 <?import javafx.scene.control.ScrollPane?>
+<?import javafx.scene.control.MenuButton?>
+<?import javafx.scene.control.CheckMenuItem?>
+<?import javafx.scene.layout.HBox?>
 <?import javafx.scene.layout.Pane?>
 <?import ca.ulaval.glo2004.visualigue.ui.controllers.common.SvgImage?>
 <?import ca.ulaval.glo2004.visualigue.ui.controllers.common.ExtendedButton?>
 
 <HBox fx:id="rootNode" alignment="CENTER_LEFT" prefHeight="50.0" styleClass="root-node, toolbar" xmlns="http://javafx.com/javafx/8.0.60" xmlns:fx="http://javafx.com/fxml/1" fx:controller="ca.ulaval.glo2004.visualigue.ui.controllers.playeditor.toolbar.ToolbarController">
     <children>
-        <ScrollPane styleClass="edge-to-edge, left-group" HBox.hgrow="ALWAYS">
+        <ScrollPane styleClass="edge-to-edge, left-group-scroll-pane" HBox.hgrow="ALWAYS">
             <HBox alignment="CENTER_LEFT">
                 <Button fx:id="saveButton" onAction="#onSaveButtonAction">
                     <graphic>
@@ -168,9 +170,27 @@
                 </ExtendedButton>
             </HBox>
         </ScrollPane>
-        <HBox alignment="CENTER_RIGHT" styleClass="right-group">
+        <HBox alignment="CENTER_RIGHT">
             <children>
                 <Label fx:id="coordinateLabel" styleClass="coordinate-label"/>
+                <MenuButton styleClass="button, borderless, medium">
+                    <graphic>
+                        <SvgImage url="/images/toolbar-more-icon.fxml" />
+                    </graphic>
+                    <items>
+                        <CheckMenuItem fx:id="resizeActorsOnZoomMenuItem" text="Agrandir les joueurs avec le zoom" onAction="#onResizeActorsOnZoomToggleButtonAction" />
+                        <CheckMenuItem fx:id="showMovementArrowsMenuItem" text="Afficher les flèches de déplacement" onAction="#onMovementArrowsDisplayToggleButtonAction"/>
+                        <CheckMenuItem fx:id="smoothMovementsMenuItem" text="Déplacements atténués" onAction="#onSmoothMovementToggleButtonAction" />
+                    </items>
+                    <tooltip>
+                        <Tooltip text="Plus d'options" />
+                    </tooltip>
+                    <HBox.margin>
+                        <Insets>
+                            <left>7</left>
+                        </Insets>
+                    </HBox.margin>
+                </MenuButton>
                 <ExtendedButton fx:id="itemPaneDisplayButton" styleClass="item-pane-display-button" onAction="#onItemPaneDisplayToggleButtonAction">
                     <graphic>
                         <SvgImage url="/images/item-pane-display-toggle-icon.fxml" />

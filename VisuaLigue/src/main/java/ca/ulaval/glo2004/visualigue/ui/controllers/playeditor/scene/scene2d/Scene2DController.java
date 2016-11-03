@@ -1,6 +1,7 @@
 package ca.ulaval.glo2004.visualigue.ui.controllers.playeditor.scene.scene2d;
 
 import ca.ulaval.glo2004.visualigue.domain.play.actorinstance.TeamSide;
+import ca.ulaval.glo2004.visualigue.services.settings.SettingsService;
 import ca.ulaval.glo2004.visualigue.ui.View;
 import ca.ulaval.glo2004.visualigue.ui.controllers.ControllerBase;
 import ca.ulaval.glo2004.visualigue.ui.controllers.common.ExtendedScrollPane;
@@ -31,12 +32,15 @@ public class Scene2DController extends SceneController {
     @FXML private StackPane layerStackPane;
     @FXML private PlayingSurfaceLayerController playingSurfaceLayerController;
     @Inject ActorLayerViewFactory actorLayerViewFactory;
+    @Inject SettingsService settingsService;
     private NavigationController navigationController;
     private List<ControllerBase> sceneLayers = new ArrayList();
     private Map<ActorModel, ControllerBase> sceneLayerMap = new HashMap();
     private final FrameModel frameModel = new FrameModel();
     private PlayModel playModel;
     private Boolean showActorLabels = false;
+    private Boolean showMovementArrows = true;
+    private Boolean resizeActorsOnZoom = true;
 
     @Override
     public void init(PlayModel playModel) {
@@ -48,6 +52,9 @@ public class Scene2DController extends SceneController {
         navigationController.onZoomChanged.setHandler(this::onZoomChanged);
         navigationController.setZoom(new Zoom(1));
         sceneLayers.add(playingSurfaceLayerController);
+        showActorLabels = settingsService.getShowActorLabels();
+        showMovementArrows = settingsService.getShowMovementArrows();
+        resizeActorsOnZoom = settingsService.getResizeActorsOnZoom();
     }
 
     private void onActorStateMapChanged(MapChangeListener.Change change) {
@@ -66,7 +73,7 @@ public class Scene2DController extends SceneController {
     private void addActorLayer(ActorModel actorModel) {
         View view = actorLayerViewFactory.create(actorModel);
         ActorLayerController controller = (ActorLayerController) view.getController();
-        controller.init(actorModel, playingSurfaceLayerController);
+        controller.init(actorModel, playingSurfaceLayerController, showActorLabels, showMovementArrows, resizeActorsOnZoom);
         super.addChild(controller);
         sceneLayers.add(controller);
         sceneLayerMap.put(actorModel, controller);
@@ -168,8 +175,32 @@ public class Scene2DController extends SceneController {
     @Override
     public void setActorLabelDisplay(Boolean showActorLabels) {
         this.showActorLabels = showActorLabels;
-        getActorLayers().forEach(controller -> controller.setActorLabelDisplayEnabled(showActorLabels));
-        onActorLabelDisplayEnableChanged.fire(this, showActorLabels);
+        getActorLayers().forEach(controller -> controller.setActorLabelDisplay(showActorLabels));
+        settingsService.setShowActorLabels(showActorLabels);
+    }
+
+    @Override
+    public Boolean isMovementArrowDisplayEnabled() {
+        return showMovementArrows;
+    }
+
+    @Override
+    public void setMovementArrowDisplay(Boolean showMovementArrows) {
+        this.showMovementArrows = showMovementArrows;
+        getActorLayers().forEach(controller -> controller.setMovementArrowDisplay(showMovementArrows));
+        settingsService.setShowMovementArrows(showMovementArrows);
+    }
+
+    @Override
+    public Boolean isResizeActorOnZoomEnabled() {
+        return resizeActorsOnZoom;
+    }
+
+    @Override
+    public void setResizeActorOnZoom(Boolean resizeActorsOnZoom) {
+        this.resizeActorsOnZoom = resizeActorsOnZoom;
+        getActorLayers().forEach(controller -> controller.setResizeActorOnZoom(resizeActorsOnZoom));
+        settingsService.setResizeActorsOnZoom(resizeActorsOnZoom);
     }
 
     private List<ActorLayerController> getActorLayers() {

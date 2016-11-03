@@ -5,6 +5,8 @@ import ca.ulaval.glo2004.visualigue.domain.obstacle.Obstacle;
 import ca.ulaval.glo2004.visualigue.domain.obstacle.ObstacleRepository;
 import ca.ulaval.glo2004.visualigue.domain.play.Play;
 import ca.ulaval.glo2004.visualigue.domain.play.PlayRepository;
+import ca.ulaval.glo2004.visualigue.domain.settings.Settings;
+import ca.ulaval.glo2004.visualigue.domain.settings.SettingsRepository;
 import ca.ulaval.glo2004.visualigue.domain.sport.Sport;
 import ca.ulaval.glo2004.visualigue.domain.sport.SportRepository;
 import ca.ulaval.glo2004.visualigue.domain.sport.playercategory.PlayerCategory;
@@ -23,6 +25,7 @@ public class InjectionConfigProvider extends AbstractModule {
         bind(ObstacleRepository.class).to(XmlObstacleRepository.class);
         bind(PlayRepository.class).to(XmlPlayRepository.class);
         bind(PlayerCategoryRepository.class).to(XmlPlayerCategoryRepository.class);
+        bind(SettingsRepository.class).to(XmlSettingsRepository.class);
     }
 
     @Provides
@@ -43,5 +46,10 @@ public class InjectionConfigProvider extends AbstractModule {
     @Provides
     XmlRepositoryMarshaller<PlayerCategory> provideXmlPlayerCategoryRepository() {
         return new XmlRepositoryMarshaller<>(PlayerCategory.class, VisuaLigue.getRepositoryDirectory() + "/player-categories");
+    }
+
+    @Provides
+    XmlRepositoryMarshaller<Settings> provideXmlSettingsRepository() {
+        return new XmlRepositoryMarshaller<>(Settings.class, VisuaLigue.getRepositoryDirectory() + "/settings");
     }
 }

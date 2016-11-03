@@ -17,6 +17,8 @@ import ca.ulaval.glo2004.visualigue.domain.play.actorstate.BallState;
 import ca.ulaval.glo2004.visualigue.domain.play.actorstate.ObstacleState;
 import ca.ulaval.glo2004.visualigue.domain.play.actorstate.PlayerState;
 import ca.ulaval.glo2004.visualigue.domain.play.actorstate.transition.LinearTransition;
+import ca.ulaval.glo2004.visualigue.domain.settings.Settings;
+import ca.ulaval.glo2004.visualigue.domain.settings.SettingsRepository;
 import ca.ulaval.glo2004.visualigue.domain.sport.Sport;
 import ca.ulaval.glo2004.visualigue.domain.sport.SportAlreadyExistsException;
 import ca.ulaval.glo2004.visualigue.domain.sport.SportFactory;
@@ -43,8 +45,8 @@ public class DefaultContext extends ContextBase {
 
     @Inject
     public DefaultContext(final SportFactory sportFactory, final SportRepository sportRepository, final PlayerCategoryRepository playerCategoryRepository, final ImageRepository imageRepository, final ObstacleFactory obstacleFactory,
-            final ObstacleRepository obstacleRepository, final PlayRepository playRepository, final PlayFactory playFactory) {
-        super(sportRepository, playerCategoryRepository, imageRepository, obstacleRepository, playRepository);
+            final ObstacleRepository obstacleRepository, final PlayRepository playRepository, final PlayFactory playFactory, final SettingsRepository settingsRepository) {
+        super(sportRepository, playerCategoryRepository, imageRepository, obstacleRepository, playRepository, settingsRepository);
         this.sportFactory = sportFactory;
         this.obstacleFactory = obstacleFactory;
         this.playFactory = playFactory;
@@ -65,6 +67,7 @@ public class DefaultContext extends ContextBase {
         createSports();
         createObstacles();
         createPlays();
+        createSettings();
     }
 
     private void createSports() throws Exception {
@@ -291,5 +294,10 @@ public class DefaultContext extends ContextBase {
         for (Play play : playPool) {
             playRepository.persist(play);
         }
+    }
+
+    private void createSettings() {
+        Settings settings = new Settings();
+        settingsRepository.persist(settings);
     }
 }

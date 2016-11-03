@@ -17,7 +17,6 @@ public abstract class SceneController extends ControllerBase {
 
     public EventHandler<Vector2> onMousePositionChanged = new EventHandler();
     public EventHandler<Zoom> onZoomChanged = new EventHandler();
-    public EventHandler<Boolean> onActorLabelDisplayEnableChanged = new EventHandler();
     public EventHandler onPlayerCreationModeExited = new EventHandler();
     public EventHandler onObstacleCreationModeExited = new EventHandler();
     public EventHandler onBallCreationModeExited = new EventHandler();
@@ -56,6 +55,14 @@ public abstract class SceneController extends ControllerBase {
 
     public abstract Boolean isActorLabelDisplayEnabled();
 
-    public abstract void setActorLabelDisplay(Boolean enabled);
+    public abstract void setActorLabelDisplay(Boolean showLabels);
+
+    public abstract Boolean isMovementArrowDisplayEnabled();
+
+    public abstract void setMovementArrowDisplay(Boolean showMovementArrows);
+
+    public abstract Boolean isResizeActorOnZoomEnabled();
+
+    public abstract void setResizeActorOnZoom(Boolean resizeActorsOnZoom);
 
 }

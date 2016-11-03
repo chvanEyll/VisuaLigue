@@ -9,7 +9,7 @@
     -fx-pref-width: 1;
 }
 
-.toolbar .left-group {
+.toolbar .left-group-scroll-pane {
     -fx-background: transparent;
     -fx-vbar-policy: NEVER;
     -fx-hbar-policy: NEVER;
@@ -17,18 +17,27 @@
     -fx-pannable: true;
 }
 
-.toolbar .right-group {
-    -fx-spacing: 7;
-}
-
-.coordinate-label {
+.toolbar .coordinate-label {
     -fx-text-fill: #999999;
     -fx-text-overrun: clip;
 }
 
-.item-pane-display-button {
+.toolbar .item-pane-display-button {
     -fx-min-width: 60;
     -fx-pref-width: 60;
+}
+
+.toolbar .menu-button .arrow-button {
+    -fx-max-width: 0;
+    -fx-pref-width: 0;
+    -fx-min-width: 0;
+    -fx-padding: 0;
+}
+
+.toolbar .menu-button .arrow {
+    -fx-max-width: 0;
+    -fx-pref-width: 0;
+    -fx-min-width: 0;
 }
 
 .item-pane {

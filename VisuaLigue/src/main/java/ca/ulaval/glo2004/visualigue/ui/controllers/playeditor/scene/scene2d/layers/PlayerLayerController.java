@@ -15,14 +15,15 @@ public class PlayerLayerController extends ActorLayerController {
     private static final Double LABEL_OFFSET_Y = 15.0;
     public static final String VIEW_NAME = "/views/playeditor/scene2d/layers/player-layer.fxml";
     public static final Double BASE_BUTTON_SCALING = 1.25;
+    public static final Double ARROW_HEAD_SIZE = 15.0;
+    public static final Double ARROW_STROKE_DASH_ARRAY_SIZE = 10.0;
     @FXML private PlayerIcon playerIcon;
     @FXML private Label label;
     @FXML private Arrow arrow;
-    protected Boolean showLabel = false;
 
     @Override
-    public void init(ActorModel actorModel, PlayingSurfaceLayerController playingLayerSurfaceController) {
-        super.init(actorModel, playingLayerSurfaceController);
+    public void init(ActorModel actorModel, PlayingSurfaceLayerController playingLayerSurfaceController, Boolean showActorLabels, Boolean showMovementArrows, Boolean resizeActorsOnZoom) {
+        super.init(actorModel, playingLayerSurfaceController, showActorLabels, showMovementArrows, resizeActorsOnZoom);
         label.textProperty().bind(actorModel.label);
         actorModel.position.addListener(this::onActorPositionChanged);
         actorModel.nextPosition.addListener(this::onActorPositionChanged);
@@ -60,8 +61,8 @@ public class PlayerLayerController extends ActorLayerController {
     }
 
     private void updateActor(Vector2 actorPosition) {
-        actorButton.setScaleX(getScaledValue(1.0) * BASE_BUTTON_SCALING);
-        actorButton.setScaleY(getScaledValue(1.0) * BASE_BUTTON_SCALING);
+        actorButton.setScaleX(getScaledValue(BASE_BUTTON_SCALING));
+        actorButton.setScaleY(getScaledValue(BASE_BUTTON_SCALING));
         actorButton.setLayoutX(actorPosition.getX() - actorButton.getWidth() / 2);
         actorButton.setLayoutY(actorPosition.getY() - actorButton.getHeight() / 2);
         actorButton.setRotate(actorModel.orientation.get());
@@ -69,13 +70,13 @@ public class PlayerLayerController extends ActorLayerController {
     }
 
     private void updateArrow(Vector2 currentActorPosition, Vector2 nextActorPosition) {
-        arrow.setVisible(nextActorPosition != null);
-        if (nextActorPosition != null) {
+        arrow.setVisible(showMovementArrows == true && nextActorPosition != null);
+        if (showMovementArrows == true && nextActorPosition != null) {
             arrow.setStroke(actorModel.color.get());
             arrow.setStrokeWidth(getScaledValue(3.0));
-            arrow.getStrokeDashArray().setAll(getScaledValue(10.0));
+            arrow.getStrokeDashArray().setAll(getScaledValue(ARROW_STROKE_DASH_ARRAY_SIZE));
             arrow.setArrowFill(actorModel.color.get());
-            arrow.setHeadSize(new Vector2(getScaledValue(20.0), getScaledValue(20.0)));
+            arrow.setHeadSize(new Vector2(getScaledValue(ARROW_HEAD_SIZE), getScaledValue(ARROW_HEAD_SIZE)));
             arrow.setTailGrow(-actorButton.getWidth() * actorButton.getScaleX());
             arrow.setHeadLocation(nextActorPosition);
             arrow.setTailLocation(currentActorPosition);
@@ -83,7 +84,7 @@ public class PlayerLayerController extends ActorLayerController {
     }
 
     private void updateLabel(Vector2 actorPosition) {
-        label.setVisible(showLabel);
+        label.setVisible(showActorLabels);
         label.setScaleX(getScaledValue(1.0));
         label.setScaleY(getScaledValue(1.0));
         label.setLayoutX(actorPosition.getX() - label.getWidth() / 2);
@@ -93,12 +94,6 @@ public class PlayerLayerController extends ActorLayerController {
     @Override
     public void updateZoom(Zoom zoom) {
         this.zoom = zoom;
-        update();
-    }
-
-    @Override
-    public void setActorLabelDisplayEnabled(Boolean enabled) {
-        showLabel = enabled;
         update();
     }
 

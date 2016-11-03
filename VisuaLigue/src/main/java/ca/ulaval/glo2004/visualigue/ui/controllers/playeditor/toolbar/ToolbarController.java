@@ -7,6 +7,7 @@ import ca.ulaval.glo2004.visualigue.ui.controllers.common.ExtendedButton;
 import ca.ulaval.glo2004.visualigue.ui.controllers.playeditor.itempane.ItemPaneController;
 import ca.ulaval.glo2004.visualigue.ui.controllers.playeditor.scene.SceneController;
 import ca.ulaval.glo2004.visualigue.ui.controllers.playeditor.scene.Zoom;
+import ca.ulaval.glo2004.visualigue.ui.controllers.playeditor.sequencecontrol.SequencePaneController;
 import ca.ulaval.glo2004.visualigue.ui.models.PlayModel;
 import ca.ulaval.glo2004.visualigue.utils.EventHandler;
 import ca.ulaval.glo2004.visualigue.utils.geometry.Vector2;
@@ -17,6 +18,7 @@ import javafx.collections.FXCollections;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
+import javafx.scene.control.CheckMenuItem;
 import javafx.scene.control.ComboBox;
 import javafx.scene.control.Label;
 import javax.inject.Inject;
@@ -28,7 +30,6 @@ public class ToolbarController extends ControllerBase {
     public EventHandler onExportButtonAction = new EventHandler();
     public EventHandler onUndoButtonAction = new EventHandler();
     public EventHandler onRedoButtonAction = new EventHandler();
-    public EventHandler onBestFitButtonAction = new EventHandler();
     public EventHandler onSwitch3DButtonAction = new EventHandler();
     @FXML private Button saveButton;
     @FXML private Button undoButton;
@@ -40,19 +41,23 @@ public class ToolbarController extends ControllerBase {
     @FXML private ExtendedButton actorLabelDisplayToggleButton;
     @FXML private ExtendedButton itemPaneDisplayButton;
     @FXML private Label coordinateLabel;
+    @FXML private CheckMenuItem resizeActorsOnZoomMenuItem;
+    @FXML private CheckMenuItem showMovementArrowsMenuItem;
+    @FXML private CheckMenuItem smoothMovementsMenuItem;
     @Inject private PlayService playService;
     private PlayModel playModel;
     private SceneController sceneController;
     private ItemPaneController itemPaneController;
+    private SequencePaneController sequencePaneController;
     private Boolean ignoreZoomComboBoxAction = false;
 
-    public void init(PlayModel playModel, SceneController sceneController, ItemPaneController itemPaneController) {
+    public void init(PlayModel playModel, SceneController sceneController, ItemPaneController itemPaneController, SequencePaneController sequencePaneController) {
         this.playModel = playModel;
         this.sceneController = sceneController;
         this.itemPaneController = itemPaneController;
+        this.sequencePaneController = sequencePaneController;
         sceneController.onMousePositionChanged.setHandler(this::onSceneMousePositionChanged);
         sceneController.onZoomChanged.setHandler(this::onSceneZoomChanged);
-        sceneController.onActorLabelDisplayEnableChanged.setHandler(this::onActorLabelDisplayEnableChanged);
         sceneController.onNavigationModeEntered.setHandler(this::onNavigationModeEntered);
         sceneController.onNavigationModeExited.setHandler(this::onNavigationModeExited);
         playService.onUndoAvailabilityChanged.addHandler(this::onUndoAvailabilityChanged);
@@ -64,6 +69,10 @@ public class ToolbarController extends ControllerBase {
         zoomComboBox.setItems(FXCollections.observableArrayList(SceneController.PREDEFINED_ZOOMS));
         zoomComboBox.focusedProperty().addListener(this::onZoomComboBoxFocusedPropertyChanged);
         itemPaneDisplayButton.setSelected(true);
+        actorLabelDisplayToggleButton.setSelected(sceneController.isActorLabelDisplayEnabled());
+        resizeActorsOnZoomMenuItem.setSelected(sceneController.isResizeActorOnZoomEnabled());
+        showMovementArrowsMenuItem.setSelected(sceneController.isMovementArrowDisplayEnabled());
+        smoothMovementsMenuItem.setSelected(sequencePaneController.isSmoothMovementEnabled());
         updateZoom();
     }
 
@@ -149,6 +158,25 @@ public class ToolbarController extends ControllerBase {
     @FXML
     protected void onActorLabelDisplayToggleButtonAction(ActionEvent e) {
         sceneController.setActorLabelDisplay(!sceneController.isActorLabelDisplayEnabled());
+        actorLabelDisplayToggleButton.setSelected(sceneController.isActorLabelDisplayEnabled());
+    }
+
+    @FXML
+    protected void onResizeActorsOnZoomToggleButtonAction(ActionEvent e) {
+        sceneController.setResizeActorOnZoom(!sceneController.isResizeActorOnZoomEnabled());
+        resizeActorsOnZoomMenuItem.setSelected(sceneController.isResizeActorOnZoomEnabled());
+    }
+
+    @FXML
+    protected void onMovementArrowsDisplayToggleButtonAction(ActionEvent e) {
+        sceneController.setMovementArrowDisplay(!sceneController.isMovementArrowDisplayEnabled());
+        showMovementArrowsMenuItem.setSelected(sceneController.isMovementArrowDisplayEnabled());
+    }
+
+    @FXML
+    protected void onSmoothMovementToggleButtonAction(ActionEvent e) {
+        sequencePaneController.setSmoothMovementEnabled(!sequencePaneController.isSmoothMovementEnabled());
+        smoothMovementsMenuItem.setSelected(sequencePaneController.isSmoothMovementEnabled());
     }
 
     @FXML
@@ -177,10 +205,6 @@ public class ToolbarController extends ControllerBase {
         zoomOutButton.setDisable(MathUtils.lessOrEqual(currentZoom, sceneController.getMinZoom()));
     }
 
-    private void onActorLabelDisplayEnableChanged(Object sender, Boolean displayEnabled) {
-        actorLabelDisplayToggleButton.setSelected(displayEnabled);
-    }
-
     private void onUndoAvailabilityChanged(Object sender, Boolean undoAvailable) {
         undoButton.setDisable(!undoAvailable);
     }
@@ -202,5 +226,4 @@ public class ToolbarController extends ControllerBase {
     private void onNavigationModeExited(Object sender, Object param) {
         panButton.setSelected(false);
     }
-
 }

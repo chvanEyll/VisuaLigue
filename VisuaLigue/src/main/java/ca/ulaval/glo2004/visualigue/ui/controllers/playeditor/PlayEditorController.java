@@ -34,14 +34,13 @@ public class PlayEditorController extends ControllerBase {
         this.playModel = playModel;
         sceneController.init(playModel);
         itemPaneController.init(playModel, sceneController);
-        toolbarController.init(playModel, sceneController, itemPaneController);
+        sequencePaneController.init(playModel, sceneController);
+        toolbarController.init(playModel, sceneController, itemPaneController, sequencePaneController);
         toolbarController.onSaveButtonAction.setHandler(this::onSaveToolbarButtonAction);
         toolbarController.onCloseButtonAction.setHandler(this::onCloseToolbarButtonAction);
         toolbarController.onExportButtonAction.setHandler(this::onExportToolbarButtonAction);
         toolbarController.onUndoButtonAction.setHandler(this::onUndoToolbarButtonAction);
         toolbarController.onRedoButtonAction.setHandler(this::onRedoToolbarButtonAction);
-        toolbarController.onBestFitButtonAction.setHandler(this::onBestFitToolbarButtonAction);
-        sequencePaneController.init(playModel, sceneController);
         sceneController.enterNavigationMode();
         playModel.title.addListener(this::onPlayTitleChanged);
         super.addChild(sceneController);
@@ -95,10 +94,6 @@ public class PlayEditorController extends ControllerBase {
 
     private void onRedoToolbarButtonAction(Object sender, Object eventArgs) {
         playService.redo(playModel.getUUID());
-    }
-
-    private void onBestFitToolbarButtonAction(Object sender, Object eventArgs) {
-        sceneController.autoFit();
     }
 
     private Boolean validateUnsavedChanges() {
