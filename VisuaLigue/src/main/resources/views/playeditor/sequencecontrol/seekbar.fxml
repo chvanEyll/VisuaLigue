@@ -46,7 +46,7 @@
                 <String fx:value="seekbar" />
             </styleClass>
         </ExtendedScrollPane>
-        <Button fx:id="newFrameButton" onAction="#onNewFrameButtonAction">
+        <Button fx:id="newFrameButton" onAction="#onNewKeyPointButtonAction">
             <graphic>
                 <SvgImage url="/images/new-frame-icon.fxml" />
             </graphic>

@@ -2,8 +2,8 @@ package ca.ulaval.glo2004.visualigue.services.play;
 
 import ca.ulaval.glo2004.visualigue.domain.play.*;
 import ca.ulaval.glo2004.visualigue.domain.play.actorinstance.TeamSide;
-import ca.ulaval.glo2004.visualigue.domain.play.frame.Frame;
 import ca.ulaval.glo2004.visualigue.domain.play.actorstate.transition.StateTransition;
+import ca.ulaval.glo2004.visualigue.domain.play.frame.Frame;
 import ca.ulaval.glo2004.visualigue.domain.sport.Sport;
 import ca.ulaval.glo2004.visualigue.domain.sport.SportNotFoundException;
 import ca.ulaval.glo2004.visualigue.domain.sport.SportRepository;
@@ -27,11 +27,12 @@ public class PlayService {
     private final Map<String, Deque<Command>> redoStackMap = new HashMap();
 
     public EventHandler<Play> onPlayCreated = new EventHandler();
-    public EventHandler<Play> onPlayUpdated = new EventHandler();
+    public EventHandler<Play> onPlayTitleUpdated = new EventHandler();
     public EventHandler<Play> onPlayDeleted = new EventHandler();
     public EventHandler<Boolean> onUndoAvailabilityChanged = new EventHandler();
     public EventHandler<Boolean> onRedoAvailabilityChanged = new EventHandler();
     public EventHandler<Play> onPlayDirtyFlagChanged = new EventHandler();
+    public EventHandler<Integer> onPlayTimelineLengthChanged = new EventHandler();
 
     @Inject
     public PlayService(final PlayRepository playRepository, final PlayFactory playFactory, final SportRepository sportRepository) {
@@ -53,7 +54,7 @@ public class PlayService {
         Play play = playRepository.get(playUUID);
         play.setTitle(title);
         setDirty(playUUID, true);
-        onPlayUpdated.fire(this, play);
+        onPlayTitleUpdated.fire(this, play);
     }
 
     public void deletePlay(String playUUID) throws PlayNotFoundException {
@@ -110,6 +111,18 @@ public class PlayService {
         Play play = playRepository.get(playUUID);
         BallUpdateCommand command = new BallUpdateCommand(play, time, ballInstanceUUID, ownerPlayerInstanceUUID, position);
         executeNewCommand(playUUID, command);
+    }
+
+    public Integer getTimelineLength(String playUUID) {
+        Play play = playRepository.get(playUUID);
+        return play.getTimelineLength();
+    }
+
+    public void setTimelineLength(String playUUID, Integer timelineLength) {
+        Play play = playRepository.get(playUUID);
+        TimelineLengthUpdateCommand command = new TimelineLengthUpdateCommand(play, timelineLength);
+        executeNewCommand(playUUID, command);
+        onPlayTimelineLengthChanged.fire(this, timelineLength);
     }
 
     public void savePlay(String playUUID) throws PlayNotFoundException {

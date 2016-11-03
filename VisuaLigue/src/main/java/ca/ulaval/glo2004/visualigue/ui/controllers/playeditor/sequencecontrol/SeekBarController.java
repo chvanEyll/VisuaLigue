@@ -14,6 +14,7 @@ import ca.ulaval.glo2004.visualigue.utils.EventHandler;
 import ca.ulaval.glo2004.visualigue.utils.math.MathUtils;
 import java.util.ArrayList;
 import java.util.List;
+import javafx.beans.value.ObservableValue;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.geometry.Insets;
@@ -46,20 +47,30 @@ public class SeekBarController extends ControllerBase {
     public void init(PlayModel playModel, SceneController sceneController) {
         this.playModel = playModel;
         this.sceneController = sceneController;
+        playService.onPlayTimelineLengthChanged.addHandler(this::onTimelineLengthChanged);
         updateKeyPoints();
         move(0);
     }
 
+    @Override
+    public void clean() {
+        playService.onPlayTimelineLengthChanged.removeHandler(this::onTimelineLengthChanged);
+    }
+
     @FXML
-    protected void onNewFrameButtonAction(ActionEvent e) {
+    protected void onNewKeyPointButtonAction(ActionEvent e) {
+        keyframeHBox.widthProperty().addListener(this::moveToNewKeyPointHandler);
+        playService.setTimelineLength(playModel.getUUID(), getLength() + KEY_POINT_INTERVAL);
+    }
+
+    private void onTimelineLengthChanged(Object sender, Integer newTimelineLength) {
         updateKeyPoints();
-        move(time + KEY_POINT_INTERVAL);
     }
 
     private void updateKeyPoints() {
-        Integer numberOfKeyPoints = (int) Math.ceil(getLength() / KEY_POINT_INTERVAL);
+        Integer numberOfKeyPoints = getLength() / KEY_POINT_INTERVAL + 1;
         if (numberOfKeyPoints > keyPoints.size()) {
-            for (Integer i = keyPoints.size(); i <= numberOfKeyPoints; i++) {
+            for (Integer i = keyPoints.size(); i < numberOfKeyPoints; i++) {
                 addKeyPoint();
             }
         } else if (numberOfKeyPoints < keyPoints.size()) {
@@ -76,6 +87,12 @@ public class SeekBarController extends ControllerBase {
         controller.onClick.setHandler(this::onKeyPointClicked);
         keyframeHBox.getChildren().add(view.getRoot());
         keyPoints.add(view);
+
+    }
+
+    public void moveToNewKeyPointHandler(ObservableValue<? extends Number> value, Number oldPropertyValue, Number newPropertyValue) {
+        keyframeHBox.widthProperty().removeListener(this::moveToNewKeyPointHandler);
+        setTime(getLength());
     }
 
     private void removeKeyPoint() {
@@ -125,7 +142,7 @@ public class SeekBarController extends ControllerBase {
     }
 
     public Integer getLength() {
-        return playService.getPlayLength(playModel.getUUID());
+        return MathUtils.roundUp(playService.getTimelineLength(playModel.getUUID()), KEY_POINT_INTERVAL);
     }
 
     public Integer getRemainingTime() {

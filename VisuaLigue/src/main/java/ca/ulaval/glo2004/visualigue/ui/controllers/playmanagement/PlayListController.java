@@ -35,7 +35,7 @@ public class PlayListController extends ControllerBase {
     @Override
     public void initialize(URL url, ResourceBundle rb) {
         playService.onPlayCreated.addHandler(this::onPlayChanged);
-        playService.onPlayUpdated.addHandler(this::onPlayChanged);
+        playService.onPlayTitleUpdated.addHandler(this::onPlayChanged);
         playService.onPlayDeleted.addHandler(this::onPlayChanged);
         fillPlayList();
     }
@@ -43,7 +43,7 @@ public class PlayListController extends ControllerBase {
     @Override
     public void clean() {
         playService.onPlayCreated.removeHandler(this::onPlayChanged);
-        playService.onPlayUpdated.removeHandler(this::onPlayChanged);
+        playService.onPlayTitleUpdated.removeHandler(this::onPlayChanged);
         playService.onPlayDeleted.removeHandler(this::onPlayChanged);
     }
 

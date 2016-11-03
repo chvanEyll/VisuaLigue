@@ -28,6 +28,7 @@ public class Play extends DomainObject {
     private String thumbnailImageUUID;
     @XmlJavaTypeAdapter(XmlSportRefAdapter.class)
     private Sport sport;
+    private Integer timelineLength = 0;
     private final TreeMap<ActorInstance, ActorTimeline> actorTimelines = new TreeMap();
 
     public Play() {
@@ -76,11 +77,11 @@ public class Play extends DomainObject {
     }
 
     public Boolean containsPlayerCategory(PlayerCategory playerCategory) {
-        return getActorInstances().stream().anyMatch(a -> a instanceof PlayerInstance && ((PlayerInstance) a).getPlayerCategory() == playerCategory);
+        return getActorInstances().stream().anyMatch(a -> a instanceof PlayerInstance && ((PlayerInstance) a).getPlayerCategory().equals(playerCategory));
     }
 
     public Boolean containsObstacle(Obstacle obstacle) {
-        return getActorInstances().stream().anyMatch(a -> a instanceof ObstacleInstance && ((ObstacleInstance) a).getObstacle() == obstacle);
+        return getActorInstances().stream().anyMatch(a -> a instanceof ObstacleInstance && ((ObstacleInstance) a).getObstacle().equals(obstacle));
     }
 
     public List<ActorInstance> getActorInstances() {
@@ -99,6 +100,7 @@ public class Play extends DomainObject {
             timeline = new ActorTimeline(actorInstance);
             actorTimelines.put(actorInstance, timeline);
         }
+        timelineLength = Math.max(time, timelineLength);
         return timeline.mergeKeyframe(time, actorInstance, actorState);
     }
 
@@ -118,6 +120,14 @@ public class Play extends DomainObject {
         } else {
             return 0;
         }
+    }
+
+    public Integer getTimelineLength() {
+        return timelineLength;
+    }
+
+    public void setTimelineLength(Integer timelineLength) {
+        this.timelineLength = timelineLength;
     }
 
     public Frame getFrame(Integer time) {
