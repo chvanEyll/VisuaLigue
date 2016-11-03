@@ -141,7 +141,9 @@ public class MainSceneController extends ControllerBase {
 
     @FXML
     protected void onViewTitleLabelMouseClicked(MouseEvent e) {
-        toggleViewTitleEditionMode(true);
+        if (((ControllerBase) viewFlowController.getCurrentView().getController()).isTitleEditable()) {
+            toggleViewTitleEditionMode(true);
+        }
     }
 
     @FXML

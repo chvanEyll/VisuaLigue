@@ -16,6 +16,8 @@ public interface PlayRepository {
 
     void discard(Play play) throws PlayNotFoundException;
 
+    List<Play> getAll();
+
     List<Play> getAll(Function<Play, Comparable> sortFunction, SortOrder sortOrder);
 
     void clear();

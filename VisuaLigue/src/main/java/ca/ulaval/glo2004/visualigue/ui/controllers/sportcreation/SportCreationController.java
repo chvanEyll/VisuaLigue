@@ -1,5 +1,6 @@
 package ca.ulaval.glo2004.visualigue.ui.controllers.sportcreation;
 
+import ca.ulaval.glo2004.visualigue.domain.play.PlayIntegrityViolationException;
 import ca.ulaval.glo2004.visualigue.domain.sport.Sport;
 import ca.ulaval.glo2004.visualigue.domain.sport.SportAlreadyExistsException;
 import ca.ulaval.glo2004.visualigue.domain.sport.SportNotFoundException;
@@ -25,6 +26,7 @@ import javafx.fxml.FXML;
 import javafx.scene.Node;
 import javafx.scene.control.Alert;
 import javafx.scene.control.Button;
+import javafx.scene.control.ButtonBar;
 import javafx.scene.control.ButtonBar.ButtonData;
 import javafx.scene.control.ButtonType;
 import javafx.scene.layout.VBox;
@@ -125,8 +127,14 @@ public class SportCreationController extends ControllerBase {
                 .buttonType(new ButtonType("Annuler", ButtonData.CANCEL_CLOSE)).showAndWait();
 
         if (result.get().getButtonData() == ButtonData.YES) {
-            sportService.deleteSport(model.getUUID());
-            onViewCloseRequested.fire(this, new ViewFlowRequestEventArgs());
+            try {
+                sportService.deleteSport(model.getUUID());
+                onViewCloseRequested.fire(this, new ViewFlowRequestEventArgs());
+            } catch (PlayIntegrityViolationException ex) {
+                new AlertDialogBuilder().alertType(Alert.AlertType.ERROR).headerText("Suppression impossible")
+                        .contentText(String.format("Ce sport ne peut être supprimé car il est utilisé dans le jeu '%s'.", ex.getPlay().getTitle()))
+                        .buttonType(new ButtonType("OK", ButtonBar.ButtonData.OK_DONE)).showAndWait();
+            }
         }
     }
 
@@ -188,7 +196,7 @@ public class SportCreationController extends ControllerBase {
             } else if (playerCategoryModel.isDirty()) {
                 sportService.updatePlayerCategory(sportUuid, playerCategoryModel.getUUID(), playerCategoryModel.name.get(), playerCategoryModel.allyPlayerColor.get(), playerCategoryModel.opponentPlayerColor.get(), playerCategoryModel.defaultNumberOfPlayers.get());
             } else if (playerCategoryModel.isDeleted()) {
-                sportService.removePlayerCategory(sportUuid, playerCategoryModel.getUUID());
+                sportService.deletePlayerCategory(sportUuid, playerCategoryModel.getUUID());
             }
         }
     }

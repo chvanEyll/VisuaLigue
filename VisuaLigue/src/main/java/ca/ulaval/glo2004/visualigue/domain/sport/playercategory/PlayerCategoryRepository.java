@@ -14,6 +14,8 @@ public interface PlayerCategoryRepository {
 
     void delete(PlayerCategory playerCategory) throws PlayerCategoryNotFoundException;
 
+    void simulateDelete(PlayerCategory playerCategory) throws PlayerCategoryNotFoundException;
+
     List<PlayerCategory> getAll(Function<PlayerCategory, Comparable> sortFunction, SortOrder sortOrder);
 
     Boolean isEmpty();

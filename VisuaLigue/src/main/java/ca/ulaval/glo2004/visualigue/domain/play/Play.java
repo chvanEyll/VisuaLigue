@@ -1,13 +1,19 @@
 package ca.ulaval.glo2004.visualigue.domain.play;
 
 import ca.ulaval.glo2004.visualigue.domain.DomainObject;
+import ca.ulaval.glo2004.visualigue.domain.obstacle.Obstacle;
 import ca.ulaval.glo2004.visualigue.domain.play.actorinstance.ActorInstance;
+import ca.ulaval.glo2004.visualigue.domain.play.actorinstance.ObstacleInstance;
+import ca.ulaval.glo2004.visualigue.domain.play.actorinstance.PlayerInstance;
 import ca.ulaval.glo2004.visualigue.domain.play.actorstate.ActorState;
 import ca.ulaval.glo2004.visualigue.domain.play.actortimeline.ActorTimeline;
 import ca.ulaval.glo2004.visualigue.domain.play.frame.Frame;
 import ca.ulaval.glo2004.visualigue.domain.play.keyframe.Keyframe;
 import ca.ulaval.glo2004.visualigue.domain.sport.Sport;
+import ca.ulaval.glo2004.visualigue.domain.sport.playercategory.PlayerCategory;
 import ca.ulaval.glo2004.visualigue.domain.xmladapters.XmlSportRefAdapter;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Optional;
 import java.util.TreeMap;
 import javax.xml.bind.annotation.XmlRootElement;
@@ -67,6 +73,18 @@ public class Play extends DomainObject {
 
     public void setSport(Sport sport) {
         this.sport = sport;
+    }
+
+    public Boolean containsPlayerCategory(PlayerCategory playerCategory) {
+        return getActorInstances().stream().anyMatch(a -> a instanceof PlayerInstance && ((PlayerInstance) a).getPlayerCategory() == playerCategory);
+    }
+
+    public Boolean containsObstacle(Obstacle obstacle) {
+        return getActorInstances().stream().anyMatch(a -> a instanceof ObstacleInstance && ((ObstacleInstance) a).getObstacle() == obstacle);
+    }
+
+    public List<ActorInstance> getActorInstances() {
+        return new ArrayList(actorTimelines.keySet());
     }
 
     public ActorInstance getActorInstance(String actorInstanceUUID) {

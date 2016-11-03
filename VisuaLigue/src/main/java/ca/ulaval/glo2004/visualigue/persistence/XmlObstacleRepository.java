@@ -5,6 +5,7 @@ import ca.ulaval.glo2004.visualigue.domain.obstacle.ObstacleAlreadyExistsExcepti
 import ca.ulaval.glo2004.visualigue.domain.obstacle.ObstacleNotFoundException;
 import ca.ulaval.glo2004.visualigue.domain.obstacle.ObstacleRepository;
 import ca.ulaval.glo2004.visualigue.persistence.marshalling.XmlRepositoryMarshaller;
+import ca.ulaval.glo2004.visualigue.utils.EventHandler;
 import ca.ulaval.glo2004.visualigue.utils.ListUtils;
 import java.util.ArrayList;
 import java.util.List;
@@ -18,6 +19,7 @@ import javax.swing.SortOrder;
 @Singleton
 public class XmlObstacleRepository implements ObstacleRepository {
 
+    public final EventHandler<Obstacle> onObstacleDelete = new EventHandler();
     private final XmlRepositoryMarshaller<Obstacle> xmlRepositoryMarshaller;
     private final Map<String, Obstacle> obstacles;
 
@@ -50,6 +52,7 @@ public class XmlObstacleRepository implements ObstacleRepository {
         if (!obstacles.containsKey(obstacle.getUUID())) {
             throw new ObstacleNotFoundException(String.format("Cannot find obstacle with UUID '%s'.", obstacle.getUUID()));
         }
+        onObstacleDelete.fire(this, obstacle);
         xmlRepositoryMarshaller.remove(obstacle.getUUID());
         obstacles.remove(obstacle.getUUID());
     }

@@ -6,6 +6,7 @@ import ca.ulaval.glo2004.visualigue.domain.sport.SportNotFoundException;
 import ca.ulaval.glo2004.visualigue.domain.sport.SportRepository;
 import ca.ulaval.glo2004.visualigue.domain.xmladapters.XmlPlayerCategoryRefAdapter;
 import ca.ulaval.glo2004.visualigue.persistence.marshalling.XmlRepositoryMarshaller;
+import ca.ulaval.glo2004.visualigue.utils.EventHandler;
 import ca.ulaval.glo2004.visualigue.utils.ListUtils;
 import java.util.ArrayList;
 import java.util.List;
@@ -19,6 +20,7 @@ import javax.swing.SortOrder;
 @Singleton
 public class XmlSportRepository implements SportRepository {
 
+    public final EventHandler<Sport> onSportDelete = new EventHandler();
     private final XmlRepositoryMarshaller<Sport> xmlRepositoryMarshaller;
     private final Map<String, Sport> sports;
 
@@ -56,6 +58,7 @@ public class XmlSportRepository implements SportRepository {
         if (!sports.containsKey(sport.getUUID())) {
             throw new SportNotFoundException(String.format("Cannot find sport with UUID '%s'.", sport.getUUID()));
         }
+        onSportDelete.fire(this, sport);
         xmlRepositoryMarshaller.remove(sport.getUUID());
         sports.remove(sport.getUUID());
     }

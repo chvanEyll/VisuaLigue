@@ -109,7 +109,12 @@ public class SportService {
         sportRepository.update(sport);
     }
 
-    public void removePlayerCategory(String sportUUID, String playerCategoryUUID) throws SportNotFoundException, PlayerCategoryNotFoundException {
+    public void simulatePlayerCategoryDeletion(String playerCategoryUUID) {
+        PlayerCategory playerCategory = playerCategoryRepository.get(playerCategoryUUID);
+        playerCategoryRepository.simulateDelete(playerCategory);
+    }
+
+    public void deletePlayerCategory(String sportUUID, String playerCategoryUUID) throws SportNotFoundException, PlayerCategoryNotFoundException {
         Sport sport = sportRepository.get(sportUUID);
         PlayerCategory playerCategory = playerCategoryRepository.get(playerCategoryUUID);
         sport.removeCategory(playerCategory);

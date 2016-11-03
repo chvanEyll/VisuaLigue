@@ -1,9 +1,9 @@
 package ca.ulaval.glo2004.visualigue.persistence;
 
-import ca.ulaval.glo2004.visualigue.domain.play.Play;
-import ca.ulaval.glo2004.visualigue.domain.play.PlayAlreadyExistsException;
-import ca.ulaval.glo2004.visualigue.domain.play.PlayNotFoundException;
-import ca.ulaval.glo2004.visualigue.domain.play.PlayRepository;
+import ca.ulaval.glo2004.visualigue.domain.obstacle.Obstacle;
+import ca.ulaval.glo2004.visualigue.domain.play.*;
+import ca.ulaval.glo2004.visualigue.domain.sport.Sport;
+import ca.ulaval.glo2004.visualigue.domain.sport.playercategory.PlayerCategory;
 import ca.ulaval.glo2004.visualigue.domain.xmladapters.XmlObstacleRefAdapter;
 import ca.ulaval.glo2004.visualigue.domain.xmladapters.XmlPlayerCategoryRefAdapter;
 import ca.ulaval.glo2004.visualigue.domain.xmladapters.XmlSportRefAdapter;
@@ -25,8 +25,13 @@ public class XmlPlayRepository implements PlayRepository {
     private final Map<String, Play> plays;
 
     @Inject
-    public XmlPlayRepository(XmlRepositoryMarshaller<Play> xmlRepositoryMarshaller, XmlObstacleRefAdapter xmlObstacleRefAdapter, XmlPlayerCategoryRefAdapter xmlPlayerCategoryRefAdapter, XmlSportRefAdapter xmlSportRefAdapter) {
+    public XmlPlayRepository(XmlRepositoryMarshaller<Play> xmlRepositoryMarshaller,
+            XmlObstacleRepository xmlObstacleRepository, XmlPlayerCategoryRepository xmlPlayerCategoryRepository, XmlSportRepository xmlSportRepository,
+            XmlObstacleRefAdapter xmlObstacleRefAdapter, XmlPlayerCategoryRefAdapter xmlPlayerCategoryRefAdapter, XmlSportRefAdapter xmlSportRefAdapter) {
         this.xmlRepositoryMarshaller = xmlRepositoryMarshaller;
+        xmlObstacleRepository.onObstacleDelete.addHandler(this::onObstacleDelete);
+        xmlPlayerCategoryRepository.onPlayerCategoryDelete.addHandler(this::onPlayerCategoryDelete);
+        xmlSportRepository.onSportDelete.addHandler(this::onSportDelete);
         xmlRepositoryMarshaller.setMarshallingAdapters(xmlObstacleRefAdapter);
         xmlRepositoryMarshaller.setMarshallingAdapters(xmlPlayerCategoryRefAdapter);
         xmlRepositoryMarshaller.setMarshallingAdapters(xmlSportRefAdapter);
@@ -76,15 +81,43 @@ public class XmlPlayRepository implements PlayRepository {
     }
 
     @Override
+    public List<Play> getAll() {
+        return new ArrayList(plays.values());
+    }
+
+    @Override
     public List<Play> getAll(Function<Play, Comparable> sortFunction, SortOrder sortOrder) {
-        List<Play> playList = new ArrayList(plays.values());
-        return ListUtils.sort(playList, sortFunction, sortOrder);
+        return ListUtils.sort(getAll(), sortFunction, sortOrder);
     }
 
     @Override
     public void clear() {
         plays.values().stream().collect(Collectors.toList()).forEach(uuid -> {
             delete(uuid);
+        });
+    }
+
+    private void onSportDelete(Object sender, Sport sport) {
+        getAll().forEach(play -> {
+            if (play.getSport() == sport) {
+                throw new PlayIntegrityViolationException(String.format("Cannot delete sport with UUID '%s' because it would vioalte integrity of play '%s'.", sport.getUUID(), play.getUUID()), play);
+            }
+        });
+    }
+
+    private void onPlayerCategoryDelete(Object sender, PlayerCategory playerCategory) {
+        getAll().forEach(play -> {
+            if (play.containsPlayerCategory(playerCategory)) {
+                throw new PlayIntegrityViolationException(String.format("Cannot delete player category with UUID '%s' because it would vioalte integrity of play '%s'.", playerCategory.getUUID(), play.getUUID()), play);
+            }
+        });
+    }
+
+    private void onObstacleDelete(Object sender, Obstacle obstacle) {
+        getAll().forEach(play -> {
+            if (play.containsObstacle(obstacle)) {
+                throw new PlayIntegrityViolationException(String.format("Cannot delete obstacle with UUID '%s' because it would vioalte integrity of play '%s'.", obstacle.getUUID(), play.getUUID()), play);
+            }
         });
     }
 

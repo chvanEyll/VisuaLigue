@@ -17,7 +17,7 @@ import javafx.stage.WindowEvent;
 
 public class VisuaLigue extends Application {
 
-    private static final int MIN_STAGE_WIDTH = 500;
+    private static final int MIN_STAGE_WIDTH = 550;
     private static final int MIN_STAGE_HEIGHT = 500;
     private static final String APP_NAME = "VisuaLigue";
     private static final String REPOSITORY_DIRECTORY = "/repository";
