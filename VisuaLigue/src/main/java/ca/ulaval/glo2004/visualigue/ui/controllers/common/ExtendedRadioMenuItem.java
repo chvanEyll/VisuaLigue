@@ -1,8 +1,8 @@
 package ca.ulaval.glo2004.visualigue.ui.controllers.common;
 
-import javafx.scene.control.MenuItem;
+import javafx.scene.control.RadioMenuItem;
 
-public class ExtendedMenuItem extends MenuItem {
+public class ExtendedRadioMenuItem extends RadioMenuItem {
 
     private Object customData;
 

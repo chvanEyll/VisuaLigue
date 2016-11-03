@@ -12,9 +12,10 @@
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.control.ContextMenu?>
 <?import javafx.scene.control.MenuItem?>
+<?import javafx.scene.control.ToggleGroup?>
 <?import ca.ulaval.glo2004.visualigue.ui.controllers.common.SvgImage?>
 <?import ca.ulaval.glo2004.visualigue.ui.controllers.common.ExtendedButton?>
-<?import ca.ulaval.glo2004.visualigue.ui.controllers.common.ExtendedMenuItem?>
+<?import ca.ulaval.glo2004.visualigue.ui.controllers.common.ExtendedRadioMenuItem?>
 
 <VBox fx:id="rootNode" styleClass="root-node, sequence-control-pane" BorderPane.alignment="CENTER" xmlns="http://javafx.com/javafx/8.0.60" xmlns:fx="http://javafx.com/fxml/1" fx:controller="ca.ulaval.glo2004.visualigue.ui.controllers.playeditor.sequencecontrol.SequencePaneController">
     <children>
@@ -37,14 +38,18 @@
                             <Tooltip text="Recul prédéfini" />
                         </tooltip>
                         <contextMenu>
-                            <ContextMenu>
+                            <ContextMenu fx:id="fixedRewindContextMenu" onShowing="#onFixedRewindMenuShowing">
                                 <items>
-                                    <ExtendedMenuItem text="10 secondes" onAction="#onChangeFixedRewindPeriodMenuItemAction" customData="10000"/>
-                                    <ExtendedMenuItem text="5 secondes" onAction="#onChangeFixedRewindPeriodMenuItemAction" customData="5000"/>
-                                    <ExtendedMenuItem text="3 secondes" onAction="#onChangeFixedRewindPeriodMenuItemAction" customData="3000"/>
-                                    <ExtendedMenuItem text="2 secondes" onAction="#onChangeFixedRewindPeriodMenuItemAction" customData="2000"/>
-                                    <ExtendedMenuItem text="1 seconde" onAction="#onChangeFixedRewindPeriodMenuItemAction" customData="1000"/>
-                                    <ExtendedMenuItem text="0.5 secondes" onAction="#onChangeFixedRewindPeriodMenuItemAction" customData="500"/>
+                                    <ExtendedRadioMenuItem text="10 secondes" onAction="#onChangeFixedRewindPeriodMenuItemAction" customData="10000">
+                                        <toggleGroup>
+                                            <ToggleGroup fx:id="fixedRewindContextMenuItems" />
+                                        </toggleGroup>
+                                    </ExtendedRadioMenuItem>
+                                    <ExtendedRadioMenuItem text="5 secondes" onAction="#onChangeFixedRewindPeriodMenuItemAction" customData="5000" toggleGroup="$fixedRewindContextMenuItems"/>
+                                    <ExtendedRadioMenuItem text="3 secondes" onAction="#onChangeFixedRewindPeriodMenuItemAction" customData="3000" toggleGroup="$fixedRewindContextMenuItems"/>
+                                    <ExtendedRadioMenuItem text="2 secondes" onAction="#onChangeFixedRewindPeriodMenuItemAction" customData="2000" toggleGroup="$fixedRewindContextMenuItems"/>
+                                    <ExtendedRadioMenuItem text="1 seconde" onAction="#onChangeFixedRewindPeriodMenuItemAction" customData="1000" toggleGroup="$fixedRewindContextMenuItems"/>
+                                    <ExtendedRadioMenuItem text="0.5 secondes" onAction="#onChangeFixedRewindPeriodMenuItemAction" customData="500" toggleGroup="$fixedRewindContextMenuItems"/>
                                 </items>
                             </ContextMenu>
                         </contextMenu>
@@ -93,6 +98,21 @@
                         <tooltip>
                             <Tooltip text="Débuter" />
                         </tooltip>
+                        <contextMenu>
+                            <ContextMenu fx:id="playSpeedContextMenu" onShowing="#onPlaySpeedMenuShowing">
+                                <items>
+                                    <ExtendedRadioMenuItem text="3x" onAction="#onChangePlaySpeedMenuItemAction" customData="3">
+                                        <toggleGroup>
+                                            <ToggleGroup fx:id="playSpeedContextMenuItems" />
+                                        </toggleGroup>
+                                    </ExtendedRadioMenuItem>
+                                    <ExtendedRadioMenuItem text="2x" onAction="#onChangePlaySpeedMenuItemAction" customData="2.0" toggleGroup="$playSpeedContextMenuItems"/>
+                                    <ExtendedRadioMenuItem text="1x" onAction="#onChangePlaySpeedMenuItemAction" customData="1.0" toggleGroup="$playSpeedContextMenuItems"/>
+                                    <ExtendedRadioMenuItem text="0.5x" onAction="#onChangePlaySpeedMenuItemAction" customData="0.5" toggleGroup="$playSpeedContextMenuItems"/>
+                                    <ExtendedRadioMenuItem text="0.25x" onAction="#onChangePlaySpeedMenuItemAction" customData="0.25" toggleGroup="$playSpeedContextMenuItems"/>
+                                </items>
+                            </ContextMenu>
+                        </contextMenu>
                         <styleClass>
                             <String fx:value="icon-button" />
                         </styleClass>
@@ -154,14 +174,18 @@
                             <Tooltip text="Avancement prédéfini" />
                         </tooltip>
                         <contextMenu>
-                            <ContextMenu>
+                            <ContextMenu fx:id="fixedForwardContextMenu" onShowing="#onFixedForwardMenuShowing">
                                 <items>
-                                    <ExtendedMenuItem text="10 secondes" onAction="#onChangeFixedForwardPeriodMenuItemAction" customData="10000"/>
-                                    <ExtendedMenuItem text="5 secondes" onAction="#onChangeFixedForwardPeriodMenuItemAction" customData="5000"/>
-                                    <ExtendedMenuItem text="3 secondes" onAction="#onChangeFixedForwardPeriodMenuItemAction" customData="3000"/>
-                                    <ExtendedMenuItem text="2 secondes" onAction="#onChangeFixedForwardPeriodMenuItemAction" customData="2000"/>
-                                    <ExtendedMenuItem text="1 seconde" onAction="#onChangeFixedForwardPeriodMenuItemAction" customData="1000"/>
-                                    <ExtendedMenuItem text="0.5 secondes" onAction="#onChangeFixedForwardPeriodMenuItemAction" customData="500"/>
+                                    <ExtendedRadioMenuItem text="10 secondes" onAction="#onChangeFixedForwardPeriodMenuItemAction" customData="10000" toggleGroup="$fixedForwardContextMenuItems">
+                                        <toggleGroup>
+                                            <ToggleGroup fx:id="fixedForwardContextMenuItems" />
+                                        </toggleGroup>
+                                    </ExtendedRadioMenuItem>
+                                    <ExtendedRadioMenuItem text="5 secondes" onAction="#onChangeFixedForwardPeriodMenuItemAction" customData="5000" toggleGroup="$fixedForwardContextMenuItems"/>
+                                    <ExtendedRadioMenuItem text="3 secondes" onAction="#onChangeFixedForwardPeriodMenuItemAction" customData="3000" toggleGroup="$fixedForwardContextMenuItems"/>
+                                    <ExtendedRadioMenuItem text="2 secondes" onAction="#onChangeFixedForwardPeriodMenuItemAction" customData="2000" toggleGroup="$fixedForwardContextMenuItems"/>
+                                    <ExtendedRadioMenuItem text="1 seconde" onAction="#onChangeFixedForwardPeriodMenuItemAction" customData="1000" toggleGroup="$fixedForwardContextMenuItems"/>
+                                    <ExtendedRadioMenuItem text="0.5 secondes" onAction="#onChangeFixedForwardPeriodMenuItemAction" customData="500" toggleGroup="$fixedForwardContextMenuItems"/>
                                 </items>
                             </ContextMenu>
                         </contextMenu>

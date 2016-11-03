@@ -1,10 +1,9 @@
 package ca.ulaval.glo2004.visualigue.ui.controllers.playeditor.sequencecontrol;
 
-import ca.ulaval.glo2004.visualigue.services.play.PlayService;
 import ca.ulaval.glo2004.visualigue.services.settings.SettingsService;
 import ca.ulaval.glo2004.visualigue.ui.controllers.ControllerBase;
 import ca.ulaval.glo2004.visualigue.ui.controllers.common.ExtendedButton;
-import ca.ulaval.glo2004.visualigue.ui.controllers.common.ExtendedMenuItem;
+import ca.ulaval.glo2004.visualigue.ui.controllers.common.ExtendedRadioMenuItem;
 import ca.ulaval.glo2004.visualigue.ui.controllers.playeditor.scene.SceneController;
 import ca.ulaval.glo2004.visualigue.ui.models.PlayModel;
 import ca.ulaval.glo2004.visualigue.utils.DurationUtils;
@@ -13,16 +12,19 @@ import java.text.DecimalFormat;
 import java.time.Duration;
 import java.util.Timer;
 import java.util.TimerTask;
+import javafx.application.Platform;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
+import javafx.scene.control.ContextMenu;
 import javafx.scene.control.Label;
+import javafx.stage.WindowEvent;
 import javax.inject.Inject;
 
 public class SequencePaneController extends ControllerBase {
 
     private static final Integer LINEAR_AUTO_ADVANCE_PERIOD = 15;
     private static final Integer SMOOTH_AUTO_ADVANCE_PERIOD = 1000;
-    private static final Integer DEFAULT_FIXED_ADVANCE_PERIOD = 500;
+    private static final Integer DEFAULT_FIXED_ADVANCE_PERIOD = 1000;
     private static final Integer KEYPOINT_MOVE_ANIMATION_PERIOD = 250;
     @FXML private ExtendedButton playButton;
     @FXML private ExtendedButton pauseButton;
@@ -34,18 +36,20 @@ public class SequencePaneController extends ControllerBase {
     @FXML private ExtendedButton nextKeyPointButton;
     @FXML private ExtendedButton rewindButton;
     @FXML private ExtendedButton fastForwardButton;
+    @FXML private ContextMenu fixedRewindContextMenu;
+    @FXML private ContextMenu fixedForwardContextMenu;
+    @FXML private ContextMenu playSpeedContextMenu;
     @FXML private SeekBarController seekBarController;
     @FXML private Label fixedRewindPeriodLabel;
     @FXML private Label fixedForwardPeriodLabel;
     @FXML private Label currentTimeLabel;
     @FXML private Label remainingTimeLabel;
-    @Inject private PlayService playService;
     @Inject private SettingsService settingsService;
-    private PlaySpeed playSpeed = PlaySpeed.STILL_SPEED;
+    private PlaySpeed playSpeed = new PlaySpeed();
     private Integer fixedForwardPeriod;
     private Integer fixedRewindPeriod;
     private Timer timer = new Timer();
-    private final DecimalFormat fixedAdvancePeriodDecimalFormat = new DecimalFormat(".#");
+    private final DecimalFormat fixedAdvancePeriodDecimalFormat = new DecimalFormat("#.##");
     private Boolean smoothMovements = true;
 
     public void init(PlayModel playModel, SceneController sceneController) {
@@ -56,6 +60,11 @@ public class SequencePaneController extends ControllerBase {
         super.addChild(seekBarController);
         setFixedForwardPeriod(DEFAULT_FIXED_ADVANCE_PERIOD);
         setFixedRewindPeriod(DEFAULT_FIXED_ADVANCE_PERIOD);
+        stop();
+    }
+
+    @Override
+    public void clean() {
         stop();
     }
 
@@ -70,7 +79,7 @@ public class SequencePaneController extends ControllerBase {
 
     @FXML
     protected void onPlayButtonAction(ActionEvent e) {
-        autoAdvance(PlaySpeed.NORMAL_SPEED);
+        play(PlaySpeed.getNormalSpeed());
     }
 
     @FXML
@@ -104,26 +113,20 @@ public class SequencePaneController extends ControllerBase {
 
     @FXML
     protected void onFastForwardButtonAction(ActionEvent e) {
-        if (playSpeed.getMultiplier() < PlaySpeed.DOUBLE_SPEED.getMultiplier()) {
-            autoAdvance(PlaySpeed.DOUBLE_SPEED);
+        if (playSpeed.lessThan(PlaySpeed.getDoubleSpeed())) {
+            play(PlaySpeed.getDoubleSpeed());
         } else if (!playSpeed.isMaxSpeed()) {
-            autoAdvance(playSpeed.nextSpeed());
+            play(playSpeed.getNextSpeed());
         }
     }
 
     @FXML
     protected void onRewindButtonAction(ActionEvent e) {
-        if (playSpeed.getMultiplier() > PlaySpeed.NORMAL_REVERSE_SPEED.getMultiplier()) {
-            autoAdvance(PlaySpeed.NORMAL_REVERSE_SPEED);
+        if (playSpeed.greaterThan(PlaySpeed.getNormalReverseSpeed())) {
+            play(PlaySpeed.getNormalReverseSpeed());
         } else if (!playSpeed.isMinSpeed()) {
-            autoAdvance(playSpeed.previousSpeed());
+            play(playSpeed.getPreviousSpeed());
         }
-    }
-
-    @FXML
-    protected void onFixedForwardButtonAction(ActionEvent e) {
-        stop();
-        seekBarController.move(seekBarController.getTime() + fixedRewindPeriod);
     }
 
     @FXML
@@ -133,9 +136,36 @@ public class SequencePaneController extends ControllerBase {
     }
 
     @FXML
+    protected void onChangeFixedRewindPeriodMenuItemAction(ActionEvent e) {
+        ExtendedRadioMenuItem menuItem = (ExtendedRadioMenuItem) e.getSource();
+        setFixedRewindPeriod(Integer.parseInt(menuItem.getCustomData().toString()));
+    }
+
+    private void setFixedRewindPeriod(Integer fixedRewindPeriod) {
+        this.fixedRewindPeriod = fixedRewindPeriod;
+        fixedRewindPeriodLabel.setText(fixedAdvancePeriodDecimalFormat.format(this.fixedRewindPeriod / 1000.0));
+    }
+
+    @FXML
+    protected void onFixedRewindMenuShowing(WindowEvent e) {
+        fixedRewindContextMenu.getItems().stream().forEach(menuItem -> {
+            ExtendedRadioMenuItem item = (ExtendedRadioMenuItem) menuItem;
+            if (Integer.parseInt(item.getCustomData().toString()) == fixedRewindPeriod) {
+                item.setSelected(true);
+            }
+        });
+    }
+
+    @FXML
+    protected void onFixedForwardButtonAction(ActionEvent e) {
+        stop();
+        seekBarController.move(seekBarController.getTime() + fixedRewindPeriod);
+    }
+
+    @FXML
     protected void onChangeFixedForwardPeriodMenuItemAction(ActionEvent e) {
-        ExtendedMenuItem menuItem = (ExtendedMenuItem) e.getSource();
-        setFixedForwardPeriod(Integer.parseInt((String) menuItem.getCustomData()));
+        ExtendedRadioMenuItem menuItem = (ExtendedRadioMenuItem) e.getSource();
+        setFixedForwardPeriod(Integer.parseInt(menuItem.getCustomData().toString()));
     }
 
     private void setFixedForwardPeriod(Integer fixedForwardPeriod) {
@@ -144,29 +174,51 @@ public class SequencePaneController extends ControllerBase {
     }
 
     @FXML
-    protected void onChangeFixedRewindPeriodMenuItemAction(ActionEvent e) {
-        ExtendedMenuItem menuItem = (ExtendedMenuItem) e.getSource();
-        setFixedRewindPeriod(Integer.parseInt((String) menuItem.getCustomData()));
+    protected void onFixedForwardMenuShowing(WindowEvent e) {
+        fixedForwardContextMenu.getItems().stream().forEach(menuItem -> {
+            ExtendedRadioMenuItem item = (ExtendedRadioMenuItem) menuItem;
+            if (Integer.parseInt(item.getCustomData().toString()) == fixedForwardPeriod) {
+                item.setSelected(true);
+            }
+        });
     }
 
-    private void setFixedRewindPeriod(Integer fixedRewindPeriod) {
-        this.fixedRewindPeriod = fixedRewindPeriod;
-        fixedRewindPeriodLabel.setText(fixedAdvancePeriodDecimalFormat.format(this.fixedRewindPeriod / 1000.0));
+    @FXML
+    protected void onChangePlaySpeedMenuItemAction(ActionEvent e) {
+        ExtendedRadioMenuItem menuItem = (ExtendedRadioMenuItem) e.getSource();
+        setBasePlaySpeed(Double.parseDouble(menuItem.getCustomData().toString()));
     }
 
-    private void autoAdvance(PlaySpeed playSpeed) {
-        timer.cancel();
-        this.playSpeed = playSpeed;
-        updateControlButtonStates();
-        timer = new Timer();
-        if (smoothMovements) {
-            timer.schedule(new SmoothAutoAdvanceTask(), 0, SMOOTH_AUTO_ADVANCE_PERIOD / SequencePaneController.this.playSpeed.getMultiplierAbs());
-        } else {
-            timer.schedule(new LinearAutoAdvanceTask(), 0, LINEAR_AUTO_ADVANCE_PERIOD);
+    private void setBasePlaySpeed(Double basePlaySpeedMultiplier) {
+        playSpeed.setBaseMultiplier(basePlaySpeedMultiplier);
+        if (!playSpeed.isStillSpeed()) {
+            play(playSpeed.getSpeed());
         }
     }
 
-    private class SmoothAutoAdvanceTask extends TimerTask {
+    @FXML
+    protected void onPlaySpeedMenuShowing(WindowEvent e) {
+        playSpeedContextMenu.getItems().stream().forEach(menuItem -> {
+            ExtendedRadioMenuItem item = (ExtendedRadioMenuItem) menuItem;
+            if (Double.parseDouble(item.getCustomData().toString()) == playSpeed.getBaseMultiplier()) {
+                item.setSelected(true);
+            }
+        });
+    }
+
+    private void play(Double speed) {
+        timer.cancel();
+        playSpeed.setSpeed(speed);
+        updateControlButtonStates();
+        timer = new Timer();
+        if (smoothMovements) {
+            timer.schedule(new SmoothPlayTask(), 0, (int) (SMOOTH_AUTO_ADVANCE_PERIOD / SequencePaneController.this.playSpeed.getSpeedAbs()));
+        } else {
+            timer.schedule(new LinearPlayTask(), 0, LINEAR_AUTO_ADVANCE_PERIOD);
+        }
+    }
+
+    private class SmoothPlayTask extends TimerTask {
 
         @Override
         public void run() {
@@ -176,22 +228,22 @@ public class SequencePaneController extends ControllerBase {
             } else {
                 time = seekBarController.getPreviousKeyPointTime();
             }
-            seekBarController.move(time, true, true, SMOOTH_AUTO_ADVANCE_PERIOD / SequencePaneController.this.playSpeed.getMultiplierAbs());
+            seekBarController.move(time, true, true, (int) (SMOOTH_AUTO_ADVANCE_PERIOD / SequencePaneController.this.playSpeed.getSpeedAbs()));
         }
     };
 
-    private class LinearAutoAdvanceTask extends TimerTask {
+    private class LinearPlayTask extends TimerTask {
 
         @Override
         public void run() {
-            Integer time = seekBarController.getTime() + LINEAR_AUTO_ADVANCE_PERIOD * SequencePaneController.this.playSpeed.getMultiplier();
+            Integer time = seekBarController.getTime() + (int) (LINEAR_AUTO_ADVANCE_PERIOD * SequencePaneController.this.playSpeed.getSpeed());
             seekBarController.move(time, false, false, 0);
         }
     };
 
     private void stop() {
         timer.cancel();
-        playSpeed = PlaySpeed.STILL_SPEED;
+        playSpeed.setSpeed(PlaySpeed.getStillSpeed());
         updateControlButtonStates();
     }
 
@@ -201,8 +253,10 @@ public class SequencePaneController extends ControllerBase {
 
     private void onSeekBarTimeChanged(Object sender, Integer time) {
         updateControlButtonStates();
-        currentTimeLabel.setText(DurationUtils.toMMSSddd(Duration.ofMillis(time)));
-        remainingTimeLabel.setText(DurationUtils.toMMSSddd(Duration.ofMillis(seekBarController.getRemainingTime())));
+        Platform.runLater(() -> {
+            currentTimeLabel.setText(DurationUtils.toMMSSddd(Duration.ofMillis(time)));
+            remainingTimeLabel.setText(DurationUtils.toMMSSddd(Duration.ofMillis(seekBarController.getRemainingTime())));
+        });
         Integer length = seekBarController.getLength();
         if (time.equals(length) && playSpeed.isForward()) {
             stop();
@@ -213,8 +267,8 @@ public class SequencePaneController extends ControllerBase {
 
     private void updateControlButtonStates() {
         Integer length = seekBarController.getLength();
-        FXUtils.setDisplay(playButton, playSpeed == PlaySpeed.STILL_SPEED);
-        FXUtils.setDisplay(pauseButton, playSpeed != PlaySpeed.STILL_SPEED);
+        FXUtils.setDisplay(playButton, playSpeed.isStillSpeed());
+        FXUtils.setDisplay(pauseButton, !playSpeed.isStillSpeed());
         playButton.setDisable(seekBarController.getTime() >= length);
         fixedRewindButton.setDisable(seekBarController.getTime() <= 0);
         fixedForwardButton.setDisable(seekBarController.getTime() >= length);
@@ -223,8 +277,8 @@ public class SequencePaneController extends ControllerBase {
         previousKeyPointButton.setDisable(seekBarController.getTime() <= 0);
         nextKeyPointButton.setDisable(seekBarController.getTime() >= length);
         rewindButton.setDisable(seekBarController.getTime() <= 0);
-        rewindButton.setSelected(playSpeed.getMultiplier() <= PlaySpeed.NORMAL_REVERSE_SPEED.getMultiplier());
+        rewindButton.setSelected(playSpeed.lessThanOrEqual(PlaySpeed.getNormalReverseSpeed()));
         fastForwardButton.setDisable(seekBarController.getTime() >= length);
-        fastForwardButton.setSelected(playSpeed.getMultiplier() > PlaySpeed.NORMAL_SPEED.getMultiplier());
+        fastForwardButton.setSelected(playSpeed.greaterThan(PlaySpeed.getNormalSpeed()));
     }
 }
