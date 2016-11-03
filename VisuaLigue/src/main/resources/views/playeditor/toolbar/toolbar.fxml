@@ -90,6 +90,18 @@
                         <Insets left="3.0" right="3.0" />
                     </HBox.margin>
                 </Pane>
+                <ExtendedButton fx:id="realTimeButton" onAction="#onRealTimeButtonAction">
+                    <graphic>
+                        <SvgImage url="/images/real-time-icon.fxml" />
+                    </graphic>
+                    <tooltip>
+                        <Tooltip text="Mode temps réel" />
+                    </tooltip>
+                    <styleClass>
+                        <String fx:value="borderless" />
+                        <String fx:value="medium" />
+                    </styleClass>
+                </ExtendedButton>
                 <ExtendedButton fx:id="panButton" onAction="#onPanButtonAction">
                     <graphic>
                         <SvgImage url="/images/hand-icon.fxml" />

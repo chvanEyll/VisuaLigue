@@ -115,12 +115,12 @@ public class Scene2DController extends SceneController {
 
     @Override
     public void enterFrameByFrameMode() {
-
+        onFrameByFrameCreationModeEntered.fire(this);
     }
 
     @Override
     public void enterRealTimeMode() {
-
+        onRealTimeCreationModeEntered.fire(this);
     }
 
     @Override

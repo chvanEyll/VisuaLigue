@@ -7,6 +7,8 @@ import ca.ulaval.glo2004.visualigue.ui.animation.Animation;
 import ca.ulaval.glo2004.visualigue.ui.animation.Animator;
 import ca.ulaval.glo2004.visualigue.ui.controllers.ControllerBase;
 import ca.ulaval.glo2004.visualigue.ui.controllers.common.ExtendedScrollPane;
+import ca.ulaval.glo2004.visualigue.ui.controllers.playeditor.scene.SceneController;
+import ca.ulaval.glo2004.visualigue.ui.converters.FrameModelConverter;
 import ca.ulaval.glo2004.visualigue.ui.models.PlayModel;
 import ca.ulaval.glo2004.visualigue.utils.EventHandler;
 import ca.ulaval.glo2004.visualigue.utils.math.MathUtils;
@@ -31,16 +33,19 @@ public class SeekBarController extends ControllerBase {
     @FXML private ExtendedScrollPane keyframeScrollPane;
     @FXML private Button seekBarThumb;
     @Inject private PlayService playService;
+    @Inject private FrameModelConverter frameModelConverter;
 
     private PlayModel playModel;
+    private SceneController sceneController;
     private List<View> keyPoints = new ArrayList();
     private Integer time = 0;
     private Double dragStartX;
     private Double dragStartThumbLocationX;
     private Animator animator;
 
-    public void init(PlayModel playModel) {
+    public void init(PlayModel playModel, SceneController sceneController) {
         this.playModel = playModel;
+        this.sceneController = sceneController;
         updateKeyPoints();
         move(0);
     }
@@ -52,7 +57,7 @@ public class SeekBarController extends ControllerBase {
     }
 
     private void updateKeyPoints() {
-        Integer numberOfKeyPoints = (int) Math.ceil(getPlayLength() / KEY_POINT_INTERVAL);
+        Integer numberOfKeyPoints = (int) Math.ceil(getLength() / KEY_POINT_INTERVAL);
         if (numberOfKeyPoints > keyPoints.size()) {
             for (Integer i = keyPoints.size(); i <= numberOfKeyPoints; i++) {
                 addKeyPoint();
@@ -62,10 +67,6 @@ public class SeekBarController extends ControllerBase {
                 removeKeyPoint();
             }
         }
-    }
-
-    private Integer getPlayLength() {
-        return playService.getPlayLength(playModel.getUUID());
     }
 
     private void addKeyPoint() {
@@ -87,10 +88,6 @@ public class SeekBarController extends ControllerBase {
         move(index * KEY_POINT_INTERVAL);
     }
 
-    public Integer getTime() {
-        return time;
-    }
-
     public void move(Integer time) {
         move(time, false, false, 0);
     }
@@ -107,24 +104,49 @@ public class SeekBarController extends ControllerBase {
         }
     }
 
+    public Integer getTime() {
+        return time;
+    }
+
     private void setTime(Integer time) {
-        Integer playLength = playService.getPlayLength(playModel.getUUID());
-        if (time > playLength) {
-            time = playLength;
+        Integer length = getLength();
+        if (time > length) {
+            time = length;
         } else if (time < 0) {
             time = 0;
         }
         setSeekThumbLocationFromTime(time);
+        updateFrame(time);
         onTimeChanged.fire(this, time);
+    }
+
+    private void updateFrame(Integer time) {
+        frameModelConverter.update(playService.getFrame(playModel.getUUID(), time), sceneController.getFrameModel(), playModel);
+    }
+
+    public Integer getLength() {
+        return playService.getPlayLength(playModel.getUUID());
+    }
+
+    public Integer getRemainingTime() {
+        return getLength() - time;
     }
 
     public Integer getClosestKeyPointTime(Integer time) {
         return (int) Math.round(time / (double) KEY_POINT_INTERVAL) * KEY_POINT_INTERVAL;
     }
 
+    public void goToBeginning(Boolean smooth, Integer smoothingDuration) {
+        move(0, false, true, smoothingDuration);
+    }
+
+    public void goToEnd(Boolean smooth, Integer smoothingDuration) {
+        move(getLength(), false, true, smoothingDuration);
+    }
+
     public void goToNextKeyPoint(Boolean smooth, Integer smoothingDuration) {
         Integer nextKeyPointTime = getNextKeyPointTime();
-        if (nextKeyPointTime <= getPlayLength()) {
+        if (nextKeyPointTime <= getLength()) {
             move(nextKeyPointTime, false, smooth, smoothingDuration);
         }
     }
@@ -145,12 +167,12 @@ public class SeekBarController extends ControllerBase {
     }
 
     private Integer getTimeFromSeekThumbLocation() {
-        return (int) (getPlayLength() * (getSeekThumbLocation() / (keyframeHBox.getWidth() - seekBarThumb.getWidth())));
+        return (int) (getLength() * (getSeekThumbLocation() / (keyframeHBox.getWidth() - seekBarThumb.getWidth())));
     }
 
     public void setSeekThumbLocationFromTime(Integer time) {
         this.time = time;
-        Double margin = (time / (double) getPlayLength()) * (keyframeHBox.getWidth() - seekBarThumb.getWidth());
+        Double margin = (time / (double) getLength()) * (keyframeHBox.getWidth() - seekBarThumb.getWidth());
         setSeekThumbLocationFromMargin(margin);
         keyframeScrollPane.ensureVisible(seekBarThumb);
     }
@@ -192,5 +214,4 @@ public class SeekBarController extends ControllerBase {
     protected void onMouseReleased(MouseEvent e) {
         move(getTimeFromSeekThumbLocation());
     }
-
 }

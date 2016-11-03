@@ -34,6 +34,7 @@ public class ToolbarController extends ControllerBase {
     @FXML private Button saveButton;
     @FXML private Button undoButton;
     @FXML private Button redoButton;
+    @FXML private ExtendedButton realTimeButton;
     @FXML private ExtendedButton panButton;
     @FXML private Button zoomInButton;
     @FXML private ComboBox zoomComboBox;
@@ -60,6 +61,8 @@ public class ToolbarController extends ControllerBase {
         sceneController.onZoomChanged.setHandler(this::onSceneZoomChanged);
         sceneController.onNavigationModeEntered.setHandler(this::onNavigationModeEntered);
         sceneController.onNavigationModeExited.setHandler(this::onNavigationModeExited);
+        sceneController.onFrameByFrameCreationModeEntered.setHandler(this::onFrameByFrameCreationModeEntered);
+        sceneController.onRealTimeCreationModeEntered.setHandler(this::onRealTimeCreationModeEntered);
         playService.onUndoAvailabilityChanged.addHandler(this::onUndoAvailabilityChanged);
         playService.onRedoAvailabilityChanged.addHandler(this::onRedoAvailabilityChanged);
         playService.onPlayDirtyFlagChanged.addHandler(this::onPlayDirtyFlagChanged);
@@ -185,6 +188,15 @@ public class ToolbarController extends ControllerBase {
         itemPaneDisplayButton.setSelected(!itemPaneController.isCollapsed());
     }
 
+    @FXML
+    protected void onRealTimeButtonAction(ActionEvent e) {
+        if (!realTimeButton.isSelected()) {
+            sceneController.enterRealTimeMode();
+        } else {
+            sceneController.enterFrameByFrameMode();
+        }
+    }
+
     private void onSceneMousePositionChanged(Object sender, Vector2 mousePosition) {
         coordinateLabel.setText(String.format("(%.1f %s, %.1f %s)", mousePosition.getX(),
                 playModel.playingSurfaceWidthUnits.get().getAbbreviation(),
@@ -219,11 +231,19 @@ public class ToolbarController extends ControllerBase {
         }
     }
 
-    private void onNavigationModeEntered(Object sender, Object param) {
+    private void onNavigationModeEntered(Object sender) {
         panButton.setSelected(true);
     }
 
-    private void onNavigationModeExited(Object sender, Object param) {
+    private void onNavigationModeExited(Object sender) {
         panButton.setSelected(false);
+    }
+
+    private void onFrameByFrameCreationModeEntered(Object sender) {
+        realTimeButton.setSelected(false);
+    }
+
+    private void onRealTimeCreationModeEntered(Object sender) {
+        realTimeButton.setSelected(true);
     }
 }

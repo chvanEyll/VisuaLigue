@@ -22,6 +22,8 @@ public abstract class SceneController extends ControllerBase {
     public EventHandler onBallCreationModeExited = new EventHandler();
     public EventHandler onNavigationModeEntered = new EventHandler();
     public EventHandler onNavigationModeExited = new EventHandler();
+    public EventHandler onRealTimeCreationModeEntered = new EventHandler();
+    public EventHandler onFrameByFrameCreationModeEntered = new EventHandler();
 
     public abstract void init(PlayModel playModel);
 
