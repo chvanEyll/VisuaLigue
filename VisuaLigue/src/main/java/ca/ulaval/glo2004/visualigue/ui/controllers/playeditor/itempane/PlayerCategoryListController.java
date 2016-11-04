@@ -32,7 +32,7 @@ public class PlayerCategoryListController extends ControllerBase {
     public void init(PlayModel playModel, SceneController sceneController) {
         this.playModel = playModel;
         this.sceneController = sceneController;
-        sceneController.onPlayerCreationModeExited.setHandler(this::onPlayerCreationModeExited);
+        sceneController.onPlayerCreationModeExited.addHandler(this::onPlayerCreationModeExited);
         sportService.onSportUpdated.addHandler(this::onSportChanged);
         fillPlayerCategoryList();
     }

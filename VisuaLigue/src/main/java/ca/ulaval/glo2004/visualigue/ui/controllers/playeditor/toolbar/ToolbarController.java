@@ -67,12 +67,12 @@ public class ToolbarController extends ControllerBase {
     }
 
     private void setHandlers() {
-        sceneController.onRealWorldMousePositionChanged.setHandler(this::onSceneMousePositionChanged);
-        sceneController.onZoomChanged.setHandler(this::onSceneZoomChanged);
-        sceneController.onNavigationModeEntered.setHandler(this::onNavigationModeEntered);
-        sceneController.onNavigationModeExited.setHandler(this::onNavigationModeExited);
-        sceneController.onFrameByFrameCreationModeEntered.setHandler(this::onFrameByFrameCreationModeEntered);
-        sceneController.onRealTimeCreationModeEntered.setHandler(this::onRealTimeCreationModeEntered);
+        sceneController.onRealWorldMousePositionChanged.addHandler(this::onSceneMousePositionChanged);
+        sceneController.onZoomChanged.addHandler(this::onSceneZoomChanged);
+        sceneController.onNavigationModeEntered.addHandler(this::onNavigationModeEntered);
+        sceneController.onNavigationModeExited.addHandler(this::onNavigationModeExited);
+        sceneController.onFrameByFrameCreationModeEntered.addHandler(this::onFrameByFrameCreationModeEntered);
+        sceneController.onRealTimeCreationModeEntered.addHandler(this::onRealTimeCreationModeEntered);
         playService.onUndoAvailabilityChanged.addHandler(onUndoAvailabilityChanged);
         playService.onRedoAvailabilityChanged.addHandler(onRedoAvailabilityChanged);
         playService.onPlayDirtyFlagChanged.addHandler(onPlayDirtyFlagChanged);

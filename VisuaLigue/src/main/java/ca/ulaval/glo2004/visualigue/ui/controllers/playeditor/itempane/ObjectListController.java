@@ -40,8 +40,8 @@ public class ObjectListController extends ControllerBase {
     public void init(PlayModel playModel, SceneController sceneController) {
         this.playModel = playModel;
         this.sceneController = sceneController;
-        sceneController.onObstacleCreationModeExited.setHandler(this::onObstacleCreationModeExited);
-        sceneController.onBallCreationModeExited.setHandler(this::onBallCreationModeExited);
+        sceneController.onObstacleCreationModeExited.addHandler(this::onObstacleCreationModeExited);
+        sceneController.onBallCreationModeExited.addHandler(this::onBallCreationModeExited);
         sportService.onSportUpdated.addHandler(onSportUpdated);
         obstacleService.onObstacleCreated.addHandler(onObstacleChanged);
         obstacleService.onObstacleUpdated.addHandler(onObstacleChanged);

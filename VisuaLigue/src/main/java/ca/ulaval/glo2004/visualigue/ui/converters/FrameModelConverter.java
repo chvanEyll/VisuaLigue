@@ -1,15 +1,10 @@
 package ca.ulaval.glo2004.visualigue.ui.converters;
 
-import ca.ulaval.glo2004.visualigue.domain.image.ImageRepository;
-import ca.ulaval.glo2004.visualigue.domain.obstacle.Obstacle;
 import ca.ulaval.glo2004.visualigue.domain.play.actorinstance.ActorInstance;
 import ca.ulaval.glo2004.visualigue.domain.play.actorinstance.BallInstance;
 import ca.ulaval.glo2004.visualigue.domain.play.actorinstance.ObstacleInstance;
 import ca.ulaval.glo2004.visualigue.domain.play.actorinstance.PlayerInstance;
 import ca.ulaval.glo2004.visualigue.domain.play.actorstate.ActorState;
-import ca.ulaval.glo2004.visualigue.domain.play.actorstate.BallState;
-import ca.ulaval.glo2004.visualigue.domain.play.actorstate.ObstacleState;
-import ca.ulaval.glo2004.visualigue.domain.play.actorstate.PlayerState;
 import ca.ulaval.glo2004.visualigue.domain.play.frame.Frame;
 import ca.ulaval.glo2004.visualigue.ui.models.ActorModel;
 import ca.ulaval.glo2004.visualigue.ui.models.FrameModel;
@@ -20,11 +15,11 @@ import javax.inject.Inject;
 
 public class FrameModelConverter {
 
-    private ImageRepository imageRepository;
+    private ActorModelConverter actorModelConverter;
 
     @Inject
-    public FrameModelConverter(ImageRepository imageRepository) {
-        this.imageRepository = imageRepository;
+    public FrameModelConverter(ActorModelConverter actorModelConverter) {
+        this.actorModelConverter = actorModelConverter;
     }
 
     public FrameModel update(Frame frame, FrameModel frameModel, PlayModel playModel) {
@@ -35,7 +30,7 @@ public class FrameModelConverter {
         removeOldActorInstances(frameModel, frame.getCurrentActorStates());
         return frameModel;
     }
-    
+
     private void updateExistingActorInstances(Frame frame, FrameModel frameModel, PlayModel playModel, Map<ActorInstance, ActorState> actorStates) {
         actorStates.entrySet().forEach(e -> {
             updateActorInstance(frame, frameModel, playModel, e.getKey(), e.getValue());
@@ -67,54 +62,11 @@ public class FrameModelConverter {
 
     private void updateActorModel(Frame frame, ActorModel actorModel, PlayModel playModel, ActorInstance actorInstance, ActorState actorState) {
         if (actorInstance instanceof PlayerInstance) {
-            updatePlayerModel(frame, actorModel, actorInstance, actorState);
+            actorModelConverter.updatePlayer(frame, actorModel, actorInstance, actorState);
         } else if (actorInstance instanceof BallInstance) {
-            updateBallModel(actorModel, playModel, actorState);
+            actorModelConverter.updateBall(actorModel, playModel, actorState);
         } else if (actorInstance instanceof ObstacleInstance) {
-            updateObstacleModel(actorModel, actorInstance, actorState);
-        }
-    }
-
-    private void updatePlayerModel(Frame frame, ActorModel actorModel, ActorInstance actorInstance, ActorState actorState) {
-        PlayerState playerState = (PlayerState) actorState;
-        PlayerInstance playerInstance = (PlayerInstance) actorInstance;
-        actorModel.type.set(ActorModel.Type.PLAYER);
-        actorModel.position.set(playerState.getPosition());
-        ActorState nextActorState = frame.getNextActorState(actorInstance);
-        if (nextActorState != null) {
-            actorModel.nextPosition.set(nextActorState.getPosition());
-        } else {
-            actorModel.nextPosition.set(null);
-        }
-        actorModel.color.set(playerInstance.getPlayerCategory().getColor(playerInstance.getTeamSide()));
-        actorModel.orientation.set(playerState.getOrientation());
-        actorModel.label.set(playerInstance.getPlayerCategory().getAbbreviation());
-        actorModel.hoverText.set(playerInstance.getPlayerCategory().getName());
-    }
-
-    private void updateBallModel(ActorModel actorModel, PlayModel playModel, ActorState actorState) {
-        BallState ballState = (BallState) actorState;
-        actorModel.type.set(ActorModel.Type.BALL);
-        actorModel.position.set(ballState.getPosition());
-        actorModel.hoverText.set(playModel.ballModel.name.get());
-        if (playModel.ballModel.imagePathName.isNotEmpty().get()) {
-            actorModel.imagePathName.set(playModel.ballModel.imagePathName.get());
-        } else {
-            actorModel.builtInImagePathName.set(playModel.ballModel.builtInImagePathName.get());
-        }
-    }
-
-    private void updateObstacleModel(ActorModel actorModel, ActorInstance actorInstance, ActorState actorState) {
-        ObstacleState obstacleState = (ObstacleState) actorState;
-        ObstacleInstance obstacleInstance = (ObstacleInstance) actorInstance;
-        actorModel.type.set(ActorModel.Type.OBSTACLE);
-        actorModel.position.set(obstacleState.getPosition());
-        actorModel.hoverText.set(obstacleInstance.getObstacle().getName());
-        Obstacle obstacle = obstacleInstance.getObstacle();
-        if (obstacle.hasCustomImage()) {
-            actorModel.imagePathName.set(imageRepository.get(obstacle.getCustomImageUUID()));
-        } else {
-            actorModel.builtInImagePathName.set(obstacle.getBuiltInImagePathName());
+            actorModelConverter.updateObstacle(actorModel, actorInstance, actorState);
         }
     }
 

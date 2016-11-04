@@ -10,6 +10,8 @@ import ca.ulaval.glo2004.visualigue.ui.View;
 import ca.ulaval.glo2004.visualigue.ui.controllers.common.ExtendedScrollPane;
 import ca.ulaval.glo2004.visualigue.ui.controllers.playeditor.scene.SceneController;
 import ca.ulaval.glo2004.visualigue.ui.controllers.playeditor.scene.Zoom;
+import ca.ulaval.glo2004.visualigue.ui.controllers.playeditor.scene.scene2d.actorcreation.ObstacleCreationController;
+import ca.ulaval.glo2004.visualigue.ui.controllers.playeditor.scene.scene2d.actorcreation.PlayerCreationController;
 import ca.ulaval.glo2004.visualigue.ui.controllers.playeditor.scene.scene2d.layers.ActorLayerViewFactory;
 import ca.ulaval.glo2004.visualigue.ui.controllers.playeditor.scene.scene2d.layers.PlayingSurfaceLayerController;
 import ca.ulaval.glo2004.visualigue.ui.converters.ActorModelConverter;
@@ -37,6 +39,7 @@ public class Scene2DController extends SceneController {
     private NavigationController navigationController;
     private LayerController layerController;
     private PlayerCreationController playerCreationController;
+    private ObstacleCreationController obstacleCreationController;
     private final FrameModel frameModel = new FrameModel();
 
     @Override
@@ -61,9 +64,17 @@ public class Scene2DController extends SceneController {
         navigationController.onNavigationModeEntered.forward(this.onNavigationModeEntered);
         navigationController.onNavigationModeExited.forward(this.onNavigationModeExited);
         layerController = new LayerController(frameModel.actorModels, actorLayerViewFactory, layerStackPane, navigationController, playingSurfaceView, showActorLabelsProperty, showMovementArrowsProperty, resizeActorsOnZoomProperty);
-        playerCreationController = new PlayerCreationController(playingSurfaceLayerController, layerController, actorModelConverter, playModel, frameModel, playService);
-        playerCreationController.onPlayerCreationModeExited.forward(this.onPlayerCreationModeExited);
+        playerCreationController = new PlayerCreationController(playingSurfaceLayerController, layerController, actorModelConverter, playModel, playService);
+        playerCreationController.onCreationModeExited.forward(this.onPlayerCreationModeExited);
+        playerCreationController.onCreationModeEntered.forward(this.onCreationModeEntered);
+        obstacleCreationController = new ObstacleCreationController(playingSurfaceLayerController, layerController, actorModelConverter, playModel, playService);
+        obstacleCreationController.onCreationModeExited.forward(this.onObstacleCreationModeExited);
+        obstacleCreationController.onCreationModeEntered.forward(this.onCreationModeEntered);
+        super.addChild(playingSurfaceLayerController);
+        super.addChild(navigationController);
         super.addChild(layerController);
+        super.addChild(playerCreationController);
+        super.addChild(obstacleCreationController);
     }
 
     private void initKeyboardShortcuts() {
@@ -99,35 +110,29 @@ public class Scene2DController extends SceneController {
     @Override
     public void enterPlayerCreationMode(PlayerCategoryModel playerCategoryModel, TeamSide teamSide) {
         navigationController.exitNavigationMode();
-        playerCreationController.enterPlayerCreationMode(playerCategoryModel, teamSide);
-
-        onObstacleCreationModeExited.fire(this);
-        onBallCreationModeExited.fire(this);
+        obstacleCreationController.exitCreationMode();
+        playerCreationController.enterCreationMode(playerCategoryModel, teamSide);
     }
 
     @Override
     public void enterBallCreationMode(BallModel ballModel) {
         navigationController.exitNavigationMode();
-        playerCreationController.exitPlayerCreationMode();
-
-        onObstacleCreationModeExited.fire(this);
+        playerCreationController.exitCreationMode();
+        obstacleCreationController.exitCreationMode();
     }
 
     @Override
     public void enterObstacleCreationMode(ObstacleModel obstacleModel) {
         navigationController.exitNavigationMode();
-        playerCreationController.exitPlayerCreationMode();
-
-        onBallCreationModeExited.fire(this);
+        playerCreationController.exitCreationMode();
+        obstacleCreationController.enterCreationMode(obstacleModel);
     }
 
     @Override
     public void enterNavigationMode() {
-        playerCreationController.exitPlayerCreationMode();
+        playerCreationController.exitCreationMode();
+        obstacleCreationController.exitCreationMode();
         navigationController.enterNavigationMode();
-
-        onObstacleCreationModeExited.fire(this);
-        onBallCreationModeExited.fire(this);
     }
 
     @Override

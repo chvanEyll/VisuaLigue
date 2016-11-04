@@ -46,7 +46,12 @@ public class ObstacleLayerController extends ActorLayerController {
 
     @Override
     public void update() {
-        Vector2 actorPosition = playingSurfaceLayerController.relativeToSurfacePoint(actorModel.position.get());
+        Vector2 actorPosition;
+        if (actorModel.position.isNotNull().get()) {
+            actorPosition = playingSurfaceLayerController.relativeToSurfacePoint(actorModel.position.get());
+        } else {
+            actorPosition = null;
+        }
         Platform.runLater(() -> {
             updateActor(actorPosition);
         });

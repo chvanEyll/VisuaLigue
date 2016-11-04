@@ -56,6 +56,7 @@ public class SequencePaneController extends ControllerBase {
         seekBarController.onTimeChanged.setHandler(this::onSeekBarTimeChanged);
         seekBarController.onSeekThumbPressed.setHandler(this::onSeekBarThumbPressed);
         seekBarController.init(playModel, sceneController);
+        sceneController.onCreationModeEntered.addHandler(this::sceneControllerCreationModeEntered);
         smoothMovements = settingsService.getEnableSmoothMovements();
         super.addChild(seekBarController);
         setFixedForwardPeriod(DEFAULT_FIXED_ADVANCE_PERIOD);
@@ -280,5 +281,10 @@ public class SequencePaneController extends ControllerBase {
         rewindButton.setSelected(playSpeed.lessThanOrEqual(PlaySpeed.getNormalReverseSpeed()));
         fastForwardButton.setDisable(seekBarController.getTime() >= length);
         fastForwardButton.setSelected(playSpeed.greaterThan(PlaySpeed.getNormalSpeed()));
+    }
+
+    private void sceneControllerCreationModeEntered(Object sender) {
+        stop();
+        seekBarController.goToBeginning(true, KEYPOINT_MOVE_ANIMATION_PERIOD);
     }
 }

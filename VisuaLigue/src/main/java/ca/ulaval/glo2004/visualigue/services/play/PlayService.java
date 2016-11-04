@@ -1,5 +1,6 @@
 package ca.ulaval.glo2004.visualigue.services.play;
 
+import ca.ulaval.glo2004.visualigue.domain.obstacle.ObstacleRepository;
 import ca.ulaval.glo2004.visualigue.domain.play.*;
 import ca.ulaval.glo2004.visualigue.domain.play.actorinstance.TeamSide;
 import ca.ulaval.glo2004.visualigue.domain.play.actorstate.transition.StateTransition;
@@ -24,6 +25,7 @@ public class PlayService {
     private final PlayFactory playFactory;
     private final SportRepository sportRepository;
     private final PlayerCategoryRepository playerCategoryRepository;
+    private final ObstacleRepository obstacleRepository;
 
     private final Map<String, Deque<Command>> undoStackMap = new HashMap();
     private final Map<String, Deque<Command>> redoStackMap = new HashMap();
@@ -41,11 +43,12 @@ public class PlayService {
     public EventHandler<Integer> onPlayTimelineLengthChanged = new EventHandler();
 
     @Inject
-    public PlayService(final PlayRepository playRepository, final PlayFactory playFactory, final SportRepository sportRepository, final PlayerCategoryRepository playerCategoryRepository) {
+    public PlayService(final PlayRepository playRepository, final PlayFactory playFactory, final SportRepository sportRepository, final PlayerCategoryRepository playerCategoryRepository, final ObstacleRepository obstacleRepository) {
         this.playRepository = playRepository;
         this.playFactory = playFactory;
         this.sportRepository = sportRepository;
         this.playerCategoryRepository = playerCategoryRepository;
+        this.obstacleRepository = obstacleRepository;
     }
 
     public String createPlay(String sportUUID) throws PlayAlreadyExistsException, SportNotFoundException {
@@ -104,7 +107,7 @@ public class PlayService {
 
     public void addObstacle(String playUUID, Integer time, String obstacleInstanceUUID, Vector2 position) {
         Play play = playRepository.get(playUUID);
-        ObstacleCreationCommand command = new ObstacleCreationCommand(play, time, obstacleInstanceUUID, position, onPlayFrameChanged);
+        ObstacleCreationCommand command = new ObstacleCreationCommand(play, time, obstacleInstanceUUID, position, obstacleRepository, onPlayFrameChanged);
         executeNewCommand(playUUID, command);
     }
 

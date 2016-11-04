@@ -160,16 +160,20 @@ public class SeekBarController extends ControllerBase {
         return getLength() - time;
     }
 
+    public void goToClosestKeyPoint(Boolean smooth, Integer smoothingDuration) {
+        move(time, true, smooth, smoothingDuration);
+    }
+
     public Integer getClosestKeyPointTime(Integer time) {
         return (int) Math.round(time / (double) KEY_POINT_INTERVAL) * KEY_POINT_INTERVAL;
     }
 
     public void goToBeginning(Boolean smooth, Integer smoothingDuration) {
-        move(0, false, true, smoothingDuration);
+        move(0, false, smooth, smoothingDuration);
     }
 
     public void goToEnd(Boolean smooth, Integer smoothingDuration) {
-        move(getLength(), false, true, smoothingDuration);
+        move(getLength(), false, smooth, smoothingDuration);
     }
 
     public void goToNextKeyPoint(Boolean smooth, Integer smoothingDuration) {

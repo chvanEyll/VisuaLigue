@@ -8,21 +8,21 @@ import ca.ulaval.glo2004.visualigue.domain.play.actorinstance.ObstacleInstance;
 import ca.ulaval.glo2004.visualigue.domain.play.actorstate.ObstacleState;
 import ca.ulaval.glo2004.visualigue.utils.EventHandler;
 import ca.ulaval.glo2004.visualigue.utils.geometry.Vector2;
-import javax.inject.Inject;
 
 public class ObstacleCreationCommand extends Command {
 
     private String obstacleInstanceUUID;
     private Vector2 position;
     private EventHandler<Play> onFrameChanged;
-    @Inject private ObstacleRepository obstacleRepository;
+    private ObstacleRepository obstacleRepository;
 
     private ObstacleInstance obstacleInstance;
 
-    public ObstacleCreationCommand(Play play, Integer time, String obstacleInstanceUUID, Vector2 position, EventHandler<Play> onFrameChanged) {
+    public ObstacleCreationCommand(Play play, Integer time, String obstacleInstanceUUID, Vector2 position, ObstacleRepository obstacleRepository, EventHandler<Play> onFrameChanged) {
         super(play, time);
         this.obstacleInstanceUUID = obstacleInstanceUUID;
         this.position = position;
+        this.obstacleRepository = obstacleRepository;
         this.onFrameChanged = onFrameChanged;
     }
 
