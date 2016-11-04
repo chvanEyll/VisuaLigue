@@ -1,52 +1,67 @@
 package ca.ulaval.glo2004.visualigue.ui.controllers.playeditor.scene.scene2d.layers;
 
 import ca.ulaval.glo2004.visualigue.ui.controllers.common.Arrow;
+import ca.ulaval.glo2004.visualigue.ui.controllers.common.ExtendedLabel;
 import ca.ulaval.glo2004.visualigue.ui.controllers.common.PlayerIcon;
 import ca.ulaval.glo2004.visualigue.ui.controllers.playeditor.scene.Zoom;
 import ca.ulaval.glo2004.visualigue.ui.models.ActorModel;
 import ca.ulaval.glo2004.visualigue.utils.geometry.Vector2;
 import javafx.application.Platform;
+import javafx.beans.property.BooleanProperty;
+import javafx.beans.property.ObjectProperty;
+import javafx.beans.value.ChangeListener;
 import javafx.beans.value.ObservableValue;
 import javafx.fxml.FXML;
-import javafx.scene.control.Label;
 
 public class PlayerLayerController extends ActorLayerController {
 
-    private static final Double LABEL_OFFSET_Y = 15.0;
+    private static final Double LABEL_OFFSET_Y = 30.0;
     public static final String VIEW_NAME = "/views/playeditor/scene2d/layers/player-layer.fxml";
     public static final Double BASE_BUTTON_SCALING = 1.25;
     public static final Double ARROW_HEAD_SIZE = 15.0;
     public static final Double ARROW_STROKE_DASH_ARRAY_SIZE = 10.0;
+    private ChangeListener<Object> onChange = this::onChange;
     @FXML private PlayerIcon playerIcon;
-    @FXML private Label label;
+    @FXML private ExtendedLabel label;
     @FXML private Arrow arrow;
 
     @Override
-    public void init(ActorModel actorModel, PlayingSurfaceLayerController playingLayerSurfaceController, Boolean showActorLabels, Boolean showMovementArrows, Boolean resizeActorsOnZoom) {
-        super.init(actorModel, playingLayerSurfaceController, showActorLabels, showMovementArrows, resizeActorsOnZoom);
+    public void init(ActorModel actorModel, PlayingSurfaceLayerController playingLayerSurfaceController, ObjectProperty<Zoom> zoomProperty, BooleanProperty showActorLabelsProperty, BooleanProperty showMovementArrowsProperty, BooleanProperty resizeActorsOnZoomProperty) {
+        super.init(actorModel, playingLayerSurfaceController, zoomProperty, showActorLabelsProperty, showMovementArrowsProperty, resizeActorsOnZoomProperty);
         label.textProperty().bind(actorModel.label);
-        actorModel.position.addListener(this::onActorPositionChanged);
-        actorModel.nextPosition.addListener(this::onActorPositionChanged);
-        actorModel.orientation.addListener(this::onActorOrientationChanged);
-        actorModel.label.addListener(this::onActorDescriptionChanged);
+        actorModel.position.addListener(onChange);
+        actorModel.nextPosition.addListener(onChange);
+        actorModel.orientation.addListener(onChange);
+        actorModel.label.addListener(onChange);
+        showActorLabelsProperty.addListener(onChange);
+        showMovementArrowsProperty.addListener(onChange);
+        resizeActorsOnZoomProperty.addListener(onChange);
+        zoomProperty.addListener(onChange);
+        actorButton.layoutReadyProperty().addListener(this::onChange);
+        label.layoutReadyProperty().addListener(this::onChange);
         update();
     }
 
-    private void onActorPositionChanged(final ObservableValue<? extends Vector2> value, final Vector2 oldPropertyValue, final Vector2 newPropertyValue) {
-        update();
+    @Override
+    public void clean() {
+        showActorLabelsProperty.removeListener(onChange);
+        showMovementArrowsProperty.removeListener(onChange);
+        resizeActorsOnZoomProperty.removeListener(onChange);
+        zoomProperty.removeListener(onChange);
     }
 
-    private void onActorOrientationChanged(final ObservableValue<? extends Number> value, final Number oldPropertyValue, final Number newPropertyValue) {
-        update();
-    }
-
-    private void onActorDescriptionChanged(final ObservableValue<? extends String> value, final String oldPropertyValue, final String newPropertyValue) {
+    private void onChange(final ObservableValue<? extends Object> value, final Object oldPropertyValue, final Object newPropertyValue) {
         update();
     }
 
     @Override
     public void update() {
-        Vector2 actorPosition = playingSurfaceLayerController.relativeToSurfacePoint(actorModel.position.get());
+        Vector2 actorPosition;
+        if (actorModel.position.isNotNull().get()) {
+            actorPosition = playingSurfaceLayerController.relativeToSurfacePoint(actorModel.position.get());
+        } else {
+            actorPosition = null;
+        }
         Vector2 nextActorPosition;
         if (actorModel.nextPosition.isNotNull().get()) {
             nextActorPosition = playingSurfaceLayerController.relativeToSurfacePoint(actorModel.nextPosition.get());
@@ -61,17 +76,19 @@ public class PlayerLayerController extends ActorLayerController {
     }
 
     private void updateActor(Vector2 actorPosition) {
-        actorButton.setScaleX(getScaledValue(BASE_BUTTON_SCALING));
-        actorButton.setScaleY(getScaledValue(BASE_BUTTON_SCALING));
-        actorButton.setLayoutX(actorPosition.getX() - actorButton.getWidth() / 2);
-        actorButton.setLayoutY(actorPosition.getY() - actorButton.getHeight() / 2);
-        actorButton.setRotate(actorModel.orientation.get());
-        playerIcon.setColor(actorModel.color.get());
+        if (actorPosition != null) {
+            actorButton.setScaleX(getScaledValue(BASE_BUTTON_SCALING));
+            actorButton.setScaleY(getScaledValue(BASE_BUTTON_SCALING));
+            actorButton.setLayoutX(actorPosition.getX() - actorButton.getWidth() / 2);
+            actorButton.setLayoutY(actorPosition.getY() - actorButton.getHeight() / 2);
+            actorButton.setRotate(actorModel.orientation.get());
+            playerIcon.setColor(actorModel.color.get());
+        }
+        actorButton.setVisible(actorPosition != null);
     }
 
     private void updateArrow(Vector2 currentActorPosition, Vector2 nextActorPosition) {
-        arrow.setVisible(showMovementArrows == true && nextActorPosition != null);
-        if (showMovementArrows == true && nextActorPosition != null) {
+        if (showMovementArrowsProperty.get() == true && nextActorPosition != null) {
             arrow.setStroke(actorModel.color.get());
             arrow.setStrokeWidth(getScaledValue(3.0));
             arrow.getStrokeDashArray().setAll(getScaledValue(ARROW_STROKE_DASH_ARRAY_SIZE));
@@ -81,20 +98,18 @@ public class PlayerLayerController extends ActorLayerController {
             arrow.setHeadLocation(nextActorPosition);
             arrow.setTailLocation(currentActorPosition);
         }
+        arrow.setVisible(showMovementArrowsProperty.get() == true && nextActorPosition != null);
     }
 
     private void updateLabel(Vector2 actorPosition) {
-        label.setVisible(showActorLabels);
-        label.setScaleX(getScaledValue(1.0));
-        label.setScaleY(getScaledValue(1.0));
-        label.setLayoutX(actorPosition.getX() - label.getWidth() / 2);
-        label.setLayoutY(actorPosition.getY() + getScaledValue(LABEL_OFFSET_Y) + getScaledValue(label.getHeight()) / 2);
-    }
-
-    @Override
-    public void updateZoom(Zoom zoom) {
-        this.zoom = zoom;
-        update();
+        if (actorPosition != null) {
+            label.setVisible(showActorLabelsProperty.get());
+            label.setScaleX(getScaledValue(1.0));
+            label.setScaleY(getScaledValue(1.0));
+            label.setLayoutX(actorPosition.getX() - label.getWidth() / 2);
+            label.setLayoutY(actorPosition.getY() - label.getHeight() / 2 - getScaledValue(LABEL_OFFSET_Y));
+        }
+        label.setVisible(actorPosition != null);
     }
 
 }

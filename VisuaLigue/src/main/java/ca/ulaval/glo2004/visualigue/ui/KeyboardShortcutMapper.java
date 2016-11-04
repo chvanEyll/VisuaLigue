@@ -8,20 +8,20 @@ import javafx.event.EventHandler;
 import javafx.scene.input.KeyCombination;
 import javafx.scene.input.KeyEvent;
 
-public class KeyboardShortcutHandler {
+public class KeyboardShortcutMapper {
 
-    private static final KeyboardShortcutHandler INSTANCE = new KeyboardShortcutHandler();
+    private static final KeyboardShortcutMapper INSTANCE = new KeyboardShortcutMapper();
     private Map<KeyCombination, Runnable> keyCombinationMap = new HashMap();
 
-    public KeyboardShortcutHandler() {
+    public KeyboardShortcutMapper() {
         VisuaLigue.getMainScene().addEventHandler(KeyEvent.KEY_RELEASED, new KeyReleasedEventHandler());
     }
 
-    public static void assign(KeyCombination keyCombination, Runnable runnable) {
+    public static void map(KeyCombination keyCombination, Runnable runnable) {
         INSTANCE.keyCombinationMap.put(keyCombination, runnable);
     }
 
-    public static void unassign(KeyCombination keyCombination) {
+    public static void unmap(KeyCombination keyCombination) {
         INSTANCE.keyCombinationMap.remove(keyCombination);
     }
 

@@ -1,6 +1,7 @@
 package ca.ulaval.glo2004.visualigue.domain.sport.playercategory;
 
 import ca.ulaval.glo2004.visualigue.domain.DomainObject;
+import ca.ulaval.glo2004.visualigue.domain.play.actorinstance.TeamSide;
 import ca.ulaval.glo2004.visualigue.domain.xmladapters.XmlColorAdapter;
 import javafx.scene.paint.Color;
 import javax.xml.bind.annotation.XmlRootElement;
@@ -59,6 +60,14 @@ public class PlayerCategory extends DomainObject {
 
     public void setOpponentColor(Color opponentColor) {
         this.opponentColor = opponentColor;
+    }
+
+    public Color getColor(TeamSide teamSide) {
+        if (teamSide == TeamSide.ALLIES) {
+            return allyColor;
+        } else {
+            return opponentColor;
+        }
     }
 
     public Integer getDefaultNumberOfPlayers() {

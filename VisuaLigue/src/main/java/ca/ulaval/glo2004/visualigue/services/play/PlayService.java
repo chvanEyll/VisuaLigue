@@ -7,6 +7,7 @@ import ca.ulaval.glo2004.visualigue.domain.play.frame.Frame;
 import ca.ulaval.glo2004.visualigue.domain.sport.Sport;
 import ca.ulaval.glo2004.visualigue.domain.sport.SportNotFoundException;
 import ca.ulaval.glo2004.visualigue.domain.sport.SportRepository;
+import ca.ulaval.glo2004.visualigue.domain.sport.playercategory.PlayerCategoryRepository;
 import ca.ulaval.glo2004.visualigue.services.play.commands.*;
 import ca.ulaval.glo2004.visualigue.utils.EventHandler;
 import ca.ulaval.glo2004.visualigue.utils.geometry.Vector2;
@@ -22,6 +23,7 @@ public class PlayService {
     private final PlayRepository playRepository;
     private final PlayFactory playFactory;
     private final SportRepository sportRepository;
+    private final PlayerCategoryRepository playerCategoryRepository;
 
     private final Map<String, Deque<Command>> undoStackMap = new HashMap();
     private final Map<String, Deque<Command>> redoStackMap = new HashMap();
@@ -29,6 +31,7 @@ public class PlayService {
     public EventHandler<Play> onPlayCreated = new EventHandler();
     public EventHandler<Play> onPlayTitleUpdated = new EventHandler();
     public EventHandler<Play> onPlayDeleted = new EventHandler();
+    public EventHandler<Play> onPlayFrameChanged = new EventHandler();
     public EventHandler<Integer> onUndo = new EventHandler();
     public EventHandler<Integer> onRedo = new EventHandler();
     public EventHandler onNewCommandExecute = new EventHandler();
@@ -38,10 +41,11 @@ public class PlayService {
     public EventHandler<Integer> onPlayTimelineLengthChanged = new EventHandler();
 
     @Inject
-    public PlayService(final PlayRepository playRepository, final PlayFactory playFactory, final SportRepository sportRepository) {
+    public PlayService(final PlayRepository playRepository, final PlayFactory playFactory, final SportRepository sportRepository, final PlayerCategoryRepository playerCategoryRepository) {
         this.playRepository = playRepository;
         this.playFactory = playFactory;
         this.sportRepository = sportRepository;
+        this.playerCategoryRepository = playerCategoryRepository;
     }
 
     public String createPlay(String sportUUID) throws PlayAlreadyExistsException, SportNotFoundException {
@@ -74,45 +78,45 @@ public class PlayService {
         return playRepository.getAll(sortFunction, sortOrder);
     }
 
-    public void addPlayer(String playUUID, Integer time, String playerCategoryUUID, TeamSide teamSide, Double orientation, Vector2 position) throws Exception {
+    public void addPlayer(String playUUID, Integer time, String playerCategoryUUID, TeamSide teamSide, Double orientation, Vector2 position) {
         Play play = playRepository.get(playUUID);
-        PlayerCreationCommand command = new PlayerCreationCommand(play, time, playerCategoryUUID, teamSide, orientation, position);
+        PlayerCreationCommand command = new PlayerCreationCommand(play, time, playerCategoryUUID, teamSide, orientation, position, playerCategoryRepository, onPlayFrameChanged);
         executeNewCommand(playUUID, command);
     }
 
-    public void updatePlayerPositionDirect(String playUUID, Integer time, String ownerPlayerInstanceUUID, Vector2 position) throws Exception {
+    public void updatePlayerPositionDirect(String playUUID, Integer time, String ownerPlayerInstanceUUID, Vector2 position) {
         Play play = playRepository.get(playUUID);
-        PlayerPositionUpdateDirectCommand command = new PlayerPositionUpdateDirectCommand(play, time, ownerPlayerInstanceUUID, position);
+        PlayerPositionUpdateDirectCommand command = new PlayerPositionUpdateDirectCommand(play, time, ownerPlayerInstanceUUID, position, onPlayFrameChanged);
         executeNewCommand(playUUID, command);
     }
 
-    public void updatePlayerPositionFreeform(String playUUID, Integer time, String ownerPlayerInstanceUUID, Vector2 position, StateTransition positionTransition) throws Exception {
+    public void updatePlayerPositionFreeform(String playUUID, Integer time, String ownerPlayerInstanceUUID, Vector2 position, StateTransition positionTransition) {
         Play play = playRepository.get(playUUID);
-        PlayerPositionUpdateFreeformCommand command = new PlayerPositionUpdateFreeformCommand(play, time, ownerPlayerInstanceUUID, position, positionTransition);
+        PlayerPositionUpdateFreeformCommand command = new PlayerPositionUpdateFreeformCommand(play, time, ownerPlayerInstanceUUID, position, positionTransition, onPlayFrameChanged);
         executeNewCommand(playUUID, command);
     }
 
-    public void updatePlayerOrientation(String playUUID, Integer time, String ownerPlayerInstanceUUID, Double orientation) throws Exception {
+    public void updatePlayerOrientation(String playUUID, Integer time, String ownerPlayerInstanceUUID, Double orientation) {
         Play play = playRepository.get(playUUID);
-        PlayerOrientationUpdateCommand command = new PlayerOrientationUpdateCommand(play, time, ownerPlayerInstanceUUID, orientation);
+        PlayerOrientationUpdateCommand command = new PlayerOrientationUpdateCommand(play, time, ownerPlayerInstanceUUID, orientation, onPlayFrameChanged);
         executeNewCommand(playUUID, command);
     }
 
-    public void addObstacle(String playUUID, Integer time, String obstacleInstanceUUID, Vector2 position) throws Exception {
+    public void addObstacle(String playUUID, Integer time, String obstacleInstanceUUID, Vector2 position) {
         Play play = playRepository.get(playUUID);
-        ObstacleCreationCommand command = new ObstacleCreationCommand(play, time, obstacleInstanceUUID, position);
+        ObstacleCreationCommand command = new ObstacleCreationCommand(play, time, obstacleInstanceUUID, position, onPlayFrameChanged);
         executeNewCommand(playUUID, command);
     }
 
-    public void addBall(String playUUID, Integer time, String ownerPlayerInstanceUUID, Vector2 position) throws Exception {
+    public void addBall(String playUUID, Integer time, String ownerPlayerInstanceUUID, Vector2 position) {
         Play play = playRepository.get(playUUID);
-        BallCreationCommand command = new BallCreationCommand(play, time, ownerPlayerInstanceUUID, position);
+        BallCreationCommand command = new BallCreationCommand(play, time, ownerPlayerInstanceUUID, position, onPlayFrameChanged);
         executeNewCommand(playUUID, command);
     }
 
-    public void updateBall(String playUUID, Integer time, String ballInstanceUUID, String ownerPlayerInstanceUUID, Vector2 position) throws Exception {
+    public void updateBall(String playUUID, Integer time, String ballInstanceUUID, String ownerPlayerInstanceUUID, Vector2 position) {
         Play play = playRepository.get(playUUID);
-        BallUpdateCommand command = new BallUpdateCommand(play, time, ballInstanceUUID, ownerPlayerInstanceUUID, position);
+        BallUpdateCommand command = new BallUpdateCommand(play, time, ballInstanceUUID, ownerPlayerInstanceUUID, position, onPlayFrameChanged);
         executeNewCommand(playUUID, command);
     }
 
@@ -167,7 +171,7 @@ public class PlayService {
 
     public void undo(String playUUID) throws PlayNotFoundException {
         if (!isUndoAvailable(playUUID)) {
-            throw new IllegalStateException("Undo operation is not permitted at this time.");
+            return;
         }
         Command lastCommand = undoStackMap.get(playUUID).pop();
         redoStackMap.get(playUUID).push(lastCommand);
@@ -180,7 +184,7 @@ public class PlayService {
 
     public void redo(String playUUID) throws PlayNotFoundException {
         if (!isRedoAvailable(playUUID)) {
-            throw new IllegalStateException("Redo operation is not permitted at this time.");
+            return;
         }
         Command nextCommand = redoStackMap.get(playUUID).pop();
         undoStackMap.get(playUUID).push(nextCommand);

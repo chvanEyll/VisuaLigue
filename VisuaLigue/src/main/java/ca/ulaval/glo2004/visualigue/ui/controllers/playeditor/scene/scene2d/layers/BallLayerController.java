@@ -5,6 +5,9 @@ import ca.ulaval.glo2004.visualigue.ui.models.ActorModel;
 import ca.ulaval.glo2004.visualigue.utils.FilenameUtils;
 import ca.ulaval.glo2004.visualigue.utils.geometry.Vector2;
 import javafx.application.Platform;
+import javafx.beans.property.BooleanProperty;
+import javafx.beans.property.ObjectProperty;
+import javafx.beans.value.ChangeListener;
 import javafx.beans.value.ObservableValue;
 import javafx.fxml.FXML;
 import javafx.scene.image.Image;
@@ -14,20 +17,30 @@ public class BallLayerController extends ActorLayerController {
 
     public static final String VIEW_NAME = "/views/playeditor/scene2d/layers/ball-layer.fxml";
     @FXML private ImageView imageView;
+    private ChangeListener<Object> onChange = this::onChange;
 
     @Override
-    public void init(ActorModel actorModel, PlayingSurfaceLayerController playingLayerSurfaceController, Boolean showActorLabels, Boolean showMovementArrows, Boolean resizeActorsOnZoom) {
-        super.init(actorModel, playingLayerSurfaceController, showActorLabels, showMovementArrows, resizeActorsOnZoom);
+    public void init(ActorModel actorModel, PlayingSurfaceLayerController playingLayerSurfaceController, ObjectProperty<Zoom> zoomProperty, BooleanProperty showActorLabelsProperty, BooleanProperty showMovementArrowsProperty, BooleanProperty resizeActorsOnZoomProperty) {
+        super.init(actorModel, playingLayerSurfaceController, zoomProperty, showActorLabelsProperty, showMovementArrowsProperty, resizeActorsOnZoomProperty);
         if (actorModel.imagePathName.isNotEmpty().get()) {
             imageView.setImage(new Image(FilenameUtils.getURIString(actorModel.imagePathName.get())));
         } else if (actorModel.builtInImagePathName.isNotEmpty().get()) {
             imageView.setImage(new Image(actorModel.builtInImagePathName.get()));
         }
-        actorModel.position.addListener(this::onActorPositionChanged);
+        actorModel.position.addListener(onChange);
+        resizeActorsOnZoomProperty.addListener(onChange);
+        zoomProperty.addListener(onChange);
+        actorButton.layoutReadyProperty().addListener(this::onChange);
         update();
     }
 
-    private void onActorPositionChanged(final ObservableValue<? extends Vector2> value, final Vector2 oldPropertyValue, final Vector2 newPropertyValue) {
+    @Override
+    public void clean() {
+        resizeActorsOnZoomProperty.removeListener(onChange);
+        zoomProperty.removeListener(onChange);
+    }
+
+    private void onChange(final ObservableValue<? extends Object> value, final Object oldPropertyValue, final Object newPropertyValue) {
         update();
     }
 
@@ -40,16 +53,13 @@ public class BallLayerController extends ActorLayerController {
     }
 
     private void updateActor(Vector2 actorPosition) {
-        actorButton.setScaleX(getScaledValue(1.0));
-        actorButton.setScaleY(getScaledValue(1.0));
-        actorButton.setLayoutX(actorPosition.getX() - actorButton.getWidth() / 2);
-        actorButton.setLayoutY(actorPosition.getY() - actorButton.getHeight() / 2);
-    }
-
-    @Override
-    public void updateZoom(Zoom zoom) {
-        this.zoom = zoom;
-        update();
+        if (actorPosition != null) {
+            actorButton.setScaleX(getScaledValue(1.0));
+            actorButton.setScaleY(getScaledValue(1.0));
+            actorButton.setLayoutX(actorPosition.getX() - actorButton.getWidth() / 2);
+            actorButton.setLayoutY(actorPosition.getY() - actorButton.getHeight() / 2);
+        }
+        actorButton.setVisible(actorPosition != null);
     }
 
 }

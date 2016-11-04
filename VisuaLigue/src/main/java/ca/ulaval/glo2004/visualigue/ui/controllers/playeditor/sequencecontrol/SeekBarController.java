@@ -8,7 +8,6 @@ import ca.ulaval.glo2004.visualigue.ui.animation.Animator;
 import ca.ulaval.glo2004.visualigue.ui.controllers.ControllerBase;
 import ca.ulaval.glo2004.visualigue.ui.controllers.common.ExtendedScrollPane;
 import ca.ulaval.glo2004.visualigue.ui.controllers.playeditor.scene.SceneController;
-import ca.ulaval.glo2004.visualigue.ui.converters.FrameModelConverter;
 import ca.ulaval.glo2004.visualigue.ui.models.PlayModel;
 import ca.ulaval.glo2004.visualigue.utils.EventHandler;
 import ca.ulaval.glo2004.visualigue.utils.math.MathUtils;
@@ -36,7 +35,6 @@ public class SeekBarController extends ControllerBase {
     @FXML private ExtendedScrollPane keyframeScrollPane;
     @FXML private Button seekBarThumb;
     @Inject private PlayService playService;
-    @Inject private FrameModelConverter frameModelConverter;
 
     private PlayModel playModel;
     private SceneController sceneController;
@@ -99,7 +97,6 @@ public class SeekBarController extends ControllerBase {
         controller.onClick.setHandler(this::onKeyPointClicked);
         keyframeHBox.getChildren().add(view.getRoot());
         keyPoints.add(view);
-
     }
 
     private void removeKeyPoint() {
@@ -151,12 +148,8 @@ public class SeekBarController extends ControllerBase {
             time = 0;
         }
         setSeekThumbLocationFromTime(time);
-        updateFrame(time);
+        sceneController.update(time);
         onTimeChanged.fire(this, time);
-    }
-
-    private void updateFrame(Integer time) {
-        frameModelConverter.update(playService.getFrame(playModel.getUUID(), time), sceneController.getFrameModel(), playModel);
     }
 
     public Integer getLength() {

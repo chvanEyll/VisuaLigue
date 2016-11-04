@@ -2,12 +2,17 @@ package ca.ulaval.glo2004.visualigue.ui.controllers.playeditor.scene;
 
 import ca.ulaval.glo2004.visualigue.domain.play.actorinstance.TeamSide;
 import ca.ulaval.glo2004.visualigue.ui.controllers.ControllerBase;
-import ca.ulaval.glo2004.visualigue.ui.models.*;
+import ca.ulaval.glo2004.visualigue.ui.models.BallModel;
+import ca.ulaval.glo2004.visualigue.ui.models.ObstacleModel;
+import ca.ulaval.glo2004.visualigue.ui.models.PlayModel;
+import ca.ulaval.glo2004.visualigue.ui.models.PlayerCategoryModel;
 import ca.ulaval.glo2004.visualigue.utils.EventHandler;
 import ca.ulaval.glo2004.visualigue.utils.geometry.Vector2;
 import java.util.Arrays;
 import java.util.NavigableSet;
 import java.util.TreeSet;
+import javafx.beans.property.BooleanProperty;
+import javafx.beans.property.SimpleBooleanProperty;
 
 public abstract class SceneController extends ControllerBase {
 
@@ -15,7 +20,7 @@ public abstract class SceneController extends ControllerBase {
             new Zoom(0.5), new Zoom(0.75), new Zoom(1), new Zoom(1.25), new Zoom(1.5), new Zoom(1.75), new Zoom(2), new Zoom(2.5), new Zoom(3), new Zoom(4), new Zoom(5)
     ));
 
-    public EventHandler<Vector2> onMousePositionChanged = new EventHandler();
+    public EventHandler<Vector2> onRealWorldMousePositionChanged = new EventHandler();
     public EventHandler<Zoom> onZoomChanged = new EventHandler();
     public EventHandler onPlayerCreationModeExited = new EventHandler();
     public EventHandler onObstacleCreationModeExited = new EventHandler();
@@ -26,14 +31,14 @@ public abstract class SceneController extends ControllerBase {
     public EventHandler onFrameByFrameCreationModeEntered = new EventHandler();
 
     protected PlayModel playModel;
-    protected Boolean showActorLabels = false;
-    protected Boolean showMovementArrows = true;
-    protected Boolean resizeActorsOnZoom = true;
-    protected Boolean realTimeMode = false;
+    protected BooleanProperty showActorLabelsProperty = new SimpleBooleanProperty(false);
+    protected BooleanProperty showMovementArrowsProperty = new SimpleBooleanProperty(true);
+    protected BooleanProperty resizeActorsOnZoomProperty = new SimpleBooleanProperty(true);
+    protected BooleanProperty realTimeModeProperty = new SimpleBooleanProperty(false);
 
     public abstract void init(PlayModel playModel);
 
-    public abstract FrameModel getFrameModel();
+    public abstract void update(Integer time);
 
     public abstract void enterPlayerCreationMode(PlayerCategoryModel playerCategoryModel, TeamSide teamSide);
 

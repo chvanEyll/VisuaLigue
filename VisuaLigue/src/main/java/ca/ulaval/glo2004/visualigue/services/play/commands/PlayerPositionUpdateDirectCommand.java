@@ -5,17 +5,19 @@ import ca.ulaval.glo2004.visualigue.domain.play.actorinstance.PlayerInstance;
 import ca.ulaval.glo2004.visualigue.domain.play.actorstate.ActorState;
 import ca.ulaval.glo2004.visualigue.domain.play.actorstate.PlayerState;
 import ca.ulaval.glo2004.visualigue.domain.play.actorstate.transition.LinearTransition;
+import ca.ulaval.glo2004.visualigue.utils.EventHandler;
 import ca.ulaval.glo2004.visualigue.utils.geometry.Vector2;
 
 public class PlayerPositionUpdateDirectCommand extends Command {
 
     private String ownerPlayerInstanceUUID;
     private Vector2 position;
+    private EventHandler<Play> onFrameChanged;
 
     private PlayerInstance playerInstance;
     private ActorState oldPlayerState;
 
-    public PlayerPositionUpdateDirectCommand(Play play, Integer time, String ownerPlayerInstanceUUID, Vector2 position) {
+    public PlayerPositionUpdateDirectCommand(Play play, Integer time, String ownerPlayerInstanceUUID, Vector2 position, EventHandler<Play> onFrameChanged) {
         super(play, time);
         this.ownerPlayerInstanceUUID = ownerPlayerInstanceUUID;
         this.position = position;
@@ -26,11 +28,14 @@ public class PlayerPositionUpdateDirectCommand extends Command {
         PlayerState playerState = new PlayerState(position, new LinearTransition(), null, null);
         playerInstance = (PlayerInstance) play.getActorInstance(ownerPlayerInstanceUUID);
         oldPlayerState = play.mergeKeyframe(time, playerInstance, playerState);
+        onFrameChanged.fire(this, play);
+        this.onFrameChanged = onFrameChanged;
     }
 
     @Override
     public void revert() {
         play.unmergeKeyframe(time, playerInstance, oldPlayerState);
+        onFrameChanged.fire(this, play);
     }
 
 }

@@ -2,24 +2,24 @@
 
 <?import ca.ulaval.glo2004.visualigue.ui.controllers.common.PlayerIcon?>
 <?import ca.ulaval.glo2004.visualigue.ui.controllers.common.Arrow?>
-<?import javafx.scene.control.Button?>
+<?import ca.ulaval.glo2004.visualigue.ui.controllers.common.ExtendedButton?>
+<?import ca.ulaval.glo2004.visualigue.ui.controllers.common.ExtendedLabel?>
 <?import javafx.scene.control.Tooltip?>
-<?import javafx.scene.control.Label?>
 <?import javafx.scene.effect.DropShadow?>
 <?import javafx.scene.layout.Pane?>
 <?import javafx.scene.shape.Line?>
 
 <Pane fx:id="rootNode" pickOnBounds="false" styleClass="root-node, actor-layer" xmlns="http://javafx.com/javafx/8.0.60" xmlns:fx="http://javafx.com/fxml/1" fx:controller="ca.ulaval.glo2004.visualigue.ui.controllers.playeditor.scene.scene2d.layers.PlayerLayerController">
     <children>
-        <Arrow fx:id="arrow" mouseTransparent="true" />
-        <Button fx:id="actorButton" styleClass="icon-button, shadowed">
+        <Arrow fx:id="arrow" mouseTransparent="true" visible="false" />
+        <ExtendedButton fx:id="actorButton" styleClass="icon-button, shadowed" visible="false" >
             <graphic>
                 <PlayerIcon fx:id="playerIcon" />
             </graphic>
             <tooltip>
                 <Tooltip fx:id="tooltip" />
             </tooltip>
-        </Button>
-        <Label fx:id="label" mouseTransparent="true" styleClass="bold, shadowed" />
+        </ExtendedButton>
+        <ExtendedLabel fx:id="label" mouseTransparent="true" styleClass="bold, shadowed" visible="false" />
     </children>
 </Pane>

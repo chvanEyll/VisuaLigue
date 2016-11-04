@@ -67,7 +67,7 @@ public class ToolbarController extends ControllerBase {
     }
 
     private void setHandlers() {
-        sceneController.onMousePositionChanged.setHandler(this::onSceneMousePositionChanged);
+        sceneController.onRealWorldMousePositionChanged.setHandler(this::onSceneMousePositionChanged);
         sceneController.onZoomChanged.setHandler(this::onSceneZoomChanged);
         sceneController.onNavigationModeEntered.setHandler(this::onNavigationModeEntered);
         sceneController.onNavigationModeExited.setHandler(this::onNavigationModeExited);

@@ -2,7 +2,10 @@ package ca.ulaval.glo2004.visualigue.ui.converters;
 
 import ca.ulaval.glo2004.visualigue.domain.image.ImageRepository;
 import ca.ulaval.glo2004.visualigue.domain.obstacle.Obstacle;
-import ca.ulaval.glo2004.visualigue.domain.play.actorinstance.*;
+import ca.ulaval.glo2004.visualigue.domain.play.actorinstance.ActorInstance;
+import ca.ulaval.glo2004.visualigue.domain.play.actorinstance.BallInstance;
+import ca.ulaval.glo2004.visualigue.domain.play.actorinstance.ObstacleInstance;
+import ca.ulaval.glo2004.visualigue.domain.play.actorinstance.PlayerInstance;
 import ca.ulaval.glo2004.visualigue.domain.play.actorstate.ActorState;
 import ca.ulaval.glo2004.visualigue.domain.play.actorstate.BallState;
 import ca.ulaval.glo2004.visualigue.domain.play.actorstate.ObstacleState;
@@ -12,6 +15,7 @@ import ca.ulaval.glo2004.visualigue.ui.models.ActorModel;
 import ca.ulaval.glo2004.visualigue.ui.models.FrameModel;
 import ca.ulaval.glo2004.visualigue.ui.models.PlayModel;
 import java.util.Map;
+import java.util.stream.Collectors;
 import javax.inject.Inject;
 
 public class FrameModelConverter {
@@ -26,11 +30,12 @@ public class FrameModelConverter {
     public FrameModel update(Frame frame, FrameModel frameModel, PlayModel playModel) {
         frameModel.setUUID(frame.getUUID());
         frameModel.setIsNew(false);
+        frameModel.time.set(frame.getTime());
         updateExistingActorInstances(frame, frameModel, playModel, frame.getCurrentActorStates());
         removeOldActorInstances(frameModel, frame.getCurrentActorStates());
         return frameModel;
     }
-
+    
     private void updateExistingActorInstances(Frame frame, FrameModel frameModel, PlayModel playModel, Map<ActorInstance, ActorState> actorStates) {
         actorStates.entrySet().forEach(e -> {
             updateActorInstance(frame, frameModel, playModel, e.getKey(), e.getValue());
@@ -38,7 +43,7 @@ public class FrameModelConverter {
     }
 
     private void removeOldActorInstances(FrameModel frameModel, Map<ActorInstance, ActorState> actorStates) {
-        frameModel.actorModels.keySet().forEach(actorModelUUID -> {
+        frameModel.actorModels.keySet().stream().collect(Collectors.toList()).forEach(actorModelUUID -> {
             if (!actorStates.keySet().stream().anyMatch(actorInstance -> actorInstance.getUUID().equals(actorModelUUID))) {
                 removeActorInstance(frameModel, actorModelUUID);
             }
@@ -81,11 +86,7 @@ public class FrameModelConverter {
         } else {
             actorModel.nextPosition.set(null);
         }
-        if (playerInstance.getTeamSide() == TeamSide.ALLIES) {
-            actorModel.color.set(playerInstance.getPlayerCategory().getAllyColor());
-        } else {
-            actorModel.color.set(playerInstance.getPlayerCategory().getOpponentColor());
-        }
+        actorModel.color.set(playerInstance.getPlayerCategory().getColor(playerInstance.getTeamSide()));
         actorModel.orientation.set(playerState.getOrientation());
         actorModel.label.set(playerInstance.getPlayerCategory().getAbbreviation());
         actorModel.hoverText.set(playerInstance.getPlayerCategory().getName());

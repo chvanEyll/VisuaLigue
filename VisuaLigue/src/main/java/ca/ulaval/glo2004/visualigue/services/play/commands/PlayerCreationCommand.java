@@ -7,8 +7,8 @@ import ca.ulaval.glo2004.visualigue.domain.play.actorstate.PlayerState;
 import ca.ulaval.glo2004.visualigue.domain.play.actorstate.transition.LinearTransition;
 import ca.ulaval.glo2004.visualigue.domain.sport.playercategory.PlayerCategory;
 import ca.ulaval.glo2004.visualigue.domain.sport.playercategory.PlayerCategoryRepository;
+import ca.ulaval.glo2004.visualigue.utils.EventHandler;
 import ca.ulaval.glo2004.visualigue.utils.geometry.Vector2;
-import javax.inject.Inject;
 
 public class PlayerCreationCommand extends Command {
 
@@ -16,16 +16,19 @@ public class PlayerCreationCommand extends Command {
     private TeamSide teamSide;
     private Double orientation;
     private Vector2 position;
-    @Inject private PlayerCategoryRepository playerCategoryRepository;
+    private EventHandler<Play> onFrameChanged;
+    private PlayerCategoryRepository playerCategoryRepository;
 
     private PlayerInstance playerInstance;
 
-    public PlayerCreationCommand(Play play, Integer time, String playerCategoryUUID, TeamSide teamSide, Double orientation, Vector2 position) {
+    public PlayerCreationCommand(Play play, Integer time, String playerCategoryUUID, TeamSide teamSide, Double orientation, Vector2 position, PlayerCategoryRepository playerCategoryRepository, EventHandler<Play> onFrameChanged) {
         super(play, time);
         this.playerCategoryUUID = playerCategoryUUID;
         this.teamSide = teamSide;
         this.orientation = orientation;
         this.position = position;
+        this.playerCategoryRepository = playerCategoryRepository;
+        this.onFrameChanged = onFrameChanged;
     }
 
     @Override
@@ -34,11 +37,13 @@ public class PlayerCreationCommand extends Command {
         PlayerCategory playerCategory = playerCategoryRepository.get(playerCategoryUUID);
         playerInstance = new PlayerInstance(playerCategory, teamSide);
         play.mergeKeyframe(time, playerInstance, playerState);
+        onFrameChanged.fire(this, play);
     }
 
     @Override
     public void revert() {
         play.unmergeKeyframe(time, playerInstance, null);
+        onFrameChanged.fire(this, play);
     }
 
 }

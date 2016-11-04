@@ -130,7 +130,7 @@ public class Play extends DomainObject {
     }
 
     public Frame getFrame(Integer time) {
-        Frame frame = new Frame();
+        Frame frame = new Frame(time);
         actorTimelines.entrySet().stream().forEach(e -> {
             ActorInstance actorInstance = e.getKey();
             ActorTimeline timeline = e.getValue();

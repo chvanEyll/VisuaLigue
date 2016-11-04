@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<?import javafx.scene.control.Button?>
+<?import ca.ulaval.glo2004.visualigue.ui.controllers.common.ExtendedButton?>
 <?import javafx.scene.control.Tooltip?>
 <?import javafx.scene.image.ImageView?>
 <?import javafx.scene.effect.DropShadow?>
@@ -8,13 +8,13 @@
 
 <Pane fx:id="rootNode" pickOnBounds="false" styleClass="root-node, actor-layer" xmlns="http://javafx.com/javafx/8.0.60" xmlns:fx="http://javafx.com/fxml/1" fx:controller="ca.ulaval.glo2004.visualigue.ui.controllers.playeditor.scene.scene2d.layers.BallLayerController">
     <children>
-        <Button fx:id="actorButton" styleClass="icon-button, shadowed">
+        <ExtendedButton fx:id="actorButton" styleClass="icon-button, shadowed" visible="false">
             <graphic>
                 <ImageView fx:id="imageView" fitWidth="20" fitHeight="20" preserveRatio="true" />
             </graphic>
             <tooltip>
                 <Tooltip fx:id="tooltip" />
             </tooltip>
-        </Button>
+        </ExtendedButton>
     </children>
 </Pane>

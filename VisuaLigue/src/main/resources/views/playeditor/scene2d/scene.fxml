@@ -10,7 +10,7 @@
             <children>
                 <StackPane styleClass="scene" fx:id="layerStackPane" alignment="TOP_LEFT" pickOnBounds="false">
                     <children>
-                        <fx:include fx:id="playingSurfaceLayer" source="/views/playeditor/scene2d/layers/playing-surface-layer.fxml" />
+                        
                     </children>
                 </StackPane>
             </children>

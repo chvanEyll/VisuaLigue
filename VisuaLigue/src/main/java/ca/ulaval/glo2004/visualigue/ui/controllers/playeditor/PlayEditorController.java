@@ -2,7 +2,7 @@ package ca.ulaval.glo2004.visualigue.ui.controllers.playeditor;
 
 import ca.ulaval.glo2004.visualigue.domain.play.PlayNotFoundException;
 import ca.ulaval.glo2004.visualigue.services.play.PlayService;
-import ca.ulaval.glo2004.visualigue.ui.KeyboardShortcutHandler;
+import ca.ulaval.glo2004.visualigue.ui.KeyboardShortcutMapper;
 import ca.ulaval.glo2004.visualigue.ui.controllers.ControllerBase;
 import ca.ulaval.glo2004.visualigue.ui.controllers.ViewFlowRequestEventArgs;
 import ca.ulaval.glo2004.visualigue.ui.controllers.playeditor.itempane.ItemPaneController;
@@ -59,18 +59,18 @@ public class PlayEditorController extends ControllerBase {
     }
 
     private void initKeyboardShortcuts() {
-        KeyboardShortcutHandler.assign(new KeyCodeCombination(KeyCode.S, KeyCombination.CONTROL_DOWN), this::savePlay);
-        KeyboardShortcutHandler.assign(new KeyCodeCombination(KeyCode.W, KeyCombination.CONTROL_DOWN), this::closePlay);
-        KeyboardShortcutHandler.assign(new KeyCodeCombination(KeyCode.Z, KeyCombination.CONTROL_DOWN), this::undo);
-        KeyboardShortcutHandler.assign(new KeyCodeCombination(KeyCode.Y, KeyCombination.CONTROL_DOWN), this::redo);
+        KeyboardShortcutMapper.map(new KeyCodeCombination(KeyCode.S, KeyCombination.CONTROL_DOWN), this::savePlay);
+        KeyboardShortcutMapper.map(new KeyCodeCombination(KeyCode.W, KeyCombination.CONTROL_DOWN), this::closePlay);
+        KeyboardShortcutMapper.map(new KeyCodeCombination(KeyCode.Z, KeyCombination.CONTROL_DOWN), this::undo);
+        KeyboardShortcutMapper.map(new KeyCodeCombination(KeyCode.Y, KeyCombination.CONTROL_DOWN), this::redo);
     }
 
     @Override
     public void clean() {
-        KeyboardShortcutHandler.unassign(new KeyCodeCombination(KeyCode.S, KeyCombination.CONTROL_DOWN));
-        KeyboardShortcutHandler.unassign(new KeyCodeCombination(KeyCode.W, KeyCombination.CONTROL_DOWN));
-        KeyboardShortcutHandler.unassign(new KeyCodeCombination(KeyCode.Z, KeyCombination.CONTROL_DOWN));
-        KeyboardShortcutHandler.unassign(new KeyCodeCombination(KeyCode.Y, KeyCombination.CONTROL_DOWN));
+        KeyboardShortcutMapper.unmap(new KeyCodeCombination(KeyCode.S, KeyCombination.CONTROL_DOWN));
+        KeyboardShortcutMapper.unmap(new KeyCodeCombination(KeyCode.W, KeyCombination.CONTROL_DOWN));
+        KeyboardShortcutMapper.unmap(new KeyCodeCombination(KeyCode.Z, KeyCombination.CONTROL_DOWN));
+        KeyboardShortcutMapper.unmap(new KeyCodeCombination(KeyCode.Y, KeyCombination.CONTROL_DOWN));
     }
 
     @Override

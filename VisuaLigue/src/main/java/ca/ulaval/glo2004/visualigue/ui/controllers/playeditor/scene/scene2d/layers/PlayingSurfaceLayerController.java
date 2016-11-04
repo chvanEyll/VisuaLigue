@@ -8,7 +8,7 @@ import ca.ulaval.glo2004.visualigue.utils.FilenameUtils;
 import ca.ulaval.glo2004.visualigue.utils.geometry.Vector2;
 import ca.ulaval.glo2004.visualigue.utils.javafx.FXUtils;
 import javafx.fxml.FXML;
-import javafx.scene.ImageCursor;
+import javafx.scene.Cursor;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.input.MouseEvent;
@@ -16,11 +16,14 @@ import javafx.scene.layout.StackPane;
 
 public class PlayingSurfaceLayerController extends ControllerBase {
 
+    public static final String VIEW_NAME = "/views/playeditor/scene2d/layers/playing-surface-layer.fxml";
     private static final Double ZOOM_WIDTH_BASE = 1000.0;
 
     public EventHandler<MouseEvent> onMousePressed = new EventHandler();
     public EventHandler<MouseEvent> onMouseDragged = new EventHandler();
     public EventHandler<MouseEvent> onMouseReleased = new EventHandler();
+    public EventHandler<MouseEvent> onMouseMoved = new EventHandler();
+    public EventHandler<MouseEvent> onMouseClicked = new EventHandler();
     @FXML private ImageView rootNode;
     private Image image;
     private PlayModel playModel;
@@ -62,6 +65,16 @@ public class PlayingSurfaceLayerController extends ControllerBase {
         onMouseReleased.fire(this, e);
     }
 
+    @FXML
+    protected void onMouseMoved(MouseEvent e) {
+        onMouseMoved.fire(this, e);
+    }
+
+    @FXML
+    protected void onMouseClicked(MouseEvent e) {
+        onMouseClicked.fire(this, e);
+    }
+
     public void setFitSize(Vector2 fitSize) {
         rootNode.setFitWidth(getSurfaceSize().getX());
         rootNode.setFitHeight(getSurfaceSize().getY());
@@ -80,15 +93,19 @@ public class PlayingSurfaceLayerController extends ControllerBase {
         return new Vector2(rootNode.getFitWidth(), rootNode.getFitHeight());
     }
 
-    public Vector2 getMousePosition() {
+    public Vector2 getRelativeMousePosition() {
         Vector2 mousePosition = FXUtils.mouseToNodePoint(rootNode);
-        Vector2 relativeMousePosition = mousePosition.divide(getSurfaceSize());
+        return mousePosition.divide(getSurfaceSize());
+    }
+
+    public Vector2 getRealWorldMousePosition() {
+        Vector2 relativeMousePosition = getRelativeMousePosition();
         Vector2 surfacePosition = relativeMousePosition.multiply(new Vector2(playModel.playingSurfaceWidth.get(), playModel.playingSurfaceLength.get()));
         return surfacePosition;
     }
 
-    public void setCursor(ImageCursor imageCursor) {
-        rootNode.setCursor(imageCursor);
+    public void setCursor(Cursor cursor) {
+        rootNode.setCursor(cursor);
     }
 
     public Vector2 relativeToSurfacePoint(Vector2 relativePoint) {
