@@ -8,7 +8,6 @@ import ca.ulaval.glo2004.visualigue.domain.play.actorstate.transition.LinearTran
 
 public class PlayerOrientationUpdateCommand extends Command {
 
-    private Integer time;
     private String ownerPlayerInstanceUUID;
     private Double orientation;
 
@@ -16,8 +15,7 @@ public class PlayerOrientationUpdateCommand extends Command {
     private ActorState oldPlayerState;
 
     public PlayerOrientationUpdateCommand(Play play, Integer time, String ownerPlayerInstanceUUID, Double orientation) {
-        super(play);
-        this.time = time;
+        super(play, time);
         this.ownerPlayerInstanceUUID = ownerPlayerInstanceUUID;
         this.orientation = orientation;
     }

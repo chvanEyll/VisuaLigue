@@ -34,6 +34,7 @@ public class Scene2DController extends SceneController {
     @Inject SettingsService settingsService;
     private NavigationController navigationController;
     private List<ControllerBase> sceneLayers = new ArrayList();
+    private ControllerBase creationLayer;
     private Map<ActorModel, ControllerBase> sceneLayerMap = new HashMap();
     private final FrameModel frameModel = new FrameModel();
 

@@ -24,7 +24,9 @@
                         <Pane maxHeight="5.0" prefHeight="5.0" styleClass="bar"/>
                         <HBox alignment="CENTER_LEFT">
                             <StackPane alignment="CENTER_LEFT">
-                                <HBox fx:id="keyframeHBox" spacing="20" alignment="CENTER_LEFT"/>
+                                <HBox alignment="CENTER_LEFT">
+                                    <HBox fx:id="keyframeHBox" spacing="20" alignment="CENTER_LEFT"/>
+                                </HBox>
                                 <Button fx:id="seekBarThumb" onMousePressed="#onMousePressed" onMouseDragged="#onMouseDragged" onMouseReleased="#onMouseReleased">
                                     <graphic>
                                         <SvgImage url="/images/seekbar-thumb.fxml" />

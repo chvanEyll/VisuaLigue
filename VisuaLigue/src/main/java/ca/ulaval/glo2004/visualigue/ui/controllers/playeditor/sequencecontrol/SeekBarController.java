@@ -12,14 +12,11 @@ import ca.ulaval.glo2004.visualigue.ui.converters.FrameModelConverter;
 import ca.ulaval.glo2004.visualigue.ui.models.PlayModel;
 import ca.ulaval.glo2004.visualigue.utils.EventHandler;
 import ca.ulaval.glo2004.visualigue.utils.math.MathUtils;
-import java.util.ArrayDeque;
 import java.util.ArrayList;
-import java.util.Deque;
 import java.util.List;
+import java.util.Timer;
+import java.util.TimerTask;
 import java.util.function.BiConsumer;
-import java.util.function.Consumer;
-import javafx.beans.value.ChangeListener;
-import javafx.beans.value.ObservableValue;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.geometry.Insets;
@@ -48,21 +45,15 @@ public class SeekBarController extends ControllerBase {
     private Double dragStartX;
     private Double dragStartThumbLocationX;
     private Animator animator;
-    private ChangeListener<Number> moveToNewKeyPointHandler = this::moveToNewKeyPointHandler;
     private BiConsumer<Object, Integer> onTimelineLengthChanged = this::onTimelineLengthChanged;
-    private Consumer<Object> onUndo = this::onUndo;
-    private Consumer<Object> onRedo = this::onRedo;
-    private Consumer<Object> onPlayServiceNewCommandExecute = this::onPlayServiceNewCommandExecute;
-    private Deque<Integer> undoStack = new ArrayDeque();
-    private Deque<Integer> redoStack = new ArrayDeque();
+    private BiConsumer<Object, Integer> onUndoRedo = this::onUndoRedo;
 
     public void init(PlayModel playModel, SceneController sceneController) {
         this.playModel = playModel;
         this.sceneController = sceneController;
         playService.onPlayTimelineLengthChanged.addHandler(onTimelineLengthChanged);
-        playService.onUndo.addHandler(onUndo);
-        playService.onRedo.addHandler(onRedo);
-        playService.onNewCommandExecute.addHandler(onPlayServiceNewCommandExecute);
+        playService.onUndo.addHandler(onUndoRedo);
+        playService.onRedo.addHandler(onUndoRedo);
         updateKeyPoints();
         move(0);
     }
@@ -70,32 +61,18 @@ public class SeekBarController extends ControllerBase {
     @Override
     public void clean() {
         playService.onPlayTimelineLengthChanged.removeHandler(onTimelineLengthChanged);
-        playService.onUndo.removeHandler(onUndo);
-        playService.onRedo.removeHandler(onRedo);
-        playService.onNewCommandExecute.removeHandler(onPlayServiceNewCommandExecute);
+        playService.onUndo.removeHandler(onUndoRedo);
+        playService.onRedo.removeHandler(onUndoRedo);
     }
 
     @FXML
     protected void onNewKeyPointButtonAction(ActionEvent e) {
-        keyframeHBox.widthProperty().addListener(moveToNewKeyPointHandler);
-        playService.setTimelineLength(playModel.getUUID(), getLength() + KEY_POINT_INTERVAL);
+        playService.setTimelineLength(playModel.getUUID(), time, getLength() + KEY_POINT_INTERVAL);
+        setTimeDelayed(getLength());
     }
 
-    private void onUndo(Object sender) {
-        Integer undoTime = undoStack.pop();
-        redoStack.push(undoTime);
-        setTime(undoTime);
-    }
-
-    private void onRedo(Object sender) {
-        Integer redoTime = redoStack.pop();
-        undoStack.push(redoTime);
-        setTime(redoTime);
-    }
-
-    private void onPlayServiceNewCommandExecute(Object sender) {
-        redoStack.clear();
-        undoStack.push(time);
+    private void onUndoRedo(Object sender, Integer time) {
+        setTimeDelayed(time);
     }
 
     private void onTimelineLengthChanged(Object sender, Integer newTimelineLength) {
@@ -123,11 +100,6 @@ public class SeekBarController extends ControllerBase {
         keyframeHBox.getChildren().add(view.getRoot());
         keyPoints.add(view);
 
-    }
-
-    public void moveToNewKeyPointHandler(ObservableValue<? extends Number> value, Number oldPropertyValue, Number newPropertyValue) {
-        keyframeHBox.widthProperty().removeListener(moveToNewKeyPointHandler);
-        setTime(getLength());
     }
 
     private void removeKeyPoint() {
@@ -158,6 +130,17 @@ public class SeekBarController extends ControllerBase {
 
     public Integer getTime() {
         return time;
+    }
+
+    private void setTimeDelayed(Integer time) {
+        TimerTask setTimeDelayedTask = new TimerTask() {
+            @Override
+            public void run() {
+                setTime(time);
+            }
+        };
+        Timer timer = new Timer();
+        timer.schedule(setTimeDelayedTask, 100);
     }
 
     private void setTime(Integer time) {

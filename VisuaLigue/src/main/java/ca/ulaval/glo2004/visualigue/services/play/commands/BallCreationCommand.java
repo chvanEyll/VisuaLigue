@@ -9,15 +9,13 @@ import ca.ulaval.glo2004.visualigue.utils.geometry.Vector2;
 
 public class BallCreationCommand extends Command {
 
-    private Integer time;
     private String ownerPlayerInstanceUUID;
     private Vector2 position;
 
     private BallInstance ballInstance;
 
     public BallCreationCommand(Play play, Integer time, String ownerPlayerInstanceUUID, Vector2 position) {
-        super(play);
-        this.time = time;
+        super(play, time);
         this.ownerPlayerInstanceUUID = ownerPlayerInstanceUUID;
         this.position = position;
     }

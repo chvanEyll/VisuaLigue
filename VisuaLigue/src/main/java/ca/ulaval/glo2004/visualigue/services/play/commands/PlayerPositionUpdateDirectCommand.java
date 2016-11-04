@@ -9,7 +9,6 @@ import ca.ulaval.glo2004.visualigue.utils.geometry.Vector2;
 
 public class PlayerPositionUpdateDirectCommand extends Command {
 
-    private Integer time;
     private String ownerPlayerInstanceUUID;
     private Vector2 position;
 
@@ -17,8 +16,7 @@ public class PlayerPositionUpdateDirectCommand extends Command {
     private ActorState oldPlayerState;
 
     public PlayerPositionUpdateDirectCommand(Play play, Integer time, String ownerPlayerInstanceUUID, Vector2 position) {
-        super(play);
-        this.time = time;
+        super(play, time);
         this.ownerPlayerInstanceUUID = ownerPlayerInstanceUUID;
         this.position = position;
     }

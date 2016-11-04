@@ -12,7 +12,6 @@ import javax.inject.Inject;
 
 public class PlayerCreationCommand extends Command {
 
-    private Integer time;
     private String playerCategoryUUID;
     private TeamSide teamSide;
     private Double orientation;
@@ -22,8 +21,7 @@ public class PlayerCreationCommand extends Command {
     private PlayerInstance playerInstance;
 
     public PlayerCreationCommand(Play play, Integer time, String playerCategoryUUID, TeamSide teamSide, Double orientation, Vector2 position) {
-        super(play);
-        this.time = time;
+        super(play, time);
         this.playerCategoryUUID = playerCategoryUUID;
         this.teamSide = teamSide;
         this.orientation = orientation;

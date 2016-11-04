@@ -10,7 +10,6 @@ import ca.ulaval.glo2004.visualigue.utils.geometry.Vector2;
 
 public class BallUpdateCommand extends Command {
 
-    private Integer time;
     private String ballInstanceUUID;
     private String ownerPlayerInstanceUUID;
     private Vector2 position;
@@ -19,8 +18,7 @@ public class BallUpdateCommand extends Command {
     private ActorState oldBallState;
 
     public BallUpdateCommand(Play play, Integer time, String ballInstanceUUID, String ownerPlayerInstanceUUID, Vector2 position) {
-        super(play);
-        this.time = time;
+        super(play, time);
         this.ballInstanceUUID = ballInstanceUUID;
         this.ownerPlayerInstanceUUID = ownerPlayerInstanceUUID;
         this.position = position;

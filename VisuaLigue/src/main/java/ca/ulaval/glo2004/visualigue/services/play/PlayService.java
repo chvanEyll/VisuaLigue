@@ -29,8 +29,8 @@ public class PlayService {
     public EventHandler<Play> onPlayCreated = new EventHandler();
     public EventHandler<Play> onPlayTitleUpdated = new EventHandler();
     public EventHandler<Play> onPlayDeleted = new EventHandler();
-    public EventHandler onUndo = new EventHandler();
-    public EventHandler onRedo = new EventHandler();
+    public EventHandler<Integer> onUndo = new EventHandler();
+    public EventHandler<Integer> onRedo = new EventHandler();
     public EventHandler onNewCommandExecute = new EventHandler();
     public EventHandler<Boolean> onUndoAvailabilityChanged = new EventHandler();
     public EventHandler<Boolean> onRedoAvailabilityChanged = new EventHandler();
@@ -121,9 +121,9 @@ public class PlayService {
         return play.getTimelineLength();
     }
 
-    public void setTimelineLength(String playUUID, Integer timelineLength) {
+    public void setTimelineLength(String playUUID, Integer time, Integer timelineLength) {
         Play play = playRepository.get(playUUID);
-        TimelineLengthUpdateCommand command = new TimelineLengthUpdateCommand(play, timelineLength, onPlayTimelineLengthChanged);
+        TimelineLengthUpdateCommand command = new TimelineLengthUpdateCommand(play, time, timelineLength, onPlayTimelineLengthChanged);
         executeNewCommand(playUUID, command);
     }
 
@@ -175,7 +175,7 @@ public class PlayService {
         setDirty(playUUID, true);
         onUndoAvailabilityChanged.fire(this, isUndoAvailable(playUUID));
         onRedoAvailabilityChanged.fire(this, isRedoAvailable(playUUID));
-        onUndo.fire(this);
+        onUndo.fire(this, lastCommand.getTime());
     }
 
     public void redo(String playUUID) throws PlayNotFoundException {
@@ -188,7 +188,7 @@ public class PlayService {
         setDirty(playUUID, true);
         onUndoAvailabilityChanged.fire(this, isUndoAvailable(playUUID));
         onRedoAvailabilityChanged.fire(this, isRedoAvailable(playUUID));
-        onRedo.fire(this);
+        onRedo.fire(this, nextCommand.getTime());
     }
 
     private void executeNewCommand(String playUUID, Command command) {

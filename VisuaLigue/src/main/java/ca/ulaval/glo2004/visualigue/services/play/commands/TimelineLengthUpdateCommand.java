@@ -9,8 +9,8 @@ public class TimelineLengthUpdateCommand extends Command {
     private Integer oldTimelineLength;
     private EventHandler<Integer> onPlayTimelineLengthChanged = new EventHandler();
 
-    public TimelineLengthUpdateCommand(Play play, Integer timelineLength, EventHandler<Integer> onPlayTimelineLengthChanged) {
-        super(play);
+    public TimelineLengthUpdateCommand(Play play, Integer time, Integer timelineLength, EventHandler<Integer> onPlayTimelineLengthChanged) {
+        super(play, time);
         this.timelineLength = timelineLength;
         this.onPlayTimelineLengthChanged = onPlayTimelineLengthChanged;
     }

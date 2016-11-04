@@ -11,7 +11,6 @@ import javax.inject.Inject;
 
 public class ObstacleCreationCommand extends Command {
 
-    private Integer time;
     private String obstacleInstanceUUID;
     private Vector2 position;
     @Inject private ObstacleRepository obstacleRepository;
@@ -19,8 +18,7 @@ public class ObstacleCreationCommand extends Command {
     private ObstacleInstance obstacleInstance;
 
     public ObstacleCreationCommand(Play play, Integer time, String obstacleInstanceUUID, Vector2 position) {
-        super(play);
-        this.time = time;
+        super(play, time);
         this.obstacleInstanceUUID = obstacleInstanceUUID;
         this.position = position;
     }
