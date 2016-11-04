@@ -12,8 +12,11 @@ import ca.ulaval.glo2004.visualigue.ui.converters.FrameModelConverter;
 import ca.ulaval.glo2004.visualigue.ui.models.PlayModel;
 import ca.ulaval.glo2004.visualigue.utils.EventHandler;
 import ca.ulaval.glo2004.visualigue.utils.math.MathUtils;
+import java.util.ArrayDeque;
 import java.util.ArrayList;
+import java.util.Deque;
 import java.util.List;
+import javafx.beans.value.ChangeListener;
 import javafx.beans.value.ObservableValue;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
@@ -43,11 +46,17 @@ public class SeekBarController extends ControllerBase {
     private Double dragStartX;
     private Double dragStartThumbLocationX;
     private Animator animator;
+    private ChangeListener<Number> moveToNewKeyPointHandler = this::moveToNewKeyPointHandler;
+    private Deque<Integer> undoStack = new ArrayDeque();
+    private Deque<Integer> redoStack = new ArrayDeque();
 
     public void init(PlayModel playModel, SceneController sceneController) {
         this.playModel = playModel;
         this.sceneController = sceneController;
         playService.onPlayTimelineLengthChanged.addHandler(this::onTimelineLengthChanged);
+        playService.onUndo.addHandler(this::onUndo);
+        playService.onRedo.addHandler(this::onRedo);
+        playService.onNewCommandExecute.addHandler(this::onPlayServiceNewCommandExecute);
         updateKeyPoints();
         move(0);
     }
@@ -55,12 +64,32 @@ public class SeekBarController extends ControllerBase {
     @Override
     public void clean() {
         playService.onPlayTimelineLengthChanged.removeHandler(this::onTimelineLengthChanged);
+        playService.onUndo.removeHandler(this::onUndo);
+        playService.onRedo.removeHandler(this::onRedo);
+        playService.onNewCommandExecute.removeHandler(this::onPlayServiceNewCommandExecute);
     }
 
     @FXML
     protected void onNewKeyPointButtonAction(ActionEvent e) {
-        keyframeHBox.widthProperty().addListener(this::moveToNewKeyPointHandler);
+        keyframeHBox.widthProperty().addListener(moveToNewKeyPointHandler);
         playService.setTimelineLength(playModel.getUUID(), getLength() + KEY_POINT_INTERVAL);
+    }
+
+    private void onUndo(Object sender) {
+        Integer undoTime = undoStack.pop();
+        redoStack.push(undoTime);
+        setTime(undoTime);
+    }
+
+    private void onRedo(Object sender) {
+        Integer redoTime = redoStack.pop();
+        undoStack.push(redoTime);
+        setTime(redoTime);
+    }
+
+    private void onPlayServiceNewCommandExecute(Object sender) {
+        redoStack.clear();
+        undoStack.push(time);
     }
 
     private void onTimelineLengthChanged(Object sender, Integer newTimelineLength) {
@@ -91,7 +120,7 @@ public class SeekBarController extends ControllerBase {
     }
 
     public void moveToNewKeyPointHandler(ObservableValue<? extends Number> value, Number oldPropertyValue, Number newPropertyValue) {
-        keyframeHBox.widthProperty().removeListener(this::moveToNewKeyPointHandler);
+        keyframeHBox.widthProperty().removeListener(moveToNewKeyPointHandler);
         setTime(getLength());
     }
 

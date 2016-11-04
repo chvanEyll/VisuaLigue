@@ -29,6 +29,9 @@ public class PlayService {
     public EventHandler<Play> onPlayCreated = new EventHandler();
     public EventHandler<Play> onPlayTitleUpdated = new EventHandler();
     public EventHandler<Play> onPlayDeleted = new EventHandler();
+    public EventHandler onUndo = new EventHandler();
+    public EventHandler onRedo = new EventHandler();
+    public EventHandler onNewCommandExecute = new EventHandler();
     public EventHandler<Boolean> onUndoAvailabilityChanged = new EventHandler();
     public EventHandler<Boolean> onRedoAvailabilityChanged = new EventHandler();
     public EventHandler<Play> onPlayDirtyFlagChanged = new EventHandler();
@@ -120,9 +123,8 @@ public class PlayService {
 
     public void setTimelineLength(String playUUID, Integer timelineLength) {
         Play play = playRepository.get(playUUID);
-        TimelineLengthUpdateCommand command = new TimelineLengthUpdateCommand(play, timelineLength);
+        TimelineLengthUpdateCommand command = new TimelineLengthUpdateCommand(play, timelineLength, onPlayTimelineLengthChanged);
         executeNewCommand(playUUID, command);
-        onPlayTimelineLengthChanged.fire(this, timelineLength);
     }
 
     public void savePlay(String playUUID) throws PlayNotFoundException {
@@ -172,6 +174,8 @@ public class PlayService {
         lastCommand.revert();
         setDirty(playUUID, true);
         onUndoAvailabilityChanged.fire(this, isUndoAvailable(playUUID));
+        onRedoAvailabilityChanged.fire(this, isRedoAvailable(playUUID));
+        onUndo.fire(this);
     }
 
     public void redo(String playUUID) throws PlayNotFoundException {
@@ -182,7 +186,9 @@ public class PlayService {
         undoStackMap.get(playUUID).push(nextCommand);
         nextCommand.execute();
         setDirty(playUUID, true);
+        onUndoAvailabilityChanged.fire(this, isUndoAvailable(playUUID));
         onRedoAvailabilityChanged.fire(this, isRedoAvailable(playUUID));
+        onRedo.fire(this);
     }
 
     private void executeNewCommand(String playUUID, Command command) {
@@ -196,6 +202,9 @@ public class PlayService {
         }
         redoStackMap.get(playUUID).clear();
         undoStackMap.get(playUUID).push(command);
+        onRedoAvailabilityChanged.fire(this, isRedoAvailable(playUUID));
+        onUndoAvailabilityChanged.fire(this, isUndoAvailable(playUUID));
+        onNewCommandExecute.fire(this);
     }
 
     private void setDirty(String playUUID, Boolean dirty) throws PlayNotFoundException {

@@ -8,9 +8,8 @@ import ca.ulaval.glo2004.visualigue.domain.play.actorstate.BallState;
 import ca.ulaval.glo2004.visualigue.domain.play.actorstate.transition.LinearTransition;
 import ca.ulaval.glo2004.visualigue.utils.geometry.Vector2;
 
-public class BallUpdateCommand implements Command {
+public class BallUpdateCommand extends Command {
 
-    private Play play;
     private Integer time;
     private String ballInstanceUUID;
     private String ownerPlayerInstanceUUID;
@@ -20,7 +19,7 @@ public class BallUpdateCommand implements Command {
     private ActorState oldBallState;
 
     public BallUpdateCommand(Play play, Integer time, String ballInstanceUUID, String ownerPlayerInstanceUUID, Vector2 position) {
-        this.play = play;
+        super(play);
         this.time = time;
         this.ballInstanceUUID = ballInstanceUUID;
         this.ownerPlayerInstanceUUID = ownerPlayerInstanceUUID;

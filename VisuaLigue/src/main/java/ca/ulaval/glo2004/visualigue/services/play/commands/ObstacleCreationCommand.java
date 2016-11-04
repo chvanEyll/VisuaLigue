@@ -9,9 +9,8 @@ import ca.ulaval.glo2004.visualigue.domain.play.actorstate.ObstacleState;
 import ca.ulaval.glo2004.visualigue.utils.geometry.Vector2;
 import javax.inject.Inject;
 
-public class ObstacleCreationCommand implements Command {
+public class ObstacleCreationCommand extends Command {
 
-    private Play play;
     private Integer time;
     private String obstacleInstanceUUID;
     private Vector2 position;
@@ -20,6 +19,7 @@ public class ObstacleCreationCommand implements Command {
     private ObstacleInstance obstacleInstance;
 
     public ObstacleCreationCommand(Play play, Integer time, String obstacleInstanceUUID, Vector2 position) {
+        super(play);
         this.time = time;
         this.obstacleInstanceUUID = obstacleInstanceUUID;
         this.position = position;

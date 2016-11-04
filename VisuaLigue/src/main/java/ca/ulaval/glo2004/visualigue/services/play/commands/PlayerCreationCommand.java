@@ -10,9 +10,8 @@ import ca.ulaval.glo2004.visualigue.domain.sport.playercategory.PlayerCategoryRe
 import ca.ulaval.glo2004.visualigue.utils.geometry.Vector2;
 import javax.inject.Inject;
 
-public class PlayerCreationCommand implements Command {
+public class PlayerCreationCommand extends Command {
 
-    private Play play;
     private Integer time;
     private String playerCategoryUUID;
     private TeamSide teamSide;
@@ -23,7 +22,7 @@ public class PlayerCreationCommand implements Command {
     private PlayerInstance playerInstance;
 
     public PlayerCreationCommand(Play play, Integer time, String playerCategoryUUID, TeamSide teamSide, Double orientation, Vector2 position) {
-        this.play = play;
+        super(play);
         this.time = time;
         this.playerCategoryUUID = playerCategoryUUID;
         this.teamSide = teamSide;

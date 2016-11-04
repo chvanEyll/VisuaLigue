@@ -221,8 +221,8 @@ public class ToolbarController extends ControllerBase {
         undoButton.setDisable(!undoAvailable);
     }
 
-    private void onRedoAvailabilityChanged(Object sender, Boolean undoAvailable) {
-        redoButton.setDisable(!undoAvailable);
+    private void onRedoAvailabilityChanged(Object sender, Boolean redoAvailable) {
+        redoButton.setDisable(!redoAvailable);
     }
 
     private void onPlayDirtyFlagChanged(Object sender, Play play) {

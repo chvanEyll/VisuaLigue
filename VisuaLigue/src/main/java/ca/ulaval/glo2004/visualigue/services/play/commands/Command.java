@@ -1,9 +1,16 @@
 package ca.ulaval.glo2004.visualigue.services.play.commands;
 
-public interface Command {
+import ca.ulaval.glo2004.visualigue.domain.play.Play;
 
-    void execute();
+public abstract class Command {
 
-    void revert();
+    protected Play play;
 
+    public Command(Play play) {
+        this.play = play;
+    }
+
+    public abstract void execute();
+
+    public abstract void revert();
 }

@@ -7,9 +7,8 @@ import ca.ulaval.glo2004.visualigue.domain.play.actorstate.BallState;
 import ca.ulaval.glo2004.visualigue.domain.play.actorstate.transition.LinearTransition;
 import ca.ulaval.glo2004.visualigue.utils.geometry.Vector2;
 
-public class BallCreationCommand implements Command {
+public class BallCreationCommand extends Command {
 
-    private Play play;
     private Integer time;
     private String ownerPlayerInstanceUUID;
     private Vector2 position;
@@ -17,7 +16,7 @@ public class BallCreationCommand implements Command {
     private BallInstance ballInstance;
 
     public BallCreationCommand(Play play, Integer time, String ownerPlayerInstanceUUID, Vector2 position) {
-        this.play = play;
+        super(play);
         this.time = time;
         this.ownerPlayerInstanceUUID = ownerPlayerInstanceUUID;
         this.position = position;

@@ -7,9 +7,8 @@ import ca.ulaval.glo2004.visualigue.domain.play.actorstate.PlayerState;
 import ca.ulaval.glo2004.visualigue.domain.play.actorstate.transition.LinearTransition;
 import ca.ulaval.glo2004.visualigue.utils.geometry.Vector2;
 
-public class PlayerPositionUpdateDirectCommand implements Command {
+public class PlayerPositionUpdateDirectCommand extends Command {
 
-    private Play play;
     private Integer time;
     private String ownerPlayerInstanceUUID;
     private Vector2 position;
@@ -18,7 +17,7 @@ public class PlayerPositionUpdateDirectCommand implements Command {
     private ActorState oldPlayerState;
 
     public PlayerPositionUpdateDirectCommand(Play play, Integer time, String ownerPlayerInstanceUUID, Vector2 position) {
-        this.play = play;
+        super(play);
         this.time = time;
         this.ownerPlayerInstanceUUID = ownerPlayerInstanceUUID;
         this.position = position;

@@ -2,6 +2,7 @@ package ca.ulaval.glo2004.visualigue.utils.javafx;
 
 import java.util.HashMap;
 import java.util.Map;
+import javafx.beans.value.ChangeListener;
 import javafx.beans.value.ObservableValue;
 import javafx.scene.layout.Region;
 import javafx.scene.shape.Rectangle;
@@ -9,19 +10,21 @@ import javafx.scene.shape.Rectangle;
 public class ClippingUtils {
 
     private static Map<ObservableValue, Region> regionMap = new HashMap();
+    private static ChangeListener<Number> onRegionWidthChanged = ClippingUtils::onRegionWidthChanged;
+    private static ChangeListener<Number> onRegionHeightChanged = ClippingUtils::onRegionHeightChanged;
 
     public static void clipToSize(Region region) {
         regionMap.put(region.widthProperty(), region);
-        region.widthProperty().removeListener(ClippingUtils::onRegionWidthChanged);
-        region.widthProperty().addListener(ClippingUtils::onRegionWidthChanged);
+        region.widthProperty().removeListener(onRegionWidthChanged);
+        region.widthProperty().addListener(onRegionWidthChanged);
         regionMap.put(region.heightProperty(), region);
-        region.heightProperty().removeListener(ClippingUtils::onRegionHeightChanged);
-        region.heightProperty().addListener(ClippingUtils::onRegionHeightChanged);
+        region.heightProperty().removeListener(onRegionHeightChanged);
+        region.heightProperty().addListener(onRegionHeightChanged);
     }
 
     public static void unclip(Region region) {
-        region.widthProperty().removeListener(ClippingUtils::onRegionWidthChanged);
-        region.heightProperty().removeListener(ClippingUtils::onRegionHeightChanged);
+        region.widthProperty().removeListener(onRegionWidthChanged);
+        region.heightProperty().removeListener(onRegionHeightChanged);
         regionMap.remove(region.widthProperty(), region);
         regionMap.remove(region.heightProperty(), region);
         region.setClip(null);

@@ -7,9 +7,8 @@ import ca.ulaval.glo2004.visualigue.domain.play.actorstate.PlayerState;
 import ca.ulaval.glo2004.visualigue.domain.play.actorstate.transition.StateTransition;
 import ca.ulaval.glo2004.visualigue.utils.geometry.Vector2;
 
-public class PlayerPositionUpdateFreeformCommand implements Command {
+public class PlayerPositionUpdateFreeformCommand extends Command {
 
-    private Play play;
     private Integer time;
     private String ownerPlayerInstanceUUID;
     private Vector2 position;
@@ -19,6 +18,7 @@ public class PlayerPositionUpdateFreeformCommand implements Command {
     private ActorState oldPlayerState;
 
     public PlayerPositionUpdateFreeformCommand(Play play, Integer time, String ownerPlayerInstanceUUID, Vector2 position, StateTransition positionTransition) {
+        super(play);
         this.time = time;
         this.ownerPlayerInstanceUUID = ownerPlayerInstanceUUID;
         this.position = position;
