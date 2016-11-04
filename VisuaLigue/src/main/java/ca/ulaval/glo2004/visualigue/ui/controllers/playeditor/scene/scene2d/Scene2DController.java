@@ -10,6 +10,7 @@ import ca.ulaval.glo2004.visualigue.ui.View;
 import ca.ulaval.glo2004.visualigue.ui.controllers.common.ExtendedScrollPane;
 import ca.ulaval.glo2004.visualigue.ui.controllers.playeditor.scene.SceneController;
 import ca.ulaval.glo2004.visualigue.ui.controllers.playeditor.scene.Zoom;
+import ca.ulaval.glo2004.visualigue.ui.controllers.playeditor.scene.scene2d.actorcreation.BallCreationController;
 import ca.ulaval.glo2004.visualigue.ui.controllers.playeditor.scene.scene2d.actorcreation.ObstacleCreationController;
 import ca.ulaval.glo2004.visualigue.ui.controllers.playeditor.scene.scene2d.actorcreation.PlayerCreationController;
 import ca.ulaval.glo2004.visualigue.ui.controllers.playeditor.scene.scene2d.layers.ActorLayerViewFactory;
@@ -40,6 +41,7 @@ public class Scene2DController extends SceneController {
     private LayerController layerController;
     private PlayerCreationController playerCreationController;
     private ObstacleCreationController obstacleCreationController;
+    private BallCreationController ballCreationController;
     private final FrameModel frameModel = new FrameModel();
 
     @Override
@@ -70,11 +72,15 @@ public class Scene2DController extends SceneController {
         obstacleCreationController = new ObstacleCreationController(playingSurfaceLayerController, layerController, actorModelConverter, playModel, playService);
         obstacleCreationController.onCreationModeExited.forward(this.onObstacleCreationModeExited);
         obstacleCreationController.onCreationModeEntered.forward(this.onCreationModeEntered);
+        ballCreationController = new BallCreationController(playingSurfaceLayerController, layerController, actorModelConverter, playModel, playService);
+        ballCreationController.onCreationModeExited.forward(this.onBallCreationModeExited);
+        ballCreationController.onCreationModeEntered.forward(this.onCreationModeEntered);
         super.addChild(playingSurfaceLayerController);
         super.addChild(navigationController);
         super.addChild(layerController);
         super.addChild(playerCreationController);
         super.addChild(obstacleCreationController);
+        super.addChild(ballCreationController);
     }
 
     private void initKeyboardShortcuts() {
@@ -84,6 +90,7 @@ public class Scene2DController extends SceneController {
         KeyboardShortcutMapper.map(new KeyCodeCombination(KeyCode.SUBTRACT, KeyCombination.CONTROL_DOWN), this::zoomOut);
         KeyboardShortcutMapper.map(new KeyCodeCombination(KeyCode.R, KeyCombination.CONTROL_DOWN), this::toggleRealTimeMode);
         KeyboardShortcutMapper.map(new KeyCodeCombination(KeyCode.Q, KeyCombination.CONTROL_DOWN), this::enterNavigationMode);
+
     }
 
     @Override
@@ -111,6 +118,7 @@ public class Scene2DController extends SceneController {
     public void enterPlayerCreationMode(PlayerCategoryModel playerCategoryModel, TeamSide teamSide) {
         navigationController.exitNavigationMode();
         obstacleCreationController.exitCreationMode();
+        ballCreationController.exitCreationMode();
         playerCreationController.enterCreationMode(playerCategoryModel, teamSide);
     }
 
@@ -119,12 +127,14 @@ public class Scene2DController extends SceneController {
         navigationController.exitNavigationMode();
         playerCreationController.exitCreationMode();
         obstacleCreationController.exitCreationMode();
+        ballCreationController.enterCreationMode(ballModel);
     }
 
     @Override
     public void enterObstacleCreationMode(ObstacleModel obstacleModel) {
         navigationController.exitNavigationMode();
         playerCreationController.exitCreationMode();
+        ballCreationController.exitCreationMode();
         obstacleCreationController.enterCreationMode(obstacleModel);
     }
 
@@ -132,6 +142,7 @@ public class Scene2DController extends SceneController {
     public void enterNavigationMode() {
         playerCreationController.exitCreationMode();
         obstacleCreationController.exitCreationMode();
+        ballCreationController.exitCreationMode();
         navigationController.enterNavigationMode();
     }
 

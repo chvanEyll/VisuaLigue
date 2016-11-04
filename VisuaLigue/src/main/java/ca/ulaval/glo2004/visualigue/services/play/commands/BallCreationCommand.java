@@ -25,7 +25,10 @@ public class BallCreationCommand extends Command {
 
     @Override
     public void execute() {
-        PlayerInstance playerInstance = (PlayerInstance) play.getActorInstance(ownerPlayerInstanceUUID);
+        PlayerInstance playerInstance = null;
+        if (ownerPlayerInstanceUUID != null) {
+            playerInstance = (PlayerInstance) play.getActorInstance(ownerPlayerInstanceUUID);
+        }
         BallState ballState = new BallState(position, new LinearTransition(), playerInstance);
         ballInstance = new BallInstance();
         play.mergeKeyframe(time, ballInstance, ballState);

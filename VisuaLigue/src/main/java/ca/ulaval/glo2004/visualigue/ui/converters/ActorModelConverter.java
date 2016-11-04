@@ -11,10 +11,7 @@ import ca.ulaval.glo2004.visualigue.domain.play.actorstate.BallState;
 import ca.ulaval.glo2004.visualigue.domain.play.actorstate.ObstacleState;
 import ca.ulaval.glo2004.visualigue.domain.play.actorstate.PlayerState;
 import ca.ulaval.glo2004.visualigue.domain.play.frame.Frame;
-import ca.ulaval.glo2004.visualigue.ui.models.ActorModel;
-import ca.ulaval.glo2004.visualigue.ui.models.ObstacleModel;
-import ca.ulaval.glo2004.visualigue.ui.models.PlayModel;
-import ca.ulaval.glo2004.visualigue.ui.models.PlayerCategoryModel;
+import ca.ulaval.glo2004.visualigue.ui.models.*;
 import javax.inject.Inject;
 
 public class ActorModelConverter {
@@ -43,6 +40,14 @@ public class ActorModelConverter {
         actorModel.type.set(ActorModel.Type.OBSTACLE);
         actorModel.imagePathName.set(obstacleModel.currentImagePathName.get());
         actorModel.builtInImagePathName.set(obstacleModel.builtInImagePathName.get());
+        return actorModel;
+    }
+
+    public ActorModel convertBall(BallModel ballModel) {
+        ActorModel actorModel = new ActorModel();
+        actorModel.type.set(ActorModel.Type.BALL);
+        actorModel.imagePathName.set(ballModel.imagePathName.get());
+        actorModel.builtInImagePathName.set(ballModel.builtInImagePathName.get());
         return actorModel;
     }
 

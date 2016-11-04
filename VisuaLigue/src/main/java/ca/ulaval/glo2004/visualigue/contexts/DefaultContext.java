@@ -42,6 +42,7 @@ public class DefaultContext extends ContextBase {
     private final List<Sport> sportPool = new ArrayList();
     private Sport hockeySport;
     private Obstacle coneObstacle;
+    private PlayerCategory leftWingerHockeyPlayerCategory;
 
     @Inject
     public DefaultContext(final SportFactory sportFactory, final SportRepository sportRepository, final PlayerCategoryRepository playerCategoryRepository, final ImageRepository imageRepository, final ObstacleFactory obstacleFactory,
@@ -94,7 +95,8 @@ public class DefaultContext extends ContextBase {
         addPlayerCategory(sport, new PlayerCategory("Gardien", "G", Color.web("#E6994D"), Color.web("#E6994D"), 1));
         addPlayerCategory(sport, new PlayerCategory("Défenseur", "D", Color.web("#001A80"), Color.web("#990000"), 2));
         addPlayerCategory(sport, new PlayerCategory("Attaquant", "A", Color.web("#001A80"), Color.web("#990000"), 2));
-        addPlayerCategory(sport, new PlayerCategory("Ailier Gauche", "AG", Color.web("#001A80"), Color.web("#990000"), 1));
+        leftWingerHockeyPlayerCategory = new PlayerCategory("Ailier Gauche", "AG", Color.web("#001A80"), Color.web("#990000"), 1);
+        addPlayerCategory(sport, leftWingerHockeyPlayerCategory);
         addPlayerCategory(sport, new PlayerCategory("Ailier Droit", "AD", Color.web("#001A80"), Color.web("#990000"), 1));
         addPlayerCategory(sport, new PlayerCategory("Centre", "C", Color.web("#001A80"), Color.web("#990000"), 1));
         return sport;
@@ -259,8 +261,7 @@ public class DefaultContext extends ContextBase {
     private Play createDefaultPlay() {
         Play play = playFactory.create(sportPool.get(0));
         play.setTitle("Demo");
-        List<PlayerCategory> playerCategories = new ArrayList(hockeySport.getPlayerCategories());
-        PlayerInstance playerInstance1 = new PlayerInstance(playerCategories.get(0), TeamSide.ALLIES);
+        PlayerInstance playerInstance1 = new PlayerInstance(leftWingerHockeyPlayerCategory, TeamSide.ALLIES);
         PlayerState playerState = new PlayerState(new Vector2(0.25, 0.25), new LinearTransition(), 0.0, new LinearTransition());
         play.mergeKeyframe(0, playerInstance1, playerState);
         playerState = new PlayerState(new Vector2(0.75, 0.75), new LinearTransition(), 90.0, new LinearTransition());
@@ -268,7 +269,7 @@ public class DefaultContext extends ContextBase {
         playerState = new PlayerState(new Vector2(0.5, 0.2), new LinearTransition(), 180.0, new LinearTransition());
         play.mergeKeyframe(2000, playerInstance1, playerState);
 
-        PlayerInstance playerInstance2 = new PlayerInstance(playerCategories.get(1), TeamSide.OPPONENTS);
+        PlayerInstance playerInstance2 = new PlayerInstance(leftWingerHockeyPlayerCategory, TeamSide.OPPONENTS);
         playerState = new PlayerState(new Vector2(0.8, 0.3), new LinearTransition(), 180.0, new LinearTransition());
         play.mergeKeyframe(0, playerInstance2, playerState);
         playerState = new PlayerState(new Vector2(0.1, 0.9), new LinearTransition(), 0.0, new LinearTransition());

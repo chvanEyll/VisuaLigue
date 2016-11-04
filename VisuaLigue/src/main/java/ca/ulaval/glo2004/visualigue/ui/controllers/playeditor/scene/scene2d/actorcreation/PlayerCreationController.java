@@ -5,6 +5,7 @@ import ca.ulaval.glo2004.visualigue.services.play.PlayService;
 import ca.ulaval.glo2004.visualigue.ui.controllers.playeditor.scene.scene2d.LayerController;
 import ca.ulaval.glo2004.visualigue.ui.controllers.playeditor.scene.scene2d.layers.PlayingSurfaceLayerController;
 import ca.ulaval.glo2004.visualigue.ui.converters.ActorModelConverter;
+import ca.ulaval.glo2004.visualigue.ui.models.ActorModel;
 import ca.ulaval.glo2004.visualigue.ui.models.PlayModel;
 import ca.ulaval.glo2004.visualigue.ui.models.PlayerCategoryModel;
 import ca.ulaval.glo2004.visualigue.utils.geometry.Vector2;
@@ -20,12 +21,10 @@ public class PlayerCreationController extends ActorCreationController {
     }
 
     public void enterCreationMode(PlayerCategoryModel playerCategoryModel, TeamSide teamSide) {
-        if (!enabled) {
-            this.playerCategoryModel = playerCategoryModel;
-            this.teamSide = teamSide;
-            actorModel = actorModelConverter.convertPlayer(playerCategoryModel, teamSide);
-            super.enterCreationMode();
-        }
+        this.playerCategoryModel = playerCategoryModel;
+        this.teamSide = teamSide;
+        ActorModel actorModel = actorModelConverter.convertPlayer(playerCategoryModel, teamSide);
+        super.enterCreationMode(actorModel);
     }
 
     @Override

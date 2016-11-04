@@ -32,17 +32,18 @@ public abstract class ActorCreationController extends ControllerBase {
         playingSurfaceLayerController.onMouseClicked.addHandler(this::onPlayingSurfaceMouseClicked);
     }
 
-    protected void enterCreationMode() {
+    protected void enterCreationMode(ActorModel actorModel) {
         initActorCreationLayer(actorModel);
         enabled = true;
         onCreationModeEntered.fire(this);
     }
 
     protected void initActorCreationLayer(ActorModel actorModel) {
-        layerController.removeActorLayer(actorModel);
+        layerController.removeActorLayer(this.actorModel);
         layerController.setAllOpacity(0.5);
         layerController.addActorLayer(actorModel);
         layerController.setAllMouseTransparent(true);
+        this.actorModel = actorModel;
     }
 
     public void exitCreationMode() {
