@@ -23,7 +23,7 @@ import javax.xml.bind.annotation.adapters.XmlJavaTypeAdapter;
 public class Play extends DomainObject {
 
     private static final Integer NEXT_KEYFRAME_LOOKAHEAD_TIME = 50;
-    private String title;
+    private String title = "Nouveau jeu";
     private String defaultThumbnailImage = "/images/generic-play-thumbnail.png";
     private String thumbnailImageUUID;
     @XmlJavaTypeAdapter(XmlSportRefAdapter.class)
@@ -35,8 +35,7 @@ public class Play extends DomainObject {
         //Required for JAXB instanciation.
     }
 
-    public Play(String title, Sport sport) {
-        this.title = title;
+    public Play(Sport sport) {
         this.sport = sport;
     }
 

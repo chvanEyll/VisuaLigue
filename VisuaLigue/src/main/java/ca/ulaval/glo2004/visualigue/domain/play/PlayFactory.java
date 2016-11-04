@@ -6,7 +6,7 @@ import javax.inject.Singleton;
 @Singleton
 public class PlayFactory {
 
-    public Play create(String name, Sport sport) {
-        return new Play(name, sport);
+    public Play create(Sport sport) {
+        return new Play(sport);
     }
 }

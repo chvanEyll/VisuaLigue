@@ -44,9 +44,9 @@ public class PlayService {
         this.sportRepository = sportRepository;
     }
 
-    public String createPlay(String name, String sportUUID) throws PlayAlreadyExistsException, SportNotFoundException {
+    public String createPlay(String sportUUID) throws PlayAlreadyExistsException, SportNotFoundException {
         Sport sport = sportRepository.get(sportUUID);
-        Play play = playFactory.create(name, sport);
+        Play play = playFactory.create(sport);
         playRepository.persist(play);
         setDirty(play.getUUID(), false);
         onPlayCreated.fire(this, play);

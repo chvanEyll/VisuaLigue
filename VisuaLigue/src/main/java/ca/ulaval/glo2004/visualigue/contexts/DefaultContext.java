@@ -257,7 +257,8 @@ public class DefaultContext extends ContextBase {
     }
 
     private Play createDefaultPlay() {
-        Play play = playFactory.create("Test", sportPool.get(0));
+        Play play = playFactory.create(sportPool.get(0));
+        play.setTitle("Demo");
         List<PlayerCategory> playerCategories = new ArrayList(hockeySport.getPlayerCategories());
         PlayerInstance playerInstance1 = new PlayerInstance(playerCategories.get(0), TeamSide.ALLIES);
         PlayerState playerState = new PlayerState(new Vector2(0.25, 0.25), new LinearTransition(), 0.0, new LinearTransition());
