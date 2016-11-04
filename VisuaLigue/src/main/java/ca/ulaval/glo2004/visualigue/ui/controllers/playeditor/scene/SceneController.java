@@ -25,6 +25,12 @@ public abstract class SceneController extends ControllerBase {
     public EventHandler onRealTimeCreationModeEntered = new EventHandler();
     public EventHandler onFrameByFrameCreationModeEntered = new EventHandler();
 
+    protected PlayModel playModel;
+    protected Boolean showActorLabels = false;
+    protected Boolean showMovementArrows = true;
+    protected Boolean resizeActorsOnZoom = true;
+    protected Boolean realTimeMode = false;
+
     public abstract void init(PlayModel playModel);
 
     public abstract FrameModel getFrameModel();
@@ -40,6 +46,8 @@ public abstract class SceneController extends ControllerBase {
     public abstract void enterFrameByFrameMode();
 
     public abstract void enterRealTimeMode();
+
+    public abstract void toggleRealTimeMode();
 
     public abstract Zoom getZoom();
 

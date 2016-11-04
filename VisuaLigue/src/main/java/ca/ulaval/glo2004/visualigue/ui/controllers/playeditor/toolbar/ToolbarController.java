@@ -12,6 +12,7 @@ import ca.ulaval.glo2004.visualigue.ui.models.PlayModel;
 import ca.ulaval.glo2004.visualigue.utils.EventHandler;
 import ca.ulaval.glo2004.visualigue.utils.geometry.Vector2;
 import ca.ulaval.glo2004.visualigue.utils.math.MathUtils;
+import java.util.function.BiConsumer;
 import javafx.application.Platform;
 import javafx.beans.value.ObservableValue;
 import javafx.collections.FXCollections;
@@ -46,6 +47,9 @@ public class ToolbarController extends ControllerBase {
     @FXML private CheckMenuItem showMovementArrowsMenuItem;
     @FXML private CheckMenuItem smoothMovementsMenuItem;
     @Inject private PlayService playService;
+    private BiConsumer<Object, Boolean> onUndoAvailabilityChanged = this::onUndoAvailabilityChanged;
+    private BiConsumer<Object, Boolean> onRedoAvailabilityChanged = this::onRedoAvailabilityChanged;
+    private BiConsumer<Object, Play> onPlayDirtyFlagChanged = this::onPlayDirtyFlagChanged;
     private PlayModel playModel;
     private SceneController sceneController;
     private ItemPaneController itemPaneController;
@@ -57,15 +61,24 @@ public class ToolbarController extends ControllerBase {
         this.sceneController = sceneController;
         this.itemPaneController = itemPaneController;
         this.sequencePaneController = sequencePaneController;
+        setHandlers();
+        setInitialStates();
+        updateZoom();
+    }
+
+    private void setHandlers() {
         sceneController.onMousePositionChanged.setHandler(this::onSceneMousePositionChanged);
         sceneController.onZoomChanged.setHandler(this::onSceneZoomChanged);
         sceneController.onNavigationModeEntered.setHandler(this::onNavigationModeEntered);
         sceneController.onNavigationModeExited.setHandler(this::onNavigationModeExited);
         sceneController.onFrameByFrameCreationModeEntered.setHandler(this::onFrameByFrameCreationModeEntered);
         sceneController.onRealTimeCreationModeEntered.setHandler(this::onRealTimeCreationModeEntered);
-        playService.onUndoAvailabilityChanged.addHandler(this::onUndoAvailabilityChanged);
-        playService.onRedoAvailabilityChanged.addHandler(this::onRedoAvailabilityChanged);
-        playService.onPlayDirtyFlagChanged.addHandler(this::onPlayDirtyFlagChanged);
+        playService.onUndoAvailabilityChanged.addHandler(onUndoAvailabilityChanged);
+        playService.onRedoAvailabilityChanged.addHandler(onRedoAvailabilityChanged);
+        playService.onPlayDirtyFlagChanged.addHandler(onPlayDirtyFlagChanged);
+    }
+
+    private void setInitialStates() {
         saveButton.setDisable(true);
         undoButton.setDisable(true);
         redoButton.setDisable(true);
@@ -76,14 +89,13 @@ public class ToolbarController extends ControllerBase {
         resizeActorsOnZoomMenuItem.setSelected(sceneController.isResizeActorOnZoomEnabled());
         showMovementArrowsMenuItem.setSelected(sceneController.isMovementArrowDisplayEnabled());
         smoothMovementsMenuItem.setSelected(sequencePaneController.isSmoothMovementEnabled());
-        updateZoom();
     }
 
     @Override
     public void clean() {
-        playService.onUndoAvailabilityChanged.removeHandler(this::onUndoAvailabilityChanged);
-        playService.onRedoAvailabilityChanged.removeHandler(this::onRedoAvailabilityChanged);
-        playService.onPlayDirtyFlagChanged.removeHandler(this::onPlayDirtyFlagChanged);
+        playService.onUndoAvailabilityChanged.removeHandler(onUndoAvailabilityChanged);
+        playService.onRedoAvailabilityChanged.removeHandler(onRedoAvailabilityChanged);
+        playService.onPlayDirtyFlagChanged.removeHandler(onPlayDirtyFlagChanged);
     }
 
     private void onZoomComboBoxFocusedPropertyChanged(ObservableValue<? extends Boolean> value, Boolean oldPropertyValue, Boolean newPropertyValue) {
@@ -190,11 +202,7 @@ public class ToolbarController extends ControllerBase {
 
     @FXML
     protected void onRealTimeButtonAction(ActionEvent e) {
-        if (!realTimeButton.isSelected()) {
-            sceneController.enterRealTimeMode();
-        } else {
-            sceneController.enterFrameByFrameMode();
-        }
+        sceneController.toggleRealTimeMode();
     }
 
     private void onSceneMousePositionChanged(Object sender, Vector2 mousePosition) {

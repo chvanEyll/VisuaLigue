@@ -24,6 +24,7 @@ public class VisuaLigue extends Application {
     private static final String MAIN_STYLE_SHEET = "css/main.fxml.css";
     private static ContextBase defaultContext;
     private static Stage stage;
+    private static Scene scene;
 
     public static void main(String[] args) {
         launch(args);
@@ -34,7 +35,7 @@ public class VisuaLigue extends Application {
         this.stage = stage;
         initContext();
         View view = InjectableFXMLLoader.loadView(MainSceneController.VIEW_NAME);
-        Scene scene = new Scene((Parent) view.getRoot());
+        scene = new Scene((Parent) view.getRoot());
         initStage(stage, scene, (ControllerBase) view.getController());
     }
 
@@ -74,6 +75,10 @@ public class VisuaLigue extends Application {
 
     public static Stage getMainStage() {
         return stage;
+    }
+
+    public static Scene getMainScene() {
+        return scene;
     }
 
     public static String getAppName() {

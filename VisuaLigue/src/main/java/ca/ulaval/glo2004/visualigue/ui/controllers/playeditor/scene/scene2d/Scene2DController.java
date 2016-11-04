@@ -2,6 +2,7 @@ package ca.ulaval.glo2004.visualigue.ui.controllers.playeditor.scene.scene2d;
 
 import ca.ulaval.glo2004.visualigue.domain.play.actorinstance.TeamSide;
 import ca.ulaval.glo2004.visualigue.services.settings.SettingsService;
+import ca.ulaval.glo2004.visualigue.ui.KeyboardShortcutHandler;
 import ca.ulaval.glo2004.visualigue.ui.View;
 import ca.ulaval.glo2004.visualigue.ui.controllers.ControllerBase;
 import ca.ulaval.glo2004.visualigue.ui.controllers.common.ExtendedScrollPane;
@@ -19,9 +20,7 @@ import java.util.stream.Collectors;
 import javafx.collections.MapChangeListener;
 import javafx.collections.MapChangeListener.Change;
 import javafx.fxml.FXML;
-import javafx.scene.input.MouseEvent;
-import javafx.scene.input.TouchEvent;
-import javafx.scene.input.ZoomEvent;
+import javafx.scene.input.*;
 import javafx.scene.layout.StackPane;
 import javax.inject.Inject;
 
@@ -37,10 +36,6 @@ public class Scene2DController extends SceneController {
     private List<ControllerBase> sceneLayers = new ArrayList();
     private Map<ActorModel, ControllerBase> sceneLayerMap = new HashMap();
     private final FrameModel frameModel = new FrameModel();
-    private PlayModel playModel;
-    private Boolean showActorLabels = false;
-    private Boolean showMovementArrows = true;
-    private Boolean resizeActorsOnZoom = true;
 
     @Override
     public void init(PlayModel playModel) {
@@ -55,6 +50,26 @@ public class Scene2DController extends SceneController {
         showActorLabels = settingsService.getShowActorLabels();
         showMovementArrows = settingsService.getShowMovementArrows();
         resizeActorsOnZoom = settingsService.getResizeActorsOnZoom();
+        initKeyboardShortcuts();
+    }
+
+    private void initKeyboardShortcuts() {
+        KeyboardShortcutHandler.assign(new KeyCodeCombination(KeyCode.ADD, KeyCombination.CONTROL_DOWN), this::zoomIn);
+        KeyboardShortcutHandler.assign(new KeyCodeCombination(KeyCode.DIGIT0, KeyCombination.CONTROL_DOWN), this::autoFit);
+        KeyboardShortcutHandler.assign(new KeyCodeCombination(KeyCode.NUMPAD0, KeyCombination.CONTROL_DOWN), this::autoFit);
+        KeyboardShortcutHandler.assign(new KeyCodeCombination(KeyCode.SUBTRACT, KeyCombination.CONTROL_DOWN), this::zoomOut);
+        KeyboardShortcutHandler.assign(new KeyCodeCombination(KeyCode.R, KeyCombination.CONTROL_DOWN), this::toggleRealTimeMode);
+        KeyboardShortcutHandler.assign(new KeyCodeCombination(KeyCode.Q, KeyCombination.CONTROL_DOWN), this::enterNavigationMode);
+    }
+
+    @Override
+    public void clean() {
+        KeyboardShortcutHandler.unassign(new KeyCodeCombination(KeyCode.ADD, KeyCombination.CONTROL_DOWN));
+        KeyboardShortcutHandler.unassign(new KeyCodeCombination(KeyCode.DIGIT0, KeyCombination.CONTROL_DOWN));
+        KeyboardShortcutHandler.unassign(new KeyCodeCombination(KeyCode.NUMPAD0, KeyCombination.CONTROL_DOWN));
+        KeyboardShortcutHandler.unassign(new KeyCodeCombination(KeyCode.SUBTRACT, KeyCombination.CONTROL_DOWN));
+        KeyboardShortcutHandler.unassign(new KeyCodeCombination(KeyCode.R, KeyCombination.CONTROL_DOWN));
+        KeyboardShortcutHandler.unassign(new KeyCodeCombination(KeyCode.Q, KeyCombination.CONTROL_DOWN));
     }
 
     private void onActorStateMapChanged(MapChangeListener.Change change) {
@@ -114,22 +129,33 @@ public class Scene2DController extends SceneController {
     }
 
     @Override
-    public void enterFrameByFrameMode() {
-        onFrameByFrameCreationModeEntered.fire(this);
-    }
-
-    @Override
-    public void enterRealTimeMode() {
-        onRealTimeCreationModeEntered.fire(this);
-    }
-
-    @Override
     public void enterNavigationMode() {
         onPlayerCreationModeExited.fire(this);
         onObstacleCreationModeExited.fire(this);
         onBallCreationModeExited.fire(this);
         onNavigationModeEntered.fire(this);
         navigationController.enterNavigationMode();
+    }
+
+    @Override
+    public void enterFrameByFrameMode() {
+        realTimeMode = false;
+        onFrameByFrameCreationModeEntered.fire(this);
+    }
+
+    @Override
+    public void enterRealTimeMode() {
+        realTimeMode = true;
+        onRealTimeCreationModeEntered.fire(this);
+    }
+
+    @Override
+    public void toggleRealTimeMode() {
+        if (realTimeMode) {
+            enterFrameByFrameMode();
+        } else {
+            enterRealTimeMode();
+        }
     }
 
     @Override

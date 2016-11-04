@@ -14,6 +14,7 @@ import ca.ulaval.glo2004.visualigue.utils.javafx.FXUtils;
 import java.net.URL;
 import java.util.List;
 import java.util.ResourceBundle;
+import java.util.function.BiConsumer;
 import javafx.application.Platform;
 import javafx.fxml.FXML;
 import javafx.scene.control.Label;
@@ -24,25 +25,26 @@ import javax.swing.SortOrder;
 
 public class SportListController extends ControllerBase {
 
+    public EventHandler<SportListItemModel> onSportSelected = new EventHandler();
     @Inject private SportService sportService;
     @Inject private SportListItemModelConverter sportListItemModelConverter;
     @FXML private TilePane tilePane;
     @FXML private Label emptyNoticeLabel;
-    public EventHandler<SportListItemModel> onSportSelected = new EventHandler();
+    private BiConsumer<Object, Sport> onSportChanged = this::onSportChanged;
 
     @Override
     public void initialize(URL url, ResourceBundle rb) {
-        sportService.onSportCreated.addHandler(this::onSportChanged);
-        sportService.onSportUpdated.addHandler(this::onSportChanged);
-        sportService.onSportDeleted.addHandler(this::onSportChanged);
+        sportService.onSportCreated.addHandler(onSportChanged);
+        sportService.onSportUpdated.addHandler(onSportChanged);
+        sportService.onSportDeleted.addHandler(onSportChanged);
         fillSportList();
     }
 
     @Override
     public void clean() {
-        sportService.onSportCreated.removeHandler(this::onSportChanged);
-        sportService.onSportUpdated.removeHandler(this::onSportChanged);
-        sportService.onSportDeleted.removeHandler(this::onSportChanged);
+        sportService.onSportCreated.removeHandler(onSportChanged);
+        sportService.onSportUpdated.removeHandler(onSportChanged);
+        sportService.onSportDeleted.removeHandler(onSportChanged);
         super.clean();
     }
 

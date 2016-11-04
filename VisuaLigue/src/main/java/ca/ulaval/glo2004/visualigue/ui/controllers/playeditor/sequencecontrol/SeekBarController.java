@@ -16,6 +16,8 @@ import java.util.ArrayDeque;
 import java.util.ArrayList;
 import java.util.Deque;
 import java.util.List;
+import java.util.function.BiConsumer;
+import java.util.function.Consumer;
 import javafx.beans.value.ChangeListener;
 import javafx.beans.value.ObservableValue;
 import javafx.event.ActionEvent;
@@ -47,26 +49,30 @@ public class SeekBarController extends ControllerBase {
     private Double dragStartThumbLocationX;
     private Animator animator;
     private ChangeListener<Number> moveToNewKeyPointHandler = this::moveToNewKeyPointHandler;
+    private BiConsumer<Object, Integer> onTimelineLengthChanged = this::onTimelineLengthChanged;
+    private Consumer<Object> onUndo = this::onUndo;
+    private Consumer<Object> onRedo = this::onRedo;
+    private Consumer<Object> onPlayServiceNewCommandExecute = this::onPlayServiceNewCommandExecute;
     private Deque<Integer> undoStack = new ArrayDeque();
     private Deque<Integer> redoStack = new ArrayDeque();
 
     public void init(PlayModel playModel, SceneController sceneController) {
         this.playModel = playModel;
         this.sceneController = sceneController;
-        playService.onPlayTimelineLengthChanged.addHandler(this::onTimelineLengthChanged);
-        playService.onUndo.addHandler(this::onUndo);
-        playService.onRedo.addHandler(this::onRedo);
-        playService.onNewCommandExecute.addHandler(this::onPlayServiceNewCommandExecute);
+        playService.onPlayTimelineLengthChanged.addHandler(onTimelineLengthChanged);
+        playService.onUndo.addHandler(onUndo);
+        playService.onRedo.addHandler(onRedo);
+        playService.onNewCommandExecute.addHandler(onPlayServiceNewCommandExecute);
         updateKeyPoints();
         move(0);
     }
 
     @Override
     public void clean() {
-        playService.onPlayTimelineLengthChanged.removeHandler(this::onTimelineLengthChanged);
-        playService.onUndo.removeHandler(this::onUndo);
-        playService.onRedo.removeHandler(this::onRedo);
-        playService.onNewCommandExecute.removeHandler(this::onPlayServiceNewCommandExecute);
+        playService.onPlayTimelineLengthChanged.removeHandler(onTimelineLengthChanged);
+        playService.onUndo.removeHandler(onUndo);
+        playService.onRedo.removeHandler(onRedo);
+        playService.onNewCommandExecute.removeHandler(onPlayServiceNewCommandExecute);
     }
 
     @FXML

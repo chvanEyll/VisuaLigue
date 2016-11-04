@@ -1,6 +1,7 @@
 package ca.ulaval.glo2004.visualigue.ui.controllers.playeditor.itempane;
 
 import ca.ulaval.glo2004.visualigue.domain.obstacle.Obstacle;
+import ca.ulaval.glo2004.visualigue.domain.sport.Sport;
 import ca.ulaval.glo2004.visualigue.domain.sport.ball.Ball;
 import ca.ulaval.glo2004.visualigue.services.obstacle.ObstacleService;
 import ca.ulaval.glo2004.visualigue.services.sport.SportService;
@@ -16,6 +17,7 @@ import ca.ulaval.glo2004.visualigue.ui.models.ObstacleModel;
 import ca.ulaval.glo2004.visualigue.ui.models.PlayModel;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.function.BiConsumer;
 import javafx.application.Platform;
 import javafx.fxml.FXML;
 import javafx.scene.layout.TilePane;
@@ -32,28 +34,34 @@ public class ObjectListController extends ControllerBase {
     private List<ObjectListItemController> itemControllers = new ArrayList();
     private PlayModel playModel;
     private SceneController sceneController;
+    private BiConsumer<Object, Sport> onSportUpdated = this::onSportUpdated;
+    private BiConsumer<Object, Obstacle> onObstacleChanged = this::onObstacleChanged;
 
     public void init(PlayModel playModel, SceneController sceneController) {
         this.playModel = playModel;
         this.sceneController = sceneController;
         sceneController.onObstacleCreationModeExited.setHandler(this::onObstacleCreationModeExited);
         sceneController.onBallCreationModeExited.setHandler(this::onBallCreationModeExited);
-        sportService.onSportUpdated.addHandler(this::onObjectListChanged);
-        obstacleService.onObstacleCreated.addHandler(this::onObjectListChanged);
-        obstacleService.onObstacleUpdated.addHandler(this::onObjectListChanged);
-        obstacleService.onObstacleDeleted.addHandler(this::onObjectListChanged);
+        sportService.onSportUpdated.addHandler(onSportUpdated);
+        obstacleService.onObstacleCreated.addHandler(onObstacleChanged);
+        obstacleService.onObstacleUpdated.addHandler(onObstacleChanged);
+        obstacleService.onObstacleDeleted.addHandler(onObstacleChanged);
         fillObjectList();
     }
 
     @Override
     public void clean() {
-        sportService.onSportUpdated.removeHandler(this::onObjectListChanged);
-        obstacleService.onObstacleCreated.removeHandler(this::onObjectListChanged);
-        obstacleService.onObstacleUpdated.removeHandler(this::onObjectListChanged);
-        obstacleService.onObstacleDeleted.removeHandler(this::onObjectListChanged);
+        sportService.onSportUpdated.removeHandler(onSportUpdated);
+        obstacleService.onObstacleCreated.removeHandler(onObstacleChanged);
+        obstacleService.onObstacleUpdated.removeHandler(onObstacleChanged);
+        obstacleService.onObstacleDeleted.removeHandler(onObstacleChanged);
     }
 
-    private void onObjectListChanged(Object sender, Object model) {
+    private void onSportUpdated(Object sender, Sport sport) {
+        Platform.runLater(() -> fillObjectList());
+    }
+
+    private void onObstacleChanged(Object sender, Obstacle obstacle) {
         Platform.runLater(() -> fillObjectList());
     }
 

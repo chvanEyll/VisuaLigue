@@ -25,7 +25,7 @@
                         <SvgImage url="/images/save-icon.fxml" />
                     </graphic>
                     <tooltip>
-                        <Tooltip text="Sauvegarder" />
+                        <Tooltip text="Sauvegarder (Ctrl+S)" />
                     </tooltip>
                     <styleClass>
                         <String fx:value="borderless" />
@@ -37,7 +37,7 @@
                         <SvgImage url="/images/cross-icon-thin.fxml" />
                     </graphic>
                     <tooltip>
-                        <Tooltip text="Fermer" />
+                        <Tooltip text="Fermer (Ctrl+W)" />
                     </tooltip>
                     <styleClass>
                         <String fx:value="borderless" />
@@ -49,7 +49,7 @@
                         <SvgImage url="/images/export-icon.fxml" />
                     </graphic>
                     <tooltip>
-                        <Tooltip text="Exporter" />
+                        <Tooltip text="Exporter (Ctrl+E)" />
                     </tooltip>
                     <styleClass>
                         <String fx:value="borderless" />
@@ -66,7 +66,7 @@
                         <SvgImage url="/images/undo-icon.fxml" />
                     </graphic>
                     <tooltip>
-                        <Tooltip text="Annuler" />
+                        <Tooltip text="Annuler (Ctrl+Z)" />
                     </tooltip>
                     <styleClass>
                         <String fx:value="borderless" />
@@ -78,7 +78,7 @@
                         <SvgImage url="/images/redo-icon.fxml" />
                     </graphic>
                     <tooltip>
-                        <Tooltip text="Rétablir" />
+                        <Tooltip text="Rétablir (Ctrl+Y)" />
                     </tooltip>
                     <styleClass>
                         <String fx:value="borderless" />
@@ -95,7 +95,7 @@
                         <SvgImage url="/images/real-time-icon.fxml" />
                     </graphic>
                     <tooltip>
-                        <Tooltip text="Mode temps réel" />
+                        <Tooltip text="Mode temps réel (Ctrl+R)" />
                     </tooltip>
                     <styleClass>
                         <String fx:value="borderless" />
@@ -107,7 +107,7 @@
                         <SvgImage url="/images/hand-icon.fxml" />
                     </graphic>
                     <tooltip>
-                        <Tooltip text="Déplacer la vue" />
+                        <Tooltip text="Déplacer la vue (Ctrl+Q)" />
                     </tooltip>
                     <styleClass>
                         <String fx:value="borderless" />
@@ -119,7 +119,7 @@
                         <SvgImage url="/images/zoom-out-icon.fxml" />
                     </graphic>
                     <tooltip>
-                        <Tooltip text="Zoom arrière" />
+                        <Tooltip text="Zoom arrière (Ctrl+-)" />
                     </tooltip>
                     <styleClass>
                         <String fx:value="borderless" />
@@ -132,7 +132,7 @@
                         <SvgImage url="/images/zoom-in-icon.fxml" />
                     </graphic>
                     <tooltip>
-                        <Tooltip text="Zoom avant" />
+                        <Tooltip text="Zoom avant (Ctrl++)" />
                     </tooltip>
                     <styleClass>
                         <String fx:value="borderless" />
@@ -144,7 +144,7 @@
                         <SvgImage url="/images/best-fit-icon.fxml" />
                     </graphic>
                     <tooltip>
-                        <Tooltip text="Meilleur ajustement" />
+                        <Tooltip text="Meilleur ajustement (Ctrl+0)" />
                     </tooltip>
                     <styleClass>
                         <String fx:value="borderless" />

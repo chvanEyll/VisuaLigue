@@ -15,6 +15,7 @@ import java.net.URL;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.ResourceBundle;
+import java.util.function.BiConsumer;
 import javafx.application.Platform;
 import javafx.fxml.FXML;
 import javafx.scene.control.Label;
@@ -25,26 +26,27 @@ import javax.swing.SortOrder;
 
 public class PlayListController extends ControllerBase {
 
+    public EventHandler<PlayModel> onPlaySelected = new EventHandler();
     @Inject private PlayService playService;
     @Inject private PlayModelConverter playModelConverter;
     @FXML private TilePane tilePane;
     @FXML private Label emptyNoticeLabel;
     private List<PlayModel> models = new ArrayList();
-    public EventHandler<PlayModel> onPlaySelected = new EventHandler();
+    private BiConsumer<Object, Play> onPlayChanged = this::onPlayChanged;
 
     @Override
     public void initialize(URL url, ResourceBundle rb) {
-        playService.onPlayCreated.addHandler(this::onPlayChanged);
-        playService.onPlayTitleUpdated.addHandler(this::onPlayChanged);
-        playService.onPlayDeleted.addHandler(this::onPlayChanged);
+        playService.onPlayCreated.addHandler(onPlayChanged);
+        playService.onPlayTitleUpdated.addHandler(onPlayChanged);
+        playService.onPlayDeleted.addHandler(onPlayChanged);
         fillPlayList();
     }
 
     @Override
     public void clean() {
-        playService.onPlayCreated.removeHandler(this::onPlayChanged);
-        playService.onPlayTitleUpdated.removeHandler(this::onPlayChanged);
-        playService.onPlayDeleted.removeHandler(this::onPlayChanged);
+        playService.onPlayCreated.removeHandler(onPlayChanged);
+        playService.onPlayTitleUpdated.removeHandler(onPlayChanged);
+        playService.onPlayDeleted.removeHandler(onPlayChanged);
     }
 
     private void onPlayChanged(Object sender, Play play) {
