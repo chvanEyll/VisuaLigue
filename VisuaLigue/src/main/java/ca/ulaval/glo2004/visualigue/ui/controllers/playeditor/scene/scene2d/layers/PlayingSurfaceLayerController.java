@@ -53,31 +53,26 @@ public class PlayingSurfaceLayerController extends ControllerBase {
 
     @FXML
     protected void onMousePressed(MouseEvent e) {
-        System.out.println("Mouse pressed");
         onMousePressed.fire(this, e);
     }
 
     @FXML
     protected void onMouseDragged(MouseEvent e) {
-        System.out.println("Mouse dragged");
         onMouseDragged.fire(this, e);
     }
 
     @FXML
     protected void onMouseReleased(MouseEvent e) {
-        System.out.println("Mouse released");
         onMouseReleased.fire(this, e);
     }
 
     @FXML
     protected void onMouseMoved(MouseEvent e) {
-        System.out.println("Mouse moved");
         onMouseMoved.fire(this, e);
     }
 
     @FXML
     protected void onMouseClicked(MouseEvent e) {
-        System.out.println("Mouse clicked");
         onMouseClicked.fire(this, e);
     }
 

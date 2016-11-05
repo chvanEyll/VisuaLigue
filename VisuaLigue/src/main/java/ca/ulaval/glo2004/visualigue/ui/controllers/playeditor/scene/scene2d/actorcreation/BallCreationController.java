@@ -1,4 +1,4 @@
-package ca.ulaval.glo2004.visualigue.ui.controllers.playeditor.scene.scene2d.edition;
+package ca.ulaval.glo2004.visualigue.ui.controllers.playeditor.scene.scene2d.actorcreation;
 
 import ca.ulaval.glo2004.visualigue.services.play.PlayService;
 import ca.ulaval.glo2004.visualigue.ui.controllers.playeditor.scene.scene2d.LayerController;

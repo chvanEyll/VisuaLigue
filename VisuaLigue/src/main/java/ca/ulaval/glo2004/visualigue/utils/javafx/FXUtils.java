@@ -27,7 +27,8 @@ public class FXUtils {
     }
 
     public static String colorToHex(Color color) {
-        return "#" + Integer.toHexString(color.hashCode()).substring(0, 6).toUpperCase();
+        String test = String.format("#%02x%02x%02x", (int) (color.getRed() * 255), (int) (color.getGreen() * 255), (int) (color.getBlue() * 255));
+        return String.format("#%02x%02x%02x", (int) (color.getRed() * 255), (int) (color.getGreen() * 255), (int) (color.getBlue() * 255));
     }
 
     public static File chooseImage(Stage stage) {

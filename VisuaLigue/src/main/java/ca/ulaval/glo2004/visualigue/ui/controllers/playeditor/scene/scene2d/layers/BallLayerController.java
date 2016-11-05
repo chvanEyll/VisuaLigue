@@ -20,7 +20,7 @@ public class BallLayerController extends ActorLayerController {
     private BallActorModel ballActorModel;
     private ChangeListener<Object> onChange = this::onChange;
 
-    public void init(BallActorModel ballActorModel, PlayingSurfaceLayerController playingLayerSurfaceController, ObjectProperty<Zoom> zoomProperty, BooleanProperty showActorLabelsProperty, BooleanProperty showMovementArrowsProperty, BooleanProperty resizeActorsOnZoomProperty) {
+    public void init(BallActorModel ballActorModel, PlayingSurfaceLayerController playingLayerSurfaceController, ObjectProperty<Zoom> zoomProperty, BooleanProperty resizeActorsOnZoomProperty) {
         super.init(ballActorModel, playingLayerSurfaceController, zoomProperty, resizeActorsOnZoomProperty);
         this.ballActorModel = ballActorModel;
         setImage();
@@ -40,7 +40,7 @@ public class BallLayerController extends ActorLayerController {
         ballActorModel.position.addListener(onChange);
         resizeActorsOnZoomProperty.addListener(onChange);
         zoomProperty.addListener(onChange);
-        actorButton.layoutReadyProperty().addListener(this::onChange);
+        actorButton.layoutReadyProperty().addListener(onChange);
     }
 
     @Override
