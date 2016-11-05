@@ -7,25 +7,25 @@ public class TimelineLengthUpdateCommand extends Command {
 
     private Integer timelineLength;
     private Integer oldTimelineLength;
-    private EventHandler<Integer> onPlayTimelineLengthChanged = new EventHandler();
+    private EventHandler<Play> onPlayUpdated = new EventHandler();
 
-    public TimelineLengthUpdateCommand(Play play, Integer time, Integer timelineLength, EventHandler<Integer> onPlayTimelineLengthChanged) {
+    public TimelineLengthUpdateCommand(Play play, Integer time, Integer timelineLength, EventHandler<Play> onPlayUpdated) {
         super(play, time);
         this.timelineLength = timelineLength;
-        this.onPlayTimelineLengthChanged = onPlayTimelineLengthChanged;
+        this.onPlayUpdated = onPlayUpdated;
     }
 
     @Override
     public void execute() {
         oldTimelineLength = play.getTimelineLength();
         play.setTimelineLength(timelineLength);
-        onPlayTimelineLengthChanged.fire(this, timelineLength);
+        onPlayUpdated.fire(this, play);
     }
 
     @Override
     public void revert() {
         play.setTimelineLength(oldTimelineLength);
-        onPlayTimelineLengthChanged.fire(this, timelineLength);
+        onPlayUpdated.fire(this, play);
     }
 
 }

@@ -10,27 +10,16 @@ public class PlayModelConverter {
 
     private ImageRepository imageRepository;
     private BallModelConverter ballModelConverter;
-    private PlayerCategoryModelConverter playerCategoryModelConverter;
 
     @Inject
-    public PlayModelConverter(ImageRepository imageRepository, BallModelConverter ballModelConverter, PlayerCategoryModelConverter playerCategoryModelConverter) {
+    public PlayModelConverter(ImageRepository imageRepository, BallModelConverter ballModelConverter) {
         this.imageRepository = imageRepository;
         this.ballModelConverter = ballModelConverter;
-        this.playerCategoryModelConverter = playerCategoryModelConverter;
     }
 
     public PlayModel convert(Play play) {
         PlayModel model = new PlayModel();
-        model.setUUID(play.getUUID());
-        model.setIsNew(false);
-        model.title.set(play.getTitle());
-        if (play.hasThumbnail()) {
-            model.thumbnailImagePathName.set(imageRepository.get(play.getThumbnailImageUUID()));
-        }
-        model.defaultThumbnailImagePathName.set(play.getDefaultThumbnailImage());
-        model.ballModel = ballModelConverter.convert(play.getSport().getBall());
-        model.sportUUID.set(play.getSport().getUUID());
-        convertPlayingSurface(play.getSport().getPlayingSurface(), model);
+        update(model, play);
         return model;
     }
 
@@ -43,6 +32,21 @@ public class PlayModelConverter {
             model.customPlayingSurfaceImagePathName.set(imageRepository.get(playingSurface.getCustomImageUUID()));
         }
         model.builtInPlayingSurfaceImagePathName.set(playingSurface.getBuiltInImagePathName());
+    }
+
+    public void update(PlayModel model, Play play) {
+        model.setUUID(play.getUUID());
+        model.setIsNew(false);
+        model.title.set(play.getTitle());
+        if (play.hasThumbnail()) {
+            model.thumbnailImagePathName.set(imageRepository.get(play.getThumbnailImageUUID()));
+        }
+        model.defaultThumbnailImagePathName.set(play.getDefaultThumbnailImage());
+        model.ballModel = ballModelConverter.convert(play.getSport().getBall());
+        model.sportUUID.set(play.getSport().getUUID());
+        model.playLength.set(play.getLength());
+        model.timelineLength.set(play.getTimelineLength());
+        convertPlayingSurface(play.getSport().getPlayingSurface(), model);
     }
 
 }

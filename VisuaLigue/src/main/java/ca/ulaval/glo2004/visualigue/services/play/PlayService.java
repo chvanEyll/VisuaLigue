@@ -31,16 +31,15 @@ public class PlayService {
     private final Map<String, Deque<Command>> redoStackMap = new HashMap();
 
     public EventHandler<Play> onPlayCreated = new EventHandler();
-    public EventHandler<Play> onPlayTitleUpdated = new EventHandler();
+    public EventHandler<Play> onPlayUpdated = new EventHandler();
     public EventHandler<Play> onPlayDeleted = new EventHandler();
     public EventHandler<Play> onPlayFrameChanged = new EventHandler();
+    public EventHandler<Play> onPlayDirtyFlagChanged = new EventHandler();
     public EventHandler<Integer> onUndo = new EventHandler();
     public EventHandler<Integer> onRedo = new EventHandler();
-    public EventHandler onNewCommandExecute = new EventHandler();
     public EventHandler<Boolean> onUndoAvailabilityChanged = new EventHandler();
     public EventHandler<Boolean> onRedoAvailabilityChanged = new EventHandler();
-    public EventHandler<Play> onPlayDirtyFlagChanged = new EventHandler();
-    public EventHandler<Integer> onPlayTimelineLengthChanged = new EventHandler();
+    public EventHandler onNewCommandExecute = new EventHandler();
 
     @Inject
     public PlayService(final PlayRepository playRepository, final PlayFactory playFactory, final SportRepository sportRepository, final PlayerCategoryRepository playerCategoryRepository, final ObstacleRepository obstacleRepository) {
@@ -64,7 +63,7 @@ public class PlayService {
         Play play = playRepository.get(playUUID);
         play.setTitle(title);
         setDirty(playUUID, true);
-        onPlayTitleUpdated.fire(this, play);
+        onPlayUpdated.fire(this, play);
     }
 
     public void deletePlay(String playUUID) throws PlayNotFoundException {
@@ -123,14 +122,9 @@ public class PlayService {
         executeNewCommand(playUUID, command);
     }
 
-    public Integer getTimelineLength(String playUUID) {
-        Play play = playRepository.get(playUUID);
-        return play.getTimelineLength();
-    }
-
     public void setTimelineLength(String playUUID, Integer time, Integer timelineLength) {
         Play play = playRepository.get(playUUID);
-        TimelineLengthUpdateCommand command = new TimelineLengthUpdateCommand(play, time, timelineLength, onPlayTimelineLengthChanged);
+        TimelineLengthUpdateCommand command = new TimelineLengthUpdateCommand(play, time, timelineLength, onPlayUpdated);
         executeNewCommand(playUUID, command);
     }
 
@@ -144,16 +138,12 @@ public class PlayService {
         Play play = playRepository.get(playUUID);
         playRepository.discard(play);
         setDirty(playUUID, false);
+        onPlayUpdated.fire(this, play);
     }
 
     public Frame getFrame(String playUUID, Integer time) throws PlayNotFoundException {
         Play play = playRepository.get(playUUID);
         return play.getFrame(time);
-    }
-
-    public Integer getPlayLength(String playUUID) throws PlayNotFoundException {
-        Play play = playRepository.get(playUUID);
-        return play.getLength();
     }
 
     public Boolean isUndoAvailable(String playUUID) throws PlayNotFoundException {

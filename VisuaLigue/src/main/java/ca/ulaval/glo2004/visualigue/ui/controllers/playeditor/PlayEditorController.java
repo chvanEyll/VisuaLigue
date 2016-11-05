@@ -1,5 +1,6 @@
 package ca.ulaval.glo2004.visualigue.ui.controllers.playeditor;
 
+import ca.ulaval.glo2004.visualigue.domain.play.Play;
 import ca.ulaval.glo2004.visualigue.domain.play.PlayNotFoundException;
 import ca.ulaval.glo2004.visualigue.services.play.PlayService;
 import ca.ulaval.glo2004.visualigue.ui.KeyboardShortcutMapper;
@@ -9,9 +10,11 @@ import ca.ulaval.glo2004.visualigue.ui.controllers.playeditor.itempane.ItemPaneC
 import ca.ulaval.glo2004.visualigue.ui.controllers.playeditor.scene.SceneController;
 import ca.ulaval.glo2004.visualigue.ui.controllers.playeditor.sequencecontrol.SequencePaneController;
 import ca.ulaval.glo2004.visualigue.ui.controllers.playeditor.toolbar.ToolbarController;
+import ca.ulaval.glo2004.visualigue.ui.converters.PlayModelConverter;
 import ca.ulaval.glo2004.visualigue.ui.dialog.AlertDialogBuilder;
 import ca.ulaval.glo2004.visualigue.ui.models.PlayModel;
 import java.util.Optional;
+import java.util.function.BiConsumer;
 import javafx.beans.property.StringProperty;
 import javafx.beans.value.ObservableValue;
 import javafx.fxml.FXML;
@@ -32,7 +35,9 @@ public class PlayEditorController extends ControllerBase {
     @FXML private ToolbarController toolbarController;
     @FXML private SequencePaneController sequencePaneController;
     @Inject PlayService playService;
+    @Inject private PlayModelConverter playModelConverter;
     private PlayModel playModel;
+    private BiConsumer<Object, Play> onPlayUpdated = this::onPlayUpdated;
 
     public void init(PlayModel playModel) throws PlayNotFoundException {
         this.playModel = playModel;
@@ -40,9 +45,9 @@ public class PlayEditorController extends ControllerBase {
         itemPaneController.init(playModel, sceneController);
         sequencePaneController.init(playModel, sceneController);
         toolbarController.init(playModel, sceneController, itemPaneController, sequencePaneController);
-        setHandlers();
         sceneController.enterNavigationMode();
         playModel.title.addListener(this::onPlayTitleChanged);
+        initHandlers();
         initKeyboardShortcuts();
         super.addChild(sceneController);
         super.addChild(itemPaneController);
@@ -50,7 +55,8 @@ public class PlayEditorController extends ControllerBase {
         super.addChild(sequencePaneController);
     }
 
-    private void setHandlers() {
+    private void initHandlers() {
+        playService.onPlayUpdated.addHandler(onPlayUpdated);
         toolbarController.onSaveButtonAction.setHandler(this::onSaveToolbarButtonAction);
         toolbarController.onCloseButtonAction.setHandler(this::onCloseToolbarButtonAction);
         toolbarController.onExportButtonAction.setHandler(this::onExportToolbarButtonAction);
@@ -67,6 +73,7 @@ public class PlayEditorController extends ControllerBase {
 
     @Override
     public void clean() {
+        playService.onPlayUpdated.removeHandler(onPlayUpdated);
         KeyboardShortcutMapper.unmap(new KeyCodeCombination(KeyCode.S, KeyCombination.CONTROL_DOWN));
         KeyboardShortcutMapper.unmap(new KeyCodeCombination(KeyCode.W, KeyCombination.CONTROL_DOWN));
         KeyboardShortcutMapper.unmap(new KeyCodeCombination(KeyCode.Z, KeyCombination.CONTROL_DOWN));
@@ -90,6 +97,10 @@ public class PlayEditorController extends ControllerBase {
 
     private void onPlayTitleChanged(final ObservableValue<? extends String> value, final String oldPropertyValue, final String newPropertyValue) {
         playService.updatePlayTitle(playModel.getUUID(), playModel.title.get());
+    }
+
+    private void onPlayUpdated(Object sender, Play play) {
+        playModelConverter.update(playModel, play);
     }
 
     private void onSaveToolbarButtonAction(Object sender, Object eventArgs) {

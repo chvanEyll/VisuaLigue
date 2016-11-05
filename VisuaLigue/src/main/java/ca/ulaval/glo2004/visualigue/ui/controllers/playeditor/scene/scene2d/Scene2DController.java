@@ -119,7 +119,7 @@ public class Scene2DController extends SceneController {
     @Override
     public void update(Integer time) {
         currentTime = time;
-        frameModelConverter.update(playService.getFrame(playModel.getUUID(), time), frameModel, playModel);
+        frameModelConverter.update(frameModel, playService.getFrame(playModel.getUUID(), time), playModel);
     }
 
     @Override

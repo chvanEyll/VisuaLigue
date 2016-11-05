@@ -1,9 +1,5 @@
 package ca.ulaval.glo2004.visualigue.ui.converters;
 
-import ca.ulaval.glo2004.visualigue.ui.models.actors.ObstacleActorModel;
-import ca.ulaval.glo2004.visualigue.ui.models.actors.BallActorModel;
-import ca.ulaval.glo2004.visualigue.ui.models.actors.PlayerActorModel;
-import ca.ulaval.glo2004.visualigue.ui.models.actors.ActorModel;
 import ca.ulaval.glo2004.visualigue.domain.play.actorinstance.ActorInstance;
 import ca.ulaval.glo2004.visualigue.domain.play.actorinstance.BallInstance;
 import ca.ulaval.glo2004.visualigue.domain.play.actorinstance.ObstacleInstance;
@@ -13,7 +9,12 @@ import ca.ulaval.glo2004.visualigue.domain.play.actorstate.BallState;
 import ca.ulaval.glo2004.visualigue.domain.play.actorstate.ObstacleState;
 import ca.ulaval.glo2004.visualigue.domain.play.actorstate.PlayerState;
 import ca.ulaval.glo2004.visualigue.domain.play.frame.Frame;
-import ca.ulaval.glo2004.visualigue.ui.models.*;
+import ca.ulaval.glo2004.visualigue.ui.models.FrameModel;
+import ca.ulaval.glo2004.visualigue.ui.models.PlayModel;
+import ca.ulaval.glo2004.visualigue.ui.models.actors.ActorModel;
+import ca.ulaval.glo2004.visualigue.ui.models.actors.BallActorModel;
+import ca.ulaval.glo2004.visualigue.ui.models.actors.ObstacleActorModel;
+import ca.ulaval.glo2004.visualigue.ui.models.actors.PlayerActorModel;
 import java.util.Map;
 import java.util.stream.Collectors;
 import javax.inject.Inject;
@@ -31,25 +32,25 @@ public class FrameModelConverter {
         this.ballActorModelConverter = ballActorModelConverter;
     }
 
-    public FrameModel update(Frame frame, FrameModel frameModel, PlayModel playModel) {
+    public FrameModel update(FrameModel frameModel, Frame frame, PlayModel playModel) {
         frameModel.setUUID(frame.getUUID());
         frameModel.setIsNew(false);
         frameModel.time.set(frame.getTime());
-        updateActorInstances(frame, frameModel, playModel, frame.getCurrentActorStates());
+        updateActorInstances(frameModel, frame, playModel, frame.getCurrentActorStates());
         removeOldActorInstances(frameModel, frame.getCurrentActorStates());
         return frameModel;
     }
 
-    private void updateActorInstances(Frame frame, FrameModel frameModel, PlayModel playModel, Map<ActorInstance, ActorState> actorStates) {
+    private void updateActorInstances(FrameModel frameModel, Frame frame, PlayModel playModel, Map<ActorInstance, ActorState> actorStates) {
         actorStates.entrySet().forEach(e -> {
-            updateActorInstance(frame, frameModel, playModel, e.getKey(), e.getValue());
+            updateActorInstance(frameModel, frame, playModel, e.getKey(), e.getValue());
         });
     }
 
-    private void updateActorInstance(Frame frame, FrameModel frameModel, PlayModel playModel, ActorInstance actorInstance, ActorState actorState) {
+    private void updateActorInstance(FrameModel frameModel, Frame frame, PlayModel playModel, ActorInstance actorInstance, ActorState actorState) {
         if (frameModel.actorModels.containsKey(actorInstance.getUUID())) {
             ActorModel actorModel = frameModel.actorModels.get(actorInstance.getUUID());
-            updateActorModel(frame, actorModel, playModel, actorInstance, actorState);
+            updateActorModel(actorModel, frame, playModel, actorInstance, actorState);
         } else {
             ActorModel actorModel = createActorModel(frame, playModel, actorInstance, actorState);
             frameModel.actorModels.put(actorInstance.getUUID(), actorModel);
@@ -68,7 +69,7 @@ public class FrameModelConverter {
         }
     }
 
-    private void updateActorModel(Frame frame, ActorModel actorModel, PlayModel playModel, ActorInstance actorInstance, ActorState actorState) {
+    private void updateActorModel(ActorModel actorModel, Frame frame, PlayModel playModel, ActorInstance actorInstance, ActorState actorState) {
         if (actorInstance instanceof PlayerInstance) {
             playerActorModelConverter.update(frame, (PlayerActorModel) actorModel, (PlayerInstance) actorInstance, (PlayerState) actorState);
         } else if (actorInstance instanceof BallInstance) {

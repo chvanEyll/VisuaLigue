@@ -16,6 +16,8 @@ import java.util.List;
 import java.util.Timer;
 import java.util.TimerTask;
 import java.util.function.BiConsumer;
+import javafx.beans.value.ChangeListener;
+import javafx.beans.value.ObservableValue;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.geometry.Insets;
@@ -43,13 +45,13 @@ public class SeekBarController extends ControllerBase {
     private Double dragStartX;
     private Double dragStartThumbLocationX;
     private Animator animator;
-    private BiConsumer<Object, Integer> onTimelineLengthChanged = this::onTimelineLengthChanged;
+    private ChangeListener<Number> onTimelineLengthChanged = this::onTimelineLengthChanged;
     private BiConsumer<Object, Integer> onUndoRedo = this::onUndoRedo;
 
     public void init(PlayModel playModel, SceneController sceneController) {
         this.playModel = playModel;
         this.sceneController = sceneController;
-        playService.onPlayTimelineLengthChanged.addHandler(onTimelineLengthChanged);
+        playModel.timelineLength.addListener(onTimelineLengthChanged);
         playService.onUndo.addHandler(onUndoRedo);
         playService.onRedo.addHandler(onUndoRedo);
         updateKeyPoints();
@@ -58,7 +60,6 @@ public class SeekBarController extends ControllerBase {
 
     @Override
     public void clean() {
-        playService.onPlayTimelineLengthChanged.removeHandler(onTimelineLengthChanged);
         playService.onUndo.removeHandler(onUndoRedo);
         playService.onRedo.removeHandler(onUndoRedo);
     }
@@ -73,7 +74,7 @@ public class SeekBarController extends ControllerBase {
         setTimeDelayed(time);
     }
 
-    private void onTimelineLengthChanged(Object sender, Integer newTimelineLength) {
+    private void onTimelineLengthChanged(ObservableValue<? extends Number> value, Number oldPropertyValue, Number newPropertyValue) {
         updateKeyPoints();
     }
 
@@ -153,7 +154,7 @@ public class SeekBarController extends ControllerBase {
     }
 
     public Integer getLength() {
-        return MathUtils.roundUp(playService.getTimelineLength(playModel.getUUID()), KEY_POINT_INTERVAL);
+        return MathUtils.roundUp(playModel.timelineLength.get(), KEY_POINT_INTERVAL);
     }
 
     public Integer getRemainingTime() {
