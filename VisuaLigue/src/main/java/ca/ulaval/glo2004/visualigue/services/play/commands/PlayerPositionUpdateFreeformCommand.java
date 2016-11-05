@@ -10,7 +10,7 @@ import ca.ulaval.glo2004.visualigue.utils.geometry.Vector2;
 
 public class PlayerPositionUpdateFreeformCommand extends Command {
 
-    private String ownerPlayerInstanceUUID;
+    private String playerInstanceUUID;
     private Vector2 position;
     private StateTransition positionTransition;
     private EventHandler<Play> onFrameChanged;
@@ -18,9 +18,9 @@ public class PlayerPositionUpdateFreeformCommand extends Command {
     private PlayerInstance playerInstance;
     private ActorState oldPlayerState;
 
-    public PlayerPositionUpdateFreeformCommand(Play play, Integer time, String ownerPlayerInstanceUUID, Vector2 position, StateTransition positionTransition, EventHandler<Play> onFrameChanged) {
+    public PlayerPositionUpdateFreeformCommand(Play play, Integer time, String playerInstanceUUID, Vector2 position, StateTransition positionTransition, EventHandler<Play> onFrameChanged) {
         super(play, time);
-        this.ownerPlayerInstanceUUID = ownerPlayerInstanceUUID;
+        this.playerInstanceUUID = playerInstanceUUID;
         this.position = position;
         this.positionTransition = positionTransition;
         this.onFrameChanged = onFrameChanged;
@@ -29,7 +29,7 @@ public class PlayerPositionUpdateFreeformCommand extends Command {
     @Override
     public void execute() {
         PlayerState playerState = new PlayerState(position, positionTransition, null, null);
-        playerInstance = (PlayerInstance) play.getActorInstance(ownerPlayerInstanceUUID);
+        playerInstance = (PlayerInstance) play.getActorInstance(playerInstanceUUID);
         oldPlayerState = play.mergeKeyframe(time, playerInstance, playerState);
         onFrameChanged.fire(this, play);
     }

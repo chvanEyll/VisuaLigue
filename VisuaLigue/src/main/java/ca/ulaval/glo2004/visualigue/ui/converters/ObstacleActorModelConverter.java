@@ -4,8 +4,8 @@ import ca.ulaval.glo2004.visualigue.domain.image.ImageRepository;
 import ca.ulaval.glo2004.visualigue.domain.obstacle.Obstacle;
 import ca.ulaval.glo2004.visualigue.domain.play.actorinstance.ObstacleInstance;
 import ca.ulaval.glo2004.visualigue.domain.play.actorstate.ObstacleState;
-import ca.ulaval.glo2004.visualigue.ui.models.actors.ObstacleActorModel;
 import ca.ulaval.glo2004.visualigue.ui.models.ObstacleModel;
+import ca.ulaval.glo2004.visualigue.ui.models.actors.ObstacleActorModel;
 import javax.inject.Inject;
 
 public class ObstacleActorModelConverter {
@@ -31,6 +31,7 @@ public class ObstacleActorModelConverter {
     }
 
     public void update(ObstacleActorModel model, ObstacleInstance obstacleInstance, ObstacleState obstacleState) {
+        model.setUUID(obstacleInstance.getUUID());
         model.position.set(obstacleState.getPosition());
         model.hoverText.set(obstacleInstance.getObstacle().getName());
         Obstacle obstacle = obstacleInstance.getObstacle();

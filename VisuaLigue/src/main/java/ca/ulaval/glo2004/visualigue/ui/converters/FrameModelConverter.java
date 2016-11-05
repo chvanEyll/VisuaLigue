@@ -60,7 +60,7 @@ public class FrameModelConverter {
         if (actorInstance instanceof PlayerInstance) {
             return playerActorModelConverter.convert(frame, (PlayerInstance) actorInstance, (PlayerState) actorState);
         } else if (actorInstance instanceof BallInstance) {
-            return ballActorModelConverter.convert(playModel, (BallState) actorState);
+            return ballActorModelConverter.convert(playModel, (BallInstance) actorInstance, (BallState) actorState);
         } else if (actorInstance instanceof ObstacleInstance) {
             return obstacleActorModelConverter.convert((ObstacleInstance) actorInstance, (ObstacleState) actorState);
         } else {
@@ -81,7 +81,7 @@ public class FrameModelConverter {
         if (actorInstance instanceof PlayerInstance) {
             playerActorModelConverter.update(frame, (PlayerActorModel) actorModel, (PlayerInstance) actorInstance, (PlayerState) actorState);
         } else if (actorInstance instanceof BallInstance) {
-            ballActorModelConverter.update((BallActorModel) actorModel, playModel, (BallState) actorState);
+            ballActorModelConverter.update((BallActorModel) actorModel, playModel, (BallInstance) actorInstance, (BallState) actorState);
         } else if (actorInstance instanceof ObstacleInstance) {
             obstacleActorModelConverter.update((ObstacleActorModel) actorModel, (ObstacleInstance) actorInstance, (ObstacleState) actorState);
         }

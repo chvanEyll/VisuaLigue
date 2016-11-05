@@ -27,6 +27,7 @@ public class PlayingSurfaceLayerController extends ControllerBase {
     @FXML private ImageView rootNode;
     private Image image;
     private PlayModel playModel;
+    private Cursor oldCursor;
 
     public void init(PlayModel playModel, StackPane stackPane) {
         this.playModel = playModel;
@@ -52,26 +53,31 @@ public class PlayingSurfaceLayerController extends ControllerBase {
 
     @FXML
     protected void onMousePressed(MouseEvent e) {
+        System.out.println("Mouse pressed");
         onMousePressed.fire(this, e);
     }
 
     @FXML
     protected void onMouseDragged(MouseEvent e) {
+        System.out.println("Mouse dragged");
         onMouseDragged.fire(this, e);
     }
 
     @FXML
     protected void onMouseReleased(MouseEvent e) {
+        System.out.println("Mouse released");
         onMouseReleased.fire(this, e);
     }
 
     @FXML
     protected void onMouseMoved(MouseEvent e) {
+        System.out.println("Mouse moved");
         onMouseMoved.fire(this, e);
     }
 
     @FXML
     protected void onMouseClicked(MouseEvent e) {
+        System.out.println("Mouse clicked");
         onMouseClicked.fire(this, e);
     }
 
@@ -106,6 +112,15 @@ public class PlayingSurfaceLayerController extends ControllerBase {
 
     public void setCursor(Cursor cursor) {
         rootNode.setCursor(cursor);
+    }
+
+    public void changeCursor(Cursor cursor) {
+        oldCursor = cursor;
+        setCursor(cursor);
+    }
+
+    public void restoreCursor() {
+        setCursor(oldCursor);
     }
 
     public Vector2 relativeToSurfacePoint(Vector2 relativePoint) {

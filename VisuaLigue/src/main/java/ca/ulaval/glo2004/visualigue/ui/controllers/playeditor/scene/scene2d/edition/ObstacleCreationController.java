@@ -1,12 +1,12 @@
-package ca.ulaval.glo2004.visualigue.ui.controllers.playeditor.scene.scene2d.actorcreation;
+package ca.ulaval.glo2004.visualigue.ui.controllers.playeditor.scene.scene2d.edition;
 
 import ca.ulaval.glo2004.visualigue.services.play.PlayService;
 import ca.ulaval.glo2004.visualigue.ui.controllers.playeditor.scene.scene2d.LayerController;
 import ca.ulaval.glo2004.visualigue.ui.controllers.playeditor.scene.scene2d.layers.PlayingSurfaceLayerController;
 import ca.ulaval.glo2004.visualigue.ui.converters.ObstacleActorModelConverter;
-import ca.ulaval.glo2004.visualigue.ui.models.actors.ObstacleActorModel;
 import ca.ulaval.glo2004.visualigue.ui.models.ObstacleModel;
 import ca.ulaval.glo2004.visualigue.ui.models.PlayModel;
+import ca.ulaval.glo2004.visualigue.ui.models.actors.ObstacleActorModel;
 import ca.ulaval.glo2004.visualigue.utils.geometry.Vector2;
 import javafx.scene.input.MouseEvent;
 
@@ -20,10 +20,10 @@ public class ObstacleCreationController extends ActorCreationController {
         this.obstacleActorModelConverter = obstacleActorModelConverter;
     }
 
-    public void enterCreationMode(ObstacleModel obstacleModel) {
+    public void activate(ObstacleModel obstacleModel) {
         this.obstacleModel = obstacleModel;
         ObstacleActorModel obstacleActorModel = obstacleActorModelConverter.convert(obstacleModel);
-        super.enterCreationMode(obstacleActorModel);
+        super.activate(obstacleActorModel);
     }
 
     @Override
@@ -31,7 +31,7 @@ public class ObstacleCreationController extends ActorCreationController {
         if (enabled) {
             Vector2 position = playingSurfaceLayerController.getRelativeMousePosition();
             playService.addObstacle(playModel.getUUID(), 0, obstacleModel.getUUID(), position);
-            initActorCreationLayer(actorModel);
+            initEditionLayer(actorModel);
         }
     }
 

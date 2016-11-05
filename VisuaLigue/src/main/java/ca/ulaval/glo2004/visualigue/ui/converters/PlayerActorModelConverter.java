@@ -5,8 +5,8 @@ import ca.ulaval.glo2004.visualigue.domain.play.actorinstance.TeamSide;
 import ca.ulaval.glo2004.visualigue.domain.play.actorstate.ActorState;
 import ca.ulaval.glo2004.visualigue.domain.play.actorstate.PlayerState;
 import ca.ulaval.glo2004.visualigue.domain.play.frame.Frame;
-import ca.ulaval.glo2004.visualigue.ui.models.actors.PlayerActorModel;
 import ca.ulaval.glo2004.visualigue.ui.models.PlayerCategoryModel;
+import ca.ulaval.glo2004.visualigue.ui.models.actors.PlayerActorModel;
 
 public class PlayerActorModelConverter {
 
@@ -28,6 +28,7 @@ public class PlayerActorModelConverter {
     }
 
     public void update(Frame frame, PlayerActorModel model, PlayerInstance playerInstance, PlayerState playerState) {
+        model.setUUID(playerInstance.getUUID());
         model.position.set(playerState.getPosition());
         ActorState nextActorState = frame.getNextActorState(playerInstance);
         if (nextActorState != null) {

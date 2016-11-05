@@ -1,12 +1,12 @@
-package ca.ulaval.glo2004.visualigue.ui.controllers.playeditor.scene.scene2d.actorcreation;
+package ca.ulaval.glo2004.visualigue.ui.controllers.playeditor.scene.scene2d.edition;
 
 import ca.ulaval.glo2004.visualigue.services.play.PlayService;
 import ca.ulaval.glo2004.visualigue.ui.controllers.playeditor.scene.scene2d.LayerController;
 import ca.ulaval.glo2004.visualigue.ui.controllers.playeditor.scene.scene2d.layers.PlayingSurfaceLayerController;
 import ca.ulaval.glo2004.visualigue.ui.converters.BallActorModelConverter;
-import ca.ulaval.glo2004.visualigue.ui.models.actors.BallActorModel;
 import ca.ulaval.glo2004.visualigue.ui.models.BallModel;
 import ca.ulaval.glo2004.visualigue.ui.models.PlayModel;
+import ca.ulaval.glo2004.visualigue.ui.models.actors.BallActorModel;
 import ca.ulaval.glo2004.visualigue.utils.geometry.Vector2;
 import javafx.scene.input.MouseEvent;
 
@@ -19,9 +19,9 @@ public class BallCreationController extends ActorCreationController {
         this.ballActorModelConverter = ballActorModelConverter;
     }
 
-    public void enterCreationMode(BallModel ballModel) {
+    public void activate(BallModel ballModel) {
         BallActorModel ballActorModel = ballActorModelConverter.convert(ballModel);
-        super.enterCreationMode(ballActorModel);
+        super.activate(ballActorModel);
     }
 
     @Override
@@ -29,7 +29,7 @@ public class BallCreationController extends ActorCreationController {
         if (enabled) {
             Vector2 position = playingSurfaceLayerController.getRelativeMousePosition();
             playService.addBall(playModel.getUUID(), 0, null, position);
-            initActorCreationLayer(actorModel);
+            initEditionLayer(actorModel);
         }
     }
 

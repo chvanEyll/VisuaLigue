@@ -12,7 +12,33 @@ import javafx.beans.property.ObjectProperty;
 
 public class ActorLayerViewFactory {
 
-    public View create(ActorModel actorModel, PlayingSurfaceLayerController playingSurfaceController, ObjectProperty<Zoom> zoomProperty, BooleanProperty showActorLabelsProperty, BooleanProperty showMovementArrowsProperty, BooleanProperty resizeActorsOnZoomProperty) {
+    private PlayingSurfaceLayerController playingSurfaceController;
+    private ObjectProperty<Zoom> zoomProperty;
+    private BooleanProperty showActorLabelsProperty;
+    private BooleanProperty showMovementArrowsProperty;
+    private BooleanProperty resizeActorsOnZoomProperty;
+
+    public void setPlayingSurfaceController(PlayingSurfaceLayerController playingSurfaceController) {
+        this.playingSurfaceController = playingSurfaceController;
+    }
+
+    public void setZoomProperty(ObjectProperty<Zoom> zoomProperty) {
+        this.zoomProperty = zoomProperty;
+    }
+
+    public void setShowActorLabelsProperty(BooleanProperty showActorLabelsProperty) {
+        this.showActorLabelsProperty = showActorLabelsProperty;
+    }
+
+    public void setShowMovementArrowsProperty(BooleanProperty showMovementArrowsProperty) {
+        this.showMovementArrowsProperty = showMovementArrowsProperty;
+    }
+
+    public void setResizeActorsOnZoomProperty(BooleanProperty resizeActorsOnZoomProperty) {
+        this.resizeActorsOnZoomProperty = resizeActorsOnZoomProperty;
+    }
+
+    public View create(ActorModel actorModel) {
         View view;
         if (actorModel instanceof PlayerActorModel) {
             view = InjectableFXMLLoader.loadView(PlayerLayerController.VIEW_NAME);

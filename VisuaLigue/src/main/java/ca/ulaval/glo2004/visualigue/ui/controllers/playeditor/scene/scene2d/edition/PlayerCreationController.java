@@ -1,4 +1,4 @@
-package ca.ulaval.glo2004.visualigue.ui.controllers.playeditor.scene.scene2d.actorcreation;
+package ca.ulaval.glo2004.visualigue.ui.controllers.playeditor.scene.scene2d.edition;
 
 import ca.ulaval.glo2004.visualigue.domain.play.actorinstance.TeamSide;
 import ca.ulaval.glo2004.visualigue.services.play.PlayService;
@@ -6,8 +6,8 @@ import ca.ulaval.glo2004.visualigue.ui.controllers.playeditor.scene.scene2d.Laye
 import ca.ulaval.glo2004.visualigue.ui.controllers.playeditor.scene.scene2d.layers.PlayingSurfaceLayerController;
 import ca.ulaval.glo2004.visualigue.ui.converters.PlayerActorModelConverter;
 import ca.ulaval.glo2004.visualigue.ui.models.PlayModel;
-import ca.ulaval.glo2004.visualigue.ui.models.actors.PlayerActorModel;
 import ca.ulaval.glo2004.visualigue.ui.models.PlayerCategoryModel;
+import ca.ulaval.glo2004.visualigue.ui.models.actors.PlayerActorModel;
 import ca.ulaval.glo2004.visualigue.utils.geometry.Vector2;
 import javafx.scene.input.MouseEvent;
 
@@ -22,11 +22,11 @@ public class PlayerCreationController extends ActorCreationController {
         this.playerActorModelConverter = playerActorModelConverter;
     }
 
-    public void enterCreationMode(PlayerCategoryModel playerCategoryModel, TeamSide teamSide) {
+    public void activate(PlayerCategoryModel playerCategoryModel, TeamSide teamSide) {
         this.playerCategoryModel = playerCategoryModel;
         this.teamSide = teamSide;
         PlayerActorModel playerActorModel = playerActorModelConverter.convert(playerCategoryModel, teamSide);
-        super.enterCreationMode(playerActorModel);
+        super.activate(playerActorModel);
     }
 
     @Override
@@ -34,7 +34,7 @@ public class PlayerCreationController extends ActorCreationController {
         if (enabled) {
             Vector2 position = playingSurfaceLayerController.getRelativeMousePosition();
             playService.addPlayer(playModel.getUUID(), 0, playerCategoryModel.getUUID(), teamSide, 0.0, position);
-            initActorCreationLayer(actorModel);
+            initEditionLayer(actorModel);
         }
     }
 

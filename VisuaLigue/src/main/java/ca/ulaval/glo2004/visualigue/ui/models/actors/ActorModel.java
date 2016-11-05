@@ -7,7 +7,7 @@ import javafx.beans.property.SimpleObjectProperty;
 import javafx.beans.property.SimpleStringProperty;
 import javafx.beans.property.StringProperty;
 
-public abstract class ActorModel extends ModelBase {
+public class ActorModel extends ModelBase {
 
     public ObjectProperty<Vector2> position = new SimpleObjectProperty();
     public StringProperty hoverText = new SimpleStringProperty();

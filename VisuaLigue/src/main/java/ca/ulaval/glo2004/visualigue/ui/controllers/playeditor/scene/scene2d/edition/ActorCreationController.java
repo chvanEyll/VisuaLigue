@@ -1,18 +1,18 @@
-package ca.ulaval.glo2004.visualigue.ui.controllers.playeditor.scene.scene2d.actorcreation;
+package ca.ulaval.glo2004.visualigue.ui.controllers.playeditor.scene.scene2d.edition;
 
 import ca.ulaval.glo2004.visualigue.services.play.PlayService;
 import ca.ulaval.glo2004.visualigue.ui.controllers.ControllerBase;
 import ca.ulaval.glo2004.visualigue.ui.controllers.playeditor.scene.scene2d.LayerController;
 import ca.ulaval.glo2004.visualigue.ui.controllers.playeditor.scene.scene2d.layers.PlayingSurfaceLayerController;
-import ca.ulaval.glo2004.visualigue.ui.models.actors.ActorModel;
 import ca.ulaval.glo2004.visualigue.ui.models.PlayModel;
+import ca.ulaval.glo2004.visualigue.ui.models.actors.ActorModel;
 import ca.ulaval.glo2004.visualigue.utils.EventHandler;
 import javafx.scene.input.MouseEvent;
 
 public abstract class ActorCreationController extends ControllerBase {
 
-    public EventHandler onCreationModeEntered = new EventHandler();
-    public EventHandler onCreationModeExited = new EventHandler();
+    public EventHandler onActivate = new EventHandler();
+    public EventHandler onDeactivate = new EventHandler();
     protected PlayService playService;
     protected PlayingSurfaceLayerController playingSurfaceLayerController;
     protected LayerController layerController;
@@ -29,13 +29,13 @@ public abstract class ActorCreationController extends ControllerBase {
         playingSurfaceLayerController.onMouseClicked.addHandler(this::onPlayingSurfaceMouseClicked);
     }
 
-    protected void enterCreationMode(ActorModel actorModel) {
-        initActorCreationLayer(actorModel);
+    protected void activate(ActorModel actorModel) {
+        initEditionLayer(actorModel);
         enabled = true;
-        onCreationModeEntered.fire(this);
+        onActivate.fire(this);
     }
 
-    protected void initActorCreationLayer(ActorModel actorModel) {
+    protected void initEditionLayer(ActorModel actorModel) {
         layerController.removeActorLayer(this.actorModel);
         layerController.setAllOpacity(0.5);
         layerController.addActorLayer(actorModel);
@@ -43,13 +43,13 @@ public abstract class ActorCreationController extends ControllerBase {
         this.actorModel = actorModel;
     }
 
-    public void exitCreationMode() {
+    public void deactivate() {
         if (enabled) {
             layerController.removeActorLayer(actorModel);
             layerController.setAllMouseTransparent(false);
             layerController.setAllOpacity(1.0);
             enabled = false;
-            onCreationModeExited.fire(this);
+            onDeactivate.fire(this);
         }
     }
 

@@ -8,11 +8,12 @@
 <?import javafx.scene.effect.DropShadow?>
 <?import javafx.scene.layout.Pane?>
 <?import javafx.scene.shape.Line?>
+<?import javafx.scene.Cursor?>
 
 <Pane fx:id="rootNode" pickOnBounds="false" styleClass="root-node, actor-layer" xmlns="http://javafx.com/javafx/8.0.60" xmlns:fx="http://javafx.com/fxml/1" fx:controller="ca.ulaval.glo2004.visualigue.ui.controllers.playeditor.scene.scene2d.layers.PlayerLayerController">
     <children>
         <Arrow fx:id="arrow" mouseTransparent="true" visible="false" />
-        <ExtendedButton fx:id="actorButton" styleClass="icon-button, shadowed" visible="false" >
+        <ExtendedButton fx:id="actorButton" styleClass="actor-button, icon-button, shadowed" visible="false"  >
             <graphic>
                 <PlayerIcon fx:id="playerIcon" />
             </graphic>

@@ -4,12 +4,10 @@ import ca.ulaval.glo2004.visualigue.ui.View;
 import ca.ulaval.glo2004.visualigue.ui.controllers.ControllerBase;
 import ca.ulaval.glo2004.visualigue.ui.controllers.playeditor.scene.scene2d.layers.ActorLayerController;
 import ca.ulaval.glo2004.visualigue.ui.controllers.playeditor.scene.scene2d.layers.ActorLayerViewFactory;
-import ca.ulaval.glo2004.visualigue.ui.controllers.playeditor.scene.scene2d.layers.PlayingSurfaceLayerController;
 import ca.ulaval.glo2004.visualigue.ui.models.FrameModel;
 import ca.ulaval.glo2004.visualigue.ui.models.actors.ActorModel;
 import java.util.HashMap;
 import java.util.Map;
-import javafx.beans.property.BooleanProperty;
 import javafx.collections.MapChangeListener;
 import javafx.scene.layout.StackPane;
 
@@ -17,23 +15,11 @@ public class LayerController extends ControllerBase {
 
     private ActorLayerViewFactory actorLayerViewFactory;
     private StackPane layerStackPane;
-    private NavigationController navigationController;
-    private BooleanProperty showActorLabelsProperty;
-    private BooleanProperty showMovementArrowsProperty;
-    private BooleanProperty resizeActorsOnZoomProperty;
-    private View playingSurfaceLayerView;
     private Map<ActorModel, View> actorLayerMap = new HashMap();
 
-    public LayerController(FrameModel frameModel, ActorLayerViewFactory actorLayerViewFactory, StackPane layerStackPane, NavigationController navigationController, View playingSurfaceLayerView,
-            BooleanProperty showActorLabelsProperty, BooleanProperty showMovementArrowsProperty, BooleanProperty resizeActorsOnZoomProperty) {
+    public LayerController(FrameModel frameModel, ActorLayerViewFactory actorLayerViewFactory, StackPane layerStackPane) {
         this.actorLayerViewFactory = actorLayerViewFactory;
         this.layerStackPane = layerStackPane;
-        this.navigationController = navigationController;
-        this.playingSurfaceLayerView = playingSurfaceLayerView;
-        this.showActorLabelsProperty = showActorLabelsProperty;
-        this.showMovementArrowsProperty = showMovementArrowsProperty;
-        this.resizeActorsOnZoomProperty = resizeActorsOnZoomProperty;
-        addLayer(playingSurfaceLayerView);
         frameModel.actorModels.addListener(this::onActorStateMapChanged);
     }
 
@@ -47,7 +33,7 @@ public class LayerController extends ControllerBase {
     }
 
     public void addActorLayer(ActorModel actorModel) {
-        View view = actorLayerViewFactory.create(actorModel, (PlayingSurfaceLayerController) playingSurfaceLayerView.getController(), navigationController.getZoomProperty(), showActorLabelsProperty, showMovementArrowsProperty, resizeActorsOnZoomProperty);
+        View view = actorLayerViewFactory.create(actorModel);
         ActorLayerController controller = (ActorLayerController) view.getController();
         super.addChild(controller);
         actorLayerMap.put(actorModel, view);

@@ -86,15 +86,15 @@ public class PlayService {
         executeNewCommand(playUUID, command);
     }
 
-    public void updatePlayerPositionDirect(String playUUID, Integer time, String ownerPlayerInstanceUUID, Vector2 position) {
+    public void updatePlayerPositionDirect(String playUUID, Integer time, String playerInstanceUUID, Vector2 position) {
         Play play = playRepository.get(playUUID);
-        PlayerPositionUpdateDirectCommand command = new PlayerPositionUpdateDirectCommand(play, time, ownerPlayerInstanceUUID, position, onPlayFrameChanged);
+        PlayerPositionUpdateDirectCommand command = new PlayerPositionUpdateDirectCommand(play, time, playerInstanceUUID, position, onPlayFrameChanged);
         executeNewCommand(playUUID, command);
     }
 
-    public void updatePlayerPositionFreeform(String playUUID, Integer time, String ownerPlayerInstanceUUID, Vector2 position, StateTransition positionTransition) {
+    public void updatePlayerPositionFreeform(String playUUID, Integer time, String playerInstanceUUID, Vector2 position, StateTransition positionTransition) {
         Play play = playRepository.get(playUUID);
-        PlayerPositionUpdateFreeformCommand command = new PlayerPositionUpdateFreeformCommand(play, time, ownerPlayerInstanceUUID, position, positionTransition, onPlayFrameChanged);
+        PlayerPositionUpdateFreeformCommand command = new PlayerPositionUpdateFreeformCommand(play, time, playerInstanceUUID, position, positionTransition, onPlayFrameChanged);
         executeNewCommand(playUUID, command);
     }
 

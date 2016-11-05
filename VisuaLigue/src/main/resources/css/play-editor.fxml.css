@@ -159,3 +159,7 @@
 .scene .actor-layer .shadowed {
     -fx-effect: dropshadow(one-pass-box, rgba(255,255,255,1), 9.5, 0.25, 0, 0);
 }
+
+.scene .actor-layer .actor-button {
+    -fx-cursor: move;
+}

@@ -10,23 +10,23 @@ import ca.ulaval.glo2004.visualigue.utils.geometry.Vector2;
 
 public class PlayerPositionUpdateDirectCommand extends Command {
 
-    private String ownerPlayerInstanceUUID;
+    private String playerInstanceUUID;
     private Vector2 position;
     private EventHandler<Play> onFrameChanged;
 
     private PlayerInstance playerInstance;
     private ActorState oldPlayerState;
 
-    public PlayerPositionUpdateDirectCommand(Play play, Integer time, String ownerPlayerInstanceUUID, Vector2 position, EventHandler<Play> onFrameChanged) {
+    public PlayerPositionUpdateDirectCommand(Play play, Integer time, String playerInstanceUUID, Vector2 position, EventHandler<Play> onFrameChanged) {
         super(play, time);
-        this.ownerPlayerInstanceUUID = ownerPlayerInstanceUUID;
+        this.playerInstanceUUID = playerInstanceUUID;
         this.position = position;
     }
 
     @Override
     public void execute() {
         PlayerState playerState = new PlayerState(position, new LinearTransition(), null, null);
-        playerInstance = (PlayerInstance) play.getActorInstance(ownerPlayerInstanceUUID);
+        playerInstance = (PlayerInstance) play.getActorInstance(playerInstanceUUID);
         oldPlayerState = play.mergeKeyframe(time, playerInstance, playerState);
         onFrameChanged.fire(this, play);
         this.onFrameChanged = onFrameChanged;

@@ -7,6 +7,7 @@ import ca.ulaval.glo2004.visualigue.ui.models.actors.ActorModel;
 import javafx.beans.property.BooleanProperty;
 import javafx.beans.property.ObjectProperty;
 import javafx.fxml.FXML;
+import javafx.scene.Cursor;
 import javafx.scene.control.Tooltip;
 
 public abstract class ActorLayerController extends ControllerBase {
@@ -24,6 +25,7 @@ public abstract class ActorLayerController extends ControllerBase {
         this.zoomProperty = zoomProperty;
         this.resizeActorsOnZoomProperty = resizeActorsOnZoomProperty;
         tooltip.textProperty().bind(actorModel.hoverText);
+        actorButton.setCursor(Cursor.MOVE);
     }
 
     protected Double getScaledValue(Double value) {
