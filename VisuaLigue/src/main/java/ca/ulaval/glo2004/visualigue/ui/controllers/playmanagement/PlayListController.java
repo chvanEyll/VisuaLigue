@@ -94,7 +94,6 @@ public class PlayListController extends ControllerBase {
 
     private void onItemDeleteButtonClicked(Object sender, PlayModel model) {
         playService.deletePlay(model.getUUID());
-        removePlayItem(model);
     }
 
     @FXML
