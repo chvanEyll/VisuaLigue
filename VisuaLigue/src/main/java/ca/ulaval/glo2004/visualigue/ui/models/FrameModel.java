@@ -1,5 +1,6 @@
 package ca.ulaval.glo2004.visualigue.ui.models;
 
+import ca.ulaval.glo2004.visualigue.ui.models.actors.ActorModel;
 import javafx.beans.property.IntegerProperty;
 import javafx.beans.property.SimpleIntegerProperty;
 import javafx.collections.FXCollections;

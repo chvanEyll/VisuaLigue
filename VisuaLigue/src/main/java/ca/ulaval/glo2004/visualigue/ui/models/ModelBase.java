@@ -1,6 +1,6 @@
 package ca.ulaval.glo2004.visualigue.ui.models;
 
-public class ModelBase {
+public abstract class ModelBase {
 
     private String uuid;
     private Boolean isNew = true;

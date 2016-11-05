@@ -5,7 +5,7 @@ import ca.ulaval.glo2004.visualigue.ui.controllers.ControllerBase;
 import ca.ulaval.glo2004.visualigue.ui.controllers.playeditor.scene.scene2d.layers.ActorLayerController;
 import ca.ulaval.glo2004.visualigue.ui.controllers.playeditor.scene.scene2d.layers.ActorLayerViewFactory;
 import ca.ulaval.glo2004.visualigue.ui.controllers.playeditor.scene.scene2d.layers.PlayingSurfaceLayerController;
-import ca.ulaval.glo2004.visualigue.ui.models.ActorModel;
+import ca.ulaval.glo2004.visualigue.ui.models.actors.ActorModel;
 import java.util.HashMap;
 import java.util.Map;
 import javafx.beans.property.BooleanProperty;
@@ -51,9 +51,8 @@ public class LayerController extends ControllerBase {
     }
 
     public void addActorLayer(ActorModel actorModel) {
-        View view = actorLayerViewFactory.create(actorModel);
+        View view = actorLayerViewFactory.create(actorModel, (PlayingSurfaceLayerController) playingSurfaceLayerView.getController(), navigationController.getZoomProperty(), showActorLabelsProperty, showMovementArrowsProperty, resizeActorsOnZoomProperty);
         ActorLayerController controller = (ActorLayerController) view.getController();
-        controller.init(actorModel, (PlayingSurfaceLayerController) playingSurfaceLayerView.getController(), navigationController.getZoomProperty(), showActorLabelsProperty, showMovementArrowsProperty, resizeActorsOnZoomProperty);
         super.addChild(controller);
         actorLayerMap.put(actorModel, view);
         addLayer(view);

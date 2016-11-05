@@ -8,7 +8,7 @@ import javax.xml.bind.annotation.XmlID;
 import javax.xml.bind.annotation.XmlTransient;
 
 @XmlAccessorType(XmlAccessType.FIELD)
-public class DomainObject implements Comparable<DomainObject> {
+public abstract class DomainObject implements Comparable<DomainObject> {
 
     @XmlID
     protected String uuid;

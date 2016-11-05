@@ -15,8 +15,10 @@ import ca.ulaval.glo2004.visualigue.ui.controllers.playeditor.scene.scene2d.acto
 import ca.ulaval.glo2004.visualigue.ui.controllers.playeditor.scene.scene2d.actorcreation.PlayerCreationController;
 import ca.ulaval.glo2004.visualigue.ui.controllers.playeditor.scene.scene2d.layers.ActorLayerViewFactory;
 import ca.ulaval.glo2004.visualigue.ui.controllers.playeditor.scene.scene2d.layers.PlayingSurfaceLayerController;
-import ca.ulaval.glo2004.visualigue.ui.converters.ActorModelConverter;
+import ca.ulaval.glo2004.visualigue.ui.converters.BallActorModelConverter;
 import ca.ulaval.glo2004.visualigue.ui.converters.FrameModelConverter;
+import ca.ulaval.glo2004.visualigue.ui.converters.ObstacleActorModelConverter;
+import ca.ulaval.glo2004.visualigue.ui.converters.PlayerActorModelConverter;
 import ca.ulaval.glo2004.visualigue.ui.models.*;
 import java.util.function.BiConsumer;
 import javafx.fxml.FXML;
@@ -32,7 +34,9 @@ public class Scene2DController extends SceneController {
     @Inject private SettingsService settingsService;
     @Inject private PlayService playService;
     @Inject private ActorLayerViewFactory actorLayerViewFactory;
-    @Inject private ActorModelConverter actorModelConverter;
+    @Inject private PlayerActorModelConverter playerActorModelConverter;
+    @Inject private ObstacleActorModelConverter obstacleActorModelConverter;
+    @Inject private BallActorModelConverter ballActorModelConverter;
     @Inject private FrameModelConverter frameModelConverter;
     private BiConsumer<Object, Play> onPlayFrameChanged = this::onPlayFrameChanged;
     private Integer currentTime;
@@ -66,18 +70,22 @@ public class Scene2DController extends SceneController {
         navigationController.onNavigationModeEntered.forward(this.onNavigationModeEntered);
         navigationController.onNavigationModeExited.forward(this.onNavigationModeExited);
         layerController = new LayerController(frameModel.actorModels, actorLayerViewFactory, layerStackPane, navigationController, playingSurfaceView, showActorLabelsProperty, showMovementArrowsProperty, resizeActorsOnZoomProperty);
-        playerCreationController = new PlayerCreationController(playingSurfaceLayerController, layerController, actorModelConverter, playModel, playService);
-        playerCreationController.onCreationModeExited.forward(this.onPlayerCreationModeExited);
-        playerCreationController.onCreationModeEntered.forward(this.onCreationModeEntered);
-        obstacleCreationController = new ObstacleCreationController(playingSurfaceLayerController, layerController, actorModelConverter, playModel, playService);
-        obstacleCreationController.onCreationModeExited.forward(this.onObstacleCreationModeExited);
-        obstacleCreationController.onCreationModeEntered.forward(this.onCreationModeEntered);
-        ballCreationController = new BallCreationController(playingSurfaceLayerController, layerController, actorModelConverter, playModel, playService);
-        ballCreationController.onCreationModeExited.forward(this.onBallCreationModeExited);
-        ballCreationController.onCreationModeEntered.forward(this.onCreationModeEntered);
         super.addChild(playingSurfaceLayerController);
         super.addChild(navigationController);
         super.addChild(layerController);
+        initActorCreationControllers();
+    }
+
+    private void initActorCreationControllers() {
+        playerCreationController = new PlayerCreationController(playingSurfaceLayerController, layerController, playerActorModelConverter, playModel, playService);
+        playerCreationController.onCreationModeExited.forward(this.onPlayerCreationModeExited);
+        playerCreationController.onCreationModeEntered.forward(this.onCreationModeEntered);
+        obstacleCreationController = new ObstacleCreationController(playingSurfaceLayerController, layerController, obstacleActorModelConverter, playModel, playService);
+        obstacleCreationController.onCreationModeExited.forward(this.onObstacleCreationModeExited);
+        obstacleCreationController.onCreationModeEntered.forward(this.onCreationModeEntered);
+        ballCreationController = new BallCreationController(playingSurfaceLayerController, layerController, ballActorModelConverter, playModel, playService);
+        ballCreationController.onCreationModeExited.forward(this.onBallCreationModeExited);
+        ballCreationController.onCreationModeEntered.forward(this.onCreationModeEntered);
         super.addChild(playerCreationController);
         super.addChild(obstacleCreationController);
         super.addChild(ballCreationController);

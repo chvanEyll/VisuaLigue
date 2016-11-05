@@ -4,7 +4,7 @@ import ca.ulaval.glo2004.visualigue.ui.controllers.common.Arrow;
 import ca.ulaval.glo2004.visualigue.ui.controllers.common.ExtendedLabel;
 import ca.ulaval.glo2004.visualigue.ui.controllers.common.PlayerIcon;
 import ca.ulaval.glo2004.visualigue.ui.controllers.playeditor.scene.Zoom;
-import ca.ulaval.glo2004.visualigue.ui.models.ActorModel;
+import ca.ulaval.glo2004.visualigue.ui.models.actors.PlayerActorModel;
 import ca.ulaval.glo2004.visualigue.utils.geometry.Vector2;
 import javafx.application.Platform;
 import javafx.beans.property.BooleanProperty;
@@ -20,26 +20,35 @@ public class PlayerLayerController extends ActorLayerController {
     public static final Double BASE_BUTTON_SCALING = 1.25;
     public static final Double ARROW_HEAD_SIZE = 15.0;
     public static final Double ARROW_STROKE_DASH_ARRAY_SIZE = 10.0;
+    private PlayerActorModel playerActorModel;
     private ChangeListener<Object> onChange = this::onChange;
+    private BooleanProperty showActorLabelsProperty;
+    private BooleanProperty showMovementArrowsProperty;
     @FXML private PlayerIcon playerIcon;
     @FXML private ExtendedLabel label;
     @FXML private Arrow arrow;
 
-    @Override
-    public void init(ActorModel actorModel, PlayingSurfaceLayerController playingLayerSurfaceController, ObjectProperty<Zoom> zoomProperty, BooleanProperty showActorLabelsProperty, BooleanProperty showMovementArrowsProperty, BooleanProperty resizeActorsOnZoomProperty) {
-        super.init(actorModel, playingLayerSurfaceController, zoomProperty, showActorLabelsProperty, showMovementArrowsProperty, resizeActorsOnZoomProperty);
-        label.textProperty().bind(actorModel.label);
-        actorModel.position.addListener(onChange);
-        actorModel.nextPosition.addListener(onChange);
-        actorModel.orientation.addListener(onChange);
-        actorModel.label.addListener(onChange);
+    public void init(PlayerActorModel playerActorModel, PlayingSurfaceLayerController playingLayerSurfaceController, ObjectProperty<Zoom> zoomProperty, BooleanProperty showActorLabelsProperty, BooleanProperty showMovementArrowsProperty, BooleanProperty resizeActorsOnZoomProperty) {
+        super.init(playerActorModel, playingLayerSurfaceController, zoomProperty, resizeActorsOnZoomProperty);
+        this.playerActorModel = playerActorModel;
+        this.showActorLabelsProperty = showActorLabelsProperty;
+        this.showMovementArrowsProperty = showMovementArrowsProperty;
+        label.textProperty().bind(playerActorModel.label);
+        addListeners();
+        update();
+    }
+
+    private void addListeners() {
+        playerActorModel.position.addListener(onChange);
+        playerActorModel.nextPosition.addListener(onChange);
+        playerActorModel.orientation.addListener(onChange);
+        playerActorModel.label.addListener(onChange);
         showActorLabelsProperty.addListener(onChange);
         showMovementArrowsProperty.addListener(onChange);
         resizeActorsOnZoomProperty.addListener(onChange);
         zoomProperty.addListener(onChange);
         actorButton.layoutReadyProperty().addListener(this::onChange);
         label.layoutReadyProperty().addListener(this::onChange);
-        update();
     }
 
     @Override
@@ -57,14 +66,14 @@ public class PlayerLayerController extends ActorLayerController {
     @Override
     public void update() {
         Vector2 actorPosition;
-        if (actorModel.position.isNotNull().get()) {
-            actorPosition = playingSurfaceLayerController.relativeToSurfacePoint(actorModel.position.get());
+        if (playerActorModel.position.isNotNull().get()) {
+            actorPosition = playingSurfaceLayerController.relativeToSurfacePoint(playerActorModel.position.get());
         } else {
             actorPosition = null;
         }
         Vector2 nextActorPosition;
-        if (actorModel.nextPosition.isNotNull().get()) {
-            nextActorPosition = playingSurfaceLayerController.relativeToSurfacePoint(actorModel.nextPosition.get());
+        if (playerActorModel.nextPosition.isNotNull().get()) {
+            nextActorPosition = playingSurfaceLayerController.relativeToSurfacePoint(playerActorModel.nextPosition.get());
         } else {
             nextActorPosition = null;
         }
@@ -81,18 +90,18 @@ public class PlayerLayerController extends ActorLayerController {
             actorButton.setScaleY(getScaledValue(BASE_BUTTON_SCALING));
             actorButton.setLayoutX(actorPosition.getX() - actorButton.getWidth() / 2);
             actorButton.setLayoutY(actorPosition.getY() - actorButton.getHeight() / 2);
-            actorButton.setRotate(actorModel.orientation.get());
-            playerIcon.setColor(actorModel.color.get());
+            actorButton.setRotate(playerActorModel.orientation.get());
+            playerIcon.setColor(playerActorModel.color.get());
         }
         actorButton.setVisible(actorPosition != null);
     }
 
     private void updateArrow(Vector2 currentActorPosition, Vector2 nextActorPosition) {
         if (showMovementArrowsProperty.get() == true && nextActorPosition != null) {
-            arrow.setStroke(actorModel.color.get());
+            arrow.setStroke(playerActorModel.color.get());
             arrow.setStrokeWidth(getScaledValue(3.0));
             arrow.getStrokeDashArray().setAll(getScaledValue(ARROW_STROKE_DASH_ARRAY_SIZE));
-            arrow.setArrowFill(actorModel.color.get());
+            arrow.setArrowFill(playerActorModel.color.get());
             arrow.setHeadSize(new Vector2(getScaledValue(ARROW_HEAD_SIZE), getScaledValue(ARROW_HEAD_SIZE)));
             arrow.setTailGrow(-actorButton.getWidth() * actorButton.getScaleX());
             arrow.setHeadLocation(nextActorPosition);

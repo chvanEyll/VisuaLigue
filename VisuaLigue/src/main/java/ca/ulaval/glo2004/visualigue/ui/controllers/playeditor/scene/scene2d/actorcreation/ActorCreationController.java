@@ -4,8 +4,7 @@ import ca.ulaval.glo2004.visualigue.services.play.PlayService;
 import ca.ulaval.glo2004.visualigue.ui.controllers.ControllerBase;
 import ca.ulaval.glo2004.visualigue.ui.controllers.playeditor.scene.scene2d.LayerController;
 import ca.ulaval.glo2004.visualigue.ui.controllers.playeditor.scene.scene2d.layers.PlayingSurfaceLayerController;
-import ca.ulaval.glo2004.visualigue.ui.converters.ActorModelConverter;
-import ca.ulaval.glo2004.visualigue.ui.models.ActorModel;
+import ca.ulaval.glo2004.visualigue.ui.models.actors.ActorModel;
 import ca.ulaval.glo2004.visualigue.ui.models.PlayModel;
 import ca.ulaval.glo2004.visualigue.utils.EventHandler;
 import javafx.scene.input.MouseEvent;
@@ -15,17 +14,15 @@ public abstract class ActorCreationController extends ControllerBase {
     public EventHandler onCreationModeEntered = new EventHandler();
     public EventHandler onCreationModeExited = new EventHandler();
     protected PlayService playService;
-    protected ActorModelConverter actorModelConverter;
     protected PlayingSurfaceLayerController playingSurfaceLayerController;
     protected LayerController layerController;
     protected ActorModel actorModel;
     protected PlayModel playModel;
     protected Boolean enabled = false;
 
-    public ActorCreationController(PlayingSurfaceLayerController playingSurfaceLayerController, LayerController layerController, ActorModelConverter actorModelConverter, PlayModel playModel, PlayService playService) {
+    public ActorCreationController(PlayingSurfaceLayerController playingSurfaceLayerController, LayerController layerController, PlayModel playModel, PlayService playService) {
         this.playingSurfaceLayerController = playingSurfaceLayerController;
         this.layerController = layerController;
-        this.actorModelConverter = actorModelConverter;
         this.playModel = playModel;
         this.playService = playService;
         playingSurfaceLayerController.onMouseMoved.addHandler(this::onPlayingSurfaceMouseMoved);

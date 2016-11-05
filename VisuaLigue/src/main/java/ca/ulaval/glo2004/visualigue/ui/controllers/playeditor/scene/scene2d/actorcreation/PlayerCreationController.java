@@ -4,27 +4,29 @@ import ca.ulaval.glo2004.visualigue.domain.play.actorinstance.TeamSide;
 import ca.ulaval.glo2004.visualigue.services.play.PlayService;
 import ca.ulaval.glo2004.visualigue.ui.controllers.playeditor.scene.scene2d.LayerController;
 import ca.ulaval.glo2004.visualigue.ui.controllers.playeditor.scene.scene2d.layers.PlayingSurfaceLayerController;
-import ca.ulaval.glo2004.visualigue.ui.converters.ActorModelConverter;
-import ca.ulaval.glo2004.visualigue.ui.models.ActorModel;
+import ca.ulaval.glo2004.visualigue.ui.converters.PlayerActorModelConverter;
 import ca.ulaval.glo2004.visualigue.ui.models.PlayModel;
+import ca.ulaval.glo2004.visualigue.ui.models.actors.PlayerActorModel;
 import ca.ulaval.glo2004.visualigue.ui.models.PlayerCategoryModel;
 import ca.ulaval.glo2004.visualigue.utils.geometry.Vector2;
 import javafx.scene.input.MouseEvent;
 
 public class PlayerCreationController extends ActorCreationController {
 
+    private PlayerActorModelConverter playerActorModelConverter;
     private PlayerCategoryModel playerCategoryModel;
     private TeamSide teamSide;
 
-    public PlayerCreationController(PlayingSurfaceLayerController playingSurfaceLayerController, LayerController layerController, ActorModelConverter actorModelConverter, PlayModel playModel, PlayService playService) {
-        super(playingSurfaceLayerController, layerController, actorModelConverter, playModel, playService);
+    public PlayerCreationController(PlayingSurfaceLayerController playingSurfaceLayerController, LayerController layerController, PlayerActorModelConverter playerActorModelConverter, PlayModel playModel, PlayService playService) {
+        super(playingSurfaceLayerController, layerController, playModel, playService);
+        this.playerActorModelConverter = playerActorModelConverter;
     }
 
     public void enterCreationMode(PlayerCategoryModel playerCategoryModel, TeamSide teamSide) {
         this.playerCategoryModel = playerCategoryModel;
         this.teamSide = teamSide;
-        ActorModel actorModel = actorModelConverter.convertPlayer(playerCategoryModel, teamSide);
-        super.enterCreationMode(actorModel);
+        PlayerActorModel playerActorModel = playerActorModelConverter.convert(playerCategoryModel, teamSide);
+        super.enterCreationMode(playerActorModel);
     }
 
     @Override

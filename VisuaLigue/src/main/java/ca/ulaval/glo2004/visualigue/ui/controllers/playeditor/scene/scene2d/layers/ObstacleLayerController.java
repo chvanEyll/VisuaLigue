@@ -1,7 +1,7 @@
 package ca.ulaval.glo2004.visualigue.ui.controllers.playeditor.scene.scene2d.layers;
 
 import ca.ulaval.glo2004.visualigue.ui.controllers.playeditor.scene.Zoom;
-import ca.ulaval.glo2004.visualigue.ui.models.ActorModel;
+import ca.ulaval.glo2004.visualigue.ui.models.actors.ObstacleActorModel;
 import ca.ulaval.glo2004.visualigue.utils.FilenameUtils;
 import ca.ulaval.glo2004.visualigue.utils.geometry.Vector2;
 import javafx.application.Platform;
@@ -17,21 +17,30 @@ public class ObstacleLayerController extends ActorLayerController {
 
     public static final String VIEW_NAME = "/views/playeditor/scene2d/layers/obstacle-layer.fxml";
     @FXML private ImageView imageView;
+    private ObstacleActorModel obstacleActorModel;
     private ChangeListener<Object> onChange = this::onChange;
 
-    @Override
-    public void init(ActorModel actorModel, PlayingSurfaceLayerController playingLayerSurfaceController, ObjectProperty<Zoom> zoomProperty, BooleanProperty showActorLabelsProperty, BooleanProperty showMovementArrowsProperty, BooleanProperty resizeActorsOnZoomProperty) {
-        super.init(actorModel, playingLayerSurfaceController, zoomProperty, showActorLabelsProperty, showMovementArrowsProperty, resizeActorsOnZoomProperty);
-        if (actorModel.imagePathName.isNotEmpty().get()) {
-            imageView.setImage(new Image(FilenameUtils.getURIString(actorModel.imagePathName.get())));
-        } else if (actorModel.builtInImagePathName.isNotEmpty().get()) {
-            imageView.setImage(new Image(actorModel.builtInImagePathName.get()));
+    public void init(ObstacleActorModel obstacleActorModel, PlayingSurfaceLayerController playingLayerSurfaceController, ObjectProperty<Zoom> zoomProperty, BooleanProperty resizeActorsOnZoomProperty) {
+        super.init(obstacleActorModel, playingLayerSurfaceController, zoomProperty, resizeActorsOnZoomProperty);
+        this.obstacleActorModel = obstacleActorModel;
+        setImage();
+        addListeners();
+        update();
+    }
+
+    private void setImage() {
+        if (obstacleActorModel.imagePathName.isNotEmpty().get()) {
+            imageView.setImage(new Image(FilenameUtils.getURIString(obstacleActorModel.imagePathName.get())));
+        } else if (obstacleActorModel.builtInImagePathName.isNotEmpty().get()) {
+            imageView.setImage(new Image(obstacleActorModel.builtInImagePathName.get()));
         }
-        actorModel.position.addListener(onChange);
+    }
+
+    private void addListeners() {
+        obstacleActorModel.position.addListener(onChange);
         resizeActorsOnZoomProperty.addListener(onChange);
         zoomProperty.addListener(onChange);
         actorButton.layoutReadyProperty().addListener(this::onChange);
-        update();
     }
 
     @Override
@@ -47,8 +56,8 @@ public class ObstacleLayerController extends ActorLayerController {
     @Override
     public void update() {
         Vector2 actorPosition;
-        if (actorModel.position.isNotNull().get()) {
-            actorPosition = playingSurfaceLayerController.relativeToSurfacePoint(actorModel.position.get());
+        if (obstacleActorModel.position.isNotNull().get()) {
+            actorPosition = playingSurfaceLayerController.relativeToSurfacePoint(obstacleActorModel.position.get());
         } else {
             actorPosition = null;
         }

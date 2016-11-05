@@ -3,7 +3,7 @@ package ca.ulaval.glo2004.visualigue.ui.controllers.playeditor.scene.scene2d.lay
 import ca.ulaval.glo2004.visualigue.ui.controllers.ControllerBase;
 import ca.ulaval.glo2004.visualigue.ui.controllers.common.ExtendedButton;
 import ca.ulaval.glo2004.visualigue.ui.controllers.playeditor.scene.Zoom;
-import ca.ulaval.glo2004.visualigue.ui.models.ActorModel;
+import ca.ulaval.glo2004.visualigue.ui.models.actors.ActorModel;
 import javafx.beans.property.BooleanProperty;
 import javafx.beans.property.ObjectProperty;
 import javafx.fxml.FXML;
@@ -16,16 +16,12 @@ public abstract class ActorLayerController extends ControllerBase {
     protected PlayingSurfaceLayerController playingSurfaceLayerController;
     protected ActorModel actorModel;
     protected ObjectProperty<Zoom> zoomProperty;
-    protected BooleanProperty showActorLabelsProperty;
-    protected BooleanProperty showMovementArrowsProperty;
     protected BooleanProperty resizeActorsOnZoomProperty;
 
-    public void init(ActorModel actorModel, PlayingSurfaceLayerController playingSurfaceController, ObjectProperty<Zoom> zoomProperty, BooleanProperty showActorLabelsProperty, BooleanProperty showMovementArrowsProperty, BooleanProperty resizeActorsOnZoomProperty) {
+    protected void init(ActorModel actorModel, PlayingSurfaceLayerController playingSurfaceController, ObjectProperty<Zoom> zoomProperty, BooleanProperty resizeActorsOnZoomProperty) {
         this.actorModel = actorModel;
         this.playingSurfaceLayerController = playingSurfaceController;
         this.zoomProperty = zoomProperty;
-        this.showActorLabelsProperty = showActorLabelsProperty;
-        this.showMovementArrowsProperty = showMovementArrowsProperty;
         this.resizeActorsOnZoomProperty = resizeActorsOnZoomProperty;
         tooltip.textProperty().bind(actorModel.hoverText);
     }
