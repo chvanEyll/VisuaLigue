@@ -5,12 +5,12 @@ import ca.ulaval.glo2004.visualigue.ui.controllers.ControllerBase;
 import ca.ulaval.glo2004.visualigue.ui.controllers.playeditor.scene.scene2d.layers.ActorLayerController;
 import ca.ulaval.glo2004.visualigue.ui.controllers.playeditor.scene.scene2d.layers.ActorLayerViewFactory;
 import ca.ulaval.glo2004.visualigue.ui.controllers.playeditor.scene.scene2d.layers.PlayingSurfaceLayerController;
+import ca.ulaval.glo2004.visualigue.ui.models.FrameModel;
 import ca.ulaval.glo2004.visualigue.ui.models.actors.ActorModel;
 import java.util.HashMap;
 import java.util.Map;
 import javafx.beans.property.BooleanProperty;
 import javafx.collections.MapChangeListener;
-import javafx.collections.ObservableMap;
 import javafx.scene.layout.StackPane;
 
 public class LayerController extends ControllerBase {
@@ -24,7 +24,7 @@ public class LayerController extends ControllerBase {
     private View playingSurfaceLayerView;
     private Map<ActorModel, View> actorLayerMap = new HashMap();
 
-    public LayerController(ObservableMap<String, ActorModel> actorModels, ActorLayerViewFactory actorLayerViewFactory, StackPane layerStackPane, NavigationController navigationController, View playingSurfaceLayerView,
+    public LayerController(FrameModel frameModel, ActorLayerViewFactory actorLayerViewFactory, StackPane layerStackPane, NavigationController navigationController, View playingSurfaceLayerView,
             BooleanProperty showActorLabelsProperty, BooleanProperty showMovementArrowsProperty, BooleanProperty resizeActorsOnZoomProperty) {
         this.actorLayerViewFactory = actorLayerViewFactory;
         this.layerStackPane = layerStackPane;
@@ -34,19 +34,15 @@ public class LayerController extends ControllerBase {
         this.showMovementArrowsProperty = showMovementArrowsProperty;
         this.resizeActorsOnZoomProperty = resizeActorsOnZoomProperty;
         addLayer(playingSurfaceLayerView);
-        actorModels.addListener(this::onActorStateMapChanged);
+        frameModel.actorModels.addListener(this::onActorStateMapChanged);
     }
 
     private void onActorStateMapChanged(MapChangeListener.Change change) {
-        onActorStateChanged(change);
-    }
-
-    private void onActorStateChanged(MapChangeListener.Change<String, ActorModel> change) {
         if (change.wasAdded()) {
-            addActorLayer(change.getValueAdded());
+            addActorLayer((ActorModel) change.getValueAdded());
         }
         if (change.wasRemoved()) {
-            removeActorLayer(change.getValueRemoved());
+            removeActorLayer((ActorModel) change.getValueRemoved());
         }
     }
 

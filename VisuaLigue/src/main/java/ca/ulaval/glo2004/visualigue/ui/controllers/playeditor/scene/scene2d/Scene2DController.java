@@ -46,7 +46,7 @@ public class Scene2DController extends SceneController {
     private PlayerCreationController playerCreationController;
     private ObstacleCreationController obstacleCreationController;
     private BallCreationController ballCreationController;
-    private final FrameModel frameModel = new FrameModel();
+    private FrameModel frameModel = new FrameModel();
 
     @Override
     public void init(PlayModel playModel) {
@@ -69,7 +69,7 @@ public class Scene2DController extends SceneController {
         navigationController.onZoomChanged.forward(this.onZoomChanged);
         navigationController.onNavigationModeEntered.forward(this.onNavigationModeEntered);
         navigationController.onNavigationModeExited.forward(this.onNavigationModeExited);
-        layerController = new LayerController(frameModel.actorModels, actorLayerViewFactory, layerStackPane, navigationController, playingSurfaceView, showActorLabelsProperty, showMovementArrowsProperty, resizeActorsOnZoomProperty);
+        layerController = new LayerController(frameModel, actorLayerViewFactory, layerStackPane, navigationController, playingSurfaceView, showActorLabelsProperty, showMovementArrowsProperty, resizeActorsOnZoomProperty);
         super.addChild(playingSurfaceLayerController);
         super.addChild(navigationController);
         super.addChild(layerController);

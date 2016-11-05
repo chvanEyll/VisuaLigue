@@ -31,7 +31,6 @@ public class ObstacleListItemController extends ListItemController {
         nameLabel.textProperty().bind(this.model.name);
         deleteConfirmButton.focusedProperty().addListener(this::onDeleteConfirmButtonFocusChanged);
         FXUtils.setDisplay(deleteConfirmButtonContainer, false);
-        super.init(model);
     }
 
     private void updateImage() {

@@ -32,29 +32,28 @@ public class FrameModelConverter {
         this.ballActorModelConverter = ballActorModelConverter;
     }
 
-    public FrameModel update(FrameModel frameModel, Frame frame, PlayModel playModel) {
-        frameModel.setUUID(frame.getUUID());
-        frameModel.setIsNew(false);
-        frameModel.time.set(frame.getTime());
-        updateActorInstances(frameModel, frame, playModel, frame.getCurrentActorStates());
-        removeOldActorInstances(frameModel, frame.getCurrentActorStates());
-        return frameModel;
+    public FrameModel convert(Frame frame, PlayModel playModel) {
+        FrameModel model = new FrameModel();
+        update(model, frame, playModel);
+        return model;
     }
 
-    private void updateActorInstances(FrameModel frameModel, Frame frame, PlayModel playModel, Map<ActorInstance, ActorState> actorStates) {
-        actorStates.entrySet().forEach(e -> {
-            updateActorInstance(frameModel, frame, playModel, e.getKey(), e.getValue());
+    public void update(FrameModel model, Frame frame, PlayModel playModel) {
+        model.setUUID(frame.getUUID());
+        model.setIsNew(false);
+        model.time.set(frame.getTime());
+        addNewActorInstances(model, frame, playModel, frame.getCurrentActorStates());
+        updateActorInstances(model, frame, playModel, frame.getCurrentActorStates());
+        removeNonPresentActorInstances(model, frame.getCurrentActorStates());
+    }
+
+    private void addNewActorInstances(FrameModel model, Frame frame, PlayModel playModel, Map<ActorInstance, ActorState> actorStates) {
+        actorStates.entrySet().forEach(entry -> {
+            if (!model.actorModels.containsKey(entry.getKey().getUUID())) {
+                ActorModel actorModel = createActorModel(frame, playModel, entry.getKey(), entry.getValue());
+                model.actorModels.put(entry.getKey().getUUID(), actorModel);
+            }
         });
-    }
-
-    private void updateActorInstance(FrameModel frameModel, Frame frame, PlayModel playModel, ActorInstance actorInstance, ActorState actorState) {
-        if (frameModel.actorModels.containsKey(actorInstance.getUUID())) {
-            ActorModel actorModel = frameModel.actorModels.get(actorInstance.getUUID());
-            updateActorModel(actorModel, frame, playModel, actorInstance, actorState);
-        } else {
-            ActorModel actorModel = createActorModel(frame, playModel, actorInstance, actorState);
-            frameModel.actorModels.put(actorInstance.getUUID(), actorModel);
-        }
     }
 
     private ActorModel createActorModel(Frame frame, PlayModel playModel, ActorInstance actorInstance, ActorState actorState) {
@@ -69,6 +68,15 @@ public class FrameModelConverter {
         }
     }
 
+    private void updateActorInstances(FrameModel model, Frame frame, PlayModel playModel, Map<ActorInstance, ActorState> actorStates) {
+        actorStates.entrySet().forEach(entry -> {
+            if (model.actorModels.containsKey(entry.getKey().getUUID())) {
+                ActorModel actorModel = model.actorModels.get(entry.getKey().getUUID());
+                updateActorModel(actorModel, frame, playModel, entry.getKey(), entry.getValue());
+            }
+        });
+    }
+
     private void updateActorModel(ActorModel actorModel, Frame frame, PlayModel playModel, ActorInstance actorInstance, ActorState actorState) {
         if (actorInstance instanceof PlayerInstance) {
             playerActorModelConverter.update(frame, (PlayerActorModel) actorModel, (PlayerInstance) actorInstance, (PlayerState) actorState);
@@ -79,10 +87,10 @@ public class FrameModelConverter {
         }
     }
 
-    private void removeOldActorInstances(FrameModel frameModel, Map<ActorInstance, ActorState> actorStates) {
-        frameModel.actorModels.keySet().stream().collect(Collectors.toList()).forEach(actorModelUUID -> {
+    private void removeNonPresentActorInstances(FrameModel model, Map<ActorInstance, ActorState> actorStates) {
+        model.actorModels.keySet().stream().collect(Collectors.toList()).forEach(actorModelUUID -> {
             if (!actorStates.keySet().stream().anyMatch(actorInstance -> actorInstance.getUUID().equals(actorModelUUID))) {
-                frameModel.actorModels.remove(actorModelUUID);
+                model.actorModels.remove(actorModelUUID);
             }
         });
     }

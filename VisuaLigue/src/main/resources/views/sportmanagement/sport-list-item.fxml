@@ -4,17 +4,16 @@
 <?import java.net.URL?>
 <?import javafx.geometry.Insets?>
 <?import javafx.scene.control.Label?>
-<?import javafx.scene.layout.AnchorPane?>
-<?import javafx.scene.layout.Pane?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.layout.StackPane?>
 <?import javafx.scene.layout.VBox?>
 
 <VBox fx:id="rootNode" alignment="TOP_CENTER" fillWidth="false" onMouseClicked="#onMouseClicked" xmlns="http://javafx.com/javafx/8.0.60" xmlns:fx="http://javafx.com/fxml/1" fx:controller="ca.ulaval.glo2004.visualigue.ui.controllers.sportmanagement.SportListItemController">
     <children>
-        <AnchorPane VBox.vgrow="ALWAYS">
-            <children>
-                <Label fx:id="sportNameLabel" alignment="CENTER" contentDisplay="CENTER" styleClass="item-text" wrapText="true" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0" />
-            </children>
-        </AnchorPane>
+        <ImageView fx:id="imageView" fitWidth="100" fitHeight="85" preserveRatio="true" />
+        <StackPane VBox.vgrow="ALWAYS">
+            <Label fx:id="sportNameLabel" alignment="CENTER" contentDisplay="CENTER" wrapText="true"  />
+        </StackPane>
     </children>
     <padding>
         <Insets bottom="4.0" left="14.0" right="14.0" top="14.0" />

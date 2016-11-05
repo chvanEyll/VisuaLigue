@@ -18,7 +18,6 @@
             <LinkButton imageUrl="/images/plus-icon-blue.fxml" text="Nouveau jeu" onMouseClicked="#onNewPlayButtonClicked" />
         </children>
     </Pane>
-    <Label fx:id="emptyNoticeLabel" >Aucun élément à afficher dans cette vue.</Label>
     <TilePane fx:id="tilePane" prefTileHeight="275.0" prefTileWidth="400.0" tileAlignment="TOP_LEFT" >
         <children>
 

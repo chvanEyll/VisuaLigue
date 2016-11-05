@@ -5,6 +5,7 @@ import ca.ulaval.glo2004.visualigue.ui.dialog.AlertDialogBuilder;
 import ca.ulaval.glo2004.visualigue.ui.models.PlayModel;
 import ca.ulaval.glo2004.visualigue.utils.EventHandler;
 import java.util.Optional;
+import javafx.beans.value.ObservableValue;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.control.Alert;
@@ -14,13 +15,12 @@ import javafx.scene.control.Label;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.input.MouseEvent;
-import javafx.scene.layout.VBox;
 
 public class PlayListItemController extends ControllerBase {
 
     public static final String VIEW_NAME = "/views/playmanagement/play-list-item.fxml";
 
-    @FXML private VBox rootNode;
+    @FXML private ImageView imageView;
     @FXML private Label playTitleLabel;
     private PlayModel model;
     public EventHandler<PlayModel> onClick = new EventHandler();
@@ -29,6 +29,16 @@ public class PlayListItemController extends ControllerBase {
     public void init(PlayModel model) {
         this.model = model;
         playTitleLabel.textProperty().bind(model.title);
+        model.thumbnailImagePathName.addListener(this::onChange);
+        model.defaultThumbnailImagePathName.addListener(this::onChange);
+        update();
+    }
+
+    public void onChange(ObservableValue<? extends Object> value, Object oldPropertyValue, Object newPropertyValue) {
+        update();
+    }
+
+    private void update() {
         if (model.thumbnailImagePathName.isNotEmpty().get()) {
             setPlayImage(model.thumbnailImagePathName.get());
         } else {
@@ -37,13 +47,7 @@ public class PlayListItemController extends ControllerBase {
     }
 
     private void setPlayImage(String playImagePathName) {
-        ImageView imageView = new ImageView();
-        Image image = new Image(playImagePathName);
-        imageView.setPreserveRatio(true);
         imageView.setImage(new Image(playImagePathName));
-        imageView.setFitWidth(372);
-        imageView.setFitHeight(200);
-        rootNode.getChildren().add(imageView);
     }
 
     @FXML

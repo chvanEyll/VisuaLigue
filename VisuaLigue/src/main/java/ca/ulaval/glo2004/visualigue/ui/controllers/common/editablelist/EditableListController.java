@@ -5,11 +5,12 @@ import ca.ulaval.glo2004.visualigue.ui.View;
 import ca.ulaval.glo2004.visualigue.ui.animation.PredefinedAnimations;
 import ca.ulaval.glo2004.visualigue.ui.controllers.ControllerBase;
 import ca.ulaval.glo2004.visualigue.ui.models.ModelBase;
+import java.util.HashMap;
+import java.util.Map;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
-import javafx.scene.Node;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.VBox;
 
@@ -17,10 +18,10 @@ public class EditableListController extends ControllerBase {
 
     @FXML private VBox gridContent;
     private ObservableList models;
+    private Map<ModelBase, View> views = new HashMap();
     private ListItemEditionController listItemEditionController;
     private String itemControllerName;
     private String itemEditionControllerName;
-    private Integer itemCount = 0;
     private Class modelClass;
 
     public void init(ObservableList models, Class modelClass, String itemControllerName, String itemEditionControllerName) {
@@ -29,7 +30,7 @@ public class EditableListController extends ControllerBase {
         this.itemEditionControllerName = itemEditionControllerName;
         this.models = models;
         EditableListController.this.models.forEach(model -> {
-            insertItem((ModelBase) model, itemCount);
+            insertItem((ModelBase) model, gridContent.getChildren().size());
         });
     }
 
@@ -39,9 +40,9 @@ public class EditableListController extends ControllerBase {
         listItemController.init(model);
         listItemController.onEditRequested.setHandler(this::onItemEditRequested);
         listItemController.onDeleteRequested.setHandler(this::onItemDeleteRequest);
-        super.addChild(listItemController);
+        views.put(model, view);
         gridContent.getChildren().add(rowIndex, view.getRoot());
-        itemCount += 1;
+        super.addChild(listItemController);
     }
 
     private void onItemEditRequested(Object sender, ModelBase model) {
@@ -55,9 +56,10 @@ public class EditableListController extends ControllerBase {
         listItemEditionController.init(model);
         listItemEditionController.onCloseRequested.setHandler(this::onItemEditionCloseRequested);
         super.addChild(listItemEditionController);
-        int rowIndex = models.indexOf(model);
+        int rowIndex = gridContent.getChildren().indexOf(views.get(model).getRoot());
         gridContent.getChildren().remove(rowIndex);
         PredefinedAnimations.split(view.getRoot());
+        views.put(model, view);
         gridContent.getChildren().add(rowIndex, view.getRoot());
     }
 
@@ -67,10 +69,9 @@ public class EditableListController extends ControllerBase {
 
     private void closeItemEdition() {
         if (listItemEditionController != null) {
-            int rowIndex = models.indexOf(listItemEditionController.getModel());
-            Node node = gridContent.getChildren().get(rowIndex);
-            gridContent.getChildren().remove(rowIndex);
             ModelBase model = listItemEditionController.getModel();
+            int rowIndex = gridContent.getChildren().indexOf(views.get(model).getRoot());
+            gridContent.getChildren().remove(views.get(model).getRoot());
             insertItem(model, rowIndex);
             model.makeDirty();
             listItemEditionController = null;
@@ -101,6 +102,7 @@ public class EditableListController extends ControllerBase {
 
     protected void deleteItem(ListItemController listItemController, ModelBase model) {
         model.markAsDeleted();
-        listItemController.hide();
+        gridContent.getChildren().remove(views.get(model).getRoot());
+        views.remove(model);
     }
 }

@@ -130,15 +130,15 @@ public class PlayService {
 
     public void savePlay(String playUUID) throws PlayNotFoundException {
         Play play = playRepository.get(playUUID);
-        playRepository.update(play);
         setDirty(playUUID, false);
+        playRepository.update(play);
     }
 
     public void discardChanges(String playUUID) throws PlayNotFoundException {
         Play play = playRepository.get(playUUID);
-        playRepository.discard(play);
+        Play revertedPlay = playRepository.revert(play);
         setDirty(playUUID, false);
-        onPlayUpdated.fire(this, play);
+        onPlayUpdated.fire(this, revertedPlay);
     }
 
     public Frame getFrame(String playUUID, Integer time) throws PlayNotFoundException {

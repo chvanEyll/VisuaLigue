@@ -10,15 +10,13 @@ import ca.ulaval.glo2004.visualigue.ui.controllers.playcreation.PlayCreationCont
 import ca.ulaval.glo2004.visualigue.ui.converters.PlayModelConverter;
 import ca.ulaval.glo2004.visualigue.ui.models.PlayModel;
 import ca.ulaval.glo2004.visualigue.utils.EventHandler;
-import ca.ulaval.glo2004.visualigue.utils.javafx.FXUtils;
 import java.net.URL;
-import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 import java.util.ResourceBundle;
 import java.util.function.BiConsumer;
-import javafx.application.Platform;
 import javafx.fxml.FXML;
-import javafx.scene.control.Label;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.TilePane;
 import javax.inject.Inject;
@@ -30,46 +28,64 @@ public class PlayListController extends ControllerBase {
     @Inject private PlayService playService;
     @Inject private PlayModelConverter playModelConverter;
     @FXML private TilePane tilePane;
-    @FXML private Label emptyNoticeLabel;
-    private List<PlayModel> models = new ArrayList();
-    private BiConsumer<Object, Play> onPlayChanged = this::onPlayChanged;
+    private Map<PlayModel, View> playViews = new HashMap();
+    private Map<String, PlayModel> playModels = new HashMap();
+    private BiConsumer<Object, Play> onPlayCreated = this::onPlayCreated;
+    private BiConsumer<Object, Play> onPlayUpdated = this::onPlayUpdated;
+    private BiConsumer<Object, Play> onPlayDeleted = this::onPlayDeleted;
 
     @Override
     public void initialize(URL url, ResourceBundle rb) {
-        playService.onPlayCreated.addHandler(onPlayChanged);
-        playService.onPlayUpdated.addHandler(onPlayChanged);
-        playService.onPlayDeleted.addHandler(onPlayChanged);
+        playService.onPlayCreated.addHandler(onPlayCreated);
+        playService.onPlayUpdated.addHandler(onPlayUpdated);
+        playService.onPlayDeleted.addHandler(onPlayDeleted);
         fillPlayList();
     }
 
     @Override
     public void clean() {
-        playService.onPlayCreated.removeHandler(onPlayChanged);
-        playService.onPlayUpdated.removeHandler(onPlayChanged);
-        playService.onPlayDeleted.removeHandler(onPlayChanged);
+        playService.onPlayCreated.removeHandler(onPlayCreated);
+        playService.onPlayUpdated.removeHandler(onPlayUpdated);
+        playService.onPlayDeleted.removeHandler(onPlayDeleted);
     }
 
-    private void onPlayChanged(Object sender, Play play) {
-        Platform.runLater(() -> fillPlayList());
+    private void onPlayCreated(Object sender, Play play) {
+        PlayModel model = playModelConverter.convert(play);
+        addPlayItem(model);
+    }
+
+    private void onPlayUpdated(Object sender, Play play) {
+        PlayModel model = playModels.get(play.getUUID());
+        playModelConverter.update(model, play);
+    }
+
+    private void onPlayDeleted(Object sender, Play play) {
+        PlayModel model = playModels.get(play.getUUID());
+        removePlayItem(model);
     }
 
     private void fillPlayList() {
-        tilePane.getChildren().clear();
         List<Play> plays = playService.getPlays(Play::getTitle, SortOrder.ASCENDING);
-        FXUtils.setDisplay(emptyNoticeLabel, plays.isEmpty());
         plays.forEach(play -> {
-            initPlayItem(playModelConverter.convert(play));
+            addPlayItem(playModelConverter.convert(play));
         });
     }
 
-    private void initPlayItem(PlayModel model) {
+    private void addPlayItem(PlayModel model) {
         View view = InjectableFXMLLoader.loadView(PlayListItemController.VIEW_NAME);
         PlayListItemController controller = (PlayListItemController) view.getController();
         controller.init(model);
         controller.onClick.setHandler(this::onItemClicked);
         controller.onDeleteButtonClicked.setHandler(this::onItemDeleteButtonClicked);
+        playViews.put(model, view);
+        playModels.put(model.getUUID(), model);
         tilePane.getChildren().add(view.getRoot());
-        models.add(model);
+    }
+
+    private void removePlayItem(PlayModel model) {
+        tilePane.getChildren().remove(playViews.get(model).getRoot());
+        playViews.remove(model);
+        playModels.remove(model.getUUID());
     }
 
     private void onItemClicked(Object sender, PlayModel model) {
@@ -78,9 +94,7 @@ public class PlayListController extends ControllerBase {
 
     private void onItemDeleteButtonClicked(Object sender, PlayModel model) {
         playService.deletePlay(model.getUUID());
-        int tileIndex = models.indexOf(model);
-        tilePane.getChildren().remove(tileIndex);
-        models.remove(model);
+        removePlayItem(model);
     }
 
     @FXML

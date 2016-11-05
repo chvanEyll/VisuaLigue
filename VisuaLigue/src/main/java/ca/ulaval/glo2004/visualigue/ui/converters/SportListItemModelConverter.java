@@ -16,6 +16,11 @@ public class SportListItemModelConverter {
 
     public SportListItemModel convert(Sport sport) {
         SportListItemModel model = new SportListItemModel();
+        update(model, sport);
+        return model;
+    }
+
+    public void update(SportListItemModel model, Sport sport) {
         model.setUUID(sport.getUUID());
         model.setIsNew(false);
         model.name.set(sport.getName());
@@ -23,7 +28,6 @@ public class SportListItemModelConverter {
             model.customIconPathName.set(imageRepository.get(sport.getCustomIconUUID()));
         }
         model.builtInIconPathName.set(sport.getBuiltInIconPathName());
-        return model;
     }
 
 }

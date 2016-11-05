@@ -14,7 +14,7 @@ public interface PlayRepository {
 
     void delete(Play play) throws PlayNotFoundException;
 
-    void discard(Play play) throws PlayNotFoundException;
+    Play revert(Play play) throws PlayNotFoundException;
 
     List<Play> getAll();
 

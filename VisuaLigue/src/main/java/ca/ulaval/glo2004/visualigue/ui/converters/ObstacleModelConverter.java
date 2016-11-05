@@ -16,6 +16,11 @@ public class ObstacleModelConverter {
 
     public ObstacleModel convert(Obstacle obstacle) {
         ObstacleModel model = new ObstacleModel();
+        update(model, obstacle);
+        return model;
+    }
+
+    public void update(ObstacleModel model, Obstacle obstacle) {
         model.setUUID(obstacle.getUUID());
         model.setIsNew(false);
         model.name.set(obstacle.getName());
@@ -23,6 +28,5 @@ public class ObstacleModelConverter {
             model.currentImagePathName.set(imageRepository.get(obstacle.getCustomImageUUID()));
         }
         model.builtInImagePathName.set(obstacle.getBuiltInImagePathName());
-        return model;
     }
 }

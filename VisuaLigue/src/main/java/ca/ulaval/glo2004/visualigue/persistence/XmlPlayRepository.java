@@ -66,9 +66,10 @@ public class XmlPlayRepository implements PlayRepository {
     }
 
     @Override
-    public void discard(Play play) throws PlayNotFoundException {
-        Play restoredPlay = xmlRepositoryMarshaller.unmarshal(play.getUUID());
-        plays.put(play.getUUID(), restoredPlay);
+    public Play revert(Play play) throws PlayNotFoundException {
+        Play revertedPlay = xmlRepositoryMarshaller.unmarshal(play.getUUID());
+        plays.put(play.getUUID(), revertedPlay);
+        return revertedPlay;
     }
 
     @Override

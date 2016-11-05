@@ -38,7 +38,6 @@ public class PlayerCategoryListItemController extends ListItemController {
         updateOpponentColorBackground();
         deleteConfirmButton.focusedProperty().addListener(this::onDeleteConfirmButtonFocusChanged);
         FXUtils.setDisplay(deleteConfirmButtonContainer, false);
-        super.init(model);
     }
 
     private void allyPlayerColorChanged(ObservableValue<? extends Object> value, Object oldPropertyValue, Object newPropertyValue) {

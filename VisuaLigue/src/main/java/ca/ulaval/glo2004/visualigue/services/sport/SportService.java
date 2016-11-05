@@ -60,6 +60,7 @@ public class SportService {
         String imageUuid = imageRepository.replace(sport.getCustomIconUUID(), sourceImagePathName);
         sport.setCustomIconUUID(imageUuid);
         sportRepository.update(sport);
+        onSportUpdated.fire(this, sport);
     }
 
     public void updateBall(String sportUUID, String name) throws SportNotFoundException {
