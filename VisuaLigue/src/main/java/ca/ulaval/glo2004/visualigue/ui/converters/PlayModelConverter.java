@@ -46,6 +46,7 @@ public class PlayModelConverter {
         model.sportUUID.set(play.getSport().getUUID());
         model.playLength.set(play.getLength());
         model.timelineLength.set(play.getTimelineLength());
+        model.keyPointInterval.set(play.getKeyPointInterval());
         convertPlayingSurface(play.getSport().getPlayingSurface(), model);
     }
 

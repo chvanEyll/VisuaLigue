@@ -29,7 +29,6 @@ import javax.inject.Inject;
 
 public class SeekBarController extends ControllerBase {
 
-    private static final Integer KEY_POINT_INTERVAL = 1000;
     public EventHandler<Integer> onTimeChanged = new EventHandler();
     public EventHandler onSeekThumbPressed = new EventHandler();
 
@@ -66,7 +65,7 @@ public class SeekBarController extends ControllerBase {
 
     @FXML
     protected void onNewKeyPointButtonAction(ActionEvent e) {
-        playService.setTimelineLength(playModel.getUUID(), time, getLength() + KEY_POINT_INTERVAL);
+        playService.setTimelineLength(playModel.getUUID(), time, getLength() + playModel.keyPointInterval.get());
         setTimeDelayed(getLength());
     }
 
@@ -79,7 +78,7 @@ public class SeekBarController extends ControllerBase {
     }
 
     private void updateKeyPoints() {
-        Integer numberOfKeyPoints = getLength() / KEY_POINT_INTERVAL + 1;
+        Integer numberOfKeyPoints = getLength() / playModel.keyPointInterval.get() + 1;
         if (numberOfKeyPoints > keyPoints.size()) {
             for (Integer i = keyPoints.size(); i < numberOfKeyPoints; i++) {
                 addKeyPoint();
@@ -107,7 +106,7 @@ public class SeekBarController extends ControllerBase {
     }
 
     private void onKeyPointClicked(Object sender, Integer index) {
-        move(index * KEY_POINT_INTERVAL);
+        move(index * playModel.keyPointInterval.get());
     }
 
     public void move(Integer time) {
@@ -154,7 +153,7 @@ public class SeekBarController extends ControllerBase {
     }
 
     public Integer getLength() {
-        return MathUtils.roundUp(playModel.timelineLength.get(), KEY_POINT_INTERVAL);
+        return MathUtils.roundUp(playModel.timelineLength.get(), playModel.keyPointInterval.get());
     }
 
     public Integer getRemainingTime() {
@@ -166,7 +165,7 @@ public class SeekBarController extends ControllerBase {
     }
 
     public Integer getClosestKeyPointTime(Integer time) {
-        return (int) Math.round(time / (double) KEY_POINT_INTERVAL) * KEY_POINT_INTERVAL;
+        return (int) Math.round(time / (double) playModel.keyPointInterval.get()) * playModel.keyPointInterval.get();
     }
 
     public void goToBeginning(Boolean smooth, Integer smoothingDuration) {
@@ -185,7 +184,7 @@ public class SeekBarController extends ControllerBase {
     }
 
     public Integer getNextKeyPointTime() {
-        return MathUtils.roundDown(time + (int) (KEY_POINT_INTERVAL * 1.1), KEY_POINT_INTERVAL);
+        return MathUtils.roundDown(time + (int) (playModel.keyPointInterval.get() * 1.1), playModel.keyPointInterval.get());
     }
 
     public void goToPreviousKeyPoint(Boolean smooth, Integer smoothingDuration) {
@@ -196,7 +195,7 @@ public class SeekBarController extends ControllerBase {
     }
 
     public Integer getPreviousKeyPointTime() {
-        return MathUtils.roundUp(time - (int) (KEY_POINT_INTERVAL * 1.1), KEY_POINT_INTERVAL);
+        return MathUtils.roundUp(time - (int) (playModel.keyPointInterval.get() * 1.1), playModel.keyPointInterval.get());
     }
 
     private Integer getTimeFromSeekThumbLocation() {

@@ -18,4 +18,5 @@ public class PlayModel extends ModelBase {
     public ObjectProperty<PlayingSurfaceUnit> playingSurfaceLengthUnits = new SimpleObjectProperty<>();
     public IntegerProperty playLength = new SimpleIntegerProperty();
     public IntegerProperty timelineLength = new SimpleIntegerProperty();
+    public IntegerProperty keyPointInterval = new SimpleIntegerProperty(1000);
 }

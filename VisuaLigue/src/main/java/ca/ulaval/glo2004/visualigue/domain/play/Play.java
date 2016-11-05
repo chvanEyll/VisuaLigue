@@ -29,6 +29,7 @@ public class Play extends DomainObject {
     @XmlJavaTypeAdapter(XmlSportRefAdapter.class)
     private Sport sport;
     private Integer timelineLength = 0;
+    private Integer keyPointInterval = 1000;
     private final TreeMap<ActorInstance, ActorTimeline> actorTimelines = new TreeMap();
 
     public Play() {
@@ -91,6 +92,22 @@ public class Play extends DomainObject {
         return actorTimelines.keySet().stream().filter(a -> a.getUUID().equals(actorInstanceUUID)).findFirst().get();
     }
 
+    public Integer getTimelineLength() {
+        return timelineLength;
+    }
+
+    public void setTimelineLength(Integer timelineLength) {
+        this.timelineLength = timelineLength;
+    }
+
+    public Integer getKeyPointInterval() {
+        return keyPointInterval;
+    }
+
+    public void setKeyPointInterval(Integer keyPointInterval) {
+        this.keyPointInterval = keyPointInterval;
+    }
+
     public ActorState mergeKeyframe(Integer time, ActorInstance actorInstance, ActorState actorState) {
         ActorTimeline timeline;
         if (actorTimelines.containsKey(actorInstance)) {
@@ -119,14 +136,6 @@ public class Play extends DomainObject {
         } else {
             return 0;
         }
-    }
-
-    public Integer getTimelineLength() {
-        return timelineLength;
-    }
-
-    public void setTimelineLength(Integer timelineLength) {
-        this.timelineLength = timelineLength;
     }
 
     public Frame getFrame(Integer time) {

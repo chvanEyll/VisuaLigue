@@ -23,7 +23,6 @@ import javax.inject.Inject;
 public class SequencePaneController extends ControllerBase {
 
     private static final Integer LINEAR_AUTO_ADVANCE_PERIOD = 15;
-    private static final Integer SMOOTH_AUTO_ADVANCE_PERIOD = 1000;
     private static final Integer DEFAULT_FIXED_ADVANCE_PERIOD = 1000;
     private static final Integer KEYPOINT_MOVE_ANIMATION_PERIOD = 250;
     @FXML private ExtendedButton playButton;
@@ -45,6 +44,7 @@ public class SequencePaneController extends ControllerBase {
     @FXML private Label currentTimeLabel;
     @FXML private Label remainingTimeLabel;
     @Inject private SettingsService settingsService;
+    private PlayModel playModel;
     private PlaySpeed playSpeed = new PlaySpeed();
     private Integer fixedForwardPeriod;
     private Integer fixedRewindPeriod;
@@ -53,6 +53,7 @@ public class SequencePaneController extends ControllerBase {
     private Boolean smoothMovements = true;
 
     public void init(PlayModel playModel, SceneController sceneController) {
+        this.playModel = playModel;
         seekBarController.onTimeChanged.setHandler(this::onSeekBarTimeChanged);
         seekBarController.onSeekThumbPressed.setHandler(this::onSeekBarThumbPressed);
         seekBarController.init(playModel, sceneController);
@@ -213,7 +214,7 @@ public class SequencePaneController extends ControllerBase {
         updateControlButtonStates();
         timer = new Timer();
         if (smoothMovements) {
-            timer.schedule(new SmoothPlayTask(), 0, (int) (SMOOTH_AUTO_ADVANCE_PERIOD / SequencePaneController.this.playSpeed.getSpeedAbs()));
+            timer.schedule(new SmoothPlayTask(), 0, (int) (playModel.keyPointInterval.get() / SequencePaneController.this.playSpeed.getSpeedAbs()));
         } else {
             timer.schedule(new LinearPlayTask(), 0, LINEAR_AUTO_ADVANCE_PERIOD);
         }
@@ -229,7 +230,7 @@ public class SequencePaneController extends ControllerBase {
             } else {
                 time = seekBarController.getPreviousKeyPointTime();
             }
-            seekBarController.move(time, true, true, (int) (SMOOTH_AUTO_ADVANCE_PERIOD / SequencePaneController.this.playSpeed.getSpeedAbs()));
+            seekBarController.move(time, true, true, (int) (playModel.keyPointInterval.get() / SequencePaneController.this.playSpeed.getSpeedAbs()));
         }
     };
 

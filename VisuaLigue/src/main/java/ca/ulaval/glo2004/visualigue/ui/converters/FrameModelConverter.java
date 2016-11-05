@@ -82,13 +82,9 @@ public class FrameModelConverter {
     private void removeOldActorInstances(FrameModel frameModel, Map<ActorInstance, ActorState> actorStates) {
         frameModel.actorModels.keySet().stream().collect(Collectors.toList()).forEach(actorModelUUID -> {
             if (!actorStates.keySet().stream().anyMatch(actorInstance -> actorInstance.getUUID().equals(actorModelUUID))) {
-                removeActorInstance(frameModel, actorModelUUID);
+                frameModel.actorModels.remove(actorModelUUID);
             }
         });
-    }
-
-    private void removeActorInstance(FrameModel frameModel, String actorInstanceUUID) {
-        frameModel.actorModels.remove(actorInstanceUUID);
     }
 
 }
