@@ -12,6 +12,7 @@ import javafx.application.Application;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.image.Image;
+import javafx.scene.text.Font;
 import javafx.stage.Stage;
 import javafx.stage.WindowEvent;
 
@@ -22,6 +23,7 @@ public class VisuaLigueFX extends Application {
     private static final String APP_NAME = "VisuaLigue";
     private static final String REPOSITORY_DIRECTORY = "/repository";
     private static final String MAIN_STYLE_SHEET = "css/main.fxml.css";
+    private static final Integer DEFAULT_FONT_SIZE = 19;
     private static ContextBase defaultContext;
     private static Stage stage;
     private static Scene scene;
@@ -34,9 +36,15 @@ public class VisuaLigueFX extends Application {
     public void start(Stage stage) throws Exception {
         this.stage = stage;
         initContext();
+        loadFonts();
         View view = InjectableFXMLLoader.loadView(MainSceneController.VIEW_NAME);
         scene = new Scene((Parent) view.getRoot());
         initStage(stage, scene, (ControllerBase) view.getController());
+    }
+
+    private void loadFonts() {
+        Font.loadFont(getClass().getResource("/fonts/SourceSansPro-Light.ttf").toExternalForm(), DEFAULT_FONT_SIZE);
+        Font.loadFont(getClass().getResource("/fonts/SourceSansPro-Regular.ttf").toExternalForm(), DEFAULT_FONT_SIZE);
     }
 
     private void initStage(Stage stage, Scene scene, ControllerBase viewController) throws IOException {
