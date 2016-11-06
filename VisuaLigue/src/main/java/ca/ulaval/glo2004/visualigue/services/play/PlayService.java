@@ -3,7 +3,6 @@ package ca.ulaval.glo2004.visualigue.services.play;
 import ca.ulaval.glo2004.visualigue.domain.obstacle.ObstacleRepository;
 import ca.ulaval.glo2004.visualigue.domain.play.*;
 import ca.ulaval.glo2004.visualigue.domain.play.actorinstance.TeamSide;
-import ca.ulaval.glo2004.visualigue.domain.play.actorstate.transition.FreeformStateTransition;
 import ca.ulaval.glo2004.visualigue.domain.play.frame.Frame;
 import ca.ulaval.glo2004.visualigue.domain.sport.Sport;
 import ca.ulaval.glo2004.visualigue.domain.sport.SportNotFoundException;
@@ -92,9 +91,9 @@ public class PlayService {
         executeNewCommand(playUUID, command);
     }
 
-    public void updatePlayerInstancePositionFreeform(String playUUID, Integer time, String playerInstanceUUID, Vector2 position, FreeformStateTransition positionTransition) {
+    public void updatePlayerInstancePositionFreeform(String playUUID, Integer time, String playerInstanceUUID, List<Vector2> positions) {
         Play play = playRepository.get(playUUID);
-        PlayerPositionUpdateFreeformCommand command = new PlayerPositionUpdateFreeformCommand(play, time, playerInstanceUUID, position, positionTransition, onFrameChanged);
+        PlayerPositionUpdateFreeformCommand command = new PlayerPositionUpdateFreeformCommand(play, time, playerInstanceUUID, positions, onFrameChanged);
         executeNewCommand(playUUID, command);
     }
 
@@ -122,9 +121,9 @@ public class PlayService {
         executeNewCommand(playUUID, command);
     }
 
-    public void setTimelineLength(String playUUID, Integer time, Integer timelineLength) {
+    public void addKeypoint(String playUUID, Integer time) {
         Play play = playRepository.get(playUUID);
-        TimelineLengthUpdateCommand command = new TimelineLengthUpdateCommand(play, time, timelineLength, onPlayUpdated);
+        AddKeyPointCommand command = new AddKeyPointCommand(play, time, onPlayUpdated);
         executeNewCommand(playUUID, command);
     }
 

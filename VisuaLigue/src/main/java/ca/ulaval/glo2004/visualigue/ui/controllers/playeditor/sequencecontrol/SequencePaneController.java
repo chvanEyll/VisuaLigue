@@ -259,7 +259,7 @@ public class SequencePaneController extends ControllerBase {
             currentTimeLabel.setText(DurationUtils.toMMSSddd(Duration.ofMillis(time)));
             remainingTimeLabel.setText(DurationUtils.toMMSSddd(Duration.ofMillis(seekBarController.getRemainingTime())));
         });
-        Integer length = seekBarController.getLength();
+        Integer length = playModel.timelineLength.get();
         if (time.equals(length) && playSpeed.isForward()) {
             stop();
         } else if (time.equals(0) && playSpeed.isBackward()) {
@@ -268,7 +268,7 @@ public class SequencePaneController extends ControllerBase {
     }
 
     private void updateControlButtonStates() {
-        Integer length = seekBarController.getLength();
+        Integer length = playModel.timelineLength.get();
         FXUtils.setDisplay(playButton, playSpeed.isStillSpeed());
         FXUtils.setDisplay(pauseButton, !playSpeed.isStillSpeed());
         playButton.setDisable(seekBarController.getTime() >= length);

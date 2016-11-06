@@ -19,4 +19,5 @@ public class PlayModel extends ModelBase {
     public IntegerProperty playLength = new SimpleIntegerProperty();
     public IntegerProperty timelineLength = new SimpleIntegerProperty();
     public IntegerProperty keyPointInterval = new SimpleIntegerProperty(1000);
+    public IntegerProperty numberOfKeyPoints = new SimpleIntegerProperty();
 }

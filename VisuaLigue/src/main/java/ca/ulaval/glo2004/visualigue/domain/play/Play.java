@@ -12,6 +12,7 @@ import ca.ulaval.glo2004.visualigue.domain.play.keyframe.Keyframe;
 import ca.ulaval.glo2004.visualigue.domain.sport.Sport;
 import ca.ulaval.glo2004.visualigue.domain.sport.playercategory.PlayerCategory;
 import ca.ulaval.glo2004.visualigue.domain.xmladapters.XmlSportRefAdapter;
+import ca.ulaval.glo2004.visualigue.utils.math.MathUtils;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
@@ -91,12 +92,20 @@ public class Play extends DomainObject {
         return actorTimelines.keySet().stream().filter(a -> a.getUUID().equals(actorInstanceUUID)).findFirst().get();
     }
 
-    public Integer getTimelineLength() {
-        return timelineLength;
+    public Integer getNumberOfKeyPoints() {
+        return (MathUtils.roundUp(timelineLength, keyPointInterval) / keyPointInterval) + 1;
     }
 
-    public void setTimelineLength(Integer timelineLength) {
-        this.timelineLength = timelineLength;
+    public void addKeyPoint() {
+        this.timelineLength = timelineLength + keyPointInterval;
+    }
+
+    public void removeKeyPoint() {
+        this.timelineLength = timelineLength - keyPointInterval;
+    }
+
+    public Integer getTimelineLength() {
+        return this.timelineLength;
     }
 
     public Integer getKeyPointInterval() {
