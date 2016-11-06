@@ -1,6 +1,6 @@
 package ca.ulaval.glo2004.visualigue.ui;
 
-import ca.ulaval.glo2004.visualigue.VisuaLigue;
+import ca.ulaval.glo2004.visualigue.VisuaLigueFX;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.stream.Collectors;
@@ -14,7 +14,7 @@ public class KeyboardShortcutMapper {
     private Map<KeyCombination, Runnable> keyCombinationMap = new HashMap();
 
     public KeyboardShortcutMapper() {
-        VisuaLigue.getMainScene().addEventHandler(KeyEvent.KEY_RELEASED, new KeyReleasedEventHandler());
+        VisuaLigueFX.getMainScene().addEventHandler(KeyEvent.KEY_RELEASED, new KeyReleasedEventHandler());
     }
 
     public static void map(KeyCombination keyCombination, Runnable runnable) {

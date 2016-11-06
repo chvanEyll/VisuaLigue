@@ -32,8 +32,8 @@ public class PlayerCreationController extends ActorCreationController {
     @Override
     protected void onPlayingSurfaceMouseClicked(Object sender, MouseEvent e) {
         if (enabled) {
-            Vector2 position = playingSurfaceLayerController.getRelativeMousePosition();
-            playService.addPlayer(playModel.getUUID(), 0, playerCategoryModel.getUUID(), teamSide, 0.0, position);
+            Vector2 position = playingSurfaceLayerController.getSizeRelativeMousePosition();
+            playService.addPlayerInstance(playModel.getUUID(), playerCategoryModel.getUUID(), teamSide, 0.0, position);
             initEditionLayer(actorModel);
         }
     }

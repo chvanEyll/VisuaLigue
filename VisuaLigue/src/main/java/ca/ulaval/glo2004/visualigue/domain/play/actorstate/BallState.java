@@ -71,9 +71,4 @@ public class BallState extends ActorState implements Cloneable {
     public PlayerInstance getOwner() {
         return owner;
     }
-
-    public void setOwner(PlayerInstance owner) {
-        this.owner = owner;
-    }
-
 }

@@ -1,8 +1,8 @@
 package ca.ulaval.glo2004.visualigue.ui.controllers.common;
 
-import ca.ulaval.glo2004.visualigue.utils.javafx.FXUtils;
 import ca.ulaval.glo2004.visualigue.utils.geometry.Rect;
 import ca.ulaval.glo2004.visualigue.utils.geometry.Vector2;
+import ca.ulaval.glo2004.visualigue.utils.javafx.FXUtils;
 import javafx.scene.Node;
 import javafx.scene.control.ScrollPane;
 import javafx.scene.layout.Region;
@@ -146,29 +146,29 @@ public class ExtendedScrollPane extends ScrollPane {
         return FXUtils.mouseToNodePoint(getContent());
     }
 
-    public Vector2 mouseToRelativeContentPoint() {
+    public Vector2 mouseToSizeRelativeContentPoint() {
         Vector2 contentPoint = mouseToContentPoint();
         if (contentPoint != null) {
-            return contentToRelativePoint(mouseToContentPoint());
+            return contentToSizeRelativePoint(mouseToContentPoint());
         } else {
             return null;
         }
     }
 
-    public Vector2 contentToRelativePoint(Vector2 contentPoint) {
+    public Vector2 contentToSizeRelativePoint(Vector2 contentPoint) {
         return contentPoint.divide(getContentSize());
     }
 
-    public Double relativeToContentX(Double x) {
+    public Double sizeRelativeToContentX(Double x) {
         return x * getContentWidth();
     }
 
-    public Double relativeToContentY(Double y) {
+    public Double sizeRelativeToContentY(Double y) {
         return y * getContentHeight();
     }
 
-    public Vector2 relativeToContentPoint(Vector2 relativePoint) {
-        return relativePoint.multiply(getContentSize());
+    public Vector2 sizeRelativeToContentPoint(Vector2 sizeRelativePoint) {
+        return sizeRelativePoint.multiply(getContentSize());
     }
 
     public void ensureVisible(Node node) {

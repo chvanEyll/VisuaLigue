@@ -67,7 +67,7 @@ public class ToolbarController extends ControllerBase {
     }
 
     private void setHandlers() {
-        sceneController.onRealWorldMousePositionChanged.addHandler(this::onSceneMousePositionChanged);
+        sceneController.onMousePositionChanged.addHandler(this::onSceneMousePositionChanged);
         sceneController.onZoomChanged.addHandler(this::onSceneZoomChanged);
         sceneController.onNavigationModeEntered.addHandler(this::onNavigationModeEntered);
         sceneController.onNavigationModeExited.addHandler(this::onNavigationModeExited);
@@ -75,7 +75,7 @@ public class ToolbarController extends ControllerBase {
         sceneController.onRealTimeCreationModeEntered.addHandler(this::onRealTimeCreationModeEntered);
         playService.onUndoAvailabilityChanged.addHandler(onUndoAvailabilityChanged);
         playService.onRedoAvailabilityChanged.addHandler(onRedoAvailabilityChanged);
-        playService.onPlayDirtyFlagChanged.addHandler(onPlayDirtyFlagChanged);
+        playService.onDirtyFlagChanged.addHandler(onPlayDirtyFlagChanged);
     }
 
     private void setInitialStates() {
@@ -95,7 +95,7 @@ public class ToolbarController extends ControllerBase {
     public void clean() {
         playService.onUndoAvailabilityChanged.removeHandler(onUndoAvailabilityChanged);
         playService.onRedoAvailabilityChanged.removeHandler(onRedoAvailabilityChanged);
-        playService.onPlayDirtyFlagChanged.removeHandler(onPlayDirtyFlagChanged);
+        playService.onDirtyFlagChanged.removeHandler(onPlayDirtyFlagChanged);
     }
 
     private void onZoomComboBoxFocusedPropertyChanged(ObservableValue<? extends Boolean> value, Boolean oldPropertyValue, Boolean newPropertyValue) {

@@ -27,8 +27,8 @@ public class BallCreationController extends ActorCreationController {
     @Override
     protected void onPlayingSurfaceMouseClicked(Object sender, MouseEvent e) {
         if (enabled) {
-            Vector2 position = playingSurfaceLayerController.getRelativeMousePosition();
-            playService.addBall(playModel.getUUID(), 0, null, position);
+            Vector2 position = playingSurfaceLayerController.getSizeRelativeMousePosition();
+            playService.addBallInstance(playModel.getUUID(), 0, null, position);
             initEditionLayer(actorModel);
         }
     }

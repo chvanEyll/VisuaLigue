@@ -55,7 +55,7 @@ public abstract class ActorCreationController extends ControllerBase {
 
     protected void onPlayingSurfaceMouseMoved(Object sender, MouseEvent e) {
         if (enabled) {
-            actorModel.position.set(playingSurfaceLayerController.getRelativeMousePosition());
+            actorModel.position.set(playingSurfaceLayerController.getSizeRelativeMousePosition());
         }
     }
 

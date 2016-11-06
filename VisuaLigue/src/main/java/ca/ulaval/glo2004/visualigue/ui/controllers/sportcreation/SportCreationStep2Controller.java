@@ -1,6 +1,6 @@
 package ca.ulaval.glo2004.visualigue.ui.controllers.sportcreation;
 
-import ca.ulaval.glo2004.visualigue.VisuaLigue;
+import ca.ulaval.glo2004.visualigue.VisuaLigueFX;
 import ca.ulaval.glo2004.visualigue.domain.sport.playingsurface.PlayingSurfaceUnit;
 import ca.ulaval.glo2004.visualigue.ui.controllers.common.ExtendedImageView;
 import ca.ulaval.glo2004.visualigue.ui.models.SportCreationModel;
@@ -54,7 +54,7 @@ public class SportCreationStep2Controller extends SportCreationStepController {
 
     @FXML
     protected void onBrowseImageButtonAction(ActionEvent e) {
-        File selectedFile = FXUtils.chooseImage(VisuaLigue.getMainStage());
+        File selectedFile = FXUtils.chooseImage(VisuaLigueFX.getMainStage());
         if (selectedFile != null) {
             this.model.newPlayingSurfaceImagePathName.set(selectedFile.getPath());
             updateImage();

@@ -15,16 +15,8 @@ public abstract class ActorState extends DomainObject {
         return position;
     }
 
-    public void setPosition(Vector2 position) {
-        this.position = position;
-    }
-
     public StateTransition getPositionTransition() {
         return positionTransition;
-    }
-
-    public void setPositionTransition(StateTransition positionTransition) {
-        this.positionTransition = positionTransition;
     }
 
     public abstract ActorState merge(ActorState actorState);

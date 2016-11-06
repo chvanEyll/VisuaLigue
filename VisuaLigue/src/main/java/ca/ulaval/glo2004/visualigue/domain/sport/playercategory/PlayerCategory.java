@@ -46,27 +46,19 @@ public class PlayerCategory extends DomainObject {
         this.abbreviation = abbreviation;
     }
 
-    public Color getAllyColor() {
-        return allyColor;
-    }
-
-    public void setAllyColor(Color allyColor) {
-        this.allyColor = allyColor;
-    }
-
-    public Color getOpponentColor() {
-        return opponentColor;
-    }
-
-    public void setOpponentColor(Color opponentColor) {
-        this.opponentColor = opponentColor;
-    }
-
     public Color getColor(TeamSide teamSide) {
         if (teamSide == TeamSide.ALLIES) {
             return allyColor;
         } else {
             return opponentColor;
+        }
+    }
+
+    public void setColor(Color color, TeamSide teamSide) {
+        if (teamSide == TeamSide.ALLIES) {
+            this.allyColor = color;
+        } else {
+            this.opponentColor = color;
         }
     }
 

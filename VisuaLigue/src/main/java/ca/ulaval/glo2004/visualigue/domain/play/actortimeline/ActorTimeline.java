@@ -7,20 +7,13 @@ import ca.ulaval.glo2004.visualigue.domain.play.keyframe.Keyframe;
 import java.util.Map;
 import java.util.Optional;
 import java.util.TreeMap;
-import javax.xml.bind.annotation.XmlIDREF;
 
 public class ActorTimeline extends DomainObject {
 
-    @XmlIDREF
-    private ActorInstance actorInstance;
     private final TreeMap<Integer, Keyframe> keyframes = new TreeMap();
 
     public ActorTimeline() {
         //Required for JAXB instanciation.
-    }
-
-    public ActorTimeline(ActorInstance actorInstance) {
-        this.actorInstance = actorInstance;
     }
 
     public ActorState mergeKeyframe(Integer time, ActorInstance actorInstance, ActorState actorState) {

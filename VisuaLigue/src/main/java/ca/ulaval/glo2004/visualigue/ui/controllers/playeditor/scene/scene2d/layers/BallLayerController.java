@@ -57,7 +57,7 @@ public class BallLayerController extends ActorLayerController {
     public void update() {
         Vector2 actorPosition;
         if (ballActorModel.position.isNotNull().get()) {
-            actorPosition = playingSurfaceLayerController.relativeToSurfacePoint(ballActorModel.position.get());
+            actorPosition = playingSurfaceLayerController.sizeRelativeToSurfacePoint(ballActorModel.position.get());
         } else {
             actorPosition = null;
         }

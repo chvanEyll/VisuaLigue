@@ -21,7 +21,4 @@ public class ObstacleInstance extends ActorInstance {
         return obstacle;
     }
 
-    public void setObstacle(Obstacle obstacle) {
-        this.obstacle = obstacle;
-    }
 }

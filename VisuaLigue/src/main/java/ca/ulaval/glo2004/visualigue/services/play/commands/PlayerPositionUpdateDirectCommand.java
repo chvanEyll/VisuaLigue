@@ -4,7 +4,7 @@ import ca.ulaval.glo2004.visualigue.domain.play.Play;
 import ca.ulaval.glo2004.visualigue.domain.play.actorinstance.PlayerInstance;
 import ca.ulaval.glo2004.visualigue.domain.play.actorstate.ActorState;
 import ca.ulaval.glo2004.visualigue.domain.play.actorstate.PlayerState;
-import ca.ulaval.glo2004.visualigue.domain.play.actorstate.transition.LinearTransition;
+import ca.ulaval.glo2004.visualigue.domain.play.actorstate.transition.LinearStateTransition;
 import ca.ulaval.glo2004.visualigue.utils.EventHandler;
 import ca.ulaval.glo2004.visualigue.utils.geometry.Vector2;
 
@@ -25,7 +25,7 @@ public class PlayerPositionUpdateDirectCommand extends Command {
 
     @Override
     public void execute() {
-        PlayerState playerState = new PlayerState(position, new LinearTransition(), null, null);
+        PlayerState playerState = new PlayerState(position, new LinearStateTransition(), null, null);
         playerInstance = (PlayerInstance) play.getActorInstance(playerInstanceUUID);
         oldPlayerState = play.mergeKeyframe(time, playerInstance, playerState);
         onFrameChanged.fire(this, play);

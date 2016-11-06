@@ -4,11 +4,11 @@ import ca.ulaval.glo2004.visualigue.utils.geometry.Vector2;
 import java.util.ArrayList;
 import java.util.List;
 
-public class FreeformTransition extends StateTransition {
+public class FreeformStateTransition extends StateTransition {
 
-    List<Vector2> transitionPoints = new ArrayList();
+    private List<Vector2> transitionPoints = new ArrayList();
 
-    public FreeformTransition(List<Vector2> transitionPoints) {
+    public FreeformStateTransition(List<Vector2> transitionPoints) {
         this.transitionPoints = transitionPoints;
     }
 

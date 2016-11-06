@@ -20,7 +20,7 @@ public abstract class SceneController extends ControllerBase {
             new Zoom(0.5), new Zoom(0.75), new Zoom(1), new Zoom(1.25), new Zoom(1.5), new Zoom(1.75), new Zoom(2), new Zoom(2.5), new Zoom(3), new Zoom(4), new Zoom(5)
     ));
 
-    public EventHandler<Vector2> onRealWorldMousePositionChanged = new EventHandler();
+    public EventHandler<Vector2> onMousePositionChanged = new EventHandler();
     public EventHandler<Zoom> onZoomChanged = new EventHandler();
     public EventHandler onCreationModeEntered = new EventHandler();
     public EventHandler onPlayerCreationModeExited = new EventHandler();

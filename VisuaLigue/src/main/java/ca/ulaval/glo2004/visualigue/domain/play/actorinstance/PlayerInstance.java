@@ -23,16 +23,8 @@ public class PlayerInstance extends ActorInstance {
         return playerCategory;
     }
 
-    public void setPlayerCategory(PlayerCategory playerCategory) {
-        this.playerCategory = playerCategory;
-    }
-
     public TeamSide getTeamSide() {
         return teamSide;
-    }
-
-    public void setTeamSide(TeamSide teamSide) {
-        this.teamSide = teamSide;
     }
 
 }

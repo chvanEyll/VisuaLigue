@@ -3,7 +3,7 @@ package ca.ulaval.glo2004.visualigue.services.play;
 import ca.ulaval.glo2004.visualigue.domain.obstacle.ObstacleRepository;
 import ca.ulaval.glo2004.visualigue.domain.play.*;
 import ca.ulaval.glo2004.visualigue.domain.play.actorinstance.TeamSide;
-import ca.ulaval.glo2004.visualigue.domain.play.actorstate.transition.StateTransition;
+import ca.ulaval.glo2004.visualigue.domain.play.actorstate.transition.FreeformStateTransition;
 import ca.ulaval.glo2004.visualigue.domain.play.frame.Frame;
 import ca.ulaval.glo2004.visualigue.domain.sport.Sport;
 import ca.ulaval.glo2004.visualigue.domain.sport.SportNotFoundException;
@@ -33,8 +33,8 @@ public class PlayService {
     public EventHandler<Play> onPlayCreated = new EventHandler();
     public EventHandler<Play> onPlayUpdated = new EventHandler();
     public EventHandler<Play> onPlayDeleted = new EventHandler();
-    public EventHandler<Play> onPlayFrameChanged = new EventHandler();
-    public EventHandler<Play> onPlayDirtyFlagChanged = new EventHandler();
+    public EventHandler<Play> onDirtyFlagChanged = new EventHandler();
+    public EventHandler<Play> onFrameChanged = new EventHandler();
     public EventHandler<Integer> onUndo = new EventHandler();
     public EventHandler<Integer> onRedo = new EventHandler();
     public EventHandler<Boolean> onUndoAvailabilityChanged = new EventHandler();
@@ -80,45 +80,45 @@ public class PlayService {
         return playRepository.getAll(sortFunction, sortOrder);
     }
 
-    public void addPlayer(String playUUID, Integer time, String playerCategoryUUID, TeamSide teamSide, Double orientation, Vector2 position) {
+    public void addPlayerInstance(String playUUID, String playerCategoryUUID, TeamSide teamSide, Double orientation, Vector2 position) {
         Play play = playRepository.get(playUUID);
-        PlayerCreationCommand command = new PlayerCreationCommand(play, time, playerCategoryUUID, teamSide, orientation, position, playerCategoryRepository, onPlayFrameChanged);
+        PlayerCreationCommand command = new PlayerCreationCommand(play, 0, playerCategoryUUID, teamSide, orientation, position, playerCategoryRepository, onFrameChanged);
         executeNewCommand(playUUID, command);
     }
 
-    public void updatePlayerPositionDirect(String playUUID, Integer time, String playerInstanceUUID, Vector2 position) {
+    public void updatePlayerInstancePositionDirect(String playUUID, Integer time, String playerInstanceUUID, Vector2 position) {
         Play play = playRepository.get(playUUID);
-        PlayerPositionUpdateDirectCommand command = new PlayerPositionUpdateDirectCommand(play, time, playerInstanceUUID, position, onPlayFrameChanged);
+        PlayerPositionUpdateDirectCommand command = new PlayerPositionUpdateDirectCommand(play, time, playerInstanceUUID, position, onFrameChanged);
         executeNewCommand(playUUID, command);
     }
 
-    public void updatePlayerPositionFreeform(String playUUID, Integer time, String playerInstanceUUID, Vector2 position, StateTransition positionTransition) {
+    public void updatePlayerInstancePositionFreeform(String playUUID, Integer time, String playerInstanceUUID, Vector2 position, FreeformStateTransition positionTransition) {
         Play play = playRepository.get(playUUID);
-        PlayerPositionUpdateFreeformCommand command = new PlayerPositionUpdateFreeformCommand(play, time, playerInstanceUUID, position, positionTransition, onPlayFrameChanged);
+        PlayerPositionUpdateFreeformCommand command = new PlayerPositionUpdateFreeformCommand(play, time, playerInstanceUUID, position, positionTransition, onFrameChanged);
         executeNewCommand(playUUID, command);
     }
 
-    public void updatePlayerOrientation(String playUUID, Integer time, String ownerPlayerInstanceUUID, Double orientation) {
+    public void updatePlayerInstanceOrientation(String playUUID, Integer time, String ownerPlayerInstanceUUID, Double orientation) {
         Play play = playRepository.get(playUUID);
-        PlayerOrientationUpdateCommand command = new PlayerOrientationUpdateCommand(play, time, ownerPlayerInstanceUUID, orientation, onPlayFrameChanged);
+        PlayerOrientationUpdateCommand command = new PlayerOrientationUpdateCommand(play, time, ownerPlayerInstanceUUID, orientation, onFrameChanged);
         executeNewCommand(playUUID, command);
     }
 
-    public void addObstacle(String playUUID, Integer time, String obstacleInstanceUUID, Vector2 position) {
+    public void addObstacleInstance(String playUUID, Integer time, String obstacleInstanceUUID, Vector2 position) {
         Play play = playRepository.get(playUUID);
-        ObstacleCreationCommand command = new ObstacleCreationCommand(play, time, obstacleInstanceUUID, position, obstacleRepository, onPlayFrameChanged);
+        ObstacleCreationCommand command = new ObstacleCreationCommand(play, time, obstacleInstanceUUID, position, obstacleRepository, onFrameChanged);
         executeNewCommand(playUUID, command);
     }
 
-    public void addBall(String playUUID, Integer time, String ownerPlayerInstanceUUID, Vector2 position) {
+    public void addBallInstance(String playUUID, Integer time, String ownerPlayerInstanceUUID, Vector2 position) {
         Play play = playRepository.get(playUUID);
-        BallCreationCommand command = new BallCreationCommand(play, time, ownerPlayerInstanceUUID, position, onPlayFrameChanged);
+        BallCreationCommand command = new BallCreationCommand(play, time, ownerPlayerInstanceUUID, position, onFrameChanged);
         executeNewCommand(playUUID, command);
     }
 
-    public void updateBall(String playUUID, Integer time, String ballInstanceUUID, String ownerPlayerInstanceUUID, Vector2 position) {
+    public void updateBallInstance(String playUUID, Integer time, String ballInstanceUUID, String ownerPlayerInstanceUUID, Vector2 position) {
         Play play = playRepository.get(playUUID);
-        BallUpdateCommand command = new BallUpdateCommand(play, time, ballInstanceUUID, ownerPlayerInstanceUUID, position, onPlayFrameChanged);
+        BallUpdateCommand command = new BallUpdateCommand(play, time, ballInstanceUUID, ownerPlayerInstanceUUID, position, onFrameChanged);
         executeNewCommand(playUUID, command);
     }
 
@@ -207,7 +207,7 @@ public class PlayService {
     private void setDirty(String playUUID, Boolean dirty) throws PlayNotFoundException {
         Play play = playRepository.get(playUUID);
         play.setDirty(dirty);
-        onPlayDirtyFlagChanged.fire(this, play);
+        onDirtyFlagChanged.fire(this, play);
     }
 
     public Boolean isPlayDirty(String playUUID) throws PlayNotFoundException {

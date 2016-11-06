@@ -30,26 +30,26 @@ public class InjectionConfigProvider extends AbstractModule {
 
     @Provides
     XmlRepositoryMarshaller<Sport> provideXmlSportRepository() {
-        return new XmlRepositoryMarshaller<>(Sport.class, VisuaLigue.getRepositoryDirectory() + "/sports");
+        return new XmlRepositoryMarshaller<>(Sport.class, VisuaLigueFX.getRepositoryDirectory() + "/sports");
     }
 
     @Provides
     XmlRepositoryMarshaller<Obstacle> provideXmlObstacleRepository() {
-        return new XmlRepositoryMarshaller<>(Obstacle.class, VisuaLigue.getRepositoryDirectory() + "/obstacles");
+        return new XmlRepositoryMarshaller<>(Obstacle.class, VisuaLigueFX.getRepositoryDirectory() + "/obstacles");
     }
 
     @Provides
     XmlRepositoryMarshaller<Play> provideXmlPlayRepository() {
-        return new XmlRepositoryMarshaller<>(Play.class, VisuaLigue.getRepositoryDirectory() + "/plays");
+        return new XmlRepositoryMarshaller<>(Play.class, VisuaLigueFX.getRepositoryDirectory() + "/plays");
     }
 
     @Provides
     XmlRepositoryMarshaller<PlayerCategory> provideXmlPlayerCategoryRepository() {
-        return new XmlRepositoryMarshaller<>(PlayerCategory.class, VisuaLigue.getRepositoryDirectory() + "/player-categories");
+        return new XmlRepositoryMarshaller<>(PlayerCategory.class, VisuaLigueFX.getRepositoryDirectory() + "/player-categories");
     }
 
     @Provides
     XmlRepositoryMarshaller<Settings> provideXmlSettingsRepository() {
-        return new XmlRepositoryMarshaller<>(Settings.class, VisuaLigue.getRepositoryDirectory() + "/settings");
+        return new XmlRepositoryMarshaller<>(Settings.class, VisuaLigueFX.getRepositoryDirectory() + "/settings");
     }
 }

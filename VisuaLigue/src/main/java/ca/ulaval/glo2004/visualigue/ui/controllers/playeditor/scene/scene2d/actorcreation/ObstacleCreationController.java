@@ -29,8 +29,8 @@ public class ObstacleCreationController extends ActorCreationController {
     @Override
     protected void onPlayingSurfaceMouseClicked(Object sender, MouseEvent e) {
         if (enabled) {
-            Vector2 position = playingSurfaceLayerController.getRelativeMousePosition();
-            playService.addObstacle(playModel.getUUID(), 0, obstacleModel.getUUID(), position);
+            Vector2 position = playingSurfaceLayerController.getSizeRelativeMousePosition();
+            playService.addObstacleInstance(playModel.getUUID(), 0, obstacleModel.getUUID(), position);
             initEditionLayer(actorModel);
         }
     }

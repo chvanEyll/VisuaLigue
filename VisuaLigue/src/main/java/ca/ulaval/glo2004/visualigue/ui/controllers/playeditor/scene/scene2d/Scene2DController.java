@@ -54,10 +54,9 @@ public class Scene2DController extends SceneController {
         showActorLabelsProperty.set(settingsService.getShowActorLabels());
         showMovementArrowsProperty.set(settingsService.getShowMovementArrows());
         resizeActorsOnZoomProperty.set(settingsService.getResizeActorsOnZoom());
-        playService.onPlayFrameChanged.addHandler(onPlayFrameChanged);
+        playService.onFrameChanged.addHandler(onPlayFrameChanged);
         initControllers();
         initKeyboardShortcuts();
-        enterNavigationMode();
     }
 
     private void initControllers() {
@@ -65,7 +64,7 @@ public class Scene2DController extends SceneController {
         playingSurfaceLayerController = (PlayingSurfaceLayerController) playingSurfaceView.getController();
         playingSurfaceLayerController.init(playModel, layerStackPane);
         navigationController = new NavigationController(scrollPane, scrollPaneContent, playingSurfaceLayerController);
-        navigationController.onRealWorldMousePositionChanged.forward(onRealWorldMousePositionChanged);
+        navigationController.onRealWorldMousePositionChanged.forward(onMousePositionChanged);
         navigationController.onZoomChanged.forward(this.onZoomChanged);
         navigationController.onNavigationModeEntered.forward(this.onNavigationModeEntered);
         navigationController.onNavigationModeExited.forward(this.onNavigationModeExited);
@@ -119,7 +118,7 @@ public class Scene2DController extends SceneController {
         KeyboardShortcutMapper.unmap(new KeyCodeCombination(KeyCode.SUBTRACT, KeyCombination.CONTROL_DOWN));
         KeyboardShortcutMapper.unmap(new KeyCodeCombination(KeyCode.R, KeyCombination.CONTROL_DOWN));
         KeyboardShortcutMapper.unmap(new KeyCodeCombination(KeyCode.Q, KeyCombination.CONTROL_DOWN));
-        playService.onPlayFrameChanged.removeHandler(onPlayFrameChanged);
+        playService.onFrameChanged.removeHandler(onPlayFrameChanged);
     }
 
     private void onPlayFrameChanged(Object sender, Play play) {

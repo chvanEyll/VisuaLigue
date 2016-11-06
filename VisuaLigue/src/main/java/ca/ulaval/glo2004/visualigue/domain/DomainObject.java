@@ -5,15 +5,12 @@ import java.util.UUID;
 import javax.xml.bind.annotation.XmlAccessType;
 import javax.xml.bind.annotation.XmlAccessorType;
 import javax.xml.bind.annotation.XmlID;
-import javax.xml.bind.annotation.XmlTransient;
 
 @XmlAccessorType(XmlAccessType.FIELD)
 public abstract class DomainObject implements Comparable<DomainObject> {
 
     @XmlID
     protected String uuid;
-    @XmlTransient
-    protected Boolean isDirty = false;
 
     public DomainObject() {
         this.uuid = UUID.randomUUID().toString();
@@ -25,22 +22,6 @@ public abstract class DomainObject implements Comparable<DomainObject> {
 
     public void setUUID(String uuid) {
         this.uuid = uuid;
-    }
-
-    public Boolean isDirty() {
-        return isDirty;
-    }
-
-    public void setDirty(Boolean isDirty) {
-        this.isDirty = isDirty;
-    }
-
-    public void makeDirty() {
-        this.isDirty = true;
-    }
-
-    public void clean() {
-        this.isDirty = true;
     }
 
     @Override

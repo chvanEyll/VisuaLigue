@@ -67,13 +67,13 @@ public class PlayerLayerController extends ActorLayerController {
     public void update() {
         Vector2 actorPosition;
         if (playerActorModel.position.isNotNull().get()) {
-            actorPosition = playingSurfaceLayerController.relativeToSurfacePoint(playerActorModel.position.get());
+            actorPosition = playingSurfaceLayerController.sizeRelativeToSurfacePoint(playerActorModel.position.get());
         } else {
             actorPosition = null;
         }
         Vector2 nextActorPosition;
         if (playerActorModel.nextPosition.isNotNull().get()) {
-            nextActorPosition = playingSurfaceLayerController.relativeToSurfacePoint(playerActorModel.nextPosition.get());
+            nextActorPosition = playingSurfaceLayerController.sizeRelativeToSurfacePoint(playerActorModel.nextPosition.get());
         } else {
             nextActorPosition = null;
         }
@@ -112,13 +112,12 @@ public class PlayerLayerController extends ActorLayerController {
 
     private void updateLabel(Vector2 actorPosition) {
         if (actorPosition != null) {
-            label.setVisible(showActorLabelsProperty.get());
             label.setScaleX(getScaledValue(1.0));
             label.setScaleY(getScaledValue(1.0));
             label.setLayoutX(actorPosition.getX() - label.getWidth() / 2);
             label.setLayoutY(actorPosition.getY() - label.getHeight() / 2 - getScaledValue(LABEL_OFFSET_Y));
         }
-        label.setVisible(actorPosition != null);
+        label.setVisible(actorPosition != null && showActorLabelsProperty.get());
     }
 
 }

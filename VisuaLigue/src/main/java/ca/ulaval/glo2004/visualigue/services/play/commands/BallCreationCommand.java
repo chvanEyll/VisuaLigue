@@ -4,7 +4,7 @@ import ca.ulaval.glo2004.visualigue.domain.play.Play;
 import ca.ulaval.glo2004.visualigue.domain.play.actorinstance.BallInstance;
 import ca.ulaval.glo2004.visualigue.domain.play.actorinstance.PlayerInstance;
 import ca.ulaval.glo2004.visualigue.domain.play.actorstate.BallState;
-import ca.ulaval.glo2004.visualigue.domain.play.actorstate.transition.LinearTransition;
+import ca.ulaval.glo2004.visualigue.domain.play.actorstate.transition.LinearStateTransition;
 import ca.ulaval.glo2004.visualigue.utils.EventHandler;
 import ca.ulaval.glo2004.visualigue.utils.geometry.Vector2;
 
@@ -29,7 +29,7 @@ public class BallCreationCommand extends Command {
         if (ownerPlayerInstanceUUID != null) {
             playerInstance = (PlayerInstance) play.getActorInstance(ownerPlayerInstanceUUID);
         }
-        BallState ballState = new BallState(position, new LinearTransition(), playerInstance);
+        BallState ballState = new BallState(position, new LinearStateTransition(), playerInstance);
         ballInstance = new BallInstance();
         play.mergeKeyframe(time, ballInstance, ballState);
         onFrameChanged.fire(this, play);

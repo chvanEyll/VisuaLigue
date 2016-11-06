@@ -1,6 +1,7 @@
 package ca.ulaval.glo2004.visualigue.services.sport;
 
 import ca.ulaval.glo2004.visualigue.domain.image.ImageRepository;
+import ca.ulaval.glo2004.visualigue.domain.play.actorinstance.TeamSide;
 import ca.ulaval.glo2004.visualigue.domain.sport.*;
 import ca.ulaval.glo2004.visualigue.domain.sport.ball.Ball;
 import ca.ulaval.glo2004.visualigue.domain.sport.playercategory.PlayerCategory;
@@ -118,7 +119,7 @@ public class SportService {
     public void deletePlayerCategory(String sportUUID, String playerCategoryUUID) throws SportNotFoundException, PlayerCategoryNotFoundException {
         Sport sport = sportRepository.get(sportUUID);
         PlayerCategory playerCategory = playerCategoryRepository.get(playerCategoryUUID);
-        sport.removeCategory(playerCategory);
+        sport.removePlayerCategory(playerCategory);
         sportRepository.update(sport);
         playerCategoryRepository.delete(playerCategory);
     }
@@ -127,8 +128,8 @@ public class SportService {
         Sport sport = sportRepository.get(sportUUID);
         PlayerCategory playerCategory = playerCategoryRepository.get(playerCategoryUUID);
         playerCategory.setName(name);
-        playerCategory.setAllyColor(allyColor);
-        playerCategory.setOpponentColor(opponentColor);
+        playerCategory.setColor(allyColor, TeamSide.ALLIES);
+        playerCategory.setColor(opponentColor, TeamSide.OPPONENTS);
         playerCategory.setDefaultNumberOfPlayers(defaultNumberOfPlayers);
         sportRepository.update(sport);
         playerCategoryRepository.update(playerCategory);

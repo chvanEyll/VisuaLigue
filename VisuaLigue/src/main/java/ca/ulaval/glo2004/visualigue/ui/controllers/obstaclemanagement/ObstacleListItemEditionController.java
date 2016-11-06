@@ -1,6 +1,6 @@
 package ca.ulaval.glo2004.visualigue.ui.controllers.obstaclemanagement;
 
-import ca.ulaval.glo2004.visualigue.VisuaLigue;
+import ca.ulaval.glo2004.visualigue.VisuaLigueFX;
 import ca.ulaval.glo2004.visualigue.domain.obstacle.ObstacleNotFoundException;
 import ca.ulaval.glo2004.visualigue.services.obstacle.ObstacleService;
 import ca.ulaval.glo2004.visualigue.ui.controllers.common.editablelist.ListItemEditionController;
@@ -81,7 +81,7 @@ public class ObstacleListItemEditionController extends ListItemEditionController
 
     @FXML
     protected void onBrowseImageButtonAction(ActionEvent e) {
-        File selectedFile = FXUtils.chooseImage(VisuaLigue.getMainStage());
+        File selectedFile = FXUtils.chooseImage(VisuaLigueFX.getMainStage());
         if (selectedFile != null) {
             this.model.newImagePathName.set(selectedFile.getPath());
             updateImage();

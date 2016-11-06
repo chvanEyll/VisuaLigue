@@ -16,7 +16,7 @@ import ca.ulaval.glo2004.visualigue.domain.play.actorinstance.TeamSide;
 import ca.ulaval.glo2004.visualigue.domain.play.actorstate.BallState;
 import ca.ulaval.glo2004.visualigue.domain.play.actorstate.ObstacleState;
 import ca.ulaval.glo2004.visualigue.domain.play.actorstate.PlayerState;
-import ca.ulaval.glo2004.visualigue.domain.play.actorstate.transition.LinearTransition;
+import ca.ulaval.glo2004.visualigue.domain.play.actorstate.transition.LinearStateTransition;
 import ca.ulaval.glo2004.visualigue.domain.settings.Settings;
 import ca.ulaval.glo2004.visualigue.domain.settings.SettingsRepository;
 import ca.ulaval.glo2004.visualigue.domain.sport.Sport;
@@ -262,19 +262,19 @@ public class DefaultContext extends ContextBase {
         Play play = playFactory.create(sportPool.get(0));
         play.setTitle("Demo");
         PlayerInstance playerInstance1 = new PlayerInstance(leftWingerHockeyPlayerCategory, TeamSide.ALLIES);
-        PlayerState playerState = new PlayerState(new Vector2(0.25, 0.25), new LinearTransition(), 0.0, new LinearTransition());
+        PlayerState playerState = new PlayerState(new Vector2(0.25, 0.25), new LinearStateTransition(), 0.0, new LinearStateTransition());
         play.mergeKeyframe(0, playerInstance1, playerState);
-        playerState = new PlayerState(new Vector2(0.75, 0.75), new LinearTransition(), 90.0, new LinearTransition());
+        playerState = new PlayerState(new Vector2(0.75, 0.75), new LinearStateTransition(), 90.0, new LinearStateTransition());
         play.mergeKeyframe(1000, playerInstance1, playerState);
-        playerState = new PlayerState(new Vector2(0.5, 0.2), new LinearTransition(), 180.0, new LinearTransition());
+        playerState = new PlayerState(new Vector2(0.5, 0.2), new LinearStateTransition(), 180.0, new LinearStateTransition());
         play.mergeKeyframe(2000, playerInstance1, playerState);
 
         PlayerInstance playerInstance2 = new PlayerInstance(leftWingerHockeyPlayerCategory, TeamSide.OPPONENTS);
-        playerState = new PlayerState(new Vector2(0.8, 0.3), new LinearTransition(), 180.0, new LinearTransition());
+        playerState = new PlayerState(new Vector2(0.8, 0.3), new LinearStateTransition(), 180.0, new LinearStateTransition());
         play.mergeKeyframe(0, playerInstance2, playerState);
-        playerState = new PlayerState(new Vector2(0.1, 0.9), new LinearTransition(), 0.0, new LinearTransition());
+        playerState = new PlayerState(new Vector2(0.1, 0.9), new LinearStateTransition(), 0.0, new LinearStateTransition());
         play.mergeKeyframe(1000, playerInstance2, playerState);
-        playerState = new PlayerState(new Vector2(0.3, 0.45), new LinearTransition(), 0.0, new LinearTransition());
+        playerState = new PlayerState(new Vector2(0.3, 0.45), new LinearStateTransition(), 0.0, new LinearStateTransition());
         play.mergeKeyframe(2000, playerInstance2, playerState);
 
         ObstacleInstance obstacleInstance1 = new ObstacleInstance(coneObstacle);
@@ -282,11 +282,11 @@ public class DefaultContext extends ContextBase {
         play.mergeKeyframe(0, obstacleInstance1, obstacleState);
 
         BallInstance ballInstance1 = new BallInstance();
-        BallState ballState = new BallState(new Vector2(0.4, 0.8), new LinearTransition(), null);
+        BallState ballState = new BallState(new Vector2(0.4, 0.8), new LinearStateTransition(), null);
         play.mergeKeyframe(0, ballInstance1, ballState);
-        ballState = new BallState(new Vector2(0.7, 0.25), new LinearTransition(), null);
+        ballState = new BallState(new Vector2(0.7, 0.25), new LinearStateTransition(), null);
         play.mergeKeyframe(1000, ballInstance1, ballState);
-        ballState = new BallState(new Vector2(0.1, 0.1), new LinearTransition(), null);
+        ballState = new BallState(new Vector2(0.1, 0.1), new LinearStateTransition(), null);
         play.mergeKeyframe(2000, ballInstance1, ballState);
 
         return play;

@@ -1,6 +1,6 @@
 package ca.ulaval.glo2004.visualigue.persistence;
 
-import ca.ulaval.glo2004.visualigue.VisuaLigue;
+import ca.ulaval.glo2004.visualigue.VisuaLigueFX;
 import ca.ulaval.glo2004.visualigue.domain.image.ImageRepository;
 import ca.ulaval.glo2004.visualigue.utils.FileUtils;
 import java.io.File;
@@ -13,7 +13,7 @@ import javax.inject.Singleton;
 @Singleton
 public class FileBasedImageRepository implements ImageRepository {
 
-    private static final String REPOSITORY_NAME = VisuaLigue.getRepositoryDirectory() + "/images";
+    private static final String REPOSITORY_NAME = VisuaLigueFX.getRepositoryDirectory() + "/images";
     private static final String IMAGE_FORMAT = "jpg";
 
     public FileBasedImageRepository() {

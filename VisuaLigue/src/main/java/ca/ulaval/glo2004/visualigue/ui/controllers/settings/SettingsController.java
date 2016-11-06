@@ -1,6 +1,6 @@
 package ca.ulaval.glo2004.visualigue.ui.controllers.settings;
 
-import ca.ulaval.glo2004.visualigue.VisuaLigue;
+import ca.ulaval.glo2004.visualigue.VisuaLigueFX;
 import ca.ulaval.glo2004.visualigue.services.settings.SettingsService;
 import ca.ulaval.glo2004.visualigue.ui.controllers.ControllerBase;
 import ca.ulaval.glo2004.visualigue.ui.dialog.AlertDialogBuilder;
@@ -26,7 +26,7 @@ public class SettingsController extends ControllerBase {
 
     @Override
     public void initialize(URL location, ResourceBundle resources) {
-        productName.setText(VisuaLigue.getAppName());
+        productName.setText(VisuaLigueFX.getAppName());
     }
 
     @Override

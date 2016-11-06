@@ -86,15 +86,11 @@ public class Sport extends DomainObject {
         return playerCategories;
     }
 
-    public void setPlayerCategories(Set<PlayerCategory> playerCategories) {
-        this.playerCategories = playerCategories;
-    }
-
     public void addPlayerCategory(PlayerCategory playerCategory) {
         playerCategories.add(playerCategory);
     }
 
-    public void removeCategory(PlayerCategory playerCategory) {
+    public void removePlayerCategory(PlayerCategory playerCategory) {
         playerCategories.remove(playerCategory);
     }
 

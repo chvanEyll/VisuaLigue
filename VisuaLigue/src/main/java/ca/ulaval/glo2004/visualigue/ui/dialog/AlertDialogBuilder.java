@@ -1,6 +1,6 @@
 package ca.ulaval.glo2004.visualigue.ui.dialog;
 
-import ca.ulaval.glo2004.visualigue.VisuaLigue;
+import ca.ulaval.glo2004.visualigue.VisuaLigueFX;
 import ca.ulaval.glo2004.visualigue.utils.ExceptionUtils;
 import java.util.HashSet;
 import java.util.Optional;
@@ -47,8 +47,8 @@ public class AlertDialogBuilder {
     public Optional<ButtonType> showAndWait() {
         Alert alert = new Alert(alertType);
         alert.initModality(Modality.WINDOW_MODAL);
-        alert.initOwner(VisuaLigue.getMainStage());
-        alert.setTitle(VisuaLigue.getAppName());
+        alert.initOwner(VisuaLigueFX.getMainStage());
+        alert.setTitle(VisuaLigueFX.getAppName());
         alert.setHeaderText(headerText);
         alert.setContentText(contentText);
         alert.getButtonTypes().clear();;
@@ -62,7 +62,7 @@ public class AlertDialogBuilder {
         }
 
         alert.getDialogPane().getStyleClass().add("root-node");
-        alert.getDialogPane().getStylesheets().add(VisuaLigue.getMainStyleSheet());
+        alert.getDialogPane().getStylesheets().add(VisuaLigueFX.getMainStyleSheet());
         return alert.showAndWait();
     }
 

@@ -1,6 +1,6 @@
 package ca.ulaval.glo2004.visualigue.services.settings;
 
-import ca.ulaval.glo2004.visualigue.VisuaLigue;
+import ca.ulaval.glo2004.visualigue.VisuaLigueFX;
 import ca.ulaval.glo2004.visualigue.domain.settings.Settings;
 import ca.ulaval.glo2004.visualigue.domain.settings.SettingsRepository;
 import ca.ulaval.glo2004.visualigue.utils.EventHandler;
@@ -18,7 +18,7 @@ public class SettingsService {
     }
 
     public void reset() throws IOException, Exception {
-        VisuaLigue.getDefaultContext().apply(true);
+        VisuaLigueFX.getDefaultContext().apply(true);
     }
 
     public Boolean getResizeActorsOnZoom() {

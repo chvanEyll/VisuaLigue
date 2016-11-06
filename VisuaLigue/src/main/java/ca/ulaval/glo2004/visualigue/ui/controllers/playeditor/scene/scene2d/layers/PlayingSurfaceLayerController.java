@@ -94,15 +94,14 @@ public class PlayingSurfaceLayerController extends ControllerBase {
         return new Vector2(rootNode.getFitWidth(), rootNode.getFitHeight());
     }
 
-    public Vector2 getRelativeMousePosition() {
+    public Vector2 getSizeRelativeMousePosition() {
         Vector2 mousePosition = FXUtils.mouseToNodePoint(rootNode);
         return mousePosition.divide(getSurfaceSize());
     }
 
     public Vector2 getRealWorldMousePosition() {
-        Vector2 relativeMousePosition = getRelativeMousePosition();
-        Vector2 surfacePosition = relativeMousePosition.multiply(new Vector2(playModel.playingSurfaceWidth.get(), playModel.playingSurfaceLength.get()));
-        return surfacePosition;
+        Vector2 sizeRelativeMousePosition = getSizeRelativeMousePosition();
+        return sizeRelativeMousePosition.multiply(new Vector2(playModel.playingSurfaceWidth.get(), playModel.playingSurfaceLength.get()));
     }
 
     public void setCursor(Cursor cursor) {
@@ -118,7 +117,7 @@ public class PlayingSurfaceLayerController extends ControllerBase {
         setCursor(oldCursor);
     }
 
-    public Vector2 relativeToSurfacePoint(Vector2 relativePoint) {
+    public Vector2 sizeRelativeToSurfacePoint(Vector2 relativePoint) {
         return relativePoint.multiply(getSurfaceSize());
     }
 

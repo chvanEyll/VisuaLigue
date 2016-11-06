@@ -16,9 +16,9 @@ public class Keyframe extends DomainObject {
         //Required for JAXB instanciation.
     }
 
-    public Keyframe(Integer time, ActorInstance actor, ActorState actorState) {
+    public Keyframe(Integer time, ActorInstance actorInstance, ActorState actorState) {
         this.time = time;
-        this.actorInstance = actor;
+        this.actorInstance = actorInstance;
         this.actorState = actorState;
     }
 
@@ -38,11 +38,11 @@ public class Keyframe extends DomainObject {
         return actorState.merge(actorState);
     }
 
-    public void unmergeActorState(ActorInstance actor, ActorState actorState) {
+    public void unmergeActorState(ActorInstance actorInstance, ActorState actorState) {
         this.actorState.unmerge(actorState);
     }
 
-    public Boolean isEmpty() {
+    public Boolean isBlank() {
         return actorState.isBlank();
     }
 

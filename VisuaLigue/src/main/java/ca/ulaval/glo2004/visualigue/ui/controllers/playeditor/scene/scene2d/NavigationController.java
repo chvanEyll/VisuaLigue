@@ -77,11 +77,11 @@ public class NavigationController extends ControllerBase {
             zoom = getMaxZoom();
         }
         if (!touchZooming) {
-            contentAlignPoint = scrollPane.mouseToRelativeContentPoint();
+            contentAlignPoint = scrollPane.mouseToSizeRelativeContentPoint();
             viewportAlignPoint = scrollPane.mouseToViewportPoint();
         }
         if (contentAlignPoint == null || viewportAlignPoint == null) {
-            contentAlignPoint = scrollPane.contentToRelativePoint(scrollPane.getVisibleContentCenter());
+            contentAlignPoint = scrollPane.contentToSizeRelativePoint(scrollPane.getVisibleContentCenter());
             viewportAlignPoint = scrollPane.getViewportCenter();
         }
         playingSurfaceLayerController.setZoom(zoom);
@@ -133,7 +133,7 @@ public class NavigationController extends ControllerBase {
 
     public void scrollPaneContentWidthChangedListener(ObservableValue<? extends Number> value, Number oldPropertyValue, Number newPropertyValue) {
         if (contentAlignPoint != null && viewportAlignPoint != null) {
-            Vector2 newContentAlignPoint = scrollPane.relativeToContentPoint(contentAlignPoint);
+            Vector2 newContentAlignPoint = scrollPane.sizeRelativeToContentPoint(contentAlignPoint);
             scrollPane.alignX(newContentAlignPoint.getX(), viewportAlignPoint.getX());
         }
 
@@ -141,7 +141,7 @@ public class NavigationController extends ControllerBase {
 
     public void scrollPaneContentHeightChangedListener(ObservableValue<? extends Number> value, Number oldPropertyValue, Number newPropertyValue) {
         if (contentAlignPoint != null && viewportAlignPoint != null) {
-            Vector2 newContentAlignPoint = scrollPane.relativeToContentPoint(contentAlignPoint);
+            Vector2 newContentAlignPoint = scrollPane.sizeRelativeToContentPoint(contentAlignPoint);
             scrollPane.alignY(newContentAlignPoint.getY(), viewportAlignPoint.getY());
         }
 
@@ -177,7 +177,7 @@ public class NavigationController extends ControllerBase {
         if (enabled && e.getTouchPoints().size() == 2) {
             Vector2 contentPoint1 = scrollPane.sceneToContentPoint(new Vector2(e.getTouchPoints().get(0).getSceneX(), e.getTouchPoints().get(0).getSceneY()));
             Vector2 contentPoint2 = scrollPane.sceneToContentPoint(new Vector2(e.getTouchPoints().get(1).getSceneX(), e.getTouchPoints().get(1).getSceneY()));
-            contentAlignPoint = scrollPane.contentToRelativePoint(contentPoint1.average(contentPoint2));
+            contentAlignPoint = scrollPane.contentToSizeRelativePoint(contentPoint1.average(contentPoint2));
         }
     }
 

@@ -51,14 +51,14 @@ public class ObstacleService {
         obstacleRepository.update(obstacle);
     }
 
-    public void deleteObstacle(String obstacleInstanceUUID) throws ObstacleNotFoundException {
-        Obstacle obstacle = obstacleRepository.get(obstacleInstanceUUID);
+    public void deleteObstacle(String obstacleUUID) throws ObstacleNotFoundException {
+        Obstacle obstacle = obstacleRepository.get(obstacleUUID);
         obstacleRepository.delete(obstacle);
         onObstacleDeleted.fire(this, obstacle);
     }
 
-    public Obstacle getObstacle(String obstacleInstanceUUID) throws ObstacleNotFoundException {
-        return obstacleRepository.get(obstacleInstanceUUID);
+    public Obstacle getObstacle(String obstacleUUID) throws ObstacleNotFoundException {
+        return obstacleRepository.get(obstacleUUID);
     }
 
     public List<Obstacle> getObstacles(Function<Obstacle, Comparable> sortFunction, SortOrder sortOrder) {

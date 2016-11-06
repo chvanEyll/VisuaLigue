@@ -4,7 +4,7 @@ import ca.ulaval.glo2004.visualigue.domain.DomainObject;
 import ca.ulaval.glo2004.visualigue.utils.geometry.Vector2;
 import javax.xml.bind.annotation.XmlSeeAlso;
 
-@XmlSeeAlso({FreeformTransition.class, LinearTransition.class})
+@XmlSeeAlso({FreeformStateTransition.class, LinearStateTransition.class})
 public abstract class StateTransition extends DomainObject {
 
     public abstract Vector2 interpolate(Vector2 startPosition, Vector2 nextPosition, Double interpolant);

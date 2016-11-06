@@ -15,7 +15,7 @@ import javafx.scene.image.Image;
 import javafx.stage.Stage;
 import javafx.stage.WindowEvent;
 
-public class VisuaLigue extends Application {
+public class VisuaLigueFX extends Application {
 
     private static final int MIN_STAGE_WIDTH = 550;
     private static final int MIN_STAGE_HEIGHT = 500;

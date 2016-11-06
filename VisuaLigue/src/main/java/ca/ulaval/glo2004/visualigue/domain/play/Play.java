@@ -17,6 +17,7 @@ import java.util.List;
 import java.util.Optional;
 import java.util.TreeMap;
 import javax.xml.bind.annotation.XmlRootElement;
+import javax.xml.bind.annotation.XmlTransient;
 import javax.xml.bind.annotation.adapters.XmlJavaTypeAdapter;
 
 @XmlRootElement(name = "play")
@@ -30,6 +31,8 @@ public class Play extends DomainObject {
     private Sport sport;
     private Integer timelineLength = 0;
     private Integer keyPointInterval = 1000;
+    @XmlTransient
+    protected Boolean isDirty = false;
     private final TreeMap<ActorInstance, ActorTimeline> actorTimelines = new TreeMap();
 
     public Play() {
@@ -52,10 +55,6 @@ public class Play extends DomainObject {
         return thumbnailImageUUID;
     }
 
-    public void setThumbnailImageUUID(String thumbnailImageUUID) {
-        this.thumbnailImageUUID = thumbnailImageUUID;
-    }
-
     public Boolean hasThumbnail() {
         return thumbnailImageUUID != null;
     }
@@ -64,16 +63,16 @@ public class Play extends DomainObject {
         return defaultThumbnailImage;
     }
 
-    public void setDefaultThumbnailImage(String defaultThumbnailImage) {
-        this.defaultThumbnailImage = defaultThumbnailImage;
-    }
-
     public Sport getSport() {
         return sport;
     }
 
-    public void setSport(Sport sport) {
-        this.sport = sport;
+    public Boolean isDirty() {
+        return isDirty;
+    }
+
+    public void setDirty(Boolean isDirty) {
+        this.isDirty = isDirty;
     }
 
     public Boolean containsPlayerCategory(PlayerCategory playerCategory) {
@@ -84,7 +83,7 @@ public class Play extends DomainObject {
         return getActorInstances().stream().anyMatch(a -> a instanceof ObstacleInstance && ((ObstacleInstance) a).getObstacle().equals(obstacle));
     }
 
-    public List<ActorInstance> getActorInstances() {
+    private List<ActorInstance> getActorInstances() {
         return new ArrayList(actorTimelines.keySet());
     }
 
@@ -104,16 +103,12 @@ public class Play extends DomainObject {
         return keyPointInterval;
     }
 
-    public void setKeyPointInterval(Integer keyPointInterval) {
-        this.keyPointInterval = keyPointInterval;
-    }
-
     public ActorState mergeKeyframe(Integer time, ActorInstance actorInstance, ActorState actorState) {
         ActorTimeline timeline;
         if (actorTimelines.containsKey(actorInstance)) {
             timeline = actorTimelines.get(actorInstance);
         } else {
-            timeline = new ActorTimeline(actorInstance);
+            timeline = new ActorTimeline();
             actorTimelines.put(actorInstance, timeline);
         }
         timelineLength = Math.max(time, timelineLength);
