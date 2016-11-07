@@ -1,4 +1,4 @@
-package ca.ulaval.glo2004.visualigue.ui.controllers.playeditor.itempane;
+package ca.ulaval.glo2004.visualigue.ui.controllers.playeditor.actorpane;
 
 import ca.ulaval.glo2004.visualigue.ui.controllers.ControllerBase;
 import ca.ulaval.glo2004.visualigue.ui.controllers.common.ExtendedButton;
@@ -15,7 +15,7 @@ import javafx.scene.image.ImageView;
 
 public class ObjectListItemController extends ControllerBase {
 
-    public static final String VIEW_NAME = "/views/playeditor/itempane/object-list-item.fxml";
+    public static final String VIEW_NAME = "/views/playeditor/actorpane/object-list-item.fxml";
 
     public EventHandler<ModelBase> onClick = new EventHandler();
     @FXML private ExtendedButton rootNode;

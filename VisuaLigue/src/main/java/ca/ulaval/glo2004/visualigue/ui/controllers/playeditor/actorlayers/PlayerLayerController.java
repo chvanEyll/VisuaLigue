@@ -1,9 +1,11 @@
-package ca.ulaval.glo2004.visualigue.ui.controllers.playeditor.scene.scene2d.layers;
+package ca.ulaval.glo2004.visualigue.ui.controllers.playeditor.actorlayers;
 
 import ca.ulaval.glo2004.visualigue.ui.controllers.common.Arrow;
 import ca.ulaval.glo2004.visualigue.ui.controllers.common.ExtendedLabel;
 import ca.ulaval.glo2004.visualigue.ui.controllers.common.PlayerIcon;
 import ca.ulaval.glo2004.visualigue.ui.controllers.playeditor.scene.Zoom;
+import ca.ulaval.glo2004.visualigue.ui.controllers.playeditor.scene.scene2d.ActorLayerController;
+import ca.ulaval.glo2004.visualigue.ui.controllers.playeditor.scene.scene2d.PlayingSurfaceLayerController;
 import ca.ulaval.glo2004.visualigue.ui.models.actors.PlayerActorModel;
 import ca.ulaval.glo2004.visualigue.utils.geometry.Vector2;
 import javafx.application.Platform;
@@ -16,7 +18,7 @@ import javafx.fxml.FXML;
 public class PlayerLayerController extends ActorLayerController {
 
     private static final Double LABEL_OFFSET_Y = 30.0;
-    public static final String VIEW_NAME = "/views/playeditor/scene2d/layers/player-layer.fxml";
+    public static final String VIEW_NAME = "/views/playeditor/actorlayers/player-layer.fxml";
     public static final Double BASE_BUTTON_SCALING = 1.25;
     public static final Double ARROW_HEAD_SIZE = 15.0;
     public static final Double ARROW_STROKE_DASH_ARRAY_SIZE = 10.0;

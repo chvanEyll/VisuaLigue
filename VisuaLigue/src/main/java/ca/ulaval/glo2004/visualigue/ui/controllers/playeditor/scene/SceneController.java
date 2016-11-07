@@ -1,11 +1,8 @@
 package ca.ulaval.glo2004.visualigue.ui.controllers.playeditor.scene;
 
-import ca.ulaval.glo2004.visualigue.domain.play.actorinstance.TeamSide;
 import ca.ulaval.glo2004.visualigue.ui.controllers.ControllerBase;
-import ca.ulaval.glo2004.visualigue.ui.models.BallModel;
-import ca.ulaval.glo2004.visualigue.ui.models.ObstacleModel;
+import ca.ulaval.glo2004.visualigue.ui.controllers.playeditor.scene.scene2d.ActorCreationController;
 import ca.ulaval.glo2004.visualigue.ui.models.PlayModel;
-import ca.ulaval.glo2004.visualigue.ui.models.PlayerCategoryModel;
 import ca.ulaval.glo2004.visualigue.utils.EventHandler;
 import ca.ulaval.glo2004.visualigue.utils.geometry.Vector2;
 import java.util.Arrays;
@@ -23,9 +20,7 @@ public abstract class SceneController extends ControllerBase {
     public EventHandler<Vector2> onMousePositionChanged = new EventHandler();
     public EventHandler<Zoom> onZoomChanged = new EventHandler();
     public EventHandler onCreationModeEntered = new EventHandler();
-    public EventHandler onPlayerCreationModeExited = new EventHandler();
-    public EventHandler onObstacleCreationModeExited = new EventHandler();
-    public EventHandler onBallCreationModeExited = new EventHandler();
+    public EventHandler onCreationModeExited = new EventHandler();
     public EventHandler onNavigationModeEntered = new EventHandler();
     public EventHandler onNavigationModeExited = new EventHandler();
     public EventHandler onRealTimeCreationModeEntered = new EventHandler();
@@ -41,11 +36,7 @@ public abstract class SceneController extends ControllerBase {
 
     public abstract void update(Integer time);
 
-    public abstract void enterPlayerCreationMode(PlayerCategoryModel playerCategoryModel, TeamSide teamSide);
-
-    public abstract void enterBallCreationMode(BallModel ballModel);
-
-    public abstract void enterObstacleCreationMode(ObstacleModel obstacleModel);
+    public abstract void enterCreationMode(ActorCreationController actorCreationController);
 
     public abstract void enterNavigationMode();
 

@@ -1,4 +1,4 @@
-package ca.ulaval.glo2004.visualigue.ui.controllers.playeditor.scene.scene2d.layers;
+package ca.ulaval.glo2004.visualigue.ui.controllers.playeditor.scene.scene2d;
 
 import ca.ulaval.glo2004.visualigue.ui.controllers.ControllerBase;
 import ca.ulaval.glo2004.visualigue.ui.controllers.common.ExtendedButton;

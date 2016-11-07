@@ -1,4 +1,4 @@
-package ca.ulaval.glo2004.visualigue.ui.controllers.playeditor.scene.scene2d.layers;
+package ca.ulaval.glo2004.visualigue.ui.controllers.playeditor.scene.scene2d;
 
 import ca.ulaval.glo2004.visualigue.ui.controllers.ControllerBase;
 import ca.ulaval.glo2004.visualigue.ui.controllers.playeditor.scene.Zoom;
@@ -16,14 +16,14 @@ import javafx.scene.layout.StackPane;
 
 public class PlayingSurfaceLayerController extends ControllerBase {
 
-    public static final String VIEW_NAME = "/views/playeditor/scene2d/layers/playing-surface-layer.fxml";
+    public static final String VIEW_NAME = "/views/playeditor/scene2d/playing-surface-layer.fxml";
     private static final Double ZOOM_WIDTH_BASE = 1000.0;
 
-    public EventHandler<MouseEvent> onMousePressed = new EventHandler();
-    public EventHandler<MouseEvent> onMouseDragged = new EventHandler();
-    public EventHandler<MouseEvent> onMouseReleased = new EventHandler();
-    public EventHandler<MouseEvent> onMouseMoved = new EventHandler();
-    public EventHandler<MouseEvent> onMouseClicked = new EventHandler();
+    public EventHandler<Vector2> onMousePressed = new EventHandler();
+    public EventHandler<Vector2> onMouseDragged = new EventHandler();
+    public EventHandler<Vector2> onMouseReleased = new EventHandler();
+    public EventHandler<Vector2> onMouseMoved = new EventHandler();
+    public EventHandler<Vector2> onMouseClicked = new EventHandler();
     @FXML private ImageView rootNode;
     private Image image;
     private PlayModel playModel;
@@ -53,27 +53,27 @@ public class PlayingSurfaceLayerController extends ControllerBase {
 
     @FXML
     protected void onMousePressed(MouseEvent e) {
-        onMousePressed.fire(this, e);
+        onMousePressed.fire(this, getSizeRelativeMousePosition());
     }
 
     @FXML
     protected void onMouseDragged(MouseEvent e) {
-        onMouseDragged.fire(this, e);
+        onMouseDragged.fire(this, getSizeRelativeMousePosition());
     }
 
     @FXML
     protected void onMouseReleased(MouseEvent e) {
-        onMouseReleased.fire(this, e);
+        onMouseReleased.fire(this, getSizeRelativeMousePosition());
     }
 
     @FXML
     protected void onMouseMoved(MouseEvent e) {
-        onMouseMoved.fire(this, e);
+        onMouseMoved.fire(this, getSizeRelativeMousePosition());
     }
 
     @FXML
     protected void onMouseClicked(MouseEvent e) {
-        onMouseClicked.fire(this, e);
+        onMouseClicked.fire(this, getSizeRelativeMousePosition());
     }
 
     public void setFitSize(Vector2 fitSize) {

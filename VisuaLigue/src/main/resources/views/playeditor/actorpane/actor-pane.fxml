@@ -12,13 +12,13 @@
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.shape.Line?>
 
-<VBox fx:id="rootNode" styleClass="root-node, item-pane" xmlns="http://javafx.com/javafx/8.0.60" xmlns:fx="http://javafx.com/fxml/1" fx:controller="ca.ulaval.glo2004.visualigue.ui.controllers.playeditor.itempane.ItemPaneController">
+<VBox fx:id="rootNode" styleClass="root-node, actor-pane" xmlns="http://javafx.com/javafx/8.0.60" xmlns:fx="http://javafx.com/fxml/1" fx:controller="ca.ulaval.glo2004.visualigue.ui.controllers.playeditor.actorpane.ActorPaneController">
     <ScrollPane styleClass="scroll-pane, edge-to-edge">
         <content>
             <VBox styleClass="content">
                 <children>
-                    <fx:include fx:id="playerCategoryList" source="/views/playeditor/itempane/player-category-list.fxml" />
-                    <fx:include fx:id="objectList" source="/views/playeditor/itempane/object-list.fxml" />
+                    <fx:include fx:id="playerCategoryList" source="/views/playeditor/actorpane/player-category-list.fxml" />
+                    <fx:include fx:id="objectList" source="/views/playeditor/actorpane/object-list.fxml" />
                 </children>
             </VBox>
         </content>

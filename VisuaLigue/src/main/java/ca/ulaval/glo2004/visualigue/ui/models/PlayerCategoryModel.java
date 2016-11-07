@@ -8,7 +8,7 @@ public class PlayerCategoryModel extends ModelBase implements Comparable<PlayerC
     public StringProperty name = new SimpleStringProperty("Nouvelle catégorie");
     public StringProperty abbreviation = new SimpleStringProperty("NC");
     public IntegerProperty defaultNumberOfPlayers = new SimpleIntegerProperty(0);
-    public ObjectProperty<Color> allyPlayerColor = new SimpleObjectProperty<>(Color.web("#001A80"));
+    public ObjectProperty<Color> allyPlayerColor = new SimpleObjectProperty<>(Color.web("#334DB3"));
     public ObjectProperty<Color> opponentPlayerColor = new SimpleObjectProperty<>(Color.web("#990000"));
 
     @Override

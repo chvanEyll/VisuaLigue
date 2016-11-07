@@ -1,25 +1,19 @@
 package ca.ulaval.glo2004.visualigue.ui.controllers.playeditor.scene.scene2d;
 
 import ca.ulaval.glo2004.visualigue.domain.play.Play;
-import ca.ulaval.glo2004.visualigue.domain.play.actorinstance.TeamSide;
 import ca.ulaval.glo2004.visualigue.services.play.PlayService;
 import ca.ulaval.glo2004.visualigue.services.settings.SettingsService;
 import ca.ulaval.glo2004.visualigue.ui.InjectableFXMLLoader;
 import ca.ulaval.glo2004.visualigue.ui.KeyboardShortcutMapper;
 import ca.ulaval.glo2004.visualigue.ui.View;
 import ca.ulaval.glo2004.visualigue.ui.controllers.common.ExtendedScrollPane;
+import ca.ulaval.glo2004.visualigue.ui.controllers.playeditor.actorlayers.ActorLayerViewFactory;
 import ca.ulaval.glo2004.visualigue.ui.controllers.playeditor.scene.SceneController;
 import ca.ulaval.glo2004.visualigue.ui.controllers.playeditor.scene.Zoom;
-import ca.ulaval.glo2004.visualigue.ui.controllers.playeditor.scene.scene2d.actorcreation.BallCreationController;
-import ca.ulaval.glo2004.visualigue.ui.controllers.playeditor.scene.scene2d.actorcreation.ObstacleCreationController;
-import ca.ulaval.glo2004.visualigue.ui.controllers.playeditor.scene.scene2d.actorcreation.PlayerCreationController;
-import ca.ulaval.glo2004.visualigue.ui.controllers.playeditor.scene.scene2d.layers.ActorLayerViewFactory;
-import ca.ulaval.glo2004.visualigue.ui.controllers.playeditor.scene.scene2d.layers.PlayingSurfaceLayerController;
-import ca.ulaval.glo2004.visualigue.ui.converters.BallActorModelConverter;
 import ca.ulaval.glo2004.visualigue.ui.converters.FrameModelConverter;
-import ca.ulaval.glo2004.visualigue.ui.converters.ObstacleActorModelConverter;
-import ca.ulaval.glo2004.visualigue.ui.converters.PlayerActorModelConverter;
-import ca.ulaval.glo2004.visualigue.ui.models.*;
+import ca.ulaval.glo2004.visualigue.ui.models.FrameModel;
+import ca.ulaval.glo2004.visualigue.ui.models.PlayModel;
+import ca.ulaval.glo2004.visualigue.utils.geometry.Vector2;
 import java.util.function.BiConsumer;
 import javafx.fxml.FXML;
 import javafx.scene.input.*;
@@ -34,18 +28,13 @@ public class Scene2DController extends SceneController {
     @Inject private SettingsService settingsService;
     @Inject private PlayService playService;
     @Inject private ActorLayerViewFactory actorLayerViewFactory;
-    @Inject private PlayerActorModelConverter playerActorModelConverter;
-    @Inject private ObstacleActorModelConverter obstacleActorModelConverter;
-    @Inject private BallActorModelConverter ballActorModelConverter;
     @Inject private FrameModelConverter frameModelConverter;
     private BiConsumer<Object, Play> onPlayFrameChanged = this::onPlayFrameChanged;
     private Integer currentTime;
     private PlayingSurfaceLayerController playingSurfaceLayerController;
     private NavigationController navigationController;
     private LayerController layerController;
-    private PlayerCreationController playerCreationController;
-    private ObstacleCreationController obstacleCreationController;
-    private BallCreationController ballCreationController;
+    private ActorCreationController actorCreationController;
     private FrameModel frameModel = new FrameModel();
 
     @Override
@@ -63,17 +52,18 @@ public class Scene2DController extends SceneController {
         View playingSurfaceView = InjectableFXMLLoader.loadView(PlayingSurfaceLayerController.VIEW_NAME);
         playingSurfaceLayerController = (PlayingSurfaceLayerController) playingSurfaceView.getController();
         playingSurfaceLayerController.init(playModel, layerStackPane);
+        playingSurfaceLayerController.onMouseMoved.addHandler(this::onPlayingSurfaceMouseMoved);
+        playingSurfaceLayerController.onMouseClicked.addHandler(this::onPlayingSurfaceMouseClicked);
         navigationController = new NavigationController(scrollPane, scrollPaneContent, playingSurfaceLayerController);
         navigationController.onRealWorldMousePositionChanged.forward(onMousePositionChanged);
         navigationController.onZoomChanged.forward(this.onZoomChanged);
-        navigationController.onNavigationModeEntered.forward(this.onNavigationModeEntered);
-        navigationController.onNavigationModeExited.forward(this.onNavigationModeExited);
+        navigationController.onEnabled.forward(this.onNavigationModeEntered);
+        navigationController.onDisabled.forward(this.onNavigationModeExited);
         layerController = new LayerController(frameModel, actorLayerViewFactory, layerStackPane);
         layerController.addLayer(playingSurfaceView);
         super.addChild(playingSurfaceLayerController);
         super.addChild(navigationController);
         super.addChild(layerController);
-        initActorCreationControllers();
         initActorLayerViewFactory();
     }
 
@@ -83,21 +73,6 @@ public class Scene2DController extends SceneController {
         actorLayerViewFactory.setShowMovementArrowsProperty(showMovementArrowsProperty);
         actorLayerViewFactory.setResizeActorsOnZoomProperty(resizeActorsOnZoomProperty);
         actorLayerViewFactory.setZoomProperty(navigationController.getZoomProperty());
-    }
-
-    private void initActorCreationControllers() {
-        playerCreationController = new PlayerCreationController(playingSurfaceLayerController, layerController, playerActorModelConverter, playModel, playService);
-        playerCreationController.onDeactivate.forward(this.onPlayerCreationModeExited);
-        playerCreationController.onActivate.forward(this.onCreationModeEntered);
-        obstacleCreationController = new ObstacleCreationController(playingSurfaceLayerController, layerController, obstacleActorModelConverter, playModel, playService);
-        obstacleCreationController.onDeactivate.forward(this.onObstacleCreationModeExited);
-        obstacleCreationController.onActivate.forward(this.onCreationModeEntered);
-        ballCreationController = new BallCreationController(playingSurfaceLayerController, layerController, ballActorModelConverter, playModel, playService);
-        ballCreationController.onDeactivate.forward(this.onBallCreationModeExited);
-        ballCreationController.onActivate.forward(this.onCreationModeEntered);
-        super.addChild(playerCreationController);
-        super.addChild(obstacleCreationController);
-        super.addChild(ballCreationController);
     }
 
     private void initKeyboardShortcuts() {
@@ -132,35 +107,19 @@ public class Scene2DController extends SceneController {
     }
 
     @Override
-    public void enterPlayerCreationMode(PlayerCategoryModel playerCategoryModel, TeamSide teamSide) {
-        navigationController.exitNavigationMode();
-        obstacleCreationController.deactivate();
-        ballCreationController.deactivate();
-        playerCreationController.activate(playerCategoryModel, teamSide);
-    }
-
-    @Override
-    public void enterBallCreationMode(BallModel ballModel) {
-        navigationController.exitNavigationMode();
-        playerCreationController.deactivate();
-        obstacleCreationController.deactivate();
-        ballCreationController.activate(ballModel);
-    }
-
-    @Override
-    public void enterObstacleCreationMode(ObstacleModel obstacleModel) {
-        navigationController.exitNavigationMode();
-        playerCreationController.deactivate();
-        ballCreationController.deactivate();
-        obstacleCreationController.activate(obstacleModel);
+    public void enterCreationMode(ActorCreationController actorCreationController) {
+        navigationController.disable();
+        this.actorCreationController = actorCreationController;
+        actorCreationController.enable(layerController, playModel, playService);
+        super.addChild(actorCreationController);
     }
 
     @Override
     public void enterNavigationMode() {
-        playerCreationController.deactivate();
-        obstacleCreationController.deactivate();
-        ballCreationController.deactivate();
-        navigationController.enterNavigationMode();
+        if (actorCreationController != null) {
+            actorCreationController.disable();
+        }
+        navigationController.enable();
     }
 
     @Override
@@ -280,6 +239,18 @@ public class Scene2DController extends SceneController {
     @FXML
     protected void onScrollPaneMouseMoved(MouseEvent e) {
         navigationController.onScrollPaneMouseMoved(e);
+    }
+
+    private void onPlayingSurfaceMouseClicked(Object sender, Vector2 sizeRelativePosition) {
+        if (actorCreationController != null) {
+            actorCreationController.onPlayingSurfaceMouseClicked(sizeRelativePosition);
+        }
+    }
+
+    private void onPlayingSurfaceMouseMoved(Object sender, Vector2 sizeRelativePosition) {
+        if (actorCreationController != null) {
+            actorCreationController.onPlayingSurfaceMouseMoved(sizeRelativePosition);
+        }
     }
 
 }

@@ -4,7 +4,6 @@ import ca.ulaval.glo2004.visualigue.ui.controllers.ControllerBase;
 import ca.ulaval.glo2004.visualigue.ui.controllers.common.ExtendedScrollPane;
 import static ca.ulaval.glo2004.visualigue.ui.controllers.playeditor.scene.SceneController.PREDEFINED_ZOOMS;
 import ca.ulaval.glo2004.visualigue.ui.controllers.playeditor.scene.Zoom;
-import ca.ulaval.glo2004.visualigue.ui.controllers.playeditor.scene.scene2d.layers.PlayingSurfaceLayerController;
 import ca.ulaval.glo2004.visualigue.utils.EventHandler;
 import ca.ulaval.glo2004.visualigue.utils.geometry.Vector2;
 import ca.ulaval.glo2004.visualigue.utils.javafx.FXUtils;
@@ -23,8 +22,8 @@ import javafx.scene.layout.StackPane;
 
 public class NavigationController extends ControllerBase {
 
-    public EventHandler onNavigationModeEntered = new EventHandler();
-    public EventHandler onNavigationModeExited = new EventHandler();
+    public EventHandler onEnabled = new EventHandler();
+    public EventHandler onDisabled = new EventHandler();
     private static final Zoom MIN_ZOOM = new Zoom(0.5);
     private static final Zoom MAX_ZOOM = new Zoom(5.0);
     public EventHandler<Vector2> onRealWorldMousePositionChanged = new EventHandler();
@@ -114,20 +113,20 @@ public class NavigationController extends ControllerBase {
         }
     }
 
-    public void enterNavigationMode() {
+    public void enable() {
         if (!enabled) {
             ImageCursor imageCursor = FXUtils.chooseBestCursor("/images/cursors/pan-%1$sx%1$s.png", new int[]{32, 48, 96, 128}, 16, 16);
             playingSurfaceLayerController.setCursor(imageCursor);
             enabled = true;
-            onNavigationModeEntered.fire(this);
+            onEnabled.fire(this);
         }
     }
 
-    public void exitNavigationMode() {
+    public void disable() {
         if (enabled) {
             playingSurfaceLayerController.setCursor(Cursor.DEFAULT);
             enabled = false;
-            onNavigationModeExited.fire(this);
+            onDisabled.fire(this);
         }
     }
 
@@ -147,19 +146,19 @@ public class NavigationController extends ControllerBase {
 
     }
 
-    protected void onPlayingSurfaceMousePressed(Object sender, MouseEvent e) {
+    protected void onPlayingSurfaceMousePressed(Object sender, Vector2 sizeRelativePosition) {
         if (enabled) {
             mousePressContentPoint = scrollPane.mouseToContentPoint();
         }
     }
 
-    protected void onPlayingSurfaceMouseDragged(Object sender, MouseEvent e) {
+    protected void onPlayingSurfaceMouseDragged(Object sender, Vector2 sizeRelativePosition) {
         if (enabled && !touchZooming && scrollPane.mouseToViewportPoint() != null && mousePressContentPoint != null) {
             scrollPane.align(mousePressContentPoint, scrollPane.mouseToViewportPoint());
         }
     }
 
-    protected void onPlayingSurfaceMouseReleased(Object sender, MouseEvent e) {
+    protected void onPlayingSurfaceMouseReleased(Object sender, Vector2 sizeRelativePosition) {
         if (enabled) {
             mousePressContentPoint = null;
         }

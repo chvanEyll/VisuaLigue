@@ -1,8 +1,9 @@
-package ca.ulaval.glo2004.visualigue.ui.controllers.playeditor.scene.scene2d.layers;
+package ca.ulaval.glo2004.visualigue.ui.controllers.playeditor.actorlayers;
 
 import ca.ulaval.glo2004.visualigue.ui.InjectableFXMLLoader;
 import ca.ulaval.glo2004.visualigue.ui.View;
 import ca.ulaval.glo2004.visualigue.ui.controllers.playeditor.scene.Zoom;
+import ca.ulaval.glo2004.visualigue.ui.controllers.playeditor.scene.scene2d.PlayingSurfaceLayerController;
 import ca.ulaval.glo2004.visualigue.ui.models.actors.ActorModel;
 import ca.ulaval.glo2004.visualigue.ui.models.actors.BallActorModel;
 import ca.ulaval.glo2004.visualigue.ui.models.actors.ObstacleActorModel;

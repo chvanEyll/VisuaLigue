@@ -1,4 +1,4 @@
-package ca.ulaval.glo2004.visualigue.ui.controllers.playeditor.itempane;
+package ca.ulaval.glo2004.visualigue.ui.controllers.playeditor.actorpane;
 
 import ca.ulaval.glo2004.visualigue.domain.obstacle.Obstacle;
 import ca.ulaval.glo2004.visualigue.domain.sport.Sport;
@@ -9,6 +9,8 @@ import ca.ulaval.glo2004.visualigue.ui.InjectableFXMLLoader;
 import ca.ulaval.glo2004.visualigue.ui.View;
 import ca.ulaval.glo2004.visualigue.ui.controllers.ControllerBase;
 import ca.ulaval.glo2004.visualigue.ui.controllers.playeditor.scene.SceneController;
+import ca.ulaval.glo2004.visualigue.ui.controllers.playeditor.actorcreation.BallCreationController;
+import ca.ulaval.glo2004.visualigue.ui.controllers.playeditor.actorcreation.ObstacleCreationController;
 import ca.ulaval.glo2004.visualigue.ui.converters.BallModelConverter;
 import ca.ulaval.glo2004.visualigue.ui.converters.ObstacleModelConverter;
 import ca.ulaval.glo2004.visualigue.ui.models.BallModel;
@@ -29,7 +31,9 @@ public class ObjectListController extends ControllerBase {
     @Inject private SportService sportService;
     @Inject private ObstacleService obstacleService;
     @Inject private ObstacleModelConverter obstacleModelConverter;
+    @Inject private ObstacleCreationController obstacleCreationController;
     @Inject private BallModelConverter ballModelConverter;
+    @Inject private BallCreationController ballCreationController;
     @FXML private TilePane tilePane;
     private List<ObjectListItemController> itemControllers = new ArrayList();
     private PlayModel playModel;
@@ -40,8 +44,8 @@ public class ObjectListController extends ControllerBase {
     public void init(PlayModel playModel, SceneController sceneController) {
         this.playModel = playModel;
         this.sceneController = sceneController;
-        sceneController.onObstacleCreationModeExited.addHandler(this::onObstacleCreationModeExited);
-        sceneController.onBallCreationModeExited.addHandler(this::onBallCreationModeExited);
+        obstacleCreationController.onDisabled.addHandler(this::onObstacleCreationModeExited);
+        ballCreationController.onDisabled.addHandler(this::onBallCreationModeExited);
         sportService.onSportUpdated.addHandler(onSportUpdated);
         obstacleService.onObstacleCreated.addHandler(onObstacleChanged);
         obstacleService.onObstacleUpdated.addHandler(onObstacleChanged);
@@ -100,9 +104,9 @@ public class ObjectListController extends ControllerBase {
         unselectAll();
         ((ObjectListItemController) sender).select();
         if (model instanceof ObstacleModel) {
-            sceneController.enterObstacleCreationMode((ObstacleModel) model);
+            obstacleCreationController.init((ObstacleModel) model);
         } else if (model instanceof BallModel) {
-            sceneController.enterBallCreationMode((BallModel) model);
+            ballCreationController.init((BallModel) model);
         }
     }
 

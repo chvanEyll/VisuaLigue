@@ -6,7 +6,7 @@ import ca.ulaval.glo2004.visualigue.services.play.PlayService;
 import ca.ulaval.glo2004.visualigue.ui.KeyboardShortcutMapper;
 import ca.ulaval.glo2004.visualigue.ui.controllers.ControllerBase;
 import ca.ulaval.glo2004.visualigue.ui.controllers.ViewFlowRequestEventArgs;
-import ca.ulaval.glo2004.visualigue.ui.controllers.playeditor.itempane.ItemPaneController;
+import ca.ulaval.glo2004.visualigue.ui.controllers.playeditor.actorpane.ActorPaneController;
 import ca.ulaval.glo2004.visualigue.ui.controllers.playeditor.scene.SceneController;
 import ca.ulaval.glo2004.visualigue.ui.controllers.playeditor.sequencecontrol.SequencePaneController;
 import ca.ulaval.glo2004.visualigue.ui.controllers.playeditor.toolbar.ToolbarController;
@@ -30,7 +30,7 @@ public class PlayEditorController extends ControllerBase {
 
     public static final String VIEW_NAME = "/views/playeditor/play-editor.fxml";
 
-    @FXML private ItemPaneController itemPaneController;
+    @FXML private ActorPaneController actorPaneController;
     @FXML private SceneController sceneController;
     @FXML private ToolbarController toolbarController;
     @FXML private SequencePaneController sequencePaneController;
@@ -42,15 +42,15 @@ public class PlayEditorController extends ControllerBase {
     public void init(PlayModel playModel) throws PlayNotFoundException {
         this.playModel = playModel;
         sceneController.init(playModel);
-        itemPaneController.init(playModel, sceneController);
+        actorPaneController.init(playModel, sceneController);
         sequencePaneController.init(playModel, sceneController);
-        toolbarController.init(playModel, sceneController, itemPaneController, sequencePaneController);
+        toolbarController.init(playModel, sceneController, actorPaneController, sequencePaneController);
         sceneController.enterNavigationMode();
         playModel.title.addListener(this::onPlayTitleChanged);
         initHandlers();
         initKeyboardShortcuts();
         super.addChild(sceneController);
-        super.addChild(itemPaneController);
+        super.addChild(actorPaneController);
         super.addChild(toolbarController);
         super.addChild(sequencePaneController);
     }

@@ -22,7 +22,7 @@
     -fx-text-overrun: clip;
 }
 
-.toolbar .item-pane-display-button {
+.toolbar .actor-pane-display-button {
     -fx-min-width: 60;
     -fx-pref-width: 60;
 }
@@ -40,62 +40,62 @@
     -fx-min-width: 0;
 }
 
-.item-pane {
+.actor-pane {
     -fx-border-color: #B3B3B3;
     -fx-border-width: 0 0 0 1;
     -fx-border-style: solid;
 }
 
-.item-pane .scroll-pane {
+.actor-pane .scroll-pane {
     -fx-fit-to-width: true;
     -fx-hbar-policy: NEVER;
     -fx-pannable: true;
     -fx-background: transparent;
 }
 
-.item-pane .section-header {
+.actor-pane .section-header {
     -fx-pref-height: 50;
     -fx-background-color: #A9C1D6;
     -fx-fill-height: false;
     -fx-alignment: CENTER_LEFT;
 }
 
-.item-pane .section-header .label {
+.actor-pane .section-header .label {
     -fx-text-fill: white;
 }
 
-.item-pane .section-header .icon {
+.actor-pane .section-header .icon {
     -fx-pref-width: 58;
     -fx-min-width: 58;
 }
 
-.item-pane .player-team-side-section {
+.actor-pane .player-team-side-section {
     -fx-background-color: #F3F1EF;
     -fx-alignment: CENTER_LEFT;
     -fx-padding: 0 0 0 14;
     -fx-pref-height: 30;
 }
 
-.item-pane .player-team-side-section .label {
+.actor-pane .player-team-side-section .label {
     -fx-text-fill: black;
 }
 
-.item-pane .item {
+.actor-pane .item {
     -fx-cursor: hand;
     -fx-alignment: CENTER;
     -fx-fill-height: false;
 }
 
-.item-pane .item .item-content {
+.actor-pane .item .item-content {
     -fx-alignment:CENTER;
     -fx-padding: 5 0 0 0;
 }
 
-.item-pane .item:hover {
+.actor-pane .item:hover {
     -fx-background-color: #D9D5D3;
 }
 
-.item-pane .item:pressed {
+.actor-pane .item:pressed {
     -fx-background-color: #BFBFBF;
 }
 

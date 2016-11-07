@@ -1,6 +1,8 @@
-package ca.ulaval.glo2004.visualigue.ui.controllers.playeditor.scene.scene2d.layers;
+package ca.ulaval.glo2004.visualigue.ui.controllers.playeditor.actorlayers;
 
 import ca.ulaval.glo2004.visualigue.ui.controllers.playeditor.scene.Zoom;
+import ca.ulaval.glo2004.visualigue.ui.controllers.playeditor.scene.scene2d.ActorLayerController;
+import ca.ulaval.glo2004.visualigue.ui.controllers.playeditor.scene.scene2d.PlayingSurfaceLayerController;
 import ca.ulaval.glo2004.visualigue.ui.models.actors.ObstacleActorModel;
 import ca.ulaval.glo2004.visualigue.utils.FilenameUtils;
 import ca.ulaval.glo2004.visualigue.utils.geometry.Vector2;
@@ -15,7 +17,7 @@ import javafx.scene.image.ImageView;
 
 public class ObstacleLayerController extends ActorLayerController {
 
-    public static final String VIEW_NAME = "/views/playeditor/scene2d/layers/obstacle-layer.fxml";
+    public static final String VIEW_NAME = "/views/playeditor/actorlayers/obstacle-layer.fxml";
     @FXML private ImageView imageView;
     private ObstacleActorModel obstacleActorModel;
     private ChangeListener<Object> onChange = this::onChange;

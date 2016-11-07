@@ -1,16 +1,19 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
+<?import ca.ulaval.glo2004.visualigue.ui.controllers.common.PlayerIcon?>
 <?import java.lang.String?>
 <?import javafx.scene.control.Button?>
 <?import javafx.scene.control.Label?>
-<?import javafx.scene.image.ImageView?>
 <?import javafx.scene.control.Tooltip?>
 <?import javafx.scene.layout.VBox?>
 <?import ca.ulaval.glo2004.visualigue.ui.controllers.common.ExtendedButton?>
 
-<ExtendedButton fx:id="rootNode" xmlns="http://javafx.com/javafx/8.0.60" xmlns:fx="http://javafx.com/fxml/1" onAction="#onAction" fx:controller="ca.ulaval.glo2004.visualigue.ui.controllers.playeditor.itempane.ObjectListItemController">
+<ExtendedButton fx:id="rootNode" xmlns="http://javafx.com/javafx/8.0.60" xmlns:fx="http://javafx.com/fxml/1" onAction="#onAction" fx:controller="ca.ulaval.glo2004.visualigue.ui.controllers.playeditor.actorpane.PlayerCategoryListItemController">
     <graphic>
-        <ImageView fx:id="imageView" fitWidth="25" fitHeight="25" preserveRatio="true"   />
+        <VBox styleClass="item-content">
+            <PlayerIcon fx:id="playerIcon" />
+            <Label fx:id="abbreviationLabel" text="AGD" />
+        </VBox>
     </graphic>
     <styleClass>
         <String fx:value="borderless" />

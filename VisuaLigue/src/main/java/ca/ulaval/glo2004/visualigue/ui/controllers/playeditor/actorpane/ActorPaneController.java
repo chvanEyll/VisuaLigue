@@ -1,4 +1,4 @@
-package ca.ulaval.glo2004.visualigue.ui.controllers.playeditor.itempane;
+package ca.ulaval.glo2004.visualigue.ui.controllers.playeditor.actorpane;
 
 import ca.ulaval.glo2004.visualigue.ui.animation.PredefinedAnimations;
 import ca.ulaval.glo2004.visualigue.ui.controllers.ControllerBase;
@@ -8,7 +8,7 @@ import ca.ulaval.glo2004.visualigue.utils.javafx.ClippingUtils;
 import javafx.fxml.FXML;
 import javafx.scene.layout.VBox;
 
-public class ItemPaneController extends ControllerBase {
+public class ActorPaneController extends ControllerBase {
 
     private static final double ITEM_PANE_COLLAPSED_WIDTH = 0;
 

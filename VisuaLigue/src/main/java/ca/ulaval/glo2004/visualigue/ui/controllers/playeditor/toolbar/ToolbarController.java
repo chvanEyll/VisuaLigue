@@ -4,7 +4,7 @@ import ca.ulaval.glo2004.visualigue.domain.play.Play;
 import ca.ulaval.glo2004.visualigue.services.play.PlayService;
 import ca.ulaval.glo2004.visualigue.ui.controllers.ControllerBase;
 import ca.ulaval.glo2004.visualigue.ui.controllers.common.ExtendedButton;
-import ca.ulaval.glo2004.visualigue.ui.controllers.playeditor.itempane.ItemPaneController;
+import ca.ulaval.glo2004.visualigue.ui.controllers.playeditor.actorpane.ActorPaneController;
 import ca.ulaval.glo2004.visualigue.ui.controllers.playeditor.scene.SceneController;
 import ca.ulaval.glo2004.visualigue.ui.controllers.playeditor.scene.Zoom;
 import ca.ulaval.glo2004.visualigue.ui.controllers.playeditor.sequencecontrol.SequencePaneController;
@@ -41,7 +41,7 @@ public class ToolbarController extends ControllerBase {
     @FXML private ComboBox zoomComboBox;
     @FXML private Button zoomOutButton;
     @FXML private ExtendedButton actorLabelDisplayToggleButton;
-    @FXML private ExtendedButton itemPaneDisplayButton;
+    @FXML private ExtendedButton actorPaneDisplayButton;
     @FXML private Label coordinateLabel;
     @FXML private CheckMenuItem resizeActorsOnZoomMenuItem;
     @FXML private CheckMenuItem showMovementArrowsMenuItem;
@@ -52,14 +52,14 @@ public class ToolbarController extends ControllerBase {
     private BiConsumer<Object, Play> onPlayDirtyFlagChanged = this::onPlayDirtyFlagChanged;
     private PlayModel playModel;
     private SceneController sceneController;
-    private ItemPaneController itemPaneController;
+    private ActorPaneController actorPaneController;
     private SequencePaneController sequencePaneController;
     private Boolean ignoreZoomComboBoxAction = false;
 
-    public void init(PlayModel playModel, SceneController sceneController, ItemPaneController itemPaneController, SequencePaneController sequencePaneController) {
+    public void init(PlayModel playModel, SceneController sceneController, ActorPaneController actorPaneController, SequencePaneController sequencePaneController) {
         this.playModel = playModel;
         this.sceneController = sceneController;
-        this.itemPaneController = itemPaneController;
+        this.actorPaneController = actorPaneController;
         this.sequencePaneController = sequencePaneController;
         setHandlers();
         setInitialStates();
@@ -84,7 +84,7 @@ public class ToolbarController extends ControllerBase {
         redoButton.setDisable(true);
         zoomComboBox.setItems(FXCollections.observableArrayList(SceneController.PREDEFINED_ZOOMS));
         zoomComboBox.focusedProperty().addListener(this::onZoomComboBoxFocusedPropertyChanged);
-        itemPaneDisplayButton.setSelected(true);
+        actorPaneDisplayButton.setSelected(true);
         actorLabelDisplayToggleButton.setSelected(sceneController.isActorLabelDisplayEnabled());
         resizeActorsOnZoomMenuItem.setSelected(sceneController.isResizeActorsOnZoomEnabled());
         showMovementArrowsMenuItem.setSelected(sceneController.isMovementArrowDisplayEnabled());
@@ -195,9 +195,9 @@ public class ToolbarController extends ControllerBase {
     }
 
     @FXML
-    protected void onItemPaneDisplayToggleButtonAction(ActionEvent e) {
-        itemPaneController.toggleExpand();
-        itemPaneDisplayButton.setSelected(!itemPaneController.isCollapsed());
+    protected void onActorPaneDisplayToggleButtonAction(ActionEvent e) {
+        actorPaneController.toggleExpand();
+        actorPaneDisplayButton.setSelected(!actorPaneController.isCollapsed());
     }
 
     @FXML

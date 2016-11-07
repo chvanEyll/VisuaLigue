@@ -1,4 +1,4 @@
-package ca.ulaval.glo2004.visualigue.ui.controllers.playeditor.itempane;
+package ca.ulaval.glo2004.visualigue.ui.controllers.playeditor.actorpane;
 
 import ca.ulaval.glo2004.visualigue.domain.play.actorinstance.TeamSide;
 import ca.ulaval.glo2004.visualigue.domain.sport.Sport;
@@ -8,6 +8,7 @@ import ca.ulaval.glo2004.visualigue.ui.InjectableFXMLLoader;
 import ca.ulaval.glo2004.visualigue.ui.View;
 import ca.ulaval.glo2004.visualigue.ui.controllers.ControllerBase;
 import ca.ulaval.glo2004.visualigue.ui.controllers.playeditor.scene.SceneController;
+import ca.ulaval.glo2004.visualigue.ui.controllers.playeditor.actorcreation.PlayerCreationController;
 import ca.ulaval.glo2004.visualigue.ui.converters.PlayerCategoryModelConverter;
 import ca.ulaval.glo2004.visualigue.ui.models.PlayModel;
 import ca.ulaval.glo2004.visualigue.ui.models.PlayerCategoryModel;
@@ -23,6 +24,7 @@ public class PlayerCategoryListController extends ControllerBase {
 
     @Inject private SportService sportService;
     @Inject private PlayerCategoryModelConverter playerCategoryModelConverter;
+    @Inject private PlayerCreationController playerCreationController;
     @FXML private TilePane allyPlayerCategoryPane;
     @FXML private TilePane opponentPlayerCategoryPane;
     private List<PlayerCategoryListItemController> itemControllers = new ArrayList();
@@ -32,7 +34,7 @@ public class PlayerCategoryListController extends ControllerBase {
     public void init(PlayModel playModel, SceneController sceneController) {
         this.playModel = playModel;
         this.sceneController = sceneController;
-        sceneController.onPlayerCreationModeExited.addHandler(this::onPlayerCreationModeExited);
+        playerCreationController.onDisabled.addHandler(this::onPlayerCreationModeExited);
         sportService.onSportUpdated.addHandler(this::onSportChanged);
         fillPlayerCategoryList();
     }
@@ -74,13 +76,15 @@ public class PlayerCategoryListController extends ControllerBase {
     private void onAllyPlayerItemClicked(Object sender, PlayerCategoryModel model) {
         unselectAll();
         ((PlayerCategoryListItemController) sender).select();
-        sceneController.enterPlayerCreationMode(model, TeamSide.ALLIES);
+        playerCreationController.init(model, TeamSide.ALLIES);
+        sceneController.enterCreationMode(playerCreationController);
     }
 
     private void onOpponentPlayerItemClicked(Object sender, PlayerCategoryModel model) {
         unselectAll();
         ((PlayerCategoryListItemController) sender).select();
-        sceneController.enterPlayerCreationMode(model, TeamSide.OPPONENTS);
+        playerCreationController.init(model, TeamSide.OPPONENTS);
+        sceneController.enterCreationMode(playerCreationController);
     }
 
     private void onPlayerCreationModeExited(Object sender, Object param) {

@@ -203,12 +203,12 @@
                         </Insets>
                     </HBox.margin>
                 </MenuButton>
-                <ExtendedButton fx:id="itemPaneDisplayButton" styleClass="item-pane-display-button" onAction="#onItemPaneDisplayToggleButtonAction">
+                <ExtendedButton fx:id="actorPaneDisplayButton" styleClass="actor-pane-display-button" onAction="#onActorPaneDisplayToggleButtonAction">
                     <graphic>
-                        <SvgImage url="/images/item-pane-display-toggle-icon.fxml" />
+                        <SvgImage url="/images/actor-pane-display-toggle-icon.fxml" />
                     </graphic>
                     <tooltip>
-                        <Tooltip text="Afficher/masquer le panneau des items" />
+                        <Tooltip text="Afficher/masquer le panneau des acteurs" />
                     </tooltip>
                     <styleClass>
                         <String fx:value="borderless" />

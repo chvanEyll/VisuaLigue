@@ -1,4 +1,4 @@
-package ca.ulaval.glo2004.visualigue.ui.controllers.playeditor.itempane;
+package ca.ulaval.glo2004.visualigue.ui.controllers.playeditor.actorpane;
 
 import ca.ulaval.glo2004.visualigue.domain.play.actorinstance.TeamSide;
 import ca.ulaval.glo2004.visualigue.ui.controllers.ControllerBase;
@@ -13,7 +13,7 @@ import javafx.scene.control.Tooltip;
 
 public class PlayerCategoryListItemController extends ControllerBase {
 
-    public static final String VIEW_NAME = "/views/playeditor/itempane/player-category-list-item.fxml";
+    public static final String VIEW_NAME = "/views/playeditor/actorpane/player-category-list-item.fxml";
 
     public EventHandler<PlayerCategoryModel> onClick = new EventHandler();
     @FXML private ExtendedButton rootNode;
