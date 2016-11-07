@@ -39,14 +39,11 @@ public class NavigationController extends ControllerBase {
     private PlayingSurfaceLayerController playingSurfaceLayerController;
     private Boolean enabled = false;
 
-    public NavigationController(ExtendedScrollPane scrollPane, StackPane scrollPaneContent, PlayingSurfaceLayerController playingSurfaceLayerController) {
+    public NavigationController(ExtendedScrollPane scrollPane, StackPane sceneViewport, PlayingSurfaceLayerController playingSurfaceLayerController) {
         this.scrollPane = scrollPane;
-        scrollPaneContent.widthProperty().addListener(this::scrollPaneContentWidthChangedListener);
-        scrollPaneContent.heightProperty().addListener(this::scrollPaneContentHeightChangedListener);
+        sceneViewport.widthProperty().addListener(this::scrollPaneContentWidthChangedListener);
+        sceneViewport.heightProperty().addListener(this::scrollPaneContentHeightChangedListener);
         this.playingSurfaceLayerController = playingSurfaceLayerController;
-        playingSurfaceLayerController.onMouseDragged.addHandler(this::onPlayingSurfaceMouseDragged);
-        playingSurfaceLayerController.onMousePressed.addHandler(this::onPlayingSurfaceMousePressed);
-        playingSurfaceLayerController.onMouseReleased.addHandler(this::onPlayingSurfaceMouseReleased);
         scrollPane.addEventFilter(ScrollEvent.ANY, this::scrollPaneEventFilter);
         Platform.runLater(() -> {
             autoFit();
@@ -146,24 +143,6 @@ public class NavigationController extends ControllerBase {
 
     }
 
-    protected void onPlayingSurfaceMousePressed(Object sender, Vector2 sizeRelativePosition) {
-        if (enabled) {
-            mousePressContentPoint = scrollPane.mouseToContentPoint();
-        }
-    }
-
-    protected void onPlayingSurfaceMouseDragged(Object sender, Vector2 sizeRelativePosition) {
-        if (enabled && !touchZooming && scrollPane.mouseToViewportPoint() != null && mousePressContentPoint != null) {
-            scrollPane.align(mousePressContentPoint, scrollPane.mouseToViewportPoint());
-        }
-    }
-
-    protected void onPlayingSurfaceMouseReleased(Object sender, Vector2 sizeRelativePosition) {
-        if (enabled) {
-            mousePressContentPoint = null;
-        }
-    }
-
     private void scrollPaneEventFilter(ScrollEvent scrollEvent) {
         scrollEvent.consume();
         if (!scrollEvent.isDirect()) {
@@ -172,7 +151,7 @@ public class NavigationController extends ControllerBase {
         }
     }
 
-    public void onScrollPaneTouchPressed(TouchEvent e) {
+    public void onSceneTouchPressed(TouchEvent e) {
         if (enabled && e.getTouchPoints().size() == 2) {
             Vector2 contentPoint1 = scrollPane.sceneToContentPoint(new Vector2(e.getTouchPoints().get(0).getSceneX(), e.getTouchPoints().get(0).getSceneY()));
             Vector2 contentPoint2 = scrollPane.sceneToContentPoint(new Vector2(e.getTouchPoints().get(1).getSceneX(), e.getTouchPoints().get(1).getSceneY()));
@@ -180,27 +159,27 @@ public class NavigationController extends ControllerBase {
         }
     }
 
-    public void onScrollPaneTouchMoved(TouchEvent e) {
+    public void onSceneTouchMoved(TouchEvent e) {
         if (enabled && touchZooming && e.getTouchPoints().size() == 2) {
             touchPoint1 = scrollPane.sceneToViewportPoint(new Vector2(e.getTouchPoints().get(0).getSceneX(), e.getTouchPoints().get(0).getSceneY()));
             touchPoint2 = scrollPane.sceneToViewportPoint(new Vector2(e.getTouchPoints().get(1).getSceneX(), e.getTouchPoints().get(1).getSceneY()));
         }
     }
 
-    public void onScrollPaneZoomStarted(ZoomEvent e) {
+    public void onSceneZoomStarted(ZoomEvent e) {
         if (enabled) {
             touchZooming = true;
         }
     }
 
-    public void onScrollPaneZoom(ZoomEvent e) {
+    public void onSceneZoom(ZoomEvent e) {
         if (enabled && touchPoint1 != null && touchPoint2 != null) {
             viewportAlignPoint = touchPoint1.average(touchPoint2);
             setZoom(new Zoom(getZoom().getValue() * e.getZoomFactor()));
         }
     }
 
-    public void onScrollPaneZoomFinished(ZoomEvent e) {
+    public void onSceneZoomFinished(ZoomEvent e) {
         if (enabled) {
             touchZooming = false;
             touchPoint1 = null;
@@ -208,8 +187,26 @@ public class NavigationController extends ControllerBase {
         }
     }
 
-    public void onScrollPaneMouseMoved(MouseEvent e) {
+    public void onSceneMouseMoved(MouseEvent e) {
         Vector2 realWorldSurfacePosition = playingSurfaceLayerController.getRealWorldMousePosition();
         onRealWorldMousePositionChanged.fire(this, realWorldSurfacePosition);
+    }
+
+    protected void onSceneMousePressed(MouseEvent e) {
+        if (enabled) {
+            mousePressContentPoint = scrollPane.mouseToContentPoint();
+        }
+    }
+
+    protected void onSceneMouseDragged(MouseEvent e) {
+        if (enabled && !touchZooming && scrollPane.mouseToViewportPoint() != null && mousePressContentPoint != null) {
+            scrollPane.align(mousePressContentPoint, scrollPane.mouseToViewportPoint());
+        }
+    }
+
+    protected void onSceneMouseReleased(MouseEvent e) {
+        if (enabled) {
+            mousePressContentPoint = null;
+        }
     }
 }

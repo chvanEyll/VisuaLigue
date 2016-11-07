@@ -20,7 +20,7 @@ public class PlayerCreationController extends ActorCreationController {
     }
 
     @Override
-    public void onPlayingSurfaceMouseClicked(Vector2 sizeRelativePosition) {
+    public void onSceneMouseClicked(Vector2 sizeRelativePosition) {
         if (enabled) {
             playService.addPlayerInstance(playModel.getUUID(), playerCategoryModel.getUUID(), teamSide, 0.0, sizeRelativePosition);
             initCreationLayer(actorModel);

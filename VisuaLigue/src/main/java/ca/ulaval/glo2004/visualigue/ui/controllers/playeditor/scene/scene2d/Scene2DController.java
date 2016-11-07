@@ -23,7 +23,7 @@ import javax.inject.Inject;
 public class Scene2DController extends SceneController {
 
     @FXML private ExtendedScrollPane scrollPane;
-    @FXML private StackPane scrollPaneContent;
+    @FXML private StackPane sceneViewport;
     @FXML private StackPane layerStackPane;
     @Inject private SettingsService settingsService;
     @Inject private PlayService playService;
@@ -52,9 +52,7 @@ public class Scene2DController extends SceneController {
         View playingSurfaceView = InjectableFXMLLoader.loadView(PlayingSurfaceLayerController.VIEW_NAME);
         playingSurfaceLayerController = (PlayingSurfaceLayerController) playingSurfaceView.getController();
         playingSurfaceLayerController.init(playModel, layerStackPane);
-        playingSurfaceLayerController.onMouseMoved.addHandler(this::onPlayingSurfaceMouseMoved);
-        playingSurfaceLayerController.onMouseClicked.addHandler(this::onPlayingSurfaceMouseClicked);
-        navigationController = new NavigationController(scrollPane, scrollPaneContent, playingSurfaceLayerController);
+        navigationController = new NavigationController(scrollPane, sceneViewport, playingSurfaceLayerController);
         navigationController.onRealWorldMousePositionChanged.forward(onMousePositionChanged);
         navigationController.onZoomChanged.forward(this.onZoomChanged);
         navigationController.onEnabled.forward(this.onNavigationModeEntered);
@@ -208,45 +206,60 @@ public class Scene2DController extends SceneController {
     }
 
     @FXML
-    protected void onScrollPaneTouchPressed(TouchEvent e) {
-        navigationController.onScrollPaneTouchPressed(e);
+    protected void onSceneTouchPressed(TouchEvent e) {
+        navigationController.onSceneTouchPressed(e);
     }
 
     @FXML
-    protected void onScrollPaneTouchMoved(TouchEvent e) {
-        navigationController.onScrollPaneTouchMoved(e);
+    protected void onSceneTouchMoved(TouchEvent e) {
+        navigationController.onSceneTouchMoved(e);
     }
 
     @FXML
-    protected void onScrollPaneZoomStarted(ZoomEvent e) {
-        navigationController.onScrollPaneZoomStarted(e);
+    protected void onSceneZoomStarted(ZoomEvent e) {
+        navigationController.onSceneZoomStarted(e);
     }
 
     @FXML
-    protected void onScrollPaneZoom(ZoomEvent e) {
-        navigationController.onScrollPaneZoom(e);
+    protected void onSceneZoom(ZoomEvent e) {
+        navigationController.onSceneZoom(e);
     }
 
     @FXML
-    protected void onScrollPaneZoomFinished(ZoomEvent e) {
-        navigationController.onScrollPaneZoomFinished(e);
+    protected void onSceneZoomFinished(ZoomEvent e) {
+        navigationController.onSceneZoomFinished(e);
     }
 
     @FXML
-    protected void onScrollPaneMouseMoved(MouseEvent e) {
-        navigationController.onScrollPaneMouseMoved(e);
-    }
-
-    private void onPlayingSurfaceMouseClicked(Object sender, Vector2 sizeRelativePosition) {
+    protected void onSceneMouseClicked(MouseEvent e) {
         if (actorCreationController != null) {
-            actorCreationController.onPlayingSurfaceMouseClicked(sizeRelativePosition);
+            Vector2 sizeRelativePosition = playingSurfaceLayerController.getSizeRelativeMousePosition();
+            actorCreationController.onSceneMouseClicked(sizeRelativePosition);
         }
     }
 
-    private void onPlayingSurfaceMouseMoved(Object sender, Vector2 sizeRelativePosition) {
+    @FXML
+    protected void onSceneMouseMoved(MouseEvent e) {
+        navigationController.onSceneMouseMoved(e);
         if (actorCreationController != null) {
-            actorCreationController.onPlayingSurfaceMouseMoved(sizeRelativePosition);
+            Vector2 sizeRelativePosition = playingSurfaceLayerController.getSizeRelativeMousePosition();
+            actorCreationController.onSceneMouseMoved(sizeRelativePosition);
         }
+    }
+
+    @FXML
+    protected void onSceneMousePressed(MouseEvent e) {
+        navigationController.onSceneMousePressed(e);
+    }
+
+    @FXML
+    protected void onSceneMouseDragged(MouseEvent e) {
+        navigationController.onSceneMouseDragged(e);
+    }
+
+    @FXML
+    protected void onSceneMouseReleased(MouseEvent e) {
+        navigationController.onSceneMouseReleased(e);
     }
 
 }

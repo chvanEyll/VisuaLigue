@@ -4,6 +4,8 @@ import ca.ulaval.glo2004.visualigue.ui.controllers.ControllerBase;
 import ca.ulaval.glo2004.visualigue.ui.controllers.common.ExtendedButton;
 import ca.ulaval.glo2004.visualigue.ui.controllers.playeditor.scene.Zoom;
 import ca.ulaval.glo2004.visualigue.ui.models.actors.ActorModel;
+import ca.ulaval.glo2004.visualigue.utils.EventHandler;
+import ca.ulaval.glo2004.visualigue.utils.geometry.Vector2;
 import javafx.beans.property.BooleanProperty;
 import javafx.beans.property.ObjectProperty;
 import javafx.fxml.FXML;
@@ -12,6 +14,8 @@ import javafx.scene.control.Tooltip;
 
 public abstract class ActorLayerController extends ControllerBase {
 
+    public EventHandler<Vector2> onMouseMoved = new EventHandler();
+    public EventHandler<Vector2> onMouseClicked = new EventHandler();
     @FXML protected ExtendedButton actorButton;
     @FXML protected Tooltip tooltip;
     protected PlayingSurfaceLayerController playingSurfaceLayerController;

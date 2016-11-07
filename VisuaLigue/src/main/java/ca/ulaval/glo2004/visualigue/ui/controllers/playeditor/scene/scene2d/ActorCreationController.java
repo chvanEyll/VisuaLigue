@@ -42,12 +42,12 @@ public abstract class ActorCreationController extends ControllerBase {
         }
     }
 
-    public void onPlayingSurfaceMouseMoved(Vector2 sizeRelativePosition) {
+    public void onSceneMouseMoved(Vector2 sizeRelativePosition) {
         if (enabled) {
             actorModel.position.set(sizeRelativePosition);
         }
     }
 
-    public abstract void onPlayingSurfaceMouseClicked(Vector2 sizeRelativePosition);
+    public abstract void onSceneMouseClicked(Vector2 sizeRelativePosition);
 
 }
