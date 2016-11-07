@@ -2,6 +2,6 @@
 
 <?import javafx.scene.image.ImageView?>
 
-<ImageView fx:id="rootNode" styleClass="root-node" fitHeight="372.0" fitWidth="800.0" xmlns="http://javafx.com/javafx/8.0.60" xmlns:fx="http://javafx.com/fxml/1" fx:controller="ca.ulaval.glo2004.visualigue.ui.controllers.playeditor.scene.scene2d.PlayingSurfaceLayerController" onMousePressed="#onMousePressed" onMouseDragged="#onMouseDragged" onMouseReleased="#onMouseReleased" onMouseMoved="#onMouseMoved" onMouseClicked="#onMouseClicked">
+<ImageView fx:id="rootNode" styleClass="root-node" fitHeight="372.0" fitWidth="800.0" xmlns="http://javafx.com/javafx/8.0.60" xmlns:fx="http://javafx.com/fxml/1" fx:controller="ca.ulaval.glo2004.visualigue.ui.controllers.playeditor.scene.scene2d.PlayingSurfaceLayerController">
 
 </ImageView>
