@@ -268,6 +268,12 @@ public class DefaultContext extends ContextBase {
         play.mergeKeyframe(1000, playerInstance1, playerState);
         playerState = new PlayerState(new Vector2(0.5, 0.2), new LinearStateTransition(), 180.0, new LinearStateTransition());
         play.mergeKeyframe(2000, playerInstance1, playerState);
+        playerState = new PlayerState(new Vector2(0.1, 0.9), new LinearStateTransition(), 180.0, new LinearStateTransition());
+        play.mergeKeyframe(3000, playerInstance1, playerState);
+        playerState = new PlayerState(new Vector2(0.23, 0.5), new LinearStateTransition(), 180.0, new LinearStateTransition());
+        play.mergeKeyframe(4000, playerInstance1, playerState);
+        playerState = new PlayerState(new Vector2(0.42, 0.34), new LinearStateTransition(), 180.0, new LinearStateTransition());
+        play.mergeKeyframe(5000, playerInstance1, playerState);
 
         PlayerInstance playerInstance2 = new PlayerInstance(leftWingerHockeyPlayerCategory, TeamSide.OPPONENTS);
         playerState = new PlayerState(new Vector2(0.8, 0.3), new LinearStateTransition(), 180.0, new LinearStateTransition());
@@ -276,18 +282,33 @@ public class DefaultContext extends ContextBase {
         play.mergeKeyframe(1000, playerInstance2, playerState);
         playerState = new PlayerState(new Vector2(0.3, 0.45), new LinearStateTransition(), 0.0, new LinearStateTransition());
         play.mergeKeyframe(2000, playerInstance2, playerState);
+        playerState = new PlayerState(new Vector2(0.9, 0.22), new LinearStateTransition(), 0.0, new LinearStateTransition());
+        play.mergeKeyframe(3000, playerInstance2, playerState);
+        playerState = new PlayerState(new Vector2(0.1, 0.23), new LinearStateTransition(), 0.0, new LinearStateTransition());
+        play.mergeKeyframe(4000, playerInstance2, playerState);
+        playerState = new PlayerState(new Vector2(0.3, 0.44), new LinearStateTransition(), 0.0, new LinearStateTransition());
+        play.mergeKeyframe(5000, playerInstance2, playerState);
 
         ObstacleInstance obstacleInstance1 = new ObstacleInstance(coneObstacle);
-        ObstacleState obstacleState = new ObstacleState(new Vector2(0.5, 0.4));
+        ObstacleState obstacleState = new ObstacleState(new Vector2(0.7, 0.4));
         play.mergeKeyframe(0, obstacleInstance1, obstacleState);
+        ObstacleInstance obstacleInstance2 = new ObstacleInstance(coneObstacle);
+        obstacleState = new ObstacleState(new Vector2(0.3, 0.7));
+        play.mergeKeyframe(0, obstacleInstance2, obstacleState);
 
         BallInstance ballInstance1 = new BallInstance();
         BallState ballState = new BallState(new Vector2(0.4, 0.8), new LinearStateTransition(), null);
         play.mergeKeyframe(0, ballInstance1, ballState);
         ballState = new BallState(new Vector2(0.7, 0.25), new LinearStateTransition(), null);
         play.mergeKeyframe(1000, ballInstance1, ballState);
-        ballState = new BallState(new Vector2(0.1, 0.1), new LinearStateTransition(), null);
+        ballState = new BallState(new Vector2(0.2, 0.2), new LinearStateTransition(), null);
         play.mergeKeyframe(2000, ballInstance1, ballState);
+        ballState = new BallState(new Vector2(0.1, 0.54), new LinearStateTransition(), null);
+        play.mergeKeyframe(3000, ballInstance1, ballState);
+        ballState = new BallState(new Vector2(0.5, 0.2), new LinearStateTransition(), null);
+        play.mergeKeyframe(4000, ballInstance1, ballState);
+        ballState = new BallState(new Vector2(0.12, 0.3), new LinearStateTransition(), null);
+        play.mergeKeyframe(5000, ballInstance1, ballState);
 
         return play;
     }
