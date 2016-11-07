@@ -86,7 +86,7 @@ public class ToolbarController extends ControllerBase {
         zoomComboBox.focusedProperty().addListener(this::onZoomComboBoxFocusedPropertyChanged);
         itemPaneDisplayButton.setSelected(true);
         actorLabelDisplayToggleButton.setSelected(sceneController.isActorLabelDisplayEnabled());
-        resizeActorsOnZoomMenuItem.setSelected(sceneController.isResizeActorOnZoomEnabled());
+        resizeActorsOnZoomMenuItem.setSelected(sceneController.isResizeActorsOnZoomEnabled());
         showMovementArrowsMenuItem.setSelected(sceneController.isMovementArrowDisplayEnabled());
         smoothMovementsMenuItem.setSelected(sequencePaneController.isSmoothMovementEnabled());
     }
@@ -178,8 +178,8 @@ public class ToolbarController extends ControllerBase {
 
     @FXML
     protected void onResizeActorsOnZoomToggleButtonAction(ActionEvent e) {
-        sceneController.setResizeActorOnZoom(!sceneController.isResizeActorOnZoomEnabled());
-        resizeActorsOnZoomMenuItem.setSelected(sceneController.isResizeActorOnZoomEnabled());
+        sceneController.setResizeActorsOnZoom(!sceneController.isResizeActorsOnZoomEnabled());
+        resizeActorsOnZoomMenuItem.setSelected(sceneController.isResizeActorsOnZoomEnabled());
     }
 
     @FXML

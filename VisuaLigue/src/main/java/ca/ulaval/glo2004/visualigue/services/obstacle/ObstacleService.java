@@ -37,15 +37,15 @@ public class ObstacleService {
         return obstacle.getUUID();
     }
 
-    public void updateObstacle(String obstacleInstanceUUID, String name) throws ObstacleNotFoundException {
-        Obstacle obstacle = obstacleRepository.get(obstacleInstanceUUID);
+    public void updateObstacle(String obstacleUUID, String name) throws ObstacleNotFoundException {
+        Obstacle obstacle = obstacleRepository.get(obstacleUUID);
         obstacle.setName(name);
         obstacleRepository.update(obstacle);
         onObstacleUpdated.fire(this, obstacle);
     }
 
-    public void updateObstacleImage(String sportUUID, String sourceImagePathName) throws ObstacleNotFoundException {
-        Obstacle obstacle = obstacleRepository.get(sportUUID);
+    public void updateObstacleImage(String obstacleUUID, String sourceImagePathName) throws ObstacleNotFoundException {
+        Obstacle obstacle = obstacleRepository.get(obstacleUUID);
         String imageUuid = imageRepository.replace(obstacle.getCustomImageUUID(), sourceImagePathName);
         obstacle.setCustomImageUUID(imageUuid);
         obstacleRepository.update(obstacle);

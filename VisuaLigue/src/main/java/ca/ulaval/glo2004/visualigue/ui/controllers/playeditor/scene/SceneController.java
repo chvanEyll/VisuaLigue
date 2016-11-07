@@ -77,8 +77,8 @@ public abstract class SceneController extends ControllerBase {
 
     public abstract void setMovementArrowDisplay(Boolean showMovementArrows);
 
-    public abstract Boolean isResizeActorOnZoomEnabled();
+    public abstract Boolean isResizeActorsOnZoomEnabled();
 
-    public abstract void setResizeActorOnZoom(Boolean resizeActorsOnZoom);
+    public abstract void setResizeActorsOnZoom(Boolean resizeActorsOnZoom);
 
 }

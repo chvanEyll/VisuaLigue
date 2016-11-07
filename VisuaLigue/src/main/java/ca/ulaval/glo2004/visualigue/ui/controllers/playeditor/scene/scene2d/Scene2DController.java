@@ -242,12 +242,12 @@ public class Scene2DController extends SceneController {
     }
 
     @Override
-    public Boolean isResizeActorOnZoomEnabled() {
+    public Boolean isResizeActorsOnZoomEnabled() {
         return resizeActorsOnZoomProperty.get();
     }
 
     @Override
-    public void setResizeActorOnZoom(Boolean resizeActorsOnZoom) {
+    public void setResizeActorsOnZoom(Boolean resizeActorsOnZoom) {
         this.resizeActorsOnZoomProperty.set(resizeActorsOnZoom);
         settingsService.setResizeActorsOnZoom(resizeActorsOnZoom);
     }
