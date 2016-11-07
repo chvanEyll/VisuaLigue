@@ -10,20 +10,15 @@ import ca.ulaval.glo2004.visualigue.ui.models.actors.PlayerActorModel;
 public class ActorLayerFactory {
 
     public View create(ActorModel actorModel) {
-        View view;
         if (actorModel instanceof PlayerActorModel) {
-            view = InjectableFXMLLoader.loadView(PlayerLayerController.VIEW_NAME);
-            PlayerLayerController controller = (PlayerLayerController) view.getController();
+            return InjectableFXMLLoader.loadView(PlayerLayerController.VIEW_NAME);
         } else if (actorModel instanceof ObstacleActorModel) {
-            view = InjectableFXMLLoader.loadView(ObstacleLayerController.VIEW_NAME);
-            ObstacleLayerController controller = (ObstacleLayerController) view.getController();
+            return InjectableFXMLLoader.loadView(ObstacleLayerController.VIEW_NAME);
         } else if (actorModel instanceof BallActorModel) {
-            view = InjectableFXMLLoader.loadView(BallLayerController.VIEW_NAME);
-            BallLayerController controller = (BallLayerController) view.getController();
+            return InjectableFXMLLoader.loadView(BallLayerController.VIEW_NAME);
         } else {
             throw new RuntimeException("Unsupported ActorModel subclass.");
         }
-        return view;
     }
 
 }
