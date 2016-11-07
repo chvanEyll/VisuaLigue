@@ -17,16 +17,25 @@ public abstract class ActorLayerController extends ControllerBase {
     protected PlayingSurfaceLayerController playingSurfaceLayerController;
     protected ActorModel actorModel;
     protected ObjectProperty<Zoom> zoomProperty;
+    protected BooleanProperty showActorLabelsProperty;
+    protected BooleanProperty showMovementArrowsProperty;
     protected BooleanProperty resizeActorsOnZoomProperty;
 
-    protected void init(ActorModel actorModel, PlayingSurfaceLayerController playingSurfaceController, ObjectProperty<Zoom> zoomProperty, BooleanProperty resizeActorsOnZoomProperty) {
+    final void init(ActorModel actorModel, PlayingSurfaceLayerController playingSurfaceController, ObjectProperty<Zoom> zoomProperty, BooleanProperty showActorLabelsProperty, BooleanProperty showMovementArrowsProperty, BooleanProperty resizeActorsOnZoomProperty) {
         this.actorModel = actorModel;
         this.playingSurfaceLayerController = playingSurfaceController;
         this.zoomProperty = zoomProperty;
+        this.showActorLabelsProperty = showActorLabelsProperty;
+        this.showMovementArrowsProperty = showMovementArrowsProperty;
         this.resizeActorsOnZoomProperty = resizeActorsOnZoomProperty;
         tooltip.textProperty().bind(actorModel.hoverText);
         actorButton.setCursor(Cursor.MOVE);
+        init(actorModel);
     }
+
+    public abstract void init(ActorModel actorModel);
+
+    public abstract void update();
 
     protected Double getScaledValue(Double value) {
         if (resizeActorsOnZoomProperty.get()) {
@@ -35,7 +44,5 @@ public abstract class ActorLayerController extends ControllerBase {
             return value;
         }
     }
-
-    public abstract void update();
 
 }

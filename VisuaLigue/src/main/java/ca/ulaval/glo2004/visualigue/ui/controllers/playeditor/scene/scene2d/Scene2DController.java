@@ -7,7 +7,7 @@ import ca.ulaval.glo2004.visualigue.ui.InjectableFXMLLoader;
 import ca.ulaval.glo2004.visualigue.ui.KeyboardShortcutMapper;
 import ca.ulaval.glo2004.visualigue.ui.View;
 import ca.ulaval.glo2004.visualigue.ui.controllers.common.ExtendedScrollPane;
-import ca.ulaval.glo2004.visualigue.ui.controllers.playeditor.actorlayers.ActorLayerViewFactory;
+import ca.ulaval.glo2004.visualigue.ui.controllers.playeditor.actorlayers.ActorLayerFactory;
 import ca.ulaval.glo2004.visualigue.ui.controllers.playeditor.scene.SceneController;
 import ca.ulaval.glo2004.visualigue.ui.controllers.playeditor.scene.Zoom;
 import ca.ulaval.glo2004.visualigue.ui.converters.FrameModelConverter;
@@ -27,7 +27,7 @@ public class Scene2DController extends SceneController {
     @FXML private StackPane layerStackPane;
     @Inject private SettingsService settingsService;
     @Inject private PlayService playService;
-    @Inject private ActorLayerViewFactory actorLayerViewFactory;
+    @Inject private ActorLayerFactory actorLayerFactory;
     @Inject private FrameModelConverter frameModelConverter;
     private BiConsumer<Object, Play> onPlayFrameChanged = this::onPlayFrameChanged;
     private Integer currentTime;
@@ -59,20 +59,11 @@ public class Scene2DController extends SceneController {
         navigationController.onZoomChanged.forward(this.onZoomChanged);
         navigationController.onEnabled.forward(this.onNavigationModeEntered);
         navigationController.onDisabled.forward(this.onNavigationModeExited);
-        layerController = new LayerController(frameModel, actorLayerViewFactory, layerStackPane);
+        layerController = new LayerController(frameModel, actorLayerFactory, layerStackPane, playingSurfaceLayerController, navigationController.getZoomProperty(), showActorLabelsProperty, showMovementArrowsProperty, resizeActorsOnZoomProperty);
         layerController.addLayer(playingSurfaceView);
         super.addChild(playingSurfaceLayerController);
         super.addChild(navigationController);
         super.addChild(layerController);
-        initActorLayerViewFactory();
-    }
-
-    private void initActorLayerViewFactory() {
-        actorLayerViewFactory.setPlayingSurfaceController(playingSurfaceLayerController);
-        actorLayerViewFactory.setShowActorLabelsProperty(showActorLabelsProperty);
-        actorLayerViewFactory.setShowMovementArrowsProperty(showMovementArrowsProperty);
-        actorLayerViewFactory.setResizeActorsOnZoomProperty(resizeActorsOnZoomProperty);
-        actorLayerViewFactory.setZoomProperty(navigationController.getZoomProperty());
     }
 
     private void initKeyboardShortcuts() {
@@ -109,16 +100,21 @@ public class Scene2DController extends SceneController {
     @Override
     public void enterCreationMode(ActorCreationController actorCreationController) {
         navigationController.disable();
+        exitCreationMode();
         this.actorCreationController = actorCreationController;
         actorCreationController.enable(layerController, playModel, playService);
         super.addChild(actorCreationController);
     }
 
+    private void exitCreationMode() {
+        if (this.actorCreationController != null) {
+            this.actorCreationController.disable();
+        }
+    }
+
     @Override
     public void enterNavigationMode() {
-        if (actorCreationController != null) {
-            actorCreationController.disable();
-        }
+        exitCreationMode();
         navigationController.enable();
     }
 

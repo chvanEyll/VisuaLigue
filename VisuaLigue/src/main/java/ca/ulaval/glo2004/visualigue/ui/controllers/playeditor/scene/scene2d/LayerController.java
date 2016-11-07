@@ -2,22 +2,35 @@ package ca.ulaval.glo2004.visualigue.ui.controllers.playeditor.scene.scene2d;
 
 import ca.ulaval.glo2004.visualigue.ui.View;
 import ca.ulaval.glo2004.visualigue.ui.controllers.ControllerBase;
-import ca.ulaval.glo2004.visualigue.ui.controllers.playeditor.actorlayers.ActorLayerViewFactory;
+import ca.ulaval.glo2004.visualigue.ui.controllers.playeditor.actorlayers.ActorLayerFactory;
+import ca.ulaval.glo2004.visualigue.ui.controllers.playeditor.scene.Zoom;
 import ca.ulaval.glo2004.visualigue.ui.models.FrameModel;
 import ca.ulaval.glo2004.visualigue.ui.models.actors.ActorModel;
 import java.util.HashMap;
 import java.util.Map;
+import javafx.beans.property.BooleanProperty;
+import javafx.beans.property.ObjectProperty;
 import javafx.collections.MapChangeListener;
 import javafx.scene.layout.StackPane;
 
 public class LayerController extends ControllerBase {
 
-    private ActorLayerViewFactory actorLayerViewFactory;
+    private ActorLayerFactory actorLayerFactory;
     private StackPane layerStackPane;
     private Map<ActorModel, View> actorLayerMap = new HashMap();
+    protected PlayingSurfaceLayerController playingSurfaceLayerController;
+    protected ObjectProperty<Zoom> zoomProperty;
+    protected BooleanProperty showActorLabelsProperty;
+    protected BooleanProperty showMovementArrowsProperty;
+    protected BooleanProperty resizeActorsOnZoomProperty;
 
-    public LayerController(FrameModel frameModel, ActorLayerViewFactory actorLayerViewFactory, StackPane layerStackPane) {
-        this.actorLayerViewFactory = actorLayerViewFactory;
+    public LayerController(FrameModel frameModel, ActorLayerFactory actorLayerFactory, StackPane layerStackPane, PlayingSurfaceLayerController playingSurfaceLayerController, ObjectProperty<Zoom> zoomProperty, BooleanProperty showActorLabelsProperty, BooleanProperty showMovementArrowsProperty, BooleanProperty resizeActorsOnZoomProperty) {
+        this.playingSurfaceLayerController = playingSurfaceLayerController;
+        this.zoomProperty = zoomProperty;
+        this.showActorLabelsProperty = showActorLabelsProperty;
+        this.showMovementArrowsProperty = showMovementArrowsProperty;
+        this.resizeActorsOnZoomProperty = resizeActorsOnZoomProperty;
+        this.actorLayerFactory = actorLayerFactory;
         this.layerStackPane = layerStackPane;
         frameModel.actorModels.addListener(this::onActorStateMapChanged);
     }
@@ -32,8 +45,9 @@ public class LayerController extends ControllerBase {
     }
 
     public void addActorLayer(ActorModel actorModel) {
-        View view = actorLayerViewFactory.create(actorModel);
+        View view = actorLayerFactory.create(actorModel);
         ActorLayerController controller = (ActorLayerController) view.getController();
+        controller.init(actorModel, playingSurfaceLayerController, zoomProperty, showActorLabelsProperty, showMovementArrowsProperty, resizeActorsOnZoomProperty);
         super.addChild(controller);
         actorLayerMap.put(actorModel, view);
         addLayer(view);
@@ -57,11 +71,11 @@ public class LayerController extends ControllerBase {
         layerStackPane.getChildren().remove(view.getRoot());
     }
 
-    public void setAllMouseTransparent(Boolean mouseTransparent) {
-        actorLayerMap.values().forEach(view -> view.getRoot().setMouseTransparent(mouseTransparent));
+    public void setLayerOpacity(ActorModel actorModel, Double opacity) {
+        actorLayerMap.get(actorModel).getRoot().setOpacity(opacity);
     }
 
-    public void setAllOpacity(Double opacity) {
-        actorLayerMap.values().forEach(view -> view.getRoot().setOpacity(opacity));
+    public void setLayerMouseTransparent(ActorModel actorModel, Boolean mouseTransparent) {
+        actorLayerMap.get(actorModel).getRoot().setMouseTransparent(mouseTransparent);
     }
 }

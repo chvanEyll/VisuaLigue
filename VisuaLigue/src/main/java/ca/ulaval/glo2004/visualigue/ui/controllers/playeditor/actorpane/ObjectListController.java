@@ -8,9 +8,9 @@ import ca.ulaval.glo2004.visualigue.services.sport.SportService;
 import ca.ulaval.glo2004.visualigue.ui.InjectableFXMLLoader;
 import ca.ulaval.glo2004.visualigue.ui.View;
 import ca.ulaval.glo2004.visualigue.ui.controllers.ControllerBase;
-import ca.ulaval.glo2004.visualigue.ui.controllers.playeditor.scene.SceneController;
 import ca.ulaval.glo2004.visualigue.ui.controllers.playeditor.actorcreation.BallCreationController;
 import ca.ulaval.glo2004.visualigue.ui.controllers.playeditor.actorcreation.ObstacleCreationController;
+import ca.ulaval.glo2004.visualigue.ui.controllers.playeditor.scene.SceneController;
 import ca.ulaval.glo2004.visualigue.ui.converters.BallModelConverter;
 import ca.ulaval.glo2004.visualigue.ui.converters.ObstacleModelConverter;
 import ca.ulaval.glo2004.visualigue.ui.models.BallModel;
@@ -105,8 +105,10 @@ public class ObjectListController extends ControllerBase {
         ((ObjectListItemController) sender).select();
         if (model instanceof ObstacleModel) {
             obstacleCreationController.init((ObstacleModel) model);
+            sceneController.enterCreationMode(obstacleCreationController);
         } else if (model instanceof BallModel) {
             ballCreationController.init((BallModel) model);
+            sceneController.enterCreationMode(ballCreationController);
         }
     }
 

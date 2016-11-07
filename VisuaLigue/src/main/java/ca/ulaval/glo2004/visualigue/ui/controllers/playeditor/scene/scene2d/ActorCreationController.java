@@ -17,28 +17,26 @@ public abstract class ActorCreationController extends ControllerBase {
     protected PlayModel playModel;
     protected Boolean enabled = false;
 
-    public void enable(LayerController layerController, PlayModel playModel, PlayService playService) {
+    void enable(LayerController layerController, PlayModel playModel, PlayService playService) {
         this.layerController = layerController;
         this.playModel = playModel;
         this.playService = playService;
-        initEditionLayer(actorModel);
+        initCreationLayer(actorModel);
         enabled = true;
         onEnabled.fire(this);
     }
 
-    protected void initEditionLayer(ActorModel actorModel) {
+    protected void initCreationLayer(ActorModel actorModel) {
         layerController.removeActorLayer(this.actorModel);
-        layerController.setAllOpacity(0.5);
         layerController.addActorLayer(actorModel);
-        layerController.setAllMouseTransparent(true);
+        layerController.setLayerOpacity(actorModel, 0.5);
+        layerController.setLayerMouseTransparent(actorModel, true);
         this.actorModel = actorModel;
     }
 
     public void disable() {
         if (enabled) {
             layerController.removeActorLayer(actorModel);
-            layerController.setAllMouseTransparent(false);
-            layerController.setAllOpacity(1.0);
             enabled = false;
             onDisabled.fire(this);
         }

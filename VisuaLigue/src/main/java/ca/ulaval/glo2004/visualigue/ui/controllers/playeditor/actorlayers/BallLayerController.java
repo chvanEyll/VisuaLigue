@@ -1,14 +1,11 @@
 package ca.ulaval.glo2004.visualigue.ui.controllers.playeditor.actorlayers;
 
-import ca.ulaval.glo2004.visualigue.ui.controllers.playeditor.scene.Zoom;
 import ca.ulaval.glo2004.visualigue.ui.controllers.playeditor.scene.scene2d.ActorLayerController;
-import ca.ulaval.glo2004.visualigue.ui.controllers.playeditor.scene.scene2d.PlayingSurfaceLayerController;
+import ca.ulaval.glo2004.visualigue.ui.models.actors.ActorModel;
 import ca.ulaval.glo2004.visualigue.ui.models.actors.BallActorModel;
 import ca.ulaval.glo2004.visualigue.utils.FilenameUtils;
 import ca.ulaval.glo2004.visualigue.utils.geometry.Vector2;
 import javafx.application.Platform;
-import javafx.beans.property.BooleanProperty;
-import javafx.beans.property.ObjectProperty;
 import javafx.beans.value.ChangeListener;
 import javafx.beans.value.ObservableValue;
 import javafx.fxml.FXML;
@@ -22,9 +19,9 @@ public class BallLayerController extends ActorLayerController {
     private BallActorModel ballActorModel;
     private ChangeListener<Object> onChange = this::onChange;
 
-    public void init(BallActorModel ballActorModel, PlayingSurfaceLayerController playingLayerSurfaceController, ObjectProperty<Zoom> zoomProperty, BooleanProperty resizeActorsOnZoomProperty) {
-        super.init(ballActorModel, playingLayerSurfaceController, zoomProperty, resizeActorsOnZoomProperty);
-        this.ballActorModel = ballActorModel;
+    @Override
+    public void init(ActorModel actorModel) {
+        this.ballActorModel = (BallActorModel) actorModel;
         setImage();
         addListeners();
         update();

@@ -3,14 +3,11 @@ package ca.ulaval.glo2004.visualigue.ui.controllers.playeditor.actorlayers;
 import ca.ulaval.glo2004.visualigue.ui.controllers.common.Arrow;
 import ca.ulaval.glo2004.visualigue.ui.controllers.common.ExtendedLabel;
 import ca.ulaval.glo2004.visualigue.ui.controllers.common.PlayerIcon;
-import ca.ulaval.glo2004.visualigue.ui.controllers.playeditor.scene.Zoom;
 import ca.ulaval.glo2004.visualigue.ui.controllers.playeditor.scene.scene2d.ActorLayerController;
-import ca.ulaval.glo2004.visualigue.ui.controllers.playeditor.scene.scene2d.PlayingSurfaceLayerController;
+import ca.ulaval.glo2004.visualigue.ui.models.actors.ActorModel;
 import ca.ulaval.glo2004.visualigue.ui.models.actors.PlayerActorModel;
 import ca.ulaval.glo2004.visualigue.utils.geometry.Vector2;
 import javafx.application.Platform;
-import javafx.beans.property.BooleanProperty;
-import javafx.beans.property.ObjectProperty;
 import javafx.beans.value.ChangeListener;
 import javafx.beans.value.ObservableValue;
 import javafx.fxml.FXML;
@@ -24,17 +21,13 @@ public class PlayerLayerController extends ActorLayerController {
     public static final Double ARROW_STROKE_DASH_ARRAY_SIZE = 10.0;
     private PlayerActorModel playerActorModel;
     private ChangeListener<Object> onChange = this::onChange;
-    private BooleanProperty showActorLabelsProperty;
-    private BooleanProperty showMovementArrowsProperty;
     @FXML private PlayerIcon playerIcon;
     @FXML private ExtendedLabel label;
     @FXML private Arrow arrow;
 
-    public void init(PlayerActorModel playerActorModel, PlayingSurfaceLayerController playingLayerSurfaceController, ObjectProperty<Zoom> zoomProperty, BooleanProperty showActorLabelsProperty, BooleanProperty showMovementArrowsProperty, BooleanProperty resizeActorsOnZoomProperty) {
-        super.init(playerActorModel, playingLayerSurfaceController, zoomProperty, resizeActorsOnZoomProperty);
-        this.playerActorModel = playerActorModel;
-        this.showActorLabelsProperty = showActorLabelsProperty;
-        this.showMovementArrowsProperty = showMovementArrowsProperty;
+    @Override
+    public void init(ActorModel actorModel) {
+        this.playerActorModel = (PlayerActorModel) actorModel;
         label.textProperty().bind(playerActorModel.label);
         addListeners();
         update();
