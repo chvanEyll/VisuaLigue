@@ -1,20 +1,20 @@
-package ca.ulaval.glo2004.visualigue.domain.play.actorinstance;
+package ca.ulaval.glo2004.visualigue.domain.play.actor;
 
 import ca.ulaval.glo2004.visualigue.domain.sport.playercategory.PlayerCategory;
 import ca.ulaval.glo2004.visualigue.domain.xmladapters.XmlPlayerCategoryRefAdapter;
 import javax.xml.bind.annotation.adapters.XmlJavaTypeAdapter;
 
-public class PlayerInstance extends ActorInstance {
+public class PlayerActor extends Actor {
 
     @XmlJavaTypeAdapter(XmlPlayerCategoryRefAdapter.class)
     private PlayerCategory playerCategory;
     private TeamSide teamSide = TeamSide.ALLIES;
 
-    public PlayerInstance() {
+    public PlayerActor() {
         //Required for JAXB instanciation.
     }
 
-    public PlayerInstance(PlayerCategory playerCategory, TeamSide teamSide) {
+    public PlayerActor(PlayerCategory playerCategory, TeamSide teamSide) {
         this.playerCategory = playerCategory;
         this.teamSide = teamSide;
     }

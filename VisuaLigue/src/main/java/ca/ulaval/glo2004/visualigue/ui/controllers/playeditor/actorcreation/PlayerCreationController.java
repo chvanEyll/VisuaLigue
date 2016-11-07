@@ -1,6 +1,6 @@
 package ca.ulaval.glo2004.visualigue.ui.controllers.playeditor.actorcreation;
 
-import ca.ulaval.glo2004.visualigue.domain.play.actorinstance.TeamSide;
+import ca.ulaval.glo2004.visualigue.domain.play.actor.TeamSide;
 import ca.ulaval.glo2004.visualigue.ui.controllers.playeditor.scene.scene2d.ActorCreationController;
 import ca.ulaval.glo2004.visualigue.ui.converters.PlayerActorModelConverter;
 import ca.ulaval.glo2004.visualigue.ui.models.PlayerCategoryModel;
@@ -22,7 +22,7 @@ public class PlayerCreationController extends ActorCreationController {
     @Override
     public void onSceneMouseClicked(Vector2 sizeRelativePosition) {
         if (enabled) {
-            playService.addPlayerInstance(playModel.getUUID(), playerCategoryModel.getUUID(), teamSide, 0.0, sizeRelativePosition);
+            playService.addPlayerActor(playModel.getUUID(), playerCategoryModel.getUUID(), teamSide, 0.0, sizeRelativePosition);
             initCreationLayer(actorModel);
         }
     }

@@ -57,8 +57,8 @@ public class ObstacleListItemEditionController extends ListItemEditionController
     protected void onValidateButtonAction(ActionEvent e) throws ObstacleNotFoundException {
         if (validate()) {
             if (model.isNew()) {
-                String obstacleInstanceUUID = obstacleService.createObstacle(StringUtils.trim(model.name.get()));
-                model.setUUID(obstacleInstanceUUID);
+                String obstacleActorUUID = obstacleService.createObstacle(StringUtils.trim(model.name.get()));
+                model.setUUID(obstacleActorUUID);
                 model.setIsNew(false);
             } else {
                 obstacleService.updateObstacle(model.getUUID(), StringUtils.trim(model.name.get()));

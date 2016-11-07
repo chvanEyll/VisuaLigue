@@ -1,9 +1,9 @@
 package ca.ulaval.glo2004.visualigue.ui.converters;
 
-import ca.ulaval.glo2004.visualigue.domain.play.actorinstance.ActorInstance;
-import ca.ulaval.glo2004.visualigue.domain.play.actorinstance.BallInstance;
-import ca.ulaval.glo2004.visualigue.domain.play.actorinstance.ObstacleInstance;
-import ca.ulaval.glo2004.visualigue.domain.play.actorinstance.PlayerInstance;
+import ca.ulaval.glo2004.visualigue.domain.play.actor.Actor;
+import ca.ulaval.glo2004.visualigue.domain.play.actor.BallActor;
+import ca.ulaval.glo2004.visualigue.domain.play.actor.ObstacleActor;
+import ca.ulaval.glo2004.visualigue.domain.play.actor.PlayerActor;
 import ca.ulaval.glo2004.visualigue.domain.play.actorstate.ActorState;
 import ca.ulaval.glo2004.visualigue.domain.play.actorstate.BallState;
 import ca.ulaval.glo2004.visualigue.domain.play.actorstate.ObstacleState;
@@ -42,12 +42,12 @@ public class FrameModelConverter {
         model.setUUID(frame.getUUID());
         model.setIsNew(false);
         model.time.set(frame.getTime());
-        addNewActorInstances(model, frame, playModel, frame.getCurrentActorStates());
-        updateActorInstances(model, frame, playModel, frame.getCurrentActorStates());
-        removeNonPresentActorInstances(model, frame.getCurrentActorStates());
+        addNewActors(model, frame, playModel, frame.getCurrentActorStates());
+        updateActors(model, frame, playModel, frame.getCurrentActorStates());
+        removeNonPresentActors(model, frame.getCurrentActorStates());
     }
 
-    private void addNewActorInstances(FrameModel model, Frame frame, PlayModel playModel, Map<ActorInstance, ActorState> actorStates) {
+    private void addNewActors(FrameModel model, Frame frame, PlayModel playModel, Map<Actor, ActorState> actorStates) {
         actorStates.entrySet().forEach(entry -> {
             if (!model.actorModels.containsKey(entry.getKey().getUUID())) {
                 ActorModel actorModel = createActorModel(frame, playModel, entry.getKey(), entry.getValue());
@@ -56,19 +56,19 @@ public class FrameModelConverter {
         });
     }
 
-    private ActorModel createActorModel(Frame frame, PlayModel playModel, ActorInstance actorInstance, ActorState actorState) {
-        if (actorInstance instanceof PlayerInstance) {
-            return playerActorModelConverter.convert(frame, (PlayerInstance) actorInstance, (PlayerState) actorState);
-        } else if (actorInstance instanceof BallInstance) {
-            return ballActorModelConverter.convert(playModel, (BallInstance) actorInstance, (BallState) actorState);
-        } else if (actorInstance instanceof ObstacleInstance) {
-            return obstacleActorModelConverter.convert((ObstacleInstance) actorInstance, (ObstacleState) actorState);
+    private ActorModel createActorModel(Frame frame, PlayModel playModel, Actor actor, ActorState actorState) {
+        if (actor instanceof PlayerActor) {
+            return playerActorModelConverter.convert(frame, (PlayerActor) actor, (PlayerState) actorState);
+        } else if (actor instanceof BallActor) {
+            return ballActorModelConverter.convert(playModel, (BallActor) actor, (BallState) actorState);
+        } else if (actor instanceof ObstacleActor) {
+            return obstacleActorModelConverter.convert((ObstacleActor) actor, (ObstacleState) actorState);
         } else {
-            throw new RuntimeException("Unsupported ActorInstance subclass.");
+            throw new RuntimeException("Unsupported Actor subclass.");
         }
     }
 
-    private void updateActorInstances(FrameModel model, Frame frame, PlayModel playModel, Map<ActorInstance, ActorState> actorStates) {
+    private void updateActors(FrameModel model, Frame frame, PlayModel playModel, Map<Actor, ActorState> actorStates) {
         actorStates.entrySet().forEach(entry -> {
             if (model.actorModels.containsKey(entry.getKey().getUUID())) {
                 ActorModel actorModel = model.actorModels.get(entry.getKey().getUUID());
@@ -77,19 +77,19 @@ public class FrameModelConverter {
         });
     }
 
-    private void updateActorModel(ActorModel actorModel, Frame frame, PlayModel playModel, ActorInstance actorInstance, ActorState actorState) {
-        if (actorInstance instanceof PlayerInstance) {
-            playerActorModelConverter.update(frame, (PlayerActorModel) actorModel, (PlayerInstance) actorInstance, (PlayerState) actorState);
-        } else if (actorInstance instanceof BallInstance) {
-            ballActorModelConverter.update((BallActorModel) actorModel, playModel, (BallInstance) actorInstance, (BallState) actorState);
-        } else if (actorInstance instanceof ObstacleInstance) {
-            obstacleActorModelConverter.update((ObstacleActorModel) actorModel, (ObstacleInstance) actorInstance, (ObstacleState) actorState);
+    private void updateActorModel(ActorModel actorModel, Frame frame, PlayModel playModel, Actor actor, ActorState actorState) {
+        if (actor instanceof PlayerActor) {
+            playerActorModelConverter.update(frame, (PlayerActorModel) actorModel, (PlayerActor) actor, (PlayerState) actorState);
+        } else if (actor instanceof BallActor) {
+            ballActorModelConverter.update((BallActorModel) actorModel, playModel, (BallActor) actor, (BallState) actorState);
+        } else if (actor instanceof ObstacleActor) {
+            obstacleActorModelConverter.update((ObstacleActorModel) actorModel, (ObstacleActor) actor, (ObstacleState) actorState);
         }
     }
 
-    private void removeNonPresentActorInstances(FrameModel model, Map<ActorInstance, ActorState> actorStates) {
+    private void removeNonPresentActors(FrameModel model, Map<Actor, ActorState> actorStates) {
         model.actorModels.keySet().stream().collect(Collectors.toList()).forEach(actorModelUUID -> {
-            if (!actorStates.keySet().stream().anyMatch(actorInstance -> actorInstance.getUUID().equals(actorModelUUID))) {
+            if (!actorStates.keySet().stream().anyMatch(actor -> actor.getUUID().equals(actorModelUUID))) {
                 model.actorModels.remove(actorModelUUID);
             }
         });

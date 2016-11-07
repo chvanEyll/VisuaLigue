@@ -1,8 +1,8 @@
 package ca.ulaval.glo2004.visualigue.services.play.commands;
 
 import ca.ulaval.glo2004.visualigue.domain.play.Play;
-import ca.ulaval.glo2004.visualigue.domain.play.actorinstance.PlayerInstance;
-import ca.ulaval.glo2004.visualigue.domain.play.actorinstance.TeamSide;
+import ca.ulaval.glo2004.visualigue.domain.play.actor.PlayerActor;
+import ca.ulaval.glo2004.visualigue.domain.play.actor.TeamSide;
 import ca.ulaval.glo2004.visualigue.domain.play.actorstate.PlayerState;
 import ca.ulaval.glo2004.visualigue.domain.play.actorstate.transition.LinearStateTransition;
 import ca.ulaval.glo2004.visualigue.domain.sport.playercategory.PlayerCategory;
@@ -19,7 +19,7 @@ public class PlayerCreationCommand extends Command {
     private EventHandler<Play> onFrameChanged;
     private PlayerCategoryRepository playerCategoryRepository;
 
-    private PlayerInstance playerInstance;
+    private PlayerActor playerActor;
 
     public PlayerCreationCommand(Play play, Integer time, String playerCategoryUUID, TeamSide teamSide, Double orientation, Vector2 position, PlayerCategoryRepository playerCategoryRepository, EventHandler<Play> onFrameChanged) {
         super(play, time);
@@ -35,14 +35,14 @@ public class PlayerCreationCommand extends Command {
     public void execute() {
         PlayerState playerState = new PlayerState(position, new LinearStateTransition(), orientation, new LinearStateTransition());
         PlayerCategory playerCategory = playerCategoryRepository.get(playerCategoryUUID);
-        playerInstance = new PlayerInstance(playerCategory, teamSide);
-        play.mergeKeyframe(time, playerInstance, playerState);
+        playerActor = new PlayerActor(playerCategory, teamSide);
+        play.mergeKeyframe(time, playerActor, playerState);
         onFrameChanged.fire(this, play);
     }
 
     @Override
     public void revert() {
-        play.unmergeKeyframe(time, playerInstance, null);
+        play.unmergeKeyframe(time, playerActor, null);
         onFrameChanged.fire(this, play);
     }
 

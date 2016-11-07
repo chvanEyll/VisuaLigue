@@ -1,7 +1,7 @@
 package ca.ulaval.glo2004.visualigue.domain.play.actortimeline;
 
 import ca.ulaval.glo2004.visualigue.domain.DomainObject;
-import ca.ulaval.glo2004.visualigue.domain.play.actorinstance.ActorInstance;
+import ca.ulaval.glo2004.visualigue.domain.play.actor.Actor;
 import ca.ulaval.glo2004.visualigue.domain.play.actorstate.ActorState;
 import ca.ulaval.glo2004.visualigue.domain.play.keyframe.Keyframe;
 import java.util.Map;
@@ -16,22 +16,22 @@ public class ActorTimeline extends DomainObject {
         //Required for JAXB instanciation.
     }
 
-    public ActorState mergeKeyframe(Integer time, ActorInstance actorInstance, ActorState actorState) {
+    public ActorState mergeKeyframe(Integer time, Actor actor, ActorState actorState) {
         Keyframe keyframe;
         if (keyframes.containsKey(time)) {
             keyframe = keyframes.get(time);
 
         } else {
-            keyframe = new Keyframe(time, actorInstance, actorState);
+            keyframe = new Keyframe(time, actor, actorState);
             keyframes.put(time, keyframe);
         }
         return keyframe.mergeActorState(actorState);
     }
 
-    public void unmergeKeyframe(Integer time, ActorInstance actorInstance, ActorState oldState) {
+    public void unmergeKeyframe(Integer time, Actor actor, ActorState oldState) {
         Keyframe keyframe = keyframes.get(time);
         if (oldState != null) {
-            keyframe.unmergeActorState(actorInstance, oldState);
+            keyframe.unmergeActorState(actor, oldState);
         } else {
             keyframes.remove(time);
         }

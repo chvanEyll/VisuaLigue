@@ -1,6 +1,6 @@
 package ca.ulaval.glo2004.visualigue.ui.controllers.playeditor.actorpane;
 
-import ca.ulaval.glo2004.visualigue.domain.play.actorinstance.TeamSide;
+import ca.ulaval.glo2004.visualigue.domain.play.actor.TeamSide;
 import ca.ulaval.glo2004.visualigue.ui.controllers.ControllerBase;
 import ca.ulaval.glo2004.visualigue.ui.controllers.common.ExtendedButton;
 import ca.ulaval.glo2004.visualigue.ui.controllers.common.PlayerIcon;

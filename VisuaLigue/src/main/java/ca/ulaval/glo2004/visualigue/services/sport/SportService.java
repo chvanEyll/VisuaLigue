@@ -1,7 +1,7 @@
 package ca.ulaval.glo2004.visualigue.services.sport;
 
 import ca.ulaval.glo2004.visualigue.domain.image.ImageRepository;
-import ca.ulaval.glo2004.visualigue.domain.play.actorinstance.TeamSide;
+import ca.ulaval.glo2004.visualigue.domain.play.actor.TeamSide;
 import ca.ulaval.glo2004.visualigue.domain.sport.*;
 import ca.ulaval.glo2004.visualigue.domain.sport.ball.Ball;
 import ca.ulaval.glo2004.visualigue.domain.sport.playercategory.PlayerCategory;

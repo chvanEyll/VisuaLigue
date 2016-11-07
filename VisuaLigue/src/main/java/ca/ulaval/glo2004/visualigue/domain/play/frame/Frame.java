@@ -1,7 +1,7 @@
 package ca.ulaval.glo2004.visualigue.domain.play.frame;
 
 import ca.ulaval.glo2004.visualigue.domain.DomainObject;
-import ca.ulaval.glo2004.visualigue.domain.play.actorinstance.ActorInstance;
+import ca.ulaval.glo2004.visualigue.domain.play.actor.Actor;
 import ca.ulaval.glo2004.visualigue.domain.play.actorstate.ActorState;
 import java.util.HashMap;
 import java.util.Map;
@@ -9,8 +9,8 @@ import java.util.Map;
 public class Frame extends DomainObject {
 
     private Integer time;
-    private Map<ActorInstance, ActorState> currentActorStates = new HashMap();
-    private Map<ActorInstance, ActorState> nextActorStates = new HashMap();
+    private Map<Actor, ActorState> currentActorStates = new HashMap();
+    private Map<Actor, ActorState> nextActorStates = new HashMap();
 
     public Frame(Integer time) {
         this.time = time;
@@ -20,24 +20,24 @@ public class Frame extends DomainObject {
         return time;
     }
 
-    public Map<ActorInstance, ActorState> getCurrentActorStates() {
+    public Map<Actor, ActorState> getCurrentActorStates() {
         return currentActorStates;
     }
 
-    public void setCurrentActorState(ActorInstance actorInstance, ActorState actorState) {
-        currentActorStates.put(actorInstance, actorState);
+    public void setCurrentActorState(Actor actor, ActorState actorState) {
+        currentActorStates.put(actor, actorState);
     }
 
-    public ActorState getNextActorState(ActorInstance actorInstance) {
-        return nextActorStates.get(actorInstance);
+    public ActorState getNextActorState(Actor actor) {
+        return nextActorStates.get(actor);
     }
 
-    public void setNextActorState(ActorInstance actorInstance, ActorState actorState) {
-        nextActorStates.put(actorInstance, actorState);
+    public void setNextActorState(Actor actor, ActorState actorState) {
+        nextActorStates.put(actor, actorState);
     }
 
-    public void removeNextActorState(ActorInstance actorInstance) {
-        nextActorStates.remove(actorInstance);
+    public void removeNextActorState(Actor actor) {
+        nextActorStates.remove(actor);
     }
 
 }

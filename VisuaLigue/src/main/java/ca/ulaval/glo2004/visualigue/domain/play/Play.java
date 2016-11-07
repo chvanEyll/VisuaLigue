@@ -2,9 +2,9 @@ package ca.ulaval.glo2004.visualigue.domain.play;
 
 import ca.ulaval.glo2004.visualigue.domain.DomainObject;
 import ca.ulaval.glo2004.visualigue.domain.obstacle.Obstacle;
-import ca.ulaval.glo2004.visualigue.domain.play.actorinstance.ActorInstance;
-import ca.ulaval.glo2004.visualigue.domain.play.actorinstance.ObstacleInstance;
-import ca.ulaval.glo2004.visualigue.domain.play.actorinstance.PlayerInstance;
+import ca.ulaval.glo2004.visualigue.domain.play.actor.Actor;
+import ca.ulaval.glo2004.visualigue.domain.play.actor.ObstacleActor;
+import ca.ulaval.glo2004.visualigue.domain.play.actor.PlayerActor;
 import ca.ulaval.glo2004.visualigue.domain.play.actorstate.ActorState;
 import ca.ulaval.glo2004.visualigue.domain.play.actortimeline.ActorTimeline;
 import ca.ulaval.glo2004.visualigue.domain.play.frame.Frame;
@@ -34,7 +34,7 @@ public class Play extends DomainObject {
     private Integer keyPointInterval = 1000;
     @XmlTransient
     protected Boolean isDirty = false;
-    private final TreeMap<ActorInstance, ActorTimeline> actorTimelines = new TreeMap();
+    private final TreeMap<Actor, ActorTimeline> actorTimelines = new TreeMap();
 
     public Play() {
         //Required for JAXB instanciation.
@@ -77,19 +77,19 @@ public class Play extends DomainObject {
     }
 
     public Boolean containsPlayerCategory(PlayerCategory playerCategory) {
-        return getActorInstances().stream().anyMatch(a -> a instanceof PlayerInstance && ((PlayerInstance) a).getPlayerCategory().equals(playerCategory));
+        return getActors().stream().anyMatch(a -> a instanceof PlayerActor && ((PlayerActor) a).getPlayerCategory().equals(playerCategory));
     }
 
     public Boolean containsObstacle(Obstacle obstacle) {
-        return getActorInstances().stream().anyMatch(a -> a instanceof ObstacleInstance && ((ObstacleInstance) a).getObstacle().equals(obstacle));
+        return getActors().stream().anyMatch(a -> a instanceof ObstacleActor && ((ObstacleActor) a).getObstacle().equals(obstacle));
     }
 
-    private List<ActorInstance> getActorInstances() {
+    private List<Actor> getActors() {
         return new ArrayList(actorTimelines.keySet());
     }
 
-    public ActorInstance getActorInstance(String actorInstanceUUID) {
-        return actorTimelines.keySet().stream().filter(a -> a.getUUID().equals(actorInstanceUUID)).findFirst().get();
+    public Actor getActor(String actorUUID) {
+        return actorTimelines.keySet().stream().filter(a -> a.getUUID().equals(actorUUID)).findFirst().get();
     }
 
     public Integer getNumberOfKeyPoints() {
@@ -112,24 +112,24 @@ public class Play extends DomainObject {
         return keyPointInterval;
     }
 
-    public ActorState mergeKeyframe(Integer time, ActorInstance actorInstance, ActorState actorState) {
+    public ActorState mergeKeyframe(Integer time, Actor actor, ActorState actorState) {
         ActorTimeline timeline;
-        if (actorTimelines.containsKey(actorInstance)) {
-            timeline = actorTimelines.get(actorInstance);
+        if (actorTimelines.containsKey(actor)) {
+            timeline = actorTimelines.get(actor);
         } else {
             timeline = new ActorTimeline();
-            actorTimelines.put(actorInstance, timeline);
+            actorTimelines.put(actor, timeline);
         }
         timelineLength = Math.max(time, timelineLength);
-        return timeline.mergeKeyframe(time, actorInstance, actorState);
+        return timeline.mergeKeyframe(time, actor, actorState);
     }
 
-    public void unmergeKeyframe(Integer time, ActorInstance actorInstance, ActorState oldState) {
-        ActorTimeline actorTimeline = actorTimelines.get(actorInstance);
+    public void unmergeKeyframe(Integer time, Actor actor, ActorState oldState) {
+        ActorTimeline actorTimeline = actorTimelines.get(actor);
         if (oldState != null) {
-            actorTimeline.unmergeKeyframe(time, actorInstance, oldState);
+            actorTimeline.unmergeKeyframe(time, actor, oldState);
         } else {
-            actorTimelines.remove(actorInstance);
+            actorTimelines.remove(actor);
         }
     }
 
@@ -145,17 +145,17 @@ public class Play extends DomainObject {
     public Frame getFrame(Integer time) {
         Frame frame = new Frame(time);
         actorTimelines.entrySet().stream().forEach(e -> {
-            ActorInstance actorInstance = e.getKey();
+            Actor actor = e.getKey();
             ActorTimeline timeline = e.getValue();
             Keyframe keyframe = timeline.getKeyframe(time);
             if (keyframe != null) {
-                frame.setCurrentActorState(actorInstance, keyframe.getActorState());
+                frame.setCurrentActorState(actor, keyframe.getActorState());
             }
             Keyframe nextKeyframe = timeline.getNextKeyframe(time + NEXT_KEYFRAME_LOOKAHEAD_TIME);
             if (nextKeyframe != null) {
-                frame.setNextActorState(actorInstance, nextKeyframe.getActorState());
+                frame.setNextActorState(actor, nextKeyframe.getActorState());
             } else {
-                frame.removeNextActorState(actorInstance);
+                frame.removeNextActorState(actor);
             }
         });
         return frame;

@@ -1,6 +1,6 @@
 package ca.ulaval.glo2004.visualigue.ui.converters;
 
-import ca.ulaval.glo2004.visualigue.domain.play.actorinstance.TeamSide;
+import ca.ulaval.glo2004.visualigue.domain.play.actor.TeamSide;
 import ca.ulaval.glo2004.visualigue.domain.sport.playercategory.PlayerCategory;
 import ca.ulaval.glo2004.visualigue.ui.models.PlayerCategoryModel;
 

@@ -1,6 +1,6 @@
 package ca.ulaval.glo2004.visualigue.ui.controllers.playeditor.actorpane;
 
-import ca.ulaval.glo2004.visualigue.domain.play.actorinstance.TeamSide;
+import ca.ulaval.glo2004.visualigue.domain.play.actor.TeamSide;
 import ca.ulaval.glo2004.visualigue.domain.sport.Sport;
 import ca.ulaval.glo2004.visualigue.domain.sport.playercategory.PlayerCategory;
 import ca.ulaval.glo2004.visualigue.services.sport.SportService;

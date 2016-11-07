@@ -1,7 +1,7 @@
 package ca.ulaval.glo2004.visualigue.domain.play.keyframe;
 
 import ca.ulaval.glo2004.visualigue.domain.DomainObject;
-import ca.ulaval.glo2004.visualigue.domain.play.actorinstance.ActorInstance;
+import ca.ulaval.glo2004.visualigue.domain.play.actor.Actor;
 import ca.ulaval.glo2004.visualigue.domain.play.actorstate.ActorState;
 import javax.xml.bind.annotation.XmlIDREF;
 
@@ -9,16 +9,16 @@ public class Keyframe extends DomainObject {
 
     private Integer time;
     @XmlIDREF
-    private ActorInstance actorInstance;
+    private Actor actor;
     private ActorState actorState;
 
     public Keyframe() {
         //Required for JAXB instanciation.
     }
 
-    public Keyframe(Integer time, ActorInstance actorInstance, ActorState actorState) {
+    public Keyframe(Integer time, Actor actor, ActorState actorState) {
         this.time = time;
-        this.actorInstance = actorInstance;
+        this.actor = actor;
         this.actorState = actorState;
     }
 
@@ -26,8 +26,8 @@ public class Keyframe extends DomainObject {
         return time;
     }
 
-    public ActorInstance getActorInstance() {
-        return actorInstance;
+    public Actor getActor() {
+        return actor;
     }
 
     public ActorState getActorState() {
@@ -38,7 +38,7 @@ public class Keyframe extends DomainObject {
         return actorState.merge(actorState);
     }
 
-    public void unmergeActorState(ActorInstance actorInstance, ActorState actorState) {
+    public void unmergeActorState(Actor actor, ActorState actorState) {
         this.actorState.unmerge(actorState);
     }
 
@@ -50,7 +50,7 @@ public class Keyframe extends DomainObject {
         Keyframe interpolatedKeyFrame = new Keyframe();
         interpolatedKeyFrame.time = this.time + (int) ((nextKeyframe.time - this.time) * interpolant);
         interpolatedKeyFrame.actorState = actorState.interpolate(nextKeyframe.actorState, interpolant);
-        interpolatedKeyFrame.actorInstance = actorInstance;
+        interpolatedKeyFrame.actor = actor;
         return interpolatedKeyFrame;
     }
 

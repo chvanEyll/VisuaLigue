@@ -1,7 +1,7 @@
 package ca.ulaval.glo2004.visualigue.domain.sport.playercategory;
 
 import ca.ulaval.glo2004.visualigue.domain.DomainObject;
-import ca.ulaval.glo2004.visualigue.domain.play.actorinstance.TeamSide;
+import ca.ulaval.glo2004.visualigue.domain.play.actor.TeamSide;
 import ca.ulaval.glo2004.visualigue.domain.xmladapters.XmlColorAdapter;
 import javafx.scene.paint.Color;
 import javax.xml.bind.annotation.XmlRootElement;

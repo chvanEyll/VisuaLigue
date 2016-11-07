@@ -1,6 +1,6 @@
 package ca.ulaval.glo2004.visualigue.domain.play.actorstate;
 
-import ca.ulaval.glo2004.visualigue.domain.play.actorinstance.PlayerInstance;
+import ca.ulaval.glo2004.visualigue.domain.play.actor.PlayerActor;
 import ca.ulaval.glo2004.visualigue.domain.play.actorstate.transition.StateTransition;
 import ca.ulaval.glo2004.visualigue.utils.geometry.Vector2;
 import javax.xml.bind.annotation.XmlIDREF;
@@ -8,13 +8,13 @@ import javax.xml.bind.annotation.XmlIDREF;
 public class BallState extends ActorState implements Cloneable {
 
     @XmlIDREF
-    private PlayerInstance owner;
+    private PlayerActor owner;
 
     public BallState() {
         //Required for JAXB instanciation.
     }
 
-    public BallState(Vector2 position, StateTransition positionTransition, PlayerInstance owner) {
+    public BallState(Vector2 position, StateTransition positionTransition, PlayerActor owner) {
         this.position = position;
         this.positionTransition = positionTransition;
         this.owner = owner;
@@ -68,7 +68,7 @@ public class BallState extends ActorState implements Cloneable {
         return interpolatedState;
     }
 
-    public PlayerInstance getOwner() {
+    public PlayerActor getOwner() {
         return owner;
     }
 }
