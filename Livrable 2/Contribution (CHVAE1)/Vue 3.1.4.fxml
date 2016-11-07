@@ -1,0 +1,54 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.ColorPicker?>
+<?import javafx.scene.control.ProgressBar?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.text.Font?>
+<?import javafx.scene.text.Text?>
+<?import javafx.scene.text.TextFlow?>
+
+<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/8.0.65" xmlns:fx="http://javafx.com/fxml/1">
+   <children>
+      <TextFlow layoutX="18.0" layoutY="208.0" prefHeight="130.0" prefWidth="519.0" style="-fx-background-color: #ededed;" />
+      <TextFlow layoutX="-1.0" layoutY="-1.0" prefHeight="55.0" prefWidth="600.0" style="-fx-background-color: #ededed;" />
+      <Text fill="#797171" layoutX="14.0" layoutY="39.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Créer un sport">
+         <font>
+            <Font size="27.0" />
+         </font>
+      </Text>
+      <Text fill="#3aa3c9" layoutX="14.0" layoutY="84.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Informations générales" />
+      <Text fill="#3aa3c9" layoutX="184.0" layoutY="84.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Terrain" />
+      <Text layoutX="253.0" layoutY="84.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Joueurs" />
+      <TextField layoutX="22.0" layoutY="220.0" prefHeight="26.0" prefWidth="338.0" promptText="Nom de la catérogie" />
+      <ProgressBar layoutX="14.0" layoutY="90.0" minHeight="-Infinity" prefHeight="12.0" prefWidth="561.0" progress="0.54" style="-fx-border-color: transparent; -fx-: #FFFFFF;" />
+      <Button layoutX="466.0" layoutY="360.0" mnemonicParsing="false" prefHeight="26.0" prefWidth="116.0" text="Annuler" textFill="#3aa3c9" />
+      <Button layoutX="343.0" layoutY="360.0" mnemonicParsing="false" prefHeight="26.0" prefWidth="116.0" text="Terminer" textFill="#3aa3c9" />
+      <Text fill="#9a8686" layoutX="171.0" layoutY="84.0" strokeType="OUTSIDE" strokeWidth="0.0" text="&gt;" />
+      <Text fill="#9a8686" layoutX="237.0" layoutY="84.0" strokeType="OUTSIDE" strokeWidth="0.0" text="&gt;" />
+      <TextFlow layoutX="11.0" layoutY="105.0" prefHeight="26.0" prefWidth="561.0" style="-fx-background-color: #fcb84b;" />
+      <Text fill="WHITE" layoutX="14.0" layoutY="123.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Catégories de joueurs" />
+      <TextField layoutX="11.0" layoutY="140.0" prefHeight="26.0" prefWidth="299.0" text="Attaquant" />
+      <TextField layoutX="11.0" layoutY="174.0" prefHeight="26.0" prefWidth="299.0" text="Gardien" />
+      <ColorPicker layoutX="312.0" layoutY="140.0" prefHeight="26.0" prefWidth="46.0" />
+      <ColorPicker layoutX="360.0" layoutY="140.0" prefHeight="26.0" prefWidth="46.0" />
+      <ColorPicker layoutX="312.0" layoutY="174.0" prefHeight="26.0" prefWidth="46.0" />
+      <ColorPicker layoutX="360.0" layoutY="174.0" prefHeight="26.0" prefWidth="46.0" />
+      <Button layoutX="408.0" layoutY="140.0" mnemonicParsing="false" prefHeight="26.0" prefWidth="62.0" text="Éditer" textFill="#3aa3c9" />
+      <Button layoutX="408.0" layoutY="174.0" mnemonicParsing="false" prefHeight="26.0" prefWidth="62.0" text="Éditer" textFill="#3aa3c9" />
+      <Button layoutX="472.0" layoutY="140.0" mnemonicParsing="false" prefHeight="26.0" prefWidth="90.0" text="Supprimer" textFill="#3aa3c9" />
+      <Button layoutX="472.0" layoutY="174.0" mnemonicParsing="false" prefHeight="26.0" prefWidth="90.0" text="Supprimer" textFill="#3aa3c9" />
+      <Text fill="#797171" layoutX="22.0" layoutY="270.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Couleur alliée:" />
+      <Text fill="#797171" layoutX="22.0" layoutY="298.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Couleur adverse:" />
+      <Text fill="#797171" layoutX="22.0" layoutY="325.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Nombre de joueurs par défaut:" />
+      <Text fill="#3aa3c9" layoutX="22.0" layoutY="358.0" strokeType="OUTSIDE" strokeWidth="0.0" text="+ Ajouter une catégorie" />
+      <ColorPicker layoutX="145.0" layoutY="252.0" prefHeight="26.0" prefWidth="46.0" />
+      <ColorPicker layoutX="145.0" layoutY="280.0" prefHeight="26.0" prefWidth="46.0" />
+      <TextField layoutX="227.0" layoutY="307.0" prefHeight="26.0" prefWidth="46.0" text="3" />
+      <Button layoutX="271.0" layoutY="307.0" mnemonicParsing="false" style="-fx-background-color: #b2b2b2#b2b2b2;" text="+" textFill="WHITE" />
+      <Button layoutX="298.0" layoutY="307.0" mnemonicParsing="false" prefHeight="26.0" prefWidth="29.0" style="-fx-background-color: #b2b2b2#b2b2b2;" text="-" textFill="WHITE" />
+      <Button layoutX="439.0" layoutY="245.0" mnemonicParsing="false" text="Enregistrer" textFill="#3aa3c9" />
+      <Button layoutX="439.0" layoutY="272.0" mnemonicParsing="false" prefHeight="26.0" prefWidth="90.0" text="Annuler" textFill="#3aa3c9" />
+   </children>
+</AnchorPane>

@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.ProgressBar?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.text.Font?>
+<?import javafx.scene.text.Text?>
+<?import javafx.scene.text.TextFlow?>
+
+<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/8.0.65" xmlns:fx="http://javafx.com/fxml/1">
+   <children>
+      <TextFlow layoutX="1.0" layoutY="2.0" prefHeight="55.0" prefWidth="600.0" style="-fx-background-color: #ededed;" />
+      <Text fill="#797171" layoutX="14.0" layoutY="39.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Créer un sport">
+         <font>
+            <Font size="27.0" />
+         </font>
+      </Text>
+      <Text layoutX="14.0" layoutY="84.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Informations générales" />
+      <Text fill="#3aa3c9" layoutX="184.0" layoutY="84.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Terrain" />
+      <Text fill="#3aa3c9" layoutX="253.0" layoutY="84.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Joueurs" />
+      <TextField layoutX="14.0" layoutY="106.0" prefHeight="26.0" prefWidth="561.0" promptText="Nom du sport" />
+      <ProgressBar layoutX="14.0" layoutY="90.0" minHeight="-Infinity" prefHeight="12.0" prefWidth="561.0" progress="0.3" style="-fx-border-color: transparent; -fx-: #FFFFFF;" />
+      <Button layoutX="466.0" layoutY="139.0" mnemonicParsing="false" prefHeight="26.0" prefWidth="116.0" text="Annuler" textFill="#3aa3c9" />
+      <Button layoutX="343.0" layoutY="139.0" mnemonicParsing="false" prefHeight="26.0" prefWidth="116.0" text="Continuer" textFill="#3aa3c9" />
+      <Text fill="#9a8686" layoutX="171.0" layoutY="84.0" strokeType="OUTSIDE" strokeWidth="0.0" text="&gt;" />
+      <Text fill="#9a8686" layoutX="237.0" layoutY="84.0" strokeType="OUTSIDE" strokeWidth="0.0" text="&gt;" />
+   </children>
+</AnchorPane>
