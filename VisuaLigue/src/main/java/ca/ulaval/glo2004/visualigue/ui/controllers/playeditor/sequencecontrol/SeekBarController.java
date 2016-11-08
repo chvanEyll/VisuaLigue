@@ -176,10 +176,6 @@ public class SeekBarController extends ControllerBase {
         return MathUtils.roundUp(time - (long) (playModel.keyPointInterval.get() * 1.1), playModel.keyPointInterval.get());
     }
 
-    private Long getTimeFromSeekThumbLocation() {
-        return (long) (playModel.timelineLength.get() * (getSeekThumbLocation() / (keyframeHBox.getWidth() - seekBarThumb.getWidth())));
-    }
-
     public void setSeekThumbLocationFromTime(Long time) {
         this.time = time;
         if (!layoutReady) {
@@ -231,12 +227,8 @@ public class SeekBarController extends ControllerBase {
 
     @FXML
     protected void onMouseDragged(MouseEvent e) {
-        setSeekThumbLocationFromMargin(dragStartThumbLocationX + e.getSceneX() - dragStartX);
-        move(getTimeFromSeekThumbLocation());
-    }
-
-    @FXML
-    protected void onMouseReleased(MouseEvent e) {
-        move(getTimeFromSeekThumbLocation());
+        Double newMargin = dragStartThumbLocationX + e.getSceneX() - dragStartX;
+        Long newTime = (long) (playModel.timelineLength.get() * (newMargin / (keyframeHBox.getWidth() - seekBarThumb.getWidth())));
+        move(newTime);
     }
 }

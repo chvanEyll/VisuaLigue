@@ -26,7 +26,7 @@
                         <HBox alignment="CENTER_LEFT">
                             <HBox fx:id="keyframeHBox" spacing="20" alignment="CENTER_LEFT"/>
                         </HBox>
-                        <Button fx:id="seekBarThumb" onMousePressed="#onMousePressed" onMouseDragged="#onMouseDragged" onMouseReleased="#onMouseReleased">
+                        <Button fx:id="seekBarThumb" onMousePressed="#onMousePressed" onMouseDragged="#onMouseDragged">
                             <graphic>
                                 <SvgImage url="/images/seekbar-thumb.fxml" />
                             </graphic>
