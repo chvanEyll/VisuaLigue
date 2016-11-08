@@ -19,7 +19,7 @@ public class BallUpdateCommand extends Command {
     private BallActor ballActor;
     private ActorState oldBallState;
 
-    public BallUpdateCommand(Play play, Integer time, String ballActorUUID, String ownerPlayerActorUUID, Vector2 position, EventHandler<Play> onFrameChanged) {
+    public BallUpdateCommand(Play play, Long time, String ballActorUUID, String ownerPlayerActorUUID, Vector2 position, EventHandler<Play> onFrameChanged) {
         super(play, time);
         this.ballActorUUID = ballActorUUID;
         this.ownerPlayerActorUUID = ownerPlayerActorUUID;

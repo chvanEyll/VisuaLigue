@@ -6,21 +6,21 @@ import ca.ulaval.glo2004.visualigue.ui.models.PlayModel;
 import ca.ulaval.glo2004.visualigue.ui.models.actors.ActorModel;
 import ca.ulaval.glo2004.visualigue.utils.EventHandler;
 import ca.ulaval.glo2004.visualigue.utils.geometry.Vector2;
+import javax.inject.Inject;
 
 public abstract class ActorCreationController extends ControllerBase {
 
     public EventHandler onEnabled = new EventHandler();
     public EventHandler onDisabled = new EventHandler();
-    protected PlayService playService;
+    @Inject protected PlayService playService;
     protected LayerController layerController;
     protected ActorModel actorModel;
     protected PlayModel playModel;
     protected Boolean enabled = false;
 
-    void enable(LayerController layerController, PlayModel playModel, PlayService playService) {
+    void enable(LayerController layerController, PlayModel playModel) {
         this.layerController = layerController;
         this.playModel = playModel;
-        this.playService = playService;
         initCreationLayer(actorModel);
         enabled = true;
         onEnabled.fire(this);

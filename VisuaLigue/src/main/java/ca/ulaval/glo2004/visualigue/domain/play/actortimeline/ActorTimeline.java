@@ -10,25 +10,31 @@ import java.util.TreeMap;
 
 public class ActorTimeline extends DomainObject {
 
-    private final TreeMap<Integer, Keyframe> keyframes = new TreeMap();
+    private final TreeMap<Long, Keyframe> keyframes = new TreeMap();
 
     public ActorTimeline() {
         //Required for JAXB instanciation.
     }
 
-    public ActorState mergeKeyframe(Integer time, Actor actor, ActorState actorState) {
+    public ActorState mergeKeyframe(Long time, Actor actor, ActorState actorState, Long keyPointInterval) {
         Keyframe keyframe;
         if (keyframes.containsKey(time)) {
             keyframe = keyframes.get(time);
-
+            return keyframe.mergeActorState(actorState);
         } else {
-            keyframe = new Keyframe(time, actor, actorState);
+            Keyframe previousKeypoint = getKeyframe(time - keyPointInterval);
+            if (previousKeypoint != null) {
+                keyframe = new Keyframe(time, actor, previousKeypoint.getActorState().clone());
+                keyframe.mergeActorState(actorState);
+            } else {
+                keyframe = new Keyframe(time, actor, actorState);
+            }
             keyframes.put(time, keyframe);
+            return null;
         }
-        return keyframe.mergeActorState(actorState);
     }
 
-    public void unmergeKeyframe(Integer time, Actor actor, ActorState oldState) {
+    public void unmergeKeyframe(Long time, Actor actor, ActorState oldState) {
         Keyframe keyframe = keyframes.get(time);
         if (oldState != null) {
             keyframe.unmergeActorState(actor, oldState);
@@ -37,20 +43,24 @@ public class ActorTimeline extends DomainObject {
         }
     }
 
-    public Integer getLength() {
-        Optional<Integer> maxTime = keyframes.keySet().stream().max((k1, k2) -> {
+    public Long getLength() {
+        Optional<Long> maxTime = keyframes.keySet().stream().max((k1, k2) -> {
             return k1.compareTo(k2);
         });
         if (maxTime.isPresent()) {
             return maxTime.get();
         } else {
-            return 0;
+            return 0L;
         }
     }
 
-    public Keyframe getKeyframe(Integer time) {
-        Map.Entry<Integer, Keyframe> floorKeyframeEntry = keyframes.floorEntry(time);
-        Map.Entry<Integer, Keyframe> ceilingKeyframeEntry = keyframes.ceilingEntry(time);
+    public Boolean isEmpty() {
+        return keyframes.isEmpty();
+    }
+
+    public Keyframe getKeyframe(Long time) {
+        Map.Entry<Long, Keyframe> floorKeyframeEntry = keyframes.floorEntry(time);
+        Map.Entry<Long, Keyframe> ceilingKeyframeEntry = keyframes.ceilingEntry(time);
         if (floorKeyframeEntry != null && ceilingKeyframeEntry == null) {
             return floorKeyframeEntry.getValue();
         } else if (floorKeyframeEntry != null && (floorKeyframeEntry.getValue() == ceilingKeyframeEntry.getValue())) {
@@ -64,8 +74,8 @@ public class ActorTimeline extends DomainObject {
         }
     }
 
-    public Keyframe getNextKeyframe(Integer time) {
-        Map.Entry<Integer, Keyframe> ceilingKeyframeEntry = keyframes.higherEntry(time);
+    public Keyframe getNextKeyframe(Long time) {
+        Map.Entry<Long, Keyframe> ceilingKeyframeEntry = keyframes.higherEntry(time);
         if (ceilingKeyframeEntry == null) {
             return null;
         } else {

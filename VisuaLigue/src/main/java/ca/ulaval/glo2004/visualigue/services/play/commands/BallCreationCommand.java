@@ -16,7 +16,7 @@ public class BallCreationCommand extends Command {
 
     private BallActor ballActor;
 
-    public BallCreationCommand(Play play, Integer time, String ownerPlayerActorUUID, Vector2 position, EventHandler<Play> onFrameChanged) {
+    public BallCreationCommand(Play play, Long time, String ownerPlayerActorUUID, Vector2 position, EventHandler<Play> onFrameChanged) {
         super(play, time);
         this.ownerPlayerActorUUID = ownerPlayerActorUUID;
         this.position = position;

@@ -16,7 +16,7 @@ public class PlayerOrientationUpdateCommand extends Command {
     private PlayerActor playerActor;
     private ActorState oldPlayerState;
 
-    public PlayerOrientationUpdateCommand(Play play, Integer time, String ownerPlayerActorUUID, Double orientation, EventHandler<Play> onFrameChanged) {
+    public PlayerOrientationUpdateCommand(Play play, Long time, String ownerPlayerActorUUID, Double orientation, EventHandler<Play> onFrameChanged) {
         super(play, time);
         this.ownerPlayerActorUUID = ownerPlayerActorUUID;
         this.orientation = orientation;

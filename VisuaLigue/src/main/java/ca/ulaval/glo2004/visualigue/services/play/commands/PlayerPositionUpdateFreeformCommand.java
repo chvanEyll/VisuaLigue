@@ -18,7 +18,7 @@ public class PlayerPositionUpdateFreeformCommand extends Command {
     private PlayerActor playerActor;
     private ActorState oldPlayerState;
 
-    public PlayerPositionUpdateFreeformCommand(Play play, Integer time, String playerActorUUID, List<Vector2> positions, EventHandler<Play> onFrameChanged) {
+    public PlayerPositionUpdateFreeformCommand(Play play, Long time, String playerActorUUID, List<Vector2> positions, EventHandler<Play> onFrameChanged) {
         super(play, time);
         this.playerActorUUID = playerActorUUID;
         this.positions = positions;

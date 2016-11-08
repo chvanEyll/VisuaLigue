@@ -200,6 +200,24 @@
                 <Label fx:id="remainingTimeLabel" />
             </HBox>
         </HBox>
-        <fx:include fx:id="seekBar" source="/views/playeditor/sequencecontrol/seekbar.fxml" />
+        <HBox>
+            <children>
+                <fx:include fx:id="seekBar" source="/views/playeditor/sequencecontrol/seekbar.fxml" />
+                <Button fx:id="newFrameButton" onAction="#onNewKeyPointButtonAction">
+                    <graphic>
+                        <SvgImage url="/images/new-frame-icon.fxml" />
+                    </graphic>
+                    <styleClass>
+                        <String fx:value="icon-button" />
+                    </styleClass>
+                    <tooltip>
+                        <Tooltip text="Nouvelle image" />
+                    </tooltip>
+                    <HBox.margin>
+                        <Insets left="14.0" top="12.0" />
+                    </HBox.margin>
+                </Button>
+            </children>
+        </HBox>
     </children>
 </VBox>

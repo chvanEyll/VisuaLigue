@@ -21,7 +21,8 @@ public class Animator<T> {
     private final Consumer method;
     private T startValue;
     private T endValue;
-    private Duration duration;
+    private Long duration;
+    private Long delay;
     private EasingFunction easingFunction;
     private Object groupKey;
     private Boolean isFirstOfGroup;
@@ -31,11 +32,12 @@ public class Animator<T> {
     private Transition transition;
     private BiConsumer<Animator, T> onFrameConsumer;
 
-    public Animator(Consumer method, T startValue, T endValue, Duration duration, EasingFunction easingFunction, Object groupKey, Boolean firstOfGroup, Boolean lastOfGroup, BiConsumer<Animator, T> onFrameConsumer) {
+    public Animator(Consumer method, T startValue, T endValue, Long duration, Long delay, EasingFunction easingFunction, Object groupKey, Boolean firstOfGroup, Boolean lastOfGroup, BiConsumer<Animator, T> onFrameConsumer) {
         this.method = method;
         this.startValue = startValue;
         this.endValue = endValue;
         this.duration = duration;
+        this.delay = delay;
         this.easingFunction = easingFunction;
         this.groupKey = groupKey;
         this.isFirstOfGroup = firstOfGroup;
@@ -44,8 +46,8 @@ public class Animator<T> {
     }
 
     public void animate() {
-        if (endValue instanceof Integer) {
-            transition = new IntegerValueTransition(easingFunction);
+        if (endValue instanceof Long) {
+            transition = new LongValueTransition(easingFunction);
         } else if (endValue instanceof Double) {
             transition = new DoubleValueTransition(easingFunction);
         } else if (endValue instanceof Rectangle) {
@@ -69,7 +71,7 @@ public class Animator<T> {
         synchronized (ANIMATION_SYNCHRONIZE_LOCK) {
             runningAnimators.add(this);
         }
-        timer.schedule(timerTask, ANIMATION_PERIOD, ANIMATION_PERIOD);
+        timer.schedule(timerTask, delay, ANIMATION_PERIOD);
     }
 
     private static void stopAnimationsOfGroup(Object groupKey) {
@@ -93,12 +95,12 @@ public class Animator<T> {
 
     private void animateFrame() {
         T value;
-        Duration elapsedTime = Duration.between(animationStartTime, LocalDateTime.now());
-        if (startValue == null || elapsedTime.toMillis() > duration.toMillis()) {
+        Long elapsedTime = Duration.between(animationStartTime, LocalDateTime.now()).toMillis();
+        if (startValue == null || elapsedTime > duration + delay) {
             cancel();
             value = endValue;
         } else {
-            value = (T) transition.animate(startValue, endValue, elapsedTime, duration);
+            value = (T) transition.animate(startValue, endValue, elapsedTime - delay, duration);
         }
         Platform.runLater(() -> {
             method.accept(value);

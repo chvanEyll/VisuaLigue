@@ -7,7 +7,7 @@ public class AddKeyPointCommand extends Command {
 
     private EventHandler<Play> onPlayUpdated = new EventHandler();
 
-    public AddKeyPointCommand(Play play, Integer time, EventHandler<Play> onPlayUpdated) {
+    public AddKeyPointCommand(Play play, Long time, EventHandler<Play> onPlayUpdated) {
         super(play, time);
         this.onPlayUpdated = onPlayUpdated;
     }

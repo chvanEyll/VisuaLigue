@@ -39,8 +39,9 @@ public class PlayEditorController extends ControllerBase {
     private PlayModel playModel;
     private BiConsumer<Object, Play> onPlayUpdated = this::onPlayUpdated;
 
-    public void init(PlayModel playModel) throws PlayNotFoundException {
-        this.playModel = playModel;
+    public void init(String playUUID) throws PlayNotFoundException {
+        Play play = playService.getPlay(playUUID);
+        this.playModel = playModelConverter.convert(play);
         sceneController.init(playModel);
         actorPaneController.init(playModel, sceneController);
         sequencePaneController.init(playModel, sceneController);

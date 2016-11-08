@@ -27,4 +27,6 @@ public abstract class ActorState extends DomainObject {
 
     public abstract ActorState interpolate(ActorState nextState, Double interpolant);
 
+    public abstract ActorState clone();
+
 }

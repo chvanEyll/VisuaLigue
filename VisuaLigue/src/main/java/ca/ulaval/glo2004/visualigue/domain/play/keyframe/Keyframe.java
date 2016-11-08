@@ -7,7 +7,7 @@ import javax.xml.bind.annotation.XmlIDREF;
 
 public class Keyframe extends DomainObject {
 
-    private Integer time;
+    private Long time;
     @XmlIDREF
     private Actor actor;
     private ActorState actorState;
@@ -16,13 +16,13 @@ public class Keyframe extends DomainObject {
         //Required for JAXB instanciation.
     }
 
-    public Keyframe(Integer time, Actor actor, ActorState actorState) {
+    public Keyframe(Long time, Actor actor, ActorState actorState) {
         this.time = time;
         this.actor = actor;
         this.actorState = actorState;
     }
 
-    public Integer getTime() {
+    public Long getTime() {
         return time;
     }
 
@@ -35,7 +35,7 @@ public class Keyframe extends DomainObject {
     }
 
     public ActorState mergeActorState(ActorState actorState) {
-        return actorState.merge(actorState);
+        return this.actorState.merge(actorState);
     }
 
     public void unmergeActorState(Actor actor, ActorState actorState) {

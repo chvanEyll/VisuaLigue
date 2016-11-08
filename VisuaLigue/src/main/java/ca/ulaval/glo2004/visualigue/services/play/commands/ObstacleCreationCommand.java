@@ -18,7 +18,7 @@ public class ObstacleCreationCommand extends Command {
 
     private ObstacleActor obstacleActor;
 
-    public ObstacleCreationCommand(Play play, Integer time, String obstacleActorUUID, Vector2 position, ObstacleRepository obstacleRepository, EventHandler<Play> onFrameChanged) {
+    public ObstacleCreationCommand(Play play, Long time, String obstacleActorUUID, Vector2 position, ObstacleRepository obstacleRepository, EventHandler<Play> onFrameChanged) {
         super(play, time);
         this.obstacleActorUUID = obstacleActorUUID;
         this.position = position;

@@ -15,52 +15,35 @@
 <?import ca.ulaval.glo2004.visualigue.ui.controllers.common.SvgImage?>
 <?import ca.ulaval.glo2004.visualigue.ui.controllers.common.ExtendedScrollPane?>
 
-<HBox fx:id="rootNode" styleClass="root-node" xmlns="http://javafx.com/javafx/8.0.60" xmlns:fx="http://javafx.com/fxml/1" fx:controller="ca.ulaval.glo2004.visualigue.ui.controllers.playeditor.sequencecontrol.SeekBarController">
-    <children>
-        <ExtendedScrollPane fx:id="keyframeScrollPane" fitToHeight="true" fitToWidth="true" hbarPolicy="AS_NEEDED" pannable="true" style="-fx-background: transparent;" vbarPolicy="NEVER" HBox.hgrow="ALWAYS">
-            <content>
-                <StackPane alignment="CENTER_LEFT">
-                    <children>
-                        <Pane maxHeight="5.0" prefHeight="5.0" styleClass="bar"/>
+
+<ExtendedScrollPane fx:id="rootNode" fitToHeight="true" fitToWidth="true" hbarPolicy="AS_NEEDED" pannable="true" style="-fx-background: transparent;" vbarPolicy="NEVER" HBox.hgrow="ALWAYS" styleClass="root-node" xmlns="http://javafx.com/javafx/8.0.60" xmlns:fx="http://javafx.com/fxml/1" fx:controller="ca.ulaval.glo2004.visualigue.ui.controllers.playeditor.sequencecontrol.SeekBarController">
+    <content>
+        <StackPane alignment="CENTER_LEFT">
+            <children>
+                <Pane maxHeight="5.0" prefHeight="5.0" styleClass="bar"/>
+                <HBox alignment="CENTER_LEFT">
+                    <StackPane alignment="CENTER_LEFT">
                         <HBox alignment="CENTER_LEFT">
-                            <StackPane alignment="CENTER_LEFT">
-                                <HBox alignment="CENTER_LEFT">
-                                    <HBox fx:id="keyframeHBox" spacing="20" alignment="CENTER_LEFT"/>
-                                </HBox>
-                                <Button fx:id="seekBarThumb" onMousePressed="#onMousePressed" onMouseDragged="#onMouseDragged" onMouseReleased="#onMouseReleased">
-                                    <graphic>
-                                        <SvgImage url="/images/seekbar-thumb.fxml" />
-                                    </graphic>
-                                    <styleClass>
-                                        <String fx:value="icon-button" />
-                                    </styleClass>
-                                </Button>
-                            </StackPane>
+                            <HBox fx:id="keyframeHBox" spacing="20" alignment="CENTER_LEFT"/>
                         </HBox>
-                    </children>
-                    <padding>
-                        <Insets bottom="10.0" top="10.0" />
-                    </padding>
-                </StackPane>
-            </content>
-            <styleClass>
-                <String fx:value="edge-to-edge" />
-                <String fx:value="seekbar" />
-            </styleClass>
-        </ExtendedScrollPane>
-        <Button fx:id="newFrameButton" onAction="#onNewKeyPointButtonAction">
-            <graphic>
-                <SvgImage url="/images/new-frame-icon.fxml" />
-            </graphic>
-            <styleClass>
-                <String fx:value="icon-button" />
-            </styleClass>
-            <tooltip>
-                <Tooltip text="Nouvelle image" />
-            </tooltip>
-            <HBox.margin>
-                <Insets left="14.0" top="12.0" />
-            </HBox.margin>
-        </Button>
-    </children>
-</HBox>
+                        <Button fx:id="seekBarThumb" onMousePressed="#onMousePressed" onMouseDragged="#onMouseDragged" onMouseReleased="#onMouseReleased">
+                            <graphic>
+                                <SvgImage url="/images/seekbar-thumb.fxml" />
+                            </graphic>
+                            <styleClass>
+                                <String fx:value="icon-button" />
+                            </styleClass>
+                        </Button>
+                    </StackPane>
+                </HBox>
+            </children>
+            <padding>
+                <Insets bottom="10.0" top="10.0" />
+            </padding>
+        </StackPane>
+    </content>
+    <styleClass>
+        <String fx:value="edge-to-edge" />
+        <String fx:value="seekbar" />
+    </styleClass>
+</ExtendedScrollPane>

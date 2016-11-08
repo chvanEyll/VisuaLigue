@@ -29,6 +29,11 @@ public class Vector2 implements Cloneable {
         this.y = point2d.getY();
     }
 
+    public Vector2(Vector2 vector2) {
+        this.x = vector2.x;
+        this.y = vector2.y;
+    }
+
     public static Vector2 fromCenter(Double center, Double size) {
         return new Vector2(center - size / 2, 0);
     }

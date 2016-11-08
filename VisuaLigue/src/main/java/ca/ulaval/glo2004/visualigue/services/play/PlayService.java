@@ -34,8 +34,8 @@ public class PlayService {
     public EventHandler<Play> onPlayDeleted = new EventHandler();
     public EventHandler<Play> onDirtyFlagChanged = new EventHandler();
     public EventHandler<Play> onFrameChanged = new EventHandler();
-    public EventHandler<Integer> onUndo = new EventHandler();
-    public EventHandler<Integer> onRedo = new EventHandler();
+    public EventHandler<Long> onUndo = new EventHandler();
+    public EventHandler<Long> onRedo = new EventHandler();
     public EventHandler<Boolean> onUndoAvailabilityChanged = new EventHandler();
     public EventHandler<Boolean> onRedoAvailabilityChanged = new EventHandler();
     public EventHandler onNewCommandExecute = new EventHandler();
@@ -81,47 +81,47 @@ public class PlayService {
 
     public void addPlayerActor(String playUUID, String playerCategoryUUID, TeamSide teamSide, Double orientation, Vector2 position) {
         Play play = playRepository.get(playUUID);
-        PlayerCreationCommand command = new PlayerCreationCommand(play, 0, playerCategoryUUID, teamSide, orientation, position, playerCategoryRepository, onFrameChanged);
+        PlayerCreationCommand command = new PlayerCreationCommand(play, 0L, playerCategoryUUID, teamSide, orientation, position, playerCategoryRepository, onFrameChanged);
         executeNewCommand(playUUID, command);
     }
 
-    public void updatePlayerActorPositionDirect(String playUUID, Integer time, String playerActorUUID, Vector2 position) {
+    public void updatePlayerActorPositionDirect(String playUUID, Long time, String playerActorUUID, Vector2 position) {
         Play play = playRepository.get(playUUID);
         PlayerPositionUpdateDirectCommand command = new PlayerPositionUpdateDirectCommand(play, time, playerActorUUID, position, onFrameChanged);
         executeNewCommand(playUUID, command);
     }
 
-    public void updatePlayerActorPositionFreeform(String playUUID, Integer time, String playerActorUUID, List<Vector2> positions) {
+    public void updatePlayerActorPositionFreeform(String playUUID, Long time, String playerActorUUID, List<Vector2> positions) {
         Play play = playRepository.get(playUUID);
         PlayerPositionUpdateFreeformCommand command = new PlayerPositionUpdateFreeformCommand(play, time, playerActorUUID, positions, onFrameChanged);
         executeNewCommand(playUUID, command);
     }
 
-    public void updatePlayerActorOrientation(String playUUID, Integer time, String ownerPlayerActorUUID, Double orientation) {
+    public void updatePlayerActorOrientation(String playUUID, Long time, String ownerPlayerActorUUID, Double orientation) {
         Play play = playRepository.get(playUUID);
         PlayerOrientationUpdateCommand command = new PlayerOrientationUpdateCommand(play, time, ownerPlayerActorUUID, orientation, onFrameChanged);
         executeNewCommand(playUUID, command);
     }
 
-    public void addObstacleActor(String playUUID, Integer time, String obstacleActorUUID, Vector2 position) {
+    public void addObstacleActor(String playUUID, Long time, String obstacleActorUUID, Vector2 position) {
         Play play = playRepository.get(playUUID);
         ObstacleCreationCommand command = new ObstacleCreationCommand(play, time, obstacleActorUUID, position, obstacleRepository, onFrameChanged);
         executeNewCommand(playUUID, command);
     }
 
-    public void addBallActor(String playUUID, Integer time, String ownerPlayerActorUUID, Vector2 position) {
+    public void addBallActor(String playUUID, Long time, String ownerPlayerActorUUID, Vector2 position) {
         Play play = playRepository.get(playUUID);
         BallCreationCommand command = new BallCreationCommand(play, time, ownerPlayerActorUUID, position, onFrameChanged);
         executeNewCommand(playUUID, command);
     }
 
-    public void updateBallActor(String playUUID, Integer time, String ballActorUUID, String ownerPlayerActorUUID, Vector2 position) {
+    public void updateBallActor(String playUUID, Long time, String ballActorUUID, String ownerPlayerActorUUID, Vector2 position) {
         Play play = playRepository.get(playUUID);
         BallUpdateCommand command = new BallUpdateCommand(play, time, ballActorUUID, ownerPlayerActorUUID, position, onFrameChanged);
         executeNewCommand(playUUID, command);
     }
 
-    public void addKeypoint(String playUUID, Integer time) {
+    public void addKeypoint(String playUUID, Long time) {
         Play play = playRepository.get(playUUID);
         AddKeyPointCommand command = new AddKeyPointCommand(play, time, onPlayUpdated);
         executeNewCommand(playUUID, command);
@@ -140,7 +140,7 @@ public class PlayService {
         onPlayUpdated.fire(this, revertedPlay);
     }
 
-    public Frame getFrame(String playUUID, Integer time) throws PlayNotFoundException {
+    public Frame getFrame(String playUUID, Long time) throws PlayNotFoundException {
         Play play = playRepository.get(playUUID);
         return play.getFrame(time);
     }

@@ -20,7 +20,7 @@ public class Rect {
         return new Rect(location, size);
     }
 
-    public Vector2 center() {
+    public Vector2 getCenter() {
         return new Vector2(location.getX() + size.getX() / 2.0, location.getY() + size.getY() / 2.0);
     }
 
@@ -28,9 +28,50 @@ public class Rect {
         return location;
     }
 
+    public Double getX() {
+        return location.getX();
+    }
+
+    public Double getY() {
+        return location.getY();
+    }
+
+    public Double getRight() {
+        return location.getX() + size.getWidth();
+    }
+
+    public Double getBottom() {
+        return location.getY() + size.getHeight();
+    }
+
+    public Double getWidth() {
+        return size.getWidth();
+    }
+
+    public Double getHeight() {
+        return size.getHeight();
+    }
+
     public Boolean contains(Vector2 point) {
         return point.getX() >= location.getX() && point.getY() >= location.getY()
                 && point.getX() <= location.getX() + size.getX() && point.getY() <= location.getY() + size.getY();
+    }
+
+    public Vector2 contain(Vector2 point) {
+        Vector2 containedPoint = new Vector2(point);
+        if (point.getX() < this.getX()) {
+            containedPoint.setX(this.getX());
+        }
+        if (point.getY() < this.getY()) {
+            containedPoint.setY(this.getY());
+        }
+        if (point.getX() > this.getRight()) {
+            containedPoint.setX(this.getRight());
+        }
+        if (point.getY() > this.getBottom()) {
+            containedPoint.setY(this.getBottom());
+        }
+        return containedPoint;
     }
 
     @Override

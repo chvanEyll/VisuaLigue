@@ -9,6 +9,7 @@ import javafx.beans.property.StringProperty;
 
 public class ActorModel extends ModelBase {
 
+    public StringProperty viewName = new SimpleStringProperty();
     public ObjectProperty<Vector2> position = new SimpleObjectProperty();
     public StringProperty hoverText = new SimpleStringProperty();
 

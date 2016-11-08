@@ -8,8 +8,7 @@ import ca.ulaval.glo2004.visualigue.utils.geometry.Vector2;
 import java.util.Arrays;
 import java.util.NavigableSet;
 import java.util.TreeSet;
-import javafx.beans.property.BooleanProperty;
-import javafx.beans.property.SimpleBooleanProperty;
+import javax.inject.Inject;
 
 public abstract class SceneController extends ControllerBase {
 
@@ -27,14 +26,11 @@ public abstract class SceneController extends ControllerBase {
     public EventHandler onFrameByFrameCreationModeEntered = new EventHandler();
 
     protected PlayModel playModel;
-    protected BooleanProperty showActorLabelsProperty = new SimpleBooleanProperty(false);
-    protected BooleanProperty showMovementArrowsProperty = new SimpleBooleanProperty(true);
-    protected BooleanProperty resizeActorsOnZoomProperty = new SimpleBooleanProperty(true);
-    protected BooleanProperty realTimeModeProperty = new SimpleBooleanProperty(false);
+    @Inject public Settings settings;
 
     public abstract void init(PlayModel playModel);
 
-    public abstract void update(Integer time);
+    public abstract void update(Long time);
 
     public abstract void enterCreationMode(ActorCreationController actorCreationController);
 
@@ -59,17 +55,5 @@ public abstract class SceneController extends ControllerBase {
     public abstract void zoomOut();
 
     public abstract void autoFit();
-
-    public abstract Boolean isActorLabelDisplayEnabled();
-
-    public abstract void setActorLabelDisplay(Boolean showLabels);
-
-    public abstract Boolean isMovementArrowDisplayEnabled();
-
-    public abstract void setMovementArrowDisplay(Boolean showMovementArrows);
-
-    public abstract Boolean isResizeActorsOnZoomEnabled();
-
-    public abstract void setResizeActorsOnZoom(Boolean resizeActorsOnZoom);
 
 }

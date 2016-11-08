@@ -30,8 +30,8 @@ public class Play extends DomainObject {
     private String thumbnailImageUUID;
     @XmlJavaTypeAdapter(XmlSportRefAdapter.class)
     private Sport sport;
-    private Integer timelineLength = 0;
-    private Integer keyPointInterval = 1000;
+    private Long timelineLength = 0L;
+    private Long keyPointInterval = 1000L;
     @XmlTransient
     protected Boolean isDirty = false;
     private final TreeMap<Actor, ActorTimeline> actorTimelines = new TreeMap();
@@ -93,7 +93,7 @@ public class Play extends DomainObject {
     }
 
     public Integer getNumberOfKeyPoints() {
-        return (MathUtils.roundUp(timelineLength, keyPointInterval) / keyPointInterval) + 1;
+        return (int) (MathUtils.roundUp(timelineLength, keyPointInterval) / keyPointInterval) + 1;
     }
 
     public void addKeyPoint() {
@@ -104,15 +104,15 @@ public class Play extends DomainObject {
         this.timelineLength = timelineLength - keyPointInterval;
     }
 
-    public Integer getTimelineLength() {
+    public Long getTimelineLength() {
         return this.timelineLength;
     }
 
-    public Integer getKeyPointInterval() {
+    public Long getKeyPointInterval() {
         return keyPointInterval;
     }
 
-    public ActorState mergeKeyframe(Integer time, Actor actor, ActorState actorState) {
+    public ActorState mergeKeyframe(Long time, Actor actor, ActorState actorState) {
         ActorTimeline timeline;
         if (actorTimelines.containsKey(actor)) {
             timeline = actorTimelines.get(actor);
@@ -121,28 +121,27 @@ public class Play extends DomainObject {
             actorTimelines.put(actor, timeline);
         }
         timelineLength = Math.max(time, timelineLength);
-        return timeline.mergeKeyframe(time, actor, actorState);
+        return timeline.mergeKeyframe(time, actor, actorState, keyPointInterval);
     }
 
-    public void unmergeKeyframe(Integer time, Actor actor, ActorState oldState) {
+    public void unmergeKeyframe(Long time, Actor actor, ActorState oldState) {
         ActorTimeline actorTimeline = actorTimelines.get(actor);
-        if (oldState != null) {
-            actorTimeline.unmergeKeyframe(time, actor, oldState);
-        } else {
+        actorTimeline.unmergeKeyframe(time, actor, oldState);
+        if (actorTimeline.isEmpty()) {
             actorTimelines.remove(actor);
         }
     }
 
-    public Integer getLength() {
+    public Long getLength() {
         Optional<ActorTimeline> longestTimeline = actorTimelines.values().stream().max((t1, t2) -> t1.getLength().compareTo(t2.getLength()));
         if (longestTimeline.isPresent()) {
             return longestTimeline.get().getLength();
         } else {
-            return 0;
+            return 0L;
         }
     }
 
-    public Frame getFrame(Integer time) {
+    public Frame getFrame(Long time) {
         Frame frame = new Frame(time);
         actorTimelines.entrySet().stream().forEach(e -> {
             Actor actor = e.getKey();

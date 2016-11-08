@@ -5,9 +5,9 @@ import ca.ulaval.glo2004.visualigue.domain.play.Play;
 public abstract class Command {
 
     protected Play play;
-    protected Integer time;
+    protected Long time;
 
-    public Command(Play play, Integer time) {
+    public Command(Play play, Long time) {
         this.play = play;
         this.time = time;
     }
@@ -16,7 +16,7 @@ public abstract class Command {
 
     public abstract void revert();
 
-    public Integer getTime() {
+    public Long getTime() {
         return time;
     }
 }

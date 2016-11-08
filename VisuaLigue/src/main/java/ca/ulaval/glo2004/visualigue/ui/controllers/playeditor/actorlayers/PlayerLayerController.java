@@ -12,6 +12,7 @@ import javafx.beans.value.ChangeListener;
 import javafx.beans.value.ObservableValue;
 import javafx.fxml.FXML;
 import javafx.scene.input.MouseEvent;
+import javax.inject.Inject;
 
 public class PlayerLayerController extends ActorLayerController {
 
@@ -20,6 +21,7 @@ public class PlayerLayerController extends ActorLayerController {
     public static final Double BASE_BUTTON_SCALING = 1.25;
     public static final Double ARROW_HEAD_SIZE = 15.0;
     public static final Double ARROW_STROKE_DASH_ARRAY_SIZE = 10.0;
+    @Inject PlayerPositionModificationController playerPositionModificationController;
     private PlayerActorModel playerActorModel;
     private ChangeListener<Object> onChange = this::onChange;
     @FXML private PlayerIcon playerIcon;
@@ -29,6 +31,7 @@ public class PlayerLayerController extends ActorLayerController {
     @Override
     public void init(ActorModel actorModel) {
         this.playerActorModel = (PlayerActorModel) actorModel;
+        playerPositionModificationController.init(playerActorModel, playingSurfaceLayerController, playModel, frameModel);
         label.textProperty().bind(playerActorModel.label);
         addListeners();
         update();
@@ -39,9 +42,9 @@ public class PlayerLayerController extends ActorLayerController {
         playerActorModel.nextPosition.addListener(onChange);
         playerActorModel.orientation.addListener(onChange);
         playerActorModel.label.addListener(onChange);
-        showActorLabelsProperty.addListener(onChange);
-        showMovementArrowsProperty.addListener(onChange);
-        resizeActorsOnZoomProperty.addListener(onChange);
+        settings.showActorLabelsProperty.addListener(onChange);
+        settings.showMovementArrowsProperty.addListener(onChange);
+        settings.resizeActorsOnZoomProperty.addListener(onChange);
         zoomProperty.addListener(onChange);
         actorButton.layoutReadyProperty().addListener(this::onChange);
         label.layoutReadyProperty().addListener(this::onChange);
@@ -49,9 +52,9 @@ public class PlayerLayerController extends ActorLayerController {
 
     @Override
     public void clean() {
-        showActorLabelsProperty.removeListener(onChange);
-        showMovementArrowsProperty.removeListener(onChange);
-        resizeActorsOnZoomProperty.removeListener(onChange);
+        settings.showActorLabelsProperty.removeListener(onChange);
+        settings.showMovementArrowsProperty.removeListener(onChange);
+        settings.resizeActorsOnZoomProperty.removeListener(onChange);
         zoomProperty.removeListener(onChange);
     }
 
@@ -93,7 +96,7 @@ public class PlayerLayerController extends ActorLayerController {
     }
 
     private void updateArrow(Vector2 currentActorPosition, Vector2 nextActorPosition) {
-        if (showMovementArrowsProperty.get() == true && nextActorPosition != null) {
+        if (settings.showMovementArrowsProperty.get() == true && nextActorPosition != null) {
             arrow.setStroke(playerActorModel.color.get());
             arrow.setStrokeWidth(getScaledValue(3.0));
             arrow.getStrokeDashArray().setAll(getScaledValue(ARROW_STROKE_DASH_ARRAY_SIZE));
@@ -103,7 +106,7 @@ public class PlayerLayerController extends ActorLayerController {
             arrow.setHeadLocation(nextActorPosition);
             arrow.setTailLocation(currentActorPosition);
         }
-        arrow.setVisible(showMovementArrowsProperty.get() == true && nextActorPosition != null);
+        arrow.setVisible(settings.showMovementArrowsProperty.get() == true && nextActorPosition != null);
     }
 
     private void updateLabel(Vector2 actorPosition) {
@@ -113,22 +116,17 @@ public class PlayerLayerController extends ActorLayerController {
             label.setLayoutX(actorPosition.getX() - label.getWidth() / 2);
             label.setLayoutY(actorPosition.getY() - label.getHeight() / 2 - getScaledValue(LABEL_OFFSET_Y));
         }
-        label.setVisible(actorPosition != null && showActorLabelsProperty.get());
-    }
-
-    @FXML
-    protected void onMousePressed(MouseEvent e) {
-
+        label.setVisible(actorPosition != null && settings.showActorLabelsProperty.get());
     }
 
     @FXML
     protected void onMouseDragged(MouseEvent e) {
-        playerActorModel.position.set(playingSurfaceLayerController.getSizeRelativeMousePosition());
+        playerPositionModificationController.onMouseDragged(e);
     }
 
     @FXML
     protected void onMouseReleased(MouseEvent e) {
-
+        playerPositionModificationController.onMouseReleased(e);
     }
 
 }

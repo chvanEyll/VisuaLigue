@@ -37,14 +37,14 @@ public class BallLayerController extends ActorLayerController {
 
     private void addListeners() {
         ballActorModel.position.addListener(onChange);
-        resizeActorsOnZoomProperty.addListener(onChange);
+        settings.resizeActorsOnZoomProperty.addListener(onChange);
         zoomProperty.addListener(onChange);
         actorButton.layoutReadyProperty().addListener(onChange);
     }
 
     @Override
     public void clean() {
-        resizeActorsOnZoomProperty.removeListener(onChange);
+        settings.resizeActorsOnZoomProperty.removeListener(onChange);
         zoomProperty.removeListener(onChange);
     }
 

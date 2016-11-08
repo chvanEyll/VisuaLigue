@@ -4,6 +4,7 @@ import ca.ulaval.glo2004.visualigue.ui.controllers.ControllerBase;
 import ca.ulaval.glo2004.visualigue.ui.controllers.playeditor.scene.Zoom;
 import ca.ulaval.glo2004.visualigue.ui.models.PlayModel;
 import ca.ulaval.glo2004.visualigue.utils.FilenameUtils;
+import ca.ulaval.glo2004.visualigue.utils.geometry.Rect;
 import ca.ulaval.glo2004.visualigue.utils.geometry.Vector2;
 import ca.ulaval.glo2004.visualigue.utils.javafx.FXUtils;
 import javafx.fxml.FXML;
@@ -62,13 +63,14 @@ public class PlayingSurfaceLayerController extends ControllerBase {
         return new Vector2(rootNode.getFitWidth(), rootNode.getFitHeight());
     }
 
-    public Vector2 getSizeRelativeMousePosition() {
+    public Vector2 getSizeRelativeMousePosition(Boolean contain) {
         Vector2 mousePosition = FXUtils.mouseToNodePoint(rootNode);
-        return mousePosition.divide(getSurfaceSize());
+        Vector2 relativeMousePosition = mousePosition.divide(getSurfaceSize());
+        return new Rect(0.0, 0.0, 1.0, 1.0).contain(relativeMousePosition);
     }
 
     public Vector2 getRealWorldMousePosition() {
-        Vector2 sizeRelativeMousePosition = getSizeRelativeMousePosition();
+        Vector2 sizeRelativeMousePosition = getSizeRelativeMousePosition(false);
         return sizeRelativeMousePosition.multiply(new Vector2(playModel.playingSurfaceWidth.get(), playModel.playingSurfaceLength.get()));
     }
 

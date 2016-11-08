@@ -2,7 +2,6 @@ package ca.ulaval.glo2004.visualigue.ui.controllers.playeditor.scene.scene2d;
 
 import ca.ulaval.glo2004.visualigue.domain.play.Play;
 import ca.ulaval.glo2004.visualigue.services.play.PlayService;
-import ca.ulaval.glo2004.visualigue.services.settings.SettingsService;
 import ca.ulaval.glo2004.visualigue.ui.InjectableFXMLLoader;
 import ca.ulaval.glo2004.visualigue.ui.KeyboardShortcutMapper;
 import ca.ulaval.glo2004.visualigue.ui.View;
@@ -15,6 +14,8 @@ import ca.ulaval.glo2004.visualigue.ui.models.FrameModel;
 import ca.ulaval.glo2004.visualigue.ui.models.PlayModel;
 import ca.ulaval.glo2004.visualigue.utils.geometry.Vector2;
 import java.util.function.BiConsumer;
+import javafx.beans.property.BooleanProperty;
+import javafx.beans.property.SimpleBooleanProperty;
 import javafx.fxml.FXML;
 import javafx.scene.input.*;
 import javafx.scene.layout.StackPane;
@@ -25,24 +26,20 @@ public class Scene2DController extends SceneController {
     @FXML private ExtendedScrollPane scrollPane;
     @FXML public StackPane sceneViewport;
     @FXML private StackPane layerStackPane;
-    @Inject private SettingsService settingsService;
     @Inject private PlayService playService;
     @Inject private ActorLayerFactory actorLayerFactory;
     @Inject private FrameModelConverter frameModelConverter;
     private BiConsumer<Object, Play> onPlayFrameChanged = this::onPlayFrameChanged;
-    private Integer currentTime;
     private PlayingSurfaceLayerController playingSurfaceLayerController;
     private NavigationController navigationController;
     private LayerController layerController;
     private ActorCreationController actorCreationController;
     private FrameModel frameModel = new FrameModel();
+    private BooleanProperty realTimeModeProperty = new SimpleBooleanProperty(false);
 
     @Override
     public void init(PlayModel playModel) {
         this.playModel = playModel;
-        showActorLabelsProperty.set(settingsService.getShowActorLabels());
-        showMovementArrowsProperty.set(settingsService.getShowMovementArrows());
-        resizeActorsOnZoomProperty.set(settingsService.getResizeActorsOnZoom());
         playService.onFrameChanged.addHandler(onPlayFrameChanged);
         initControllers();
         initKeyboardShortcuts();
@@ -57,7 +54,7 @@ public class Scene2DController extends SceneController {
         navigationController.onZoomChanged.forward(this.onZoomChanged);
         navigationController.onEnabled.forward(this.onNavigationModeEntered);
         navigationController.onDisabled.forward(this.onNavigationModeExited);
-        layerController = new LayerController(frameModel, actorLayerFactory, layerStackPane, playingSurfaceLayerController, navigationController.getZoomProperty(), showActorLabelsProperty, showMovementArrowsProperty, resizeActorsOnZoomProperty);
+        layerController = new LayerController(layerStackPane, actorLayerFactory, playModel, frameModel, playingSurfaceLayerController, navigationController.getZoomProperty(), settings);
         layerController.addLayer(playingSurfaceView);
         super.addChild(playingSurfaceLayerController);
         super.addChild(navigationController);
@@ -86,12 +83,11 @@ public class Scene2DController extends SceneController {
     }
 
     private void onPlayFrameChanged(Object sender, Play play) {
-        update(currentTime);
+        update(frameModel.time.get());
     }
 
     @Override
-    public void update(Integer time) {
-        currentTime = time;
+    public void update(Long time) {
         frameModelConverter.update(frameModel, playService.getFrame(playModel.getUUID(), time), playModel);
     }
 
@@ -100,7 +96,7 @@ public class Scene2DController extends SceneController {
         navigationController.disable();
         exitCreationMode();
         this.actorCreationController = actorCreationController;
-        actorCreationController.enable(layerController, playModel, playService);
+        actorCreationController.enable(layerController, playModel);
         super.addChild(actorCreationController);
     }
 
@@ -172,39 +168,6 @@ public class Scene2DController extends SceneController {
         return navigationController.getMaxZoom();
     }
 
-    @Override
-    public Boolean isActorLabelDisplayEnabled() {
-        return showActorLabelsProperty.get();
-    }
-
-    @Override
-    public void setActorLabelDisplay(Boolean showActorLabels) {
-        this.showActorLabelsProperty.set(showActorLabels);
-        settingsService.setShowActorLabels(showActorLabels);
-    }
-
-    @Override
-    public Boolean isMovementArrowDisplayEnabled() {
-        return showMovementArrowsProperty.get();
-    }
-
-    @Override
-    public void setMovementArrowDisplay(Boolean showMovementArrows) {
-        this.showMovementArrowsProperty.set(showMovementArrows);
-        settingsService.setShowMovementArrows(showMovementArrows);
-    }
-
-    @Override
-    public Boolean isResizeActorsOnZoomEnabled() {
-        return resizeActorsOnZoomProperty.get();
-    }
-
-    @Override
-    public void setResizeActorsOnZoom(Boolean resizeActorsOnZoom) {
-        this.resizeActorsOnZoomProperty.set(resizeActorsOnZoom);
-        settingsService.setResizeActorsOnZoom(resizeActorsOnZoom);
-    }
-
     @FXML
     protected void onSceneTouchPressed(TouchEvent e) {
         navigationController.onSceneTouchPressed(e);
@@ -233,7 +196,7 @@ public class Scene2DController extends SceneController {
     @FXML
     protected void onSceneMouseClicked(MouseEvent e) {
         if (actorCreationController != null) {
-            Vector2 sizeRelativePosition = playingSurfaceLayerController.getSizeRelativeMousePosition();
+            Vector2 sizeRelativePosition = playingSurfaceLayerController.getSizeRelativeMousePosition(true);
             actorCreationController.onSceneMouseClicked(sizeRelativePosition);
         }
     }
@@ -242,7 +205,7 @@ public class Scene2DController extends SceneController {
     protected void onSceneMouseMoved(MouseEvent e) {
         navigationController.onSceneMouseMoved(e);
         if (actorCreationController != null) {
-            Vector2 sizeRelativePosition = playingSurfaceLayerController.getSizeRelativeMousePosition();
+            Vector2 sizeRelativePosition = playingSurfaceLayerController.getSizeRelativeMousePosition(true);
             actorCreationController.onSceneMouseMoved(sizeRelativePosition);
         }
     }

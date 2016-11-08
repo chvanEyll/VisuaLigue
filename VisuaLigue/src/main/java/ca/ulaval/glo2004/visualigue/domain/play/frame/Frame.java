@@ -8,15 +8,15 @@ import java.util.Map;
 
 public class Frame extends DomainObject {
 
-    private Integer time;
+    private Long time;
     private Map<Actor, ActorState> currentActorStates = new HashMap();
     private Map<Actor, ActorState> nextActorStates = new HashMap();
 
-    public Frame(Integer time) {
+    public Frame(Long time) {
         this.time = time;
     }
 
-    public Integer getTime() {
+    public Long getTime() {
         return time;
     }
 

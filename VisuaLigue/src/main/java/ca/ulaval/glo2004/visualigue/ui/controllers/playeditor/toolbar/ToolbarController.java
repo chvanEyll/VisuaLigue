@@ -85,10 +85,10 @@ public class ToolbarController extends ControllerBase {
         zoomComboBox.setItems(FXCollections.observableArrayList(SceneController.PREDEFINED_ZOOMS));
         zoomComboBox.focusedProperty().addListener(this::onZoomComboBoxFocusedPropertyChanged);
         actorPaneDisplayButton.setSelected(true);
-        actorLabelDisplayToggleButton.setSelected(sceneController.isActorLabelDisplayEnabled());
-        resizeActorsOnZoomMenuItem.setSelected(sceneController.isResizeActorsOnZoomEnabled());
-        showMovementArrowsMenuItem.setSelected(sceneController.isMovementArrowDisplayEnabled());
-        smoothMovementsMenuItem.setSelected(sequencePaneController.isSmoothMovementEnabled());
+        actorLabelDisplayToggleButton.selectedProperty().bind(sceneController.settings.showActorLabelsProperty);
+        resizeActorsOnZoomMenuItem.selectedProperty().bind(sceneController.settings.resizeActorsOnZoomProperty);
+        showMovementArrowsMenuItem.selectedProperty().bind(sceneController.settings.showMovementArrowsProperty);
+        smoothMovementsMenuItem.selectedProperty().bind(sequencePaneController.smoothMovementsEnabledProperty);
     }
 
     @Override
@@ -172,26 +172,22 @@ public class ToolbarController extends ControllerBase {
 
     @FXML
     protected void onActorLabelDisplayToggleButtonAction(ActionEvent e) {
-        sceneController.setActorLabelDisplay(!sceneController.isActorLabelDisplayEnabled());
-        actorLabelDisplayToggleButton.setSelected(sceneController.isActorLabelDisplayEnabled());
+        sceneController.settings.showActorLabelsProperty.set(!sceneController.settings.showActorLabelsProperty.get());
     }
 
     @FXML
     protected void onResizeActorsOnZoomToggleButtonAction(ActionEvent e) {
-        sceneController.setResizeActorsOnZoom(!sceneController.isResizeActorsOnZoomEnabled());
-        resizeActorsOnZoomMenuItem.setSelected(sceneController.isResizeActorsOnZoomEnabled());
+        sceneController.settings.resizeActorsOnZoomProperty.set(!sceneController.settings.resizeActorsOnZoomProperty.get());
     }
 
     @FXML
     protected void onMovementArrowsDisplayToggleButtonAction(ActionEvent e) {
-        sceneController.setMovementArrowDisplay(!sceneController.isMovementArrowDisplayEnabled());
-        showMovementArrowsMenuItem.setSelected(sceneController.isMovementArrowDisplayEnabled());
+        sceneController.settings.showMovementArrowsProperty.set(!sceneController.settings.showMovementArrowsProperty.get());
     }
 
     @FXML
     protected void onSmoothMovementToggleButtonAction(ActionEvent e) {
-        sequencePaneController.setSmoothMovementEnabled(!sequencePaneController.isSmoothMovementEnabled());
-        smoothMovementsMenuItem.setSelected(sequencePaneController.isSmoothMovementEnabled());
+        sequencePaneController.smoothMovementsEnabledProperty.set(!sequencePaneController.smoothMovementsEnabledProperty.get());
     }
 
     @FXML

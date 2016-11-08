@@ -42,7 +42,7 @@ public class ExtendedScrollPane extends ScrollPane {
     }
 
     public Vector2 getVisibleContentCenter() {
-        return getVisibleContentBounds().center();
+        return getVisibleContentBounds().getCenter();
     }
 
     public Rect getVisibleContentBounds() {

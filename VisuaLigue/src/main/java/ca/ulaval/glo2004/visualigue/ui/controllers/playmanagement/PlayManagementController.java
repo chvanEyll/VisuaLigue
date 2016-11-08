@@ -33,7 +33,7 @@ public class PlayManagementController extends ControllerBase {
     private void onPlaySelectedEvent(Object sender, PlayModel playModel) {
         View view = InjectableFXMLLoader.loadView(PlayEditorController.VIEW_NAME);
         PlayEditorController controller = (PlayEditorController) view.getController();
-        controller.init(playModel);
+        controller.init(playModel.getUUID());
         onViewAppendRequested.fire(this, new ViewFlowRequestEventArgs(view));
     }
 }

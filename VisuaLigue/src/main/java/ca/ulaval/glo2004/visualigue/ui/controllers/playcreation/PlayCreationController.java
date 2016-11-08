@@ -7,8 +7,6 @@ import ca.ulaval.glo2004.visualigue.ui.controllers.ControllerBase;
 import ca.ulaval.glo2004.visualigue.ui.controllers.ViewFlowRequestEventArgs;
 import ca.ulaval.glo2004.visualigue.ui.controllers.playeditor.PlayEditorController;
 import ca.ulaval.glo2004.visualigue.ui.controllers.sportmanagement.SportListController;
-import ca.ulaval.glo2004.visualigue.ui.converters.PlayModelConverter;
-import ca.ulaval.glo2004.visualigue.ui.models.PlayModel;
 import ca.ulaval.glo2004.visualigue.ui.models.SportListItemModel;
 import java.net.URL;
 import java.util.ResourceBundle;
@@ -22,7 +20,6 @@ public class PlayCreationController extends ControllerBase {
     public static final String VIEW_TITLE = "Création d'un jeu";
     public static final String VIEW_NAME = "/views/playcreation/play-creation.fxml";
     @Inject private PlayService playService;
-    @Inject private PlayModelConverter playModelConverter;
     @FXML private SportListController sportListController;
 
     @Override
@@ -39,10 +36,9 @@ public class PlayCreationController extends ControllerBase {
 
     private void onSportSelectedEvent(Object sender, SportListItemModel sportListItemModel) {
         String playUUID = playService.createPlay(sportListItemModel.getUUID());
-        PlayModel playModel = playModelConverter.convert(playService.getPlay(playUUID));
         View view = InjectableFXMLLoader.loadView(PlayEditorController.VIEW_NAME);
         PlayEditorController controller = (PlayEditorController) view.getController();
-        controller.init(playModel);
+        controller.init(playUUID);
         onViewChangeRequested.fire(this, new ViewFlowRequestEventArgs(view));
     }
 }

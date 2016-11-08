@@ -17,10 +17,11 @@ public class PlayerPositionUpdateDirectCommand extends Command {
     private PlayerActor playerActor;
     private ActorState oldPlayerState;
 
-    public PlayerPositionUpdateDirectCommand(Play play, Integer time, String playerActorUUID, Vector2 position, EventHandler<Play> onFrameChanged) {
+    public PlayerPositionUpdateDirectCommand(Play play, Long time, String playerActorUUID, Vector2 position, EventHandler<Play> onFrameChanged) {
         super(play, time);
         this.playerActorUUID = playerActorUUID;
         this.position = position;
+        this.onFrameChanged = onFrameChanged;
     }
 
     @Override
@@ -29,7 +30,6 @@ public class PlayerPositionUpdateDirectCommand extends Command {
         playerActor = (PlayerActor) play.getActor(playerActorUUID);
         oldPlayerState = play.mergeKeyframe(time, playerActor, playerState);
         onFrameChanged.fire(this, play);
-        this.onFrameChanged = onFrameChanged;
     }
 
     @Override

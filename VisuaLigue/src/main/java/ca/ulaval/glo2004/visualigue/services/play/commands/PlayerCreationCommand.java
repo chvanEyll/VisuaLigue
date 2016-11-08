@@ -21,7 +21,7 @@ public class PlayerCreationCommand extends Command {
 
     private PlayerActor playerActor;
 
-    public PlayerCreationCommand(Play play, Integer time, String playerCategoryUUID, TeamSide teamSide, Double orientation, Vector2 position, PlayerCategoryRepository playerCategoryRepository, EventHandler<Play> onFrameChanged) {
+    public PlayerCreationCommand(Play play, Long time, String playerCategoryUUID, TeamSide teamSide, Double orientation, Vector2 position, PlayerCategoryRepository playerCategoryRepository, EventHandler<Play> onFrameChanged) {
         super(play, time);
         this.playerCategoryUUID = playerCategoryUUID;
         this.teamSide = teamSide;

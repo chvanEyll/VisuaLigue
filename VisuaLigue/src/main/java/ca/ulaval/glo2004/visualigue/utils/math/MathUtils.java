@@ -26,8 +26,16 @@ public class MathUtils {
         return (int) (Math.floor(value / (double) factor) * factor);
     }
 
+    public static Long roundDown(Long value, Long factor) {
+        return (long) (Math.floor(value / (double) factor) * factor);
+    }
+
     public static Integer roundUp(Integer value, Integer factor) {
         return (int) (Math.ceil(value / (double) factor) * factor);
+    }
+
+    public static Long roundUp(Long value, Long factor) {
+        return (long) (Math.ceil(value / (double) factor) * factor);
     }
 
     public static Double interpolate(Double startValue, Double finalValue, Double interpolant) {
