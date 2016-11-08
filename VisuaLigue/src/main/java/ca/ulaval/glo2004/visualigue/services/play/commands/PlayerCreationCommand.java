@@ -4,7 +4,7 @@ import ca.ulaval.glo2004.visualigue.domain.play.Play;
 import ca.ulaval.glo2004.visualigue.domain.play.actor.PlayerActor;
 import ca.ulaval.glo2004.visualigue.domain.play.actor.TeamSide;
 import ca.ulaval.glo2004.visualigue.domain.play.actorstate.PlayerState;
-import ca.ulaval.glo2004.visualigue.domain.play.actorstate.transition.LinearStateTransition;
+import ca.ulaval.glo2004.visualigue.domain.play.keyframe.transition.LinearKeyframeTransition;
 import ca.ulaval.glo2004.visualigue.domain.sport.playercategory.PlayerCategory;
 import ca.ulaval.glo2004.visualigue.domain.sport.playercategory.PlayerCategoryRepository;
 import ca.ulaval.glo2004.visualigue.utils.EventHandler;
@@ -34,7 +34,6 @@ public class PlayerCreationCommand extends Command {
 
     @Override
     public void execute() {
-        PlayerState playerState = new PlayerState(position, new LinearStateTransition(), orientation, new LinearStateTransition());
         PlayerCategory playerCategory = playerCategoryRepository.get(playerCategoryUUID);
         createdPlayerActor = new PlayerActor(playerCategory, teamSide);
         if (createdPlayerActorUUID != null) {
@@ -42,13 +41,15 @@ public class PlayerCreationCommand extends Command {
         } else {
             createdPlayerActorUUID = createdPlayerActor.getUUID();
         }
-        play.mergeKeyframe(time, createdPlayerActor, playerState);
+        play.merge(time, createdPlayerActor, PlayerState.getPositionProperty(), position, new LinearKeyframeTransition());
+        play.merge(time, createdPlayerActor, PlayerState.getOrientationProperty(), orientation, new LinearKeyframeTransition());
         onFrameChanged.fire(this, play);
     }
 
     @Override
     public void revert() {
-        play.unmergeKeyframe(time, createdPlayerActor, null);
+        play.unmerge(time, createdPlayerActor, PlayerState.getOrientationProperty(), null);
+        play.unmerge(time, createdPlayerActor, PlayerState.getPositionProperty(), null);
         onFrameChanged.fire(this, play);
     }
 

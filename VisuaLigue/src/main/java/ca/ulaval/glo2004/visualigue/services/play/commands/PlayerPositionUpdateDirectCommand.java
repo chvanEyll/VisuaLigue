@@ -2,9 +2,9 @@ package ca.ulaval.glo2004.visualigue.services.play.commands;
 
 import ca.ulaval.glo2004.visualigue.domain.play.Play;
 import ca.ulaval.glo2004.visualigue.domain.play.actor.PlayerActor;
-import ca.ulaval.glo2004.visualigue.domain.play.actorstate.ActorState;
 import ca.ulaval.glo2004.visualigue.domain.play.actorstate.PlayerState;
-import ca.ulaval.glo2004.visualigue.domain.play.actorstate.transition.LinearStateTransition;
+import ca.ulaval.glo2004.visualigue.domain.play.keyframe.transition.LinearKeyframeTransition;
+import ca.ulaval.glo2004.visualigue.domain.play.keyframe.Keyframe;
 import ca.ulaval.glo2004.visualigue.utils.EventHandler;
 import ca.ulaval.glo2004.visualigue.utils.geometry.Vector2;
 
@@ -15,7 +15,7 @@ public class PlayerPositionUpdateDirectCommand extends Command {
     private EventHandler<Play> onFrameChanged;
 
     private PlayerActor createdPlayerActor;
-    private ActorState oldPlayerState;
+    private Keyframe oldPlayerPositionKeyframe;
 
     public PlayerPositionUpdateDirectCommand(Play play, Long time, String playerActorUUID, Vector2 position, EventHandler<Play> onFrameChanged) {
         super(play, time);
@@ -26,15 +26,14 @@ public class PlayerPositionUpdateDirectCommand extends Command {
 
     @Override
     public void execute() {
-        PlayerState playerState = new PlayerState(position, new LinearStateTransition(), null, null);
         createdPlayerActor = (PlayerActor) play.getActor(playerActorUUID);
-        oldPlayerState = play.mergeKeyframe(time, createdPlayerActor, playerState);
+        oldPlayerPositionKeyframe = play.merge(time, createdPlayerActor, PlayerState.getPositionProperty(), position, new LinearKeyframeTransition());
         onFrameChanged.fire(this, play);
     }
 
     @Override
     public void revert() {
-        play.unmergeKeyframe(time, createdPlayerActor, oldPlayerState);
+        play.unmerge(time, createdPlayerActor, PlayerState.getPositionProperty(), oldPlayerPositionKeyframe);
         onFrameChanged.fire(this, play);
     }
 

@@ -6,6 +6,7 @@ import ca.ulaval.glo2004.visualigue.domain.obstacle.ObstacleRepository;
 import ca.ulaval.glo2004.visualigue.domain.play.Play;
 import ca.ulaval.glo2004.visualigue.domain.play.actor.ObstacleActor;
 import ca.ulaval.glo2004.visualigue.domain.play.actorstate.ObstacleState;
+import ca.ulaval.glo2004.visualigue.domain.play.keyframe.transition.LinearKeyframeTransition;
 import ca.ulaval.glo2004.visualigue.utils.EventHandler;
 import ca.ulaval.glo2004.visualigue.utils.geometry.Vector2;
 
@@ -29,7 +30,6 @@ public class ObstacleCreationCommand extends Command {
 
     @Override
     public void execute() throws ObstacleNotFoundException {
-        ObstacleState obstacleState = new ObstacleState(position);
         Obstacle obstacle = obstacleRepository.get(obstacleUUID);
         createdObstacleActor = new ObstacleActor(obstacle);
         if (createdObstacleActorUUID != null) {
@@ -37,13 +37,13 @@ public class ObstacleCreationCommand extends Command {
         } else {
             createdObstacleActorUUID = createdObstacleActor.getUUID();
         }
-        play.mergeKeyframe(time, createdObstacleActor, obstacleState);
+        play.merge(time, createdObstacleActor, ObstacleState.getPositionProperty(), position, new LinearKeyframeTransition());
         onFrameChanged.fire(this, play);
     }
 
     @Override
     public void revert() {
-        play.unmergeKeyframe(time, createdObstacleActor, null);
+        play.unmerge(time, createdObstacleActor, ObstacleState.getPositionProperty(), null);
         onFrameChanged.fire(this, play);
     }
 

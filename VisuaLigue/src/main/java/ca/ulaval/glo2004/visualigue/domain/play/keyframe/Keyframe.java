@@ -1,57 +1,37 @@
 package ca.ulaval.glo2004.visualigue.domain.play.keyframe;
 
 import ca.ulaval.glo2004.visualigue.domain.DomainObject;
-import ca.ulaval.glo2004.visualigue.domain.play.actor.Actor;
-import ca.ulaval.glo2004.visualigue.domain.play.actorstate.ActorState;
-import javax.xml.bind.annotation.XmlIDREF;
+import ca.ulaval.glo2004.visualigue.domain.play.keyframe.transition.KeyframeTransition;
+import ca.ulaval.glo2004.visualigue.utils.geometry.Vector2;
 
 public class Keyframe extends DomainObject {
 
-    private Long time;
-    @XmlIDREF
-    private Actor actor;
-    private ActorState actorState;
+    private Object value;
+    private KeyframeTransition transition;
 
     public Keyframe() {
         //Required for JAXB instanciation.
     }
 
-    public Keyframe(Long time, Actor actor, ActorState actorState) {
-        this.time = time;
-        this.actor = actor;
-        this.actorState = actorState;
+    public Keyframe(Object value, KeyframeTransition transition) {
+        this.value = value;
+        this.transition = transition;
     }
 
-    public Long getTime() {
-        return time;
+    public Object getValue() {
+        return value;
     }
 
-    public Actor getActor() {
-        return actor;
-    }
-
-    public ActorState getActorState() {
-        return actorState;
-    }
-
-    public ActorState mergeActorState(ActorState actorState) {
-        return this.actorState.merge(actorState);
-    }
-
-    public void unmergeActorState(Actor actor, ActorState actorState) {
-        this.actorState.unmerge(actorState);
-    }
-
-    public Boolean isBlank() {
-        return actorState.isBlank();
-    }
-
-    public Keyframe interpolate(Double interpolant, Keyframe nextKeyframe) {
-        Keyframe interpolatedKeyFrame = new Keyframe();
-        interpolatedKeyFrame.time = this.time + (int) ((nextKeyframe.time - this.time) * interpolant);
-        interpolatedKeyFrame.actorState = actorState.interpolate(nextKeyframe.actorState, interpolant);
-        interpolatedKeyFrame.actor = actor;
-        return interpolatedKeyFrame;
+    public Object interpolate(Double interpolant, Keyframe nextKeyframe) {
+        Object interpolatedValue;
+        if (value instanceof Double) {
+            interpolatedValue = transition.interpolate((Double) value, (Double) nextKeyframe.value, interpolant);
+        } else if (value instanceof Vector2) {
+            interpolatedValue = transition.interpolate((Vector2) value, (Vector2) nextKeyframe.value, interpolant);
+        } else {
+            interpolatedValue = value;
+        }
+        return interpolatedValue;
     }
 
 }

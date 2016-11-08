@@ -4,7 +4,7 @@ import ca.ulaval.glo2004.visualigue.domain.play.Play;
 import ca.ulaval.glo2004.visualigue.domain.play.actor.BallActor;
 import ca.ulaval.glo2004.visualigue.domain.play.actor.PlayerActor;
 import ca.ulaval.glo2004.visualigue.domain.play.actorstate.BallState;
-import ca.ulaval.glo2004.visualigue.domain.play.actorstate.transition.LinearStateTransition;
+import ca.ulaval.glo2004.visualigue.domain.play.keyframe.transition.LinearKeyframeTransition;
 import ca.ulaval.glo2004.visualigue.utils.EventHandler;
 import ca.ulaval.glo2004.visualigue.utils.geometry.Vector2;
 
@@ -15,6 +15,7 @@ public class BallCreationCommand extends Command {
     private EventHandler<Play> onFrameChanged;
 
     private BallActor ballActor;
+    private PlayerActor ownerPlayerActor;
     private String ballActorUUID;
 
     public BallCreationCommand(Play play, Long time, String ownerPlayerActorUUID, Vector2 position, EventHandler<Play> onFrameChanged) {
@@ -26,24 +27,24 @@ public class BallCreationCommand extends Command {
 
     @Override
     public void execute() {
-        PlayerActor playerActor = null;
         if (ownerPlayerActorUUID != null) {
-            playerActor = (PlayerActor) play.getActor(ownerPlayerActorUUID);
+            ownerPlayerActor = (PlayerActor) play.getActor(ownerPlayerActorUUID);
         }
-        BallState ballState = new BallState(position, new LinearStateTransition(), playerActor);
         ballActor = new BallActor();
         if (ballActorUUID != null) {
             ballActor.setUUID(ballActorUUID);
         } else {
             ballActorUUID = ballActor.getUUID();
         }
-        play.mergeKeyframe(time, ballActor, ballState);
+        play.merge(time, ballActor, BallState.getPositionProperty(), position, new LinearKeyframeTransition());
+        play.merge(time, ballActor, BallState.getOwnerProperty(), ownerPlayerActor, null);
         onFrameChanged.fire(this, play);
     }
 
     @Override
     public void revert() {
-        play.unmergeKeyframe(time, ballActor, null);
+        play.unmerge(time, ballActor, BallState.getOwnerProperty(), null);
+        play.unmerge(time, ballActor, BallState.getPositionProperty(), null);
         onFrameChanged.fire(this, play);
     }
 

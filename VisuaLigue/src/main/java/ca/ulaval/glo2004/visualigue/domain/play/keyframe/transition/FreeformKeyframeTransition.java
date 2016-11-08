@@ -1,14 +1,14 @@
-package ca.ulaval.glo2004.visualigue.domain.play.actorstate.transition;
+package ca.ulaval.glo2004.visualigue.domain.play.keyframe.transition;
 
 import ca.ulaval.glo2004.visualigue.utils.geometry.Vector2;
 import java.util.ArrayList;
 import java.util.List;
 
-public class FreeformStateTransition extends StateTransition {
+public class FreeformKeyframeTransition extends KeyframeTransition {
 
     private List<Vector2> transitionPoints = new ArrayList();
 
-    public FreeformStateTransition(List<Vector2> transitionPoints) {
+    public FreeformKeyframeTransition(List<Vector2> transitionPoints) {
         this.transitionPoints = transitionPoints;
     }
 

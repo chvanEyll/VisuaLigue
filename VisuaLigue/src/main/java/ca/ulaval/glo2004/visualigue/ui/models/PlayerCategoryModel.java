@@ -12,10 +12,10 @@ public class PlayerCategoryModel extends ModelBase implements Comparable<PlayerC
     public ObjectProperty<Color> opponentPlayerColor = new SimpleObjectProperty<>(Color.web("#990000"));
 
     @Override
-    public int compareTo(PlayerCategoryModel model) {
-        if (model == this) {
+    public int compareTo(PlayerCategoryModel obj) {
+        if (obj == this) {
             return 0;
         }
-        return name.get().compareTo(model.name.get());
+        return name.get().compareTo(obj.name.get());
     }
 }

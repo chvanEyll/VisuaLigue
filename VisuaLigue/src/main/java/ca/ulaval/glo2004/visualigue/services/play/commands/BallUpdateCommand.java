@@ -3,9 +3,9 @@ package ca.ulaval.glo2004.visualigue.services.play.commands;
 import ca.ulaval.glo2004.visualigue.domain.play.Play;
 import ca.ulaval.glo2004.visualigue.domain.play.actor.BallActor;
 import ca.ulaval.glo2004.visualigue.domain.play.actor.PlayerActor;
-import ca.ulaval.glo2004.visualigue.domain.play.actorstate.ActorState;
 import ca.ulaval.glo2004.visualigue.domain.play.actorstate.BallState;
-import ca.ulaval.glo2004.visualigue.domain.play.actorstate.transition.LinearStateTransition;
+import ca.ulaval.glo2004.visualigue.domain.play.keyframe.transition.LinearKeyframeTransition;
+import ca.ulaval.glo2004.visualigue.domain.play.keyframe.Keyframe;
 import ca.ulaval.glo2004.visualigue.utils.EventHandler;
 import ca.ulaval.glo2004.visualigue.utils.geometry.Vector2;
 
@@ -17,7 +17,8 @@ public class BallUpdateCommand extends Command {
     private EventHandler<Play> onFrameChanged;
 
     private BallActor createdBallActor;
-    private ActorState oldBallState;
+    private Keyframe oldPositionKeyframe;
+    private Keyframe oldOwnerPlayerActorKeyframe;
 
     public BallUpdateCommand(Play play, Long time, String ballActorUUID, String ownerPlayerActorUUID, Vector2 position, EventHandler<Play> onFrameChanged) {
         super(play, time);
@@ -31,14 +32,15 @@ public class BallUpdateCommand extends Command {
     public void execute() {
         PlayerActor playerActor = (PlayerActor) play.getActor(ownerPlayerActorUUID);
         createdBallActor = (BallActor) play.getActor(ballActorUUID);
-        BallState ballState = new BallState(position, new LinearStateTransition(), playerActor);
-        oldBallState = play.mergeKeyframe(time, createdBallActor, ballState);
+        oldPositionKeyframe = play.merge(time, createdBallActor, BallState.getPositionProperty(), position, new LinearKeyframeTransition());
+        oldOwnerPlayerActorKeyframe = play.merge(time, createdBallActor, BallState.getOwnerProperty(), playerActor, new LinearKeyframeTransition());
         onFrameChanged.fire(this, play);
     }
 
     @Override
     public void revert() {
-        play.unmergeKeyframe(time, createdBallActor, oldBallState);
+        play.unmerge(time, createdBallActor, BallState.getOwnerProperty(), oldOwnerPlayerActorKeyframe);
+        play.unmerge(time, createdBallActor, BallState.getPositionProperty(), oldPositionKeyframe);
         onFrameChanged.fire(this, play);
     }
 

@@ -1,5 +1,7 @@
 package ca.ulaval.glo2004.visualigue.domain.play.actor;
 
+import ca.ulaval.glo2004.visualigue.domain.play.actorstate.ActorState;
+import ca.ulaval.glo2004.visualigue.domain.play.actorstate.PlayerState;
 import ca.ulaval.glo2004.visualigue.domain.sport.playercategory.PlayerCategory;
 import ca.ulaval.glo2004.visualigue.domain.xmladapters.XmlPlayerCategoryRefAdapter;
 import javax.xml.bind.annotation.adapters.XmlJavaTypeAdapter;
@@ -25,6 +27,11 @@ public class PlayerActor extends Actor {
 
     public TeamSide getTeamSide() {
         return teamSide;
+    }
+
+    @Override
+    public ActorState getBaseState() {
+        return new PlayerState();
     }
 
 }

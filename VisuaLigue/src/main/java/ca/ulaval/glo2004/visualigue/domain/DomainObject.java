@@ -42,10 +42,10 @@ public abstract class DomainObject implements Comparable<DomainObject> {
     }
 
     @Override
-    public int compareTo(DomainObject domainObject) {
-        if (domainObject == this) {
+    public int compareTo(DomainObject obj) {
+        if (obj == this) {
             return 0;
         }
-        return uuid.compareTo(domainObject.uuid);
+        return uuid.compareTo(obj.uuid);
     }
 }

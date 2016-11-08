@@ -50,11 +50,11 @@ public class Zoom implements Comparable<Zoom> {
     }
 
     @Override
-    public int compareTo(Zoom zoom) {
-        if (zoom == this) {
+    public int compareTo(Zoom obj) {
+        if (obj == this) {
             return 0;
         }
-        return value.compareTo(zoom.value);
+        return value.compareTo(obj.value);
     }
 
 }

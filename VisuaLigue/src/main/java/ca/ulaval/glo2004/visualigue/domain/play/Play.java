@@ -5,10 +5,12 @@ import ca.ulaval.glo2004.visualigue.domain.obstacle.Obstacle;
 import ca.ulaval.glo2004.visualigue.domain.play.actor.Actor;
 import ca.ulaval.glo2004.visualigue.domain.play.actor.ObstacleActor;
 import ca.ulaval.glo2004.visualigue.domain.play.actor.PlayerActor;
+import ca.ulaval.glo2004.visualigue.domain.play.actorstate.ActorProperty;
 import ca.ulaval.glo2004.visualigue.domain.play.actorstate.ActorState;
 import ca.ulaval.glo2004.visualigue.domain.play.actortimeline.ActorTimeline;
 import ca.ulaval.glo2004.visualigue.domain.play.frame.Frame;
 import ca.ulaval.glo2004.visualigue.domain.play.keyframe.Keyframe;
+import ca.ulaval.glo2004.visualigue.domain.play.keyframe.transition.KeyframeTransition;
 import ca.ulaval.glo2004.visualigue.domain.sport.Sport;
 import ca.ulaval.glo2004.visualigue.domain.sport.playercategory.PlayerCategory;
 import ca.ulaval.glo2004.visualigue.domain.xmladapters.XmlSportRefAdapter;
@@ -112,21 +114,21 @@ public class Play extends DomainObject {
         return keyPointInterval;
     }
 
-    public ActorState mergeKeyframe(Long time, Actor actor, ActorState actorState) {
+    public Keyframe merge(Long time, Actor actor, ActorProperty actorProperty, Object value, KeyframeTransition stateTransition) {
         ActorTimeline timeline;
         if (actorTimelines.containsKey(actor)) {
             timeline = actorTimelines.get(actor);
         } else {
-            timeline = new ActorTimeline();
+            timeline = new ActorTimeline(actor);
             actorTimelines.put(actor, timeline);
         }
         timelineLength = Math.max(time, timelineLength);
-        return timeline.mergeKeyframe(time, actor, actorState, keyPointInterval);
+        return timeline.merge(time, actorProperty, value, stateTransition);
     }
 
-    public void unmergeKeyframe(Long time, Actor actor, ActorState oldState) {
+    public void unmerge(Long time, Actor actor, ActorProperty actorProperty, Keyframe oldKeyframe) {
         ActorTimeline actorTimeline = actorTimelines.get(actor);
-        actorTimeline.unmergeKeyframe(time, actor, oldState);
+        actorTimeline.unmerge(time, actorProperty, oldKeyframe);
         if (actorTimeline.isEmpty()) {
             actorTimelines.remove(actor);
         }
@@ -145,14 +147,14 @@ public class Play extends DomainObject {
         Frame frame = new Frame(time);
         actorTimelines.entrySet().stream().forEach(e -> {
             Actor actor = e.getKey();
-            ActorTimeline timeline = e.getValue();
-            Keyframe keyframe = timeline.getKeyframe(time);
-            if (keyframe != null) {
-                frame.setCurrentActorState(actor, keyframe.getActorState());
+            ActorTimeline actorTimeline = e.getValue();
+            ActorState actorState = actorTimeline.getActorState(time);
+            if (actorState != null) {
+                frame.setCurrentActorState(actor, actorState);
             }
-            Keyframe nextKeyframe = timeline.getNextKeyframe(time + NEXT_KEYFRAME_LOOKAHEAD_TIME);
-            if (nextKeyframe != null) {
-                frame.setNextActorState(actor, nextKeyframe.getActorState());
+            ActorState nextActorState = actorTimeline.getNextActorState(time + NEXT_KEYFRAME_LOOKAHEAD_TIME);
+            if (nextActorState != null) {
+                frame.setNextActorState(actor, nextActorState);
             } else {
                 frame.removeNextActorState(actor);
             }

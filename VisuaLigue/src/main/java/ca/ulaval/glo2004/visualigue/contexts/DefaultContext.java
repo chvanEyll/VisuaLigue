@@ -16,7 +16,7 @@ import ca.ulaval.glo2004.visualigue.domain.play.actor.TeamSide;
 import ca.ulaval.glo2004.visualigue.domain.play.actorstate.BallState;
 import ca.ulaval.glo2004.visualigue.domain.play.actorstate.ObstacleState;
 import ca.ulaval.glo2004.visualigue.domain.play.actorstate.PlayerState;
-import ca.ulaval.glo2004.visualigue.domain.play.actorstate.transition.LinearStateTransition;
+import ca.ulaval.glo2004.visualigue.domain.play.keyframe.transition.LinearKeyframeTransition;
 import ca.ulaval.glo2004.visualigue.domain.settings.Settings;
 import ca.ulaval.glo2004.visualigue.domain.settings.SettingsRepository;
 import ca.ulaval.glo2004.visualigue.domain.sport.Sport;
@@ -228,9 +228,7 @@ public class DefaultContext extends ContextBase {
     }
 
     private void persistSports(List<Sport> sportPool) throws SportAlreadyExistsException {
-        for (Sport sport : sportPool) {
-            sportRepository.persist(sport);
-        }
+        sportPool.forEach(sport -> sportRepository.persist(sport));
     }
 
     private void createObstacles() throws Exception {
@@ -248,9 +246,7 @@ public class DefaultContext extends ContextBase {
     }
 
     private void persistObstacles(List<Obstacle> obstaclePool) throws ObstacleAlreadyExistsException {
-        for (Obstacle obstacle : obstaclePool) {
-            obstacleRepository.persist(obstacle);
-        }
+        obstaclePool.forEach(obstacle -> obstacleRepository.persist(obstacle));
     }
 
     private void createPlays() throws Exception {
@@ -263,61 +259,41 @@ public class DefaultContext extends ContextBase {
         Play play = playFactory.create(sportPool.get(0));
         play.setTitle("Demo");
         PlayerActor playerActor1 = new PlayerActor(leftWingerHockeyPlayerCategory, TeamSide.ALLIES);
-        PlayerState playerState = new PlayerState(new Vector2(0.25, 0.25), new LinearStateTransition(), 0.0, new LinearStateTransition());
-        play.mergeKeyframe(0L, playerActor1, playerState);
-        playerState = new PlayerState(new Vector2(0.75, 0.75), new LinearStateTransition(), 90.0, new LinearStateTransition());
-        play.mergeKeyframe(1000L, playerActor1, playerState);
-        playerState = new PlayerState(new Vector2(0.5, 0.2), new LinearStateTransition(), 180.0, new LinearStateTransition());
-        play.mergeKeyframe(2000L, playerActor1, playerState);
-        playerState = new PlayerState(new Vector2(0.1, 0.9), new LinearStateTransition(), 180.0, new LinearStateTransition());
-        play.mergeKeyframe(3000L, playerActor1, playerState);
-        playerState = new PlayerState(new Vector2(0.23, 0.5), new LinearStateTransition(), 180.0, new LinearStateTransition());
-        play.mergeKeyframe(4000L, playerActor1, playerState);
-        playerState = new PlayerState(new Vector2(0.42, 0.34), new LinearStateTransition(), 180.0, new LinearStateTransition());
-        play.mergeKeyframe(5000L, playerActor1, playerState);
+        play.merge(0L, playerActor1, PlayerState.getOrientationProperty(), 0.0, new LinearKeyframeTransition());
+        play.merge(0L, playerActor1, PlayerState.getPositionProperty(), new Vector2(0.25, 0.25), new LinearKeyframeTransition());
+        play.merge(1000L, playerActor1, PlayerState.getPositionProperty(), new Vector2(0.75, 0.75), new LinearKeyframeTransition());
+        play.merge(2000L, playerActor1, PlayerState.getPositionProperty(), new Vector2(0.5, 0.2), new LinearKeyframeTransition());
+        play.merge(3000L, playerActor1, PlayerState.getPositionProperty(), new Vector2(0.1, 0.9), new LinearKeyframeTransition());
+        play.merge(4000L, playerActor1, PlayerState.getPositionProperty(), new Vector2(0.23, 0.5), new LinearKeyframeTransition());
+        play.merge(5000L, playerActor1, PlayerState.getPositionProperty(), new Vector2(0.42, 0.34), new LinearKeyframeTransition());
 
         PlayerActor playerActor2 = new PlayerActor(leftWingerHockeyPlayerCategory, TeamSide.OPPONENTS);
-        playerState = new PlayerState(new Vector2(0.8, 0.3), new LinearStateTransition(), 180.0, new LinearStateTransition());
-        play.mergeKeyframe(0L, playerActor2, playerState);
-        playerState = new PlayerState(new Vector2(0.1, 0.9), new LinearStateTransition(), 0.0, new LinearStateTransition());
-        play.mergeKeyframe(1000L, playerActor2, playerState);
-        playerState = new PlayerState(new Vector2(0.3, 0.45), new LinearStateTransition(), 0.0, new LinearStateTransition());
-        play.mergeKeyframe(2000L, playerActor2, playerState);
-        playerState = new PlayerState(new Vector2(0.9, 0.22), new LinearStateTransition(), 0.0, new LinearStateTransition());
-        play.mergeKeyframe(3000L, playerActor2, playerState);
-        playerState = new PlayerState(new Vector2(0.1, 0.23), new LinearStateTransition(), 0.0, new LinearStateTransition());
-        play.mergeKeyframe(4000L, playerActor2, playerState);
-        playerState = new PlayerState(new Vector2(0.3, 0.44), new LinearStateTransition(), 0.0, new LinearStateTransition());
-        play.mergeKeyframe(5000L, playerActor2, playerState);
+        play.merge(0L, playerActor2, PlayerState.getOrientationProperty(), 0.0, new LinearKeyframeTransition());
+        play.merge(0L, playerActor2, PlayerState.getPositionProperty(), new Vector2(0.8, 0.3), new LinearKeyframeTransition());
+        play.merge(1000L, playerActor2, PlayerState.getPositionProperty(), new Vector2(0.1, 0.9), new LinearKeyframeTransition());
+        play.merge(2000L, playerActor2, PlayerState.getPositionProperty(), new Vector2(0.3, 0.45), new LinearKeyframeTransition());
+        play.merge(3000L, playerActor2, PlayerState.getPositionProperty(), new Vector2(0.9, 0.22), new LinearKeyframeTransition());
+        play.merge(4000L, playerActor2, PlayerState.getPositionProperty(), new Vector2(0.1, 0.23), new LinearKeyframeTransition());
+        play.merge(5000L, playerActor2, PlayerState.getPositionProperty(), new Vector2(0.3, 0.44), new LinearKeyframeTransition());
 
         ObstacleActor obstacleActor1 = new ObstacleActor(coneObstacle);
-        ObstacleState obstacleState = new ObstacleState(new Vector2(0.7, 0.4));
-        play.mergeKeyframe(0L, obstacleActor1, obstacleState);
+        play.merge(0L, obstacleActor1, ObstacleState.getPositionProperty(), new Vector2(0.7, 0.4), new LinearKeyframeTransition());
         ObstacleActor obstacleActor2 = new ObstacleActor(coneObstacle);
-        obstacleState = new ObstacleState(new Vector2(0.3, 0.7));
-        play.mergeKeyframe(0L, obstacleActor2, obstacleState);
+        play.merge(0L, obstacleActor2, ObstacleState.getPositionProperty(), new Vector2(0.3, 0.7), new LinearKeyframeTransition());
 
         BallActor ballActor1 = new BallActor();
-        BallState ballState = new BallState(new Vector2(0.4, 0.8), new LinearStateTransition(), null);
-        play.mergeKeyframe(0L, ballActor1, ballState);
-        ballState = new BallState(new Vector2(0.7, 0.25), new LinearStateTransition(), null);
-        play.mergeKeyframe(1000L, ballActor1, ballState);
-        ballState = new BallState(new Vector2(0.2, 0.2), new LinearStateTransition(), null);
-        play.mergeKeyframe(2000L, ballActor1, ballState);
-        ballState = new BallState(new Vector2(0.1, 0.54), new LinearStateTransition(), null);
-        play.mergeKeyframe(3000L, ballActor1, ballState);
-        ballState = new BallState(new Vector2(0.5, 0.2), new LinearStateTransition(), null);
-        play.mergeKeyframe(4000L, ballActor1, ballState);
-        ballState = new BallState(new Vector2(0.12, 0.3), new LinearStateTransition(), null);
-        play.mergeKeyframe(5000L, ballActor1, ballState);
+        play.merge(0L, ballActor1, BallState.getPositionProperty(), new Vector2(0.4, 0.8), new LinearKeyframeTransition());
+        play.merge(1000L, ballActor1, BallState.getPositionProperty(), new Vector2(0.7, 0.25), new LinearKeyframeTransition());
+        play.merge(2000L, ballActor1, BallState.getPositionProperty(), new Vector2(0.2, 0.2), new LinearKeyframeTransition());
+        play.merge(3000L, ballActor1, BallState.getPositionProperty(), new Vector2(0.1, 0.54), new LinearKeyframeTransition());
+        play.merge(4000L, ballActor1, BallState.getPositionProperty(), new Vector2(0.5, 0.2), new LinearKeyframeTransition());
+        play.merge(5000L, ballActor1, BallState.getPositionProperty(), new Vector2(0.12, 0.3), new LinearKeyframeTransition());
 
         return play;
     }
 
     private void persistPlays(List<Play> playPool) throws PlayAlreadyExistsException {
-        for (Play play : playPool) {
-            playRepository.persist(play);
-        }
+        playPool.forEach(play -> playRepository.persist(play));
     }
 
     private void createSettings() {

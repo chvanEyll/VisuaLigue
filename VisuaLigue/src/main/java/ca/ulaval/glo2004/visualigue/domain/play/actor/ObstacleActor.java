@@ -1,6 +1,8 @@
 package ca.ulaval.glo2004.visualigue.domain.play.actor;
 
 import ca.ulaval.glo2004.visualigue.domain.obstacle.Obstacle;
+import ca.ulaval.glo2004.visualigue.domain.play.actorstate.ActorState;
+import ca.ulaval.glo2004.visualigue.domain.play.actorstate.ObstacleState;
 import ca.ulaval.glo2004.visualigue.domain.xmladapters.XmlObstacleRefAdapter;
 import javax.xml.bind.annotation.adapters.XmlJavaTypeAdapter;
 
@@ -19,6 +21,11 @@ public class ObstacleActor extends Actor {
 
     public Obstacle getObstacle() {
         return obstacle;
+    }
+
+    @Override
+    public ActorState getBaseState() {
+        return new ObstacleState();
     }
 
 }

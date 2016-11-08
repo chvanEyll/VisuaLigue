@@ -2,84 +2,73 @@ package ca.ulaval.glo2004.visualigue.domain.play.actortimeline;
 
 import ca.ulaval.glo2004.visualigue.domain.DomainObject;
 import ca.ulaval.glo2004.visualigue.domain.play.actor.Actor;
+import ca.ulaval.glo2004.visualigue.domain.play.actorstate.ActorProperty;
 import ca.ulaval.glo2004.visualigue.domain.play.actorstate.ActorState;
 import ca.ulaval.glo2004.visualigue.domain.play.keyframe.Keyframe;
-import java.util.Map;
+import ca.ulaval.glo2004.visualigue.domain.play.keyframe.transition.KeyframeTransition;
 import java.util.Optional;
 import java.util.TreeMap;
+import javax.xml.bind.annotation.XmlIDREF;
 
 public class ActorTimeline extends DomainObject {
 
-    private final TreeMap<Long, Keyframe> keyframes = new TreeMap();
+    private final TreeMap<ActorProperty, ActorPropertyTimeline> propertyTimelines = new TreeMap();
+    @XmlIDREF
+    private Actor actor;
 
     public ActorTimeline() {
         //Required for JAXB instanciation.
     }
 
-    public ActorState mergeKeyframe(Long time, Actor actor, ActorState actorState, Long keyPointInterval) {
-        Keyframe keyframe;
-        if (keyframes.containsKey(time)) {
-            keyframe = keyframes.get(time);
-            return keyframe.mergeActorState(actorState);
-        } else {
-            Keyframe previousKeypoint = getKeyframe(time - keyPointInterval);
-            if (previousKeypoint != null) {
-                keyframe = new Keyframe(time, actor, previousKeypoint.getActorState().clone());
-                keyframe.mergeActorState(actorState);
-            } else {
-                keyframe = new Keyframe(time, actor, actorState);
-            }
-            keyframes.put(time, keyframe);
-            return null;
-        }
+    public ActorTimeline(Actor actor) {
+        this.actor = actor;
     }
 
-    public void unmergeKeyframe(Long time, Actor actor, ActorState oldState) {
-        Keyframe keyframe = keyframes.get(time);
-        if (oldState != null) {
-            keyframe.unmergeActorState(actor, oldState);
+    public Keyframe merge(Long time, ActorProperty actorProperty, Object value, KeyframeTransition transition) {
+        ActorPropertyTimeline propertyTimeline;
+        if (propertyTimelines.containsKey(actorProperty)) {
+            propertyTimeline = propertyTimelines.get(actorProperty);
         } else {
-            keyframes.remove(time);
+            propertyTimeline = new ActorPropertyTimeline(actorProperty);
+            propertyTimelines.put(actorProperty, propertyTimeline);
+        }
+        return propertyTimeline.merge(time, value, transition);
+    }
+
+    public void unmerge(Long time, ActorProperty actorProperty, Keyframe oldKeyframe) {
+        ActorPropertyTimeline propertyTimeline = propertyTimelines.get(actorProperty);
+        propertyTimeline.unmerge(time, oldKeyframe);
+        if (propertyTimeline.isEmpty()) {
+            propertyTimelines.remove(actorProperty);
         }
     }
 
     public Long getLength() {
-        Optional<Long> maxTime = keyframes.keySet().stream().max((k1, k2) -> {
-            return k1.compareTo(k2);
-        });
-        if (maxTime.isPresent()) {
-            return maxTime.get();
+        Optional<ActorPropertyTimeline> longestPropertyTimeline = propertyTimelines.values().stream().max((t1, t2) -> t1.getLength().compareTo(t2.getLength()));
+        if (longestPropertyTimeline.isPresent()) {
+            return longestPropertyTimeline.get().getLength();
         } else {
             return 0L;
         }
     }
 
     public Boolean isEmpty() {
-        return keyframes.isEmpty();
+        return propertyTimelines.isEmpty();
     }
 
-    public Keyframe getKeyframe(Long time) {
-        Map.Entry<Long, Keyframe> floorKeyframeEntry = keyframes.floorEntry(time);
-        Map.Entry<Long, Keyframe> ceilingKeyframeEntry = keyframes.ceilingEntry(time);
-        if (floorKeyframeEntry != null && ceilingKeyframeEntry == null) {
-            return floorKeyframeEntry.getValue();
-        } else if (floorKeyframeEntry != null && (floorKeyframeEntry.getValue() == ceilingKeyframeEntry.getValue())) {
-            return floorKeyframeEntry.getValue();
-        } else if (floorKeyframeEntry != null && (floorKeyframeEntry.getValue() != ceilingKeyframeEntry.getValue())) {
-            Keyframe floorKeyframe = floorKeyframeEntry.getValue();
-            Keyframe ceilingKeyframe = ceilingKeyframeEntry.getValue();
-            return floorKeyframe.interpolate((time - floorKeyframe.getTime()) / (double) (ceilingKeyframe.getTime() - floorKeyframe.getTime()), ceilingKeyframe);
-        } else {
-            return null;
-        }
+    public ActorState getActorState(Long time) {
+        ActorState baseState = actor.getBaseState();
+        propertyTimelines.values().forEach(propertyTimeline -> {
+            baseState.setPropertyValue(propertyTimeline.getActorProperty(), propertyTimeline.getValue(time));
+        });
+        return baseState;
     }
 
-    public Keyframe getNextKeyframe(Long time) {
-        Map.Entry<Long, Keyframe> ceilingKeyframeEntry = keyframes.higherEntry(time);
-        if (ceilingKeyframeEntry == null) {
-            return null;
-        } else {
-            return ceilingKeyframeEntry.getValue();
-        }
+    public ActorState getNextActorState(Long time) {
+        ActorState baseState = actor.getBaseState();
+        propertyTimelines.values().forEach(propertyTimeline -> {
+            baseState.setPropertyValue(propertyTimeline.getActorProperty(), propertyTimeline.getNextValue(time));
+        });
+        return baseState;
     }
 }
