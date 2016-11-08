@@ -205,7 +205,7 @@
                 <fx:include fx:id="seekBar" source="/views/playeditor/sequencecontrol/seekbar.fxml" />
                 <Button fx:id="newFrameButton" onAction="#onNewKeyPointButtonAction">
                     <graphic>
-                        <SvgImage url="/images/new-frame-icon.fxml" />
+                        <SvgImage url="/images/new-keypoint-icon.fxml" />
                     </graphic>
                     <styleClass>
                         <String fx:value="icon-button" />

@@ -238,7 +238,7 @@ public class SequencePaneController extends ControllerBase {
             } else {
                 time = seekBarController.getPreviousKeyPointTime();
             }
-            seekBarController.move(time, true, true, (long) (playModel.keyPointInterval.get() / SequencePaneController.this.playSpeed.getSpeedAbs()), 0L);
+            seekBarController.move(time, true, true, (long) (playModel.keyPointInterval.get() / SequencePaneController.this.playSpeed.getSpeedAbs()));
         }
     };
 
@@ -247,7 +247,7 @@ public class SequencePaneController extends ControllerBase {
         @Override
         public void run() {
             Long time = seekBarController.getTime() + (long) (LINEAR_AUTO_ADVANCE_PERIOD * SequencePaneController.this.playSpeed.getSpeed());
-            seekBarController.move(time, false, false, 0L, 0L);
+            seekBarController.move(time, false, false, 0L);
         }
     };
 
