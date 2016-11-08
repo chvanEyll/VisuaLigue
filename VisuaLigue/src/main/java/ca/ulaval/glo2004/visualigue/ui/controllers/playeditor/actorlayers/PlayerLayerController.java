@@ -11,6 +11,7 @@ import javafx.application.Platform;
 import javafx.beans.value.ChangeListener;
 import javafx.beans.value.ObservableValue;
 import javafx.fxml.FXML;
+import javafx.scene.input.MouseEvent;
 
 public class PlayerLayerController extends ActorLayerController {
 
@@ -113,6 +114,21 @@ public class PlayerLayerController extends ActorLayerController {
             label.setLayoutY(actorPosition.getY() - label.getHeight() / 2 - getScaledValue(LABEL_OFFSET_Y));
         }
         label.setVisible(actorPosition != null && showActorLabelsProperty.get());
+    }
+
+    @FXML
+    protected void onMousePressed(MouseEvent e) {
+
+    }
+
+    @FXML
+    protected void onMouseDragged(MouseEvent e) {
+        playerActorModel.position.set(playingSurfaceLayerController.getSizeRelativeMousePosition());
+    }
+
+    @FXML
+    protected void onMouseReleased(MouseEvent e) {
+
     }
 
 }

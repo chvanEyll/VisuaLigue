@@ -13,7 +13,7 @@
 <Pane fx:id="rootNode" pickOnBounds="false" styleClass="root-node, actor-layer" xmlns="http://javafx.com/javafx/8.0.60" xmlns:fx="http://javafx.com/fxml/1" fx:controller="ca.ulaval.glo2004.visualigue.ui.controllers.playeditor.actorlayers.PlayerLayerController">
     <children>
         <Arrow fx:id="arrow" mouseTransparent="true" visible="false" />
-        <ExtendedButton fx:id="actorButton" styleClass="actor-button, icon-button, shadowed" visible="false"  >
+        <ExtendedButton fx:id="actorButton" styleClass="actor-button, icon-button, shadowed" visible="false" onMousePressed="#onMousePressed" onMouseDragged="#onMouseDragged"    >
             <graphic>
                 <PlayerIcon fx:id="playerIcon" />
             </graphic>

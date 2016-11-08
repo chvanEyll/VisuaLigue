@@ -23,7 +23,7 @@ import javax.inject.Inject;
 public class Scene2DController extends SceneController {
 
     @FXML private ExtendedScrollPane scrollPane;
-    @FXML private StackPane sceneViewport;
+    @FXML public StackPane sceneViewport;
     @FXML private StackPane layerStackPane;
     @Inject private SettingsService settingsService;
     @Inject private PlayService playService;
