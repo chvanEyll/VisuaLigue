@@ -37,13 +37,13 @@ public class ObstacleCreationCommand extends Command {
         } else {
             createdObstacleActorUUID = createdObstacleActor.getUUID();
         }
-        play.merge(time, createdObstacleActor, ObstacleState.getPositionProperty(), position, new LinearKeyframeTransition());
+        play.merge(0L, createdObstacleActor, ObstacleState.getPositionProperty(), position, new LinearKeyframeTransition());
         onFrameChanged.fire(this, play);
     }
 
     @Override
     public void revert() {
-        play.unmerge(time, createdObstacleActor, ObstacleState.getPositionProperty(), null);
+        play.unmerge(0L, createdObstacleActor, ObstacleState.getPositionProperty(), null);
         onFrameChanged.fire(this, play);
     }
 

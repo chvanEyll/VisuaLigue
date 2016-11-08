@@ -41,15 +41,15 @@ public class PlayerCreationCommand extends Command {
         } else {
             createdPlayerActorUUID = createdPlayerActor.getUUID();
         }
-        play.merge(time, createdPlayerActor, PlayerState.getPositionProperty(), position, new LinearKeyframeTransition());
-        play.merge(time, createdPlayerActor, PlayerState.getOrientationProperty(), orientation, new LinearKeyframeTransition());
+        play.merge(0L, createdPlayerActor, PlayerState.getPositionProperty(), position, new LinearKeyframeTransition());
+        play.merge(0L, createdPlayerActor, PlayerState.getOrientationProperty(), orientation, new LinearKeyframeTransition());
         onFrameChanged.fire(this, play);
     }
 
     @Override
     public void revert() {
-        play.unmerge(time, createdPlayerActor, PlayerState.getOrientationProperty(), null);
-        play.unmerge(time, createdPlayerActor, PlayerState.getPositionProperty(), null);
+        play.unmerge(0L, createdPlayerActor, PlayerState.getOrientationProperty(), null);
+        play.unmerge(0L, createdPlayerActor, PlayerState.getPositionProperty(), null);
         onFrameChanged.fire(this, play);
     }
 

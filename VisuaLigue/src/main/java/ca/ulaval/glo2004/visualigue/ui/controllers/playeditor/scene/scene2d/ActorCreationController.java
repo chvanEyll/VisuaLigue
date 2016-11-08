@@ -2,6 +2,7 @@ package ca.ulaval.glo2004.visualigue.ui.controllers.playeditor.scene.scene2d;
 
 import ca.ulaval.glo2004.visualigue.services.play.PlayService;
 import ca.ulaval.glo2004.visualigue.ui.controllers.ControllerBase;
+import ca.ulaval.glo2004.visualigue.ui.models.FrameModel;
 import ca.ulaval.glo2004.visualigue.ui.models.PlayModel;
 import ca.ulaval.glo2004.visualigue.ui.models.actors.ActorModel;
 import ca.ulaval.glo2004.visualigue.utils.EventHandler;
@@ -16,11 +17,13 @@ public abstract class ActorCreationController extends ControllerBase {
     protected LayerController layerController;
     protected ActorModel actorModel;
     protected PlayModel playModel;
+    protected FrameModel frameModel;
     protected Boolean enabled = false;
 
-    void enable(LayerController layerController, PlayModel playModel) {
+    void enable(LayerController layerController, PlayModel playModel, FrameModel frameModel) {
         this.layerController = layerController;
         this.playModel = playModel;
+        this.frameModel = frameModel;
         initCreationLayer(actorModel);
         enabled = true;
         onEnabled.fire(this);

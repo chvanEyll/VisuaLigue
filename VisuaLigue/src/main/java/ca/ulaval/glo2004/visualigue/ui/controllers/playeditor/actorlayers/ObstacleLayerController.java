@@ -11,6 +11,7 @@ import javafx.beans.value.ObservableValue;
 import javafx.fxml.FXML;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
+import javafx.scene.input.MouseEvent;
 
 public class ObstacleLayerController extends ActorLayerController {
 
@@ -73,6 +74,17 @@ public class ObstacleLayerController extends ActorLayerController {
             actorButton.setLayoutY(actorPosition.getY() - actorButton.getHeight() / 2);
         }
         actorButton.setVisible(actorPosition != null);
+    }
+
+    @FXML
+    protected void onMouseDragged(MouseEvent e) {
+        obstacleActorModel.position.set(playingSurfaceLayerController.getSizeRelativeMousePosition(true));
+    }
+
+    @FXML
+    protected void onMouseReleased(MouseEvent e) {
+        Vector2 position = playingSurfaceLayerController.getSizeRelativeMousePosition(true);
+        playService.updateObstacleActorPosition(playModel.getUUID(), frameModel.time.get(), obstacleActorModel.getUUID(), position);
     }
 
 }

@@ -96,7 +96,7 @@ public class Scene2DController extends SceneController {
         navigationController.disable();
         exitCreationMode();
         this.actorCreationController = actorCreationController;
-        actorCreationController.enable(layerController, playModel);
+        actorCreationController.enable(layerController, playModel, frameModel);
         super.addChild(actorCreationController);
     }
 

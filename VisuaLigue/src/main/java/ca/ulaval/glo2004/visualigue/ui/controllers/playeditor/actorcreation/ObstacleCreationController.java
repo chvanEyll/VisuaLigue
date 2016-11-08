@@ -19,7 +19,7 @@ public class ObstacleCreationController extends ActorCreationController {
     @Override
     public void onSceneMouseClicked(Vector2 sizeRelativePosition) {
         if (enabled) {
-            playService.addObstacleActor(playModel.getUUID(), 0L, obstacleModel.getUUID(), sizeRelativePosition);
+            playService.addObstacleActor(playModel.getUUID(), frameModel.time.get(), obstacleModel.getUUID(), sizeRelativePosition);
             initCreationLayer(actorModel);
         }
     }

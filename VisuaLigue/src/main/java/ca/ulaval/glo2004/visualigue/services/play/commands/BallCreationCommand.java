@@ -36,15 +36,15 @@ public class BallCreationCommand extends Command {
         } else {
             ballActorUUID = ballActor.getUUID();
         }
-        play.merge(time, ballActor, BallState.getPositionProperty(), position, new LinearKeyframeTransition());
-        play.merge(time, ballActor, BallState.getOwnerProperty(), ownerPlayerActor, null);
+        play.merge(0L, ballActor, BallState.getPositionProperty(), position, new LinearKeyframeTransition());
+        play.merge(0L, ballActor, BallState.getOwnerProperty(), ownerPlayerActor, null);
         onFrameChanged.fire(this, play);
     }
 
     @Override
     public void revert() {
-        play.unmerge(time, ballActor, BallState.getOwnerProperty(), null);
-        play.unmerge(time, ballActor, BallState.getPositionProperty(), null);
+        play.unmerge(0L, ballActor, BallState.getOwnerProperty(), null);
+        play.unmerge(0L, ballActor, BallState.getPositionProperty(), null);
         onFrameChanged.fire(this, play);
     }
 

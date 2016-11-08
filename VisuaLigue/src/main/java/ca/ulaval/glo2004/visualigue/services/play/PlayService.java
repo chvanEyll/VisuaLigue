@@ -79,9 +79,9 @@ public class PlayService {
         return playRepository.getAll(sortFunction, sortOrder);
     }
 
-    public void addPlayerActor(String playUUID, String playerCategoryUUID, TeamSide teamSide, Double orientation, Vector2 position) {
+    public void addPlayerActor(String playUUID, Long time, String playerCategoryUUID, TeamSide teamSide, Double orientation, Vector2 position) {
         Play play = playRepository.get(playUUID);
-        PlayerCreationCommand command = new PlayerCreationCommand(play, 0L, playerCategoryUUID, teamSide, orientation, position, playerCategoryRepository, onFrameChanged);
+        PlayerCreationCommand command = new PlayerCreationCommand(play, time, playerCategoryUUID, teamSide, orientation, position, playerCategoryRepository, onFrameChanged);
         executeNewCommand(playUUID, command);
     }
 
@@ -106,6 +106,12 @@ public class PlayService {
     public void addObstacleActor(String playUUID, Long time, String obstacleUUID, Vector2 position) {
         Play play = playRepository.get(playUUID);
         ObstacleCreationCommand command = new ObstacleCreationCommand(play, time, obstacleUUID, position, obstacleRepository, onFrameChanged);
+        executeNewCommand(playUUID, command);
+    }
+
+    public void updateObstacleActorPosition(String playUUID, Long time, String obstacleActorUUID, Vector2 position) {
+        Play play = playRepository.get(playUUID);
+        ObstaclePositionUpdateCommand command = new ObstaclePositionUpdateCommand(play, time, obstacleActorUUID, position, onFrameChanged);
         executeNewCommand(playUUID, command);
     }
 
