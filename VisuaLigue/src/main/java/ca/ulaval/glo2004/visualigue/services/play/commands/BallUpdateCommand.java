@@ -16,7 +16,7 @@ public class BallUpdateCommand extends Command {
     private Vector2 position;
     private EventHandler<Play> onFrameChanged;
 
-    private BallActor ballActor;
+    private BallActor createdBallActor;
     private ActorState oldBallState;
 
     public BallUpdateCommand(Play play, Long time, String ballActorUUID, String ownerPlayerActorUUID, Vector2 position, EventHandler<Play> onFrameChanged) {
@@ -30,15 +30,15 @@ public class BallUpdateCommand extends Command {
     @Override
     public void execute() {
         PlayerActor playerActor = (PlayerActor) play.getActor(ownerPlayerActorUUID);
-        ballActor = (BallActor) play.getActor(ballActorUUID);
+        createdBallActor = (BallActor) play.getActor(ballActorUUID);
         BallState ballState = new BallState(position, new LinearStateTransition(), playerActor);
-        oldBallState = play.mergeKeyframe(time, ballActor, ballState);
+        oldBallState = play.mergeKeyframe(time, createdBallActor, ballState);
         onFrameChanged.fire(this, play);
     }
 
     @Override
     public void revert() {
-        play.unmergeKeyframe(time, ballActor, oldBallState);
+        play.unmergeKeyframe(time, createdBallActor, oldBallState);
         onFrameChanged.fire(this, play);
     }
 

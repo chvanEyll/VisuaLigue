@@ -15,6 +15,7 @@ public class BallCreationCommand extends Command {
     private EventHandler<Play> onFrameChanged;
 
     private BallActor ballActor;
+    private String ballActorUUID;
 
     public BallCreationCommand(Play play, Long time, String ownerPlayerActorUUID, Vector2 position, EventHandler<Play> onFrameChanged) {
         super(play, time);
@@ -31,6 +32,11 @@ public class BallCreationCommand extends Command {
         }
         BallState ballState = new BallState(position, new LinearStateTransition(), playerActor);
         ballActor = new BallActor();
+        if (ballActorUUID != null) {
+            ballActor.setUUID(ballActorUUID);
+        } else {
+            ballActorUUID = ballActor.getUUID();
+        }
         play.mergeKeyframe(time, ballActor, ballState);
         onFrameChanged.fire(this, play);
     }

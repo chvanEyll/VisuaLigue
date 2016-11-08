@@ -61,7 +61,7 @@ public class SeekBarController extends ControllerBase {
     }
 
     private void onUndoRedo(Object sender, Long time) {
-        move(time, false, true, 0L, 100L);
+        move(time);
     }
 
     private void onNumberOfKeyPointsChanged(ObservableValue<? extends Number> value, Number oldPropertyValue, Number newPropertyValue) {

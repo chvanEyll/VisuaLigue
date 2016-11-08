@@ -16,10 +16,11 @@ public class PlayerCreationCommand extends Command {
     private TeamSide teamSide;
     private Double orientation;
     private Vector2 position;
-    private EventHandler<Play> onFrameChanged;
     private PlayerCategoryRepository playerCategoryRepository;
+    private EventHandler<Play> onFrameChanged;
 
-    private PlayerActor playerActor;
+    private PlayerActor createdPlayerActor;
+    private String createdPlayerActorUUID;
 
     public PlayerCreationCommand(Play play, Long time, String playerCategoryUUID, TeamSide teamSide, Double orientation, Vector2 position, PlayerCategoryRepository playerCategoryRepository, EventHandler<Play> onFrameChanged) {
         super(play, time);
@@ -35,14 +36,19 @@ public class PlayerCreationCommand extends Command {
     public void execute() {
         PlayerState playerState = new PlayerState(position, new LinearStateTransition(), orientation, new LinearStateTransition());
         PlayerCategory playerCategory = playerCategoryRepository.get(playerCategoryUUID);
-        playerActor = new PlayerActor(playerCategory, teamSide);
-        play.mergeKeyframe(time, playerActor, playerState);
+        createdPlayerActor = new PlayerActor(playerCategory, teamSide);
+        if (createdPlayerActorUUID != null) {
+            createdPlayerActor.setUUID(createdPlayerActorUUID);
+        } else {
+            createdPlayerActorUUID = createdPlayerActor.getUUID();
+        }
+        play.mergeKeyframe(time, createdPlayerActor, playerState);
         onFrameChanged.fire(this, play);
     }
 
     @Override
     public void revert() {
-        play.unmergeKeyframe(time, playerActor, null);
+        play.unmergeKeyframe(time, createdPlayerActor, null);
         onFrameChanged.fire(this, play);
     }
 

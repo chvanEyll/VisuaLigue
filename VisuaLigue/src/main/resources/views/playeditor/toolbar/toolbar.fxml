@@ -168,7 +168,7 @@
                         <String fx:value="medium" />
                     </styleClass>
                 </Button>
-                <ExtendedButton fx:id="actorLabelDisplayToggleButton" onAction="#onActorLabelDisplayToggleButtonAction">
+                <ExtendedButton fx:id="actorLabelDisplayToggleButton"  autoSelect="true">
                     <graphic>
                         <SvgImage url="/images/show-labels-icon.fxml" />
                     </graphic>
@@ -190,9 +190,9 @@
                         <SvgImage url="/images/toolbar-more-icon.fxml" />
                     </graphic>
                     <items>
-                        <CheckMenuItem fx:id="resizeActorsOnZoomMenuItem" text="Agrandir les joueurs avec le zoom" onAction="#onResizeActorsOnZoomToggleButtonAction" />
-                        <CheckMenuItem fx:id="showMovementArrowsMenuItem" text="Afficher les flèches de déplacement" onAction="#onMovementArrowsDisplayToggleButtonAction"/>
-                        <CheckMenuItem fx:id="smoothMovementsMenuItem" text="Déplacements atténués" onAction="#onSmoothMovementToggleButtonAction" />
+                        <CheckMenuItem fx:id="resizeActorsOnZoomMenuItem" text="Agrandir les joueurs avec le zoom" />
+                        <CheckMenuItem fx:id="showMovementArrowsMenuItem" text="Afficher les flèches de déplacement" />
+                        <CheckMenuItem fx:id="smoothMovementsMenuItem" text="Déplacements atténués" />
                     </items>
                     <tooltip>
                         <Tooltip text="Plus d'options" />
@@ -203,7 +203,7 @@
                         </Insets>
                     </HBox.margin>
                 </MenuButton>
-                <ExtendedButton fx:id="actorPaneDisplayButton" styleClass="actor-pane-display-button" onAction="#onActorPaneDisplayToggleButtonAction">
+                <ExtendedButton fx:id="actorPaneDisplayButton" styleClass="actor-pane-display-button" onAction="#onActorPaneDisplayToggleButtonAction"  autoSelect="true">
                     <graphic>
                         <SvgImage url="/images/actor-pane-display-toggle-icon.fxml" />
                     </graphic>

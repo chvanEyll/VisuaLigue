@@ -81,8 +81,8 @@ public class NavigationController extends ControllerBase {
             viewportAlignPoint = scrollPane.getViewportCenter();
         }
         playingSurfaceLayerController.setZoom(zoom);
-        onZoomChanged.fire(this, zoom);
         this.zoomProperty.set(zoom);
+        onZoomChanged.fire(this, zoom);
     }
 
     public void zoomIn() {

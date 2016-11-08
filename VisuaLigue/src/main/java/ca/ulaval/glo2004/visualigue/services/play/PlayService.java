@@ -103,9 +103,9 @@ public class PlayService {
         executeNewCommand(playUUID, command);
     }
 
-    public void addObstacleActor(String playUUID, Long time, String obstacleActorUUID, Vector2 position) {
+    public void addObstacleActor(String playUUID, Long time, String obstacleUUID, Vector2 position) {
         Play play = playRepository.get(playUUID);
-        ObstacleCreationCommand command = new ObstacleCreationCommand(play, time, obstacleActorUUID, position, obstacleRepository, onFrameChanged);
+        ObstacleCreationCommand command = new ObstacleCreationCommand(play, time, obstacleUUID, position, obstacleRepository, onFrameChanged);
         executeNewCommand(playUUID, command);
     }
 

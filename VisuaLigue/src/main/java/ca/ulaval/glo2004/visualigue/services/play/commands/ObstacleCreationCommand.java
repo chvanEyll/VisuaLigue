@@ -11,16 +11,17 @@ import ca.ulaval.glo2004.visualigue.utils.geometry.Vector2;
 
 public class ObstacleCreationCommand extends Command {
 
-    private String obstacleActorUUID;
+    private String obstacleUUID;
     private Vector2 position;
     private EventHandler<Play> onFrameChanged;
     private ObstacleRepository obstacleRepository;
 
-    private ObstacleActor obstacleActor;
+    private ObstacleActor createdObstacleActor;
+    private String createdObstacleActorUUID;
 
-    public ObstacleCreationCommand(Play play, Long time, String obstacleActorUUID, Vector2 position, ObstacleRepository obstacleRepository, EventHandler<Play> onFrameChanged) {
+    public ObstacleCreationCommand(Play play, Long time, String obstacleUUID, Vector2 position, ObstacleRepository obstacleRepository, EventHandler<Play> onFrameChanged) {
         super(play, time);
-        this.obstacleActorUUID = obstacleActorUUID;
+        this.obstacleUUID = obstacleUUID;
         this.position = position;
         this.obstacleRepository = obstacleRepository;
         this.onFrameChanged = onFrameChanged;
@@ -29,15 +30,20 @@ public class ObstacleCreationCommand extends Command {
     @Override
     public void execute() throws ObstacleNotFoundException {
         ObstacleState obstacleState = new ObstacleState(position);
-        Obstacle obstacle = obstacleRepository.get(obstacleActorUUID);
-        obstacleActor = new ObstacleActor(obstacle);
-        play.mergeKeyframe(time, obstacleActor, obstacleState);
+        Obstacle obstacle = obstacleRepository.get(obstacleUUID);
+        createdObstacleActor = new ObstacleActor(obstacle);
+        if (createdObstacleActorUUID != null) {
+            createdObstacleActor.setUUID(createdObstacleActorUUID);
+        } else {
+            createdObstacleActorUUID = createdObstacleActor.getUUID();
+        }
+        play.mergeKeyframe(time, createdObstacleActor, obstacleState);
         onFrameChanged.fire(this, play);
     }
 
     @Override
     public void revert() {
-        play.unmergeKeyframe(time, obstacleActor, null);
+        play.unmergeKeyframe(time, createdObstacleActor, null);
         onFrameChanged.fire(this, play);
     }
 

@@ -14,7 +14,7 @@ public class PlayerPositionUpdateDirectCommand extends Command {
     private Vector2 position;
     private EventHandler<Play> onFrameChanged;
 
-    private PlayerActor playerActor;
+    private PlayerActor createdPlayerActor;
     private ActorState oldPlayerState;
 
     public PlayerPositionUpdateDirectCommand(Play play, Long time, String playerActorUUID, Vector2 position, EventHandler<Play> onFrameChanged) {
@@ -27,14 +27,14 @@ public class PlayerPositionUpdateDirectCommand extends Command {
     @Override
     public void execute() {
         PlayerState playerState = new PlayerState(position, new LinearStateTransition(), null, null);
-        playerActor = (PlayerActor) play.getActor(playerActorUUID);
-        oldPlayerState = play.mergeKeyframe(time, playerActor, playerState);
+        createdPlayerActor = (PlayerActor) play.getActor(playerActorUUID);
+        oldPlayerState = play.mergeKeyframe(time, createdPlayerActor, playerState);
         onFrameChanged.fire(this, play);
     }
 
     @Override
     public void revert() {
-        play.unmergeKeyframe(time, playerActor, oldPlayerState);
+        play.unmergeKeyframe(time, createdPlayerActor, oldPlayerState);
         onFrameChanged.fire(this, play);
     }
 

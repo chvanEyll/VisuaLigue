@@ -12,7 +12,6 @@ import javafx.beans.value.ChangeListener;
 import javafx.beans.value.ObservableValue;
 import javafx.fxml.FXML;
 import javafx.scene.input.MouseEvent;
-import javax.inject.Inject;
 
 public class PlayerLayerController extends ActorLayerController {
 
@@ -21,7 +20,6 @@ public class PlayerLayerController extends ActorLayerController {
     public static final Double BASE_BUTTON_SCALING = 1.25;
     public static final Double ARROW_HEAD_SIZE = 15.0;
     public static final Double ARROW_STROKE_DASH_ARRAY_SIZE = 10.0;
-    @Inject PlayerPositionModificationController playerPositionModificationController;
     private PlayerActorModel playerActorModel;
     private ChangeListener<Object> onChange = this::onChange;
     @FXML private PlayerIcon playerIcon;
@@ -31,7 +29,6 @@ public class PlayerLayerController extends ActorLayerController {
     @Override
     public void init(ActorModel actorModel) {
         this.playerActorModel = (PlayerActorModel) actorModel;
-        playerPositionModificationController.init(playerActorModel, playingSurfaceLayerController, playModel, frameModel);
         label.textProperty().bind(playerActorModel.label);
         addListeners();
         update();
@@ -121,12 +118,13 @@ public class PlayerLayerController extends ActorLayerController {
 
     @FXML
     protected void onMouseDragged(MouseEvent e) {
-        playerPositionModificationController.onMouseDragged(e);
+        playerActorModel.position.set(playingSurfaceLayerController.getSizeRelativeMousePosition(true));
     }
 
     @FXML
     protected void onMouseReleased(MouseEvent e) {
-        playerPositionModificationController.onMouseReleased(e);
+        Vector2 position = playingSurfaceLayerController.getSizeRelativeMousePosition(true);
+        playService.updatePlayerActorPositionDirect(playModel.getUUID(), frameModel.time.get(), playerActorModel.getUUID(), position);
     }
 
 }

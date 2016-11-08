@@ -13,7 +13,7 @@ public class PlayerOrientationUpdateCommand extends Command {
     private Double orientation;
     private EventHandler<Play> onFrameChanged;
 
-    private PlayerActor playerActor;
+    private PlayerActor createdPlayerActor;
     private ActorState oldPlayerState;
 
     public PlayerOrientationUpdateCommand(Play play, Long time, String ownerPlayerActorUUID, Double orientation, EventHandler<Play> onFrameChanged) {
@@ -26,14 +26,14 @@ public class PlayerOrientationUpdateCommand extends Command {
     @Override
     public void execute() {
         PlayerState playerState = new PlayerState(null, null, orientation, new LinearStateTransition());
-        playerActor = (PlayerActor) play.getActor(ownerPlayerActorUUID);
-        oldPlayerState = play.mergeKeyframe(time, playerActor, playerState);
+        createdPlayerActor = (PlayerActor) play.getActor(ownerPlayerActorUUID);
+        oldPlayerState = play.mergeKeyframe(time, createdPlayerActor, playerState);
         onFrameChanged.fire(this, play);
     }
 
     @Override
     public void revert() {
-        play.unmergeKeyframe(time, playerActor, oldPlayerState);
+        play.unmergeKeyframe(time, createdPlayerActor, oldPlayerState);
         onFrameChanged.fire(this, play);
     }
 }

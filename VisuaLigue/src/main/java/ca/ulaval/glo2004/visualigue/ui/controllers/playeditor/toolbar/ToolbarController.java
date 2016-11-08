@@ -85,10 +85,10 @@ public class ToolbarController extends ControllerBase {
         zoomComboBox.setItems(FXCollections.observableArrayList(SceneController.PREDEFINED_ZOOMS));
         zoomComboBox.focusedProperty().addListener(this::onZoomComboBoxFocusedPropertyChanged);
         actorPaneDisplayButton.setSelected(true);
-        actorLabelDisplayToggleButton.selectedProperty().bind(sceneController.settings.showActorLabelsProperty);
-        resizeActorsOnZoomMenuItem.selectedProperty().bind(sceneController.settings.resizeActorsOnZoomProperty);
-        showMovementArrowsMenuItem.selectedProperty().bind(sceneController.settings.showMovementArrowsProperty);
-        smoothMovementsMenuItem.selectedProperty().bind(sequencePaneController.smoothMovementsEnabledProperty);
+        actorLabelDisplayToggleButton.selectedProperty().bindBidirectional(sceneController.settings.showActorLabelsProperty);
+        resizeActorsOnZoomMenuItem.selectedProperty().bindBidirectional(sceneController.settings.resizeActorsOnZoomProperty);
+        showMovementArrowsMenuItem.selectedProperty().bindBidirectional(sceneController.settings.showMovementArrowsProperty);
+        smoothMovementsMenuItem.selectedProperty().bindBidirectional(sequencePaneController.smoothMovementsEnabledProperty);
     }
 
     @Override
@@ -168,26 +168,6 @@ public class ToolbarController extends ControllerBase {
     @FXML
     protected void onSwitch3DButtonAction(ActionEvent e) {
         onSwitch3DButtonAction.fire(this);
-    }
-
-    @FXML
-    protected void onActorLabelDisplayToggleButtonAction(ActionEvent e) {
-        sceneController.settings.showActorLabelsProperty.set(!sceneController.settings.showActorLabelsProperty.get());
-    }
-
-    @FXML
-    protected void onResizeActorsOnZoomToggleButtonAction(ActionEvent e) {
-        sceneController.settings.resizeActorsOnZoomProperty.set(!sceneController.settings.resizeActorsOnZoomProperty.get());
-    }
-
-    @FXML
-    protected void onMovementArrowsDisplayToggleButtonAction(ActionEvent e) {
-        sceneController.settings.showMovementArrowsProperty.set(!sceneController.settings.showMovementArrowsProperty.get());
-    }
-
-    @FXML
-    protected void onSmoothMovementToggleButtonAction(ActionEvent e) {
-        sequencePaneController.smoothMovementsEnabledProperty.set(!sequencePaneController.smoothMovementsEnabledProperty.get());
     }
 
     @FXML

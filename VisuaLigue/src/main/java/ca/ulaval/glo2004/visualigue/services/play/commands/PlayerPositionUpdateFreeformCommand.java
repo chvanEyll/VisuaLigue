@@ -15,7 +15,7 @@ public class PlayerPositionUpdateFreeformCommand extends Command {
     private List<Vector2> positions;
     private EventHandler<Play> onFrameChanged;
 
-    private PlayerActor playerActor;
+    private PlayerActor createdPlayerActor;
     private ActorState oldPlayerState;
 
     public PlayerPositionUpdateFreeformCommand(Play play, Long time, String playerActorUUID, List<Vector2> positions, EventHandler<Play> onFrameChanged) {
@@ -28,14 +28,14 @@ public class PlayerPositionUpdateFreeformCommand extends Command {
     @Override
     public void execute() {
         PlayerState playerState = new PlayerState(positions.get(0), new FreeformStateTransition(positions), null, null);
-        playerActor = (PlayerActor) play.getActor(playerActorUUID);
-        oldPlayerState = play.mergeKeyframe(time, playerActor, playerState);
+        createdPlayerActor = (PlayerActor) play.getActor(playerActorUUID);
+        oldPlayerState = play.mergeKeyframe(time, createdPlayerActor, playerState);
         onFrameChanged.fire(this, play);
     }
 
     @Override
     public void revert() {
-        play.unmergeKeyframe(time, playerActor, oldPlayerState);
+        play.unmergeKeyframe(time, createdPlayerActor, oldPlayerState);
         onFrameChanged.fire(this, play);
     }
 
