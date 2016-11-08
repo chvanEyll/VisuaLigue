@@ -67,8 +67,8 @@ public class ToolbarController extends ControllerBase {
     }
 
     private void setHandlers() {
-        sceneController.onMousePositionChanged.addHandler(this::onSceneMousePositionChanged);
-        sceneController.onZoomChanged.addHandler(this::onSceneZoomChanged);
+        sceneController.zoomProperty().addListener(this::onSceneZoomPropertyChanged);
+        sceneController.realWorldMousePositionProperty().addListener(this::onSceneMousePositionPropertyChanged);
         sceneController.onNavigationModeEntered.addHandler(this::onNavigationModeEntered);
         sceneController.onNavigationModeExited.addHandler(this::onNavigationModeExited);
         sceneController.onFrameByFrameCreationModeEntered.addHandler(this::onFrameByFrameCreationModeEntered);
@@ -147,7 +147,7 @@ public class ToolbarController extends ControllerBase {
             try {
                 ignoreZoomComboBoxAction = true;
                 Zoom zoom = Zoom.percentParse(zoomComboBox.getEditor().getText());
-                sceneController.setZoom(zoom);
+                sceneController.zoomProperty().set(zoom);
                 ignoreZoomComboBoxAction = false;
             } catch (IllegalArgumentException ex) {
                 updateZoom();
@@ -181,19 +181,19 @@ public class ToolbarController extends ControllerBase {
         sceneController.toggleRealTimeMode();
     }
 
-    private void onSceneMousePositionChanged(Object sender, Vector2 mousePosition) {
-        coordinateLabel.setText(String.format("(%.1f %s, %.1f %s)", mousePosition.getX(),
+    private void onSceneMousePositionPropertyChanged(ObservableValue<? extends Vector2> value, Vector2 oldPropertyValue, Vector2 newPropertyValue) {
+        coordinateLabel.setText(String.format("(%.1f %s, %.1f %s)", newPropertyValue.getX(),
                 playModel.playingSurfaceWidthUnits.get().getAbbreviation(),
-                mousePosition.getY(),
+                newPropertyValue.getY(),
                 playModel.playingSurfaceLengthUnits.get().getAbbreviation()));
     }
 
-    private void onSceneZoomChanged(Object sender, Zoom zoom) {
+    private void onSceneZoomPropertyChanged(ObservableValue<? extends Zoom> value, Zoom oldPropertyValue, Zoom newPropertyValue) {
         updateZoom();
     }
 
     private void updateZoom() {
-        Zoom currentZoom = sceneController.getZoom();
+        Zoom currentZoom = sceneController.zoomProperty().get();
         ignoreZoomComboBoxAction = true;
         zoomComboBox.setValue(currentZoom);
         ignoreZoomComboBoxAction = false;

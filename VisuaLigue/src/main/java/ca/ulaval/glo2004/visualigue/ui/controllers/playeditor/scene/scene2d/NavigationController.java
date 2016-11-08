@@ -10,6 +10,7 @@ import ca.ulaval.glo2004.visualigue.utils.javafx.FXUtils;
 import ca.ulaval.glo2004.visualigue.utils.math.MathUtils;
 import javafx.application.Platform;
 import javafx.beans.property.ObjectProperty;
+import javafx.beans.property.ReadOnlyObjectProperty;
 import javafx.beans.property.SimpleObjectProperty;
 import javafx.beans.value.ObservableValue;
 import javafx.scene.Cursor;
@@ -26,11 +27,10 @@ public class NavigationController extends ControllerBase {
     public EventHandler onDisabled = new EventHandler();
     private static final Zoom MIN_ZOOM = new Zoom(0.5);
     private static final Zoom MAX_ZOOM = new Zoom(5.0);
-    public EventHandler<Vector2> onRealWorldMousePositionChanged = new EventHandler();
-    public EventHandler<Zoom> onZoomChanged = new EventHandler();
     private Vector2 contentAlignPoint;
     private Vector2 viewportAlignPoint;
     private ObjectProperty<Zoom> zoomProperty = new SimpleObjectProperty(new Zoom(1));
+    private ObjectProperty<Vector2> realWorldMousePositionProperty = new SimpleObjectProperty(new Vector2(0, 0));
     private Boolean touchZooming = false;
     private Vector2 touchPoint1;
     private Vector2 touchPoint2;
@@ -41,13 +41,18 @@ public class NavigationController extends ControllerBase {
 
     public NavigationController(ExtendedScrollPane scrollPane, StackPane sceneViewport, PlayingSurfaceLayerController playingSurfaceLayerController) {
         this.scrollPane = scrollPane;
+        this.playingSurfaceLayerController = playingSurfaceLayerController;
+        zoomProperty.addListener(this::onZoomPropertyChanged);
         sceneViewport.widthProperty().addListener(this::scrollPaneContentWidthChangedListener);
         sceneViewport.heightProperty().addListener(this::scrollPaneContentHeightChangedListener);
-        this.playingSurfaceLayerController = playingSurfaceLayerController;
         scrollPane.addEventFilter(ScrollEvent.ANY, this::scrollPaneEventFilter);
         Platform.runLater(() -> {
             autoFit();
         });
+    }
+
+    public ReadOnlyObjectProperty<Vector2> realWorldMousePositionProperty() {
+        return realWorldMousePositionProperty;
     }
 
     public Zoom getMinZoom() {
@@ -58,19 +63,17 @@ public class NavigationController extends ControllerBase {
         return MAX_ZOOM;
     }
 
-    public Zoom getZoom() {
-        return zoomProperty.get();
-    }
-
-    public ObjectProperty<Zoom> getZoomProperty() {
+    public ObjectProperty<Zoom> zoomProperty() {
         return zoomProperty;
     }
 
-    public void setZoom(Zoom zoom) {
-        if (MathUtils.lessThan(zoom, getMinZoom())) {
-            zoom = getMinZoom();
-        } else if (MathUtils.greaterThan(zoom, getMaxZoom())) {
-            zoom = getMaxZoom();
+    public void onZoomPropertyChanged(ObservableValue<? extends Zoom> value, Zoom oldPropertyValue, Zoom newPropertyValue) {
+        if (MathUtils.lessThan(newPropertyValue, getMinZoom())) {
+            zoomProperty.set(getMinZoom());
+            return;
+        } else if (MathUtils.greaterThan(newPropertyValue, getMaxZoom())) {
+            zoomProperty.set(getMaxZoom());
+            return;
         }
         if (!touchZooming) {
             contentAlignPoint = scrollPane.mouseToSizeRelativeContentPoint();
@@ -80,9 +83,7 @@ public class NavigationController extends ControllerBase {
             contentAlignPoint = scrollPane.contentToSizeRelativePoint(scrollPane.getVisibleContentCenter());
             viewportAlignPoint = scrollPane.getViewportCenter();
         }
-        playingSurfaceLayerController.setZoom(zoom);
-        this.zoomProperty.set(zoom);
-        onZoomChanged.fire(this, zoom);
+        playingSurfaceLayerController.setZoom(zoomProperty.get());
     }
 
     public void zoomIn() {
@@ -90,7 +91,7 @@ public class NavigationController extends ControllerBase {
         if (nextZoom == null) {
             nextZoom = PREDEFINED_ZOOMS.last();
         }
-        setZoom(nextZoom);
+        zoomProperty.set(nextZoom);
     }
 
     public void zoomOut() {
@@ -98,15 +99,15 @@ public class NavigationController extends ControllerBase {
         if (nextZoom == null) {
             nextZoom = PREDEFINED_ZOOMS.first();
         }
-        setZoom(nextZoom);
+        zoomProperty.set(nextZoom);
     }
 
     public void autoFit() {
         Vector2 baseSceneSize = playingSurfaceLayerController.getBaseSurfaceSize();
         if (scrollPane.getWidth() / scrollPane.getHeight() > baseSceneSize.getX() / baseSceneSize.getY()) {
-            setZoom(new Zoom(scrollPane.getHeight() / baseSceneSize.getY()));
+            zoomProperty.set(new Zoom(scrollPane.getHeight() / baseSceneSize.getY()));
         } else {
-            setZoom(new Zoom(scrollPane.getWidth() / baseSceneSize.getX()));
+            zoomProperty.set(new Zoom(scrollPane.getWidth() / baseSceneSize.getX()));
         }
     }
 
@@ -147,7 +148,7 @@ public class NavigationController extends ControllerBase {
         scrollEvent.consume();
         if (!scrollEvent.isDirect()) {
             Double delta = scrollEvent.getDeltaY() / 100;
-            setZoom(new Zoom(getZoom().getValue() + delta));
+            zoomProperty.set(new Zoom(zoomProperty.get().getValue() + delta));
         }
     }
 
@@ -175,7 +176,7 @@ public class NavigationController extends ControllerBase {
     public void onSceneZoom(ZoomEvent e) {
         if (enabled && touchPoint1 != null && touchPoint2 != null) {
             viewportAlignPoint = touchPoint1.average(touchPoint2);
-            setZoom(new Zoom(getZoom().getValue() * e.getZoomFactor()));
+            zoomProperty.set(new Zoom(zoomProperty.get().getValue() * e.getZoomFactor()));
         }
     }
 
@@ -189,7 +190,7 @@ public class NavigationController extends ControllerBase {
 
     public void onSceneMouseMoved(MouseEvent e) {
         Vector2 realWorldSurfacePosition = playingSurfaceLayerController.getRealWorldMousePosition();
-        onRealWorldMousePositionChanged.fire(this, realWorldSurfacePosition);
+        realWorldMousePositionProperty.set(realWorldSurfacePosition);
     }
 
     protected void onSceneMousePressed(MouseEvent e) {

@@ -15,6 +15,8 @@ import ca.ulaval.glo2004.visualigue.ui.models.PlayModel;
 import ca.ulaval.glo2004.visualigue.utils.geometry.Vector2;
 import java.util.function.BiConsumer;
 import javafx.beans.property.BooleanProperty;
+import javafx.beans.property.ObjectProperty;
+import javafx.beans.property.ReadOnlyObjectProperty;
 import javafx.beans.property.SimpleBooleanProperty;
 import javafx.fxml.FXML;
 import javafx.scene.input.*;
@@ -50,11 +52,9 @@ public class Scene2DController extends SceneController {
         playingSurfaceLayerController = (PlayingSurfaceLayerController) playingSurfaceView.getController();
         playingSurfaceLayerController.init(playModel, layerStackPane);
         navigationController = new NavigationController(scrollPane, sceneViewport, playingSurfaceLayerController);
-        navigationController.onRealWorldMousePositionChanged.forward(onMousePositionChanged);
-        navigationController.onZoomChanged.forward(this.onZoomChanged);
         navigationController.onEnabled.forward(this.onNavigationModeEntered);
         navigationController.onDisabled.forward(this.onNavigationModeExited);
-        layerController = new LayerController(layerStackPane, actorLayerFactory, playModel, frameModel, playingSurfaceLayerController, navigationController.getZoomProperty(), settings);
+        layerController = new LayerController(layerStackPane, actorLayerFactory, playModel, frameModel, playingSurfaceLayerController, navigationController.zoomProperty(), settings);
         layerController.addLayer(playingSurfaceView);
         super.addChild(playingSurfaceLayerController);
         super.addChild(navigationController);
@@ -134,13 +134,13 @@ public class Scene2DController extends SceneController {
     }
 
     @Override
-    public Zoom getZoom() {
-        return navigationController.getZoom();
+    public ReadOnlyObjectProperty<Vector2> realWorldMousePositionProperty() {
+        return navigationController.realWorldMousePositionProperty();
     }
 
     @Override
-    public void setZoom(Zoom zoom) {
-        navigationController.setZoom(zoom);
+    public ObjectProperty<Zoom> zoomProperty() {
+        return navigationController.zoomProperty();
     }
 
     @Override
