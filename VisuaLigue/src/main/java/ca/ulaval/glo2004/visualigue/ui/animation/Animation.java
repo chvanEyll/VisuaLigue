@@ -19,7 +19,8 @@ public class Animation<T> {
     private Object groupKey = null;
     private Boolean isFirstOfGroup = false;
     private Boolean isLastOfGroup = false;
-    private BiConsumer<Animator, T> onFrameConsumer = null;
+    private BiConsumer<Animator, T> onFrame = null;
+    private Consumer<Animator> onComplete = null;
 
     public Animation(Consumer<T> method) {
         this.method = method;
@@ -94,8 +95,13 @@ public class Animation<T> {
         return this;
     }
 
-    public Animation callFrame(BiConsumer<Animator, T> consumer) {
-        this.onFrameConsumer = consumer;
+    public Animation callOnFrame(BiConsumer<Animator, T> consumer) {
+        this.onFrame = consumer;
+        return this;
+    }
+
+    public Animation callOnComplete(Consumer<Animator> consumer) {
+        this.onComplete = consumer;
         return this;
     }
 
@@ -111,7 +117,7 @@ public class Animation<T> {
         if (delay == 0) {
             method.accept((T) startValue);
         }
-        Animator animator = new Animator(method, startValue, endValue, duration, delay, easingFunction, groupKey, isFirstOfGroup, isLastOfGroup, onFrameConsumer);
+        Animator animator = new Animator(method, startValue, endValue, duration, delay, easingFunction, groupKey, isFirstOfGroup, isLastOfGroup, onFrame, onComplete);
         animator.animate();
         return animator;
     }

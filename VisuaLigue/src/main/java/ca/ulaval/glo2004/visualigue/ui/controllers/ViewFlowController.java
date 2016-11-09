@@ -1,7 +1,6 @@
 package ca.ulaval.glo2004.visualigue.ui.controllers;
 
 import ca.ulaval.glo2004.visualigue.ui.View;
-import ca.ulaval.glo2004.visualigue.ui.animation.PredefinedAnimations;
 import java.util.Stack;
 import javafx.fxml.FXML;
 import javafx.scene.layout.StackPane;
@@ -14,7 +13,6 @@ public class ViewFlowController {
     public void appendView(View view) {
         viewStack.push(view);
         rootNode.getChildren().add(view.getRoot());
-        PredefinedAnimations.zoom(view.getRoot());
     }
 
     public void clear() {

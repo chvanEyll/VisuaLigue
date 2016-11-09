@@ -16,7 +16,7 @@ import javafx.scene.shape.Rectangle;
 public class Animator<T> {
 
     private static final Integer ANIMATION_PERIOD = 15;
-    private static final List<Animator> runningAnimators = Collections.synchronizedList(new ArrayList());
+    private static final List<Animator> runningAnimators = new ArrayList();
     private static final Object ANIMATION_SYNCHRONIZE_LOCK = new Object();
 
     private final Consumer method;
@@ -31,9 +31,10 @@ public class Animator<T> {
     private LocalDateTime animationStartTime;
     private Timer timer;
     private Transition transition;
-    private BiConsumer<Animator, T> onFrameConsumer;
+    private BiConsumer<Animator, T> onFrame;
+    private Consumer<Animator> onComplete;
 
-    public Animator(Consumer method, T startValue, T endValue, Long duration, Long delay, EasingFunction easingFunction, Object groupKey, Boolean firstOfGroup, Boolean lastOfGroup, BiConsumer<Animator, T> onFrameConsumer) {
+    public Animator(Consumer method, T startValue, T endValue, Long duration, Long delay, EasingFunction easingFunction, Object groupKey, Boolean firstOfGroup, Boolean lastOfGroup, BiConsumer<Animator, T> onFrame, Consumer<Animator> onComplete) {
         this.method = method;
         this.startValue = startValue;
         this.endValue = endValue;
@@ -43,7 +44,8 @@ public class Animator<T> {
         this.groupKey = groupKey;
         this.isFirstOfGroup = firstOfGroup;
         this.isLastOfGroup = lastOfGroup;
-        this.onFrameConsumer = onFrameConsumer;
+        this.onFrame = onFrame;
+        this.onComplete = onComplete;
     }
 
     public void animate() {
@@ -81,27 +83,37 @@ public class Animator<T> {
 
     public void cancel() {
         if (timer != null) {
-            synchronized (ANIMATION_SYNCHRONIZE_LOCK) {
-                timer.cancel();
-                runningAnimators.remove(this);
-            }
+            timer.cancel();
+        }
+        synchronized (ANIMATION_SYNCHRONIZE_LOCK) {
+            runningAnimators.remove(this);
         }
     }
 
     private void animateFrame() {
         T value;
-        Long elapsedTime = Duration.between(animationStartTime, LocalDateTime.now()).toMillis();
-        if (startValue == null || elapsedTime > duration + delay) {
+        if (animationComplete()) {
             cancel();
             value = endValue;
         } else {
-            value = (T) transition.animate(startValue, endValue, elapsedTime - delay, duration);
+            value = (T) transition.animate(startValue, endValue, getElapsedTime() - delay, duration);
         }
         Platform.runLater(() -> {
             method.accept(value);
-            if (onFrameConsumer != null) {
-                onFrameConsumer.accept(this, value);
+            if (onFrame != null) {
+                onFrame.accept(this, value);
             }
         });
+        if (onComplete != null && animationComplete()) {
+            onComplete.accept(this);
+        }
+    }
+
+    private Long getElapsedTime() {
+        return Duration.between(animationStartTime, LocalDateTime.now()).toMillis();
+    }
+
+    private Boolean animationComplete() {
+        return startValue == null || getElapsedTime() > duration + delay;
     }
 }

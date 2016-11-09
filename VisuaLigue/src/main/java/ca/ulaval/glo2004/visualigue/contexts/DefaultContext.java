@@ -59,9 +59,9 @@ public class DefaultContext extends ContextBase {
         if (!sportRepository.isEmpty() && forceClear) {
             clearRepositories();
         } else if (!sportRepository.isEmpty()) {
-            System.out.println("Repositories are not empty: Skipping default context repository filling.");
             return;
         }
+        System.out.println("Repositories are  empty; Creating default context.");
         fill();
     }
 

@@ -1,6 +1,7 @@
 package ca.ulaval.glo2004.visualigue.ui.controllers;
 
 import ca.ulaval.glo2004.visualigue.ui.View;
+import ca.ulaval.glo2004.visualigue.ui.animation.PredefinedAnimations;
 import ca.ulaval.glo2004.visualigue.utils.javafx.BindingUtils;
 import ca.ulaval.glo2004.visualigue.utils.javafx.FXUtils;
 import java.net.URL;
@@ -112,6 +113,7 @@ public class MainSceneController extends ControllerBase {
     }
 
     private void initView(View view) {
+        PredefinedAnimations.zoom(view.getRoot());
         ControllerBase controller = (ControllerBase) view.getController();
         controller.onViewAppendRequested.setHandler(this::onViewAppendRequested);
         controller.onViewChangeRequested.setHandler(this::onViewChangeRequested);
