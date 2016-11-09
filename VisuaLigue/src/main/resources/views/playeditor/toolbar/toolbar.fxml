@@ -193,6 +193,7 @@
                         <CheckMenuItem fx:id="resizeActorsOnZoomMenuItem" text="Agrandir les joueurs avec le zoom" />
                         <CheckMenuItem fx:id="showMovementArrowsMenuItem" text="Afficher les flèches de déplacement" />
                         <CheckMenuItem fx:id="smoothMovementsMenuItem" text="Déplacements atténués" />
+                        <CheckMenuItem fx:id="showPlayerTrailsOnLastFrame" text="Afficher les traînées de joueurs à la dernière image" />
                     </items>
                     <tooltip>
                         <Tooltip text="Plus d'options" />

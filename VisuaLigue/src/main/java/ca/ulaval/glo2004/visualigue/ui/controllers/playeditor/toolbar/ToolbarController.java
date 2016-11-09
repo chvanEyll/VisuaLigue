@@ -46,6 +46,7 @@ public class ToolbarController extends ControllerBase {
     @FXML private CheckMenuItem resizeActorsOnZoomMenuItem;
     @FXML private CheckMenuItem showMovementArrowsMenuItem;
     @FXML private CheckMenuItem smoothMovementsMenuItem;
+    @FXML private CheckMenuItem showPlayerTrailsOnLastFrame;
     @Inject private PlayService playService;
     private BiConsumer<Object, Boolean> onUndoAvailabilityChanged = this::onUndoAvailabilityChanged;
     private BiConsumer<Object, Boolean> onRedoAvailabilityChanged = this::onRedoAvailabilityChanged;
@@ -89,6 +90,7 @@ public class ToolbarController extends ControllerBase {
         resizeActorsOnZoomMenuItem.selectedProperty().bindBidirectional(sceneController.settings.resizeActorsOnZoomProperty);
         showMovementArrowsMenuItem.selectedProperty().bindBidirectional(sceneController.settings.showMovementArrowsProperty);
         smoothMovementsMenuItem.selectedProperty().bindBidirectional(sequencePaneController.smoothMovementsEnabledProperty);
+        showPlayerTrailsOnLastFrame.selectedProperty().bindBidirectional(sceneController.settings.showPlayerTrailsOnLastFrameProperty);
     }
 
     @Override
@@ -96,6 +98,7 @@ public class ToolbarController extends ControllerBase {
         playService.onUndoAvailabilityChanged.removeHandler(onUndoAvailabilityChanged);
         playService.onRedoAvailabilityChanged.removeHandler(onRedoAvailabilityChanged);
         playService.onDirtyFlagChanged.removeHandler(onPlayDirtyFlagChanged);
+        super.clean();
     }
 
     private void onZoomComboBoxFocusedPropertyChanged(ObservableValue<? extends Boolean> value, Boolean oldPropertyValue, Boolean newPropertyValue) {

@@ -9,7 +9,7 @@ public class BallState extends ActorState implements Cloneable {
     private PlayerActor owner;
 
     public BallState() {
-        //Required for JAXB instanciation.
+        zOrder = Integer.MAX_VALUE;
     }
 
     public PlayerActor getOwner() {

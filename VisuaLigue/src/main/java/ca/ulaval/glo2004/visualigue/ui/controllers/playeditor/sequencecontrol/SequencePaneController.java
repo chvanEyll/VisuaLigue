@@ -74,6 +74,7 @@ public class SequencePaneController extends ControllerBase {
     @Override
     public void clean() {
         stop();
+        super.clean();
     }
 
     private void smoothMovementsEnabledPropertyChanged(ObservableValue<? extends Boolean> value, Boolean oldPropertyValue, Boolean newPropertyValue) {
@@ -99,7 +100,7 @@ public class SequencePaneController extends ControllerBase {
     @FXML
     protected void onLastKeyPointButtonAction(ActionEvent e) {
         stop();
-        seekBarController.goToEnd(true, KEYPOINT_MOVE_ANIMATION_PERIOD, 0L);
+        seekBarController.goToEnd(true, KEYPOINT_MOVE_ANIMATION_PERIOD);
     }
 
     @FXML
@@ -118,7 +119,7 @@ public class SequencePaneController extends ControllerBase {
     protected void onNewKeyPointButtonAction(ActionEvent e) {
         stop();
         playService.addKeypoint(playModel.getUUID(), seekBarController.getTime());
-        seekBarController.goToEnd(true, KEYPOINT_MOVE_ANIMATION_PERIOD, 100L);
+        seekBarController.goToEnd(false, 0L);
     }
 
     @FXML

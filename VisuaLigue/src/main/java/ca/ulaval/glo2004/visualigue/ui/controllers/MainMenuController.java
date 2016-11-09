@@ -38,6 +38,7 @@ public class MainMenuController extends ControllerBase {
     @Override
     public void clean() {
         ClippingUtils.unclip(menuPane);
+        super.clean();
     }
 
     public void toggleExpand() {

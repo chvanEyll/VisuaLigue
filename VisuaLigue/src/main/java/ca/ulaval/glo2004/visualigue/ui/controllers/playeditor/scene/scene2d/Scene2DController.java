@@ -55,7 +55,7 @@ public class Scene2DController extends SceneController {
         navigationController.onEnabled.forward(this.onNavigationModeEntered);
         navigationController.onDisabled.forward(this.onNavigationModeExited);
         layerController = new LayerController(layerStackPane, actorLayerFactory, playModel, frameModel, playingSurfaceLayerController, navigationController.zoomProperty(), settings);
-        layerController.addLayer(playingSurfaceView);
+        layerController.addLayer(playingSurfaceView, Integer.MIN_VALUE);
         super.addChild(playingSurfaceLayerController);
         super.addChild(navigationController);
         super.addChild(layerController);
@@ -80,6 +80,7 @@ public class Scene2DController extends SceneController {
         KeyboardShortcutMapper.unmap(new KeyCodeCombination(KeyCode.R, KeyCombination.CONTROL_DOWN));
         KeyboardShortcutMapper.unmap(new KeyCodeCombination(KeyCode.Q, KeyCombination.CONTROL_DOWN));
         playService.onFrameChanged.removeHandler(onPlayFrameChanged);
+        super.clean();
     }
 
     private void onPlayFrameChanged(Object sender, Play play) {
@@ -88,7 +89,7 @@ public class Scene2DController extends SceneController {
 
     @Override
     public void update(Long time) {
-        frameModelConverter.update(frameModel, playService.getFrame(playModel.getUUID(), time), playModel);
+        frameModelConverter.update(frameModel, playService.getFrame(playModel.getUUID(), time, settings.showPlayerTrailsOnLastFrameProperty.get()), playModel);
     }
 
     @Override

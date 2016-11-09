@@ -39,6 +39,7 @@ public class MainSceneController extends ControllerBase {
     public void clean() {
         BindingUtils.clearBindings(viewTitleLabel.textProperty());
         BindingUtils.clearBindings(viewTitleTextField.textProperty());
+        super.clean();
     }
 
     @FXML

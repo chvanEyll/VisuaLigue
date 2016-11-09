@@ -47,6 +47,7 @@ public class PlayListController extends ControllerBase {
         playService.onPlayCreated.removeHandler(onPlayCreated);
         playService.onPlayUpdated.removeHandler(onPlayUpdated);
         playService.onPlayDeleted.removeHandler(onPlayDeleted);
+        super.clean();
     }
 
     private void onPlayCreated(Object sender, Play play) {

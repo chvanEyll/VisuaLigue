@@ -13,6 +13,7 @@ public class Settings {
     public BooleanProperty showActorLabelsProperty = new SimpleBooleanProperty(false);
     public BooleanProperty showMovementArrowsProperty = new SimpleBooleanProperty(true);
     public BooleanProperty resizeActorsOnZoomProperty = new SimpleBooleanProperty(true);
+    public BooleanProperty showPlayerTrailsOnLastFrameProperty = new SimpleBooleanProperty(true);
 
     @Inject
     public Settings(SettingsService settingsService) {
@@ -23,6 +24,8 @@ public class Settings {
         showMovementArrowsProperty.addListener(this::onShowMovementArrowsPropertyChanged);
         resizeActorsOnZoomProperty.set(settingsService.getResizeActorsOnZoom());
         resizeActorsOnZoomProperty.addListener(this::onResizeActorsOnZoomPropertyChanged);
+        showPlayerTrailsOnLastFrameProperty.set(settingsService.getShowPlayerTrailsOnLastFrame());
+        showPlayerTrailsOnLastFrameProperty.addListener(this::onShowPlayerTrailsOnLastFramePropertyChanged);
     }
 
     public void onShowActorLabelsPropertyChanged(ObservableValue<? extends Boolean> value, Boolean oldPropertyValue, Boolean newPropertyValue) {
@@ -35,6 +38,10 @@ public class Settings {
 
     public void onResizeActorsOnZoomPropertyChanged(ObservableValue<? extends Boolean> value, Boolean oldPropertyValue, Boolean newPropertyValue) {
         settingsService.setResizeActorsOnZoom(newPropertyValue);
+    }
+
+    public void onShowPlayerTrailsOnLastFramePropertyChanged(ObservableValue<? extends Boolean> value, Boolean oldPropertyValue, Boolean newPropertyValue) {
+        settingsService.setShowPlayerTrailsOnLastFrame(newPropertyValue);
     }
 
 }

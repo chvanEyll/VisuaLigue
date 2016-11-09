@@ -146,9 +146,9 @@ public class PlayService {
         onPlayUpdated.fire(this, revertedPlay);
     }
 
-    public Frame getFrame(String playUUID, Long time) throws PlayNotFoundException {
+    public Frame getFrame(String playUUID, Long time, Boolean showPlayerTrails) throws PlayNotFoundException {
         Play play = playRepository.get(playUUID);
-        return play.getFrame(time);
+        return play.getFrame(time, showPlayerTrails);
     }
 
     public Boolean isUndoAvailable(String playUUID) throws PlayNotFoundException {

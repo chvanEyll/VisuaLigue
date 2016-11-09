@@ -1,18 +1,14 @@
 package ca.ulaval.glo2004.visualigue.domain.play.frame;
 
 import ca.ulaval.glo2004.visualigue.domain.DomainObject;
-import ca.ulaval.glo2004.visualigue.domain.play.actor.Actor;
-import ca.ulaval.glo2004.visualigue.domain.play.actorstate.ActorState;
-import java.util.HashMap;
-import java.util.Map;
+import ca.ulaval.glo2004.visualigue.domain.play.actor.ActorInstance;
+import java.util.HashSet;
+import java.util.Set;
 
 public class Frame extends DomainObject {
 
     private Long time;
-    private Boolean isLocked = false;
-    private Double opacity = 1.0;
-    private Map<Actor, ActorState> currentActorStates = new HashMap();
-    private Map<Actor, ActorState> nextActorStates = new HashMap();
+    private Set<ActorInstance> actorInstances = new HashSet();
 
     public Frame(Long time) {
         this.time = time;
@@ -22,40 +18,12 @@ public class Frame extends DomainObject {
         return time;
     }
 
-    public Boolean isLocked() {
-        return isLocked;
+    public Set<ActorInstance> getActorInstances() {
+        return actorInstances;
     }
 
-    public void setIsLocked(Boolean isLocked) {
-        this.isLocked = isLocked;
-    }
-
-    public Double getOpacity() {
-        return opacity;
-    }
-
-    public void setOpacity(Double opacity) {
-        this.opacity = opacity;
-    }
-
-    public Map<Actor, ActorState> getCurrentActorStates() {
-        return currentActorStates;
-    }
-
-    public void setCurrentActorState(Actor actor, ActorState actorState) {
-        currentActorStates.put(actor, actorState);
-    }
-
-    public ActorState getNextActorState(Actor actor) {
-        return nextActorStates.get(actor);
-    }
-
-    public void setNextActorState(Actor actor, ActorState actorState) {
-        nextActorStates.put(actor, actorState);
-    }
-
-    public void removeNextActorState(Actor actor) {
-        nextActorStates.remove(actor);
+    public void addActorState(ActorInstance actorInstance) {
+        actorInstances.add(actorInstance);
     }
 
 }

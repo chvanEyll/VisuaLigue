@@ -9,6 +9,11 @@ public class Line {
     private Vector2 point1;
     private Vector2 point2;
 
+    public Line() {
+        this.point1 = new Vector2();
+        this.point2 = new Vector2();
+    }
+
     public Line(Vector2 point1, Vector2 point2) {
         this.point1 = point1;
         this.point2 = point2;
@@ -22,8 +27,16 @@ public class Line {
         return point1;
     }
 
+    public void setPoint1(Vector2 point1) {
+        this.point1 = point1;
+    }
+
     public Vector2 getPoint2() {
         return point2;
+    }
+
+    public void setPoint2(Vector2 point2) {
+        this.point2 = point2;
     }
 
     public Line offsetToOrigin() {
@@ -42,8 +55,8 @@ public class Line {
     }
 
     public Line grow(Double magnitude) {
-        if (magnitude < 0 && Math.abs(magnitude) >= this.getLength()) {
-            return new Line(point1.clone(), point1.clone());
+        if (magnitude <= 0 && Math.abs(magnitude) >= this.getLength()) {
+            return new Line(point1.clone(), point2.clone());
         } else {
             Double angle = Math.toRadians(this.getAngle());
             Double diffX = magnitude * Math.cos(angle);

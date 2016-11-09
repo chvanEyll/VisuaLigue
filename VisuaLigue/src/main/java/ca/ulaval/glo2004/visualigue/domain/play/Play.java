@@ -3,6 +3,7 @@ package ca.ulaval.glo2004.visualigue.domain.play;
 import ca.ulaval.glo2004.visualigue.domain.DomainObject;
 import ca.ulaval.glo2004.visualigue.domain.obstacle.Obstacle;
 import ca.ulaval.glo2004.visualigue.domain.play.actor.Actor;
+import ca.ulaval.glo2004.visualigue.domain.play.actor.ActorInstance;
 import ca.ulaval.glo2004.visualigue.domain.play.actor.ObstacleActor;
 import ca.ulaval.glo2004.visualigue.domain.play.actor.PlayerActor;
 import ca.ulaval.glo2004.visualigue.domain.play.actorstate.ActorProperty;
@@ -18,6 +19,7 @@ import ca.ulaval.glo2004.visualigue.utils.math.MathUtils;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
+import java.util.Set;
 import java.util.TreeMap;
 import javax.xml.bind.annotation.XmlRootElement;
 import javax.xml.bind.annotation.XmlTransient;
@@ -26,7 +28,7 @@ import javax.xml.bind.annotation.adapters.XmlJavaTypeAdapter;
 @XmlRootElement(name = "play")
 public class Play extends DomainObject {
 
-    private static final Integer NEXT_KEYFRAME_LOOKAHEAD_TIME = 50;
+    private static final Long NEXT_KEYFRAME_LOOKAHEAD_TIME = 50L;
     private String title = "Nouveau jeu";
     private String defaultThumbnailImage = "/images/generic-play-thumbnail.png";
     private String thumbnailImageUUID;
@@ -143,36 +145,36 @@ public class Play extends DomainObject {
         }
     }
 
-    public List<Frame> getFrames(Long time) {
-        List<Frame> frames = new ArrayList();
-        if (time.equals(timelineLength)) {
-            for (Long keyPointTime = 0L; keyPointTime < time; keyPointTime += keyPointInterval) {
-                Frame frame = getFrame(keyPointTime);
-                frame.setIsLocked(true);
-                frame.setOpacity(0.5);
-                frames.add(frame);
-            }
-            frames.add(getFrame(time));
-        }
-        return frames;
-    }
-
-    public Frame getFrame(Long time) {
+    public Frame getFrame(Long time, Boolean showPlayerTrails) {
         Frame frame = new Frame(time);
         actorTimelines.entrySet().stream().forEach(e -> {
-            Actor actor = e.getKey();
             ActorTimeline actorTimeline = e.getValue();
-            ActorState actorState = actorTimeline.getActorState(time);
-            if (actorState != null) {
-                frame.setCurrentActorState(actor, actorState);
+            ActorState actorState = actorTimeline.getActorState(time, NEXT_KEYFRAME_LOOKAHEAD_TIME);
+            frame.addActorState(new ActorInstance(actorTimeline.getActor(), actorState, 0));
+            if (showPlayerTrails && time.equals(timelineLength) && actorTimeline.getActor() instanceof PlayerActor) {
+                addPlayerTrailsToFrame(frame, time, actorTimeline, actorState);
             }
-            ActorState nextActorState = actorTimeline.getNextActorState(time + NEXT_KEYFRAME_LOOKAHEAD_TIME);
-            if (nextActorState != null) {
-                frame.setNextActorState(actor, nextActorState);
-            } else {
-                frame.removeNextActorState(actor);
-            }
+
         });
         return frame;
     }
+
+    private void addPlayerTrailsToFrame(Frame frame, Long time, ActorTimeline actorTimeline, ActorState activeState) {
+        Set<Long> positionKeyframeTimes = actorTimeline.getPropertyKeyframeTimes(ActorState.getPositionProperty());
+        Integer instanceCount = 1;
+        for (Long trailTime : positionKeyframeTimes) {
+            if (!trailTime.equals(time)) {
+                ActorState actorState = actorTimeline.getActorState(trailTime, NEXT_KEYFRAME_LOOKAHEAD_TIME);
+                if (!activeState.getPosition().equals(actorState.getPosition())) {
+                    actorState.setIsLocked(true);
+                    actorState.setOpacity(0.5);
+                    actorState.setShowLabel(false);
+                    actorState.setZOrder(-instanceCount);
+                    frame.addActorState(new ActorInstance(actorTimeline.getActor(), actorState, instanceCount));
+                    instanceCount += 1;
+                }
+            }
+        }
+    }
+
 }

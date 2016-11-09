@@ -48,6 +48,7 @@ public class BallLayerController extends ActorLayerController {
     public void clean() {
         settings.resizeActorsOnZoomProperty.removeListener(onChange);
         zoomProperty.removeListener(onChange);
+        super.clean();
     }
 
     private void onChange(final ObservableValue<? extends Object> value, final Object oldPropertyValue, final Object newPropertyValue) {
@@ -68,14 +69,15 @@ public class BallLayerController extends ActorLayerController {
     }
 
     private void updateActor(Vector2 actorPosition) {
-        if (actorPosition != null) {
+        Boolean showActor = actorPosition != null;
+        if (showActor) {
             actorButton.setScaleX(getScaledValue(1.0));
             actorButton.setScaleY(getScaledValue(1.0));
             actorButton.setLayoutX(actorPosition.getX() - actorButton.getWidth() / 2);
             actorButton.setLayoutY(actorPosition.getY() - actorButton.getHeight() / 2);
         }
-        actorButton.setVisible(actorPosition != null);
-        actorButton.setCursor(frameModel.isLocked.get() ? Cursor.DEFAULT : Cursor.MOVE);
+        actorButton.setVisible(showActor);
+        actorButton.setCursor(layerModel.isLocked.get() ? Cursor.DEFAULT : Cursor.MOVE);
     }
 
     @FXML

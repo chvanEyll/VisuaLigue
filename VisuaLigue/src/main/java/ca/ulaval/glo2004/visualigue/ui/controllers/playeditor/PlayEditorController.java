@@ -79,6 +79,7 @@ public class PlayEditorController extends ControllerBase {
         KeyboardShortcutMapper.unmap(new KeyCodeCombination(KeyCode.W, KeyCombination.CONTROL_DOWN));
         KeyboardShortcutMapper.unmap(new KeyCodeCombination(KeyCode.Z, KeyCombination.CONTROL_DOWN));
         KeyboardShortcutMapper.unmap(new KeyCodeCombination(KeyCode.Y, KeyCombination.CONTROL_DOWN));
+        super.clean();
     }
 
     @Override

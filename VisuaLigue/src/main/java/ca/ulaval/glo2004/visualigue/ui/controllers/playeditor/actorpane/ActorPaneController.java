@@ -28,6 +28,7 @@ public class ActorPaneController extends ControllerBase {
     @Override
     public void clean() {
         ClippingUtils.unclip(rootNode);
+        super.clean();
     }
 
     public void toggleExpand() {

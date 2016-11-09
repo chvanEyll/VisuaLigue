@@ -1,13 +1,9 @@
 package ca.ulaval.glo2004.visualigue.ui.converters;
 
-import ca.ulaval.glo2004.visualigue.domain.play.actor.Actor;
+import ca.ulaval.glo2004.visualigue.domain.play.actor.ActorInstance;
 import ca.ulaval.glo2004.visualigue.domain.play.actor.BallActor;
 import ca.ulaval.glo2004.visualigue.domain.play.actor.ObstacleActor;
 import ca.ulaval.glo2004.visualigue.domain.play.actor.PlayerActor;
-import ca.ulaval.glo2004.visualigue.domain.play.actorstate.ActorState;
-import ca.ulaval.glo2004.visualigue.domain.play.actorstate.BallState;
-import ca.ulaval.glo2004.visualigue.domain.play.actorstate.ObstacleState;
-import ca.ulaval.glo2004.visualigue.domain.play.actorstate.PlayerState;
 import ca.ulaval.glo2004.visualigue.domain.play.frame.Frame;
 import ca.ulaval.glo2004.visualigue.ui.converters.layers.BallLayerModelConverter;
 import ca.ulaval.glo2004.visualigue.ui.converters.layers.ObstacleLayerModelConverter;
@@ -18,7 +14,7 @@ import ca.ulaval.glo2004.visualigue.ui.models.layers.ActorLayerModel;
 import ca.ulaval.glo2004.visualigue.ui.models.layers.BallLayerModel;
 import ca.ulaval.glo2004.visualigue.ui.models.layers.ObstacleLayerModel;
 import ca.ulaval.glo2004.visualigue.ui.models.layers.PlayerLayerModel;
-import java.util.Map;
+import java.util.Set;
 import java.util.stream.Collectors;
 import javax.inject.Inject;
 
@@ -45,57 +41,55 @@ public class FrameModelConverter {
         model.setUUID(frame.getUUID());
         model.setIsNew(false);
         model.time.set(frame.getTime());
-        model.isLocked.set(frame.isLocked());
-        model.opacity.set(frame.getOpacity());
-        addNewActors(model, frame, playModel, frame.getCurrentActorStates());
-        updateActors(model, frame, playModel, frame.getCurrentActorStates());
-        removeNonPresentActors(model, frame.getCurrentActorStates());
+        addNewActors(model, playModel, frame.getActorInstances());
+        updateActors(model, playModel, frame.getActorInstances());
+        removeNonPresentActors(model, frame.getActorInstances());
     }
 
-    private void addNewActors(FrameModel model, Frame frame, PlayModel playModel, Map<Actor, ActorState> actorStates) {
-        actorStates.entrySet().forEach(entry -> {
-            if (!model.layerModels.containsKey(entry.getKey().getUUID())) {
-                ActorLayerModel layerModel = createLayerModel(frame, playModel, entry.getKey(), entry.getValue());
-                model.layerModels.put(entry.getKey().getUUID(), layerModel);
+    private void addNewActors(FrameModel model, PlayModel playModel, Set<ActorInstance> actorInstances) {
+        actorInstances.forEach(actorInstance -> {
+            if (!model.layerModels.containsKey(actorInstance.hashCode())) {
+                ActorLayerModel layerModel = createLayerModel(playModel, actorInstance);
+                model.layerModels.put(actorInstance.hashCode(), layerModel);
             }
         });
     }
 
-    private ActorLayerModel createLayerModel(Frame frame, PlayModel playModel, Actor actor, ActorState actorState) {
-        if (actor instanceof PlayerActor) {
-            return playerLayerModelConverter.convert(frame, (PlayerActor) actor, (PlayerState) actorState);
-        } else if (actor instanceof BallActor) {
-            return ballLayerModelConverter.convert(playModel, (BallActor) actor, (BallState) actorState);
-        } else if (actor instanceof ObstacleActor) {
-            return obstacleLayerModelConverter.convert((ObstacleActor) actor, (ObstacleState) actorState);
+    private ActorLayerModel createLayerModel(PlayModel playModel, ActorInstance actorInstance) {
+        if (actorInstance.getActor() instanceof PlayerActor) {
+            return playerLayerModelConverter.convert(actorInstance);
+        } else if (actorInstance.getActor() instanceof BallActor) {
+            return ballLayerModelConverter.convert(playModel, actorInstance);
+        } else if (actorInstance.getActor() instanceof ObstacleActor) {
+            return obstacleLayerModelConverter.convert(actorInstance);
         } else {
             throw new RuntimeException("Unsupported Actor subclass.");
         }
     }
 
-    private void updateActors(FrameModel model, Frame frame, PlayModel playModel, Map<Actor, ActorState> actorStates) {
-        actorStates.entrySet().forEach(entry -> {
-            if (model.layerModels.containsKey(entry.getKey().getUUID())) {
-                ActorLayerModel layerModel = model.layerModels.get(entry.getKey().getUUID());
-                updateLayerModel(layerModel, frame, playModel, entry.getKey(), entry.getValue());
+    private void updateActors(FrameModel model, PlayModel playModel, Set<ActorInstance> actorInstances) {
+        actorInstances.forEach(actorInstance -> {
+            if (model.layerModels.containsKey(actorInstance.hashCode())) {
+                ActorLayerModel layerModel = model.layerModels.get(actorInstance.hashCode());
+                updateLayerModel(layerModel, playModel, actorInstance);
             }
         });
     }
 
-    private void updateLayerModel(ActorLayerModel layerModel, Frame frame, PlayModel playModel, Actor actor, ActorState actorState) {
-        if (actor instanceof PlayerActor) {
-            playerLayerModelConverter.update(frame, (PlayerLayerModel) layerModel, (PlayerActor) actor, (PlayerState) actorState);
-        } else if (actor instanceof BallActor) {
-            ballLayerModelConverter.update((BallLayerModel) layerModel, playModel, (BallActor) actor, (BallState) actorState);
-        } else if (actor instanceof ObstacleActor) {
-            obstacleLayerModelConverter.update((ObstacleLayerModel) layerModel, (ObstacleActor) actor, (ObstacleState) actorState);
+    private void updateLayerModel(ActorLayerModel layerModel, PlayModel playModel, ActorInstance actorInstance) {
+        if (actorInstance.getActor() instanceof PlayerActor) {
+            playerLayerModelConverter.update((PlayerLayerModel) layerModel, actorInstance);
+        } else if (actorInstance.getActor() instanceof BallActor) {
+            ballLayerModelConverter.update((BallLayerModel) layerModel, playModel, actorInstance);
+        } else if (actorInstance.getActor() instanceof ObstacleActor) {
+            obstacleLayerModelConverter.update((ObstacleLayerModel) layerModel, actorInstance);
         }
     }
 
-    private void removeNonPresentActors(FrameModel model, Map<Actor, ActorState> actorStates) {
-        model.layerModels.keySet().stream().collect(Collectors.toList()).forEach(layerModelUUID -> {
-            if (!actorStates.keySet().stream().anyMatch(actor -> actor.getUUID().equals(layerModelUUID))) {
-                model.layerModels.remove(layerModelUUID);
+    private void removeNonPresentActors(FrameModel model, Set<ActorInstance> actorInstances) {
+        model.layerModels.keySet().stream().collect(Collectors.toList()).forEach(hashCode -> {
+            if (!actorInstances.stream().anyMatch(actorInstance -> actorInstance.hashCode() == hashCode)) {
+                model.layerModels.remove(hashCode);
             }
         });
     }

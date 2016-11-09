@@ -9,6 +9,7 @@ import javafx.application.Platform;
 import javafx.beans.value.ChangeListener;
 import javafx.beans.value.ObservableValue;
 import javafx.fxml.FXML;
+import javafx.scene.Cursor;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.input.MouseEvent;
@@ -47,6 +48,7 @@ public class ObstacleLayerController extends ActorLayerController {
     public void clean() {
         settings.resizeActorsOnZoomProperty.removeListener(onChange);
         zoomProperty.removeListener(onChange);
+        super.clean();
     }
 
     private void onChange(final ObservableValue<? extends Object> value, final Object oldPropertyValue, final Object newPropertyValue) {
@@ -67,13 +69,15 @@ public class ObstacleLayerController extends ActorLayerController {
     }
 
     private void updateActor(Vector2 actorPosition) {
-        if (actorPosition != null) {
+        Boolean showActor = actorPosition != null;
+        if (showActor) {
             actorButton.setScaleX(getScaledValue(1.0));
             actorButton.setScaleY(getScaledValue(1.0));
             actorButton.setLayoutX(actorPosition.getX() - actorButton.getWidth() / 2);
             actorButton.setLayoutY(actorPosition.getY() - actorButton.getHeight() / 2);
         }
-        actorButton.setVisible(actorPosition != null);
+        actorButton.setVisible(showActor);
+        actorButton.setCursor(layerModel.isLocked.get() ? Cursor.DEFAULT : Cursor.MOVE);
     }
 
     @FXML

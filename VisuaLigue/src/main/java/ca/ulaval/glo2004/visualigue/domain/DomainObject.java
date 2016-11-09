@@ -38,7 +38,7 @@ public abstract class DomainObject implements Comparable<DomainObject> {
             return false;
         }
         final DomainObject other = (DomainObject) obj;
-        return Objects.equals(this.uuid, other.uuid);
+        return Objects.equals(this.hashCode(), other.hashCode());
     }
 
     @Override
@@ -46,6 +46,6 @@ public abstract class DomainObject implements Comparable<DomainObject> {
         if (obj == this) {
             return 0;
         }
-        return uuid.compareTo(obj.uuid);
+        return Integer.compare(hashCode(), obj.hashCode());
     }
 }

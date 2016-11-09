@@ -6,7 +6,10 @@ import ca.ulaval.glo2004.visualigue.domain.play.actorstate.ActorProperty;
 import ca.ulaval.glo2004.visualigue.domain.play.actorstate.ActorState;
 import ca.ulaval.glo2004.visualigue.domain.play.keyframe.Keyframe;
 import ca.ulaval.glo2004.visualigue.domain.play.keyframe.transition.KeyframeTransition;
+import ca.ulaval.glo2004.visualigue.utils.geometry.Vector2;
+import java.util.HashSet;
 import java.util.Optional;
+import java.util.Set;
 import java.util.TreeMap;
 import javax.xml.bind.annotation.XmlIDREF;
 
@@ -56,18 +59,31 @@ public class ActorTimeline extends DomainObject {
         return propertyTimelines.isEmpty();
     }
 
-    public ActorState getActorState(Long time) {
+    public Actor getActor() {
+        return actor;
+    }
+
+    public Set<Long> getPropertyKeyframeTimes(ActorProperty actorProperty) {
+        if (propertyTimelines.containsKey(actorProperty)) {
+            return propertyTimelines.get(actorProperty).getTimes();
+        } else {
+            return new HashSet();
+        }
+    }
+
+    public ActorState getActorState(Long time, Long nextStateLookaheadTime) {
+        ActorState actorState = getCurrentActorState(time);
+        if (actorState != null) {
+            Vector2 nextPosition = (Vector2) propertyTimelines.get(ActorState.getPositionProperty()).getNextValue(time + nextStateLookaheadTime);
+            actorState.setNextPosition(nextPosition);
+        }
+        return actorState;
+    }
+
+    private ActorState getCurrentActorState(Long time) {
         ActorState baseState = actor.getBaseState();
         propertyTimelines.values().forEach(propertyTimeline -> {
             baseState.setPropertyValue(propertyTimeline.getActorProperty(), propertyTimeline.getValue(time));
-        });
-        return baseState;
-    }
-
-    public ActorState getNextActorState(Long time) {
-        ActorState baseState = actor.getBaseState();
-        propertyTimelines.values().forEach(propertyTimeline -> {
-            baseState.setPropertyValue(propertyTimeline.getActorProperty(), propertyTimeline.getNextValue(time));
         });
         return baseState;
     }

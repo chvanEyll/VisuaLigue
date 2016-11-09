@@ -61,4 +61,14 @@ public class SettingsService {
         settingsRepository.update(settings);
     }
 
+    public Boolean getShowPlayerTrailsOnLastFrame() {
+        return settingsRepository.getFirstOrDefault().getShowPlayerTrailsOnLastFrame();
+    }
+
+    public void setShowPlayerTrailsOnLastFrame(Boolean value) {
+        Settings settings = settingsRepository.getFirstOrDefault();
+        settings.setShowPlayerTrailsOnLastFrame(value);
+        settingsRepository.update(settings);
+    }
+
 }

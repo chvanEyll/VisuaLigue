@@ -6,6 +6,7 @@ import ca.ulaval.glo2004.visualigue.domain.play.keyframe.Keyframe;
 import ca.ulaval.glo2004.visualigue.domain.play.keyframe.transition.KeyframeTransition;
 import java.util.Map;
 import java.util.Optional;
+import java.util.Set;
 import java.util.TreeMap;
 
 public class ActorPropertyTimeline extends DomainObject {
@@ -19,6 +20,10 @@ public class ActorPropertyTimeline extends DomainObject {
 
     public ActorPropertyTimeline(ActorProperty actorProperty) {
         this.actorProperty = actorProperty;
+    }
+
+    public Set<Long> getTimes() {
+        return keyframes.keySet();
     }
 
     public ActorProperty getActorProperty() {

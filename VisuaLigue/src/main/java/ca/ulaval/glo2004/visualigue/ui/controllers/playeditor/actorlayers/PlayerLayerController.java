@@ -11,6 +11,7 @@ import javafx.application.Platform;
 import javafx.beans.value.ChangeListener;
 import javafx.beans.value.ObservableValue;
 import javafx.fxml.FXML;
+import javafx.scene.Cursor;
 import javafx.scene.input.MouseEvent;
 
 public class PlayerLayerController extends ActorLayerController {
@@ -53,6 +54,7 @@ public class PlayerLayerController extends ActorLayerController {
         settings.showMovementArrowsProperty.removeListener(onChange);
         settings.resizeActorsOnZoomProperty.removeListener(onChange);
         zoomProperty.removeListener(onChange);
+        super.clean();
     }
 
     private void onChange(final ObservableValue<? extends Object> value, final Object oldPropertyValue, final Object newPropertyValue) {
@@ -81,7 +83,8 @@ public class PlayerLayerController extends ActorLayerController {
     }
 
     private void updateActor(Vector2 actorPosition) {
-        if (actorPosition != null) {
+        Boolean showActor = actorPosition != null;
+        if (showActor) {
             actorButton.setScaleX(getScaledValue(BASE_BUTTON_SCALING));
             actorButton.setScaleY(getScaledValue(BASE_BUTTON_SCALING));
             actorButton.setLayoutX(actorPosition.getX() - actorButton.getWidth() / 2);
@@ -89,31 +92,35 @@ public class PlayerLayerController extends ActorLayerController {
             actorButton.setRotate(playerLayerModel.orientation.get());
             playerIcon.setColor(playerLayerModel.color.get());
         }
-        actorButton.setVisible(actorPosition != null);
+        actorButton.setVisible(showActor);
+        actorButton.setCursor(layerModel.isLocked.get() ? Cursor.DEFAULT : Cursor.MOVE);
     }
 
     private void updateArrow(Vector2 currentActorPosition, Vector2 nextActorPosition) {
-        if (settings.showMovementArrowsProperty.get() == true && nextActorPosition != null) {
+        Boolean showArrow = settings.showMovementArrowsProperty.get() == true && nextActorPosition != null;
+        if (showArrow) {
             arrow.setStroke(playerLayerModel.color.get());
             arrow.setStrokeWidth(getScaledValue(3.0));
             arrow.getStrokeDashArray().setAll(getScaledValue(ARROW_STROKE_DASH_ARRAY_SIZE));
             arrow.setArrowFill(playerLayerModel.color.get());
             arrow.setHeadSize(new Vector2(getScaledValue(ARROW_HEAD_SIZE), getScaledValue(ARROW_HEAD_SIZE)));
             arrow.setTailGrow(-actorButton.getWidth() * actorButton.getScaleX());
+            arrow.setHeadGrow(-actorButton.getWidth() * actorButton.getScaleX());
             arrow.setHeadLocation(nextActorPosition);
             arrow.setTailLocation(currentActorPosition);
         }
-        arrow.setVisible(settings.showMovementArrowsProperty.get() == true && nextActorPosition != null);
+        arrow.setVisible(showArrow);
     }
 
     private void updateLabel(Vector2 actorPosition) {
-        if (actorPosition != null) {
+        Boolean showLabel = actorPosition != null && playerLayerModel.showLabel.get() && settings.showActorLabelsProperty.get();
+        if (showLabel) {
             label.setScaleX(getScaledValue(1.0));
             label.setScaleY(getScaledValue(1.0));
             label.setLayoutX(actorPosition.getX() - label.getWidth() / 2);
             label.setLayoutY(actorPosition.getY() - label.getHeight() / 2 - getScaledValue(LABEL_OFFSET_Y));
         }
-        label.setVisible(actorPosition != null && settings.showActorLabelsProperty.get());
+        label.setVisible(showLabel);
     }
 
     @FXML

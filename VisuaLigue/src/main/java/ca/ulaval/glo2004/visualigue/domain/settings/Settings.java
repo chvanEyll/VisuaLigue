@@ -9,7 +9,8 @@ public class Settings extends DomainObject {
     private Boolean resizeActorsOnZoom = true;
     private Boolean showMovementArrows = true;
     private Boolean showActorLabels = false;
-    private Boolean smoothMovements = true;
+    private Boolean enableSmoothMovements = true;
+    private Boolean showPlayerTrailsOnLastFrame = true;
 
     public Boolean getResizeActorsOnZoom() {
         return resizeActorsOnZoom;
@@ -36,11 +37,19 @@ public class Settings extends DomainObject {
     }
 
     public Boolean getEnableSmoothMovements() {
-        return smoothMovements;
+        return enableSmoothMovements;
     }
 
     public void setEnableSmoothMovements(Boolean smoothMovements) {
-        this.smoothMovements = smoothMovements;
+        this.enableSmoothMovements = smoothMovements;
+    }
+
+    public Boolean getShowPlayerTrailsOnLastFrame() {
+        return showPlayerTrailsOnLastFrame;
+    }
+
+    public void setShowPlayerTrailsOnLastFrame(Boolean showPlayerTrailsOnLastFrame) {
+        this.showPlayerTrailsOnLastFrame = showPlayerTrailsOnLastFrame;
     }
 
 }

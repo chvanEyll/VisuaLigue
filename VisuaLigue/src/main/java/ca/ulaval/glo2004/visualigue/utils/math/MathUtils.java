@@ -49,4 +49,14 @@ public class MathUtils {
     public static Double wrapAngle(Double angleDeg) {
         return MathUtils.wrap(angleDeg, 0.0, 360.0);
     }
+
+    public static Integer contain(Integer value, Integer floor, Integer ceiling) {
+        if (value < floor) {
+            return floor;
+        } else if (value > ceiling) {
+            return ceiling;
+        } else {
+            return value;
+        }
+    }
 }

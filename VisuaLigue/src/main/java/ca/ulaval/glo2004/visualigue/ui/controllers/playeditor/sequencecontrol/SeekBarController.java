@@ -59,6 +59,7 @@ public class SeekBarController extends ControllerBase {
     public void clean() {
         playService.onUndo.removeHandler(onUndoRedo);
         playService.onRedo.removeHandler(onUndoRedo);
+        super.clean();
     }
 
     private void onUndoRedo(Object sender, Long time) {
@@ -150,7 +151,7 @@ public class SeekBarController extends ControllerBase {
         move(0L, false, smooth, smoothingDuration);
     }
 
-    public void goToEnd(Boolean smooth, Long smoothingDuration, Long delay) {
+    public void goToEnd(Boolean smooth, Long smoothingDuration) {
         move(playModel.timelineLength.get(), false, smooth, smoothingDuration);
     }
 

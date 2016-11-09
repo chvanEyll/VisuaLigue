@@ -12,14 +12,15 @@ import ca.ulaval.glo2004.visualigue.utils.EventHandler;
 import ca.ulaval.glo2004.visualigue.utils.geometry.Vector2;
 import javafx.beans.property.ObjectProperty;
 import javafx.fxml.FXML;
-import javafx.scene.Cursor;
 import javafx.scene.control.Tooltip;
+import javafx.scene.layout.Pane;
 import javax.inject.Inject;
 
 public abstract class ActorLayerController extends ControllerBase {
 
     public EventHandler<Vector2> onMouseMoved = new EventHandler();
     public EventHandler<Vector2> onMouseClicked = new EventHandler();
+    @FXML protected Pane rootNode;
     @FXML protected ExtendedButton actorButton;
     @FXML protected Tooltip tooltip;
     @Inject protected PlayService playService;
@@ -30,14 +31,16 @@ public abstract class ActorLayerController extends ControllerBase {
     protected PlayModel playModel;
     protected FrameModel frameModel;
 
-    final void init(ActorLayerModel layerModel, PlayModel playModel, PlayingSurfaceLayerController playingSurfaceController, ObjectProperty<Zoom> zoomProperty, Settings settings) {
+    final void init(ActorLayerModel layerModel, PlayModel playModel, FrameModel frameModel, PlayingSurfaceLayerController playingSurfaceController, ObjectProperty<Zoom> zoomProperty, Settings settings) {
         this.layerModel = layerModel;
         this.playModel = playModel;
+        this.frameModel = frameModel;
         this.playingSurfaceLayerController = playingSurfaceController;
         this.zoomProperty = zoomProperty;
         this.settings = settings;
         tooltip.textProperty().bind(layerModel.hoverText);
-        actorButton.setCursor(Cursor.MOVE);
+        rootNode.mouseTransparentProperty().bindBidirectional(layerModel.isLocked);
+        rootNode.opacityProperty().bindBidirectional(layerModel.opacity);
         init(layerModel);
     }
 

@@ -59,6 +59,7 @@ public class ObjectListController extends ControllerBase {
         obstacleService.onObstacleCreated.removeHandler(onObstacleChanged);
         obstacleService.onObstacleUpdated.removeHandler(onObstacleChanged);
         obstacleService.onObstacleDeleted.removeHandler(onObstacleChanged);
+        super.clean();
     }
 
     private void onSportUpdated(Object sender, Sport sport) {

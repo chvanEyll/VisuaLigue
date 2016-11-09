@@ -7,8 +7,8 @@ import ca.ulaval.glo2004.visualigue.services.sport.SportService;
 import ca.ulaval.glo2004.visualigue.ui.InjectableFXMLLoader;
 import ca.ulaval.glo2004.visualigue.ui.View;
 import ca.ulaval.glo2004.visualigue.ui.controllers.ControllerBase;
-import ca.ulaval.glo2004.visualigue.ui.controllers.playeditor.scene.SceneController;
 import ca.ulaval.glo2004.visualigue.ui.controllers.playeditor.actorcreation.PlayerCreationController;
+import ca.ulaval.glo2004.visualigue.ui.controllers.playeditor.scene.SceneController;
 import ca.ulaval.glo2004.visualigue.ui.converters.PlayerCategoryModelConverter;
 import ca.ulaval.glo2004.visualigue.ui.models.PlayModel;
 import ca.ulaval.glo2004.visualigue.ui.models.PlayerCategoryModel;
@@ -42,6 +42,7 @@ public class PlayerCategoryListController extends ControllerBase {
     @Override
     public void clean() {
         sportService.onSportUpdated.removeHandler(this::onSportChanged);
+        super.clean();
     }
 
     private void onSportChanged(Object sender, Sport sport) {
