@@ -80,7 +80,16 @@ public class ActorPropertyTimeline extends DomainObject {
         }
     }
 
-    public Object getNextValue(Long time) {
+    public Object getLowerValue(Long time) {
+        Map.Entry<Long, Keyframe> lowerKeyframeEntry = keyframes.lowerEntry(time);
+        if (lowerKeyframeEntry != null) {
+            return lowerKeyframeEntry.getValue().getValue();
+        } else {
+            return null;
+        }
+    }
+
+    public Object getHigherValue(Long time) {
         Map.Entry<Long, Keyframe> higherKeyframeEntry = keyframes.higherEntry(time);
         if (higherKeyframeEntry != null) {
             return higherKeyframeEntry.getValue().getValue();

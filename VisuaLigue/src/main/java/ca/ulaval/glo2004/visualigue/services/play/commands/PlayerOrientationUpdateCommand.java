@@ -3,8 +3,8 @@ package ca.ulaval.glo2004.visualigue.services.play.commands;
 import ca.ulaval.glo2004.visualigue.domain.play.Play;
 import ca.ulaval.glo2004.visualigue.domain.play.actor.PlayerActor;
 import ca.ulaval.glo2004.visualigue.domain.play.actorstate.PlayerState;
-import ca.ulaval.glo2004.visualigue.domain.play.keyframe.transition.LinearKeyframeTransition;
 import ca.ulaval.glo2004.visualigue.domain.play.keyframe.Keyframe;
+import ca.ulaval.glo2004.visualigue.domain.play.keyframe.transition.LinearKeyframeTransition;
 import ca.ulaval.glo2004.visualigue.utils.EventHandler;
 
 public class PlayerOrientationUpdateCommand extends Command {
@@ -13,8 +13,9 @@ public class PlayerOrientationUpdateCommand extends Command {
     private Double orientation;
     private EventHandler<Play> onFrameChanged;
 
-    private PlayerActor createdPlayerActor;
-    private Keyframe oldPlayerOrientationKeyframe;
+    private PlayerActor playerActor;
+    private Keyframe oldOrientationKeyframe;
+    private Keyframe oldOrientationKeyframeAtLastKeyPoint;
 
     public PlayerOrientationUpdateCommand(Play play, Long time, String ownerPlayerActorUUID, Double orientation, EventHandler<Play> onFrameChanged) {
         super(play, time);
@@ -25,14 +26,21 @@ public class PlayerOrientationUpdateCommand extends Command {
 
     @Override
     public void execute() {
-        createdPlayerActor = (PlayerActor) play.getActor(ownerPlayerActorUUID);
-        oldPlayerOrientationKeyframe = play.merge(time, createdPlayerActor, PlayerState.getOrientationProperty(), orientation, new LinearKeyframeTransition());
+        playerActor = (PlayerActor) play.getActor(ownerPlayerActorUUID);
+        oldOrientationKeyframe = play.merge(time, playerActor, PlayerState.getOrientationProperty(), orientation, new LinearKeyframeTransition());
+        if (play.previousKeyPointExists(time)) {
+            Double lastOrientation = (Double) play.getActorLowerPropertyValue(time, playerActor, PlayerState.getOrientationProperty());
+            oldOrientationKeyframeAtLastKeyPoint = play.merge(play.getPreviousKeyPointTime(time), playerActor, PlayerState.getOrientationProperty(), lastOrientation, new LinearKeyframeTransition());
+        }
         onFrameChanged.fire(this, play);
     }
 
     @Override
     public void revert() {
-        play.unmerge(time, createdPlayerActor, PlayerState.getOrientationProperty(), oldPlayerOrientationKeyframe);
+        play.unmerge(time, playerActor, PlayerState.getOrientationProperty(), oldOrientationKeyframe);
+        if (play.previousKeyPointExists(time)) {
+            play.unmerge(play.getPreviousKeyPointTime(time), playerActor, PlayerState.getOrientationProperty(), oldOrientationKeyframeAtLastKeyPoint);
+        }
         onFrameChanged.fire(this, play);
     }
 }

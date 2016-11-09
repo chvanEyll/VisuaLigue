@@ -17,6 +17,7 @@ public class BallUpdateCommand extends Command {
     private EventHandler<Play> onFrameChanged;
 
     private Keyframe oldPositionKeyframe;
+    private Keyframe oldPositionKeyframeAtLastKeyPoint;
     private Keyframe oldOwnerPlayerActorKeyframe;
 
     public BallUpdateCommand(Play play, Long time, String ballActorUUID, String ownerPlayerActorUUID, Vector2 position, EventHandler<Play> onFrameChanged) {
@@ -29,11 +30,15 @@ public class BallUpdateCommand extends Command {
 
     @Override
     public void execute() {
-        BallActor createdBallActor = (BallActor) play.getActor(ballActorUUID);
-        oldPositionKeyframe = play.merge(time, createdBallActor, BallState.getPositionProperty(), position, new LinearKeyframeTransition());
+        BallActor ballActor = (BallActor) play.getActor(ballActorUUID);
+        oldPositionKeyframe = play.merge(time, ballActor, BallState.getPositionProperty(), position, new LinearKeyframeTransition());
+        if (play.previousKeyPointExists(time)) {
+            Vector2 lastPosition = (Vector2) play.getActorLowerPropertyValue(time, ballActor, BallState.getPositionProperty());
+            oldPositionKeyframeAtLastKeyPoint = play.merge(play.getPreviousKeyPointTime(time), ballActor, BallState.getPositionProperty(), lastPosition, new LinearKeyframeTransition());
+        }
         if (ownerPlayerActorUUID != null) {
             PlayerActor playerActor = (PlayerActor) play.getActor(ownerPlayerActorUUID);
-            oldOwnerPlayerActorKeyframe = play.merge(time, createdBallActor, BallState.getOwnerProperty(), playerActor, new LinearKeyframeTransition());
+            oldOwnerPlayerActorKeyframe = play.merge(time, ballActor, BallState.getOwnerProperty(), playerActor, new LinearKeyframeTransition());
         }
         onFrameChanged.fire(this, play);
     }
@@ -41,10 +46,13 @@ public class BallUpdateCommand extends Command {
     @Override
     public void revert() {
         BallActor createdBallActor = (BallActor) play.getActor(ballActorUUID);
+        play.unmerge(time, createdBallActor, BallState.getPositionProperty(), oldPositionKeyframe);
+        if (play.previousKeyPointExists(time)) {
+            play.unmerge(play.getPreviousKeyPointTime(time), createdBallActor, BallState.getPositionProperty(), oldPositionKeyframeAtLastKeyPoint);
+        }
         if (ownerPlayerActorUUID != null) {
             play.unmerge(time, createdBallActor, BallState.getOwnerProperty(), oldOwnerPlayerActorKeyframe);
         }
-        play.unmerge(time, createdBallActor, BallState.getPositionProperty(), oldPositionKeyframe);
         onFrameChanged.fire(this, play);
     }
 

@@ -14,7 +14,8 @@ public class PlayerPositionUpdateDirectCommand extends Command {
     private Vector2 position;
     private EventHandler<Play> onFrameChanged;
 
-    private Keyframe oldPlayerPositionKeyframe;
+    private Keyframe oldPositionKeyframe;
+    private Keyframe oldPositionKeyframeAtLastKeyPoint;
 
     public PlayerPositionUpdateDirectCommand(Play play, Long time, String playerActorUUID, Vector2 position, EventHandler<Play> onFrameChanged) {
         super(play, time);
@@ -26,14 +27,21 @@ public class PlayerPositionUpdateDirectCommand extends Command {
     @Override
     public void execute() {
         PlayerActor playerActor = (PlayerActor) play.getActor(playerActorUUID);
-        oldPlayerPositionKeyframe = play.merge(time, playerActor, PlayerState.getPositionProperty(), position, new LinearKeyframeTransition());
+        oldPositionKeyframe = play.merge(time, playerActor, PlayerState.getPositionProperty(), position, new LinearKeyframeTransition());
+        if (play.previousKeyPointExists(time)) {
+            Vector2 lastPosition = (Vector2) play.getActorLowerPropertyValue(time, playerActor, PlayerState.getPositionProperty());
+            oldPositionKeyframeAtLastKeyPoint = play.merge(play.getPreviousKeyPointTime(time), playerActor, PlayerState.getPositionProperty(), lastPosition, new LinearKeyframeTransition());
+        }
         onFrameChanged.fire(this, play);
     }
 
     @Override
     public void revert() {
         PlayerActor playerActor = (PlayerActor) play.getActor(playerActorUUID);
-        play.unmerge(time, playerActor, PlayerState.getPositionProperty(), oldPlayerPositionKeyframe);
+        play.unmerge(time, playerActor, PlayerState.getPositionProperty(), oldPositionKeyframe);
+        if (play.previousKeyPointExists(time)) {
+            play.unmerge(play.getPreviousKeyPointTime(time), playerActor, PlayerState.getPositionProperty(), oldPositionKeyframeAtLastKeyPoint);
+        }
         onFrameChanged.fire(this, play);
     }
 

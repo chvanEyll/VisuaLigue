@@ -63,6 +63,11 @@ public class ActorTimeline extends DomainObject {
         return actor;
     }
 
+    public Object getLowerPropertyValue(Long time, ActorProperty actorProperty) {
+        ActorPropertyTimeline propertyTimeline = propertyTimelines.get(actorProperty);
+        return propertyTimeline.getLowerValue(time);
+    }
+
     public Set<Long> getPropertyKeyframeTimes(ActorProperty actorProperty) {
         if (propertyTimelines.containsKey(actorProperty)) {
             return propertyTimelines.get(actorProperty).getTimes();
@@ -74,7 +79,7 @@ public class ActorTimeline extends DomainObject {
     public ActorState getActorState(Long time, Long nextStateLookaheadTime) {
         ActorState actorState = getCurrentActorState(time);
         if (actorState != null) {
-            Vector2 nextPosition = (Vector2) propertyTimelines.get(ActorState.getPositionProperty()).getNextValue(time + nextStateLookaheadTime);
+            Vector2 nextPosition = (Vector2) propertyTimelines.get(ActorState.getPositionProperty()).getHigherValue(time + nextStateLookaheadTime);
             actorState.setNextPosition(nextPosition);
         }
         return actorState;

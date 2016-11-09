@@ -108,6 +108,18 @@ public class Play extends DomainObject {
         this.timelineLength = timelineLength - keyPointInterval;
     }
 
+    public Boolean previousKeyPointExists(Long time) {
+        return time - keyPointInterval > 0;
+    }
+
+    public Long getPreviousKeyPointTime(Long time) {
+        if (previousKeyPointExists(time)) {
+            return time - keyPointInterval;
+        } else {
+            return null;
+        }
+    }
+
     public Long getTimelineLength() {
         return this.timelineLength;
     }
@@ -143,6 +155,11 @@ public class Play extends DomainObject {
         } else {
             return 0L;
         }
+    }
+
+    public Object getActorLowerPropertyValue(Long time, Actor actor, ActorProperty actorProperty) {
+        ActorTimeline actorTimeline = actorTimelines.get(actor);
+        return actorTimeline.getLowerPropertyValue(time, actorProperty);
     }
 
     public Frame getFrame(Long time, Boolean showPlayerTrails) {
