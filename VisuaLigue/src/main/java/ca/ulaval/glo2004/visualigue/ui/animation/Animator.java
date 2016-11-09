@@ -1,6 +1,7 @@
 package ca.ulaval.glo2004.visualigue.ui.animation;
 
 import ca.ulaval.glo2004.visualigue.ui.animation.transitions.*;
+import ca.ulaval.glo2004.visualigue.utils.TimerTaskUtils;
 import ca.ulaval.glo2004.visualigue.utils.math.easing.EasingFunction;
 import java.time.Duration;
 import java.time.LocalDateTime;
@@ -57,12 +58,6 @@ public class Animator<T> {
         } else {
             return;
         }
-        TimerTask timerTask = new TimerTask() {
-            @Override
-            public void run() {
-                animateFrame();
-            }
-        };
         animationStartTime = LocalDateTime.now();
         timer = new Timer();
         if (groupKey != null && isFirstOfGroup) {
@@ -71,7 +66,7 @@ public class Animator<T> {
         synchronized (ANIMATION_SYNCHRONIZE_LOCK) {
             runningAnimators.add(this);
         }
-        timer.schedule(timerTask, delay, ANIMATION_PERIOD);
+        timer.schedule(TimerTaskUtils.wrap(() -> animateFrame()), delay, ANIMATION_PERIOD);
     }
 
     private static void stopAnimationsOfGroup(Object groupKey) {

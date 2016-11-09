@@ -150,6 +150,7 @@ public class Play extends DomainObject {
         actorTimelines.entrySet().stream().forEach(e -> {
             ActorTimeline actorTimeline = e.getValue();
             ActorState actorState = actorTimeline.getActorState(time, NEXT_KEYFRAME_LOOKAHEAD_TIME);
+            actorState.setIsLocked(time % keyPointInterval != 0);
             frame.addActorState(new ActorInstance(actorTimeline.getActor(), actorState, 0));
             if (showPlayerTrails && time.equals(timelineLength) && actorTimeline.getActor() instanceof PlayerActor) {
                 addPlayerTrailsToFrame(frame, time, actorTimeline, actorState);

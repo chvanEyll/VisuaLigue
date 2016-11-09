@@ -3,7 +3,6 @@
 <?import ca.ulaval.glo2004.visualigue.ui.controllers.common.ExtendedButton?>
 <?import javafx.scene.control.Tooltip?>
 <?import javafx.scene.image.ImageView?>
-<?import javafx.scene.effect.DropShadow?>
 <?import javafx.scene.layout.Pane?>
 
 <Pane fx:id="rootNode" pickOnBounds="false" styleClass="root-node, actor-layer" xmlns="http://javafx.com/javafx/8.0.60" xmlns:fx="http://javafx.com/fxml/1" fx:controller="ca.ulaval.glo2004.visualigue.ui.controllers.playeditor.actorlayers.ObstacleLayerController">

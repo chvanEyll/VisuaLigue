@@ -1,12 +1,16 @@
 package ca.ulaval.glo2004.visualigue.ui.controllers.playeditor.actorlayers;
 
 import ca.ulaval.glo2004.visualigue.ui.controllers.common.Arrow;
+import ca.ulaval.glo2004.visualigue.ui.controllers.common.ExtendedButton;
 import ca.ulaval.glo2004.visualigue.ui.controllers.common.ExtendedLabel;
 import ca.ulaval.glo2004.visualigue.ui.controllers.common.PlayerIcon;
 import ca.ulaval.glo2004.visualigue.ui.controllers.playeditor.scene.scene2d.ActorLayerController;
 import ca.ulaval.glo2004.visualigue.ui.models.layers.ActorLayerModel;
 import ca.ulaval.glo2004.visualigue.ui.models.layers.PlayerLayerModel;
+import ca.ulaval.glo2004.visualigue.utils.TimerTaskUtils;
+import ca.ulaval.glo2004.visualigue.utils.geometry.Line;
 import ca.ulaval.glo2004.visualigue.utils.geometry.Vector2;
+import java.util.Timer;
 import javafx.application.Platform;
 import javafx.beans.value.ChangeListener;
 import javafx.beans.value.ObservableValue;
@@ -16,16 +20,23 @@ import javafx.scene.input.MouseEvent;
 
 public class PlayerLayerController extends ActorLayerController {
 
-    private static final Double LABEL_OFFSET_Y = 30.0;
     public static final String VIEW_NAME = "/views/playeditor/actorlayers/player-layer.fxml";
-    public static final Double BASE_BUTTON_SCALING = 1.25;
-    public static final Double ARROW_HEAD_SIZE = 15.0;
-    public static final Double ARROW_STROKE_DASH_ARRAY_SIZE = 10.0;
+    private static final Double LABEL_OFFSET_Y = 30.0;
+    private static final Vector2 ROTATION_ARROW_OFFSET = new Vector2(30, -30);
+    private static final Integer ROTATION_ARROW_HIDE_DELAY = 500;
+    private static final Double BASE_BUTTON_SCALING = 1.25;
+    private static final Double ARROW_HEAD_SIZE = 15.0;
+    private static final Double ARROW_STROKE_DASH_ARRAY_SIZE = 10.0;
     private PlayerLayerModel playerLayerModel;
     private ChangeListener<Object> onChange = this::onChange;
     @FXML private PlayerIcon playerIcon;
     @FXML private ExtendedLabel label;
     @FXML private Arrow arrow;
+    @FXML private ExtendedButton rotationArrow;
+    private Timer rotationArrowTimer = new Timer();
+    private Double initialRotationAngle;
+    private Double initialPlayerOrientation;
+    private Boolean rotationArrowDragging = false;
 
     @Override
     public void init(ActorLayerModel layerModel) {
@@ -40,6 +51,7 @@ public class PlayerLayerController extends ActorLayerController {
         playerLayerModel.nextPosition.addListener(onChange);
         playerLayerModel.orientation.addListener(onChange);
         playerLayerModel.label.addListener(onChange);
+        playerLayerModel.showRotationArrow.addListener(onChange);
         settings.showActorLabelsProperty.addListener(onChange);
         settings.showMovementArrowsProperty.addListener(onChange);
         settings.resizeActorsOnZoomProperty.addListener(onChange);
@@ -79,6 +91,7 @@ public class PlayerLayerController extends ActorLayerController {
             updateActor(actorPosition);
             updateArrow(actorPosition, nextActorPosition);
             updateLabel(actorPosition);
+            updateRotationArrow(actorPosition);
         });
     }
 
@@ -89,7 +102,7 @@ public class PlayerLayerController extends ActorLayerController {
             actorButton.setScaleY(getScaledValue(BASE_BUTTON_SCALING));
             actorButton.setLayoutX(actorPosition.getX() - actorButton.getWidth() / 2);
             actorButton.setLayoutY(actorPosition.getY() - actorButton.getHeight() / 2);
-            actorButton.setRotate(playerLayerModel.orientation.get());
+            actorButton.setRotate(-playerLayerModel.orientation.get());
             playerIcon.setColor(playerLayerModel.color.get());
         }
         actorButton.setVisible(showActor);
@@ -123,6 +136,27 @@ public class PlayerLayerController extends ActorLayerController {
         label.setVisible(showLabel);
     }
 
+    private void updateRotationArrow(Vector2 actorPosition) {
+        Boolean showArrow = actorPosition != null && playerLayerModel.showRotationArrow.get();
+        if (showArrow) {
+            rotationArrow.setScaleX(getScaledValue(1.0));
+            rotationArrow.setScaleY(getScaledValue(1.0));
+            rotationArrow.setLayoutX(actorPosition.getX() - rotationArrow.getWidth() / 2 + getScaledValue(ROTATION_ARROW_OFFSET.getX()));
+            rotationArrow.setLayoutY(actorPosition.getY() - rotationArrow.getHeight() / 2 + getScaledValue(ROTATION_ARROW_OFFSET.getY()));
+        }
+        rotationArrow.setVisible(showArrow);
+    }
+
+    @FXML
+    protected void onMouseEntered(MouseEvent e) {
+        playerLayerModel.showRotationArrow.set(true);
+    }
+
+    @FXML
+    protected void onMouseExited(MouseEvent e) {
+        scheduleRotationArrowHide();
+    }
+
     @FXML
     protected void onMouseDragged(MouseEvent e) {
         playerLayerModel.position.set(playingSurfaceLayerController.getSizeRelativeMousePosition(true));
@@ -133,4 +167,48 @@ public class PlayerLayerController extends ActorLayerController {
         playService.updatePlayerActorPositionDirect(playModel.getUUID(), frameModel.time.get(), playerLayerModel.getUUID(), playerLayerModel.position.get());
     }
 
+    @FXML
+    protected void onRotateArrowMouseEntered(MouseEvent e) {
+        cancelRotationArrowHide();
+    }
+
+    @FXML
+    protected void onRotateArrowMouseExited(MouseEvent e) {
+        scheduleRotationArrowHide();
+    }
+
+    @FXML
+    protected void onRotateArrowMousePressed(MouseEvent e) {
+        cancelRotationArrowHide();
+        Vector2 mousePosition = playingSurfaceLayerController.getMousePosition();
+        initialRotationAngle = new Line(playingSurfaceLayerController.sizeRelativeToSurfacePoint(playerLayerModel.position.get()), mousePosition).getAngle();
+        initialPlayerOrientation = playerLayerModel.orientation.get();
+    }
+
+    @FXML
+    protected void onRotateArrowMouseDragged(MouseEvent e) {
+        Vector2 mousePosition = playingSurfaceLayerController.getMousePosition();
+        Double newAngle = new Line(playingSurfaceLayerController.sizeRelativeToSurfacePoint(playerLayerModel.position.get()), mousePosition).getAngle();
+        playerLayerModel.orientation.set(initialPlayerOrientation + (newAngle - initialRotationAngle));
+        rotationArrowDragging = true;
+    }
+
+    @FXML
+    protected void onRotateArrowMouseReleased(MouseEvent e) {
+        rotationArrowDragging = false;
+        scheduleRotationArrowHide();
+        playService.updatePlayerActorOrientation(playModel.getUUID(), frameModel.time.get(), playerLayerModel.getUUID(), playerLayerModel.orientation.get());
+    }
+
+    private void cancelRotationArrowHide() {
+        rotationArrowTimer.cancel();
+    }
+
+    private void scheduleRotationArrowHide() {
+        if (!rotationArrowDragging) {
+            rotationArrowTimer.cancel();
+            rotationArrowTimer = new Timer();
+            rotationArrowTimer.schedule(TimerTaskUtils.wrap(() -> playerLayerModel.showRotationArrow.set(false)), ROTATION_ARROW_HIDE_DELAY);
+        }
+    }
 }

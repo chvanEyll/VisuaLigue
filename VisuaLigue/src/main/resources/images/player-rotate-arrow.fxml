@@ -37,7 +37,7 @@
 					id="XMLID_24_"
 				>
 				<styleClass>
-					<String fx:value="st1"/>
+					<String fx:value="st0"/>
 				</styleClass>
 				
 				</Polygon>
@@ -47,7 +47,7 @@
 					id="XMLID_21_"
 					>
 					<styleClass>
-						<String fx:value="st1"/>
+						<String fx:value="st0"/>
 					</styleClass>
 				</SVGPath>
 			</children>
@@ -63,7 +63,7 @@
 					id="XMLID_19_"
 				>
 				<styleClass>
-					<String fx:value="st1"/>
+					<String fx:value="st0"/>
 				</styleClass>
 				
 				</Polygon>
@@ -73,7 +73,7 @@
 					id="XMLID_16_"
 					>
 					<styleClass>
-						<String fx:value="st1"/>
+						<String fx:value="st0"/>
 					</styleClass>
 				</SVGPath>
 			</children>

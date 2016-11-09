@@ -63,10 +63,17 @@ public class PlayingSurfaceLayerController extends ControllerBase {
         return new Vector2(rootNode.getFitWidth(), rootNode.getFitHeight());
     }
 
+    public Vector2 getMousePosition() {
+        return FXUtils.mouseToNodePoint(rootNode);
+    }
+
     public Vector2 getSizeRelativeMousePosition(Boolean contain) {
-        Vector2 mousePosition = FXUtils.mouseToNodePoint(rootNode);
-        Vector2 relativeMousePosition = mousePosition.divide(getSurfaceSize());
-        return new Rect(0.0, 0.0, 1.0, 1.0).contain(relativeMousePosition);
+        Vector2 relativeMousePosition = getMousePosition().divide(getSurfaceSize());
+        if (contain) {
+            return new Rect(0.0, 0.0, 1.0, 1.0).contain(relativeMousePosition);
+        } else {
+            return relativeMousePosition;
+        }
     }
 
     public Vector2 getRealWorldMousePosition() {
