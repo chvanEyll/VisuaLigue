@@ -118,13 +118,16 @@ public class PlayerLayerController extends ActorLayerController {
 
     @FXML
     protected void onMouseDragged(MouseEvent e) {
-        playerActorModel.position.set(playingSurfaceLayerController.getSizeRelativeMousePosition(true));
+        if (frameModel.isKeyPoint.get()) {
+            playerActorModel.position.set(playingSurfaceLayerController.getSizeRelativeMousePosition(true));
+        }
     }
 
     @FXML
     protected void onMouseReleased(MouseEvent e) {
-        Vector2 position = playingSurfaceLayerController.getSizeRelativeMousePosition(true);
-        playService.updatePlayerActorPositionDirect(playModel.getUUID(), frameModel.time.get(), playerActorModel.getUUID(), position);
+        if (frameModel.isKeyPoint.get()) {
+            playService.updatePlayerActorPositionDirect(playModel.getUUID(), frameModel.time.get(), playerActorModel.getUUID(), playerActorModel.position.get());
+        }
     }
 
 }

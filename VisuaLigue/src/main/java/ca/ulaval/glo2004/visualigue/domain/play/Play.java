@@ -145,6 +145,7 @@ public class Play extends DomainObject {
 
     public Frame getFrame(Long time) {
         Frame frame = new Frame(time);
+        frame.setIsKeyPoint(time % keyPointInterval == 0);
         actorTimelines.entrySet().stream().forEach(e -> {
             Actor actor = e.getKey();
             ActorTimeline actorTimeline = e.getValue();

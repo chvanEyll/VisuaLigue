@@ -9,6 +9,7 @@ import java.util.Map;
 public class Frame extends DomainObject {
 
     private Long time;
+    private Boolean isKeyPoint;
     private Map<Actor, ActorState> currentActorStates = new HashMap();
     private Map<Actor, ActorState> nextActorStates = new HashMap();
 
@@ -18,6 +19,14 @@ public class Frame extends DomainObject {
 
     public Long getTime() {
         return time;
+    }
+
+    public Boolean isKeyPoint() {
+        return isKeyPoint;
+    }
+
+    public void setIsKeyPoint(Boolean isKeyPoint) {
+        this.isKeyPoint = isKeyPoint;
     }
 
     public Map<Actor, ActorState> getCurrentActorStates() {

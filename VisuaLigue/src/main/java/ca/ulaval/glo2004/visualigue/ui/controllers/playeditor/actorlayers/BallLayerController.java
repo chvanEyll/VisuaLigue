@@ -78,13 +78,16 @@ public class BallLayerController extends ActorLayerController {
 
     @FXML
     protected void onMouseDragged(MouseEvent e) {
-        ballActorModel.position.set(playingSurfaceLayerController.getSizeRelativeMousePosition(true));
+        if (frameModel.isKeyPoint.get()) {
+            ballActorModel.position.set(playingSurfaceLayerController.getSizeRelativeMousePosition(true));
+        }
     }
 
     @FXML
     protected void onMouseReleased(MouseEvent e) {
-        Vector2 position = playingSurfaceLayerController.getSizeRelativeMousePosition(true);
-        playService.updateBallActor(playModel.getUUID(), frameModel.time.get(), ballActorModel.getUUID(), null, position);
+        if (frameModel.isKeyPoint.get()) {
+            playService.updateBallActor(playModel.getUUID(), frameModel.time.get(), ballActorModel.getUUID(), null, ballActorModel.position.get());
+        }
     }
 
 }

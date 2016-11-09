@@ -42,6 +42,7 @@ public class FrameModelConverter {
         model.setUUID(frame.getUUID());
         model.setIsNew(false);
         model.time.set(frame.getTime());
+        model.isKeyPoint.set(frame.isKeyPoint());
         addNewActors(model, frame, playModel, frame.getCurrentActorStates());
         updateActors(model, frame, playModel, frame.getCurrentActorStates());
         removeNonPresentActors(model, frame.getCurrentActorStates());
