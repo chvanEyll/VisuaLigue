@@ -9,7 +9,8 @@ import java.util.Map;
 public class Frame extends DomainObject {
 
     private Long time;
-    private Boolean isKeyPoint;
+    private Boolean isLocked = false;
+    private Double opacity = 1.0;
     private Map<Actor, ActorState> currentActorStates = new HashMap();
     private Map<Actor, ActorState> nextActorStates = new HashMap();
 
@@ -21,12 +22,20 @@ public class Frame extends DomainObject {
         return time;
     }
 
-    public Boolean isKeyPoint() {
-        return isKeyPoint;
+    public Boolean isLocked() {
+        return isLocked;
     }
 
-    public void setIsKeyPoint(Boolean isKeyPoint) {
-        this.isKeyPoint = isKeyPoint;
+    public void setIsLocked(Boolean isLocked) {
+        this.isLocked = isLocked;
+    }
+
+    public Double getOpacity() {
+        return opacity;
+    }
+
+    public void setOpacity(Double opacity) {
+        this.opacity = opacity;
     }
 
     public Map<Actor, ActorState> getCurrentActorStates() {

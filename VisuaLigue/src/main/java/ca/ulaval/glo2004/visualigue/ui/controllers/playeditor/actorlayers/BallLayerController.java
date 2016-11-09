@@ -1,14 +1,15 @@
 package ca.ulaval.glo2004.visualigue.ui.controllers.playeditor.actorlayers;
 
 import ca.ulaval.glo2004.visualigue.ui.controllers.playeditor.scene.scene2d.ActorLayerController;
-import ca.ulaval.glo2004.visualigue.ui.models.actors.ActorModel;
-import ca.ulaval.glo2004.visualigue.ui.models.actors.BallActorModel;
+import ca.ulaval.glo2004.visualigue.ui.models.layers.ActorLayerModel;
+import ca.ulaval.glo2004.visualigue.ui.models.layers.BallLayerModel;
 import ca.ulaval.glo2004.visualigue.utils.FilenameUtils;
 import ca.ulaval.glo2004.visualigue.utils.geometry.Vector2;
 import javafx.application.Platform;
 import javafx.beans.value.ChangeListener;
 import javafx.beans.value.ObservableValue;
 import javafx.fxml.FXML;
+import javafx.scene.Cursor;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.input.MouseEvent;
@@ -17,27 +18,27 @@ public class BallLayerController extends ActorLayerController {
 
     public static final String VIEW_NAME = "/views/playeditor/actorlayers/ball-layer.fxml";
     @FXML private ImageView imageView;
-    private BallActorModel ballActorModel;
+    private BallLayerModel ballLayerModel;
     private ChangeListener<Object> onChange = this::onChange;
 
     @Override
-    public void init(ActorModel actorModel) {
-        this.ballActorModel = (BallActorModel) actorModel;
+    public void init(ActorLayerModel layerModel) {
+        this.ballLayerModel = (BallLayerModel) layerModel;
         setImage();
         addListeners();
         update();
     }
 
     private void setImage() {
-        if (ballActorModel.imagePathName.isNotEmpty().get()) {
-            imageView.setImage(new Image(FilenameUtils.getURIString(ballActorModel.imagePathName.get())));
-        } else if (ballActorModel.builtInImagePathName.isNotEmpty().get()) {
-            imageView.setImage(new Image(ballActorModel.builtInImagePathName.get()));
+        if (ballLayerModel.imagePathName.isNotEmpty().get()) {
+            imageView.setImage(new Image(FilenameUtils.getURIString(ballLayerModel.imagePathName.get())));
+        } else if (ballLayerModel.builtInImagePathName.isNotEmpty().get()) {
+            imageView.setImage(new Image(ballLayerModel.builtInImagePathName.get()));
         }
     }
 
     private void addListeners() {
-        ballActorModel.position.addListener(onChange);
+        ballLayerModel.position.addListener(onChange);
         settings.resizeActorsOnZoomProperty.addListener(onChange);
         zoomProperty.addListener(onChange);
         actorButton.layoutReadyProperty().addListener(onChange);
@@ -56,8 +57,8 @@ public class BallLayerController extends ActorLayerController {
     @Override
     public void update() {
         Vector2 actorPosition;
-        if (ballActorModel.position.isNotNull().get()) {
-            actorPosition = playingSurfaceLayerController.sizeRelativeToSurfacePoint(ballActorModel.position.get());
+        if (ballLayerModel.position.isNotNull().get()) {
+            actorPosition = playingSurfaceLayerController.sizeRelativeToSurfacePoint(ballLayerModel.position.get());
         } else {
             actorPosition = null;
         }
@@ -74,20 +75,17 @@ public class BallLayerController extends ActorLayerController {
             actorButton.setLayoutY(actorPosition.getY() - actorButton.getHeight() / 2);
         }
         actorButton.setVisible(actorPosition != null);
+        actorButton.setCursor(frameModel.isLocked.get() ? Cursor.DEFAULT : Cursor.MOVE);
     }
 
     @FXML
     protected void onMouseDragged(MouseEvent e) {
-        if (frameModel.isKeyPoint.get()) {
-            ballActorModel.position.set(playingSurfaceLayerController.getSizeRelativeMousePosition(true));
-        }
+        ballLayerModel.position.set(playingSurfaceLayerController.getSizeRelativeMousePosition(true));
     }
 
     @FXML
     protected void onMouseReleased(MouseEvent e) {
-        if (frameModel.isKeyPoint.get()) {
-            playService.updateBallActor(playModel.getUUID(), frameModel.time.get(), ballActorModel.getUUID(), null, ballActorModel.position.get());
-        }
+        playService.updateBallActor(playModel.getUUID(), frameModel.time.get(), ballLayerModel.getUUID(), null, ballLayerModel.position.get());
     }
 
 }

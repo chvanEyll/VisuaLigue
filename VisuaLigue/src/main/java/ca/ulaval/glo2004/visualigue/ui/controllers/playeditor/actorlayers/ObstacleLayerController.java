@@ -1,8 +1,8 @@
 package ca.ulaval.glo2004.visualigue.ui.controllers.playeditor.actorlayers;
 
 import ca.ulaval.glo2004.visualigue.ui.controllers.playeditor.scene.scene2d.ActorLayerController;
-import ca.ulaval.glo2004.visualigue.ui.models.actors.ActorModel;
-import ca.ulaval.glo2004.visualigue.ui.models.actors.ObstacleActorModel;
+import ca.ulaval.glo2004.visualigue.ui.models.layers.ActorLayerModel;
+import ca.ulaval.glo2004.visualigue.ui.models.layers.ObstacleLayerModel;
 import ca.ulaval.glo2004.visualigue.utils.FilenameUtils;
 import ca.ulaval.glo2004.visualigue.utils.geometry.Vector2;
 import javafx.application.Platform;
@@ -17,27 +17,27 @@ public class ObstacleLayerController extends ActorLayerController {
 
     public static final String VIEW_NAME = "/views/playeditor/actorlayers/obstacle-layer.fxml";
     @FXML private ImageView imageView;
-    private ObstacleActorModel obstacleActorModel;
+    private ObstacleLayerModel obstacleLayerModel;
     private ChangeListener<Object> onChange = this::onChange;
 
     @Override
-    public void init(ActorModel actorModel) {
-        this.obstacleActorModel = (ObstacleActorModel) actorModel;
+    public void init(ActorLayerModel layerModel) {
+        this.obstacleLayerModel = (ObstacleLayerModel) layerModel;
         setImage();
         addListeners();
         update();
     }
 
     private void setImage() {
-        if (obstacleActorModel.imagePathName.isNotEmpty().get()) {
-            imageView.setImage(new Image(FilenameUtils.getURIString(obstacleActorModel.imagePathName.get())));
-        } else if (obstacleActorModel.builtInImagePathName.isNotEmpty().get()) {
-            imageView.setImage(new Image(obstacleActorModel.builtInImagePathName.get()));
+        if (obstacleLayerModel.imagePathName.isNotEmpty().get()) {
+            imageView.setImage(new Image(FilenameUtils.getURIString(obstacleLayerModel.imagePathName.get())));
+        } else if (obstacleLayerModel.builtInImagePathName.isNotEmpty().get()) {
+            imageView.setImage(new Image(obstacleLayerModel.builtInImagePathName.get()));
         }
     }
 
     private void addListeners() {
-        obstacleActorModel.position.addListener(onChange);
+        obstacleLayerModel.position.addListener(onChange);
         settings.resizeActorsOnZoomProperty.addListener(onChange);
         zoomProperty.addListener(onChange);
         actorButton.layoutReadyProperty().addListener(this::onChange);
@@ -56,8 +56,8 @@ public class ObstacleLayerController extends ActorLayerController {
     @Override
     public void update() {
         Vector2 actorPosition;
-        if (obstacleActorModel.position.isNotNull().get()) {
-            actorPosition = playingSurfaceLayerController.sizeRelativeToSurfacePoint(obstacleActorModel.position.get());
+        if (obstacleLayerModel.position.isNotNull().get()) {
+            actorPosition = playingSurfaceLayerController.sizeRelativeToSurfacePoint(obstacleLayerModel.position.get());
         } else {
             actorPosition = null;
         }
@@ -78,16 +78,12 @@ public class ObstacleLayerController extends ActorLayerController {
 
     @FXML
     protected void onMouseDragged(MouseEvent e) {
-        if (frameModel.isKeyPoint.get()) {
-            obstacleActorModel.position.set(playingSurfaceLayerController.getSizeRelativeMousePosition(true));
-        }
+        obstacleLayerModel.position.set(playingSurfaceLayerController.getSizeRelativeMousePosition(true));
     }
 
     @FXML
     protected void onMouseReleased(MouseEvent e) {
-        if (frameModel.isKeyPoint.get()) {
-            playService.updateObstacleActorPosition(playModel.getUUID(), frameModel.time.get(), obstacleActorModel.getUUID(), obstacleActorModel.position.get());
-        }
+        playService.updateObstacleActorPosition(playModel.getUUID(), frameModel.time.get(), obstacleLayerModel.getUUID(), obstacleLayerModel.position.get());
     }
 
 }

@@ -1,4 +1,4 @@
-package ca.ulaval.glo2004.visualigue.ui.converters;
+package ca.ulaval.glo2004.visualigue.ui.converters.layers;
 
 import ca.ulaval.glo2004.visualigue.domain.play.actor.PlayerActor;
 import ca.ulaval.glo2004.visualigue.domain.play.actor.TeamSide;
@@ -6,12 +6,12 @@ import ca.ulaval.glo2004.visualigue.domain.play.actorstate.ActorState;
 import ca.ulaval.glo2004.visualigue.domain.play.actorstate.PlayerState;
 import ca.ulaval.glo2004.visualigue.domain.play.frame.Frame;
 import ca.ulaval.glo2004.visualigue.ui.models.PlayerCategoryModel;
-import ca.ulaval.glo2004.visualigue.ui.models.actors.PlayerActorModel;
+import ca.ulaval.glo2004.visualigue.ui.models.layers.PlayerLayerModel;
 
-public class PlayerActorModelConverter {
+public class PlayeLayerModelConverter {
 
-    public PlayerActorModel convert(PlayerCategoryModel playerCategoryModel, TeamSide teamSide) {
-        PlayerActorModel model = new PlayerActorModel();
+    public PlayerLayerModel convert(PlayerCategoryModel playerCategoryModel, TeamSide teamSide) {
+        PlayerLayerModel model = new PlayerLayerModel();
         if (teamSide == TeamSide.ALLIES) {
             model.color.set(playerCategoryModel.allyPlayerColor.get());
         } else {
@@ -21,13 +21,13 @@ public class PlayerActorModelConverter {
         return model;
     }
 
-    public PlayerActorModel convert(Frame frame, PlayerActor playerActor, PlayerState playerState) {
-        PlayerActorModel model = new PlayerActorModel();
+    public PlayerLayerModel convert(Frame frame, PlayerActor playerActor, PlayerState playerState) {
+        PlayerLayerModel model = new PlayerLayerModel();
         update(frame, model, playerActor, playerState);
         return model;
     }
 
-    public void update(Frame frame, PlayerActorModel model, PlayerActor playerActor, PlayerState playerState) {
+    public void update(Frame frame, PlayerLayerModel model, PlayerActor playerActor, PlayerState playerState) {
         model.setUUID(playerActor.getUUID());
         model.position.set(playerState.getPosition());
         ActorState nextActorState = frame.getNextActorState(playerActor);

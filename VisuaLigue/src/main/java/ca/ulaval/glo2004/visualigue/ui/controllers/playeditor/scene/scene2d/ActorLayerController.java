@@ -7,7 +7,7 @@ import ca.ulaval.glo2004.visualigue.ui.controllers.playeditor.scene.Settings;
 import ca.ulaval.glo2004.visualigue.ui.controllers.playeditor.scene.Zoom;
 import ca.ulaval.glo2004.visualigue.ui.models.FrameModel;
 import ca.ulaval.glo2004.visualigue.ui.models.PlayModel;
-import ca.ulaval.glo2004.visualigue.ui.models.actors.ActorModel;
+import ca.ulaval.glo2004.visualigue.ui.models.layers.ActorLayerModel;
 import ca.ulaval.glo2004.visualigue.utils.EventHandler;
 import ca.ulaval.glo2004.visualigue.utils.geometry.Vector2;
 import javafx.beans.property.ObjectProperty;
@@ -24,25 +24,24 @@ public abstract class ActorLayerController extends ControllerBase {
     @FXML protected Tooltip tooltip;
     @Inject protected PlayService playService;
     protected PlayingSurfaceLayerController playingSurfaceLayerController;
-    protected ActorModel actorModel;
+    protected ActorLayerModel layerModel;
     protected ObjectProperty<Zoom> zoomProperty;
     protected Settings settings;
     protected PlayModel playModel;
     protected FrameModel frameModel;
 
-    final void init(ActorModel actorModel, PlayModel playModel, FrameModel frameModel, PlayingSurfaceLayerController playingSurfaceController, ObjectProperty<Zoom> zoomProperty, Settings settings) {
-        this.actorModel = actorModel;
+    final void init(ActorLayerModel layerModel, PlayModel playModel, PlayingSurfaceLayerController playingSurfaceController, ObjectProperty<Zoom> zoomProperty, Settings settings) {
+        this.layerModel = layerModel;
         this.playModel = playModel;
-        this.frameModel = frameModel;
         this.playingSurfaceLayerController = playingSurfaceController;
         this.zoomProperty = zoomProperty;
         this.settings = settings;
-        tooltip.textProperty().bind(actorModel.hoverText);
+        tooltip.textProperty().bind(layerModel.hoverText);
         actorButton.setCursor(Cursor.MOVE);
-        init(actorModel);
+        init(layerModel);
     }
 
-    public abstract void init(ActorModel actorModel);
+    public abstract void init(ActorLayerModel layerModel);
 
     public abstract void update();
 

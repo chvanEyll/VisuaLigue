@@ -7,7 +7,7 @@ import ca.ulaval.glo2004.visualigue.ui.controllers.playeditor.scene.Settings;
 import ca.ulaval.glo2004.visualigue.ui.controllers.playeditor.scene.Zoom;
 import ca.ulaval.glo2004.visualigue.ui.models.FrameModel;
 import ca.ulaval.glo2004.visualigue.ui.models.PlayModel;
-import ca.ulaval.glo2004.visualigue.ui.models.actors.ActorModel;
+import ca.ulaval.glo2004.visualigue.ui.models.layers.ActorLayerModel;
 import java.util.HashMap;
 import java.util.Map;
 import javafx.beans.property.ObjectProperty;
@@ -18,7 +18,7 @@ public class LayerController extends ControllerBase {
 
     private ActorLayerFactory actorLayerFactory;
     private StackPane layerStackPane;
-    private Map<ActorModel, View> actorLayerMap = new HashMap();
+    private Map<ActorLayerModel, View> actorLayerMap = new HashMap();
     private PlayModel playModel;
     private FrameModel frameModel;
     private PlayingSurfaceLayerController playingSurfaceLayerController;
@@ -33,24 +33,26 @@ public class LayerController extends ControllerBase {
         this.playingSurfaceLayerController = playingSurfaceLayerController;
         this.zoomProperty = zoomProperty;
         this.settings = settings;
-        frameModel.actorModels.addListener(this::onActorStateMapChanged);
+        frameModel.layerModels.addListener(this::onActorStateMapChanged);
     }
 
     private void onActorStateMapChanged(MapChangeListener.Change change) {
         if (change.wasAdded()) {
-            addActorLayer((ActorModel) change.getValueAdded());
+            addActorLayer((ActorLayerModel) change.getValueAdded());
         }
         if (change.wasRemoved()) {
-            removeActorLayer((ActorModel) change.getValueRemoved());
+            removeActorLayer((ActorLayerModel) change.getValueRemoved());
         }
     }
 
-    public void addActorLayer(ActorModel actorModel) {
-        View view = actorLayerFactory.create(actorModel);
+    public void addActorLayer(ActorLayerModel layerModel) {
+        View view = actorLayerFactory.create(layerModel);
+        view.getRoot().mouseTransparentProperty().bind(frameModel.isLocked);
+        view.getRoot().opacityProperty().bind(frameModel.opacity);
         ActorLayerController controller = (ActorLayerController) view.getController();
-        controller.init(actorModel, playModel, frameModel, playingSurfaceLayerController, zoomProperty, settings);
+        controller.init(layerModel, playModel, playingSurfaceLayerController, zoomProperty, settings);
         super.addChild(controller);
-        actorLayerMap.put(actorModel, view);
+        actorLayerMap.put(layerModel, view);
         addLayer(view);
     }
 
@@ -58,10 +60,10 @@ public class LayerController extends ControllerBase {
         layerStackPane.getChildren().add(view.getRoot());
     }
 
-    public void removeActorLayer(ActorModel actorModel) {
-        if (actorLayerMap.containsKey(actorModel)) {
-            View view = actorLayerMap.get(actorModel);
-            actorLayerMap.remove(actorModel);
+    public void removeActorLayer(ActorLayerModel layerModel) {
+        if (actorLayerMap.containsKey(layerModel)) {
+            View view = actorLayerMap.get(layerModel);
+            actorLayerMap.remove(layerModel);
             removeLayer(view);
         }
     }
@@ -72,11 +74,11 @@ public class LayerController extends ControllerBase {
         layerStackPane.getChildren().remove(view.getRoot());
     }
 
-    public void setLayerOpacity(ActorModel actorModel, Double opacity) {
-        actorLayerMap.get(actorModel).getRoot().setOpacity(opacity);
+    public void setLayerOpacity(ActorLayerModel layerModel, Double opacity) {
+        actorLayerMap.get(layerModel).getRoot().setOpacity(opacity);
     }
 
-    public void setLayerMouseTransparent(ActorModel actorModel, Boolean mouseTransparent) {
-        actorLayerMap.get(actorModel).getRoot().setMouseTransparent(mouseTransparent);
+    public void setLayerMouseTransparent(ActorLayerModel layerModel, Boolean mouseTransparent) {
+        actorLayerMap.get(layerModel).getRoot().setMouseTransparent(mouseTransparent);
     }
 }
