@@ -75,17 +75,15 @@ public class PlayerCategoryListController extends ControllerBase {
     }
 
     private void onAllyPlayerItemClicked(Object sender, PlayerCategoryModel model) {
-        unselectAll();
-        ((PlayerCategoryListItemController) sender).select();
         playerCreationController.init(model, TeamSide.ALLIES);
         sceneController.enterCreationMode(playerCreationController);
+        ((PlayerCategoryListItemController) sender).select();
     }
 
     private void onOpponentPlayerItemClicked(Object sender, PlayerCategoryModel model) {
-        unselectAll();
-        ((PlayerCategoryListItemController) sender).select();
         playerCreationController.init(model, TeamSide.OPPONENTS);
         sceneController.enterCreationMode(playerCreationController);
+        ((PlayerCategoryListItemController) sender).select();
     }
 
     private void onPlayerCreationModeExited(Object sender, Object param) {

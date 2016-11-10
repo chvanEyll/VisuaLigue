@@ -102,8 +102,6 @@ public class ObjectListController extends ControllerBase {
     }
 
     private void onObjectItemClicked(Object sender, ModelBase model) {
-        unselectAll();
-        ((ObjectListItemController) sender).select();
         if (model instanceof ObstacleModel) {
             obstacleCreationController.init((ObstacleModel) model);
             sceneController.enterCreationMode(obstacleCreationController);
@@ -111,6 +109,7 @@ public class ObjectListController extends ControllerBase {
             ballCreationController.init((BallModel) model);
             sceneController.enterCreationMode(ballCreationController);
         }
+        ((ObjectListItemController) sender).select();
     }
 
     private void onObstacleCreationModeExited(Object sender, Object param) {
