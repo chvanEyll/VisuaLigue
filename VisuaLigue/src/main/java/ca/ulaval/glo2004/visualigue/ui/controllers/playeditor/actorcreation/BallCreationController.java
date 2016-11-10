@@ -4,6 +4,7 @@ import ca.ulaval.glo2004.visualigue.ui.controllers.playeditor.scene.scene2d.Acto
 import ca.ulaval.glo2004.visualigue.ui.converters.layers.BallLayerModelConverter;
 import ca.ulaval.glo2004.visualigue.ui.models.BallModel;
 import ca.ulaval.glo2004.visualigue.utils.geometry.Vector2;
+import javafx.scene.input.MouseEvent;
 import javax.inject.Inject;
 
 public class BallCreationController extends ActorCreationController {
@@ -17,8 +18,9 @@ public class BallCreationController extends ActorCreationController {
     }
 
     @Override
-    public void onSceneMouseClicked(Vector2 sizeRelativePosition) {
+    public void onSceneMouseClicked(MouseEvent e) {
         if (enabled) {
+            Vector2 sizeRelativePosition = playingSurfaceLayerController.getSizeRelativeMousePosition(true);
             playService.addBallActor(playModel.getUUID(), frameModel.time.get(), null, sizeRelativePosition);
             initCreationLayer(layerModel);
         }

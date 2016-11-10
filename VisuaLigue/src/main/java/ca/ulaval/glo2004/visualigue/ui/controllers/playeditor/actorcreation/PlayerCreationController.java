@@ -5,6 +5,7 @@ import ca.ulaval.glo2004.visualigue.ui.controllers.playeditor.scene.scene2d.Acto
 import ca.ulaval.glo2004.visualigue.ui.converters.layers.PlayeLayerModelConverter;
 import ca.ulaval.glo2004.visualigue.ui.models.PlayerCategoryModel;
 import ca.ulaval.glo2004.visualigue.utils.geometry.Vector2;
+import javafx.scene.input.MouseEvent;
 import javax.inject.Inject;
 
 public class PlayerCreationController extends ActorCreationController {
@@ -20,8 +21,9 @@ public class PlayerCreationController extends ActorCreationController {
     }
 
     @Override
-    public void onSceneMouseClicked(Vector2 sizeRelativePosition) {
+    public void onSceneMouseClicked(MouseEvent e) {
         if (enabled) {
+            Vector2 sizeRelativePosition = playingSurfaceLayerController.getSizeRelativeMousePosition(true);
             playService.addPlayerActor(playModel.getUUID(), frameModel.time.get(), playerCategoryModel.getUUID(), teamSide, 0.0, sizeRelativePosition);
             initCreationLayer(layerModel);
         }

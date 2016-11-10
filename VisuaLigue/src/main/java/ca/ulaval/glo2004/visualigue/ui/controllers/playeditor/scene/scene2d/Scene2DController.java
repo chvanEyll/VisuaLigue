@@ -97,7 +97,7 @@ public class Scene2DController extends SceneController {
         navigationController.disable();
         exitCreationMode();
         this.actorCreationController = actorCreationController;
-        actorCreationController.enable(layerController, playModel, frameModel);
+        actorCreationController.enable(layerController, playingSurfaceLayerController, playModel, frameModel);
         super.addChild(actorCreationController);
     }
 
@@ -197,8 +197,7 @@ public class Scene2DController extends SceneController {
     @FXML
     protected void onSceneMouseClicked(MouseEvent e) {
         if (actorCreationController != null) {
-            Vector2 sizeRelativePosition = playingSurfaceLayerController.getSizeRelativeMousePosition(true);
-            actorCreationController.onSceneMouseClicked(sizeRelativePosition);
+            actorCreationController.onSceneMouseClicked(e);
         }
     }
 
@@ -206,8 +205,7 @@ public class Scene2DController extends SceneController {
     protected void onSceneMouseMoved(MouseEvent e) {
         navigationController.onSceneMouseMoved(e);
         if (actorCreationController != null) {
-            Vector2 sizeRelativePosition = playingSurfaceLayerController.getSizeRelativeMousePosition(true);
-            actorCreationController.onSceneMouseMoved(sizeRelativePosition);
+            actorCreationController.onSceneMouseMoved(e);
         }
     }
 
@@ -224,6 +222,20 @@ public class Scene2DController extends SceneController {
     @FXML
     protected void onSceneMouseReleased(MouseEvent e) {
         navigationController.onSceneMouseReleased(e);
+    }
+
+    @FXML
+    protected void onSceneMouseEntered(MouseEvent e) {
+        if (actorCreationController != null) {
+            actorCreationController.onSceneMouseEntered(e);
+        }
+    }
+
+    @FXML
+    protected void onSceneMouseExited(MouseEvent e) {
+        if (actorCreationController != null) {
+            actorCreationController.onSceneMouseExited(e);
+        }
     }
 
 }

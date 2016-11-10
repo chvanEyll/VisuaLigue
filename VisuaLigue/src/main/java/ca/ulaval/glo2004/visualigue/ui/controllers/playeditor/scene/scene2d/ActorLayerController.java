@@ -41,6 +41,7 @@ public abstract class ActorLayerController extends ControllerBase {
         tooltip.textProperty().bind(layerModel.hoverText);
         rootNode.mouseTransparentProperty().bindBidirectional(layerModel.isLocked);
         rootNode.opacityProperty().bindBidirectional(layerModel.opacity);
+        rootNode.visibleProperty().bindBidirectional(layerModel.visible);
         init(layerModel);
     }
 

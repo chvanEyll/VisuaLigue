@@ -18,6 +18,7 @@ public class ActorLayerModel extends ModelBase {
     public IntegerProperty zOrder = new SimpleIntegerProperty();
     public BooleanProperty isLocked = new SimpleBooleanProperty();
     public DoubleProperty opacity = new SimpleDoubleProperty(1.0);
+    public BooleanProperty visible = new SimpleBooleanProperty();
     public BooleanProperty showLabel = new SimpleBooleanProperty();
     public ObjectProperty<Vector2> position = new SimpleObjectProperty();
     public StringProperty hoverText = new SimpleStringProperty();

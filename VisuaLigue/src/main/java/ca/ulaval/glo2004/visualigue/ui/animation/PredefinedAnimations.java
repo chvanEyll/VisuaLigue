@@ -24,8 +24,8 @@ public class PredefinedAnimations {
     }
 
     public static void hideRight(Region region, Double targetWidth) {
-        Insets startInsets = new Insets(0);
-        Insets endInsets = new Insets(0, targetWidth - region.getWidth(), 0, 0);
+        Insets startInsets = region.getInsets();
+        Insets endInsets = new Insets(0, targetWidth - region.getWidth() + startInsets.getRight(), 0, 0);
         Animation.method(region::setPadding).duration(400L).from(startInsets).to(endInsets).group(region).first().easeOutExp();
     }
 

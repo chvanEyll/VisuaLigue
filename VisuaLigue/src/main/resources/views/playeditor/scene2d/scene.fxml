@@ -6,7 +6,7 @@
 
 <ExtendedScrollPane fx:id="scrollPane" styleClass="root-node, edge-to-edge, scene-container" xmlns="http://javafx.com/javafx/8.0.60" xmlns:fx="http://javafx.com/fxml/1" fx:controller="ca.ulaval.glo2004.visualigue.ui.controllers.playeditor.scene.scene2d.Scene2DController">
     <content>
-        <StackPane fx:id="sceneViewport" onZoom="#onSceneZoom" onZoomStarted="#onSceneZoomStarted" onZoomFinished="#onSceneZoomFinished" onTouchMoved="#onSceneTouchMoved" onTouchPressed="#onSceneTouchPressed" onMouseMoved="#onSceneMouseMoved" onMousePressed="#onSceneMousePressed" onMouseReleased="#onSceneMouseReleased" onMouseDragged="#onSceneMouseDragged" onMouseClicked="#onSceneMouseClicked" >
+        <StackPane fx:id="sceneViewport" onZoom="#onSceneZoom" onZoomStarted="#onSceneZoomStarted" onZoomFinished="#onSceneZoomFinished" onTouchMoved="#onSceneTouchMoved" onTouchPressed="#onSceneTouchPressed" onMouseMoved="#onSceneMouseMoved" onMousePressed="#onSceneMousePressed" onMouseReleased="#onSceneMouseReleased" onMouseDragged="#onSceneMouseDragged" onMouseClicked="#onSceneMouseClicked" onMouseEntered="#onSceneMouseEntered" onMouseExited="#onSceneMouseExited" >
             <children>
                 <StackPane styleClass="scene" fx:id="layerStackPane" alignment="TOP_LEFT" pickOnBounds="false">
                     <children>
