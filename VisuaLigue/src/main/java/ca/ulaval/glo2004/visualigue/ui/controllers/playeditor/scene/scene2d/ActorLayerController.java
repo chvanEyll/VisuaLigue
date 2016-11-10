@@ -18,6 +18,7 @@ import javax.inject.Inject;
 
 public abstract class ActorLayerController extends ControllerBase {
 
+    private static final String DROP_HIGHLIGHT_CSS_STYLE_CLASS = "drop-highlight";
     public EventHandler<Vector2> onMouseMoved = new EventHandler();
     public EventHandler<Vector2> onMouseClicked = new EventHandler();
     @FXML protected Pane rootNode;
@@ -45,6 +46,10 @@ public abstract class ActorLayerController extends ControllerBase {
         init(layerModel);
     }
 
+    public ActorLayerModel getModel() {
+        return layerModel;
+    }
+
     public abstract void init(ActorLayerModel layerModel);
 
     public abstract void update();
@@ -57,4 +62,11 @@ public abstract class ActorLayerController extends ControllerBase {
         }
     }
 
+    protected void enableDropHighlight() {
+        actorButton.getStyleClass().add(DROP_HIGHLIGHT_CSS_STYLE_CLASS);
+    }
+
+    protected void disableDropHighlight() {
+        actorButton.getStyleClass().remove(DROP_HIGHLIGHT_CSS_STYLE_CLASS);
+    }
 }

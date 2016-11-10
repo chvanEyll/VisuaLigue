@@ -121,9 +121,15 @@ public class PlayService {
         executeNewCommand(playUUID, command);
     }
 
-    public void updateBallActor(String playUUID, Long time, String ballActorUUID, String ownerPlayerActorUUID, Vector2 position) {
+    public void updateBallActorPosition(String playUUID, Long time, String ballActorUUID, Vector2 position) {
         Play play = playRepository.get(playUUID);
-        BallUpdateCommand command = new BallUpdateCommand(play, time, ballActorUUID, ownerPlayerActorUUID, position, onFrameChanged);
+        BallPositionUpdateCommand command = new BallPositionUpdateCommand(play, time, ballActorUUID, position, onFrameChanged);
+        executeNewCommand(playUUID, command);
+    }
+
+    public void updateBallActorOwner(String playUUID, Long time, String ballActorUUID, String playerOwnerUUID) {
+        Play play = playRepository.get(playUUID);
+        BallOwnerUpdateCommand command = new BallOwnerUpdateCommand(play, time, ballActorUUID, playerOwnerUUID, onFrameChanged);
         executeNewCommand(playUUID, command);
     }
 

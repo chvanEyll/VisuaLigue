@@ -7,7 +7,7 @@
 
 <Pane fx:id="rootNode" pickOnBounds="false" styleClass="root-node, actor-layer" xmlns="http://javafx.com/javafx/8.0.60" xmlns:fx="http://javafx.com/fxml/1" fx:controller="ca.ulaval.glo2004.visualigue.ui.controllers.playeditor.actorlayers.BallLayerController">
     <children>
-        <ExtendedButton fx:id="actorButton" styleClass="actor-button, icon-button, shadowed" visible="false" onMouseDragged="#onMouseDragged" onMouseReleased="#onMouseReleased">
+        <ExtendedButton fx:id="actorButton" styleClass="actor-button, icon-button, shadowed" visible="false" onMouseDragged="#onMouseDragged" onMouseReleased="#onMouseReleased" onDragDetected="#onDragDetected">
             <graphic>
                 <ImageView fx:id="imageView" fitWidth="20" fitHeight="20" preserveRatio="true" />
             </graphic>

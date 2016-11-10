@@ -6,10 +6,12 @@ import ca.ulaval.glo2004.visualigue.ui.controllers.common.ExtendedLabel;
 import ca.ulaval.glo2004.visualigue.ui.controllers.common.PlayerIcon;
 import ca.ulaval.glo2004.visualigue.ui.controllers.playeditor.scene.scene2d.ActorLayerController;
 import ca.ulaval.glo2004.visualigue.ui.models.layers.ActorLayerModel;
+import ca.ulaval.glo2004.visualigue.ui.models.layers.BallLayerModel;
 import ca.ulaval.glo2004.visualigue.ui.models.layers.PlayerLayerModel;
 import ca.ulaval.glo2004.visualigue.utils.TimerTaskUtils;
 import ca.ulaval.glo2004.visualigue.utils.geometry.Line;
 import ca.ulaval.glo2004.visualigue.utils.geometry.Vector2;
+import ca.ulaval.glo2004.visualigue.utils.javafx.DragUtils;
 import java.util.Timer;
 import javafx.application.Platform;
 import javafx.beans.value.ChangeListener;
@@ -145,6 +147,23 @@ public class PlayerLayerController extends ActorLayerController {
             rotationArrow.setLayoutY(actorPosition.getY() - rotationArrow.getHeight() / 2 + getScaledValue(ROTATION_ARROW_OFFSET.getY()));
         }
         rotationArrow.setVisible(showArrow);
+    }
+
+    @FXML
+    protected void onMouseDragEntered(MouseEvent e) {
+        if (DragUtils.getSource() instanceof BallLayerModel) {
+            enableDropHighlight();
+        }
+    }
+
+    @FXML
+    protected void onMouseDragExited(MouseEvent e) {
+        disableDropHighlight();
+    }
+
+    @FXML
+    protected void onMouseDragReleased(MouseEvent e) {
+        disableDropHighlight();
     }
 
     @FXML

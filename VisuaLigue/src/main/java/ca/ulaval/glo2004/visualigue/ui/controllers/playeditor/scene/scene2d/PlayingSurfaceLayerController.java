@@ -68,11 +68,11 @@ public class PlayingSurfaceLayerController extends ControllerBase {
     }
 
     public Vector2 getSizeRelativeMousePosition(Boolean contain) {
-        Vector2 relativeMousePosition = getMousePosition().divide(getSurfaceSize());
+        Vector2 sizeRelativeMousePosition = surfaceToSizeRelativePoint(getMousePosition());
         if (contain) {
-            return new Rect(0.0, 0.0, 1.0, 1.0).contain(relativeMousePosition);
+            return new Rect(0.0, 0.0, 1.0, 1.0).contain(sizeRelativeMousePosition);
         } else {
-            return relativeMousePosition;
+            return sizeRelativeMousePosition;
         }
     }
 
@@ -85,17 +85,12 @@ public class PlayingSurfaceLayerController extends ControllerBase {
         rootNode.setCursor(cursor);
     }
 
-    public void changeCursor(Cursor cursor) {
-        oldCursor = cursor;
-        setCursor(cursor);
-    }
-
-    public void restoreCursor() {
-        setCursor(oldCursor);
-    }
-
     public Vector2 sizeRelativeToSurfacePoint(Vector2 relativePoint) {
         return relativePoint.multiply(getSurfaceSize());
+    }
+
+    public Vector2 surfaceToSizeRelativePoint(Vector2 surfacePoint) {
+        return surfacePoint.divide(getSurfaceSize());
     }
 
 }

@@ -160,6 +160,10 @@
     -fx-effect: dropshadow(one-pass-box, rgba(255,255,255,1), 9.5, 0.25, 0, 0);
 }
 
+.scene .actor-layer .drop-highlight {
+    -fx-effect: dropshadow(one-pass-box, rgba(108,168,242,1), 5, 1.0, 0, 0);
+}
+
 .scene .actor-layer .actor-button {
     -fx-cursor: move;
 }

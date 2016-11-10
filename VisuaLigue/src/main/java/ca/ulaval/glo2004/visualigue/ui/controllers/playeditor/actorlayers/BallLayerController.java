@@ -5,6 +5,7 @@ import ca.ulaval.glo2004.visualigue.ui.models.layers.ActorLayerModel;
 import ca.ulaval.glo2004.visualigue.ui.models.layers.BallLayerModel;
 import ca.ulaval.glo2004.visualigue.utils.FilenameUtils;
 import ca.ulaval.glo2004.visualigue.utils.geometry.Vector2;
+import ca.ulaval.glo2004.visualigue.utils.javafx.DragUtils;
 import javafx.application.Platform;
 import javafx.beans.value.ChangeListener;
 import javafx.beans.value.ObservableValue;
@@ -81,13 +82,22 @@ public class BallLayerController extends ActorLayerController {
     }
 
     @FXML
+    protected void onDragDetected(MouseEvent e) {
+        actorButton.setMouseTransparent(true);
+        DragUtils.setSource(ballLayerModel);
+        actorButton.startFullDrag();
+    }
+
+    @FXML
     protected void onMouseDragged(MouseEvent e) {
         ballLayerModel.position.set(playingSurfaceLayerController.getSizeRelativeMousePosition(true));
     }
 
     @FXML
     protected void onMouseReleased(MouseEvent e) {
-        playService.updateBallActor(playModel.getUUID(), frameModel.time.get(), ballLayerModel.getUUID(), null, ballLayerModel.position.get());
+        DragUtils.clearSource();
+        actorButton.setMouseTransparent(false);
+        playService.updateBallActorPosition(playModel.getUUID(), frameModel.time.get(), ballLayerModel.getUUID(), ballLayerModel.position.get());
     }
 
 }
