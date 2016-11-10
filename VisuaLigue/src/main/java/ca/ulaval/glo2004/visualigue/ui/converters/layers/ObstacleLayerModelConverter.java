@@ -37,6 +37,7 @@ public class ObstacleLayerModelConverter {
         model.setUUID(obstacleActor.getUUID());
         model.isLocked.set(obstacleState.isLocked());
         model.opacity.set(obstacleState.getOpacity());
+        model.visible.set(obstacleState.isVisible());
         model.zOrder.set(obstacleState.getZOrder());
         model.showLabel.set(obstacleState.getShowLabel());
         model.position.set(obstacleState.getPosition());

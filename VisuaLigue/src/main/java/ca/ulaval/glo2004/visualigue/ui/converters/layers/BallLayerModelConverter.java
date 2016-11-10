@@ -37,6 +37,7 @@ public class BallLayerModelConverter {
         model.setUUID(ballActor.getUUID());
         model.isLocked.set(ballState.isLocked());
         model.opacity.set(ballState.getOpacity());
+        model.visible.set(ballState.isVisible());
         model.zOrder.set(ballState.getZOrder());
         model.showLabel.set(ballState.getShowLabel());
         model.position.set(ballState.getPosition());

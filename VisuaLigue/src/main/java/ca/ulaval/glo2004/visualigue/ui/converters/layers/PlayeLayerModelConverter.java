@@ -32,6 +32,7 @@ public class PlayeLayerModelConverter {
         model.setUUID(playerActor.getUUID());
         model.isLocked.set(playerState.isLocked());
         model.opacity.set(playerState.getOpacity());
+        model.visible.set(playerState.isVisible());
         model.zOrder.set(playerState.getZOrder());
         model.showLabel.set(playerState.getShowLabel());
         model.position.set(playerState.getPosition());

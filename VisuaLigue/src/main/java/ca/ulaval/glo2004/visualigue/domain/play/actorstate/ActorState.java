@@ -11,6 +11,7 @@ public abstract class ActorState extends DomainObject {
     protected Vector2 nextPosition;
     protected Boolean isLocked = false;
     protected Double opacity = 1.0;
+    protected Boolean visible = true;
     protected Integer zOrder = 0;
     protected Boolean showLabel = true;
 
@@ -44,6 +45,14 @@ public abstract class ActorState extends DomainObject {
 
     public void setOpacity(Double opacity) {
         this.opacity = opacity;
+    }
+
+    public Boolean isVisible() {
+        return visible;
+    }
+
+    public void setVisible(Boolean visible) {
+        this.visible = visible;
     }
 
     public Integer getZOrder() {
