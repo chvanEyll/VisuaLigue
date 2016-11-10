@@ -105,6 +105,7 @@ public class Arrow extends Group {
                 head.getPoints().addAll(new Double[]{points.get(i).getX(), points.get(i).getY()});
             }
         }
+        head.setVisible(lineShape.isVisible());
     }
 
 }

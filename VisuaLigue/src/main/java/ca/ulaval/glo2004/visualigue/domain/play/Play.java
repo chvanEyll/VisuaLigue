@@ -183,14 +183,12 @@ public class Play extends DomainObject {
         for (Long trailTime : positionKeyframeTimes) {
             if (!trailTime.equals(time)) {
                 ActorState actorState = actorTimeline.getActorState(trailTime, NEXT_KEYFRAME_LOOKAHEAD_TIME);
-                if (!activeState.getPosition().equals(actorState.getPosition())) {
-                    actorState.setIsLocked(true);
-                    actorState.setOpacity(0.5);
-                    actorState.setShowLabel(false);
-                    actorState.setZOrder(-instanceCount);
-                    frame.addActorState(new ActorInstance(actorTimeline.getActor(), actorState, instanceCount));
-                    instanceCount += 1;
-                }
+                actorState.setIsLocked(true);
+                actorState.setOpacity(0.5);
+                actorState.setShowLabel(false);
+                actorState.setZOrder(-instanceCount);
+                frame.addActorState(new ActorInstance(actorTimeline.getActor(), actorState, instanceCount));
+                instanceCount += 1;
             }
         }
     }
