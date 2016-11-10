@@ -143,6 +143,7 @@ public class PlayService {
         Play play = playRepository.get(playUUID);
         Play revertedPlay = playRepository.revert(play);
         setDirty(playUUID, false);
+        clearUndoRedo(playUUID);
         onPlayUpdated.fire(this, revertedPlay);
     }
 
@@ -191,6 +192,13 @@ public class PlayService {
         onUndoAvailabilityChanged.fire(this, isUndoAvailable(playUUID));
         onRedoAvailabilityChanged.fire(this, isRedoAvailable(playUUID));
         onRedo.fire(this, nextCommand.getTime());
+    }
+
+    private void clearUndoRedo(String playUUID) {
+        undoStackMap.get(playUUID).clear();
+        redoStackMap.get(playUUID).clear();
+        onUndoAvailabilityChanged.fire(this, isUndoAvailable(playUUID));
+        onRedoAvailabilityChanged.fire(this, isRedoAvailable(playUUID));
     }
 
     private void executeNewCommand(String playUUID, Command command) {
