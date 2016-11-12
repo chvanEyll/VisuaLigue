@@ -6,7 +6,7 @@ import ca.ulaval.glo2004.visualigue.ui.InjectableFXMLLoader;
 import ca.ulaval.glo2004.visualigue.ui.KeyboardShortcutMapper;
 import ca.ulaval.glo2004.visualigue.ui.View;
 import ca.ulaval.glo2004.visualigue.ui.controllers.common.ExtendedScrollPane;
-import ca.ulaval.glo2004.visualigue.ui.controllers.playeditor.actorlayers.ActorLayerFactory;
+import ca.ulaval.glo2004.visualigue.ui.controllers.playeditor.actor.ActorFactory;
 import ca.ulaval.glo2004.visualigue.ui.controllers.playeditor.scene.SceneController;
 import ca.ulaval.glo2004.visualigue.ui.controllers.playeditor.scene.Zoom;
 import ca.ulaval.glo2004.visualigue.ui.converters.FrameModelConverter;
@@ -29,7 +29,7 @@ public class Scene2DController extends SceneController {
     @FXML public StackPane sceneViewport;
     @FXML private StackPane layerStackPane;
     @Inject private PlayService playService;
-    @Inject private ActorLayerFactory actorLayerFactory;
+    @Inject private ActorFactory actorFactory;
     @Inject private FrameModelConverter frameModelConverter;
     private BiConsumer<Object, Play> onPlayFrameChanged = this::onPlayFrameChanged;
     private PlayingSurfaceLayerController playingSurfaceLayerController;
@@ -54,8 +54,8 @@ public class Scene2DController extends SceneController {
         navigationController = new NavigationController(scrollPane, sceneViewport, playingSurfaceLayerController);
         navigationController.onEnabled.forward(this.onNavigationModeEntered);
         navigationController.onDisabled.forward(this.onNavigationModeExited);
-        layerController = new LayerController(layerStackPane, actorLayerFactory, playModel, frameModel, playingSurfaceLayerController, navigationController.zoomProperty(), settings);
-        layerController.addLayer(playingSurfaceView, Integer.MIN_VALUE);
+        layerController = new LayerController(layerStackPane, actorFactory, playModel, frameModel, playingSurfaceLayerController, navigationController.zoomProperty(), settings);
+        layerController.addView(playingSurfaceView, Integer.MIN_VALUE);
         super.addChild(playingSurfaceLayerController);
         super.addChild(navigationController);
         super.addChild(layerController);

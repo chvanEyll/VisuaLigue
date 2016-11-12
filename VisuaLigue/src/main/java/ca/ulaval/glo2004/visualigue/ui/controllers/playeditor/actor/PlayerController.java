@@ -1,13 +1,13 @@
-package ca.ulaval.glo2004.visualigue.ui.controllers.playeditor.actorlayers;
+package ca.ulaval.glo2004.visualigue.ui.controllers.playeditor.actor;
 
 import ca.ulaval.glo2004.visualigue.ui.controllers.common.Arrow;
 import ca.ulaval.glo2004.visualigue.ui.controllers.common.ExtendedButton;
 import ca.ulaval.glo2004.visualigue.ui.controllers.common.ExtendedLabel;
 import ca.ulaval.glo2004.visualigue.ui.controllers.common.PlayerIcon;
-import ca.ulaval.glo2004.visualigue.ui.controllers.playeditor.scene.scene2d.ActorLayerController;
-import ca.ulaval.glo2004.visualigue.ui.models.layers.ActorLayerModel;
-import ca.ulaval.glo2004.visualigue.ui.models.layers.BallLayerModel;
-import ca.ulaval.glo2004.visualigue.ui.models.layers.PlayerLayerModel;
+import ca.ulaval.glo2004.visualigue.ui.controllers.playeditor.scene.scene2d.ActorController;
+import ca.ulaval.glo2004.visualigue.ui.models.actors.ActorModel;
+import ca.ulaval.glo2004.visualigue.ui.models.actors.BallActorModel;
+import ca.ulaval.glo2004.visualigue.ui.models.actors.PlayerActorModel;
 import ca.ulaval.glo2004.visualigue.utils.TimerTaskUtils;
 import ca.ulaval.glo2004.visualigue.utils.geometry.Line;
 import ca.ulaval.glo2004.visualigue.utils.geometry.Vector2;
@@ -20,16 +20,16 @@ import javafx.fxml.FXML;
 import javafx.scene.Cursor;
 import javafx.scene.input.MouseEvent;
 
-public class PlayerLayerController extends ActorLayerController {
+public class PlayerController extends ActorController {
 
-    public static final String VIEW_NAME = "/views/playeditor/actorlayers/player-layer.fxml";
+    public static final String VIEW_NAME = "/views/playeditor/actor/player-actor.fxml";
     private static final Double LABEL_OFFSET_Y = 30.0;
     private static final Vector2 ROTATION_ARROW_OFFSET = new Vector2(30, -30);
     private static final Integer ROTATION_ARROW_HIDE_DELAY = 500;
     private static final Double BASE_BUTTON_SCALING = 1.25;
     private static final Double ARROW_HEAD_SIZE = 15.0;
     private static final Double ARROW_STROKE_DASH_ARRAY_SIZE = 10.0;
-    private PlayerLayerModel playerLayerModel;
+    private PlayerActorModel playerLayerModel;
     private ChangeListener<Object> onChange = this::onChange;
     @FXML private PlayerIcon playerIcon;
     @FXML private ExtendedLabel label;
@@ -41,8 +41,8 @@ public class PlayerLayerController extends ActorLayerController {
     private Boolean rotationArrowDragging = false;
 
     @Override
-    public void init(ActorLayerModel layerModel) {
-        this.playerLayerModel = (PlayerLayerModel) layerModel;
+    public void init(ActorModel layerModel) {
+        this.playerLayerModel = (PlayerActorModel) layerModel;
         label.textProperty().bind(playerLayerModel.label);
         addListeners();
         update();
@@ -151,7 +151,7 @@ public class PlayerLayerController extends ActorLayerController {
 
     @FXML
     protected void onMouseDragEntered(MouseEvent e) {
-        if (DragUtils.getSource() instanceof BallLayerModel) {
+        if (DragUtils.getSource() instanceof BallActorModel) {
             enableDropHighlight();
         }
     }

@@ -1,8 +1,8 @@
-package ca.ulaval.glo2004.visualigue.ui.controllers.playeditor.actorlayers;
+package ca.ulaval.glo2004.visualigue.ui.controllers.playeditor.actor;
 
-import ca.ulaval.glo2004.visualigue.ui.controllers.playeditor.scene.scene2d.ActorLayerController;
-import ca.ulaval.glo2004.visualigue.ui.models.layers.ActorLayerModel;
-import ca.ulaval.glo2004.visualigue.ui.models.layers.BallLayerModel;
+import ca.ulaval.glo2004.visualigue.ui.controllers.playeditor.scene.scene2d.ActorController;
+import ca.ulaval.glo2004.visualigue.ui.models.actors.ActorModel;
+import ca.ulaval.glo2004.visualigue.ui.models.actors.BallActorModel;
 import ca.ulaval.glo2004.visualigue.utils.FilenameUtils;
 import ca.ulaval.glo2004.visualigue.utils.geometry.Vector2;
 import ca.ulaval.glo2004.visualigue.utils.javafx.DragUtils;
@@ -15,16 +15,16 @@ import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.input.MouseEvent;
 
-public class BallLayerController extends ActorLayerController {
+public class BallController extends ActorController {
 
-    public static final String VIEW_NAME = "/views/playeditor/actorlayers/ball-layer.fxml";
+    public static final String VIEW_NAME = "/views/playeditor/actor/ball-actor.fxml";
     @FXML private ImageView imageView;
-    private BallLayerModel ballLayerModel;
+    private BallActorModel ballLayerModel;
     private ChangeListener<Object> onChange = this::onChange;
 
     @Override
-    public void init(ActorLayerModel layerModel) {
-        this.ballLayerModel = (BallLayerModel) layerModel;
+    public void init(ActorModel layerModel) {
+        this.ballLayerModel = (BallActorModel) layerModel;
         setImage();
         addListeners();
         update();

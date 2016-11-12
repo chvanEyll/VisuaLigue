@@ -1,8 +1,8 @@
-package ca.ulaval.glo2004.visualigue.ui.controllers.playeditor.actorlayers;
+package ca.ulaval.glo2004.visualigue.ui.controllers.playeditor.actor;
 
-import ca.ulaval.glo2004.visualigue.ui.controllers.playeditor.scene.scene2d.ActorLayerController;
-import ca.ulaval.glo2004.visualigue.ui.models.layers.ActorLayerModel;
-import ca.ulaval.glo2004.visualigue.ui.models.layers.ObstacleLayerModel;
+import ca.ulaval.glo2004.visualigue.ui.controllers.playeditor.scene.scene2d.ActorController;
+import ca.ulaval.glo2004.visualigue.ui.models.actors.ActorModel;
+import ca.ulaval.glo2004.visualigue.ui.models.actors.ObstacleActorModel;
 import ca.ulaval.glo2004.visualigue.utils.FilenameUtils;
 import ca.ulaval.glo2004.visualigue.utils.geometry.Vector2;
 import javafx.application.Platform;
@@ -14,16 +14,16 @@ import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.input.MouseEvent;
 
-public class ObstacleLayerController extends ActorLayerController {
+public class ObstacleController extends ActorController {
 
-    public static final String VIEW_NAME = "/views/playeditor/actorlayers/obstacle-layer.fxml";
+    public static final String VIEW_NAME = "/views/playeditor/actor/obstacle-actor.fxml";
     @FXML private ImageView imageView;
-    private ObstacleLayerModel obstacleLayerModel;
+    private ObstacleActorModel obstacleLayerModel;
     private ChangeListener<Object> onChange = this::onChange;
 
     @Override
-    public void init(ActorLayerModel layerModel) {
-        this.obstacleLayerModel = (ObstacleLayerModel) layerModel;
+    public void init(ActorModel layerModel) {
+        this.obstacleLayerModel = (ObstacleActorModel) layerModel;
         setImage();
         addListeners();
         update();

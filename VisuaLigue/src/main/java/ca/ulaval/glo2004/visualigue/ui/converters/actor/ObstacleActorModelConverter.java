@@ -1,4 +1,4 @@
-package ca.ulaval.glo2004.visualigue.ui.converters.layers;
+package ca.ulaval.glo2004.visualigue.ui.converters.actor;
 
 import ca.ulaval.glo2004.visualigue.domain.image.ImageRepository;
 import ca.ulaval.glo2004.visualigue.domain.obstacle.Obstacle;
@@ -6,32 +6,32 @@ import ca.ulaval.glo2004.visualigue.domain.play.actor.ActorInstance;
 import ca.ulaval.glo2004.visualigue.domain.play.actor.ObstacleActor;
 import ca.ulaval.glo2004.visualigue.domain.play.actorstate.ObstacleState;
 import ca.ulaval.glo2004.visualigue.ui.models.ObstacleModel;
-import ca.ulaval.glo2004.visualigue.ui.models.layers.ObstacleLayerModel;
+import ca.ulaval.glo2004.visualigue.ui.models.actors.ObstacleActorModel;
 import javax.inject.Inject;
 
-public class ObstacleLayerModelConverter {
+public class ObstacleActorModelConverter {
 
     private ImageRepository imageRepository;
 
     @Inject
-    public ObstacleLayerModelConverter(ImageRepository imageRepository) {
+    public ObstacleActorModelConverter(ImageRepository imageRepository) {
         this.imageRepository = imageRepository;
     }
 
-    public ObstacleLayerModel convert(ObstacleModel obstacleModel) {
-        ObstacleLayerModel model = new ObstacleLayerModel();
+    public ObstacleActorModel convert(ObstacleModel obstacleModel) {
+        ObstacleActorModel model = new ObstacleActorModel();
         model.imagePathName.set(obstacleModel.currentImagePathName.get());
         model.builtInImagePathName.set(obstacleModel.builtInImagePathName.get());
         return model;
     }
 
-    public ObstacleLayerModel convert(ActorInstance actorInstance) {
-        ObstacleLayerModel model = new ObstacleLayerModel();
+    public ObstacleActorModel convert(ActorInstance actorInstance) {
+        ObstacleActorModel model = new ObstacleActorModel();
         update(model, actorInstance);
         return model;
     }
 
-    public void update(ObstacleLayerModel model, ActorInstance actorInstance) {
+    public void update(ObstacleActorModel model, ActorInstance actorInstance) {
         ObstacleActor obstacleActor = (ObstacleActor) actorInstance.getActor();
         ObstacleState obstacleState = (ObstacleState) actorInstance.getActorState();
         model.setUUID(obstacleActor.getUUID());

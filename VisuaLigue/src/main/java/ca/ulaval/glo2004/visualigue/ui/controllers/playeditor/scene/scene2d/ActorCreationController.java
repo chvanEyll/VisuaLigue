@@ -4,7 +4,7 @@ import ca.ulaval.glo2004.visualigue.services.play.PlayService;
 import ca.ulaval.glo2004.visualigue.ui.controllers.ControllerBase;
 import ca.ulaval.glo2004.visualigue.ui.models.FrameModel;
 import ca.ulaval.glo2004.visualigue.ui.models.PlayModel;
-import ca.ulaval.glo2004.visualigue.ui.models.layers.ActorLayerModel;
+import ca.ulaval.glo2004.visualigue.ui.models.actors.ActorModel;
 import ca.ulaval.glo2004.visualigue.utils.EventHandler;
 import ca.ulaval.glo2004.visualigue.utils.geometry.Vector2;
 import javafx.scene.input.MouseEvent;
@@ -17,7 +17,7 @@ public abstract class ActorCreationController extends ControllerBase {
     @Inject protected PlayService playService;
     protected LayerController layerController;
     protected PlayingSurfaceLayerController playingSurfaceLayerController;
-    protected ActorLayerModel layerModel;
+    protected ActorModel actorModel;
     protected PlayModel playModel;
     protected FrameModel frameModel;
     protected Boolean enabled = false;
@@ -27,39 +27,39 @@ public abstract class ActorCreationController extends ControllerBase {
         this.playingSurfaceLayerController = playingSurfaceLayerController;
         this.playModel = playModel;
         this.frameModel = frameModel;
-        initCreationLayer(layerModel);
+        initCreationLayer(actorModel);
         enabled = true;
         onEnabled.fire(this);
     }
 
-    protected void initCreationLayer(ActorLayerModel layerModel) {
-        layerController.removeActorLayer(this.layerModel);
-        layerController.addActorLayer(layerModel);
-        layerController.setLayerOpacity(layerModel, 0.5);
-        layerController.setLayerMouseTransparent(layerModel, true);
-        this.layerModel = layerModel;
+    protected void initCreationLayer(ActorModel actorModel) {
+        layerController.removeActorModel(this.actorModel);
+        layerController.addActorModel(actorModel);
+        actorModel.opacity.set(0.5);
+        actorModel.mouseTransparent.set(true);
+        this.actorModel = actorModel;
     }
 
     public void disable() {
         if (enabled) {
-            layerController.removeActorLayer(layerModel);
+            layerController.removeActorModel(actorModel);
             enabled = false;
             onDisabled.fire(this);
         }
     }
 
     public void onSceneMouseEntered(MouseEvent e) {
-        layerModel.visible.set(true);
+        actorModel.visible.set(true);
     }
 
     public void onSceneMouseExited(MouseEvent e) {
-        layerModel.visible.set(false);
+        actorModel.visible.set(false);
     }
 
     public void onSceneMouseMoved(MouseEvent e) {
         if (enabled) {
             Vector2 sizeRelativePosition = playingSurfaceLayerController.getSizeRelativeMousePosition(true);
-            layerModel.position.set(sizeRelativePosition);
+            actorModel.position.set(sizeRelativePosition);
         }
     }
 

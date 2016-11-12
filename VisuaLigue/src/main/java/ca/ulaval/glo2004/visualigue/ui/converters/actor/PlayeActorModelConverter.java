@@ -1,16 +1,16 @@
-package ca.ulaval.glo2004.visualigue.ui.converters.layers;
+package ca.ulaval.glo2004.visualigue.ui.converters.actor;
 
 import ca.ulaval.glo2004.visualigue.domain.play.actor.ActorInstance;
 import ca.ulaval.glo2004.visualigue.domain.play.actor.PlayerActor;
 import ca.ulaval.glo2004.visualigue.domain.play.actor.TeamSide;
 import ca.ulaval.glo2004.visualigue.domain.play.actorstate.PlayerState;
 import ca.ulaval.glo2004.visualigue.ui.models.PlayerCategoryModel;
-import ca.ulaval.glo2004.visualigue.ui.models.layers.PlayerLayerModel;
+import ca.ulaval.glo2004.visualigue.ui.models.actors.PlayerActorModel;
 
-public class PlayeLayerModelConverter {
+public class PlayeActorModelConverter {
 
-    public PlayerLayerModel convert(PlayerCategoryModel playerCategoryModel, TeamSide teamSide) {
-        PlayerLayerModel model = new PlayerLayerModel();
+    public PlayerActorModel convert(PlayerCategoryModel playerCategoryModel, TeamSide teamSide) {
+        PlayerActorModel model = new PlayerActorModel();
         if (teamSide == TeamSide.ALLIES) {
             model.color.set(playerCategoryModel.allyPlayerColor.get());
         } else {
@@ -20,13 +20,13 @@ public class PlayeLayerModelConverter {
         return model;
     }
 
-    public PlayerLayerModel convert(ActorInstance actorInstance) {
-        PlayerLayerModel model = new PlayerLayerModel();
+    public PlayerActorModel convert(ActorInstance actorInstance) {
+        PlayerActorModel model = new PlayerActorModel();
         update(model, actorInstance);
         return model;
     }
 
-    public void update(PlayerLayerModel model, ActorInstance actorInstance) {
+    public void update(PlayerActorModel model, ActorInstance actorInstance) {
         PlayerActor playerActor = (PlayerActor) actorInstance.getActor();
         PlayerState playerState = (PlayerState) actorInstance.getActorState();
         model.setUUID(playerActor.getUUID());
