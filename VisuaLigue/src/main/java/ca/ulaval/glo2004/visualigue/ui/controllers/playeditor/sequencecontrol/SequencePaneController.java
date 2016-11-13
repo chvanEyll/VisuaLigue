@@ -118,7 +118,9 @@ public class SequencePaneController extends ControllerBase {
     @FXML
     protected void onNewKeyPointButtonAction(ActionEvent e) {
         stop();
+        playService.beginUpdate(playModel.getUUID());
         playService.addKeypoint(playModel.getUUID(), seekBarController.getTime());
+        playService.endUpdate(playModel.getUUID());
         seekBarController.goToEnd(false, 0L);
     }
 

@@ -22,7 +22,7 @@ public class Frame extends DomainObject {
         return actorInstances;
     }
 
-    public void addActorState(ActorInstance actorInstance) {
+    public void addActorInstance(ActorInstance actorInstance) {
         actorInstances.add(actorInstance);
     }
 

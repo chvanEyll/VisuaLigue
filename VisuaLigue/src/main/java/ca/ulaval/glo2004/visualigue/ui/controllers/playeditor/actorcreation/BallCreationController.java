@@ -9,19 +9,21 @@ import javax.inject.Inject;
 
 public class BallCreationController extends ActorCreationController {
 
-    @Inject private BallActorModelConverter ballLayerModelConverter;
+    @Inject private BallActorModelConverter ballActorModelConverter;
     private BallModel ballModel;
 
     public void init(BallModel ballModel) {
         this.ballModel = ballModel;
-        this.actorModel = ballLayerModelConverter.convert(ballModel);
+        this.actorModel = ballActorModelConverter.convert(ballModel);
     }
 
     @Override
     public void onSceneMouseClicked(MouseEvent e) {
         if (enabled) {
-            Vector2 sizeRelativePosition = playingSurfaceLayerController.getSizeRelativeMousePosition(true);
-            playService.addBallActor(playModel.getUUID(), frameModel.time.get(), null, sizeRelativePosition);
+            Vector2 worldMousePosition = sceneController.getMouseWorldPosition(true);
+            playService.beginUpdate(sceneController.getPlayUUID());
+            playService.addBallActor(sceneController.getPlayUUID(), sceneController.getTime(), null, worldMousePosition);
+            playService.endUpdate(sceneController.getPlayUUID());
             initCreationLayer(actorModel);
         }
     }

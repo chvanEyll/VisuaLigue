@@ -3,6 +3,7 @@ package ca.ulaval.glo2004.visualigue.ui.controllers.playeditor.scene;
 import ca.ulaval.glo2004.visualigue.ui.controllers.ControllerBase;
 import ca.ulaval.glo2004.visualigue.ui.controllers.playeditor.scene.scene2d.ActorCreationController;
 import ca.ulaval.glo2004.visualigue.ui.models.PlayModel;
+import ca.ulaval.glo2004.visualigue.ui.models.actors.ActorModel;
 import ca.ulaval.glo2004.visualigue.utils.EventHandler;
 import ca.ulaval.glo2004.visualigue.utils.geometry.Vector2;
 import java.util.Arrays;
@@ -44,7 +45,7 @@ public abstract class SceneController extends ControllerBase {
 
     public abstract ObjectProperty<Zoom> zoomProperty();
 
-    public abstract ReadOnlyObjectProperty<Vector2> realWorldMousePositionProperty();
+    public abstract ReadOnlyObjectProperty<Vector2> mousePixelPositionProperty();
 
     public abstract Zoom getMinZoom();
 
@@ -55,5 +56,25 @@ public abstract class SceneController extends ControllerBase {
     public abstract void zoomOut();
 
     public abstract void autoFit();
+
+    public abstract void addActor(ActorModel actorModel);
+
+    public abstract void removeActor(ActorModel actorModel);
+
+    public abstract ActorModel findActor(String actorUUID, Integer instanceID);
+
+    public abstract String getPlayUUID();
+
+    public abstract Long getTime();
+
+    public abstract Vector2 getMouseWorldPosition(Boolean contain);
+
+    public abstract Vector2 getMousePixelPosition();
+
+    public abstract Vector2 pixelToWorldPoint(Vector2 pixelPoint);
+
+    public abstract Vector2 worldToPixelPoint(Vector2 worldPoint);
+
+    public abstract Vector2 pixelToUserPoint(Vector2 pixelPoint);
 
 }

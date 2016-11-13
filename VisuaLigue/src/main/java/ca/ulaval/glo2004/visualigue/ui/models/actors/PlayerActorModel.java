@@ -12,5 +12,6 @@ public class PlayerActorModel extends ActorModel {
     public StringProperty svgImagePathName = new SimpleStringProperty();
     public StringProperty label = new SimpleStringProperty();
     public BooleanProperty showRotationArrow = new SimpleBooleanProperty(false);
+    public StringProperty snappedBallUUID = new SimpleStringProperty();
 
 }

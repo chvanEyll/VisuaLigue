@@ -7,7 +7,7 @@ import ca.ulaval.glo2004.visualigue.domain.play.actorstate.PlayerState;
 import ca.ulaval.glo2004.visualigue.ui.models.PlayerCategoryModel;
 import ca.ulaval.glo2004.visualigue.ui.models.actors.PlayerActorModel;
 
-public class PlayeActorModelConverter {
+public class PlayerActorModelConverter {
 
     public PlayerActorModel convert(PlayerCategoryModel playerCategoryModel, TeamSide teamSide) {
         PlayerActorModel model = new PlayerActorModel();
@@ -30,6 +30,7 @@ public class PlayeActorModelConverter {
         PlayerActor playerActor = (PlayerActor) actorInstance.getActor();
         PlayerState playerState = (PlayerState) actorInstance.getActorState();
         model.setUUID(playerActor.getUUID());
+        model.instanceID.set(actorInstance.getInstanceID());
         model.isLocked.set(playerState.isLocked());
         model.opacity.set(playerState.getOpacity());
         model.visible.set(playerState.isVisible());
@@ -41,6 +42,11 @@ public class PlayeActorModelConverter {
         model.orientation.set(playerState.getOrientation());
         model.label.set(playerActor.getPlayerCategory().getAbbreviation());
         model.hoverText.set(playerActor.getPlayerCategory().getName());
+        if (playerState.hasSnappedBall()) {
+            model.snappedBallUUID.set(playerState.getSnappedBall().getUUID());
+        } else {
+            model.snappedBallUUID.set(null);
+        }
     }
 
 }

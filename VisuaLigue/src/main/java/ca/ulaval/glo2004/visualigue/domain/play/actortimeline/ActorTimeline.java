@@ -68,6 +68,11 @@ public class ActorTimeline extends DomainObject {
         return propertyTimeline.getLowerValue(time);
     }
 
+    public Object getPropertyValue(Long time, ActorProperty actorProperty) {
+        ActorPropertyTimeline propertyTimeline = propertyTimelines.get(actorProperty);
+        return propertyTimeline.getValue(time);
+    }
+
     public Set<Long> getPropertyKeyframeTimes(ActorProperty actorProperty) {
         if (propertyTimelines.containsKey(actorProperty)) {
             return propertyTimelines.get(actorProperty).getTimes();

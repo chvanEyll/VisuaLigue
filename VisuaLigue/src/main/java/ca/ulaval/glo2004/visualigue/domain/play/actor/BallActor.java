@@ -13,5 +13,4 @@ public class BallActor extends Actor {
     public ActorState getBaseState() {
         return new BallState();
     }
-
 }

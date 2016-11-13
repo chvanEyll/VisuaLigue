@@ -18,76 +18,70 @@ public class ObstacleController extends ActorController {
 
     public static final String VIEW_NAME = "/views/playeditor/actor/obstacle-actor.fxml";
     @FXML private ImageView imageView;
-    private ObstacleActorModel obstacleLayerModel;
+    private ObstacleActorModel obstacleActorModel;
     private ChangeListener<Object> onChange = this::onChange;
 
     @Override
-    public void init(ActorModel layerModel) {
-        this.obstacleLayerModel = (ObstacleActorModel) layerModel;
+    public void init(ActorModel actorModel) {
+        this.obstacleActorModel = (ObstacleActorModel) actorModel;
         setImage();
         addListeners();
-        update();
+        render();
     }
 
     private void setImage() {
-        if (obstacleLayerModel.imagePathName.isNotEmpty().get()) {
-            imageView.setImage(new Image(FilenameUtils.getURIString(obstacleLayerModel.imagePathName.get())));
-        } else if (obstacleLayerModel.builtInImagePathName.isNotEmpty().get()) {
-            imageView.setImage(new Image(obstacleLayerModel.builtInImagePathName.get()));
+        if (obstacleActorModel.imagePathName.isNotEmpty().get()) {
+            imageView.setImage(new Image(FilenameUtils.getURIString(obstacleActorModel.imagePathName.get())));
+        } else if (obstacleActorModel.builtInImagePathName.isNotEmpty().get()) {
+            imageView.setImage(new Image(obstacleActorModel.builtInImagePathName.get()));
         }
     }
 
     private void addListeners() {
-        obstacleLayerModel.position.addListener(onChange);
-        settings.resizeActorsOnZoomProperty.addListener(onChange);
-        zoomProperty.addListener(onChange);
+        obstacleActorModel.position.addListener(onChange);
+        sceneController.settings.resizeActorsOnZoomProperty.addListener(onChange);
+        sceneController.zoomProperty().addListener(onChange);
         actorButton.layoutReadyProperty().addListener(this::onChange);
     }
 
     @Override
     public void clean() {
-        settings.resizeActorsOnZoomProperty.removeListener(onChange);
-        zoomProperty.removeListener(onChange);
+        sceneController.settings.resizeActorsOnZoomProperty.removeListener(onChange);
+        sceneController.zoomProperty().removeListener(onChange);
         super.clean();
     }
 
     private void onChange(final ObservableValue<? extends Object> value, final Object oldPropertyValue, final Object newPropertyValue) {
-        update();
+        render();
     }
 
     @Override
-    public void update() {
-        Vector2 actorPosition;
-        if (obstacleLayerModel.position.isNotNull().get()) {
-            actorPosition = playingSurfaceLayerController.sizeRelativeToSurfacePoint(obstacleLayerModel.position.get());
-        } else {
-            actorPosition = null;
-        }
+    public void render() {
         Platform.runLater(() -> {
-            updateActor(actorPosition);
+            renderActorButton();
         });
     }
 
-    private void updateActor(Vector2 actorPosition) {
-        Boolean showActor = actorPosition != null;
-        if (showActor) {
-            actorButton.setScaleX(getScaledValue(1.0));
-            actorButton.setScaleY(getScaledValue(1.0));
-            actorButton.setLayoutX(actorPosition.getX() - actorButton.getWidth() / 2);
-            actorButton.setLayoutY(actorPosition.getY() - actorButton.getHeight() / 2);
-        }
-        actorButton.setVisible(showActor);
-        actorButton.setCursor(layerModel.isLocked.get() ? Cursor.DEFAULT : Cursor.MOVE);
+    private void renderActorButton() {
+        Vector2 actorPixelPosition = sceneController.worldToPixelPoint(actorModel.position.get());
+        actorButton.setScaleX(getScaledValue(1.0));
+        actorButton.setScaleY(getScaledValue(1.0));
+        actorButton.setLayoutX(actorPixelPosition.getX() - actorButton.getWidth() / 2);
+        actorButton.setLayoutY(actorPixelPosition.getY() - actorButton.getHeight() / 2);
+        actorButton.setCursor(actorModel.isLocked.get() ? Cursor.DEFAULT : Cursor.MOVE);
+        actorButton.setVisible(true);
     }
 
     @FXML
     protected void onMouseDragged(MouseEvent e) {
-        obstacleLayerModel.position.set(playingSurfaceLayerController.getSizeRelativeMousePosition(true));
+        obstacleActorModel.position.set(sceneController.getMouseWorldPosition(true));
     }
 
     @FXML
     protected void onMouseReleased(MouseEvent e) {
-        playService.updateObstacleActorPosition(playModel.getUUID(), frameModel.time.get(), obstacleLayerModel.getUUID(), obstacleLayerModel.position.get());
+        playService.beginUpdate(sceneController.getPlayUUID());
+        playService.updateObstaclPosition(sceneController.getPlayUUID(), sceneController.getTime(), obstacleActorModel.getUUID(), obstacleActorModel.position.get());
+        playService.endUpdate(sceneController.getPlayUUID());
     }
 
 }

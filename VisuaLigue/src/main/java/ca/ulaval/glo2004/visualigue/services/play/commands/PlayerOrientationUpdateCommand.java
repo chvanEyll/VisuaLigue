@@ -17,30 +17,29 @@ public class PlayerOrientationUpdateCommand extends Command {
     private Keyframe oldOrientationKeyframe;
     private Keyframe oldOrientationKeyframeAtLastKeyPoint;
 
-    public PlayerOrientationUpdateCommand(Play play, Long time, String ownerPlayerActorUUID, Double orientation, EventHandler<Play> onFrameChanged) {
+    public PlayerOrientationUpdateCommand(Play play, Long time, String ownerPlayerActorUUID, Double orientation) {
         super(play, time);
         this.ownerPlayerActorUUID = ownerPlayerActorUUID;
         this.orientation = orientation;
-        this.onFrameChanged = onFrameChanged;
     }
 
     @Override
-    public void execute() {
+    public Long execute() {
         playerActor = (PlayerActor) play.getActor(ownerPlayerActorUUID);
         oldOrientationKeyframe = play.merge(time, playerActor, PlayerState.getOrientationProperty(), orientation, new LinearKeyframeTransition());
         if (play.previousKeyPointExists(time)) {
             Double lastOrientation = (Double) play.getActorLowerPropertyValue(time, playerActor, PlayerState.getOrientationProperty());
             oldOrientationKeyframeAtLastKeyPoint = play.merge(play.getPreviousKeyPointTime(time), playerActor, PlayerState.getOrientationProperty(), lastOrientation, new LinearKeyframeTransition());
         }
-        onFrameChanged.fire(this, play);
+        return time;
     }
 
     @Override
-    public void revert() {
+    public Long revert() {
         play.unmerge(time, playerActor, PlayerState.getOrientationProperty(), oldOrientationKeyframe);
         if (play.previousKeyPointExists(time)) {
             play.unmerge(play.getPreviousKeyPointTime(time), playerActor, PlayerState.getOrientationProperty(), oldOrientationKeyframeAtLastKeyPoint);
         }
-        onFrameChanged.fire(this, play);
+        return time;
     }
 }

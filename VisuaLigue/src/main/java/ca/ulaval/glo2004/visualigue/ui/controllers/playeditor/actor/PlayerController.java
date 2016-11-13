@@ -29,7 +29,7 @@ public class PlayerController extends ActorController {
     private static final Double BASE_BUTTON_SCALING = 1.25;
     private static final Double ARROW_HEAD_SIZE = 15.0;
     private static final Double ARROW_STROKE_DASH_ARRAY_SIZE = 10.0;
-    private PlayerActorModel playerLayerModel;
+    private PlayerActorModel playerActorModel;
     private ChangeListener<Object> onChange = this::onChange;
     @FXML private PlayerIcon playerIcon;
     @FXML private ExtendedLabel label;
@@ -41,110 +41,101 @@ public class PlayerController extends ActorController {
     private Boolean rotationArrowDragging = false;
 
     @Override
-    public void init(ActorModel layerModel) {
-        this.playerLayerModel = (PlayerActorModel) layerModel;
-        label.textProperty().bind(playerLayerModel.label);
+    public void init(ActorModel actorModel) {
+        this.playerActorModel = (PlayerActorModel) actorModel;
+        label.textProperty().bind(playerActorModel.label);
         addListeners();
-        update();
+        render();
     }
 
     private void addListeners() {
-        playerLayerModel.position.addListener(onChange);
-        playerLayerModel.nextPosition.addListener(onChange);
-        playerLayerModel.orientation.addListener(onChange);
-        playerLayerModel.label.addListener(onChange);
-        playerLayerModel.showRotationArrow.addListener(onChange);
-        settings.showActorLabelsProperty.addListener(onChange);
-        settings.showMovementArrowsProperty.addListener(onChange);
-        settings.resizeActorsOnZoomProperty.addListener(onChange);
-        zoomProperty.addListener(onChange);
+        playerActorModel.position.addListener(onChange);
+        playerActorModel.nextPosition.addListener(onChange);
+        playerActorModel.orientation.addListener(onChange);
+        playerActorModel.label.addListener(onChange);
+        playerActorModel.showRotationArrow.addListener(onChange);
+        playerActorModel.snappedBallUUID.addListener(onChange);
+        sceneController.settings.showActorLabelsProperty.addListener(onChange);
+        sceneController.settings.showMovementArrowsProperty.addListener(onChange);
+        sceneController.settings.resizeActorsOnZoomProperty.addListener(onChange);
+        sceneController.zoomProperty().addListener(onChange);
         actorButton.layoutReadyProperty().addListener(this::onChange);
         label.layoutReadyProperty().addListener(this::onChange);
     }
 
     @Override
     public void clean() {
-        settings.showActorLabelsProperty.removeListener(onChange);
-        settings.showMovementArrowsProperty.removeListener(onChange);
-        settings.resizeActorsOnZoomProperty.removeListener(onChange);
-        zoomProperty.removeListener(onChange);
+        sceneController.settings.showActorLabelsProperty.removeListener(onChange);
+        sceneController.settings.showMovementArrowsProperty.removeListener(onChange);
+        sceneController.settings.resizeActorsOnZoomProperty.removeListener(onChange);
+        sceneController.zoomProperty().removeListener(onChange);
         super.clean();
     }
 
     private void onChange(final ObservableValue<? extends Object> value, final Object oldPropertyValue, final Object newPropertyValue) {
-        update();
+        render();
     }
 
     @Override
-    public void update() {
-        Vector2 actorPosition;
-        if (playerLayerModel.position.isNotNull().get()) {
-            actorPosition = playingSurfaceLayerController.sizeRelativeToSurfacePoint(playerLayerModel.position.get());
-        } else {
-            actorPosition = null;
-        }
-        Vector2 nextActorPosition;
-        if (playerLayerModel.nextPosition.isNotNull().get()) {
-            nextActorPosition = playingSurfaceLayerController.sizeRelativeToSurfacePoint(playerLayerModel.nextPosition.get());
-        } else {
-            nextActorPosition = null;
-        }
+    public void render() {
         Platform.runLater(() -> {
-            updateActor(actorPosition);
-            updateArrow(actorPosition, nextActorPosition);
-            updateLabel(actorPosition);
-            updateRotationArrow(actorPosition);
+            renderActorButton();
+            renderDirectionArrow();
+            renderLabel();
+            renderRotationArrow();
         });
     }
 
-    private void updateActor(Vector2 actorPosition) {
-        Boolean showActor = actorPosition != null;
-        if (showActor) {
-            actorButton.setScaleX(getScaledValue(BASE_BUTTON_SCALING));
-            actorButton.setScaleY(getScaledValue(BASE_BUTTON_SCALING));
-            actorButton.setLayoutX(actorPosition.getX() - actorButton.getWidth() / 2);
-            actorButton.setLayoutY(actorPosition.getY() - actorButton.getHeight() / 2);
-            actorButton.setRotate(-playerLayerModel.orientation.get());
-            playerIcon.setColor(playerLayerModel.color.get());
-        }
-        actorButton.setVisible(showActor);
-        actorButton.setCursor(layerModel.isLocked.get() ? Cursor.DEFAULT : Cursor.MOVE);
+    private void renderActorButton() {
+        Vector2 actorPixelPosition = sceneController.worldToPixelPoint(actorModel.position.get());
+        actorButton.setScaleX(getScaledValue(BASE_BUTTON_SCALING));
+        actorButton.setScaleY(getScaledValue(BASE_BUTTON_SCALING));
+        actorButton.setLayoutX(actorPixelPosition.getX() - actorButton.getWidth() / 2);
+        actorButton.setLayoutY(actorPixelPosition.getY() - actorButton.getHeight() / 2);
+        actorButton.setRotate(-playerActorModel.orientation.get());
+        actorButton.setCursor(actorModel.isLocked.get() ? Cursor.DEFAULT : Cursor.MOVE);
+        actorButton.setVisible(true);
+        playerIcon.setColor(playerActorModel.color.get());
     }
 
-    private void updateArrow(Vector2 currentActorPosition, Vector2 nextActorPosition) {
-        Boolean showArrow = settings.showMovementArrowsProperty.get() == true && nextActorPosition != null;
+    private void renderDirectionArrow() {
+        Vector2 currentActorPixelPosition = sceneController.worldToPixelPoint(actorModel.position.get());
+        Vector2 nextActorPixelPosition = playerActorModel.nextPosition.isNotNull().get() ? sceneController.worldToPixelPoint(playerActorModel.nextPosition.get()) : null;
+        Boolean showArrow = sceneController.settings.showMovementArrowsProperty.get() == true && nextActorPixelPosition != null;
         if (showArrow) {
-            arrow.setStroke(playerLayerModel.color.get());
+            arrow.setStroke(playerActorModel.color.get());
             arrow.setStrokeWidth(getScaledValue(3.0));
             arrow.getStrokeDashArray().setAll(getScaledValue(ARROW_STROKE_DASH_ARRAY_SIZE));
-            arrow.setArrowFill(playerLayerModel.color.get());
+            arrow.setArrowFill(playerActorModel.color.get());
             arrow.setHeadSize(new Vector2(getScaledValue(ARROW_HEAD_SIZE), getScaledValue(ARROW_HEAD_SIZE)));
             arrow.setTailGrow(-actorButton.getWidth() * actorButton.getScaleX());
             arrow.setHeadGrow(-actorButton.getWidth() * actorButton.getScaleX());
-            arrow.setHeadLocation(nextActorPosition);
-            arrow.setTailLocation(currentActorPosition);
+            arrow.setHeadLocation(nextActorPixelPosition);
+            arrow.setTailLocation(currentActorPixelPosition);
         }
         arrow.setVisible(showArrow);
     }
 
-    private void updateLabel(Vector2 actorPosition) {
-        Boolean showLabel = actorPosition != null && playerLayerModel.showLabel.get() && settings.showActorLabelsProperty.get();
+    private void renderLabel() {
+        Vector2 actorPixelPosition = sceneController.worldToPixelPoint(actorModel.position.get());
+        Boolean showLabel = playerActorModel.showLabel.get() && sceneController.settings.showActorLabelsProperty.get();
         if (showLabel) {
             label.setScaleX(getScaledValue(1.0));
             label.setScaleY(getScaledValue(1.0));
-            label.setLayoutX(actorPosition.getX() - label.getWidth() / 2);
-            label.setLayoutY(actorPosition.getY() - label.getHeight() / 2 - getScaledValue(LABEL_OFFSET_Y));
+            label.setLayoutX(actorPixelPosition.getX() - label.getWidth() / 2);
+            label.setLayoutY(actorPixelPosition.getY() - label.getHeight() / 2 - getScaledValue(LABEL_OFFSET_Y));
         }
         label.setVisible(showLabel);
     }
 
-    private void updateRotationArrow(Vector2 actorPosition) {
-        Boolean showArrow = actorPosition != null && playerLayerModel.showRotationArrow.get();
+    private void renderRotationArrow() {
+        Vector2 actorPixelPosition = sceneController.worldToPixelPoint(actorModel.position.get());
+        Boolean showArrow = playerActorModel.showRotationArrow.get();
         if (showArrow) {
             rotationArrow.setScaleX(getScaledValue(1.0));
             rotationArrow.setScaleY(getScaledValue(1.0));
-            rotationArrow.setLayoutX(actorPosition.getX() - rotationArrow.getWidth() / 2 + getScaledValue(ROTATION_ARROW_OFFSET.getX()));
-            rotationArrow.setLayoutY(actorPosition.getY() - rotationArrow.getHeight() / 2 + getScaledValue(ROTATION_ARROW_OFFSET.getY()));
+            rotationArrow.setLayoutX(actorPixelPosition.getX() - rotationArrow.getWidth() / 2 + getScaledValue(ROTATION_ARROW_OFFSET.getX()));
+            rotationArrow.setLayoutY(actorPixelPosition.getY() - rotationArrow.getHeight() / 2 + getScaledValue(ROTATION_ARROW_OFFSET.getY()));
         }
         rotationArrow.setVisible(showArrow);
     }
@@ -164,11 +155,19 @@ public class PlayerController extends ActorController {
     @FXML
     protected void onMouseDragReleased(MouseEvent e) {
         disableDropHighlight();
+        if (DragUtils.getSource() instanceof BallActorModel) {
+            DragUtils.setResult(true);
+            playerActorModel.snappedBallUUID.set(((BallActorModel) DragUtils.getSource()).getUUID());
+            playService.beginUpdate(sceneController.getPlayUUID());
+            playService.snapBallToPlayer(sceneController.getPlayUUID(), sceneController.getTime(), playerActorModel.getUUID(), playerActorModel.snappedBallUUID.get());
+            updateSnappedBallPosition();
+            playService.endUpdate(sceneController.getPlayUUID());
+        }
     }
 
     @FXML
     protected void onMouseEntered(MouseEvent e) {
-        playerLayerModel.showRotationArrow.set(true);
+        playerActorModel.showRotationArrow.set(true);
     }
 
     @FXML
@@ -178,12 +177,15 @@ public class PlayerController extends ActorController {
 
     @FXML
     protected void onMouseDragged(MouseEvent e) {
-        playerLayerModel.position.set(playingSurfaceLayerController.getSizeRelativeMousePosition(true));
+        playerActorModel.position.set(sceneController.getMouseWorldPosition(true));
     }
 
     @FXML
     protected void onMouseReleased(MouseEvent e) {
-        playService.updatePlayerActorPositionDirect(playModel.getUUID(), frameModel.time.get(), playerLayerModel.getUUID(), playerLayerModel.position.get());
+        playService.beginUpdate(sceneController.getPlayUUID());
+        playService.updatePlayerPositionDirect(sceneController.getPlayUUID(), sceneController.getTime(), playerActorModel.getUUID(), playerActorModel.position.get());
+        updateSnappedBallPosition();
+        playService.endUpdate(sceneController.getPlayUUID());
     }
 
     @FXML
@@ -199,16 +201,16 @@ public class PlayerController extends ActorController {
     @FXML
     protected void onRotateArrowMousePressed(MouseEvent e) {
         cancelRotationArrowHide();
-        Vector2 mousePosition = playingSurfaceLayerController.getMousePosition();
-        initialRotationAngle = new Line(playingSurfaceLayerController.sizeRelativeToSurfacePoint(playerLayerModel.position.get()), mousePosition).getAngle();
-        initialPlayerOrientation = playerLayerModel.orientation.get();
+        Vector2 mousePosition = sceneController.getMousePixelPosition();
+        initialRotationAngle = new Line(sceneController.worldToPixelPoint(playerActorModel.position.get()), mousePosition).getAngle();
+        initialPlayerOrientation = playerActorModel.orientation.get();
     }
 
     @FXML
     protected void onRotateArrowMouseDragged(MouseEvent e) {
-        Vector2 mousePosition = playingSurfaceLayerController.getMousePosition();
-        Double newAngle = new Line(playingSurfaceLayerController.sizeRelativeToSurfacePoint(playerLayerModel.position.get()), mousePosition).getAngle();
-        playerLayerModel.orientation.set(initialPlayerOrientation + (newAngle - initialRotationAngle));
+        Vector2 mousePosition = sceneController.getMousePixelPosition();
+        Double newAngle = new Line(sceneController.worldToPixelPoint(playerActorModel.position.get()), mousePosition).getAngle();
+        playerActorModel.orientation.set(initialPlayerOrientation + (newAngle - initialRotationAngle));
         rotationArrowDragging = true;
     }
 
@@ -216,7 +218,10 @@ public class PlayerController extends ActorController {
     protected void onRotateArrowMouseReleased(MouseEvent e) {
         rotationArrowDragging = false;
         scheduleRotationArrowHide();
-        playService.updatePlayerActorOrientation(playModel.getUUID(), frameModel.time.get(), playerLayerModel.getUUID(), playerLayerModel.orientation.get());
+        playService.beginUpdate(sceneController.getPlayUUID());
+        playService.updatePlayerOrientation(sceneController.getPlayUUID(), sceneController.getTime(), playerActorModel.getUUID(), playerActorModel.orientation.get());
+        updateSnappedBallPosition();
+        playService.endUpdate(sceneController.getPlayUUID());
     }
 
     private void cancelRotationArrowHide() {
@@ -227,7 +232,21 @@ public class PlayerController extends ActorController {
         if (!rotationArrowDragging) {
             rotationArrowTimer.cancel();
             rotationArrowTimer = new Timer();
-            rotationArrowTimer.schedule(TimerTaskUtils.wrap(() -> playerLayerModel.showRotationArrow.set(false)), ROTATION_ARROW_HIDE_DELAY);
+            rotationArrowTimer.schedule(TimerTaskUtils.wrap(() -> playerActorModel.showRotationArrow.set(false)), ROTATION_ARROW_HIDE_DELAY);
         }
     }
+
+    private void updateSnappedBallPosition() {
+        if (playerActorModel.snappedBallUUID.isNotNull().get()) {
+            BallActorModel snappedBallActorModel = (BallActorModel) sceneController.findActor(playerActorModel.snappedBallUUID.get(), 0);
+            playService.updateBallPosition(sceneController.getPlayUUID(), sceneController.getTime(), snappedBallActorModel.getUUID(), getSnappedBallPosition());
+        }
+    }
+
+    private Vector2 getSnappedBallPosition() {
+        Vector2 actorPosition = sceneController.worldToPixelPoint(actorModel.position.get());
+        Vector2 snappedPosition = actorPosition.offset(new Vector2(getScaledValue(30.0), 0)).rotateCenter(actorPosition, playerActorModel.orientation.get());
+        return sceneController.pixelToWorldPoint(snappedPosition);
+    }
+
 }

@@ -69,7 +69,7 @@ public class ToolbarController extends ControllerBase {
 
     private void setHandlers() {
         sceneController.zoomProperty().addListener(this::onSceneZoomPropertyChanged);
-        sceneController.realWorldMousePositionProperty().addListener(this::onSceneMousePositionPropertyChanged);
+        sceneController.mousePixelPositionProperty().addListener(this::onSceneMousePositionPropertyChanged);
         sceneController.onNavigationModeEntered.addHandler(this::onNavigationModeEntered);
         sceneController.onNavigationModeExited.addHandler(this::onNavigationModeExited);
         sceneController.onFrameByFrameCreationModeEntered.addHandler(this::onFrameByFrameCreationModeEntered);
@@ -185,9 +185,10 @@ public class ToolbarController extends ControllerBase {
     }
 
     private void onSceneMousePositionPropertyChanged(ObservableValue<? extends Vector2> value, Vector2 oldPropertyValue, Vector2 newPropertyValue) {
-        coordinateLabel.setText(String.format("(%.1f %s, %.1f %s)", newPropertyValue.getX(),
+        Vector2 userPoint = sceneController.pixelToUserPoint(newPropertyValue);
+        coordinateLabel.setText(String.format("(%.1f %s, %.1f %s)", userPoint.getX(),
                 playModel.playingSurfaceWidthUnits.get().getAbbreviation(),
-                newPropertyValue.getY(),
+                userPoint.getY(),
                 playModel.playingSurfaceLengthUnits.get().getAbbreviation()));
     }
 

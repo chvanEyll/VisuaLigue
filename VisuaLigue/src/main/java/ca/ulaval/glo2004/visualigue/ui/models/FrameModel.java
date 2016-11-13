@@ -9,6 +9,6 @@ import javafx.collections.ObservableMap;
 public class FrameModel extends ModelBase {
 
     public LongProperty time = new SimpleLongProperty();
-    public ObservableMap<Integer, ActorModel> layerModels = FXCollections.observableHashMap();
+    public ObservableMap<Integer, ActorModel> actorModels = FXCollections.observableHashMap();
 
 }

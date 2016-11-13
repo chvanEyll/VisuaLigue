@@ -12,9 +12,9 @@ public abstract class Command {
         this.time = time;
     }
 
-    public abstract void execute();
+    public abstract Long execute();
 
-    public abstract void revert();
+    public abstract Long revert();
 
     public Long getTime() {
         return time;

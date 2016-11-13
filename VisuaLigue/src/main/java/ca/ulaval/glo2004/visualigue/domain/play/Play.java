@@ -38,6 +38,8 @@ public class Play extends DomainObject {
     private Long keyPointInterval = 1000L;
     @XmlTransient
     protected Boolean isDirty = false;
+    @XmlTransient
+    protected Integer pendingUpdateCount = 0;
     private final TreeMap<Actor, ActorTimeline> actorTimelines = new TreeMap();
 
     public Play() {
@@ -80,6 +82,14 @@ public class Play extends DomainObject {
         this.isDirty = isDirty;
     }
 
+    public Integer getPendingUpdateCount() {
+        return pendingUpdateCount;
+    }
+
+    public void setPendingUpdateCount(Integer pendingUpdateCount) {
+        this.pendingUpdateCount = pendingUpdateCount;
+    }
+
     public Boolean containsPlayerCategory(PlayerCategory playerCategory) {
         return getActors().stream().anyMatch(a -> a instanceof PlayerActor && ((PlayerActor) a).getPlayerCategory().equals(playerCategory));
     }
@@ -100,12 +110,14 @@ public class Play extends DomainObject {
         return (int) (MathUtils.roundUp(timelineLength, keyPointInterval) / keyPointInterval) + 1;
     }
 
-    public void addKeyPoint() {
+    public Long addKeyPoint() {
         this.timelineLength = timelineLength + keyPointInterval;
+        return this.timelineLength;
     }
 
-    public void removeKeyPoint() {
+    public Long removeKeyPoint() {
         this.timelineLength = timelineLength - keyPointInterval;
+        return this.timelineLength;
     }
 
     public Boolean previousKeyPointExists(Long time) {
@@ -157,6 +169,11 @@ public class Play extends DomainObject {
         }
     }
 
+    public Object getActorPropertyValue(Long time, Actor actor, ActorProperty actorProperty) {
+        ActorTimeline actorTimeline = actorTimelines.get(actor);
+        return actorTimeline.getPropertyValue(time, actorProperty);
+    }
+
     public Object getActorLowerPropertyValue(Long time, Actor actor, ActorProperty actorProperty) {
         ActorTimeline actorTimeline = actorTimelines.get(actor);
         return actorTimeline.getLowerPropertyValue(time, actorProperty);
@@ -168,11 +185,10 @@ public class Play extends DomainObject {
             ActorTimeline actorTimeline = e.getValue();
             ActorState actorState = actorTimeline.getActorState(time, NEXT_KEYFRAME_LOOKAHEAD_TIME);
             actorState.setIsLocked(time % keyPointInterval != 0);
-            frame.addActorState(new ActorInstance(actorTimeline.getActor(), actorState, 0));
+            frame.addActorInstance(new ActorInstance(actorTimeline.getActor(), actorState, 0));
             if (showPlayerTrails && time.equals(timelineLength) && actorTimeline.getActor() instanceof PlayerActor) {
                 addPlayerTrailsToFrame(frame, time, actorTimeline, actorState);
             }
-
         });
         return frame;
     }
@@ -187,7 +203,7 @@ public class Play extends DomainObject {
                 actorState.setOpacity(0.5);
                 actorState.setShowLabel(false);
                 actorState.setZOrder(-instanceCount);
-                frame.addActorState(new ActorInstance(actorTimeline.getActor(), actorState, instanceCount));
+                frame.addActorInstance(new ActorInstance(actorTimeline.getActor(), actorState, instanceCount));
                 instanceCount += 1;
             }
         }

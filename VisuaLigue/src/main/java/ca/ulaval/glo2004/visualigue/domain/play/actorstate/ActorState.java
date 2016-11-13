@@ -75,6 +75,9 @@ public abstract class ActorState extends DomainObject {
         switch (actorProperty.getPropertyName()) {
             case "position":
                 this.position = (Vector2) value;
+                break;
+            default:
+                throw new IllegalArgumentException(String.format("Property '%s' is not known for actor state '%s'.", actorProperty, this));
         }
     }
 

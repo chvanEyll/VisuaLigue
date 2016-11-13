@@ -2,7 +2,7 @@ package ca.ulaval.glo2004.visualigue.ui.models;
 
 public abstract class ModelBase {
 
-    private String uuid;
+    protected String uuid;
     private Boolean isNew = true;
     private Boolean isDirty = false;
     private Boolean isDeleted = false;

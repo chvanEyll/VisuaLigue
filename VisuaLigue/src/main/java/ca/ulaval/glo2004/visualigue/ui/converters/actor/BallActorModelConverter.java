@@ -35,6 +35,7 @@ public class BallActorModelConverter {
         BallActor ballActor = (BallActor) actorInstance.getActor();
         BallState ballState = (BallState) actorInstance.getActorState();
         model.setUUID(ballActor.getUUID());
+        model.instanceID.set(actorInstance.getInstanceID());
         model.isLocked.set(ballState.isLocked());
         model.opacity.set(ballState.getOpacity());
         model.visible.set(ballState.isVisible());
@@ -46,6 +47,9 @@ public class BallActorModelConverter {
             model.imagePathName.set(playModel.ballModel.imagePathName.get());
         } else {
             model.builtInImagePathName.set(playModel.ballModel.builtInImagePathName.get());
+        }
+        if (ballState.hasOwnerPlayer()) {
+            model.playerOwnerUUID.set(ballState.getOwnerPlayer().getUUID());
         }
     }
 }

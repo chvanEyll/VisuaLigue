@@ -35,6 +35,7 @@ public class ObstacleActorModelConverter {
         ObstacleActor obstacleActor = (ObstacleActor) actorInstance.getActor();
         ObstacleState obstacleState = (ObstacleState) actorInstance.getActorState();
         model.setUUID(obstacleActor.getUUID());
+        model.instanceID.set(actorInstance.getInstanceID());
         model.isLocked.set(obstacleState.isLocked());
         model.opacity.set(obstacleState.getOpacity());
         model.visible.set(obstacleState.isVisible());

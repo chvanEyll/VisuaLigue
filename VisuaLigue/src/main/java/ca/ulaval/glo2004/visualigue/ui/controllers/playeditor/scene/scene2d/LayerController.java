@@ -3,41 +3,32 @@ package ca.ulaval.glo2004.visualigue.ui.controllers.playeditor.scene.scene2d;
 import ca.ulaval.glo2004.visualigue.ui.View;
 import ca.ulaval.glo2004.visualigue.ui.controllers.ControllerBase;
 import ca.ulaval.glo2004.visualigue.ui.controllers.playeditor.actor.ActorFactory;
-import ca.ulaval.glo2004.visualigue.ui.controllers.playeditor.scene.Settings;
-import ca.ulaval.glo2004.visualigue.ui.controllers.playeditor.scene.Zoom;
-import ca.ulaval.glo2004.visualigue.ui.models.FrameModel;
-import ca.ulaval.glo2004.visualigue.ui.models.PlayModel;
+import ca.ulaval.glo2004.visualigue.ui.controllers.playeditor.scene.SceneController;
 import ca.ulaval.glo2004.visualigue.ui.models.actors.ActorModel;
 import ca.ulaval.glo2004.visualigue.utils.ListUtils;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
-import javafx.beans.property.ObjectProperty;
 import javafx.collections.MapChangeListener;
+import javafx.collections.ObservableMap;
 import javafx.scene.layout.StackPane;
+import javafx.util.Pair;
 
 public class LayerController extends ControllerBase {
 
     private ActorFactory actorFactory;
     private StackPane layerStackPane;
+    private Map<Pair<String, Integer>, ActorModel> actors = new HashMap();
     private Map<ActorModel, View> layerViews = new HashMap();
     private List<Integer> layerOrder = new ArrayList();
-    private PlayModel playModel;
-    private FrameModel frameModel;
-    private PlayingSurfaceLayerController playingSurfaceLayerController;
-    private ObjectProperty<Zoom> zoomProperty;
-    private Settings settings;
+    private SceneController sceneController;
 
-    public LayerController(StackPane layerStackPane, ActorFactory actorFactory, PlayModel playModel, FrameModel frameModel, PlayingSurfaceLayerController playingSurfaceLayerController, ObjectProperty<Zoom> zoomProperty, Settings settings) {
+    public LayerController(StackPane layerStackPane, ObservableMap<Integer, ActorModel> actorModels, ActorFactory actorFactory, SceneController sceneController) {
         this.layerStackPane = layerStackPane;
         this.actorFactory = actorFactory;
-        this.playModel = playModel;
-        this.frameModel = frameModel;
-        this.playingSurfaceLayerController = playingSurfaceLayerController;
-        this.zoomProperty = zoomProperty;
-        this.settings = settings;
-        frameModel.layerModels.addListener(this::onActorStateMapChanged);
+        this.sceneController = sceneController;
+        actorModels.addListener(this::onActorStateMapChanged);
     }
 
     private void onActorStateMapChanged(MapChangeListener.Change change) {
@@ -49,13 +40,14 @@ public class LayerController extends ControllerBase {
         }
     }
 
-    public void addActorModel(ActorModel layerModel) {
-        View view = actorFactory.create(layerModel);
+    public void addActorModel(ActorModel actorModel) {
+        View view = actorFactory.create(actorModel);
         ActorController controller = (ActorController) view.getController();
-        controller.init(layerModel, playModel, frameModel, playingSurfaceLayerController, zoomProperty, settings);
+        controller.init(actorModel, sceneController);
         super.addChild(controller);
-        layerViews.put(layerModel, view);
-        addView(view, layerModel.zOrder.get());
+        layerViews.put(actorModel, view);
+        actors.put(new Pair(actorModel.getUUID(), actorModel.instanceID.get()), actorModel);
+        addView(view, actorModel.zOrder.get());
     }
 
     public void addView(View view, Integer zOrder) {
@@ -69,10 +61,11 @@ public class LayerController extends ControllerBase {
         }
     }
 
-    public void removeActorModel(ActorModel layerModel) {
-        if (layerViews.containsKey(layerModel)) {
-            View view = layerViews.get(layerModel);
-            layerViews.remove(layerModel);
+    public void removeActorModel(ActorModel actorModel) {
+        if (layerViews.containsKey(actorModel)) {
+            View view = layerViews.get(actorModel);
+            actors.remove((new Pair(actorModel.getUUID(), actorModel.instanceID.get())));
+            layerViews.remove(actorModel);
             removeView(view);
         }
     }
@@ -83,5 +76,9 @@ public class LayerController extends ControllerBase {
         Integer index = layerStackPane.getChildren().indexOf(view.getRoot());
         layerOrder.remove((int) index);
         layerStackPane.getChildren().remove(view.getRoot());
+    }
+
+    public ActorModel findActor(String actorUUID, Integer instanceID) {
+        return actors.get(new Pair(actorUUID, instanceID));
     }
 }

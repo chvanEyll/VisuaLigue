@@ -19,85 +19,87 @@ public class BallController extends ActorController {
 
     public static final String VIEW_NAME = "/views/playeditor/actor/ball-actor.fxml";
     @FXML private ImageView imageView;
-    private BallActorModel ballLayerModel;
+    private BallActorModel ballActorModel;
     private ChangeListener<Object> onChange = this::onChange;
 
     @Override
-    public void init(ActorModel layerModel) {
-        this.ballLayerModel = (BallActorModel) layerModel;
+    public void init(ActorModel actorModel) {
+        this.ballActorModel = (BallActorModel) actorModel;
         setImage();
         addListeners();
-        update();
+        render();
     }
 
     private void setImage() {
-        if (ballLayerModel.imagePathName.isNotEmpty().get()) {
-            imageView.setImage(new Image(FilenameUtils.getURIString(ballLayerModel.imagePathName.get())));
-        } else if (ballLayerModel.builtInImagePathName.isNotEmpty().get()) {
-            imageView.setImage(new Image(ballLayerModel.builtInImagePathName.get()));
+        if (ballActorModel.imagePathName.isNotEmpty().get()) {
+            imageView.setImage(new Image(FilenameUtils.getURIString(ballActorModel.imagePathName.get())));
+        } else if (ballActorModel.builtInImagePathName.isNotEmpty().get()) {
+            imageView.setImage(new Image(ballActorModel.builtInImagePathName.get()));
         }
     }
 
     private void addListeners() {
-        ballLayerModel.position.addListener(onChange);
-        settings.resizeActorsOnZoomProperty.addListener(onChange);
-        zoomProperty.addListener(onChange);
+        ballActorModel.position.addListener(onChange);
+        sceneController.settings.resizeActorsOnZoomProperty.addListener(onChange);
+        sceneController.zoomProperty().addListener(onChange);
         actorButton.layoutReadyProperty().addListener(onChange);
     }
 
     @Override
     public void clean() {
-        settings.resizeActorsOnZoomProperty.removeListener(onChange);
-        zoomProperty.removeListener(onChange);
+        sceneController.settings.resizeActorsOnZoomProperty.removeListener(onChange);
+        sceneController.zoomProperty().removeListener(onChange);
         super.clean();
     }
 
     private void onChange(final ObservableValue<? extends Object> value, final Object oldPropertyValue, final Object newPropertyValue) {
-        update();
+        render();
     }
 
     @Override
-    public void update() {
-        Vector2 actorPosition;
-        if (ballLayerModel.position.isNotNull().get()) {
-            actorPosition = playingSurfaceLayerController.sizeRelativeToSurfacePoint(ballLayerModel.position.get());
-        } else {
-            actorPosition = null;
-        }
+    public void render() {
         Platform.runLater(() -> {
-            updateActor(actorPosition);
+            renderActorButton();
         });
     }
 
-    private void updateActor(Vector2 actorPosition) {
-        Boolean showActor = actorPosition != null;
+    private void renderActorButton() {
+        Vector2 actorPixelPosition = sceneController.worldToPixelPoint(actorModel.position.get());
+        Boolean showActor = actorPixelPosition != null;
         if (showActor) {
             actorButton.setScaleX(getScaledValue(1.0));
             actorButton.setScaleY(getScaledValue(1.0));
-            actorButton.setLayoutX(actorPosition.getX() - actorButton.getWidth() / 2);
-            actorButton.setLayoutY(actorPosition.getY() - actorButton.getHeight() / 2);
+            actorButton.setLayoutX(actorPixelPosition.getX() - actorButton.getWidth() / 2);
+            actorButton.setLayoutY(actorPixelPosition.getY() - actorButton.getHeight() / 2);
         }
         actorButton.setVisible(showActor);
-        actorButton.setCursor(layerModel.isLocked.get() ? Cursor.DEFAULT : Cursor.MOVE);
+        actorButton.setCursor(actorModel.isLocked.get() ? Cursor.DEFAULT : Cursor.MOVE);
     }
 
     @FXML
     protected void onDragDetected(MouseEvent e) {
         actorButton.setMouseTransparent(true);
-        DragUtils.setSource(ballLayerModel);
+        DragUtils.setSource(ballActorModel);
         actorButton.startFullDrag();
     }
 
     @FXML
     protected void onMouseDragged(MouseEvent e) {
-        ballLayerModel.position.set(playingSurfaceLayerController.getSizeRelativeMousePosition(true));
+        ballActorModel.position.set(sceneController.getMouseWorldPosition(true));
     }
 
     @FXML
     protected void onMouseReleased(MouseEvent e) {
         DragUtils.clearSource();
         actorButton.setMouseTransparent(false);
-        playService.updateBallActorPosition(playModel.getUUID(), frameModel.time.get(), ballLayerModel.getUUID(), ballLayerModel.position.get());
+        if (!DragUtils.dragSucceeded()) {
+            playService.beginUpdate(sceneController.getPlayUUID());
+            if (ballActorModel.playerOwnerUUID.isNotNull().get()) {
+                playService.unsnapBallFromPlayer(sceneController.getPlayUUID(), sceneController.getTime(), ballActorModel.getUUID(), ballActorModel.playerOwnerUUID.get());
+            }
+            playService.updateBallPosition(sceneController.getPlayUUID(), sceneController.getTime(), ballActorModel.getUUID(), ballActorModel.position.get());
+            playService.endUpdate(sceneController.getPlayUUID());
+        }
     }
 
 }
