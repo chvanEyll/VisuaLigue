@@ -3,7 +3,7 @@ package ca.ulaval.glo2004.visualigue.domain.play;
 import ca.ulaval.glo2004.visualigue.domain.DomainObject;
 import ca.ulaval.glo2004.visualigue.domain.obstacle.Obstacle;
 import ca.ulaval.glo2004.visualigue.domain.play.actor.Actor;
-import ca.ulaval.glo2004.visualigue.domain.play.actor.ActorInstance;
+import ca.ulaval.glo2004.visualigue.domain.play.frame.ActorInstance;
 import ca.ulaval.glo2004.visualigue.domain.play.actor.ObstacleActor;
 import ca.ulaval.glo2004.visualigue.domain.play.actor.PlayerActor;
 import ca.ulaval.glo2004.visualigue.domain.play.actorstate.ActorProperty;

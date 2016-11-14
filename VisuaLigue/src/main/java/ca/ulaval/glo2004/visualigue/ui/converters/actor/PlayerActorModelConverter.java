@@ -1,6 +1,6 @@
 package ca.ulaval.glo2004.visualigue.ui.converters.actor;
 
-import ca.ulaval.glo2004.visualigue.domain.play.actor.ActorInstance;
+import ca.ulaval.glo2004.visualigue.domain.play.frame.ActorInstance;
 import ca.ulaval.glo2004.visualigue.domain.play.actor.PlayerActor;
 import ca.ulaval.glo2004.visualigue.domain.play.actor.TeamSide;
 import ca.ulaval.glo2004.visualigue.domain.play.actorstate.PlayerState;

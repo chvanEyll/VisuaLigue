@@ -1,7 +1,7 @@
 package ca.ulaval.glo2004.visualigue.ui.converters.actor;
 
 import ca.ulaval.glo2004.visualigue.domain.image.ImageRepository;
-import ca.ulaval.glo2004.visualigue.domain.play.actor.ActorInstance;
+import ca.ulaval.glo2004.visualigue.domain.play.frame.ActorInstance;
 import ca.ulaval.glo2004.visualigue.domain.play.actor.BallActor;
 import ca.ulaval.glo2004.visualigue.domain.play.actorstate.BallState;
 import ca.ulaval.glo2004.visualigue.ui.models.BallModel;

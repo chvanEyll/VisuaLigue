@@ -1,6 +1,6 @@
 package ca.ulaval.glo2004.visualigue.ui.converters;
 
-import ca.ulaval.glo2004.visualigue.domain.play.actor.ActorInstance;
+import ca.ulaval.glo2004.visualigue.domain.play.frame.ActorInstance;
 import ca.ulaval.glo2004.visualigue.domain.play.actor.BallActor;
 import ca.ulaval.glo2004.visualigue.domain.play.actor.ObstacleActor;
 import ca.ulaval.glo2004.visualigue.domain.play.actor.PlayerActor;

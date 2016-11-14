@@ -1,6 +1,7 @@
-package ca.ulaval.glo2004.visualigue.domain.play.actor;
+package ca.ulaval.glo2004.visualigue.domain.play.frame;
 
 import ca.ulaval.glo2004.visualigue.domain.DomainObject;
+import ca.ulaval.glo2004.visualigue.domain.play.actor.Actor;
 import ca.ulaval.glo2004.visualigue.domain.play.actorstate.ActorState;
 import java.util.Objects;
 import org.apache.commons.lang3.builder.HashCodeBuilder;

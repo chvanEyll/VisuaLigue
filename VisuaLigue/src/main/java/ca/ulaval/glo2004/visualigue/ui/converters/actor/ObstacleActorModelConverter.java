@@ -2,7 +2,7 @@ package ca.ulaval.glo2004.visualigue.ui.converters.actor;
 
 import ca.ulaval.glo2004.visualigue.domain.image.ImageRepository;
 import ca.ulaval.glo2004.visualigue.domain.obstacle.Obstacle;
-import ca.ulaval.glo2004.visualigue.domain.play.actor.ActorInstance;
+import ca.ulaval.glo2004.visualigue.domain.play.frame.ActorInstance;
 import ca.ulaval.glo2004.visualigue.domain.play.actor.ObstacleActor;
 import ca.ulaval.glo2004.visualigue.domain.play.actorstate.ObstacleState;
 import ca.ulaval.glo2004.visualigue.ui.models.ObstacleModel;
