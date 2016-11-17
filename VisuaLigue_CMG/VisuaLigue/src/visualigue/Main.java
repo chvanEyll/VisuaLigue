@@ -19,7 +19,7 @@ public class Main extends Application {
 
     @Override
     public void start(Stage stage) throws Exception {
-        Parent root = FXMLLoader.load(getClass().getResource("ui/SportCreationController.fxml"));
+        Parent root = FXMLLoader.load(getClass().getResource("ui/main.fxml"));
 
         Scene scene = new Scene(root);
 
