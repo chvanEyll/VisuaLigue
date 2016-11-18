@@ -14,8 +14,10 @@ import javafx.fxml.Initializable;
  *
  * @author Guillaume
  */
-public class SportInformationController implements Initializable {
+public class SportInformationController extends MainController {
 
+    ScreensController myController;
+    
     /**
      * Initializes the controller class.
      */
@@ -23,5 +25,8 @@ public class SportInformationController implements Initializable {
     public void initialize(URL url, ResourceBundle rb) {
         // TODO
     }    
-    
+
+    public void setScreenParent(ScreensController screenParent){ 
+       myController = screenParent; 
+    }     
 }

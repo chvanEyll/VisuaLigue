@@ -41,6 +41,6 @@
             </HBox>
          </children>
       </VBox>
-      <BorderPane  fx:id="viewFlow" HBox.hgrow="ALWAYS" />
+      <fx:include fx:id="viewFlow" source="sport-management.fxml"/>
    </children>
 </HBox>
