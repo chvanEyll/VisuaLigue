@@ -30,21 +30,20 @@ public class SportInformationController extends MainController {
    
     /**
      * Initializes the controller class.
-     * @param url
-     
+     */
     @Override
     public void initialize(URL url, ResourceBundle rb) {
-        //Preferences prefs = Preferences.userRoot().node(this.getClass().getName());
-        //sportNameField.setText("Nouveau Sport");
+        Preferences prefs = Preferences.userRoot().node(this.getClass().getName());
+        sportNameField.setText("Nouveau Sport");
     }    
     
    public void init(Object sport) {
         sportNameField.setText("Nouveau Sport");
     }
-   */
-    @Override
+   
+
     public void initScreen(Object sport){ 
-       sportNameField.setText(sport.getName()); 
+       //sportNameField.setText(sport.getName()); 
     } 
    public void setInfo(Sport sport) {
         sportNameField.setText(sport.getName());

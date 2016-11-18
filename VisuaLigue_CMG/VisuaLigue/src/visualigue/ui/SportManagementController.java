@@ -28,7 +28,11 @@ public class SportManagementController extends ViewFlowController {
     private VisuaLigue visualigue = VisuaLigue.getInstance();
     
     @FXML private StackPane rootNode;
-    @FXML private SportInformationController sportInformationController; 
+    @FXML private SportInformationController sportInformationController;
+    
+    ScreensController myController;
+     
+ 
  
     @FXML
     protected void onNewSportButtonClicked(MouseEvent e) throws IOException {
@@ -45,8 +49,8 @@ public class SportManagementController extends ViewFlowController {
     
         Sport sport = new Sport("Nouveau Sport");
     
-        loadScreenWithInfo("sportInformation", "sport-information.fxml", sport);
-        //sportInformationController.init(sport);
+        setScreen("sportInformation");
+        sportInformationController.init(sport);
      
     }
 }
