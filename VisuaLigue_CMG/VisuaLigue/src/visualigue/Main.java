@@ -10,7 +10,8 @@ import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.stage.Stage;
-import visualigue.ui.ScreensController;
+import visualigue.ui.MainController;
+import visualigue.ui.ViewFlowController;
 
 /**
  *
@@ -20,14 +21,13 @@ public class Main extends Application {
 
     @Override
     public void start(Stage stage) throws Exception {
-        
-        ScreensController mainContainer = new ScreensController();
-                
-        Parent root = FXMLLoader.load(getClass().getResource("ui/main.fxml"));
 
+        FXMLLoader loader = new FXMLLoader(getClass().getResource("ui/main.fxml"));
+        Parent root = (Parent)loader.load();
+        MainController controller = (MainController)loader.getController();
         Scene scene = new Scene(root);
-
         stage.setScene(scene);
+        controller.init();
         stage.show();
     }
 

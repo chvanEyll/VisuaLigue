@@ -38,7 +38,7 @@ public class ScreensController extends VBox {
             Parent loadScreen = (Parent) myLoader.load(); 
             MainController myScreenControler = 
                    ((MainController) myLoader.getController());
-            myScreenControler.setScreenParent(this); 
+            //myScreenControler.setScreenParent(this); 
             addScreen(name, loadScreen);            
         }
        

@@ -41,6 +41,6 @@
             </HBox>
          </children>
       </VBox>
-      <fx:include fx:id="viewFlow" source="sport-management.fxml"/>
+      <fx:include fx:id="viewFlow" source="view-flow.fxml"/>
    </children>
 </HBox>

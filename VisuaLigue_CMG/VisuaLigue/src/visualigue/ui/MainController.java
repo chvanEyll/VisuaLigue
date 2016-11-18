@@ -36,7 +36,7 @@ public class MainController implements Initializable {
     @FXML private HBox obstaclesMenuItem;
     @FXML private HBox settingsMenuItem;
     
-    @FXML private SportManagementController sportManagementController;
+    @FXML private ViewFlowController viewFlowController;
     
     /**
      * Initializes the controller class.
@@ -46,7 +46,11 @@ public class MainController implements Initializable {
         // TODO
     } 
     
-    public void setScreenParent(ScreensController screenPage){};
+    public void init() {
+        viewFlowController.init();
+    } 
+    
+    public void initScreen(Object object){};
     
     @FXML
     protected void onSportsMenuItemClicked(MouseEvent e) throws IOException {
