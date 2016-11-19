@@ -31,6 +31,27 @@ public class VisuaLigue {
         
     }
 
+    public String getDefaultSportName()
+    {
+        return "Nouveau Sport";
+    }
+    
+    public Double getDefaultSportLongueur()
+    {
+        return 100.0;
+    }
+    
+    public Double getDefaultSportLargeur()
+    {
+        return 200.0;
+    }
+
+    public String[] getDefaultSportSurfaceUnit()
+    {
+        String [] defaultSurfaceUnit = {"Mètres", "Pieds", "Verges"};
+        return defaultSurfaceUnit;
+    }
+    
     public void save() {
 
     }

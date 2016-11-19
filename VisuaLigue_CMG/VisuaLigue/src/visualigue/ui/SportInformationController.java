@@ -50,7 +50,6 @@ public class SportInformationController extends MainController {
     @Override
     public void initialize(URL url, ResourceBundle rb) {
         Preferences prefs = Preferences.userRoot().node(this.getClass().getName());
-        sportNameField.setText("Nouveau Sport");
         SpinnerValueFactory spinnerValueFactory1 = new SpinnerValueFactory.DoubleSpinnerValueFactory(0, 10000);
         SpinnerValueFactory spinnerValueFactory2 = new SpinnerValueFactory.DoubleSpinnerValueFactory(0, 10000);
         
@@ -58,11 +57,10 @@ public class SportInformationController extends MainController {
         widthSpinner.setValueFactory(spinnerValueFactory2);
     }    
     
-   public void init(Object sport) {
-        sportNameField.setText("Nouveau Sport");
+   public void init(String sportName) {
+        sportNameField.setText(sportName);
     }
    
-
     public void initScreen(Object sport){ 
        //sportNameField.setText(sport.getName()); 
     } 
