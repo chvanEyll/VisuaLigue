@@ -15,13 +15,18 @@ public class VisuaLigue {
 
     List<Sport> sports = new ArrayList();
 
-    public Sport createSport(String name) {
+    public Sport createSport(String name, Double width, Double length, 
+            String units) {
         Sport sport = new Sport(name);
+        PlayingSurface playingSurface = new PlayingSurface(width, length, units);
+        sport.setPlayingSurface(playingSurface);
         sports.add(sport);
         onSportCreated.fire(this, name);
         return sport;
     }
-
+    
+    
+    
     public void save() {
 
     }

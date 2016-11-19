@@ -8,10 +8,12 @@ package visualigue.domain;
 
 public class Obstacle {
     private String name;
+    private String builtInImagePathName = "";
 
-    public Obstacle(String name)
+    public Obstacle(String name, String builtInImagePathName)
     {
         this.name = name;
+        this.builtInImagePathName = builtInImagePathName;
     }
     
     public String getName()
@@ -22,5 +24,15 @@ public class Obstacle {
     public void setName(String name)
     {
         this.name = name;
+    }
+    
+    public String getBuiltInImagePathName()
+    {
+        return this.builtInImagePathName;
+    }
+    
+    public void setBuiltInImagePathName(String builtInImagePathName)
+    {
+        this.builtInImagePathName = builtInImagePathName;
     }
 }

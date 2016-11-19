@@ -13,7 +13,8 @@ public class PlayingSurface {
 
     private Double width = 100.0;
     private Double length = 200.0;
-    private PlayingSurfaceUnit units = PlayingSurfaceUnit.METER;
+    //private PlayingSurfaceUnit units = PlayingSurfaceUnit.METER;
+    private String units;
     private String customImageUUID;
     private String builtInImagePathName = "";
 
@@ -21,7 +22,7 @@ public class PlayingSurface {
         //Required for JAXB instanciation.
     }
 
-    public PlayingSurface(Double width, PlayingSurfaceUnit widthUnits, Double length, PlayingSurfaceUnit units) {
+    public PlayingSurface(Double width, Double length, String units) {
         this.width = width;
         this.length = length;
         this.units = units;
@@ -43,11 +44,11 @@ public class PlayingSurface {
         this.length = length;
     }
 
-    public PlayingSurfaceUnit getUnits() {
+    public String getUnits() {
         return units;
     }
 
-    public void setUnits(PlayingSurfaceUnit units) {
+    public void setUnits(String units) {
         this.units = units;
     }
 

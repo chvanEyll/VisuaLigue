@@ -8,7 +8,7 @@ public class Sport {
 
     private String name;
     private Boolean isBuiltIn = false;
-    private PlayingSurface playingSurface = new PlayingSurface();
+    private PlayingSurface playingSurface;
     //@XmlJavaTypeAdapter(XmlPlayerCategoryRefAdapter.class)
     private Set<String> teams = new HashSet();
 

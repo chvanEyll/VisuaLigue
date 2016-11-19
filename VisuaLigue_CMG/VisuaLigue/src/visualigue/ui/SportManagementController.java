@@ -38,9 +38,7 @@ public class SportManagementController extends ViewFlowController {
     @Override
     public void initialize(URL url, ResourceBundle rb) {
         
-        for (int i=0;i<sports.size();i++) {
-            SportsList.getChildren().add(rootNode);
-        }
+        
         
     }   
  

@@ -25,6 +25,7 @@ import javax.imageio.ImageIO;
 import javafx.scene.image.ImageView;
 import java.util.logging.Logger;
 import java.util.logging.Level;
+import javafx.scene.control.SpinnerValueFactory;
 import visualigue.domain.VisuaLigue;
 
 /**
@@ -50,6 +51,11 @@ public class SportInformationController extends MainController {
     public void initialize(URL url, ResourceBundle rb) {
         Preferences prefs = Preferences.userRoot().node(this.getClass().getName());
         sportNameField.setText("Nouveau Sport");
+        SpinnerValueFactory spinnerValueFactory1 = new SpinnerValueFactory.DoubleSpinnerValueFactory(0, 10000);
+        SpinnerValueFactory spinnerValueFactory2 = new SpinnerValueFactory.DoubleSpinnerValueFactory(0, 10000);
+        
+        lengthSpinner.setValueFactory(spinnerValueFactory1);
+        widthSpinner.setValueFactory(spinnerValueFactory2);
     }    
     
    public void init(Object sport) {
@@ -90,10 +96,8 @@ public class SportInformationController extends MainController {
     @FXML
     protected void onAjouterSportClicked(MouseEvent e) throws IOException {
     
-        
-        //Sport nouveau_sport = new Sport(sportNameField.getText());
-        visualigue.createSport(sportNameField.getText());
-        System.out.println("tested");
-        
+        visualigue.createSport(sportNameField.getText(), 
+                (Double) lengthSpinner.getValue(), 
+                (Double)widthSpinner.getValue(), "meters");        
         }
 }
