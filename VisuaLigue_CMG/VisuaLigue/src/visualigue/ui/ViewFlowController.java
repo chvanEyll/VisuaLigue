@@ -24,6 +24,9 @@ public class ViewFlowController extends MainController {
     static private HashMap<String, Node> screens = new HashMap<>(); 
     
     @FXML private StackPane rootNode;
+    
+    private Node nextScreen;
+    private String myName;
         
    public void init() {
         loadScreen("sportManagement", "sport-management.fxml");
@@ -74,9 +77,9 @@ public class ViewFlowController extends MainController {
        return false; 
     }        
    }
-    
+            
     public void setScreen(String name) {
-        rootNode.getChildren().remove(screens.get("sportInformation"));
+        rootNode.getChildren().remove(screens.get(myName));
         rootNode.getChildren().setAll(screens.get(name));
    }
     

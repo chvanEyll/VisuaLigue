@@ -2,7 +2,6 @@ package visualigue.domain;
 
 import java.util.HashSet;
 import java.util.Set;
-import javax.xml.bind.annotation.adapters.XmlJavaTypeAdapter;
 
 public class Sport {
 
