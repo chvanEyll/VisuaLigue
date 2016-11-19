@@ -14,7 +14,7 @@
 <?import javafx.scene.layout.StackPane?>
 <?import javafx.scene.layout.VBox?>
 
-<StackPane fx:id="rootNode" styleClass="form," stylesheets="@../../css/main.fxml.css" HBox.hgrow="ALWAYS" xmlns="http://javafx.com/javafx/8.0.60" xmlns:fx="http://javafx.com/fxml/1" fx:controller="visualigue.ui.SportInformationController">
+<StackPane fx:id="rootNode" styleClass="form," stylesheets="@../../css/main.fxml.css" HBox.hgrow="ALWAYS" xmlns="http://javafx.com/javafx/8.0.65" xmlns:fx="http://javafx.com/fxml/1" fx:controller="visualigue.ui.SportInformationController">
     <VBox>
        <children>
           <HBox styleClass="menu-toggle, light">
@@ -72,13 +72,13 @@
                             </HBox>
                             <HBox styleClass="form-section">
                                <children>
-                                  <Button text="Sélectionner une image..." />
+                                  <Button onMouseClicked="#onImageSelectClicked" text="Sélectionner une image..." />
                                   <Label fx:id="imageErrorLabel" styleClass="error-label" text="Error label." visible="false" />
                                </children>
                             </HBox>
                             <VBox style="-fx-border-color: #D9D5D3">
                                <children>
-                                  <ImageView fitHeight="300.0" fitWidth="561.0" pickOnBounds="true" preserveRatio="true">
+                                  <ImageView fx:id="myImageView" fitHeight="300.0" fitWidth="561.0" pickOnBounds="true" preserveRatio="true">
                                      <viewport>
                                         <Rectangle2D />
                                      </viewport>
@@ -100,8 +100,13 @@
                 </VBox>
              </content>
           </ScrollPane>
-          <HBox styleClass="menu-toggle, light">
+          <HBox minHeight="29.0" prefHeight="29.0" prefWidth="591.0" styleClass="menu-toggle, light">
           </HBox>
+         <HBox alignment="TOP_CENTER" prefHeight="39.0" prefWidth="452.0">
+            <children>
+               <Button mnemonicParsing="false" prefHeight="60.0" prefWidth="274.0" onMouseClicked="#onAjouterSportClicked" text="Ajouter Sport" textAlignment="CENTER" />
+            </children>
+         </HBox>
        </children>
     </VBox>
 </StackPane>

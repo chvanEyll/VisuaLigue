@@ -8,6 +8,7 @@ package visualigue.ui;
 import java.io.IOException;
 import java.net.URL;
 import java.util.ResourceBundle;
+import java.util.prefs.Preferences;
 import javafx.beans.property.SimpleStringProperty;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
@@ -17,6 +18,7 @@ import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.StackPane;
 import visualigue.domain.Sport;
 import visualigue.domain.VisuaLigue;
+import javafx.scene.control.ScrollPane;
 
 /**
  * FXML Controller class
@@ -29,9 +31,18 @@ public class SportManagementController extends ViewFlowController {
     
     @FXML private StackPane rootNode;
     @FXML private SportInformationController sportInformationController;
+    @FXML private ScrollPane SportsList;
     
     ScreensController myController;
-     
+    
+    @Override
+    public void initialize(URL url, ResourceBundle rb) {
+        
+        for (int i=0;i<sports.size();i++) {
+            SportsList.getChildren().add(rootNode);
+        }
+        
+    }   
  
  
     @FXML
