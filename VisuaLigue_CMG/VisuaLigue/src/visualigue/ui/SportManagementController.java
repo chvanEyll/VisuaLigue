@@ -64,10 +64,10 @@ public class SportManagementController extends ViewFlowController {
         sportInformationController.init(sport);
     */
     
-        Sport sport = new Sport("Nouveau Sport");
-    
-        setScreen("sportInformation");
-        sportInformationController.init(sport);
-     
+        String newName = visualigue.getDefaultSportName();
+        if (loadScreenWithInfo("sportInformation", "sport-information.fxml", newName))
+        {
+            setScreen("sportInformation");
+        }     
     }
 }
