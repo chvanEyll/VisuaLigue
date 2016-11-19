@@ -54,12 +54,26 @@ public class MainController implements Initializable {
     
     @FXML
     protected void onSportsMenuItemClicked(MouseEvent e) throws IOException {
+        /*
+        URL location = getClass().getResource("sport-management.fxml");
+        FXMLLoader fxmlLoader = new FXMLLoader(location);
+
+        Node node = fxmlLoader.load();
+        viewFlow.getChildren().setAll(node);*/
+        setSportsView();
+    }
+    
+    @FXML
+    public void setSportsView () throws IOException{
         
         URL location = getClass().getResource("sport-management.fxml");
         FXMLLoader fxmlLoader = new FXMLLoader(location);
 
         Node node = fxmlLoader.load();
         viewFlow.getChildren().setAll(node);
+        
+        
     }
+            
 
 }

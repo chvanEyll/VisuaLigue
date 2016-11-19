@@ -25,6 +25,8 @@ import javax.imageio.ImageIO;
 import javafx.scene.image.ImageView;
 import java.util.logging.Logger;
 import java.util.logging.Level;
+import javafx.fxml.FXMLLoader;
+import javafx.scene.Node;
 import javafx.scene.control.SpinnerValueFactory;
 import visualigue.domain.VisuaLigue;
 
