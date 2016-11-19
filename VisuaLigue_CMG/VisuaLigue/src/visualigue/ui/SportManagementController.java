@@ -18,7 +18,10 @@ import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.StackPane;
 import visualigue.domain.Sport;
 import visualigue.domain.VisuaLigue;
-import javafx.scene.control.ScrollPane;
+import javafx.scene.layout.GridPane;
+import java.util.List;
+import javafx.scene.control.Label;
+import javafx.scene.layout.HBox;
 
 /**
  * FXML Controller class
@@ -27,21 +30,24 @@ import javafx.scene.control.ScrollPane;
  */
 public class SportManagementController extends ViewFlowController {
 
-    private VisuaLigue visualigue = VisuaLigue.getInstance();
     
     @FXML private StackPane rootNode;
     @FXML private SportInformationController sportInformationController;
-    @FXML private ScrollPane SportsList;
+    @FXML private GridPane SportsList;
+    private VisuaLigue visualigue = VisuaLigue.getInstance();
     
     ScreensController myController;
     
     @Override
     public void initialize(URL url, ResourceBundle rb) {
+        List<Sport> sports = visualigue.getListeSports();
         
         for (int i=0;i<sports.size();i++) {
-            SportsList.getChildren().add(rootNode);
+            Label label = new Label(sports.get(i).getName());
+            HBox hbox = new HBox(label);
+            //SportsList.getChildren().add(label);
+            SportsList.add(hbox, 0, i);
         }
-        
     }   
  
  

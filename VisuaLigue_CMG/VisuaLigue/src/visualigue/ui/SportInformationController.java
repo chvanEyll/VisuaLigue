@@ -93,7 +93,7 @@ public class SportInformationController extends MainController {
         
         //Sport nouveau_sport = new Sport(sportNameField.getText());
         visualigue.createSport(sportNameField.getText());
-        System.out.println("tested");
+        System.out.println(visualigue.getListeSports());
         
         }
 }

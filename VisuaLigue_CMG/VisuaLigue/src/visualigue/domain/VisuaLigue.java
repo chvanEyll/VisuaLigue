@@ -21,6 +21,12 @@ public class VisuaLigue {
         onSportCreated.fire(this, name);
         return sport;
     }
+    
+    public List<Sport> getListeSports() {
+        
+        return sports;
+        
+    }
 
     public void save() {
 
