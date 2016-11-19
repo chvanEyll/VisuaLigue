@@ -30,7 +30,7 @@ public class NavigationController extends ControllerBase {
     private Vector2 contentAlignPoint;
     private Vector2 viewportAlignPoint;
     private ObjectProperty<Zoom> zoomProperty = new SimpleObjectProperty(new Zoom(1));
-    private ObjectProperty<Vector2> realWorldMousePositionProperty = new SimpleObjectProperty(new Vector2(0, 0));
+    private ObjectProperty<Vector2> mousePixelPositionProperty = new SimpleObjectProperty(new Vector2(0, 0));
     private Boolean touchZooming = false;
     private Vector2 touchPoint1;
     private Vector2 touchPoint2;
@@ -51,8 +51,8 @@ public class NavigationController extends ControllerBase {
         });
     }
 
-    public ReadOnlyObjectProperty<Vector2> realWorldMousePositionProperty() {
-        return realWorldMousePositionProperty;
+    public ReadOnlyObjectProperty<Vector2> mousePixelPositionProperty() {
+        return mousePixelPositionProperty;
     }
 
     public Zoom getMinZoom() {
@@ -189,8 +189,8 @@ public class NavigationController extends ControllerBase {
     }
 
     public void onSceneMouseMoved(MouseEvent e) {
-        Vector2 realWorldSurfacePosition = playingSurfaceLayerController.getRealWorldMousePosition();
-        realWorldMousePositionProperty.set(realWorldSurfacePosition);
+        Vector2 mousePixelPosition = playingSurfaceLayerController.getMousePixelPosition();
+        mousePixelPositionProperty.set(mousePixelPosition);
     }
 
     protected void onSceneMousePressed(MouseEvent e) {

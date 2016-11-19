@@ -1,7 +1,6 @@
 package ca.ulaval.glo2004.visualigue.domain.play.frame;
 
 import ca.ulaval.glo2004.visualigue.domain.DomainObject;
-import ca.ulaval.glo2004.visualigue.domain.play.actor.ActorInstance;
 import java.util.HashSet;
 import java.util.Set;
 
@@ -22,7 +21,7 @@ public class Frame extends DomainObject {
         return actorInstances;
     }
 
-    public void addActorState(ActorInstance actorInstance) {
+    public void addActorInstance(ActorInstance actorInstance) {
         actorInstances.add(actorInstance);
     }
 

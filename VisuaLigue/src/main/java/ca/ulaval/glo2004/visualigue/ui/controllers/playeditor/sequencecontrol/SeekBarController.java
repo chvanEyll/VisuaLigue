@@ -49,16 +49,13 @@ public class SeekBarController extends ControllerBase {
         this.sceneController = sceneController;
         keyframeHBox.widthProperty().addListener(this::keyframeHBoxWidthChanged);
         playModel.numberOfKeyPoints.addListener(this::onNumberOfKeyPointsChanged);
-        playService.onUndo.addHandler(onUndoRedo);
-        playService.onRedo.addHandler(onUndoRedo);
+        playService.onUndoRedo.addHandler(onUndoRedo);
         updateKeyPoints();
         move(0L);
     }
 
     @Override
     public void clean() {
-        playService.onUndo.removeHandler(onUndoRedo);
-        playService.onRedo.removeHandler(onUndoRedo);
         super.clean();
     }
 

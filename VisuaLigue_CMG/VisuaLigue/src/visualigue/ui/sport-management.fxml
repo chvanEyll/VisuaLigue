@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import java.lang.String?>
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.ScrollPane?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.StackPane?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.VBox?>
+
+<StackPane fx:id="rootNode" HBox.hgrow="ALWAYS" styleClass="form," stylesheets="@../../css/main.fxml.css" xmlns="http://javafx.com/javafx/8.0.60" xmlns:fx="http://javafx.com/fxml/1" fx:controller="visualigue.ui.SportManagementController">
+    <VBox>
+        <children>
+            <HBox alignment="CENTER_LEFT" styleClass="section-header">
+                <children>
+                    <Label text="Liste des sports" />
+                </children>
+            </HBox>
+          <Button mnemonicParsing="false" text="+ Nouveau Sport" onMouseClicked="#onNewSportButtonClicked"/>
+          <ScrollPane fitToWidth="true" hbarPolicy="NEVER" pannable="true" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0" VBox.vgrow="ALWAYS" />
+        </children>
+        <styleClass>
+            <String fx:value="form-section" />
+            <String fx:value="edge-to-edge" />
+            <String fx:value="view-content" />
+            <String fx:value="root-node" />
+        </styleClass>
+    </VBox>
+</StackPane>
+

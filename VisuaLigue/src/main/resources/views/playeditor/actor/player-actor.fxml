@@ -9,7 +9,7 @@
 <?import javafx.scene.layout.Pane?>
 <?import javafx.scene.shape.Line?>
 
-<Pane fx:id="rootNode" pickOnBounds="false" styleClass="root-node, actor-layer" xmlns="http://javafx.com/javafx/8.0.60" xmlns:fx="http://javafx.com/fxml/1" fx:controller="ca.ulaval.glo2004.visualigue.ui.controllers.playeditor.actorlayers.PlayerLayerController">
+<Pane fx:id="rootNode" pickOnBounds="false" styleClass="root-node, actor-layer" xmlns="http://javafx.com/javafx/8.0.60" xmlns:fx="http://javafx.com/fxml/1" fx:controller="ca.ulaval.glo2004.visualigue.ui.controllers.playeditor.actor.PlayerController">
     <children>
         <Arrow fx:id="arrow" mouseTransparent="true" visible="false" />
         <ExtendedButton fx:id="actorButton" styleClass="actor-button, icon-button, shadowed" visible="false" onMouseDragged="#onMouseDragged" onMouseReleased="#onMouseReleased" onMouseEntered="#onMouseEntered" onMouseExited="#onMouseExited" onMouseDragEntered="#onMouseDragEntered" onMouseDragExited="#onMouseDragExited" onMouseDragReleased="#onMouseDragReleased">

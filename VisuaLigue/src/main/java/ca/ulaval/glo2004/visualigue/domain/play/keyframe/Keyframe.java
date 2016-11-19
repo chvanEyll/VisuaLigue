@@ -23,7 +23,7 @@ public class Keyframe extends DomainObject {
     }
 
     public Object interpolate(Double interpolant, Keyframe nextKeyframe) {
-        Object interpolatedValue;
+        Object interpolatedValue = null;
         if (value instanceof Double) {
             interpolatedValue = transition.interpolate((Double) value, (Double) nextKeyframe.value, interpolant);
         } else if (value instanceof Vector2) {

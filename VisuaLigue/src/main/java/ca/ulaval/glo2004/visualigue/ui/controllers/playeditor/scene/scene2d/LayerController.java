@@ -2,63 +2,55 @@ package ca.ulaval.glo2004.visualigue.ui.controllers.playeditor.scene.scene2d;
 
 import ca.ulaval.glo2004.visualigue.ui.View;
 import ca.ulaval.glo2004.visualigue.ui.controllers.ControllerBase;
-import ca.ulaval.glo2004.visualigue.ui.controllers.playeditor.actorlayers.ActorLayerFactory;
-import ca.ulaval.glo2004.visualigue.ui.controllers.playeditor.scene.Settings;
-import ca.ulaval.glo2004.visualigue.ui.controllers.playeditor.scene.Zoom;
-import ca.ulaval.glo2004.visualigue.ui.models.FrameModel;
-import ca.ulaval.glo2004.visualigue.ui.models.PlayModel;
-import ca.ulaval.glo2004.visualigue.ui.models.layers.ActorLayerModel;
+import ca.ulaval.glo2004.visualigue.ui.controllers.playeditor.actor.ActorFactory;
+import ca.ulaval.glo2004.visualigue.ui.controllers.playeditor.scene.SceneController;
+import ca.ulaval.glo2004.visualigue.ui.models.actors.ActorModel;
 import ca.ulaval.glo2004.visualigue.utils.ListUtils;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
-import javafx.beans.property.ObjectProperty;
 import javafx.collections.MapChangeListener;
+import javafx.collections.ObservableMap;
 import javafx.scene.layout.StackPane;
+import javafx.util.Pair;
 
 public class LayerController extends ControllerBase {
 
-    private ActorLayerFactory actorLayerFactory;
+    private ActorFactory actorFactory;
     private StackPane layerStackPane;
-    private Map<ActorLayerModel, View> layerViews = new HashMap();
+    private Map<Pair<String, Integer>, ActorModel> actors = new HashMap();
+    private Map<ActorModel, View> layerViews = new HashMap();
     private List<Integer> layerOrder = new ArrayList();
-    private PlayModel playModel;
-    private FrameModel frameModel;
-    private PlayingSurfaceLayerController playingSurfaceLayerController;
-    private ObjectProperty<Zoom> zoomProperty;
-    private Settings settings;
+    private SceneController sceneController;
 
-    public LayerController(StackPane layerStackPane, ActorLayerFactory actorLayerFactory, PlayModel playModel, FrameModel frameModel, PlayingSurfaceLayerController playingSurfaceLayerController, ObjectProperty<Zoom> zoomProperty, Settings settings) {
+    public LayerController(StackPane layerStackPane, ObservableMap<Integer, ActorModel> actorModels, ActorFactory actorFactory, SceneController sceneController) {
         this.layerStackPane = layerStackPane;
-        this.actorLayerFactory = actorLayerFactory;
-        this.playModel = playModel;
-        this.frameModel = frameModel;
-        this.playingSurfaceLayerController = playingSurfaceLayerController;
-        this.zoomProperty = zoomProperty;
-        this.settings = settings;
-        frameModel.layerModels.addListener(this::onActorStateMapChanged);
+        this.actorFactory = actorFactory;
+        this.sceneController = sceneController;
+        actorModels.addListener(this::onActorStateMapChanged);
     }
 
     private void onActorStateMapChanged(MapChangeListener.Change change) {
         if (change.wasAdded()) {
-            addActorLayer((ActorLayerModel) change.getValueAdded());
+            addActorModel((ActorModel) change.getValueAdded());
         }
         if (change.wasRemoved()) {
-            removeActorLayer((ActorLayerModel) change.getValueRemoved());
+            removeActorModel((ActorModel) change.getValueRemoved());
         }
     }
 
-    public void addActorLayer(ActorLayerModel layerModel) {
-        View view = actorLayerFactory.create(layerModel);
-        ActorLayerController controller = (ActorLayerController) view.getController();
-        controller.init(layerModel, playModel, frameModel, playingSurfaceLayerController, zoomProperty, settings);
+    public void addActorModel(ActorModel actorModel) {
+        View view = actorFactory.create(actorModel);
+        ActorController controller = (ActorController) view.getController();
+        controller.init(actorModel, sceneController);
         super.addChild(controller);
-        layerViews.put(layerModel, view);
-        addLayer(view, layerModel.zOrder.get());
+        layerViews.put(actorModel, view);
+        actors.put(new Pair(actorModel.getUUID(), actorModel.instanceID.get()), actorModel);
+        addView(view, actorModel.zOrder.get());
     }
 
-    public void addLayer(View view, Integer zOrder) {
+    public void addView(View view, Integer zOrder) {
         Integer higherIndex = ListUtils.higherIndex(layerOrder, zOrder);
         if (higherIndex != null) {
             layerStackPane.getChildren().add(higherIndex, view.getRoot());
@@ -69,15 +61,16 @@ public class LayerController extends ControllerBase {
         }
     }
 
-    public void removeActorLayer(ActorLayerModel layerModel) {
-        if (layerViews.containsKey(layerModel)) {
-            View view = layerViews.get(layerModel);
-            layerViews.remove(layerModel);
-            removeLayer(view);
+    public void removeActorModel(ActorModel actorModel) {
+        if (layerViews.containsKey(actorModel)) {
+            View view = layerViews.get(actorModel);
+            actors.remove((new Pair(actorModel.getUUID(), actorModel.instanceID.get())));
+            layerViews.remove(actorModel);
+            removeView(view);
         }
     }
 
-    public void removeLayer(View view) {
+    public void removeView(View view) {
         ControllerBase controller = (ControllerBase) view.getController();
         controller.clean();
         Integer index = layerStackPane.getChildren().indexOf(view.getRoot());
@@ -85,11 +78,7 @@ public class LayerController extends ControllerBase {
         layerStackPane.getChildren().remove(view.getRoot());
     }
 
-    public void setLayerOpacity(ActorLayerModel layerModel, Double opacity) {
-        layerViews.get(layerModel).getRoot().setOpacity(opacity);
-    }
-
-    public void setLayerMouseTransparent(ActorLayerModel layerModel, Boolean mouseTransparent) {
-        layerViews.get(layerModel).getRoot().setMouseTransparent(mouseTransparent);
+    public ActorModel findActor(String actorUUID, Integer instanceID) {
+        return actors.get(new Pair(actorUUID, instanceID));
     }
 }

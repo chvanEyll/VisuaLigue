@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.StackPane?>
+<?import javafx.scene.layout.BorderPane?>
+<?import javafx.scene.layout.VBox?>
+
+<HBox styleClass="root-node, body" stylesheets="@../../css/main.fxml.css" xmlns="http://javafx.com/javafx/8.0.60" xmlns:fx="http://javafx.com/fxml/1" fx:controller="visualigue.ui.MainController">
+   <children>
+      <VBox styleClass="main-menu">
+         <children>
+            <HBox fx:id="playsMenuItem" alignment="CENTER_LEFT" fillHeight="false" styleClass="menu-item">
+               <children>
+                  <ImageView styleClass="icon" />
+                  <Label text="Jeux" />
+               </children>
+            </HBox>
+            <HBox fx:id="sportsMenuItem" alignment="CENTER_LEFT" fillHeight="false" onMouseClicked="#onSportsMenuItemClicked" styleClass="menu-item">
+               <children>
+                  <ImageView fitHeight="30.0" fitWidth="30.0" styleClass="icon">
+                     <image>
+                        <Image url="@../../image/generic-icon.png" />
+                     </image></ImageView>
+                  <Label text="Sports" />
+               </children>
+            </HBox>
+            <HBox fx:id="obstaclesMenuItem" alignment="CENTER_LEFT" fillHeight="false" styleClass="menu-item">
+               <children>
+                  <ImageView styleClass="icon" />
+                  <Label text="Obstacles" />
+               </children>
+            </HBox>
+            <HBox fx:id="settingsMenuItem" alignment="CENTER_LEFT" fillHeight="false" styleClass="menu-item">
+               <children>
+                  <ImageView styleClass="icon" />
+                  <Label text="Paramètres" />
+               </children>
+            </HBox>
+         </children>
+      </VBox>
+      <fx:include fx:id="viewFlow" source="view-flow.fxml"/>
+   </children>
+</HBox>

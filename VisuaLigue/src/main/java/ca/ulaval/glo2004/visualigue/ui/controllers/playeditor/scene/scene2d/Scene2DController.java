@@ -6,12 +6,13 @@ import ca.ulaval.glo2004.visualigue.ui.InjectableFXMLLoader;
 import ca.ulaval.glo2004.visualigue.ui.KeyboardShortcutMapper;
 import ca.ulaval.glo2004.visualigue.ui.View;
 import ca.ulaval.glo2004.visualigue.ui.controllers.common.ExtendedScrollPane;
-import ca.ulaval.glo2004.visualigue.ui.controllers.playeditor.actorlayers.ActorLayerFactory;
+import ca.ulaval.glo2004.visualigue.ui.controllers.playeditor.actor.ActorFactory;
 import ca.ulaval.glo2004.visualigue.ui.controllers.playeditor.scene.SceneController;
 import ca.ulaval.glo2004.visualigue.ui.controllers.playeditor.scene.Zoom;
 import ca.ulaval.glo2004.visualigue.ui.converters.FrameModelConverter;
 import ca.ulaval.glo2004.visualigue.ui.models.FrameModel;
 import ca.ulaval.glo2004.visualigue.ui.models.PlayModel;
+import ca.ulaval.glo2004.visualigue.ui.models.actors.ActorModel;
 import ca.ulaval.glo2004.visualigue.utils.geometry.Vector2;
 import java.util.function.BiConsumer;
 import javafx.beans.property.BooleanProperty;
@@ -29,9 +30,9 @@ public class Scene2DController extends SceneController {
     @FXML public StackPane sceneViewport;
     @FXML private StackPane layerStackPane;
     @Inject private PlayService playService;
-    @Inject private ActorLayerFactory actorLayerFactory;
+    @Inject private ActorFactory actorFactory;
     @Inject private FrameModelConverter frameModelConverter;
-    private BiConsumer<Object, Play> onPlayFrameChanged = this::onPlayFrameChanged;
+    private BiConsumer<Object, Play> onPlayUpdated = this::onPlayUpdated;
     private PlayingSurfaceLayerController playingSurfaceLayerController;
     private NavigationController navigationController;
     private LayerController layerController;
@@ -42,7 +43,7 @@ public class Scene2DController extends SceneController {
     @Override
     public void init(PlayModel playModel) {
         this.playModel = playModel;
-        playService.onFrameChanged.addHandler(onPlayFrameChanged);
+        playService.onPlayUpdated.addHandler(onPlayUpdated);
         initControllers();
         initKeyboardShortcuts();
     }
@@ -54,8 +55,8 @@ public class Scene2DController extends SceneController {
         navigationController = new NavigationController(scrollPane, sceneViewport, playingSurfaceLayerController);
         navigationController.onEnabled.forward(this.onNavigationModeEntered);
         navigationController.onDisabled.forward(this.onNavigationModeExited);
-        layerController = new LayerController(layerStackPane, actorLayerFactory, playModel, frameModel, playingSurfaceLayerController, navigationController.zoomProperty(), settings);
-        layerController.addLayer(playingSurfaceView, Integer.MIN_VALUE);
+        layerController = new LayerController(layerStackPane, frameModel.actorModels, actorFactory, this);
+        layerController.addView(playingSurfaceView, Integer.MIN_VALUE);
         super.addChild(playingSurfaceLayerController);
         super.addChild(navigationController);
         super.addChild(layerController);
@@ -79,11 +80,11 @@ public class Scene2DController extends SceneController {
         KeyboardShortcutMapper.unmap(new KeyCodeCombination(KeyCode.SUBTRACT, KeyCombination.CONTROL_DOWN));
         KeyboardShortcutMapper.unmap(new KeyCodeCombination(KeyCode.R, KeyCombination.CONTROL_DOWN));
         KeyboardShortcutMapper.unmap(new KeyCodeCombination(KeyCode.Q, KeyCombination.CONTROL_DOWN));
-        playService.onFrameChanged.removeHandler(onPlayFrameChanged);
+        playService.onPlayUpdated.removeHandler(onPlayUpdated);
         super.clean();
     }
 
-    private void onPlayFrameChanged(Object sender, Play play) {
+    private void onPlayUpdated(Object sender, Play play) {
         update(frameModel.time.get());
     }
 
@@ -97,7 +98,7 @@ public class Scene2DController extends SceneController {
         navigationController.disable();
         exitCreationMode();
         this.actorCreationController = actorCreationController;
-        actorCreationController.enable(layerController, playingSurfaceLayerController, playModel, frameModel);
+        actorCreationController.enable(this);
         super.addChild(actorCreationController);
     }
 
@@ -135,8 +136,8 @@ public class Scene2DController extends SceneController {
     }
 
     @Override
-    public ReadOnlyObjectProperty<Vector2> realWorldMousePositionProperty() {
-        return navigationController.realWorldMousePositionProperty();
+    public ReadOnlyObjectProperty<Vector2> mousePixelPositionProperty() {
+        return navigationController.mousePixelPositionProperty();
     }
 
     @Override
@@ -236,6 +237,56 @@ public class Scene2DController extends SceneController {
         if (actorCreationController != null) {
             actorCreationController.onSceneMouseExited(e);
         }
+    }
+
+    @Override
+    public void addActor(ActorModel actorModel) {
+        layerController.addActorModel(actorModel);
+    }
+
+    @Override
+    public void removeActor(ActorModel actorModel) {
+        layerController.removeActorModel(actorModel);
+    }
+
+    @Override
+    public ActorModel findActor(String actorUUID, Integer instanceID) {
+        return layerController.findActor(actorUUID, instanceID);
+    }
+
+    @Override
+    public String getPlayUUID() {
+        return playModel.getUUID();
+    }
+
+    @Override
+    public Long getTime() {
+        return frameModel.time.get();
+    }
+
+    @Override
+    public Vector2 getMouseWorldPosition(Boolean contain) {
+        return playingSurfaceLayerController.getMouseWorldPosition(contain);
+    }
+
+    @Override
+    public Vector2 getMousePixelPosition() {
+        return playingSurfaceLayerController.getMousePixelPosition();
+    }
+
+    @Override
+    public Vector2 worldToPixelPoint(Vector2 worldPoint) {
+        return playingSurfaceLayerController.worldToPixelPoint(worldPoint);
+    }
+
+    @Override
+    public Vector2 pixelToWorldPoint(Vector2 pixelPoint) {
+        return playingSurfaceLayerController.pixelToWorldPoint(pixelPoint);
+    }
+
+    @Override
+    public Vector2 pixelToUserPoint(Vector2 pixelPoint) {
+        return playingSurfaceLayerController.pixelToUserPoint(pixelPoint);
     }
 
 }

@@ -26,19 +26,16 @@ public class PlayService {
     private final PlayerCategoryRepository playerCategoryRepository;
     private final ObstacleRepository obstacleRepository;
 
-    private final Map<String, Deque<Command>> undoStackMap = new HashMap();
-    private final Map<String, Deque<Command>> redoStackMap = new HashMap();
+    private final Map<Play, Deque<CommandGroup>> undoStackMap = new HashMap();
+    private final Map<Play, Deque<CommandGroup>> redoStackMap = new HashMap();
 
     public EventHandler<Play> onPlayCreated = new EventHandler();
     public EventHandler<Play> onPlayUpdated = new EventHandler();
     public EventHandler<Play> onPlayDeleted = new EventHandler();
     public EventHandler<Play> onDirtyFlagChanged = new EventHandler();
-    public EventHandler<Play> onFrameChanged = new EventHandler();
-    public EventHandler<Long> onUndo = new EventHandler();
-    public EventHandler<Long> onRedo = new EventHandler();
     public EventHandler<Boolean> onUndoAvailabilityChanged = new EventHandler();
     public EventHandler<Boolean> onRedoAvailabilityChanged = new EventHandler();
-    public EventHandler onNewCommandExecute = new EventHandler();
+    public EventHandler<Long> onUndoRedo = new EventHandler();
 
     @Inject
     public PlayService(final PlayRepository playRepository, final PlayFactory playFactory, final SportRepository sportRepository, final PlayerCategoryRepository playerCategoryRepository, final ObstacleRepository obstacleRepository) {
@@ -53,7 +50,7 @@ public class PlayService {
         Sport sport = sportRepository.get(sportUUID);
         Play play = playFactory.create(sport);
         playRepository.persist(play);
-        setDirty(play.getUUID(), false);
+        setDirty(play, false);
         onPlayCreated.fire(this, play);
         return play.getUUID();
     }
@@ -61,7 +58,7 @@ public class PlayService {
     public void updatePlayTitle(String playUUID, String title) throws PlayNotFoundException {
         Play play = playRepository.get(playUUID);
         play.setTitle(title);
-        setDirty(playUUID, true);
+        setDirty(play, true);
         onPlayUpdated.fire(this, play);
     }
 
@@ -81,75 +78,81 @@ public class PlayService {
 
     public void addPlayerActor(String playUUID, Long time, String playerCategoryUUID, TeamSide teamSide, Double orientation, Vector2 position) {
         Play play = playRepository.get(playUUID);
-        PlayerCreationCommand command = new PlayerCreationCommand(play, time, playerCategoryUUID, teamSide, orientation, position, playerCategoryRepository, onFrameChanged);
-        executeNewCommand(playUUID, command);
+        PlayerCreationCommand command = new PlayerCreationCommand(play, time, playerCategoryUUID, teamSide, orientation, position, playerCategoryRepository);
+        executeNewCommand(play, command);
     }
 
-    public void updatePlayerActorPositionDirect(String playUUID, Long time, String playerActorUUID, Vector2 position) {
+    public void updatePlayerPositionDirect(String playUUID, Long time, String playerActorUUID, Vector2 position) {
         Play play = playRepository.get(playUUID);
-        PlayerPositionUpdateDirectCommand command = new PlayerPositionUpdateDirectCommand(play, time, playerActorUUID, position, onFrameChanged);
-        executeNewCommand(playUUID, command);
+        PlayerPositionUpdateDirectCommand command = new PlayerPositionUpdateDirectCommand(play, time, playerActorUUID, position);
+        executeNewCommand(play, command);
     }
 
-    public void updatePlayerActorPositionFreeform(String playUUID, Long time, String playerActorUUID, List<Vector2> positions) {
+    public void updatePlayerPositionFreeform(String playUUID, Long time, String playerActorUUID, List<Vector2> positions) {
         Play play = playRepository.get(playUUID);
-        PlayerPositionUpdateFreeformCommand command = new PlayerPositionUpdateFreeformCommand(play, time, playerActorUUID, positions, onFrameChanged);
-        executeNewCommand(playUUID, command);
+        PlayerPositionUpdateFreeformCommand command = new PlayerPositionUpdateFreeformCommand(play, time, playerActorUUID, positions);
+        executeNewCommand(play, command);
     }
 
-    public void updatePlayerActorOrientation(String playUUID, Long time, String ownerPlayerActorUUID, Double orientation) {
+    public void updatePlayerOrientation(String playUUID, Long time, String ownerPlayerActorUUID, Double orientation) {
         Play play = playRepository.get(playUUID);
-        PlayerOrientationUpdateCommand command = new PlayerOrientationUpdateCommand(play, time, ownerPlayerActorUUID, orientation, onFrameChanged);
-        executeNewCommand(playUUID, command);
+        PlayerOrientationUpdateCommand command = new PlayerOrientationUpdateCommand(play, time, ownerPlayerActorUUID, orientation);
+        executeNewCommand(play, command);
     }
 
     public void addObstacleActor(String playUUID, Long time, String obstacleUUID, Vector2 position) {
         Play play = playRepository.get(playUUID);
-        ObstacleCreationCommand command = new ObstacleCreationCommand(play, time, obstacleUUID, position, obstacleRepository, onFrameChanged);
-        executeNewCommand(playUUID, command);
+        ObstacleCreationCommand command = new ObstacleCreationCommand(play, time, obstacleUUID, position, obstacleRepository);
+        executeNewCommand(play, command);
     }
 
-    public void updateObstacleActorPosition(String playUUID, Long time, String obstacleActorUUID, Vector2 position) {
+    public void updateObstaclPosition(String playUUID, Long time, String obstacleActorUUID, Vector2 position) {
         Play play = playRepository.get(playUUID);
-        ObstaclePositionUpdateCommand command = new ObstaclePositionUpdateCommand(play, time, obstacleActorUUID, position, onFrameChanged);
-        executeNewCommand(playUUID, command);
+        ObstaclePositionUpdateCommand command = new ObstaclePositionUpdateCommand(play, time, obstacleActorUUID, position);
+        executeNewCommand(play, command);
     }
 
     public void addBallActor(String playUUID, Long time, String ownerPlayerActorUUID, Vector2 position) {
         Play play = playRepository.get(playUUID);
-        BallCreationCommand command = new BallCreationCommand(play, time, ownerPlayerActorUUID, position, onFrameChanged);
-        executeNewCommand(playUUID, command);
+        BallCreationCommand command = new BallCreationCommand(play, time, ownerPlayerActorUUID, position);
+        executeNewCommand(play, command);
     }
 
-    public void updateBallActorPosition(String playUUID, Long time, String ballActorUUID, Vector2 position) {
+    public void updateBallPosition(String playUUID, Long time, String ballActorUUID, Vector2 position) {
         Play play = playRepository.get(playUUID);
-        BallPositionUpdateCommand command = new BallPositionUpdateCommand(play, time, ballActorUUID, position, onFrameChanged);
-        executeNewCommand(playUUID, command);
+        BallPositionUpdateCommand command = new BallPositionUpdateCommand(play, time, ballActorUUID, position);
+        executeNewCommand(play, command);
     }
 
-    public void updateBallActorOwner(String playUUID, Long time, String ballActorUUID, String playerOwnerUUID) {
+    public void snapBallToPlayer(String playUUID, Long time, String ballActorUUID, String playerActorUUID) {
         Play play = playRepository.get(playUUID);
-        BallOwnerUpdateCommand command = new BallOwnerUpdateCommand(play, time, ballActorUUID, playerOwnerUUID, onFrameChanged);
-        executeNewCommand(playUUID, command);
+        BallSnapCommand command = new BallSnapCommand(play, time, playerActorUUID, ballActorUUID);
+        executeNewCommand(play, command);
+    }
+
+    public void unsnapBallFromPlayer(String playUUID, Long time, String ballActorUUID, String playerActorUUID) {
+        Play play = playRepository.get(playUUID);
+        BallUnsnapCommand command = new BallUnsnapCommand(play, time, playerActorUUID, ballActorUUID);
+        executeNewCommand(play, command);
     }
 
     public void addKeypoint(String playUUID, Long time) {
         Play play = playRepository.get(playUUID);
-        AddKeyPointCommand command = new AddKeyPointCommand(play, time, onPlayUpdated);
-        executeNewCommand(playUUID, command);
+        KeyPointCreationCommand command = new KeyPointCreationCommand(play, time);
+        executeNewCommand(play, command);
     }
 
     public void savePlay(String playUUID) throws PlayNotFoundException {
         Play play = playRepository.get(playUUID);
-        setDirty(playUUID, false);
+        setDirty(play, false);
         playRepository.update(play);
     }
 
     public void discardChanges(String playUUID) throws PlayNotFoundException {
         Play play = playRepository.get(playUUID);
         Play revertedPlay = playRepository.revert(play);
-        setDirty(playUUID, false);
-        clearUndoRedo(playUUID);
+        setDirty(play, false);
+        clearUndoRedo(play);
         onPlayUpdated.fire(this, revertedPlay);
     }
 
@@ -159,72 +162,91 @@ public class PlayService {
     }
 
     public Boolean isUndoAvailable(String playUUID) throws PlayNotFoundException {
-        if (undoStackMap.containsKey(playUUID)) {
-            return undoStackMap.get(playUUID).size() > 0;
+        Play play = playRepository.get(playUUID);
+        if (undoStackMap.containsKey(play)) {
+            return undoStackMap.get(play).size() > 0;
         } else {
             return false;
         }
     }
 
     public Boolean isRedoAvailable(String playUUID) throws PlayNotFoundException {
-        if (redoStackMap.containsKey(playUUID)) {
-            return redoStackMap.get(playUUID).size() > 0;
+        Play play = playRepository.get(playUUID);
+        if (redoStackMap.containsKey(play)) {
+            return redoStackMap.get(play).size() > 0;
         } else {
             return false;
         }
     }
 
+    public void beginUpdate(String playUUID) {
+        Play play = playRepository.get(playUUID);
+        play.setPendingUpdateCount(0);
+    }
+
+    public void endUpdate(String playUUID) {
+        Play play = playRepository.get(playUUID);
+        onPlayUpdated.fire(this, play);
+    }
+
     public void undo(String playUUID) throws PlayNotFoundException {
+        Play play = playRepository.get(playUUID);
         if (!isUndoAvailable(playUUID)) {
             return;
         }
-        Command lastCommand = undoStackMap.get(playUUID).pop();
-        redoStackMap.get(playUUID).push(lastCommand);
-        lastCommand.revert();
-        setDirty(playUUID, true);
+        CommandGroup lastCommandGroup = undoStackMap.get(play).pop();
+        redoStackMap.get(play).push(lastCommandGroup);
+        Long time = lastCommandGroup.revert();
+        setDirty(play, true);
         onUndoAvailabilityChanged.fire(this, isUndoAvailable(playUUID));
         onRedoAvailabilityChanged.fire(this, isRedoAvailable(playUUID));
-        onUndo.fire(this, lastCommand.getTime());
+        onPlayUpdated.fire(this, play);
+        onUndoRedo.fire(this, time);
     }
 
     public void redo(String playUUID) throws PlayNotFoundException {
+        Play play = playRepository.get(playUUID);
         if (!isRedoAvailable(playUUID)) {
             return;
         }
-        Command nextCommand = redoStackMap.get(playUUID).pop();
-        undoStackMap.get(playUUID).push(nextCommand);
-        nextCommand.execute();
-        setDirty(playUUID, true);
+        CommandGroup nextCommandGroup = redoStackMap.get(play).pop();
+        undoStackMap.get(play).push(nextCommandGroup);
+        Long time = nextCommandGroup.execute();
+        setDirty(play, true);
         onUndoAvailabilityChanged.fire(this, isUndoAvailable(playUUID));
         onRedoAvailabilityChanged.fire(this, isRedoAvailable(playUUID));
-        onRedo.fire(this, nextCommand.getTime());
+        onPlayUpdated.fire(this, play);
+        onUndoRedo.fire(this, time);
     }
 
-    private void clearUndoRedo(String playUUID) {
-        undoStackMap.get(playUUID).clear();
-        redoStackMap.get(playUUID).clear();
-        onUndoAvailabilityChanged.fire(this, isUndoAvailable(playUUID));
-        onRedoAvailabilityChanged.fire(this, isRedoAvailable(playUUID));
+    private void clearUndoRedo(Play play) {
+        undoStackMap.get(play).clear();
+        redoStackMap.get(play).clear();
+        onUndoAvailabilityChanged.fire(this, isUndoAvailable(play.getUUID()));
+        onRedoAvailabilityChanged.fire(this, isRedoAvailable(play.getUUID()));
     }
 
-    private void executeNewCommand(String playUUID, Command command) {
+    private void executeNewCommand(Play play, Command command) {
         command.execute();
-        setDirty(playUUID, true);
-        if (!undoStackMap.containsKey(playUUID)) {
-            undoStackMap.put(playUUID, new ArrayDeque());
+        setDirty(play, true);
+        if (!undoStackMap.containsKey(play)) {
+            undoStackMap.put(play, new ArrayDeque());
         }
-        if (!redoStackMap.containsKey(playUUID)) {
-            redoStackMap.put(playUUID, new ArrayDeque());
+        if (!redoStackMap.containsKey(play)) {
+            redoStackMap.put(play, new ArrayDeque());
         }
-        redoStackMap.get(playUUID).clear();
-        undoStackMap.get(playUUID).push(command);
-        onRedoAvailabilityChanged.fire(this, isRedoAvailable(playUUID));
-        onUndoAvailabilityChanged.fire(this, isUndoAvailable(playUUID));
-        onNewCommandExecute.fire(this);
+        redoStackMap.get(play).clear();
+        Deque<CommandGroup> undoStack = undoStackMap.get(play);
+        if (play.getPendingUpdateCount() == 0 || undoStack.isEmpty()) {
+            undoStack.push(new CommandGroup(command));
+        } else {
+            undoStack.getFirst().addCommand(command);
+        }
+        onRedoAvailabilityChanged.fire(this, isRedoAvailable(play.getUUID()));
+        onUndoAvailabilityChanged.fire(this, isUndoAvailable(play.getUUID()));
     }
 
-    private void setDirty(String playUUID, Boolean dirty) throws PlayNotFoundException {
-        Play play = playRepository.get(playUUID);
+    private void setDirty(Play play, Boolean dirty) throws PlayNotFoundException {
         play.setDirty(dirty);
         onDirtyFlagChanged.fire(this, play);
     }

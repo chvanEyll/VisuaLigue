@@ -59,38 +59,38 @@ public class PlayingSurfaceLayerController extends ControllerBase {
         return new Vector2(ZOOM_WIDTH_BASE, ZOOM_WIDTH_BASE / (image.getWidth() / image.getHeight()));
     }
 
-    public Vector2 getSurfaceSize() {
+    private Vector2 getSurfaceSize() {
         return new Vector2(rootNode.getFitWidth(), rootNode.getFitHeight());
     }
 
-    public Vector2 getMousePosition() {
+    public Vector2 getMousePixelPosition() {
         return FXUtils.mouseToNodePoint(rootNode);
     }
 
-    public Vector2 getSizeRelativeMousePosition(Boolean contain) {
-        Vector2 sizeRelativeMousePosition = surfaceToSizeRelativePoint(getMousePosition());
+    public Vector2 getMouseWorldPosition(Boolean contain) {
+        Vector2 mouseWorldPosition = pixelToWorldPoint(getMousePixelPosition());
         if (contain) {
-            return new Rect(0.0, 0.0, 1.0, 1.0).contain(sizeRelativeMousePosition);
+            return new Rect(0.0, 0.0, 1.0, 1.0).contain(mouseWorldPosition);
         } else {
-            return sizeRelativeMousePosition;
+            return mouseWorldPosition;
         }
-    }
-
-    public Vector2 getRealWorldMousePosition() {
-        Vector2 sizeRelativeMousePosition = getSizeRelativeMousePosition(false);
-        return sizeRelativeMousePosition.multiply(new Vector2(playModel.playingSurfaceWidth.get(), playModel.playingSurfaceLength.get()));
     }
 
     public void setCursor(Cursor cursor) {
         rootNode.setCursor(cursor);
     }
 
-    public Vector2 sizeRelativeToSurfacePoint(Vector2 relativePoint) {
-        return relativePoint.multiply(getSurfaceSize());
+    public Vector2 worldToPixelPoint(Vector2 worldPoint) {
+        return worldPoint.multiply(getSurfaceSize());
     }
 
-    public Vector2 surfaceToSizeRelativePoint(Vector2 surfacePoint) {
+    public Vector2 pixelToWorldPoint(Vector2 surfacePoint) {
         return surfacePoint.divide(getSurfaceSize());
+    }
+
+    public Vector2 pixelToUserPoint(Vector2 pixelPoint) {
+        Vector2 worldPoint = pixelToWorldPoint(pixelPoint);
+        return worldPoint.multiply(new Vector2(playModel.playingSurfaceWidth.get(), playModel.playingSurfaceLength.get()));
     }
 
 }

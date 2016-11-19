@@ -1,31 +1,37 @@
 package ca.ulaval.glo2004.visualigue.domain.play.actorstate;
 
-import ca.ulaval.glo2004.visualigue.domain.play.actor.PlayerActor;
+import ca.ulaval.glo2004.visualigue.domain.DomainObject;
 import javax.xml.bind.annotation.XmlIDREF;
 
 public class BallState extends ActorState implements Cloneable {
 
     @XmlIDREF
-    private PlayerActor owner;
+    private DomainObject ownerPlayer;
 
     public BallState() {
         zOrder = Integer.MAX_VALUE;
     }
 
-    public PlayerActor getOwner() {
-        return owner;
+    public DomainObject getOwnerPlayer() {
+        return ownerPlayer;
     }
 
-    public static ActorProperty getOwnerProperty() {
-        return new ActorProperty("owner");
+    public Boolean hasOwnerPlayer() {
+        return ownerPlayer != null;
+    }
+
+    public static ActorProperty getOwnerPlayerProperty() {
+        return new ActorProperty("ownerPlayer");
     }
 
     @Override
     public void setPropertyValue(ActorProperty actorProperty, Object value) {
         switch (actorProperty.getPropertyName()) {
-            case "owner":
-                this.owner = (PlayerActor) value;
+            case "ownerPlayer":
+                this.ownerPlayer = (DomainObject) value;
+                return;
         }
         super.setPropertyValue(actorProperty, value);
     }
+
 }
