@@ -25,8 +25,12 @@ public class VisuaLigue {
         return sport;
     }
     
-    
-    
+    public List<Sport> getListeSports() {
+        
+        return sports;
+        
+    }
+
     public void save() {
 
     }
