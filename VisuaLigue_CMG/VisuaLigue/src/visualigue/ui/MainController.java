@@ -50,7 +50,7 @@ public class MainController implements Initializable {
         viewFlowController.init();
     } 
     
-    public void initScreen(Object object){};
+    public void initScreen(Object[] object){};
     
     @FXML
     protected void onJeuxMenuItemClicked(MouseEvent e) throws IOException {

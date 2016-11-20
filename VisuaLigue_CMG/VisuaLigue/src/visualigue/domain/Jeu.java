@@ -13,7 +13,7 @@ import java.util.List;
  * @author maxime
  */
 public class Jeu {
-    private String name = "defaut Strat";
+    private String name = "Default Strat";
     private Sport sport;
     private List<PlayFrame> playFrames= new ArrayList();
     

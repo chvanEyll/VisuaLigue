@@ -5,7 +5,6 @@
  */
 package visualigue.domain;
 
-
 public class Obstacle {
     private String name;
     private String builtInImagePathName = "";

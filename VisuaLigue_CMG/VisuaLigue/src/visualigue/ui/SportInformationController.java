@@ -45,6 +45,8 @@ public class SportInformationController extends ViewFlowController {
     @FXML private ImageView myImageView;
     VisuaLigue visualigue = VisuaLigue.getInstance();
     
+    private String returnScreen = "sportManagement";
+    private String returnScreenRessourceName = "sport-management.fxml";
    
     /**
      * Initializes the controller class.
@@ -59,14 +61,13 @@ public class SportInformationController extends ViewFlowController {
         widthSpinner.setValueFactory(spinnerValueFactory2);
     }    
     
-   public void initScreen(Object sportName) {
-        sportNameField.setText((String)sportName);
+   @Override
+   public void initScreen(Object[] object) {
+        sportNameField.setText((String) object[0]);
+        returnScreen = (String) object[1];
+        returnScreenRessourceName = (String) object[2];
     }
-   
-   public void setInfo(Sport sport) {
-        sportNameField.setText(sport.getName());
-    }   
-   
+      
    @FXML
     protected void onImageSelectClicked(MouseEvent e) throws IOException {
     
@@ -97,9 +98,9 @@ public class SportInformationController extends ViewFlowController {
                 (Double) lengthSpinner.getValue(), 
                 (Double)widthSpinner.getValue(), "meters");
         
-        if(loadScreen("sportManagement", "sport-management.fxml"))
+        if(loadScreen(returnScreen, returnScreenRessourceName))
         {
-            setScreen("sportManagement");
+            setScreen(returnScreen);
         }
     }
 }

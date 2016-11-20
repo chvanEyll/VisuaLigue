@@ -7,6 +7,7 @@ package visualigue.ui;
 
 import java.io.IOException;
 import java.net.URL;
+import java.util.Iterator;
 import java.util.ResourceBundle;
 import java.util.prefs.Preferences;
 import javafx.beans.property.SimpleStringProperty;
@@ -40,36 +41,23 @@ public class JeuxManagementController extends ViewFlowController {
     
     @Override
     public void initialize(URL url, ResourceBundle rb) {
-       /* List<Sport> sports = visualigue.getListeSports();
+        Iterator iterator_jeux = visualigue.getListeJeux();
         
-        for (int i=0;i<sports.size();i++) {
-            Label label = new Label(sports.get(i).getName());
+        int flag = 0;
+        while(iterator_jeux.hasNext()){
+            Label label = new Label(iterator_jeux.next().toString());
             HBox hbox = new HBox(label);
-            //SportsList.getChildren().add(label);
-            SportsList.add(hbox, 0, i);
-        }*/
+            JeuxList.add(hbox, 0, flag);
+            flag++;
+        }
     }   
- 
  
     @FXML
     protected void onNewJeuButtonClicked(MouseEvent e) throws IOException {
-        
-    /*    URL location = getClass().getResource("sport-information.fxml");
-        FXMLLoader fxmlLoader = new FXMLLoader(location);
-
-        Node node = fxmlLoader.load();
-        rootNode.getChildren().setAll(node);
-        
-        Sport sport = new Sport("Nouveau Sport");
-        sportInformationController.init(sport);
-    */
-    
         String newName = visualigue.getDefaultSportName();
         if (loadScreen("selectionPourJeu", "selection_sport_pour_jeu.fxml"))
         {
             setScreen("selectionPourJeu");
         }    
-    
-    
     }
 }

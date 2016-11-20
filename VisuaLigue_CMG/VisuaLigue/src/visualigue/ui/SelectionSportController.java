@@ -5,7 +5,8 @@
  */
 package visualigue.ui;
 
-import ca.ulaval.glo2004.visualigue.utils.EventHandler;
+import javafx.event.ActionEvent;
+import javafx.event.EventHandler;
 import java.io.IOException;
 import java.net.URL;
 import java.util.Iterator;
@@ -22,10 +23,13 @@ import visualigue.domain.Sport;
 import visualigue.domain.VisuaLigue;
 import javafx.scene.layout.GridPane;
 import java.util.List;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javafx.event.ActionEvent;
 import javafx.scene.control.Label;
 import javafx.scene.layout.HBox;
 import javafx.scene.control.Button;
+import static javafx.scene.input.MouseEvent.MOUSE_CLICKED;
 
 /**
  * FXML Controller class
@@ -39,6 +43,9 @@ public class SelectionSportController extends ViewFlowController {
     //@FXML private SportInformationController sportInformationController;
     @FXML private GridPane SportsList;
     private VisuaLigue visualigue = VisuaLigue.getInstance();
+    private String myName = "selectionPourJeu";
+    private String myRessourceName = "selection_sport_pour_jeu.fxml";
+    
     
     ScreensController myController;
     
@@ -50,34 +57,31 @@ public class SelectionSportController extends ViewFlowController {
         while(iterator.hasNext()) {
             String nom_sport=iterator.next().toString();
             Button button = new Button(nom_sport);
-            /*
-            //
-            button.setOnMouseClicked(onNewSportButtonForJeuxClicked(MouseEvent));/*new EventHandler<ActionEvent>() {
-                
-                @Override public void handle(ActionEvent e) {
+            MouseEvent mouseEvent = null;
 
-                    if (loadScreenWithInfo("strategyEditor", "strategyEditor.fxml", nom_sport))
-                    {
-                        setScreen("strategyEditor");
-                    }   
+            button.setOnMouseClicked(e -> {
+                try {
+                    onSportClicked(e, nom_sport);
+                } catch (IOException ex) {
+                    Logger.getLogger(SelectionSportController.class.getName()).log(Level.SEVERE, null, ex);
                 }
-            });*/
-            
+            });
+
             HBox hbox = new HBox(button);
             SportsList.add(hbox, 0, flag++);
         }
     }   
  
-    /*@FXML
-    protected void onSportClicked(MouseEvent e, nom_sport) throws IOException {
-        
-        if (loadScreenWithInfo("strategyEditor", "strategyEditor.fxml", nom_sport))
-                    {
-                        setScreen("strategyEditor");
-                    }   
-        
-    }*/
- 
+    @FXML
+    protected void onSportClicked(MouseEvent t, String e) throws IOException {
+       
+        String[] to_send = {e};
+        if (loadScreenWithInfo("strategyEditor", "strategyEditor.fxml", to_send))
+        {
+            setScreen("strategyEditor");
+        }   
+    }
+    
     @FXML
     protected void onNewSportButtonForJeuxClicked(MouseEvent e) throws IOException {
         
@@ -91,7 +95,7 @@ public class SelectionSportController extends ViewFlowController {
         sportInformationController.init(sport);
     */
     
-        String newName = visualigue.getDefaultSportName();
+        String[] newName = {visualigue.getDefaultSportName(), myName, myRessourceName};
         if (loadScreenWithInfo("sportInformation", "sport-information.fxml", newName))
         {
             setScreen("sportInformation");

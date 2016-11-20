@@ -26,7 +26,8 @@ public class ViewFlowController extends MainController {
     @FXML private StackPane rootNode;
     
     private Node nextScreen;
-    private String myName;
+    protected String myName;
+    protected String myRessourceName;
         
    public void init() {
         loadScreen("sportManagement", "sport-management.fxml");
@@ -58,7 +59,7 @@ public class ViewFlowController extends MainController {
     }        
    }
     
-    public boolean loadScreenWithInfo(String name, String resource, Object object) {
+    public boolean loadScreenWithInfo(String name, String resource, Object[] object) {
      try { 
         URL location = getClass().getResource(resource);
         FXMLLoader fxmlLoader = new FXMLLoader(location);

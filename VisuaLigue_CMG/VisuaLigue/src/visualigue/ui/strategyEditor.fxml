@@ -12,10 +12,10 @@
    <children>
       <HBox prefHeight="100.0" prefWidth="200.0">
          <children>
-            <Label fx:id="jeuName" prefHeight="16.0" prefWidth="99.0" />
+            <Label fx:id="jeuName" alignment="TOP_CENTER" prefHeight="26.0" prefWidth="602.0" textAlignment="CENTER" />
          </children>
       </HBox>
-      <HBox alignment="TOP_CENTER" maxHeight="-Infinity" minHeight="-Infinity" prefHeight="26.0" prefWidth="600.0" translateY="-170.0">
+      <HBox alignment="TOP_CENTER" maxHeight="-Infinity" minHeight="-Infinity" prefHeight="26.0" prefWidth="600.0" translateY="-160.0">
          <children>
             <Button alignment="TOP_LEFT" mnemonicParsing="false" prefHeight="26.0" prefWidth="154.0" text="Sauvegarder" textAlignment="CENTER" />
             <Button mnemonicParsing="false" prefHeight="26.0" prefWidth="148.0" text="Supprimer" />
@@ -29,9 +29,9 @@
             <VBox alignment="TOP_CENTER" prefHeight="259.0" prefWidth="142.0">
                <children>
                   <Label prefHeight="24.0" prefWidth="100.0" text="Ajouter:" textAlignment="CENTER" />
-                  <Button onMouseClicked="addJoueur" mnemonicParsing="false" prefHeight="26.0" prefWidth="136.0" text="Joueur" />
-                  <Button onMouseClicked="addAdversaire" mnemonicParsing="false" prefHeight="26.0" prefWidth="136.0" text="Adversaire" />
-                  <Button onMouseClicked="addObstacle" mnemonicParsing="false" prefHeight="26.0" prefWidth="136.0" text="Obstacle" />
+                  <Button mnemonicParsing="false" onMouseClicked="#addJoueur" prefHeight="26.0" prefWidth="136.0" text="Joueur" />
+                  <Button mnemonicParsing="false" onMouseClicked="#addAdversaire" prefHeight="26.0" prefWidth="136.0" text="Adversaire" />
+                  <Button mnemonicParsing="false" onMouseClicked="#addObstacle" prefHeight="26.0" prefWidth="136.0" text="Obstacle" />
                </children>
             </VBox>
          </children>
@@ -49,6 +49,7 @@
          <children>
             <Label prefHeight="27.0" prefWidth="72.0" text="Frame:" />
             <ComboBox fx:id="frameSelector" prefHeight="26.0" prefWidth="91.0" />
+            <Button mnemonicParsing="false" text="+" />
          </children>
       </HBox>
    </children>
