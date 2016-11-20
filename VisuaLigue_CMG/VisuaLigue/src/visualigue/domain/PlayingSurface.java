@@ -16,7 +16,7 @@ public class PlayingSurface {
     //private PlayingSurfaceUnit units = PlayingSurfaceUnit.METER;
     private String units;
     private String customImageUUID;
-    private String builtInImagePathName = "";
+    private String builtInImagePathName = System.getProperty("user.dir")+"/src/image/soccer-field.jpg";
 
     public PlayingSurface() {
         //Required for JAXB instanciation.

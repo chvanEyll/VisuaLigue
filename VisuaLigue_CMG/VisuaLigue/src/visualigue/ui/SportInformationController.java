@@ -48,6 +48,7 @@ public class SportInformationController extends ViewFlowController {
     private String returnScreen = "sportManagement";
     private String returnScreenRessourceName = "sport-management.fxml";
     private String returnVar;
+    private File fileField = null;
     
     /**
      * Initializes the controller class.
@@ -84,10 +85,10 @@ public class SportInformationController extends ViewFlowController {
             fileChooser.getExtensionFilters().addAll(extFilterJPG);
               
             //Show open file dialog
-            File file = fileChooser.showOpenDialog(null);
+            fileField = fileChooser.showOpenDialog(null);
                        
             try {
-                BufferedImage bufferedImage = ImageIO.read(file);
+                BufferedImage bufferedImage = ImageIO.read(fileField);
                 Image image = SwingFXUtils.toFXImage(bufferedImage, null);
                 myImageView.setImage(image);
             } catch (IOException ex) {
@@ -102,6 +103,10 @@ public class SportInformationController extends ViewFlowController {
         visualigue.createSport(sportNameField.getText(), 
                 (Double) lengthSpinner.getValue(), 
                 (Double)widthSpinner.getValue(), "meters");
+        if(fileField != null)
+        {
+            visualigue.setSportImagePath(sportNameField.getText(), fileField.getPath());
+        }
         String[] to_send = {returnVar};
         if(loadScreenWithInfo(returnScreen, returnScreenRessourceName, to_send))
         {

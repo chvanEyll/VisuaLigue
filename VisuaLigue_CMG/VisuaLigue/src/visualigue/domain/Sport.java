@@ -7,6 +7,7 @@ public class Sport {
 
     private String name;
     private Boolean isBuiltIn = false;
+    private Ball ball = new Ball();
     private PlayingSurface playingSurface;
     //@XmlJavaTypeAdapter(XmlPlayerCategoryRefAdapter.class)
     private Set<String> teams = new HashSet();
@@ -15,24 +16,24 @@ public class Sport {
         this.name = name;
     }
     
-   public String getName() {
-        return name;
+    public String getName() {
+        return this.name;
     }
 
     public void setName(String name) {
         this.name = name;
     }
 
-    public Boolean isBuiltIn() {
-        return isBuiltIn;
+    public Ball getBall() {
+        return this.ball;
     }
 
-    public void setIsBuiltIn(Boolean isBuiltIn) {
-        this.isBuiltIn = isBuiltIn;
+    public void setBall(Ball ball) {
+        this.ball = ball;
     }
-
+    
     public PlayingSurface getPlayingSurface() {
-        return playingSurface;
+        return this.playingSurface;
     }
 
     public void setPlayingSurface(PlayingSurface playingSurface) {
@@ -40,7 +41,7 @@ public class Sport {
     }
 
     public Set<String> getPlayerCategories() {
-        return teams;
+        return this.teams;
     }
 
     public void addPlayerCategory(String team) {
@@ -49,6 +50,14 @@ public class Sport {
 
     public void removePlayerCategory(String team) {
         teams.remove(team);
+    }
+
+    public Boolean isBuiltIn() {
+        return isBuiltIn;
+    }
+
+    public void setIsBuiltIn(Boolean isBuiltIn) {
+        this.isBuiltIn = isBuiltIn;
     }
 
 }
