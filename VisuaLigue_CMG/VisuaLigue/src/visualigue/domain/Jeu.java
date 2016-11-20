@@ -23,5 +23,4 @@ public class Jeu {
         this.sport = sport;
     }
     
-    
 }
