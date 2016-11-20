@@ -33,7 +33,7 @@ public class VisuaLigue {
 
     public String getDefaultSportName()
     {
-        return "Nouveau Sport";
+        return "Nouveau Sport2.0";
     }
     
     public Double getDefaultSportLongueur()

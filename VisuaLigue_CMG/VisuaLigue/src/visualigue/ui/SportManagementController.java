@@ -34,6 +34,7 @@ public class SportManagementController extends ViewFlowController {
     @FXML private SportInformationController sportInformationController;
     @FXML private GridPane SportsList;
     private VisuaLigue visualigue = VisuaLigue.getInstance();
+    private String myName = "sportManagement";
     
     ScreensController myController;
     

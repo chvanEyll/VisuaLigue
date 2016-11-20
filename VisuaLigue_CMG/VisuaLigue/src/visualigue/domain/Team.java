@@ -10,5 +10,23 @@ package visualigue.domain;
  * @author maxime
  */
 public class Team {
+    String name = "Équipe non définie";
+  
+    public Team()
+    { }
     
+    public Team(String name)
+    {
+        this.name = name;
+    }
+    
+    public String getName()
+    {
+        return this.name;
+    }
+    
+    public void setName(String name)
+    {
+        this.name = name;
+    }
 }

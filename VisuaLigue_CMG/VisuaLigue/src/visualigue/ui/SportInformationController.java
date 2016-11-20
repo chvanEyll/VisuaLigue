@@ -35,7 +35,7 @@ import visualigue.domain.VisuaLigue;
  *
  * @author Guillaume
  */
-public class SportInformationController extends MainController {
+public class SportInformationController extends ViewFlowController {
     
     @FXML private TextField sportNameField;
     @FXML private Spinner widthSpinner;
@@ -59,13 +59,10 @@ public class SportInformationController extends MainController {
         widthSpinner.setValueFactory(spinnerValueFactory2);
     }    
     
-   public void init(String sportName) {
-        sportNameField.setText(sportName);
+   public void initScreen(Object sportName) {
+        sportNameField.setText((String)sportName);
     }
    
-    public void initScreen(Object sport){ 
-       //sportNameField.setText(sport.getName()); 
-    } 
    public void setInfo(Sport sport) {
         sportNameField.setText(sport.getName());
     }   
@@ -99,6 +96,10 @@ public class SportInformationController extends MainController {
         visualigue.createSport(sportNameField.getText(), 
                 (Double) lengthSpinner.getValue(), 
                 (Double)widthSpinner.getValue(), "meters");
-       //setSportsView();
+        
+        if(loadScreen("sportManagement", "sport-management.fxml"))
+        {
+            setScreen("sportManagement");
         }
+    }
 }
