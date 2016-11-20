@@ -31,6 +31,12 @@ public class VisuaLigue {
         return sports.keySet().iterator();
     }
 
+    public void setSportImagePath(String sportName, String imagePath)
+    {
+        sports.get(sportName).getPlayingSurface().setBuiltInImagePathName(imagePath);
+        
+    }
+    
     public String getDefaultSportName()
     {
         return "Nouveau Sport2.0";
@@ -56,6 +62,12 @@ public class VisuaLigue {
     {
         return jeux.get(nomJeu).getSport().getName();
     }
+    
+    public String getPlayingSurfaceImagePath(String nomSport)
+    {
+        return sports.get(nomSport).getPlayingSurface().getBuiltInImagePathName();
+    }
+    
     
     public void createJeux(String jeuName,String sportName)
     {

@@ -25,7 +25,7 @@
       </HBox>
       <HBox maxHeight="-Infinity" minHeight="-Infinity" prefHeight="259.0" prefWidth="600.0" scaleShape="false">
          <children>
-            <ImageView fitHeight="257.0" fitWidth="463.0" pickOnBounds="true" preserveRatio="true" />
+            <ImageView fx:id="field" fitHeight="257.0" fitWidth="463.0" pickOnBounds="true" preserveRatio="true" />
             <VBox alignment="TOP_CENTER" prefHeight="259.0" prefWidth="142.0">
                <children>
                   <Label prefHeight="24.0" prefWidth="100.0" text="Ajouter:" textAlignment="CENTER" />
