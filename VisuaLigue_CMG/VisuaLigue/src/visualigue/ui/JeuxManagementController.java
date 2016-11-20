@@ -21,6 +21,9 @@ import visualigue.domain.Sport;
 import visualigue.domain.VisuaLigue;
 import javafx.scene.layout.GridPane;
 import java.util.List;
+import java.util.logging.Level;
+import java.util.logging.Logger;
+import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.layout.HBox;
 
@@ -37,25 +40,57 @@ public class JeuxManagementController extends ViewFlowController {
     @FXML private GridPane JeuxList;
     private VisuaLigue visualigue = VisuaLigue.getInstance();
     
-    ScreensController myController;
     
     @Override
     public void initialize(URL url, ResourceBundle rb) {
         Iterator iterator_jeux = visualigue.getListeJeux();
         
         int flag = 0;
-        while(iterator_jeux.hasNext()){
-            Label label = new Label(iterator_jeux.next().toString());
-            HBox hbox = new HBox(label);
-            JeuxList.add(hbox, 0, flag);
-            flag++;
+        while(iterator_jeux.hasNext())
+        {
+            String nom_sport=iterator_jeux.next().toString();
+            Button button = new Button(nom_sport);
+        
+            button.setOnMouseClicked(e -> {
+            try {
+                onJeuClicked(e, nom_sport);
+            } catch (IOException ex) {
+                Logger.getLogger(SelectionSportController.class.getName()).log(Level.SEVERE, null, ex);
+            }
+        });
+            HBox hbox = new HBox(button);
+            JeuxList.add(hbox, 0, flag++);
         }
     }   
  
     @FXML
+    protected void onJeuClicked(MouseEvent t, String e) throws IOException {
+        if(visualigue.hasJeuASport(e))
+        {
+            String[] to_send = {e};
+            if (loadScreenWithInfo("strategyEditor", "strategyEditor.fxml", to_send))
+            {
+                setScreen("strategyEditor");
+            }   
+        }
+        else
+        {
+            String[] to_send = {e};
+            if (loadScreenWithInfo("selectionPourJeu", "selection_sport_pour_jeu.fxml"
+                , to_send))
+            {
+                setScreen("selectionPourJeu");
+            }
+        }
+    }
+    
+    @FXML
     protected void onNewJeuButtonClicked(MouseEvent e) throws IOException {
-        String newName = visualigue.getDefaultSportName();
-        if (loadScreen("selectionPourJeu", "selection_sport_pour_jeu.fxml"))
+        //TODO THJISD
+        String[] to_send = {visualigue.getDefaultJeuxName()};
+        visualigue.createJeux(visualigue.getDefaultJeuxName());
+        if (loadScreenWithInfo("selectionPourJeu", "selection_sport_pour_jeu.fxml"
+                , to_send))
         {
             setScreen("selectionPourJeu");
         }    

@@ -14,8 +14,13 @@ import java.util.List;
  */
 public class Jeu {
     private String name = "defaut Strat";
-    private Sport sport;
+    private Sport sport = null;
     private List<PlayFrame> playFrames= new ArrayList();
+    
+    public Jeu(String name)
+    {
+        this.name = name;
+    }
     
     public Jeu(String name, Sport sport)
     {
@@ -23,5 +28,8 @@ public class Jeu {
         this.sport = sport;
     }
     
-    
+    public boolean hasSportAssociated()
+    {
+        return sport != null;
+    }
 }

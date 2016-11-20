@@ -63,9 +63,9 @@ public class SportInformationController extends ViewFlowController {
     
    @Override
    public void initScreen(Object[] object) {
-        sportNameField.setText((String) object[0]);
-        returnScreen = (String) object[1];
-        returnScreenRessourceName = (String) object[2];
+        sportNameField.setText(visualigue.getDefaultSportName());
+        returnScreen = (String) object[0];
+        returnScreenRessourceName = (String) object[1];
     }
       
    @FXML

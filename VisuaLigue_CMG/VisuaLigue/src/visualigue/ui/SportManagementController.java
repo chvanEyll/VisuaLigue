@@ -35,15 +35,14 @@ public class SportManagementController extends ViewFlowController {
     @FXML private SportInformationController sportInformationController;
     @FXML private GridPane SportsList;
     private VisuaLigue visualigue = VisuaLigue.getInstance();
-    
-    ScreensController myController;
+        
+    private String myName = "sportManagement";
+    private String myRessourceName = "sport-management.fxml";
+
     
     @Override
     public void initialize(URL url, ResourceBundle rb) {
-        
-        myName = "sportManagement";
-        myRessourceName = "sport-management.fxml";
-        
+                
         Iterator iterator_sport = visualigue.getListeSports();
         
         int flag = 0;
@@ -59,18 +58,8 @@ public class SportManagementController extends ViewFlowController {
     @FXML
     protected void onNewSportButtonClicked(MouseEvent e) throws IOException {
         
-    /*    URL location = getClass().getResource("sport-information.fxml");
-        FXMLLoader fxmlLoader = new FXMLLoader(location);
-
-        Node node = fxmlLoader.load();
-        rootNode.getChildren().setAll(node);
-        
-        Sport sport = new Sport("Nouveau Sport");
-        sportInformationController.init(sport);
-    */
     
-        String newName = visualigue.getDefaultSportName();
-        String[] to_send = {newName, myName, myRessourceName};
+        String[] to_send = {myName, myRessourceName};
         if (loadScreenWithInfo("sportInformation", "sport-information.fxml", to_send))
         {
             setScreen("sportInformation");
