@@ -36,6 +36,9 @@ public class SelectionSportController extends ViewFlowController {
     //@FXML private SportInformationController sportInformationController;
     @FXML private GridPane JeuxList;
     private VisuaLigue visualigue = VisuaLigue.getInstance();
+    private String myName = "selectionPourJeu";
+    private String myRessourceName = "selection_sport_pour_jeu.fxml";
+    
     
     ScreensController myController;
     
@@ -65,7 +68,7 @@ public class SelectionSportController extends ViewFlowController {
         sportInformationController.init(sport);
     */
     
-        String newName = visualigue.getDefaultSportName();
+        String[] newName = {visualigue.getDefaultSportName(), myName, myRessourceName};
         if (loadScreenWithInfo("sportInformation", "sport-information.fxml", newName))
         {
             setScreen("sportInformation");

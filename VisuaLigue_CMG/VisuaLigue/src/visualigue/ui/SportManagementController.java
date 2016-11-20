@@ -35,12 +35,14 @@ public class SportManagementController extends ViewFlowController {
     @FXML private SportInformationController sportInformationController;
     @FXML private GridPane SportsList;
     private VisuaLigue visualigue = VisuaLigue.getInstance();
-    private String myName = "sportManagement";
     
     ScreensController myController;
     
     @Override
     public void initialize(URL url, ResourceBundle rb) {
+        
+        myName = "sportManagement";
+        myRessourceName = "sport-management.fxml";
         
         Iterator iterator_sport = visualigue.getListeSports();
         
@@ -68,7 +70,8 @@ public class SportManagementController extends ViewFlowController {
     */
     
         String newName = visualigue.getDefaultSportName();
-        if (loadScreenWithInfo("sportInformation", "sport-information.fxml", newName))
+        String[] to_send = {newName, myName, myRessourceName};
+        if (loadScreenWithInfo("sportInformation", "sport-information.fxml", to_send))
         {
             setScreen("sportInformation");
         }     
