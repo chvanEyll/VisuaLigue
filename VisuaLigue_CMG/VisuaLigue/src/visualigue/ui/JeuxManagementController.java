@@ -7,7 +7,6 @@ package visualigue.ui;
 
 import java.io.IOException;
 import java.net.URL;
-import java.util.Iterator;
 import java.util.ResourceBundle;
 import java.util.prefs.Preferences;
 import javafx.beans.property.SimpleStringProperty;
@@ -27,35 +26,33 @@ import javafx.scene.layout.HBox;
 /**
  * FXML Controller class
  *
- * @author Guillaume
+ * @author CH
  */
-public class SportManagementController extends ViewFlowController {
+public class JeuxManagementController extends ViewFlowController {
+
     
     @FXML private StackPane rootNode;
-    @FXML private SportInformationController sportInformationController;
-    @FXML private GridPane SportsList;
+    //@FXML private SportInformationController sportInformationController;
+    @FXML private GridPane JeuxList;
     private VisuaLigue visualigue = VisuaLigue.getInstance();
-    private String myName = "sportManagement";
     
     ScreensController myController;
     
     @Override
     public void initialize(URL url, ResourceBundle rb) {
+       /* List<Sport> sports = visualigue.getListeSports();
         
-        Iterator iterator_sport = visualigue.getListeSports();
-        
-        int flag = 0;
-        while(iterator_sport.hasNext()){
-            Label label = new Label(iterator_sport.next().toString());
+        for (int i=0;i<sports.size();i++) {
+            Label label = new Label(sports.get(i).getName());
             HBox hbox = new HBox(label);
-            SportsList.add(hbox, 0, flag);
-            flag++;
-        }
+            //SportsList.getChildren().add(label);
+            SportsList.add(hbox, 0, i);
+        }*/
     }   
  
  
     @FXML
-    protected void onNewSportButtonClicked(MouseEvent e) throws IOException {
+    protected void onNewJeuButtonClicked(MouseEvent e) throws IOException {
         
     /*    URL location = getClass().getResource("sport-information.fxml");
         FXMLLoader fxmlLoader = new FXMLLoader(location);
@@ -66,11 +63,13 @@ public class SportManagementController extends ViewFlowController {
         Sport sport = new Sport("Nouveau Sport");
         sportInformationController.init(sport);
     */
-    
+    /*
         String newName = visualigue.getDefaultSportName();
         if (loadScreenWithInfo("sportInformation", "sport-information.fxml", newName))
         {
             setScreen("sportInformation");
-        }     
+        }     */
+    
+    setScreen("selectionPourJeu");
     }
 }

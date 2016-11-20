@@ -31,9 +31,11 @@ public class ViewFlowController extends MainController {
    public void init() {
         loadScreen("sportManagement", "sport-management.fxml");
         loadScreen("sportInformation", "sport-information.fxml");
+        loadScreen("jeuxManagement", "jeux-management.fxml");
+        loadScreen("selectionPourJeu", "selection_sport_pour_jeu.fxml");
+        //setScreen("jeuxManagement");
         setScreen("sportManagement");
     }      
-
     
     public void addScreen(String name, Node screen) { 
        screens.put(name, screen); 
