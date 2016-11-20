@@ -28,6 +28,11 @@ public class Jeu {
         this.sport = sport;
     }
     
+    public Sport getSport()
+    {
+        return this.sport;
+    }
+    
     public boolean hasSportAssociated()
     {
         return sport != null;

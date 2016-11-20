@@ -52,6 +52,11 @@ public class VisuaLigue {
         return defaultSurfaceUnit;
     }
     
+    public String getSportNameFromJeu(String nomJeu)
+    {
+        return jeux.get(nomJeu).getSport().getName();
+    }
+    
     public void createJeux(String jeuName,String sportName)
     {
         Sport sport = sports.get(sportName);

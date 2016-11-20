@@ -48,12 +48,12 @@ public class JeuxManagementController extends ViewFlowController {
         int flag = 0;
         while(iterator_jeux.hasNext())
         {
-            String nom_sport=iterator_jeux.next().toString();
-            Button button = new Button(nom_sport);
+            String nom_jeu=iterator_jeux.next().toString();
+            Button button = new Button(nom_jeu);
         
             button.setOnMouseClicked(e -> {
             try {
-                onJeuClicked(e, nom_sport);
+                onJeuClicked(e, nom_jeu);
             } catch (IOException ex) {
                 Logger.getLogger(SelectionSportController.class.getName()).log(Level.SEVERE, null, ex);
             }
@@ -64,10 +64,10 @@ public class JeuxManagementController extends ViewFlowController {
     }   
  
     @FXML
-    protected void onJeuClicked(MouseEvent t, String e) throws IOException {
-        if(visualigue.hasJeuASport(e))
+    protected void onJeuClicked(MouseEvent e, String nom_jeu) throws IOException {
+        if(visualigue.hasJeuASport(nom_jeu))
         {
-            String[] to_send = {e};
+            String[] to_send = {nom_jeu, visualigue.getSportNameFromJeu(nom_jeu)};
             if (loadScreenWithInfo("strategyEditor", "strategyEditor.fxml", to_send))
             {
                 setScreen("strategyEditor");
@@ -75,7 +75,7 @@ public class JeuxManagementController extends ViewFlowController {
         }
         else
         {
-            String[] to_send = {e};
+            String[] to_send = {nom_jeu};
             if (loadScreenWithInfo("selectionPourJeu", "selection_sport_pour_jeu.fxml"
                 , to_send))
             {

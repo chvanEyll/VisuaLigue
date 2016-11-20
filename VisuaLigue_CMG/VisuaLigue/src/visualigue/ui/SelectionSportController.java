@@ -77,9 +77,9 @@ public class SelectionSportController extends ViewFlowController {
     }
     
     @FXML
-    protected void onSportClicked(MouseEvent t, String e) throws IOException {
+    protected void onSportClicked(MouseEvent t, String nom_sport) throws IOException {
        
-        String[] to_send = {to_move_foward, e};
+        String[] to_send = {to_move_foward, nom_sport};
         if (loadScreenWithInfo("strategyEditor", "strategyEditor.fxml", to_send))
         {
             setScreen("strategyEditor");
@@ -88,7 +88,7 @@ public class SelectionSportController extends ViewFlowController {
     
     @FXML
     protected void onNewSportButtonForJeuxClicked(MouseEvent e) throws IOException {
-        String[] newName = {myName, myRessourceName};
+        String[] newName = {myName, myRessourceName, to_move_foward};
         if (loadScreenWithInfo("sportInformation", "sport-information.fxml", newName))
         {
             setScreen("sportInformation");

@@ -57,8 +57,7 @@ public class SportManagementController extends ViewFlowController {
  
     @FXML
     protected void onNewSportButtonClicked(MouseEvent e) throws IOException {
-        
-    
+            
         String[] to_send = {myName, myRessourceName};
         if (loadScreenWithInfo("sportInformation", "sport-information.fxml", to_send))
         {

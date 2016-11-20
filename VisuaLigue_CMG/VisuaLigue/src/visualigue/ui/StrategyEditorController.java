@@ -36,9 +36,9 @@ public class StrategyEditorController extends ViewFlowController  {
     }    
     
     @Override
-     public void initScreen(Object[] sportName) {
-        visualigue.createJeux((String)sportName[0], (String)sportName[1]);
-        frameSelector.getItems().addAll((String)sportName[0], (String)sportName[1]);
+     public void initScreen(Object[] name_of_thing) {
+        visualigue.createJeux((String)name_of_thing[0], (String)name_of_thing[1]);
+        frameSelector.getItems().addAll((String)name_of_thing[0], (String)name_of_thing[1]);
     }
      
      @FXML
