@@ -5,11 +5,14 @@
  */
 package visualigue.ui;
 
+import java.io.IOException;
 import java.net.URL;
 import java.util.ResourceBundle;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.Label;
+import javafx.scene.control.ComboBox;
+import javafx.scene.input.MouseEvent;
 
 /**
  * FXML Controller class
@@ -18,7 +21,9 @@ import javafx.scene.control.Label;
  */
 public class StrategyEditorController extends ViewFlowController  {
 
+
     @FXML private Label jeuName;
+    @FXML private ComboBox frameSelector;
     /**
      * Initializes the controller class.
      */
@@ -29,6 +34,21 @@ public class StrategyEditorController extends ViewFlowController  {
     
      public void initScreen(Object sportName) {
         jeuName.setText((String)sportName);
+    }
+     
+     @FXML
+    protected void addJoueur(MouseEvent e) throws IOException {
+        
+    }
+    
+    @FXML
+    protected void addAdversaire(MouseEvent e) throws IOException {
+        
+    }
+    
+    @FXML
+    protected void addObstacle(MouseEvent e) throws IOException {
+        
     }
     
 }

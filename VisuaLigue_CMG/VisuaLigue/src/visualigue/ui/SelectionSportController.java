@@ -59,7 +59,7 @@ public class SelectionSportController extends ViewFlowController {
             Button button = new Button(nom_sport);
             MouseEvent mouseEvent = null;
             
-            //
+
             button.setOnMouseClicked(e -> {
                 try {
                     onSportClicked(e, nom_sport);
