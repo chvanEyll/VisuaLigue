@@ -89,12 +89,20 @@ public class JeuxManagementController extends ViewFlowController {
     @FXML
     protected void onNewJeuButtonClicked(MouseEvent e) throws IOException {
         //TODO THJISD
-        String[] to_send = {newJeuName.getText()};
-        visualigue.createJeux(newJeuName.getText());
-        if (loadScreenWithInfo("selectionPourJeu", "selection_sport_pour_jeu.fxml"
-                , to_send))
+        String jeuName = newJeuName.getText();
+        if(!jeuName.equals(""))
+            {
+            String[] to_send = {jeuName};
+            visualigue.createJeux(jeuName);
+            if (loadScreenWithInfo("selectionPourJeu", "selection_sport_pour_jeu.fxml"
+                    , to_send))
+            {
+                setScreen("selectionPourJeu");
+            }   
+        }
+        else
         {
-            setScreen("selectionPourJeu");
-        }    
+            //add some flashign or something
+        }
     }
 }
