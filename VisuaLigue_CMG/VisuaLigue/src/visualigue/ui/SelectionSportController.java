@@ -50,8 +50,7 @@ public class SelectionSportController extends ViewFlowController {
         while(iterator.hasNext()) {
             String nom_sport=iterator.next().toString();
             Button button = new Button(nom_sport);
-            MouseEvent MouseEvent = null;
-            
+            /*
             //
             button.setOnMouseClicked(onNewSportButtonForJeuxClicked(MouseEvent));/*new EventHandler<ActionEvent>() {
                 
@@ -69,6 +68,15 @@ public class SelectionSportController extends ViewFlowController {
         }
     }   
  
+    /*@FXML
+    protected void onSportClicked(MouseEvent e, nom_sport) throws IOException {
+        
+        if (loadScreenWithInfo("strategyEditor", "strategyEditor.fxml", nom_sport))
+                    {
+                        setScreen("strategyEditor");
+                    }   
+        
+    }*/
  
     @FXML
     protected void onNewSportButtonForJeuxClicked(MouseEvent e) throws IOException {
