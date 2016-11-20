@@ -63,13 +63,13 @@ public class JeuxManagementController extends ViewFlowController {
         Sport sport = new Sport("Nouveau Sport");
         sportInformationController.init(sport);
     */
-    /*
-        String newName = visualigue.getDefaultSportName();
-        if (loadScreenWithInfo("sportInformation", "sport-information.fxml", newName))
-        {
-            setScreen("sportInformation");
-        }     */
     
-    setScreen("selectionPourJeu");
+        String newName = visualigue.getDefaultSportName();
+        if (loadScreen("selectionPourJeu", "selection_sport_pour_jeu.fxml"))
+        {
+            setScreen("selectionPourJeu");
+        }    
+    
+    
     }
 }
