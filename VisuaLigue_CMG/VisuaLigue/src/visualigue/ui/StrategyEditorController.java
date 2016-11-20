@@ -20,8 +20,9 @@ import visualigue.domain.VisuaLigue;
  *
  * @author grasshop
  */
+import javafx.fxml.FXML;
+import javafx.scene.input.MouseEvent;
 public class StrategyEditorController extends ViewFlowController  {
-
 
     @FXML private Label jeuName;
     @FXML private ComboBox frameSelector;
@@ -39,11 +40,18 @@ public class StrategyEditorController extends ViewFlowController  {
      public void initScreen(Object[] name_of_thing) {
         visualigue.createJeux((String)name_of_thing[0], (String)name_of_thing[1]);
         frameSelector.getItems().addAll((String)name_of_thing[0], (String)name_of_thing[1]);
+        jeuName.setText((String)name_of_thing[0]);
+    }
+     
+    private int frameEnCours() {
+        return 1;
     }
      
      @FXML
     protected void addJoueur(MouseEvent e) throws IOException {
-        
+        //ajouter un joueur a la frame en cours
+        int frameEnCours = frameEnCours();
+        //jeu.get(frameEnCours);
     }
     
     @FXML
@@ -56,4 +64,10 @@ public class StrategyEditorController extends ViewFlowController  {
         
     }
     
+    private void redraw() {
+        //prendre dictionnaires de joueurs avec leurs vecteurs
+        //iterer dessus
+            //generer un dessin aux coordonnees
+        
+    }
 }

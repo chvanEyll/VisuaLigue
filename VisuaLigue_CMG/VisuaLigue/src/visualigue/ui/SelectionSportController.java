@@ -56,7 +56,6 @@ public class SelectionSportController extends ViewFlowController {
             String nom_sport=iterator.next().toString();
             Button button = new Button(nom_sport);
             MouseEvent mouseEvent = null;
-            
 
             button.setOnMouseClicked(e -> {
                 try {
