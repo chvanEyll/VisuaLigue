@@ -52,16 +52,39 @@ public class VisuaLigue {
         return defaultSurfaceUnit;
     }
     
+    public String getSportNameFromJeu(String nomJeu)
+    {
+        return jeux.get(nomJeu).getSport().getName();
+    }
+    
     public void createJeux(String jeuName,String sportName)
     {
         Sport sport = sports.get(sportName);
         Jeu jeu = new Jeu(jeuName, sport);
         jeux.put(jeuName, jeu);
     }
+    
+    public void createJeux(String jeuName)
+    {
+        Jeu jeu = new Jeu(jeuName);
+        jeux.put(jeuName, jeu);
+    }
 
     public Iterator getListeJeux() {
         return jeux.keySet().iterator();
     }
+
+    public String getDefaultJeuxName()
+    {
+        return "Nouveau JEux 3245.0";
+    }
+
+    public boolean hasJeuASport(String jeuName)
+    {
+        return jeux.get(jeuName).hasSportAssociated();
+    }
+    
+    
 
     public void save() {
 

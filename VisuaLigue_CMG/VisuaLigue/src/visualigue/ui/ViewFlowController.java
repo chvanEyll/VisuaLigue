@@ -35,7 +35,6 @@ public class ViewFlowController extends MainController {
         loadScreen("jeuxManagement", "jeux-management.fxml");
         loadScreen("selectionPourJeu", "selection_sport_pour_jeu.fxml");
         loadScreen("strategyEditor", "strategyEditor.fxml");
-        //setScreen("jeuxManagement");
         setScreen("sportManagement");
     }      
     

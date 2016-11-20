@@ -17,10 +17,24 @@ public class Jeu {
     private Sport sport;
     private List<PlayFrame> playFrames= new ArrayList();
     
+    public Jeu(String name)
+    {
+        this.name = name;
+    }
+    
     public Jeu(String name, Sport sport)
     {
         this.name = name;
         this.sport = sport;
     }
     
+    public Sport getSport()
+    {
+        return this.sport;
+    }
+    
+    public boolean hasSportAssociated()
+    {
+        return sport != null;
+    }
 }

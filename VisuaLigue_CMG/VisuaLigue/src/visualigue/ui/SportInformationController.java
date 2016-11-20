@@ -47,7 +47,8 @@ public class SportInformationController extends ViewFlowController {
     
     private String returnScreen = "sportManagement";
     private String returnScreenRessourceName = "sport-management.fxml";
-   
+    private String returnVar;
+    
     /**
      * Initializes the controller class.
      */
@@ -63,9 +64,13 @@ public class SportInformationController extends ViewFlowController {
     
    @Override
    public void initScreen(Object[] object) {
-        sportNameField.setText((String) object[0]);
-        returnScreen = (String) object[1];
-        returnScreenRessourceName = (String) object[2];
+        sportNameField.setText(visualigue.getDefaultSportName());
+        returnScreen = (String) object[0];
+        returnScreenRessourceName = (String) object[1];
+        if(object.length > 2)
+        {
+            returnVar = (String) object[2];
+        }
     }
       
    @FXML
@@ -97,8 +102,8 @@ public class SportInformationController extends ViewFlowController {
         visualigue.createSport(sportNameField.getText(), 
                 (Double) lengthSpinner.getValue(), 
                 (Double)widthSpinner.getValue(), "meters");
-        
-        if(loadScreen(returnScreen, returnScreenRessourceName))
+        String[] to_send = {returnVar};
+        if(loadScreenWithInfo(returnScreen, returnScreenRessourceName, to_send))
         {
             setScreen(returnScreen);
         }

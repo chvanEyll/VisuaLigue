@@ -13,6 +13,7 @@ import javafx.fxml.Initializable;
 import javafx.scene.control.Label;
 import javafx.scene.control.ComboBox;
 import javafx.scene.input.MouseEvent;
+import visualigue.domain.VisuaLigue;
 
 /**
  * FXML Controller class
@@ -25,6 +26,8 @@ public class StrategyEditorController extends ViewFlowController  {
 
     @FXML private Label jeuName;
     @FXML private ComboBox frameSelector;
+    private VisuaLigue visualigue = VisuaLigue.getInstance();
+    
     /**
      * Initializes the controller class.
      */
@@ -33,19 +36,22 @@ public class StrategyEditorController extends ViewFlowController  {
         // TODO
     }    
     
-     public void initScreen(Object[] sportName) {
-        jeuName.setText((String)sportName[0]);
+    @Override
+     public void initScreen(Object[] name_of_thing) {
+        visualigue.createJeux((String)name_of_thing[0], (String)name_of_thing[1]);
+        frameSelector.getItems().addAll((String)name_of_thing[0], (String)name_of_thing[1]);
+        jeuName.setText((String)name_of_thing[0]);
     }
      
     private int frameEnCours() {
-        return frameSelector.getText();
+        return 1;
     }
      
      @FXML
     protected void addJoueur(MouseEvent e) throws IOException {
         //ajouter un joueur a la frame en cours
         int frameEnCours = frameEnCours();
-        jeu.get(frameEnCours);
+        //jeu.get(frameEnCours);
     }
     
     @FXML

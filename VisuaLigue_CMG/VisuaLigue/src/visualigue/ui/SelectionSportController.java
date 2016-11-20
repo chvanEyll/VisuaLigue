@@ -45,10 +45,8 @@ public class SelectionSportController extends ViewFlowController {
     private VisuaLigue visualigue = VisuaLigue.getInstance();
     private String myName = "selectionPourJeu";
     private String myRessourceName = "selection_sport_pour_jeu.fxml";
-    
-    
-    ScreensController myController;
-    
+    private String to_move_foward;
+        
     @Override
     public void initialize(URL url, ResourceBundle rb) {
         Iterator iterator = visualigue.getListeSports();
@@ -72,10 +70,15 @@ public class SelectionSportController extends ViewFlowController {
         }
     }   
  
+    @Override
+   public void initScreen(Object[] object) {
+        to_move_foward = (String) object[0];
+    }
+    
     @FXML
-    protected void onSportClicked(MouseEvent t, String e) throws IOException {
+    protected void onSportClicked(MouseEvent t, String nom_sport) throws IOException {
        
-        String[] to_send = {e};
+        String[] to_send = {to_move_foward, nom_sport};
         if (loadScreenWithInfo("strategyEditor", "strategyEditor.fxml", to_send))
         {
             setScreen("strategyEditor");
@@ -84,18 +87,7 @@ public class SelectionSportController extends ViewFlowController {
     
     @FXML
     protected void onNewSportButtonForJeuxClicked(MouseEvent e) throws IOException {
-        
-    /*    URL location = getClass().getResource("sport-information.fxml");
-        FXMLLoader fxmlLoader = new FXMLLoader(location);
-
-        Node node = fxmlLoader.load();
-        rootNode.getChildren().setAll(node);
-        
-        Sport sport = new Sport("Nouveau Sport");
-        sportInformationController.init(sport);
-    */
-    
-        String[] newName = {visualigue.getDefaultSportName(), myName, myRessourceName};
+        String[] newName = {myName, myRessourceName, to_move_foward};
         if (loadScreenWithInfo("sportInformation", "sport-information.fxml", newName))
         {
             setScreen("sportInformation");
