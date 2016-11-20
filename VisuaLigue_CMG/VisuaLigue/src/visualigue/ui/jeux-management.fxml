@@ -25,7 +25,7 @@
          <HBox prefHeight="35.0" prefWidth="503.0">
             <children>
                 <Button mnemonicParsing="false" onMouseClicked="#onNewJeuButtonClicked" prefHeight="40.0" prefWidth="186.0" text="+ Nouveau Jeu" />
-               <TextField alignment="TOP_RIGHT" prefHeight="40.0" prefWidth="304.0">
+               <TextField fx:id="newJeuName" alignment="TOP_RIGHT" prefHeight="40.0" prefWidth="304.0">
                   <HBox.margin>
                      <Insets left="10.0" />
                   </HBox.margin>

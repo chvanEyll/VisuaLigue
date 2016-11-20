@@ -25,6 +25,7 @@ import java.util.logging.Level;
 import java.util.logging.Logger;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
+import javafx.scene.control.TextField;
 import javafx.scene.layout.HBox;
 
 /**
@@ -38,6 +39,7 @@ public class JeuxManagementController extends ViewFlowController {
     @FXML private StackPane rootNode;
     //@FXML private SportInformationController sportInformationController;
     @FXML private GridPane JeuxList;
+    @FXML private TextField newJeuName;
     private VisuaLigue visualigue = VisuaLigue.getInstance();
     
     
@@ -87,8 +89,8 @@ public class JeuxManagementController extends ViewFlowController {
     @FXML
     protected void onNewJeuButtonClicked(MouseEvent e) throws IOException {
         //TODO THJISD
-        String[] to_send = {visualigue.getDefaultJeuxName()};
-        visualigue.createJeux(visualigue.getDefaultJeuxName());
+        String[] to_send = {newJeuName.getText()};
+        visualigue.createJeux(newJeuName.getText());
         if (loadScreenWithInfo("selectionPourJeu", "selection_sport_pour_jeu.fxml"
                 , to_send))
         {
