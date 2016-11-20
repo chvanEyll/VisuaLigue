@@ -51,7 +51,6 @@ public class StrategyEditorController extends ViewFlowController  {
      public void initScreen(Object[] name_of_thing) {
         visualigue.createJeux((String)name_of_thing[0], (String)name_of_thing[1]);
         String sportFieldImage = visualigue.getPlayingSurfaceImagePath(visualigue.getSportNameFromJeu((String)name_of_thing[0]));
-        System.out.println(sportFieldImage);
         File file = new File(sportFieldImage);
         try {
                 BufferedImage bufferedImage = ImageIO.read(file);
