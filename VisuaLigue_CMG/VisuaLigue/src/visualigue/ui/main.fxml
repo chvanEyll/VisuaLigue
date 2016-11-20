@@ -12,7 +12,7 @@
    <children>
       <VBox styleClass="main-menu">
          <children>
-            <HBox fx:id="playsMenuItem" alignment="CENTER_LEFT" fillHeight="false" styleClass="menu-item">
+            <HBox fx:id="playsMenuItem" alignment="CENTER_LEFT" onMouseClicked="#onJeuxMenuItemClicked" fillHeight="false" styleClass="menu-item">
                <children>
                   <ImageView styleClass="icon" />
                   <Label text="Jeux" />

@@ -99,6 +99,6 @@ public class SportInformationController extends MainController {
         visualigue.createSport(sportNameField.getText(), 
                 (Double) lengthSpinner.getValue(), 
                 (Double)widthSpinner.getValue(), "meters");
-       setSportsView();
+       //setSportsView();
         }
 }

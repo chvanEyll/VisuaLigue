@@ -53,6 +53,16 @@ public class MainController implements Initializable {
     public void initScreen(Object object){};
     
     @FXML
+    protected void onJeuxMenuItemClicked(MouseEvent e) throws IOException {
+        
+        URL location = getClass().getResource("jeux-management.fxml");
+        FXMLLoader fxmlLoader = new FXMLLoader(location);
+
+        Node node = fxmlLoader.load();
+        viewFlow.getChildren().setAll(node);
+    }
+    
+    @FXML
     protected void onSportsMenuItemClicked(MouseEvent e) throws IOException {
         /*
         URL location = getClass().getResource("sport-management.fxml");

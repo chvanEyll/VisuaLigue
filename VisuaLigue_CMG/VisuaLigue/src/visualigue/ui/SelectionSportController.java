@@ -28,30 +28,31 @@ import javafx.scene.layout.HBox;
  *
  * @author Guillaume
  */
-public class SportManagementController extends ViewFlowController {
+public class SelectionSportController extends ViewFlowController {
+
     
     @FXML private StackPane rootNode;
-    @FXML private SportInformationController sportInformationController;
-    @FXML private GridPane SportsList;
+    //@FXML private SportInformationController sportInformationController;
+    @FXML private GridPane JeuxList;
     private VisuaLigue visualigue = VisuaLigue.getInstance();
     
     ScreensController myController;
     
     @Override
     public void initialize(URL url, ResourceBundle rb) {
+        System.out.println("it/");
         List<Sport> sports = visualigue.getListeSports();
         
         for (int i=0;i<sports.size();i++) {
             Label label = new Label(sports.get(i).getName());
             HBox hbox = new HBox(label);
-            //SportsList.getChildren().add(label);
-            SportsList.add(hbox, 0, i);
+            JeuxList.add(hbox, 0, i);
         }
     }   
  
  
     @FXML
-    protected void onNewSportButtonClicked(MouseEvent e) throws IOException {
+    protected void onNewSportButtonForJeuxClicked(MouseEvent e) throws IOException {
         
     /*    URL location = getClass().getResource("sport-information.fxml");
         FXMLLoader fxmlLoader = new FXMLLoader(location);
