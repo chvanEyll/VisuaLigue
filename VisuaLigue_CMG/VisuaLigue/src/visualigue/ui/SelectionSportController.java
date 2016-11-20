@@ -67,9 +67,7 @@ public class SelectionSportController extends ViewFlowController {
                     Logger.getLogger(SelectionSportController.class.getName()).log(Level.SEVERE, null, ex);
                 }
             });
-            
-            
-            
+
             HBox hbox = new HBox(button);
             SportsList.add(hbox, 0, flag++);
         }

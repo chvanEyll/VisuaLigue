@@ -29,9 +29,9 @@
             <VBox alignment="TOP_CENTER" prefHeight="259.0" prefWidth="142.0">
                <children>
                   <Label prefHeight="24.0" prefWidth="100.0" text="Ajouter:" textAlignment="CENTER" />
-                  <Button onMouseClicked="addJoueur" mnemonicParsing="false" prefHeight="26.0" prefWidth="136.0" text="Joueur" />
-                  <Button onMouseClicked="addAdversaire" mnemonicParsing="false" prefHeight="26.0" prefWidth="136.0" text="Adversaire" />
-                  <Button onMouseClicked="addObstacle" mnemonicParsing="false" prefHeight="26.0" prefWidth="136.0" text="Obstacle" />
+                  <Button onMouseClicked="#addJoueur" mnemonicParsing="false" prefHeight="26.0" prefWidth="136.0" text="Joueur" />
+                  <Button onMouseClicked="#addAdversaire" mnemonicParsing="false" prefHeight="26.0" prefWidth="136.0" text="Adversaire" />
+                  <Button onMouseClicked="#addObstacle" mnemonicParsing="false" prefHeight="26.0" prefWidth="136.0" text="Obstacle" />
                </children>
             </VBox>
          </children>
