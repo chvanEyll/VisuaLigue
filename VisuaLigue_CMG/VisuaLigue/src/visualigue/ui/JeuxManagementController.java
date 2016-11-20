@@ -54,9 +54,10 @@ public class JeuxManagementController extends ViewFlowController {
  
     @FXML
     protected void onNewJeuButtonClicked(MouseEvent e) throws IOException {
+        String newName = visualigue.getDefaultSportName();
         if (loadScreen("selectionPourJeu", "selection_sport_pour_jeu.fxml"))
         {
             setScreen("selectionPourJeu");
-        }
+        }    
     }
 }

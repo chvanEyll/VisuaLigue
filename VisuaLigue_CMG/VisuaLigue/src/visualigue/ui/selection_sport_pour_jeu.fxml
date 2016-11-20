@@ -23,7 +23,7 @@
           <Button mnemonicParsing="false" onMouseClicked="#onNewSportButtonForJeuxClicked" text="+ Nouveau Sport" />
           <ScrollPane fitToWidth="true" hbarPolicy="NEVER" pannable="true" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0" VBox.vgrow="ALWAYS">
             <content>
-               <GridPane fx:id="JeuxList">
+               <GridPane fx:id="SportsList">
                  <columnConstraints>
                    <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
                  </columnConstraints>
