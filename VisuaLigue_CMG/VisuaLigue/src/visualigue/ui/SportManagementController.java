@@ -7,6 +7,7 @@ package visualigue.ui;
 
 import java.io.IOException;
 import java.net.URL;
+import java.util.Iterator;
 import java.util.ResourceBundle;
 import java.util.prefs.Preferences;
 import javafx.beans.property.SimpleStringProperty;
@@ -41,13 +42,15 @@ public class SportManagementController extends ViewFlowController {
     
     @Override
     public void initialize(URL url, ResourceBundle rb) {
-        List<Sport> sports = visualigue.getListeSports();
         
-        for (int i=0;i<sports.size();i++) {
-            Label label = new Label(sports.get(i).getName());
+        Iterator iterator_sport = visualigue.getListeSports();
+        
+        int flag = 0;
+        while(iterator_sport.hasNext()){
+            Label label = new Label(iterator_sport.next().toString());
             HBox hbox = new HBox(label);
-            //SportsList.getChildren().add(label);
-            SportsList.add(hbox, 0, i);
+            SportsList.add(hbox, 0, flag);
+            flag++;
         }
     }   
  

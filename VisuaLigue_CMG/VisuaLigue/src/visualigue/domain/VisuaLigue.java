@@ -1,34 +1,34 @@
 package visualigue.domain;
 
 import ca.ulaval.glo2004.visualigue.utils.EventHandler;
-import java.util.ArrayList;
-import java.util.List;
+import java.util.HashMap;
+import java.util.Iterator;
+import java.util.Set;
 
 public class VisuaLigue {
 
     public static final VisuaLigue INSTANCE = new VisuaLigue();
     public EventHandler<String> onSportCreated = new EventHandler();
+    
+    HashMap<String, Sport> sports = new HashMap();
+    HashMap<String, Jeu> jeux = new HashMap();
 
     public static VisuaLigue getInstance() {
         return INSTANCE;
     }
 
-    List<Sport> sports = new ArrayList();
 
-    public Sport createSport(String name, Double width, Double length, 
+    public void createSport(String name, Double width, Double length, 
             String units) {
         Sport sport = new Sport(name);
         PlayingSurface playingSurface = new PlayingSurface(width, length, units);
         sport.setPlayingSurface(playingSurface);
-        sports.add(sport);
-        onSportCreated.fire(this, name);
-        return sport;
+        sports.put(name, sport);
     }
     
-    public List<Sport> getListeSports() {
+    public Iterator getListeSports() {
         
-        return sports;
-        
+        return sports.keySet().iterator();
     }
 
     public String getDefaultSportName()
@@ -52,6 +52,17 @@ public class VisuaLigue {
         return defaultSurfaceUnit;
     }
     
+    public void createJeux(String jeuName,String sportName)
+    {
+        Sport sport = sports.get(sportName);
+        Jeu jeu = new Jeu(jeuName, sport);
+        jeux.put(jeuName, jeu);
+    }
+
+    public Iterator getListeJeux() {
+        return jeux.keySet().iterator();
+    }
+
     public void save() {
 
     }

@@ -8,8 +8,7 @@
 <?import javafx.scene.layout.StackPane?>
 <?import javafx.scene.layout.VBox?>
 
-
-<StackPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/8.0.65" xmlns:fx="http://javafx.com/fxml/1">
+<StackPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/8.0.65" xmlns:fx="http://javafx.com/fxml/1" fx:controller="visualigue.ui.StrategyController">
    <children>
       <HBox alignment="TOP_CENTER" maxHeight="-Infinity" minHeight="-Infinity" prefHeight="26.0" prefWidth="600.0" translateY="-170.0">
          <children>
@@ -23,7 +22,7 @@
       </HBox>
       <HBox maxHeight="-Infinity" minHeight="-Infinity" prefHeight="259.0" prefWidth="600.0" scaleShape="false">
          <children>
-            <ImageView fitHeight="257.0" fitWidth="483.0" pickOnBounds="true" preserveRatio="true" />
+            <ImageView fx:id="field" fitHeight="257.0" fitWidth="483.0" pickOnBounds="true" preserveRatio="true" />
             <VBox alignment="TOP_CENTER" prefHeight="259.0" prefWidth="123.0">
                <children>
                   <Label prefHeight="24.0" prefWidth="54.0" text="Ajouter:" textAlignment="CENTER" />

@@ -71,9 +71,5 @@ public class MainController implements Initializable {
 
         Node node = fxmlLoader.load();
         viewFlow.getChildren().setAll(node);
-        
-        
-    }
-            
-
+    }          
 }
