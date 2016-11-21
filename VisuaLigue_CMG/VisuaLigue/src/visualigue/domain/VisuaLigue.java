@@ -85,6 +85,12 @@ public class VisuaLigue {
     public Iterator getListeJeux() {
         return jeux.keySet().iterator();
     }
+    
+    public Jeu getJeu(String jeuName) {
+        
+        return jeux.get(jeuName);
+        
+    }
 
     public String getDefaultJeuxName()
     {

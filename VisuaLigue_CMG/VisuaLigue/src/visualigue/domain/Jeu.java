@@ -37,4 +37,17 @@ public class Jeu {
     {
         return sport != null;
     }
+    
+    public void newFrame(int frameNb) {
+        
+        PlayFrame frame = new PlayFrame(frameNb);
+        playFrames.add(frame);  
+        
+    }
+    
+    public PlayFrame getFrame(int frameNb) {
+        
+        return playFrames.get(frameNb);
+        
+    }
 }
