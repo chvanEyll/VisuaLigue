@@ -82,4 +82,30 @@ public class PlayFrame {
         Obstacles.set(idx,obstaclePos);
         
     }
+    
+    public void insertFramePositions(PlayFrame oldFrame) {
+        
+        List<Vector2d> oldJoueursPos = oldFrame.getJoueursPos();
+        List<Vector2d> oldAdversairesPos = oldFrame.getAdversairesPos();
+        List<Vector2d> oldObstaclesPos = oldFrame.getObstaclesPos();
+        
+        for (int i =0;i<oldJoueursPos.size();i++){
+        
+            this.addJoueur(oldJoueursPos.get(i));
+            
+        }
+        
+        for (int i =0;i<oldAdversairesPos.size();i++){
+        
+            this.addAdversaire(oldAdversairesPos.get(i));
+            
+        }
+        
+        for (int i =0;i<oldObstaclesPos.size();i++){
+        
+            this.addObstacle(oldObstaclesPos.get(i));
+            
+        }
+        
+    }
 }

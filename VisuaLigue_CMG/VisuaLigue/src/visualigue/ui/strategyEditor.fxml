@@ -43,11 +43,11 @@
       </HBox>
       <HBox alignment="TOP_CENTER" maxHeight="-Infinity" minHeight="-Infinity" prefHeight="28.0" prefWidth="600.0" translateY="150.0">
          <children>
-            <Button disable="true" mnemonicParsing="false" text="|&lt;" />
-            <Button disable="true" mnemonicParsing="false" text="&lt;&lt;" />
+            <Button onMouseClicked="#goToFirstFrame" mnemonicParsing="false" text="|&lt;" />
+            <Button onMouseClicked="#goToPreviousFrame" mnemonicParsing="false" text="&lt;&lt;" />
             <Button disable="true" mnemonicParsing="false" prefHeight="26.0" prefWidth="40.0" text="&gt;" />
-            <Button disable="true" mnemonicParsing="false" text="&gt;&gt;" />
-            <Button disable="true" mnemonicParsing="false" text="&gt;|" />
+            <Button onMouseClicked="#goToNextFrame" mnemonicParsing="false" text="&gt;&gt;" />
+            <Button onMouseClicked="#goToLastFrame" mnemonicParsing="false" text="&gt;|" />
          </children>
       </HBox>
       <HBox alignment="TOP_CENTER" maxHeight="-Infinity" minHeight="-Infinity" prefHeight="27.0" prefWidth="600.0" translateY="200.0">

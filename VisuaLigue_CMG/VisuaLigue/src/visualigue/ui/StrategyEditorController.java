@@ -89,6 +89,12 @@ public class StrategyEditorController extends ViewFlowController  {
         
         return Integer.parseInt(frame_str) - 1; // l index de l interface commence a 1
     }
+    
+    private int nbOfFrames() {
+        List<String> availableFrames = frameSelector.getItems();
+        int nbOfFrames = availableFrames.size();
+        return nbOfFrames;
+    }
      
     @FXML
     protected void addJoueur(MouseEvent e) throws IOException {
@@ -132,18 +138,62 @@ public class StrategyEditorController extends ViewFlowController  {
     }
     
     @FXML
+    protected void goToFirstFrame(MouseEvent e) throws IOException {
+        frameSelector.setValue("1");
+    }
+    
+    @FXML
+    protected void goToPreviousFrame(MouseEvent e) throws IOException {
+        
+        String previous_frame = Integer.toString(frameEnCours()); // voir ajustement au retour de frameEnCours()
+        
+        if (frameSelector.getItems().contains(previous_frame)){
+            
+            frameSelector.setValue(previous_frame);
+            
+        };
+         
+    }
+    
+    @FXML
+    protected void goToNextFrame(MouseEvent e) throws IOException {
+        
+        String next_frame = Integer.toString(frameEnCours()+2); // voir ajustement au retour de frameEnCours()
+        
+        if (frameSelector.getItems().contains(next_frame)){
+            
+            frameSelector.setValue(next_frame);
+            
+        };
+    }
+    
+    @FXML
+    protected void goToLastFrame(MouseEvent e) throws IOException {
+        int nbOfFrames = nbOfFrames();
+        frameSelector.setValue(Integer.toString(nbOfFrames));
+    }
+    
+    @FXML
     protected void addFrame(MouseEvent e) throws IOException {
         
+        // get current frame
         List<String> availableFrames = frameSelector.getItems();
-        int nbOfFrames = availableFrames.size();
-
+        int nbOfFrames = nbOfFrames();
         String current_frame_str = availableFrames.get(nbOfFrames-1);
         int current_frame_int = Integer.parseInt(current_frame_str);
-        int new_frame = current_frame_int + 1;
         
+        // create new frame in domain
+        int new_frame = current_frame_int + 1;
         String new_frame_str = Integer.toString(new_frame);
         Jeu monJeu = visualigue.getJeu(jeuName.getText());
         monJeu.newFrame(new_frame);
+        
+        // copy scene to new frame
+        PlayFrame oldFrame = monJeu.getFrame(frameEnCours());
+        PlayFrame newFrame = monJeu.getFrame(new_frame-1);
+        newFrame.insertFramePositions(oldFrame);
+        
+        // show new frame
         frameSelector.getItems().addAll(new_frame_str);
         frameSelector.setValue(new_frame_str);
         
@@ -151,8 +201,6 @@ public class StrategyEditorController extends ViewFlowController  {
     }
     
     private void drawObjects(String ObjectType, List<Vector2d> positions) {
-        
-        ImageView view = new ImageView();
         
         String path="";
         switch(ObjectType) {
@@ -168,6 +216,8 @@ public class StrategyEditorController extends ViewFlowController  {
         }
         
         for (int obj_idx=0;obj_idx<positions.size();obj_idx++) {
+            
+            ImageView view = new ImageView();
             
             Vector2d pos = positions.get(obj_idx);
             int idx = obj_idx;
@@ -196,8 +246,9 @@ public class StrategyEditorController extends ViewFlowController  {
                     
                 } catch (IOException ex) {
                     Logger.getLogger(SportInformationController.class.getName()).log(Level.SEVERE, null, ex);
-                }    
-
+                }
+                
+            view.setId(Integer.toString(idx));
             board.getChildren().add(view);
             view.setFitHeight(40);
             view.setFitWidth(40);
@@ -228,6 +279,47 @@ public class StrategyEditorController extends ViewFlowController  {
     }
     
     @FXML
+    private boolean isObjectAtPos(Vector2d mousePos, PlayFrame frame) {
+    
+        List<Vector2d> JoueursPos = frame.getJoueursPos();
+        List<Vector2d> AdversairesPos = frame.getAdversairesPos();
+        List<Vector2d> ObstaclesPos = frame.getObstaclesPos();
+        
+        for (int i=0; i<JoueursPos.size();i++) {
+            
+            if (JoueursPos.get(i).tooCloseTo(mousePos)) {
+                
+                return true;
+                
+            }
+            
+        }
+        
+        for (int i=0; i<AdversairesPos.size();i++) {
+            
+            if (AdversairesPos.get(i).tooCloseTo(mousePos)) {
+                
+                return true;
+                
+            }
+            
+        }
+        
+        for (int i=0; i<ObstaclesPos.size();i++) {
+            
+            if (ObstaclesPos.get(i).tooCloseTo(mousePos)) {
+                
+                return true;
+                
+            }
+            
+        }
+        
+        return false;
+        
+    }
+    
+    @FXML
     protected void dropObj(MouseEvent e, ImageView obj, String ObjectType, int Idx) throws IOException {
         
         Vector2d mousePos = new Vector2d((float) e.getSceneX(),(float) e.getSceneY());
@@ -236,25 +328,33 @@ public class StrategyEditorController extends ViewFlowController  {
         mousePos.x -= getFieldCenter().x;
         mousePos.y -= getFieldCenter().y;
         
-        System.out.println("Mouse x:");
-        System.out.println(e.getSceneX());
-        
         Jeu monJeu = visualigue.getJeu(jeuName.getText());
         PlayFrame frame = monJeu.getFrame(frameEnCours());
         
-        switch(ObjectType) {
-            case "Joueurs":
-                frame.setJoueurPos(Idx,mousePos);
-                break;
-            case "Adversaires":
-                frame.setAdversairePos(Idx,mousePos);
-                break;
-            case "Obstacles":
-                frame.setObstaclePos(Idx,mousePos);
-                break;
+        // verification de la disponibilite de l emplacement
+        if (isObjectAtPos(mousePos,frame)) {
+            
+            Label avertissement = new Label("Un objet existe à cet emplacement!");
+            board.getChildren().add(avertissement); // disparaitra au prochain redraw grace au clear()
+            
+        } else {
+        
+            switch(ObjectType) {
+                case "Joueurs":
+                    frame.setJoueurPos(Idx,mousePos);
+                    break;
+                case "Adversaires":
+                    frame.setAdversairePos(Idx,mousePos);
+                    break;
+                case "Obstacles":
+                    frame.setObstaclePos(Idx,mousePos);
+                    break;
+            }
+
+            redraw();
+        
         }
         
-        redraw();
         
     }
     
