@@ -64,4 +64,22 @@ public class PlayFrame {
         Obstacles.add(obstaclePos);
         
     }
+    
+    public void setJoueurPos(int idx, Vector2d joueurPos) {
+        
+        Positions_joueurs.set(idx,joueurPos);
+        
+    }
+    
+    public void setAdversairePos(int idx, Vector2d advPos) {
+        
+        Positions_adversaires.set(idx,advPos);
+        
+    }
+     
+    public void setObstaclePos(int idx, Vector2d obstaclePos) {
+        
+        Obstacles.set(idx,obstaclePos);
+        
+    }
 }

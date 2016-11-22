@@ -13,6 +13,7 @@ import java.util.List;
 import java.util.ResourceBundle;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import javafx.collections.ObservableList;
 import javafx.embed.swing.SwingFXUtils;
 import javafx.event.ActionEvent;
 import javafx.event.Event;
@@ -30,9 +31,13 @@ import javafx.scene.layout.StackPane;
 import javafx.scene.control.Button;
 
 import javafx.fxml.FXML;
+import javafx.geometry.Bounds;
+import javafx.scene.Node;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
+import javafx.scene.input.DragEvent;
 import javafx.scene.input.MouseEvent;
+import javafx.scene.input.TransferMode;
 import javax.imageio.ImageIO;
 
 /**
@@ -53,12 +58,11 @@ public class StrategyEditorController extends ViewFlowController  {
      * Initializes the controller class.
      */
     @Override
-    public void initialize(URL url, ResourceBundle rb) {
-        // TODO
-    }    
+    public void initialize(URL url, ResourceBundle rb) {}    
     
     @Override
      public void initScreen(Object[] name_of_thing) {
+         //creer le jeu et mettre l image
         visualigue.createJeux((String)name_of_thing[0], (String)name_of_thing[1]);
         String sportFieldImage = visualigue.getPlayingSurfaceImagePath(visualigue.getSportNameFromJeu((String)name_of_thing[0]));
         File file = new File(sportFieldImage);
@@ -71,12 +75,19 @@ public class StrategyEditorController extends ViewFlowController  {
             }        
         
         jeuName.setText((String)name_of_thing[0]);
+        
+        // creer la frame 1
+        Jeu monJeu = visualigue.getJeu(jeuName.getText());
+        monJeu.newFrame(1);
+        frameSelector.getItems().addAll("1");
+        frameSelector.setValue("1");
+        
     }
      
     private int frameEnCours() {
         String frame_str = (String) frameSelector.getValue();
         
-        return Integer.parseInt(frame_str);
+        return Integer.parseInt(frame_str) - 1; // l index de l interface commence a 1
     }
      
     @FXML
@@ -125,14 +136,10 @@ public class StrategyEditorController extends ViewFlowController  {
         
         List<String> availableFrames = frameSelector.getItems();
         int nbOfFrames = availableFrames.size();
-        int new_frame = 0;
-        if (nbOfFrames != 0) {
 
-            String current_frame_str = availableFrames.get(nbOfFrames-1);
-            int current_frame_int = Integer.parseInt(current_frame_str);
-            new_frame = current_frame_int + 1;
-            
-        } 
+        String current_frame_str = availableFrames.get(nbOfFrames-1);
+        int current_frame_int = Integer.parseInt(current_frame_str);
+        int new_frame = current_frame_int + 1;
         
         String new_frame_str = Integer.toString(new_frame);
         Jeu monJeu = visualigue.getJeu(jeuName.getText());
@@ -143,29 +150,50 @@ public class StrategyEditorController extends ViewFlowController  {
         //redraw is automatic because of combobox onvaluechanged property
     }
     
-    private void drawObjects(String Objecttype, List<Vector2d> positions) {
+    private void drawObjects(String ObjectType, List<Vector2d> positions) {
         
         ImageView view = new ImageView();
         
         String path="";
-        switch(Objecttype) {
+        switch(ObjectType) {
             case "Joueurs":
                 path = System.getProperty("user.dir")+"/src/image/joueur.png";
+                break;
             case "Adversaires":
                 path = System.getProperty("user.dir")+"/src/image/adversaire.png";
+                break;
             case "Obstacles":
                 path = System.getProperty("user.dir")+"/src/image/cone-icon.png";
+                break;
         }
         
-        for (int i=0;i<positions.size();i++) {
+        for (int obj_idx=0;obj_idx<positions.size();obj_idx++) {
             
-            Vector2d pos = positions.get(i);
+            Vector2d pos = positions.get(obj_idx);
+            int idx = obj_idx;
         
             File file = new File(path);
                 try {
                     BufferedImage bufferedImage = ImageIO.read(file);
                     Image image = SwingFXUtils.toFXImage(bufferedImage, null);
                     view.setImage(image);
+                    
+                    view.setOnDragDetected(e -> {
+                        try {
+                            dragObj(e, view);
+                        } catch (IOException ex) {
+                            Logger.getLogger(SelectionSportController.class.getName()).log(Level.SEVERE, null, ex);
+                        }
+                    });
+                    
+                    view.setOnMouseReleased(e -> {
+                        try {
+                            dropObj(e, view, ObjectType, idx);
+                        } catch (IOException ex) {
+                            Logger.getLogger(SelectionSportController.class.getName()).log(Level.SEVERE, null, ex);
+                        }
+                    });
+                    
                 } catch (IOException ex) {
                     Logger.getLogger(SportInformationController.class.getName()).log(Level.SEVERE, null, ex);
                 }    
@@ -173,13 +201,66 @@ public class StrategyEditorController extends ViewFlowController  {
             board.getChildren().add(view);
             view.setFitHeight(40);
             view.setFitWidth(40);
-            view.setX(pos.x);
-            view.setY(pos.y);
+            view.setTranslateX(pos.x);
+            view.setTranslateY(pos.y);
         }
             
     }
     
+    @FXML
+    protected void dragObj(MouseEvent e, ImageView obj) throws IOException {
+        // cette fonction ne fait rien pour l instant.
+        // elle pourrait servir a visuellement dragger l objet
+        
+    }
+    
+    private Vector2d getFieldCenter() {
+    
+        Bounds myBounds = board.localToScene(board.getBoundsInLocal());
+        
+        float width = (float) myBounds.getWidth();
+        float height = (float) myBounds.getHeight();
+        float x = (float) myBounds.getMinX() + (width/2);
+        float y = (float) myBounds.getMinY() + (height/2);
+                
+        return new Vector2d(x,y);
+        
+    }
+    
+    @FXML
+    protected void dropObj(MouseEvent e, ImageView obj, String ObjectType, int Idx) throws IOException {
+        
+        Vector2d mousePos = new Vector2d((float) e.getSceneX(),(float) e.getSceneY());
+        
+        // difference entre la souris et la position du centre car on applique une translation
+        mousePos.x -= getFieldCenter().x;
+        mousePos.y -= getFieldCenter().y;
+        
+        System.out.println("Mouse x:");
+        System.out.println(e.getSceneX());
+        
+        Jeu monJeu = visualigue.getJeu(jeuName.getText());
+        PlayFrame frame = monJeu.getFrame(frameEnCours());
+        
+        switch(ObjectType) {
+            case "Joueurs":
+                frame.setJoueurPos(Idx,mousePos);
+                break;
+            case "Adversaires":
+                frame.setAdversairePos(Idx,mousePos);
+                break;
+            case "Obstacles":
+                frame.setObstaclePos(Idx,mousePos);
+                break;
+        }
+        
+        redraw();
+        
+    }
+    
     private void redraw() {
+        
+        board.getChildren().clear();
         
         Jeu monJeu = visualigue.getJeu(jeuName.getText());
         PlayFrame frame = monJeu.getFrame(frameEnCours());
@@ -191,7 +272,6 @@ public class StrategyEditorController extends ViewFlowController  {
         drawObjects("Joueurs",JoueursPos);
         drawObjects("Adversaires",AdversairesPos);
         drawObjects("Obstacles",ObstaclesPos);
-            
         
     }
 }
