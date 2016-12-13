@@ -101,7 +101,7 @@ public class StrategyEditorController extends ViewFlowController  {
     @FXML
     protected void saveImage(MouseEvent e) {
     
-        WritableImage strategy = getImageWithArrows(field.getImage());
+        WritableImage strategy = getImageWithMovements(field.getImage());
         
         File outputFile = new File("maStrategie");
         RenderedImage renderedImage = SwingFXUtils.fromFXImage(strategy, null);
@@ -119,7 +119,7 @@ public class StrategyEditorController extends ViewFlowController  {
     }
     
     @FXML
-    protected WritableImage getImageWithArrows(Image image) {
+    protected WritableImage getImageWithMovements(Image image) {
 
         WritableImage wImage = 
             new WritableImage( (int)image.getWidth(), (int)image.getHeight());
@@ -157,7 +157,7 @@ public class StrategyEditorController extends ViewFlowController  {
         }    
         
         // add joueurs
-        color = Color.BLUE;
+        color = Color.GREEN;
         
         for (int i = 0; i < JoueursPos.size(); i++) {
             
@@ -191,19 +191,37 @@ public class StrategyEditorController extends ViewFlowController  {
     
     protected void drawPixels(PixelWriter pixelWriter, int x, int y, Color color) {
         
-        int corrected_x = x + (int) getFieldCenter().x;
-        int corrected_y = y + (int) getFieldCenter().y;
+        Vector2d imageCenter = getImageCenter();
+        Vector2d uiFieldCenter = getFieldCenter();
+        float x_ratio = imageCenter.x / uiFieldCenter.x;
+        float y_ratio = imageCenter.y / uiFieldCenter.y;
+        
+        int corrected_x = (int) ((float) x*x_ratio) + (int) imageCenter.x;
+        int corrected_y = (int) ((float) y*y_ratio) + (int) imageCenter.y;
+        
+        int diameter = (int)(field.getImage().getWidth() * 0.02);
         
         // dessine un carre autour du pixel
-        for (int i=-20;i<20;i++) {
+        for (int i=-diameter;i<diameter;i++) {
             
-            for (int j=-20;j<20;j++) {
+            for (int j=-diameter;j<diameter;j++) {
                 
                 pixelWriter.setColor(corrected_x+i,corrected_y+j,color);
                 
             }
             
         }
+        
+    }
+    
+    protected Vector2d getImageCenter() {
+        
+        Image fieldImage = field.getImage();
+        
+        float x = (float) fieldImage.getWidth() / 2;
+        float y = (float) fieldImage.getHeight() / 2;
+                
+        return new Vector2d(x,y);
         
     }
      
@@ -325,7 +343,6 @@ public class StrategyEditorController extends ViewFlowController  {
                     }
                     
                     String next_frame = Integer.toString(frameEnCours()+2);
-                    System.out.println(next_frame); //debug
                     frameSelector.setValue(next_frame);
 
                 }});
@@ -348,7 +365,6 @@ public class StrategyEditorController extends ViewFlowController  {
                     }
                     
                     String next_frame = Integer.toString(frameEnCours());
-                    System.out.println(next_frame); //debug
                     frameSelector.setValue(next_frame);
 
                 }});
@@ -482,32 +498,24 @@ public class StrategyEditorController extends ViewFlowController  {
             
             Vector2d pos = positions.get(obj_idx);
             int idx = obj_idx;
-        
-            //File file = new File(path);
-                //try {
-                    //BufferedImage bufferedImage = ImageIO.read(file);
-                    //Image image = SwingFXUtils.toFXImage(bufferedImage, null);*/
-                    view.setImage(image);
-                    
-                    view.setOnDragDetected(e -> {
-                        try {
-                            dragObj(e, view);
-                        } catch (IOException ex) {
-                            Logger.getLogger(SelectionSportController.class.getName()).log(Level.SEVERE, null, ex);
-                        }
-                    });
-                    
-                    view.setOnMouseReleased(e -> {
-                        try {
-                            dropObj(e, view, ObjectType, idx);
-                        } catch (IOException ex) {
-                            Logger.getLogger(SelectionSportController.class.getName()).log(Level.SEVERE, null, ex);
-                        }
-                    });
-                    /*
+            
+            view.setImage(image);
+
+            view.setOnDragDetected(e -> {
+                try {
+                    dragObj(e, view);
                 } catch (IOException ex) {
-                    Logger.getLogger(SportInformationController.class.getName()).log(Level.SEVERE, null, ex);
-                }*/
+                    Logger.getLogger(SelectionSportController.class.getName()).log(Level.SEVERE, null, ex);
+                }
+            });
+
+            view.setOnMouseReleased(e -> {
+                try {
+                    dropObj(e, view, ObjectType, idx);
+                } catch (IOException ex) {
+                    Logger.getLogger(SelectionSportController.class.getName()).log(Level.SEVERE, null, ex);
+                }
+            });
                 
             view.setId(Integer.toString(idx));
             board.getChildren().add(view);
