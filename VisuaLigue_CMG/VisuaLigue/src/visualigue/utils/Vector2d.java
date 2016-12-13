@@ -6,6 +6,7 @@
 package visualigue.utils;
 
 import static java.lang.Math.abs;
+import static java.lang.Math.abs;
 
 /**
  *
@@ -25,7 +26,7 @@ public class Vector2d {
         y = p_y;
     }
     
-    public boolean tooCloseTo(Vector2d other) {
+    public boolean isCloseTo(Vector2d other) {
         
         if (abs(this.x-other.x)<range) {
             
@@ -40,4 +41,5 @@ public class Vector2d {
         return false;
         
     }
+    
 }

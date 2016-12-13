@@ -6,13 +6,18 @@
 package visualigue.ui;
 
 import java.awt.image.BufferedImage;
+import java.awt.image.RenderedImage;
 import java.io.File;
 import java.io.IOException;
 import java.net.URL;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.ResourceBundle;
+import java.util.Timer;
+import java.util.TimerTask;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import javafx.application.Platform;
 import javafx.collections.ObservableList;
 import javafx.embed.swing.SwingFXUtils;
 import javafx.event.ActionEvent;
@@ -35,9 +40,13 @@ import javafx.geometry.Bounds;
 import javafx.scene.Node;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
+import javafx.scene.image.PixelReader;
+import javafx.scene.image.PixelWriter;
+import javafx.scene.image.WritableImage;
 import javafx.scene.input.DragEvent;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.input.TransferMode;
+import javafx.scene.paint.Color;
 import javax.imageio.ImageIO;
 
 /**
@@ -52,7 +61,11 @@ public class StrategyEditorController extends ViewFlowController  {
     @FXML private ComboBox frameSelector;
     @FXML private ImageView field;
     @FXML private StackPane board;
+    @FXML private Button pauseButton;
     private VisuaLigue visualigue = VisuaLigue.getInstance();
+    Timer timer = new Timer();
+    int regular_play_speed = 1000;
+    int fast_play_speed = 500;
     
     /**
      * Initializes the controller class.
@@ -64,13 +77,14 @@ public class StrategyEditorController extends ViewFlowController  {
      public void initScreen(Object[] name_of_thing) {
          //creer le jeu et mettre l image
         visualigue.createJeux((String)name_of_thing[0], (String)name_of_thing[1]);
-        String sportFieldImage = visualigue.getPlayingSurfaceImagePath(visualigue.getSportNameFromJeu((String)name_of_thing[0]));
-        File file = new File(sportFieldImage);
+        //String sportFieldImage = visualigue.getPlayingSurfaceImagePath(visualigue.getSportNameFromJeu((String)name_of_thing[0]));
+        //File file = new File(sportFieldImage);
         try {
-                BufferedImage bufferedImage = ImageIO.read(file);
-                Image image = SwingFXUtils.toFXImage(bufferedImage, null);
+                Image image = new Image(getClass().getResourceAsStream("/resources/soccer-field.jpg"));
+                //BufferedImage bufferedImage = ImageIO.read(file);
+                //Image image = SwingFXUtils.toFXImage(bufferedImage, null);
                 field.setImage(image);
-            } catch (IOException ex) {
+            } catch (Exception ex) {
                 Logger.getLogger(SportInformationController.class.getName()).log(Level.SEVERE, null, ex);
             }        
         
@@ -81,6 +95,115 @@ public class StrategyEditorController extends ViewFlowController  {
         monJeu.newFrame(1);
         frameSelector.getItems().addAll("1");
         frameSelector.setValue("1");
+        
+    }
+     
+    @FXML
+    protected void saveImage(MouseEvent e) {
+    
+        WritableImage strategy = getImageWithArrows(field.getImage());
+        
+        File outputFile = new File("maStrategie");
+        RenderedImage renderedImage = SwingFXUtils.fromFXImage(strategy, null);
+        
+        try {
+      
+            ImageIO.write(renderedImage, "png", outputFile);
+    
+        } catch (IOException ex) {
+      
+            throw new RuntimeException(ex);
+            
+        }
+        
+    }
+    
+    @FXML
+    protected WritableImage getImageWithArrows(Image image) {
+
+        WritableImage wImage = 
+            new WritableImage( (int)image.getWidth(), (int)image.getHeight());
+        
+        PixelReader pixelReader = image.getPixelReader();
+        PixelWriter pixelWriter = wImage.getPixelWriter();
+        Color color;
+        
+        // copy initial image to wImage
+        for(int readY=0;readY<image.getHeight();readY++){
+            
+            for(int readX=0; readX<image.getWidth();readX++){
+                
+                color = pixelReader.getColor(readX,readY);
+                pixelWriter.setColor(readX,readY,color);
+                
+            }
+        }
+            
+        // ADD JOUEURS, ADVERSAIRES ET OBSTACLES
+        Jeu monJeu = visualigue.getJeu(jeuName.getText());
+        PlayFrame frame;
+        List<Vector2d> JoueursPos = new ArrayList();
+        List<Vector2d> AdversairesPos = new ArrayList();
+        List<Vector2d> ObstaclesPos = new ArrayList();
+        
+        for (int i = 0; i<nbOfFrames();i++) {
+        
+            frame = monJeu.getFrame(i);
+
+            JoueursPos.addAll(frame.getJoueursPos());
+            AdversairesPos.addAll(frame.getAdversairesPos());
+            ObstaclesPos.addAll(frame.getObstaclesPos());
+            
+        }    
+        
+        // add joueurs
+        color = Color.BLUE;
+        
+        for (int i = 0; i < JoueursPos.size(); i++) {
+            
+            Vector2d pos = JoueursPos.get(i);
+            drawPixels(pixelWriter,(int)pos.x,(int)pos.y,color);
+            
+            }
+        
+        // add adversaires
+        color = Color.RED;
+        
+        for (int i = 0; i < AdversairesPos.size(); i++) {
+            
+            Vector2d pos = AdversairesPos.get(i);
+            drawPixels(pixelWriter,(int)pos.x,(int)pos.y,color);
+            
+            }
+        
+        // add obstacles
+        color = Color.ORANGE;
+        
+        for (int i = 0; i < ObstaclesPos.size(); i++) {
+            
+            Vector2d pos = ObstaclesPos.get(i);
+            drawPixels(pixelWriter,(int)pos.x,(int)pos.y,color);
+            
+            }
+        
+        return wImage;
+    }
+    
+    protected void drawPixels(PixelWriter pixelWriter, int x, int y, Color color) {
+        
+        int corrected_x = x + (int) getFieldCenter().x;
+        int corrected_y = y + (int) getFieldCenter().y;
+        
+        // dessine un carre autour du pixel
+        for (int i=-20;i<20;i++) {
+            
+            for (int j=-20;j<20;j++) {
+                
+                pixelWriter.setColor(corrected_x+i,corrected_y+j,color);
+                
+            }
+            
+        }
         
     }
      
@@ -155,6 +278,126 @@ public class StrategyEditorController extends ViewFlowController  {
          
     }
     
+    protected void startSequence(int delay, boolean backwards) {
+        
+        timer.cancel();
+        timer = new Timer();
+        
+        if (backwards) {
+            
+            timer.schedule(new playSeqBackwards(), delay, delay);
+            
+        } else {
+            
+            timer.schedule(new playSeq(), delay, delay);
+            
+        }
+        
+    }
+    
+    @FXML
+    protected void playSequence(MouseEvent e) throws IOException {
+        
+        if (nbOfFrames() == 1) {
+        
+            return;
+            
+        }
+        
+        frameSelector.setValue("1");
+        startSequence(regular_play_speed, false);
+        
+    }
+    
+    class playSeq extends TimerTask {
+        
+        public void run() {
+            
+            Platform.runLater(new Runnable() {
+       
+                public void run() {
+                    
+                    if (nbOfFrames() <= frameEnCours()+1) {
+
+                        cancel();
+                        return;
+
+                    }
+                    
+                    String next_frame = Integer.toString(frameEnCours()+2);
+                    System.out.println(next_frame); //debug
+                    frameSelector.setValue(next_frame);
+
+                }});
+        }
+    }
+    
+    class playSeqBackwards extends TimerTask {
+        
+        public void run() {
+            
+            Platform.runLater(new Runnable() {
+       
+                public void run() {
+                    
+                    if (frameEnCours() == 0) {
+
+                        cancel();
+                        return;
+
+                    }
+                    
+                    String next_frame = Integer.toString(frameEnCours());
+                    System.out.println(next_frame); //debug
+                    frameSelector.setValue(next_frame);
+
+                }});
+        }
+    }
+    
+    @FXML
+    protected void pauseSequence(MouseEvent e) throws IOException, InterruptedException {
+        
+        String grayedStyle = "-fx-background-color: white";
+        boolean isPaused = pauseButton.getStyle().contains(grayedStyle);
+        
+        if (isPaused) {
+        
+            pauseButton.setStyle(null);
+            startSequence(regular_play_speed, false);
+            
+        } else {
+            
+            pauseButton.setStyle(grayedStyle);
+            timer.cancel();
+            
+        }
+        
+    }
+    
+    @FXML
+    protected void stopSequence(MouseEvent e) throws IOException {
+        
+        timer.cancel();
+        frameSelector.setValue("1");
+        
+    }
+    
+    @FXML
+    protected void fastRewind(MouseEvent e) throws IOException {
+    
+        goToLastFrame(e);
+        startSequence(fast_play_speed, true);
+        
+    }
+    
+    @FXML
+    protected void fastForward(MouseEvent e) throws IOException {
+    
+        startSequence(fast_play_speed, false);
+        
+    }
+    
     @FXML
     protected void goToNextFrame(MouseEvent e) throws IOException {
         
@@ -200,21 +443,39 @@ public class StrategyEditorController extends ViewFlowController  {
         //redraw is automatic because of combobox onvaluechanged property
     }
     
-    private void drawObjects(String ObjectType, List<Vector2d> positions) {
+    private Image getImage(String ObjectType) {
         
-        String path="";
-        switch(ObjectType) {
-            case "Joueurs":
-                path = System.getProperty("user.dir")+"/src/image/joueur.png";
-                break;
-            case "Adversaires":
-                path = System.getProperty("user.dir")+"/src/image/adversaire.png";
-                break;
-            case "Obstacles":
-                path = System.getProperty("user.dir")+"/src/image/cone-icon.png";
-                break;
+        Image image = null;
+        try {
+       
+            //String path="";
+            switch(ObjectType) {
+                case "Joueurs":
+                    //path = System.getProperty("user.dir")+"/src/image/joueur.png";
+                    image = new Image(getClass().getResourceAsStream("/resources/joueur.png"));
+                    break;
+                case "Adversaires":
+                    //path = System.getProperty("user.dir")+"/src/image/adversaire.png";
+                    image = new Image(getClass().getResourceAsStream("/resources/adversaire.png"));
+                    break;
+                case "Obstacles":
+                    //path = System.getProperty("user.dir")+"/src/image/cone-icon.png";
+                    image = new Image(getClass().getResourceAsStream("/resources/cone-icon.png"));
+                    break;
+            }
         }
         
+        catch (Exception ex) {
+                    Logger.getLogger(SportInformationController.class.getName()).log(Level.SEVERE, null, ex);
+                }
+        
+        return image;
+        
+    }
+    
+    private void drawObjects(String ObjectType, List<Vector2d> positions) {
+        
+        Image image = getImage(ObjectType);
         for (int obj_idx=0;obj_idx<positions.size();obj_idx++) {
             
             ImageView view = new ImageView();
@@ -222,10 +483,10 @@ public class StrategyEditorController extends ViewFlowController  {
             Vector2d pos = positions.get(obj_idx);
             int idx = obj_idx;
         
-            File file = new File(path);
-                try {
-                    BufferedImage bufferedImage = ImageIO.read(file);
-                    Image image = SwingFXUtils.toFXImage(bufferedImage, null);
+            //File file = new File(path);
+                //try {
+                    //BufferedImage bufferedImage = ImageIO.read(file);
+                    //Image image = SwingFXUtils.toFXImage(bufferedImage, null);*/
                     view.setImage(image);
                     
                     view.setOnDragDetected(e -> {
@@ -243,10 +504,10 @@ public class StrategyEditorController extends ViewFlowController  {
                             Logger.getLogger(SelectionSportController.class.getName()).log(Level.SEVERE, null, ex);
                         }
                     });
-                    
+                    /*
                 } catch (IOException ex) {
                     Logger.getLogger(SportInformationController.class.getName()).log(Level.SEVERE, null, ex);
-                }
+                }*/
                 
             view.setId(Integer.toString(idx));
             board.getChildren().add(view);
@@ -287,7 +548,7 @@ public class StrategyEditorController extends ViewFlowController  {
         
         for (int i=0; i<JoueursPos.size();i++) {
             
-            if (JoueursPos.get(i).tooCloseTo(mousePos)) {
+            if (JoueursPos.get(i).isCloseTo(mousePos)) {
                 
                 return true;
                 
@@ -297,7 +558,7 @@ public class StrategyEditorController extends ViewFlowController  {
         
         for (int i=0; i<AdversairesPos.size();i++) {
             
-            if (AdversairesPos.get(i).tooCloseTo(mousePos)) {
+            if (AdversairesPos.get(i).isCloseTo(mousePos)) {
                 
                 return true;
                 
@@ -307,7 +568,7 @@ public class StrategyEditorController extends ViewFlowController  {
         
         for (int i=0; i<ObstaclesPos.size();i++) {
             
-            if (ObstaclesPos.get(i).tooCloseTo(mousePos)) {
+            if (ObstaclesPos.get(i).isCloseTo(mousePos)) {
                 
                 return true;
                 

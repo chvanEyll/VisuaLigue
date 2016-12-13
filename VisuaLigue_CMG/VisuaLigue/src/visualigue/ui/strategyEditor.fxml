@@ -17,7 +17,7 @@
       </HBox>
       <HBox alignment="TOP_CENTER" maxHeight="-Infinity" minHeight="-Infinity" prefHeight="26.0" prefWidth="600.0" translateY="-160.0">
          <children>
-            <Button alignment="TOP_LEFT" disable="true" mnemonicParsing="false" prefHeight="26.0" prefWidth="154.0" text="Sauvegarder" textAlignment="CENTER" />
+            <Button alignment="TOP_LEFT" onMouseClicked="#saveImage" mnemonicParsing="false" prefHeight="26.0" prefWidth="154.0" text="Sauvegarder" textAlignment="CENTER" />
             <Button disable="true" mnemonicParsing="false" prefHeight="26.0" prefWidth="148.0" text="Supprimer" />
             <Button disable="true" mnemonicParsing="false" prefHeight="26.0" prefWidth="122.0" text="Annuler" />
             <Button disable="true" mnemonicParsing="false" prefHeight="26.0" prefWidth="122.0" text="Retablir" />
@@ -43,11 +43,15 @@
       </HBox>
       <HBox alignment="TOP_CENTER" maxHeight="-Infinity" minHeight="-Infinity" prefHeight="28.0" prefWidth="600.0" translateY="150.0">
          <children>
-            <Button onMouseClicked="#goToFirstFrame" mnemonicParsing="false" text="|&lt;" />
-            <Button onMouseClicked="#goToPreviousFrame" mnemonicParsing="false" text="&lt;&lt;" />
-            <Button disable="true" mnemonicParsing="false" prefHeight="26.0" prefWidth="40.0" text="&gt;" />
-            <Button onMouseClicked="#goToNextFrame" mnemonicParsing="false" text="&gt;&gt;" />
-            <Button onMouseClicked="#goToLastFrame" mnemonicParsing="false" text="&gt;|" />
+            <Button mnemonicParsing="false" onMouseClicked="#goToFirstFrame" text="|&lt;" />
+            <Button mnemonicParsing="false" onMouseClicked="#goToPreviousFrame" text="&lt;" />
+            <Button mnemonicParsing="false" onMouseClicked="#fastRewind" text="&lt;&lt;" />
+            <Button mnemonicParsing="false" onMouseClicked="#playSequence" prefHeight="26.0" prefWidth="40.0" text="&gt;" />
+            <Button fx:id="pauseButton" mnemonicParsing="false" onMouseClicked="#pauseSequence" text="||" />
+            <Button mnemonicParsing="false" onMouseClicked="#stopSequence" text="#" />
+            <Button mnemonicParsing="false" onMouseClicked="#fastForward" text="&gt;&gt;" />
+            <Button mnemonicParsing="false" onMouseClicked="#goToNextFrame" text="&gt;" />
+            <Button mnemonicParsing="false" onMouseClicked="#goToLastFrame" text="&gt;|" />
          </children>
       </HBox>
       <HBox alignment="TOP_CENTER" maxHeight="-Infinity" minHeight="-Infinity" prefHeight="27.0" prefWidth="600.0" translateY="200.0">
