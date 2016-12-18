@@ -62,10 +62,13 @@ public class StrategyEditorController extends ViewFlowController  {
     @FXML private ImageView field;
     @FXML private StackPane board;
     @FXML private Button pauseButton;
+    @FXML private Button tempsReelButton;
     private VisuaLigue visualigue = VisuaLigue.getInstance();
     Timer timer = new Timer();
     int regular_play_speed = 1000;
     int fast_play_speed = 500;
+    private boolean temps_reel = false;
+    private ImageView temps_reel_obj;
     
     /**
      * Initializes the controller class.
@@ -96,6 +99,26 @@ public class StrategyEditorController extends ViewFlowController  {
         frameSelector.getItems().addAll("1");
         frameSelector.setValue("1");
         
+    }
+    
+    @FXML
+    protected void activerTempsReel(MouseEvent e) {
+        
+        String grayedStyle = "-fx-background-color: gray";
+        boolean isPressed = tempsReelButton.getStyle().contains(grayedStyle);
+        
+        if (isPressed) {
+        
+            tempsReelButton.setStyle(null);
+            temps_reel = false;
+            
+            
+        } else {
+            
+            tempsReelButton.setStyle(grayedStyle);
+            temps_reel = true;
+            
+        }
     }
      
     @FXML
@@ -275,6 +298,7 @@ public class StrategyEditorController extends ViewFlowController  {
     
     @FXML
     protected void frameSelected(Event e) throws IOException {
+        
         redraw();
     }
     
@@ -370,6 +394,62 @@ public class StrategyEditorController extends ViewFlowController  {
                 }});
         }
     }
+    
+    class playSeqForTempsReel extends TimerTask {
+        
+        public void run() {
+            
+            Platform.runLater(new Runnable() {
+       
+                public void run() {
+                    
+                    if (nbOfFrames() <= frameEnCours()+1) {
+
+                        cancel();
+                        return;
+
+                    }
+                    
+                    String next_frame = Integer.toString(frameEnCours()+2);
+                    frameSelector.setValue(next_frame);
+
+                }});
+        }
+    }
+    /*
+    protected void save_obj_pos(ImageView temps_reel_obj) {
+        
+        Vector2d mousePos = new Vector2d((float) e.getSceneX(),(float) e.getSceneY());
+        
+        // difference entre la souris et la position du centre car on applique une translation
+        mousePos.x -= getFieldCenter().x;
+        mousePos.y -= getFieldCenter().y;
+        
+        Jeu monJeu = visualigue.getJeu(jeuName.getText());
+        PlayFrame frame = monJeu.getFrame(frameEnCours());
+        
+        // verification de la disponibilite de l emplacement
+        if (isObjectAtPos(mousePos,frame)) {
+            
+            Label avertissement = new Label("Un objet existe à cet emplacement!");
+            board.getChildren().add(avertissement); // disparaitra au prochain redraw grace au clear()
+            
+        } else {
+        
+            switch(ObjectType) {
+                case "Joueurs":
+                    frame.setJoueurPos(Idx,mousePos);
+                    break;
+                case "Adversaires":
+                    frame.setAdversairePos(Idx,mousePos);
+                    break;
+                case "Obstacles":
+                    frame.setObstaclePos(Idx,mousePos);
+                    break;
+            }
+        
+        }
+    }*/
     
     @FXML
     protected void pauseSequence(MouseEvent e) throws IOException, InterruptedException {
@@ -529,8 +609,13 @@ public class StrategyEditorController extends ViewFlowController  {
     
     @FXML
     protected void dragObj(MouseEvent e, ImageView obj) throws IOException {
-        // cette fonction ne fait rien pour l instant.
-        // elle pourrait servir a visuellement dragger l objet
+        
+        if (temps_reel) {
+            
+            timer = new Timer();
+            timer.schedule(new playSeq(), regular_play_speed, regular_play_speed);
+            
+        }
         
     }
     
@@ -622,6 +707,12 @@ public class StrategyEditorController extends ViewFlowController  {
 
             redraw();
         
+        }
+        
+        if (temps_reel) {
+            
+            timer.cancel();
+            
         }
         
         
