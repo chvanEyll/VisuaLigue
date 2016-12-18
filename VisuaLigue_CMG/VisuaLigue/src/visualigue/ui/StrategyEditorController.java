@@ -47,7 +47,9 @@ import javafx.scene.input.DragEvent;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.input.TransferMode;
 import javafx.scene.paint.Color;
+import javafx.util.Pair;
 import javax.imageio.ImageIO;
+import visualigue.domain.Command;
 
 /**
  * FXML Controller class
@@ -115,6 +117,81 @@ public class StrategyEditorController extends ViewFlowController  {
             throw new RuntimeException(ex);
             
         }
+        
+    }
+    
+    @FXML protected void undo(MouseEvent e) {
+        
+        Jeu monJeu = visualigue.getJeu(jeuName.getText());
+        Command maCommande = monJeu.getLastCommand();
+        if (maCommande == null) { return;}
+        PlayFrame frame = monJeu.getFrame(maCommande.frame);
+
+        if (maCommande.commandType == "Add") {
+
+            frame.deleteAtIndex(maCommande.objectType,maCommande.index);
+
+        } else if (maCommande.commandType == "Move") {
+
+            switch(maCommande.objectType) {
+                case "Joueurs":
+                    frame.setJoueurPos(maCommande.index, maCommande.oldPos);
+                    break;
+                case "Adversaires":
+                    frame.setAdversairePos(maCommande.index, maCommande.oldPos);
+                    break;
+                case "Obstacles":
+                    frame.setObstaclePos(maCommande.index, maCommande.oldPos);
+                    break;
+            }
+            
+        }
+        
+        redraw();
+
+    }
+    
+    @FXML protected void redo(MouseEvent e) {
+        
+        Jeu monJeu = visualigue.getJeu(jeuName.getText());
+        Command maCommande = monJeu.getLastRedoCommand();
+        if (maCommande == null) { return;}
+        PlayFrame frame = monJeu.getFrame(maCommande.frame);
+
+        if (maCommande.commandType == "Add") {
+            
+            Vector2d pos_depart = new Vector2d(0,0);
+            
+            switch(maCommande.objectType) {
+                    
+                case "Joueurs":
+                    frame.addJoueur(pos_depart);
+                    break;
+                case "Adversaires":
+                    frame.addAdversaire(pos_depart);
+                    break;
+                case "Obstacles":
+                    frame.addObstacle(pos_depart);
+                    break;
+            }
+
+        } else if (maCommande.commandType == "Move") {
+
+            switch(maCommande.objectType) {
+                case "Joueurs":
+                    frame.setJoueurPos(maCommande.index, maCommande.newPos);
+                    break;
+                case "Adversaires":
+                    frame.setAdversairePos(maCommande.index, maCommande.newPos);
+                    break;
+                case "Obstacles":
+                    frame.setObstaclePos(maCommande.index, maCommande.newPos);
+                    break;
+            }
+
+        }
+
+        redraw();
         
     }
     
@@ -244,7 +321,7 @@ public class StrategyEditorController extends ViewFlowController  {
         PlayFrame frame = monJeu.getFrame(frameEnCours());
         Vector2d joueurPos = new Vector2d(0,0);
         
-        frame.addJoueur(joueurPos);
+        monJeu.addAjoutToHistorique("Joueurs",frameEnCours(),frame.addJoueur(joueurPos));
         redraw();
         
     }
@@ -256,7 +333,7 @@ public class StrategyEditorController extends ViewFlowController  {
         PlayFrame frame = monJeu.getFrame(frameEnCours());
         Vector2d advPos = new Vector2d(0,0);
         
-        frame.addAdversaire(advPos);
+        monJeu.addAjoutToHistorique("Adversaires",frameEnCours(),frame.addAdversaire(advPos));
         redraw();
         
     }
@@ -268,7 +345,7 @@ public class StrategyEditorController extends ViewFlowController  {
         PlayFrame frame = monJeu.getFrame(frameEnCours());
         Vector2d obstaclePos = new Vector2d(0,0);
         
-        frame.addObstacle(obstaclePos);
+        monJeu.addAjoutToHistorique("Obstacles",frameEnCours(),frame.addObstacle(obstaclePos));
         redraw();
         
     }
@@ -610,20 +687,19 @@ public class StrategyEditorController extends ViewFlowController  {
         
             switch(ObjectType) {
                 case "Joueurs":
-                    frame.setJoueurPos(Idx,mousePos);
+                    monJeu.addDeplacementToHistorique("Joueurs",frameEnCours(),Idx,frame.setJoueurPos(Idx,mousePos),mousePos);
                     break;
                 case "Adversaires":
-                    frame.setAdversairePos(Idx,mousePos);
+                    monJeu.addDeplacementToHistorique("Adversaires",frameEnCours(),Idx,frame.setAdversairePos(Idx,mousePos),mousePos);
                     break;
                 case "Obstacles":
-                    frame.setObstaclePos(Idx,mousePos);
+                    monJeu.addDeplacementToHistorique("Obstacles",frameEnCours(),Idx,frame.setObstaclePos(Idx,mousePos),mousePos);
                     break;
             }
 
             redraw();
         
-        }
-        
+        }   
         
     }
     

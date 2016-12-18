@@ -4,6 +4,7 @@ import ca.ulaval.glo2004.visualigue.utils.EventHandler;
 import java.util.HashMap;
 import java.util.Iterator;
 import java.util.Set;
+import java.util.Stack;
 
 public class VisuaLigue {
 
@@ -16,7 +17,6 @@ public class VisuaLigue {
     public static VisuaLigue getInstance() {
         return INSTANCE;
     }
-
 
     public void createSport(String name, Double width, Double length, 
             String units) {
@@ -101,8 +101,6 @@ public class VisuaLigue {
     {
         return jeux.get(jeuName).hasSportAssociated();
     }
-    
-    
 
     public void save() {
 

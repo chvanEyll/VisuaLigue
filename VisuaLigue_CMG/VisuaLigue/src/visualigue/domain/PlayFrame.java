@@ -47,39 +47,95 @@ public class PlayFrame {
         
     }
     
-    public void addJoueur(Vector2d joueurPos) {
+    public int addJoueur(Vector2d joueurPos) {
         
         Positions_joueurs.add(joueurPos);
+        return Positions_joueurs.size();
         
     }
     
-    public void addAdversaire(Vector2d advPos) {
+    public int addAdversaire(Vector2d advPos) {
         
         Positions_adversaires.add(advPos);
+        return Positions_adversaires.size();
         
     }
      
-    public void addObstacle(Vector2d obstaclePos) {
+    public int addObstacle(Vector2d obstaclePos) {
         
         Obstacles.add(obstaclePos);
+        return Obstacles.size();
         
     }
     
-    public void setJoueurPos(int idx, Vector2d joueurPos) {
+    public Vector2d setJoueurPos(int idx, Vector2d joueurPos) {
         
+        Vector2d oldPos = Positions_joueurs.get(idx);
         Positions_joueurs.set(idx,joueurPos);
+        return oldPos;
         
     }
     
-    public void setAdversairePos(int idx, Vector2d advPos) {
+    public Vector2d setAdversairePos(int idx, Vector2d advPos) {
         
+        Vector2d oldPos = Positions_adversaires.get(idx);
         Positions_adversaires.set(idx,advPos);
+        return oldPos;
         
     }
      
-    public void setObstaclePos(int idx, Vector2d obstaclePos) {
+    public Vector2d setObstaclePos(int idx, Vector2d obstaclePos) {
         
+        Vector2d oldPos = Obstacles.get(idx);
         Obstacles.set(idx,obstaclePos);
+        return oldPos;
+        
+    }
+    
+    public void deleteAtIndex(String ObjectType, int index) {
+        
+        List<Vector2d> maListe = new ArrayList();
+        if (ObjectType == "Joueurs") {
+            
+            maListe = Positions_joueurs;
+            
+        } else if (ObjectType == "Adversaires") {
+            
+            maListe = Positions_adversaires;
+            
+        } else if (ObjectType == "Obstacles") {
+            
+            maListe = Obstacles;
+            
+        }
+        
+        // delete index
+        maListe.remove(index-1);
+        
+    }
+    
+    public void deleteAnyPos(float x, float y) {
+        
+        deleteFromList(x,y,Positions_joueurs);
+        deleteFromList(x,y,Positions_adversaires);
+        deleteFromList(x,y,Obstacles);
+        
+    }
+    
+    public void deleteFromList(float x, float y, List<Vector2d> maListe) {
+        
+        for (int i=0; i<maListe.size(); i++) {
+            
+            if (maListe.get(i).x == x) {
+                
+                if (maListe.get(i).y == y) {
+                    
+                    maListe.remove(i);
+                    
+                }
+            }
+            
+        }
         
     }
     

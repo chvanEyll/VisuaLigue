@@ -19,8 +19,8 @@
          <children>
             <Button alignment="TOP_LEFT" onMouseClicked="#saveImage" mnemonicParsing="false" prefHeight="26.0" prefWidth="154.0" text="Sauvegarder" textAlignment="CENTER" />
             <Button disable="true" mnemonicParsing="false" prefHeight="26.0" prefWidth="148.0" text="Supprimer" />
-            <Button disable="true" mnemonicParsing="false" prefHeight="26.0" prefWidth="122.0" text="Annuler" />
-            <Button disable="true" mnemonicParsing="false" prefHeight="26.0" prefWidth="122.0" text="Retablir" />
+            <Button onMouseClicked="#undo" mnemonicParsing="false" prefHeight="26.0" prefWidth="122.0" text="Annuler" />
+            <Button onMouseClicked="#redo" mnemonicParsing="false" prefHeight="26.0" prefWidth="122.0" text="Retablir" />
          </children>
       </HBox>
       <HBox maxHeight="-Infinity" minHeight="-Infinity" prefHeight="259.0" prefWidth="600.0" scaleShape="false">
